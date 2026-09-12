@@ -4,6 +4,8 @@ const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((
 let state = null;
 let noticeTimer;
 let connected = false;
+let cueRenderSignature = '';
+let selectRenderSignature = '';
 
 const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
   connected = status === 'connected';
@@ -66,6 +68,17 @@ function parseTarget(value) {
 
 function renderSelects() {
   const displays = state.displays;
+  const signature = JSON.stringify({
+    displays: displays.map(({ displayId, displayName, online }) => [displayId, displayName, online]),
+    scenes: state.scenes.map(({ sceneId, sceneName, order }) => [sceneId, sceneName, order]),
+    audioMasterId: state.audioMasterId,
+  });
+  if (signature === selectRenderSignature) {
+    elements['scene-select'].value = state.currentSceneId ?? '';
+    elements['audio-master-select'].value = state.audioMasterId ?? '';
+    return;
+  }
+  selectRenderSignature = signature;
   replaceOptions(elements['audio-master-select'], [option('', '未指定'), ...displays.map((display) => option(display.displayId, `${display.displayName} (${display.online ? 'ONLINE' : 'OFFLINE'})`))], state.audioMasterId);
   replaceOptions(elements['target-select'], [option('all', 'ALL DISPLAYS'), ...displays.map((display) => option(`display:${display.displayId}`, display.displayName))], elements['target-select'].value || 'all');
   replaceOptions(elements['scene-select'], [option('', '未選択'), ...state.scenes.sort((a, b) => a.order - b.order).map((scene) => option(scene.sceneId, scene.sceneName))], state.currentSceneId);
@@ -91,6 +104,9 @@ function renderDisplays() {
 
 function renderCues() {
   const cues = [...state.cues].sort((a, b) => a.order - b.order);
+  const signature = JSON.stringify([state.currentCue?.cueId, cues.map((cue) => [cue.cueId, cue.order, cue.cueNumber, cue.cueName, cue.text, cue.sceneId, cue.target, cue.enabled])]);
+  if (signature === cueRenderSignature) return;
+  cueRenderSignature = signature;
   elements['cue-list'].replaceChildren();
   for (const [index, cue] of cues.entries()) {
     const scene = state.scenes.find((item) => item.sceneId === cue.sceneId);

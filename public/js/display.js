@@ -6,9 +6,11 @@ const storageKey = 'yokogawa-display-v2';
 const generatedId = () => `display-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 let identity;
 try { identity = JSON.parse(localStorage.getItem(storageKey)); } catch {}
+const parameters = new URLSearchParams(location.search);
+const parameterId = /^[a-zA-Z0-9_-]{1,100}$/.test(parameters.get('id') ?? '') ? parameters.get('id') : null;
 identity = {
-  displayId: identity?.displayId || generatedId(),
-  displayName: identity?.displayName || `Display ${Math.floor(Math.random() * 900 + 100)}`,
+  displayId: parameterId || identity?.displayId || generatedId(),
+  displayName: parameters.get('name')?.trim().slice(0, 80) || identity?.displayName || `Display ${Math.floor(Math.random() * 900 + 100)}`,
   audioEnabled: identity?.audioEnabled !== false,
 };
 localStorage.setItem(storageKey, JSON.stringify(identity));

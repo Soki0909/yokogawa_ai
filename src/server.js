@@ -27,7 +27,10 @@ app.use((_request, response, next) => {
 });
 app.use(express.static(publicDirectory, { extensions: ['html'] }));
 app.get('/', (_request, response) => response.redirect('/admin'));
-app.get('/health', (_request, response) => response.json({ ok: true, displayConnected: store.displayCount > 0, displays: store.displayCount }));
+app.get('/health', (_request, response) => response.json({
+  ok: true, displayConnected: store.displayCount > 0, displays: store.displayCount,
+  uptimeSeconds: Math.round(process.uptime()), memoryRssBytes: process.memoryUsage().rss,
+}));
 
 const server = http.createServer(app);
 const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
@@ -66,7 +69,8 @@ function targetDisplays(target) {
 
 function audioMasterReadyFor(target) {
   const master = store.getDisplay(store.state.audioMasterId);
-  return !master || !store.matchesTarget(master, target) || (master.online && master.audioEnabled && master.audioReady);
+  // An offline master must not silence the remaining subtitle Displays.
+  return !master || !master.online || !store.matchesTarget(master, target) || (master.audioEnabled && master.audioReady);
 }
 
 function dispatch(message) {
