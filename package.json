@@ -1,0 +1,20 @@
+{
+  "name": "yokogawa-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "横川AI 公演用ローカルWebアプリ",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "test": "node --test",
+    "check": "node --check src/server.js && node --test"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "ws": "8.21.3"
+  }
+}
