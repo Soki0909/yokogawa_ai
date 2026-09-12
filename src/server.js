@@ -17,6 +17,12 @@ await store.load();
 
 const app = express();
 app.disable('x-powered-by');
+app.use((_request, response, next) => {
+  response.setHeader('Content-Security-Policy', "default-src 'self'; connect-src 'self' ws: wss:; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'");
+  response.setHeader('X-Content-Type-Options', 'nosniff');
+  response.setHeader('Referrer-Policy', 'no-referrer');
+  next();
+});
 app.use(express.static(publicDirectory, { extensions: ['html'] }));
 app.get('/', (_request, response) => response.redirect('/admin'));
 app.get('/health', (_request, response) => response.json({ ok: true, displayConnected: store.displayCount > 0 }));
@@ -168,6 +174,7 @@ websocketServer.on('connection', (socket) => {
         broadcastState();
       }
       send(socket, 'state', { state: store.snapshot(), restoreOnly: true });
+      if (client.role === 'admin') broadcast('display', 'voices:request');
       return;
     }
     if (client.role === 'admin') handleAdmin(socket, event);

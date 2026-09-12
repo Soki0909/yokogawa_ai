@@ -77,6 +77,7 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   for (const route of ['admin', 'display']) {
     const response = await fetch(`http://127.0.0.1:${port}/${route}`);
     assert.equal(response.status, 200);
+    assert.match(response.headers.get('content-security-policy'), /default-src 'self'/);
     assert.match(await response.text(), route === 'admin' ? /横川AI CONTROL/ : /YOKOGAWA/);
   }
 
@@ -87,6 +88,22 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   assert.equal((await admin.next((event) => event.type === 'state' && event.state.displayConnectionStatus === 'connected')).state.displayConnectionStatus, 'connected');
   display.send({ type: 'audio:ready' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady === true);
+
+  const reloadedAdmin = await client(port, 'admin');
+  await display.next((event) => event.type === 'voices:request');
+  display.send({ type: 'voices', voices: [{ name: '日本語音声', lang: 'ja-JP', voiceURI: 'ja-test' }] });
+  assert.equal((await reloadedAdmin.next((event) => event.type === 'voices')).voices[0].voiceURI, 'ja-test');
+  reloadedAdmin.ws.close();
+
+  admin.send({ type: 'speak', text: '   ' });
+  assert.equal((await admin.next((event) => event.type === 'error')).code, 'EMPTY_TEXT');
+
+  const maximumText = `長${'文'.repeat(4999)}`;
+  admin.send({ type: 'speak', text: maximumText });
+  const maximumMessage = (await display.next((event) => event.type === 'speak')).message;
+  assert.equal(maximumMessage.text.length, 5000);
+  display.send({ type: 'playback', id: maximumMessage.id, status: 'completed' });
+  await admin.next((event) => event.type === 'state' && event.state.playbackStatus === 'completed');
 
   admin.send({ type: 'speak', text: 'こんにちは、横川AIです。' });
   const first = (await display.next((event) => event.type === 'speak')).message;
@@ -112,8 +129,18 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   const errorState = await admin.next((event) => event.type === 'state' && event.state.playbackStatus === 'error');
   assert.match(errorState.state.history[0].error, /テスト用音声エラー/);
 
+  admin.send({ type: 'speak', text: '切断される再生中の発話' });
+  const interrupted = (await display.next((event) => event.type === 'speak')).message;
+  display.send({ type: 'playback', id: interrupted.id, status: 'speaking' });
+  await admin.next((event) => event.type === 'state' && event.state.playbackStatus === 'speaking');
+  admin.send({ type: 'speak', text: '切断時に解除される待機発話' });
+  await admin.next((event) => event.type === 'accepted' && event.queued === true);
   display.ws.close();
-  await admin.next((event) => event.type === 'state' && event.state.displayConnectionStatus === 'disconnected');
+  const disconnected = await admin.next((event) => event.type === 'state' && event.state.displayConnectionStatus === 'disconnected');
+  assert.equal(disconnected.state.currentMessage, null);
+  assert.equal(disconnected.state.queue.length, 0);
+  assert.equal(disconnected.state.history[0].status, 'error');
+  assert.equal(disconnected.state.history[1].status, 'error');
   const reloaded = await client(port, 'display');
   assert.equal(reloaded.initial.restoreOnly, true);
   await assert.rejects(reloaded.next((event) => event.type === 'speak', 300), /timeout/);

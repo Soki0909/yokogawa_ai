@@ -10,6 +10,7 @@ const elements = Object.fromEntries([
 let state = null;
 let noticeTimer;
 let connected = false;
+let lastErrorId = null;
 
 const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
   connected = status === 'connected';
@@ -45,6 +46,13 @@ function renderState() {
   elements['queue-count'].textContent = `${state.queue.length} 件`;
   applySettings(state.settings);
   renderHistory(state.history);
+  if (state.playbackStatus === 'error') {
+    const errored = state.history.find((item) => item.status === 'error');
+    if (errored && errored.id !== lastErrorId) {
+      lastErrorId = errored.id;
+      showNotice(`音声合成に失敗しました（${errored.error || '原因不明'}）。字幕は継続しています。音声設定を確認し、履歴から再読み上げしてください。`, 'error');
+    }
+  }
   updateControls();
 }
 

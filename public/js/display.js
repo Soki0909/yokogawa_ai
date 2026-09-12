@@ -12,6 +12,8 @@ let settings = { rate: 1, pitch: 0.9, volume: 1, voiceURI: '', subtitlesEnabled:
 const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   connection.textContent = status === 'connected' ? 'ONLINE' : status === 'connecting' ? 'CONNECTING' : 'RECONNECTING';
   connection.dataset.state = status;
+  enableAudio.disabled = status !== 'connected';
+  enableAudio.textContent = status === 'connected' ? '音声を有効化' : '接続を待っています…';
   if (status === 'connected') setMode('SYSTEM READY', 'ready');
   else setMode('接続を復旧しています', 'error');
 });
@@ -41,6 +43,8 @@ function handleEvent(event) {
   } else if (event.type === 'settings') {
     settings = event.settings;
     caption.hidden = !settings.subtitlesEnabled;
+  } else if (event.type === 'voices:request') {
+    publishVoices();
   }
 }
 
@@ -63,7 +67,7 @@ document.addEventListener('visibilitychange', () => { if (!document.hidden) wind
 enableAudio.addEventListener('click', () => {
   window.speechSynthesis?.cancel();
   publishVoices();
-  socket.send({ type: 'audio:ready' });
+  if (!socket.send({ type: 'audio:ready' })) return;
   audioGate.hidden = true;
   setMode('SYSTEM READY', 'ready');
 });
