@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>横川AI CONTROL</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">PERFORMANCE CONTROL SYSTEM</p>
+      <h1>横川AI <span>CONTROL</span></h1>
+    </div>
+    <div class="clock" id="clock" aria-label="現在時刻">--:--:--</div>
+  </header>
+
+  <main>
+    <section class="status-grid" aria-label="システム状態">
+      <div class="status-card" id="system-card"><span class="status-dot"></span><div><small>SYSTEM</small><strong id="system-status">接続中</strong></div></div>
+      <div class="status-card" id="display-card"><span class="status-dot"></span><div><small>DISPLAY</small><strong id="display-status">未接続</strong></div></div>
+      <div class="status-card" id="voice-card"><span class="status-dot"></span><div><small>VOICE</small><strong id="voice-status">待機中</strong></div></div>
+    </section>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section class="workspace">
+      <div class="composer panel">
+        <div class="panel-heading">
+          <div><span class="step">01</span><h2>発話を作成</h2></div>
+          <span class="shortcut">Ctrl + Enter で送信</span>
+        </div>
+        <label class="sr-only" for="speech-input">読み上げる文章</label>
+        <textarea id="speech-input" maxlength="5000" placeholder="ここに横川AIのセリフを入力…" rows="7"></textarea>
+        <div class="input-meta"><span>Enter は改行</span><span id="character-count">0 / 5,000</span></div>
+        <button class="send-button" id="send-button" type="button">
+          <span>送信・読み上げ</span><small>DISPLAYへ即時送信</small>
+        </button>
+        <div class="control-row">
+          <button class="danger-button" id="stop-button" type="button">■ 音声を停止</button>
+          <button class="secondary-button" id="replay-button" type="button">↻ 直前を再読み上げ</button>
+          <button class="ghost-button" id="clear-button" type="button">入力クリア</button>
+        </div>
+      </div>
+
+      <aside class="playback panel">
+        <div class="panel-heading"><div><span class="step">02</span><h2>再生状況</h2></div></div>
+        <div class="now-playing">
+          <span class="label">現在再生中</span>
+          <p id="current-message">待機しています</p>
+        </div>
+        <div class="queue-summary">
+          <div><span class="label">次の発話</span><p id="next-message">なし</p></div>
+          <span class="queue-count" id="queue-count">0 件</span>
+        </div>
+
+        <details class="settings">
+          <summary>音声・表示設定</summary>
+          <div class="settings-grid">
+            <label>音声<select id="voice-select"><option value="">日本語の既定音声</option></select></label>
+            <label>話速 <output id="rate-output">1.0</output><input id="rate-input" type="range" min="0.5" max="2" step="0.1" value="1"></label>
+            <label>高さ <output id="pitch-output">0.9</output><input id="pitch-input" type="range" min="0" max="2" step="0.1" value="0.9"></label>
+            <label>音量 <output id="volume-output">100%</output><input id="volume-input" type="range" min="0" max="1" step="0.1" value="1"></label>
+            <label class="toggle"><input id="subtitle-input" type="checkbox" checked><span>字幕を表示</span></label>
+          </div>
+        </details>
+      </aside>
+    </section>
+
+    <section class="history panel">
+      <div class="panel-heading">
+        <div><span class="step">03</span><h2>発話履歴</h2></div>
+        <span class="history-help">新しい順・最大100件</span>
+      </div>
+      <div id="history-list" class="history-list"><p class="empty">発話履歴はまだありません</p></div>
+    </section>
+  </main>
+
+  <template id="history-template">
+    <article class="history-item">
+      <div class="history-main"><div class="history-meta"><time></time><span class="history-status"></span></div><p></p></div>
+      <div class="history-actions"><button class="restore-button" type="button">入力へ戻す</button><button class="history-replay-button" type="button">再読み上げ</button></div>
+    </article>
+  </template>
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>
+
