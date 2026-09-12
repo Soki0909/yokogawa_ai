@@ -62,12 +62,13 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
   const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase2-flow-'));
   const child = spawn(process.execPath, ['src/server.js'], {
     cwd: process.cwd(),
-    env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', HEARTBEAT_TIMEOUT_MS: '900', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
+    env: { ...process.env, NODE_ENV: 'phase2-test', PORT: String(port), HOST: '127.0.0.1', HEARTBEAT_TIMEOUT_MS: '900', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   let output = ''; child.stdout.on('data', (data) => { output += data; }); child.stderr.on('data', (data) => { output += data; });
   t.after(() => child.kill('SIGTERM'));
   await waitForHealth(port);
+  assert.equal((await (await fetch(`http://127.0.0.1:${port}/health`)).json()).environment, 'phase2-test');
 
   let admin = await connect(port, 'admin');
   const a = await connect(port, 'display', { displayId: 'display-a', displayName: 'Main', audioEnabled: true });

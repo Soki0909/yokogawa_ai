@@ -12,6 +12,7 @@ const projectRoot = path.resolve(moduleDirectory, '..');
 const publicDirectory = path.join(projectRoot, 'public');
 const port = Number.parseInt(process.env.PORT ?? '3000', 10);
 const host = process.env.HOST ?? '0.0.0.0';
+const environment = process.env.NODE_ENV ?? 'production';
 const heartbeatTimeoutMs = Number.parseInt(process.env.HEARTBEAT_TIMEOUT_MS ?? '7000', 10);
 const logger = createLogger(process.env.LOG_DIRECTORY ?? path.join(projectRoot, 'logs'));
 const store = new StateStore({ stateFile: process.env.STATE_FILE ?? path.join(projectRoot, 'data', 'state.json'), logger });
@@ -29,7 +30,7 @@ app.use(express.static(publicDirectory, { extensions: ['html'] }));
 app.get('/', (_request, response) => response.redirect('/admin'));
 app.get('/health', (_request, response) => response.json({
   ok: true, displayConnected: store.displayCount > 0, displays: store.displayCount,
-  uptimeSeconds: Math.round(process.uptime()), memoryRssBytes: process.memoryUsage().rss,
+  environment, uptimeSeconds: Math.round(process.uptime()), memoryRssBytes: process.memoryUsage().rss,
 }));
 
 const server = http.createServer(app);
@@ -289,7 +290,7 @@ offlineMonitor.unref();
 server.on('error', (error) => { logger.error('サーバー起動エラー', error); process.exitCode = 1; });
 server.listen(port, host, () => {
   const urls = accessUrls(port);
-  logger.info('Yokogawa AI System started', { host, port, lan: urls.lan });
+  logger.info('Yokogawa AI System started', { environment, host, port, lan: urls.lan });
   console.log('\nYokogawa AI System started.\n\nLocal:\n' + urls.local.join('\n') + (urls.lan.length ? '\n\nLAN:\n' + urls.lan.join('\n') : '\n\nLAN:\n利用可能なLAN IPv4アドレスが見つかりません。') + '\n');
 });
 
