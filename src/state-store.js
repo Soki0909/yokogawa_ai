@@ -1,155 +1,213 @@
 import { randomUUID } from 'node:crypto';
-import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
-import path from 'node:path';
+import { JsonFileStorage } from './json-storage.js';
 
 export const DEFAULT_SETTINGS = Object.freeze({
-  rate: 1,
-  pitch: 0.9,
-  volume: 1,
-  voiceURI: '',
-  subtitlesEnabled: true,
-  historyLimit: 100,
+  rate: 1, pitch: 0.9, volume: 1, voiceURI: '', subtitlesEnabled: true, historyLimit: 100,
+  speechProvider: 'browser',
 });
 
-const PLAYBACK_STATUSES = new Set([
-  'idle', 'received', 'speaking', 'completed', 'stopped', 'error',
+export const DEFAULT_SCENES = Object.freeze([
+  { sceneId: 'scene-opening', sceneName: 'オープニング', order: 1 },
+  { sceneId: 'scene-experience', sceneName: '体験授業', order: 2 },
+  { sceneId: 'scene-incident', sceneName: '異常発生', order: 3 },
 ]);
 
-function safeText(value) {
-  return typeof value === 'string' ? value.trim() : '';
+export const DEFAULT_CUES = Object.freeze([
+  ['cue-001', '001', 'AI起動', '横川AIシステムを起動します。', 'scene-opening'],
+  ['cue-002', '002', '体験授業開始', 'これより体験授業を開始します。', 'scene-experience'],
+  ['cue-003', '003', 'プリンキピア説明', 'プリンキピアについて説明します。', 'scene-experience'],
+  ['cue-004', '004', '異常検知', 'システムに異常を検知しました。', 'scene-incident'],
+  ['cue-005', '005', 'ハッキング開始', '外部からの侵入を確認しました。', 'scene-incident'],
+  ['cue-006', '006', 'ロックダウン宣言', '緊急ロックダウンを開始します。', 'scene-incident'],
+].map(([cueId, cueNumber, cueName, text, sceneId], order) => ({
+  cueId, cueNumber, cueName, text, sceneId, order, target: { type: 'all' }, enabled: true,
+  displayMode: 'speech', speechProvider: null, audioAsset: null, preDelay: 0, postDelay: 0, actions: [], notes: '',
+})));
+
+const TERMINAL = new Set(['completed', 'stopped', 'error']);
+const PLAYBACK = new Set(['idle', 'received', 'speaking', ...TERMINAL]);
+const safeText = (value) => typeof value === 'string' ? value.trim() : '';
+const validId = (value, fallback) => /^[a-zA-Z0-9_-]{1,100}$/.test(value ?? '') ? value : fallback;
+
+function normalizeTarget(target) {
+  if (target?.type === 'display' && validId(target.id, '')) return { type: 'display', id: target.id };
+  if (target?.type === 'group' && validId(target.id, '')) return { type: 'group', id: target.id };
+  return { type: 'all' };
 }
 
 export class StateStore {
-  constructor({ stateFile, logger = console } = {}) {
-    this.stateFile = stateFile;
+  constructor({ stateFile, storage, logger = console, now = () => new Date() } = {}) {
     this.logger = logger;
+    this.now = now;
+    this.storage = storage ?? new JsonFileStorage(stateFile, logger);
     this.state = {
-      displayConnectionStatus: 'disconnected',
-      displayAudioReady: false,
-      currentMessage: null,
-      playbackStatus: 'idle',
-      queue: [],
-      history: [],
-      settings: { ...DEFAULT_SETTINGS },
+      displayConnectionStatus: 'disconnected', displayAudioReady: false,
+      displays: [], audioMasterId: null, currentMessage: null, currentSubtitle: null,
+      displayMode: 'ready', playbackStatus: 'idle', queue: [], history: [],
+      scenes: structuredClone(DEFAULT_SCENES), cues: structuredClone(DEFAULT_CUES),
+      currentCueIndex: -1, currentSceneId: null, settings: { ...DEFAULT_SETTINGS },
     };
-    this.displayCount = 0;
-    this.persistChain = Promise.resolve();
   }
 
+  get displayCount() { return this.state.displays.filter((item) => item.online).length; }
+
   async load() {
-    if (!this.stateFile) return;
-    try {
-      const stored = JSON.parse(await readFile(this.stateFile, 'utf8'));
-      this.state.settings = this.validateSettings(stored.settings ?? {});
-      const interrupted = new Set(['queued', 'received', 'speaking']);
-      this.state.history = (Array.isArray(stored.history) ? stored.history : []).map((item) => {
-        if (!interrupted.has(item.status)) return item;
-        return {
-          ...item,
-          status: 'error',
-          finishedAt: new Date().toISOString(),
-          error: 'サーバー再起動により発話が中断されました。必要なら再読み上げしてください。',
-        };
-      });
-      this.trimHistory();
-    } catch (error) {
-      if (error.code !== 'ENOENT') this.logger.error('状態ファイルを読み込めません', error);
-    }
+    const stored = await this.storage.load();
+    if (!stored) return;
+    this.state.settings = this.validateSettings(stored.settings ?? {});
+    this.state.scenes = this.validateScenes(stored.scenes);
+    this.state.cues = this.validateCues(stored.cues);
+    this.state.audioMasterId = typeof stored.audioMasterId === 'string' ? stored.audioMasterId : null;
+    this.state.displays = (Array.isArray(stored.displays) ? stored.displays : []).map((display) => ({
+      displayId: validId(display.displayId, `display-${randomUUID()}`),
+      displayName: safeText(display.displayName).slice(0, 80) || 'Display',
+      audioEnabled: display.audioEnabled !== false,
+      groups: Array.isArray(display.groups) ? display.groups.slice(0, 20) : [],
+      online: false, audioReady: false, lastHeartbeat: display.lastHeartbeat ?? null,
+      currentSubtitle: display.currentSubtitle ?? null, displayMode: display.displayMode ?? 'ready',
+    }));
+    const interrupted = new Set(['queued', 'received', 'speaking']);
+    this.state.history = (Array.isArray(stored.history) ? stored.history : []).map((item) => interrupted.has(item.status)
+      ? { ...item, status: 'error', finishedAt: this.now().toISOString(), error: 'サーバー再起動により発話が中断されました。' }
+      : item);
+    this.trimHistory();
   }
 
   snapshot() {
-    return structuredClone(this.state);
+    const cues = this.orderedCues();
+    const currentCue = this.state.currentCueIndex >= 0 ? cues[this.state.currentCueIndex] ?? null : null;
+    const nextCue = cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
+    return structuredClone({ ...this.state, currentCue, nextCue });
   }
 
-  connectDisplay() {
-    this.displayCount += 1;
-    this.state.displayConnectionStatus = 'connected';
-    this.state.displayAudioReady = false;
+  registerDisplay(input = {}) {
+    const displayId = validId(input.displayId, `display-${randomUUID()}`);
+    let display = this.state.displays.find((item) => item.displayId === displayId);
+    if (!display) {
+      display = { displayId, displayName: 'Display', audioEnabled: true, groups: [], currentSubtitle: null, displayMode: 'ready' };
+      this.state.displays.push(display);
+    }
+    Object.assign(display, {
+      displayName: safeText(input.displayName).slice(0, 80) || display.displayName,
+      audioEnabled: input.audioEnabled !== false,
+      groups: Array.isArray(input.groups) ? input.groups.filter((group) => validId(group, '')).slice(0, 20) : display.groups,
+      online: true, audioReady: false, lastHeartbeat: this.now().toISOString(),
+    });
+    this.refreshLegacyStatus(); void this.persist(); return display;
   }
 
-  disconnectDisplay() {
-    this.displayCount = Math.max(0, this.displayCount - 1);
-    this.state.displayConnectionStatus = this.displayCount > 0 ? 'connected' : 'disconnected';
-    if (this.displayCount === 0) this.state.displayAudioReady = false;
-    if (this.displayCount === 0 && this.state.currentMessage) {
-      this.updateCurrent('error', '投影画面との接続が切れました。履歴から再読み上げしてください。');
-      this.state.currentMessage = null;
-      this.state.playbackStatus = 'error';
+  connectDisplay(input = {}) {
+    const display = this.registerDisplay({
+      displayId: input.displayId ?? `legacy-display-${this.state.displays.length + 1}`,
+      displayName: input.displayName ?? 'Display',
+      audioEnabled: input.audioEnabled,
+    });
+    if (!this.state.audioMasterId) this.setAudioMaster(display.displayId);
+    return display;
+  }
+
+  heartbeat(displayId) {
+    const display = this.getDisplay(displayId);
+    if (!display) return false;
+    display.lastHeartbeat = this.now().toISOString(); display.online = true;
+    this.refreshLegacyStatus(); return true;
+  }
+
+  markOffline(displayId) {
+    const display = this.getDisplay(displayId);
+    if (!display) return;
+    display.online = false; display.audioReady = false;
+    this.refreshLegacyStatus(); void this.persist();
+  }
+
+  disconnectDisplay(displayId) {
+    const targetId = displayId ?? this.state.displays.find((display) => display.online)?.displayId;
+    const wasMaster = targetId === this.state.audioMasterId;
+    this.markOffline(targetId);
+    if ((wasMaster || this.displayCount === 0) && this.state.currentMessage) {
+      this.updateCurrent('error', 'Audio Masterとの接続が切れました。履歴から再実行してください。');
+      this.state.currentMessage = null; this.state.playbackStatus = 'error';
       for (const queued of this.state.queue) {
-        this.updateHistory(queued.id, { status: 'error', error: '投影画面切断によりキューを解除しました。' });
+        this.updateHistory(queued.id, { status: 'error', error: 'Display切断によりキューを解除しました。' });
       }
-      this.state.queue = [];
-      void this.persist();
+      this.state.queue = []; void this.persist();
     }
   }
 
-  setDisplayAudioReady(ready) {
-    this.state.displayAudioReady = this.displayCount > 0 && ready === true;
+  getDisplay(displayId) { return this.state.displays.find((item) => item.displayId === displayId); }
+
+  setDisplayAudioReady(displayId, ready) {
+    if (typeof displayId === 'boolean') {
+      ready = displayId;
+      displayId = this.state.audioMasterId;
+    }
+    const display = this.getDisplay(displayId);
+    if (display) display.audioReady = display.online && ready === true;
+    this.refreshLegacyStatus();
   }
 
-  createMessage(text, { replayOf = null } = {}) {
+  setAudioMaster(displayId) {
+    if (displayId !== null && !this.getDisplay(displayId)) throw new Error('DISPLAY_NOT_FOUND');
+    this.state.audioMasterId = displayId; this.refreshLegacyStatus();
+    void this.persist(); return displayId;
+  }
+
+  refreshLegacyStatus() {
+    this.state.displayConnectionStatus = this.displayCount ? 'connected' : 'disconnected';
+    const master = this.getDisplay(this.state.audioMasterId);
+    this.state.displayAudioReady = Boolean(master?.online && master.audioEnabled && master.audioReady);
+  }
+
+  matchesTarget(display, target) {
+    if (target.type === 'all') return true;
+    if (target.type === 'display') return display.displayId === target.id;
+    return target.type === 'group' && display.groups.includes(target.id);
+  }
+
+  createMessage(text, { replayOf = null, source = 'free', cue = null, target = { type: 'all' } } = {}) {
     const normalized = safeText(text);
     if (!normalized) throw new Error('EMPTY_TEXT');
     if (normalized.length > 5000) throw new Error('TEXT_TOO_LONG');
     const message = {
-      id: `msg-${randomUUID()}`,
-      text: normalized,
-      createdAt: new Date().toISOString(),
-      status: 'queued',
+      id: `msg-${randomUUID()}`, text: normalized, createdAt: this.now().toISOString(), status: 'queued',
+      source, target: normalizeTarget(target), speechProvider: cue?.speechProvider ?? this.state.settings.speechProvider,
+      ...(cue ? { cueId: cue.cueId, cueName: cue.cueName } : {}),
       ...(replayOf ? { replayOf } : {}),
     };
-    this.state.history.unshift(message);
-    this.trimHistory();
-    return message;
+    this.state.history.unshift(message); this.trimHistory(); return message;
   }
 
   enqueue(message) {
     if (!this.state.currentMessage) {
-      this.state.currentMessage = message;
-      this.state.playbackStatus = 'received';
-      this.updateHistory(message.id, { status: 'received' });
-      return { dispatch: message, queued: false };
+      this.state.currentMessage = message; this.state.playbackStatus = 'received';
+      this.updateHistory(message.id, { status: 'received' }); return { dispatch: message, queued: false };
     }
-    this.state.queue.push(message);
-    void this.persist();
-    return { dispatch: null, queued: true };
+    this.state.queue.push(message); void this.persist(); return { dispatch: null, queued: true };
   }
 
   reportPlayback(id, status, error) {
-    if (!PLAYBACK_STATUSES.has(status)) throw new Error('INVALID_STATUS');
-    if (!this.state.currentMessage || this.state.currentMessage.id !== id) {
-      return { accepted: false, next: null };
-    }
+    if (!PLAYBACK.has(status)) throw new Error('INVALID_STATUS');
+    if (!this.state.currentMessage || this.state.currentMessage.id !== id) return { accepted: false, next: null };
     this.updateCurrent(status, error);
-    if (['completed', 'stopped', 'error'].includes(status)) {
-      this.state.currentMessage = null;
-      if (status === 'error') {
-        for (const queued of this.state.queue) {
-          this.updateHistory(queued.id, { status: 'error', error: 'TTSエラーによりキューを解除しました。設定確認後に再送してください。' });
-        }
-        this.state.queue = [];
-        void this.persist();
-        return { accepted: true, next: null };
-      }
-      const next = this.state.queue.shift() ?? null;
-      if (next) {
-        this.state.currentMessage = next;
-        this.state.playbackStatus = 'received';
-        this.updateHistory(next.id, { status: 'received' });
-      } else {
-        this.state.playbackStatus = status;
-      }
-      void this.persist();
-      return { accepted: true, next };
+    if (!TERMINAL.has(status)) return { accepted: true, next: null };
+    this.state.currentMessage = null;
+    if (status === 'error') {
+      for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'error', error: 'TTSエラーによりキューを解除しました。' });
+      this.state.queue = []; void this.persist(); return { accepted: true, next: null };
     }
-    return { accepted: true, next: null };
+    const next = this.state.queue.shift() ?? null;
+    if (next) {
+      this.state.currentMessage = next; this.state.playbackStatus = 'received';
+      this.updateHistory(next.id, { status: 'received' });
+    } else this.state.playbackStatus = status;
+    void this.persist(); return { accepted: true, next };
   }
 
   updateCurrent(status, error) {
     this.state.playbackStatus = status;
     const patch = { status };
-    if (status === 'speaking') patch.startedAt = new Date().toISOString();
-    if (['completed', 'stopped', 'error'].includes(status)) patch.finishedAt = new Date().toISOString();
+    if (status === 'speaking') patch.startedAt = this.now().toISOString();
+    if (TERMINAL.has(status)) patch.finishedAt = this.now().toISOString();
     if (error) patch.error = String(error).slice(0, 500);
     this.updateHistory(this.state.currentMessage.id, patch);
   }
@@ -159,45 +217,131 @@ export class StateStore {
     if (item) Object.assign(item, patch);
   }
 
-  validateSettings(input) {
-    const numberInRange = (value, fallback, min, max) => {
-      const numeric = Number(value);
-      return Number.isFinite(numeric) ? Math.min(max, Math.max(min, numeric)) : fallback;
+  executeCue(cueId) {
+    const cues = this.orderedCues();
+    const index = cues.findIndex((cue) => cue.cueId === cueId);
+    if (index < 0) throw new Error('CUE_NOT_FOUND');
+    const cue = cues[index];
+    if (!cue.enabled) throw new Error('CUE_DISABLED');
+    this.state.currentCueIndex = index; this.state.currentSceneId = cue.sceneId ?? null;
+    return { cue, message: this.createMessage(cue.text, { source: 'cue', cue, target: cue.target }) };
+  }
+
+  nextCue() {
+    const cue = this.orderedCues().slice(this.state.currentCueIndex + 1).find((item) => item.enabled);
+    if (!cue) throw new Error('NO_NEXT_CUE');
+    return this.executeCue(cue.cueId);
+  }
+
+  backCue() {
+    const cues = this.orderedCues();
+    for (let index = this.state.currentCueIndex - 1; index >= 0; index -= 1) {
+      if (!cues[index].enabled) continue;
+      this.state.currentCueIndex = index; this.state.currentSceneId = cues[index].sceneId ?? null;
+      return cues[index];
+    }
+    this.state.currentCueIndex = -1; this.state.currentSceneId = null; return null;
+  }
+
+  replayCue() {
+    const cue = this.orderedCues()[this.state.currentCueIndex];
+    if (!cue) throw new Error('NO_CURRENT_CUE');
+    const original = this.state.history.find((item) => item.cueId === cue.cueId);
+    return { cue, message: this.createMessage(cue.text, { source: 'cue', cue, target: cue.target, replayOf: original?.id }) };
+  }
+
+  saveCue(input) {
+    const cueId = validId(input.cueId, `cue-${randomUUID()}`);
+    const existing = this.state.cues.find((cue) => cue.cueId === cueId);
+    const cue = {
+      ...(existing ?? {}), cueId,
+      cueNumber: safeText(input.cueNumber).slice(0, 20) || String(this.state.cues.length + 1).padStart(3, '0'),
+      cueName: safeText(input.cueName).slice(0, 120) || '名称未設定',
+      text: safeText(input.text).slice(0, 5000), target: normalizeTarget(input.target),
+      enabled: input.enabled !== false, sceneId: validId(input.sceneId, '') || null,
+      order: Number.isFinite(Number(input.order)) ? Number(input.order) : (existing?.order ?? this.state.cues.length),
+      displayMode: safeText(input.displayMode) || 'speech', speechProvider: input.speechProvider ?? null,
+      audioAsset: input.audioAsset ?? null, preDelay: Number(input.preDelay) || 0, postDelay: Number(input.postDelay) || 0,
+      actions: Array.isArray(input.actions) ? input.actions : [], notes: safeText(input.notes),
     };
+    if (!cue.text) throw new Error('EMPTY_TEXT');
+    if (existing) Object.assign(existing, cue); else this.state.cues.push(cue);
+    this.reindexCues(); void this.persist(); return cue;
+  }
+
+  reorderCues(cueIds) {
+    if (!Array.isArray(cueIds)) throw new Error('INVALID_ORDER');
+    const currentId = this.orderedCues()[this.state.currentCueIndex]?.cueId;
+    const positions = new Map(cueIds.map((id, index) => [id, index]));
+    this.state.cues.forEach((cue) => { if (positions.has(cue.cueId)) cue.order = positions.get(cue.cueId); });
+    this.reindexCues(); void this.persist();
+    if (currentId) this.state.currentCueIndex = this.orderedCues().findIndex((cue) => cue.cueId === currentId);
+  }
+
+  jumpScene(sceneId) {
+    if (!this.state.scenes.some((scene) => scene.sceneId === sceneId)) throw new Error('SCENE_NOT_FOUND');
+    this.state.currentSceneId = sceneId;
+    const index = this.orderedCues().findIndex((cue) => cue.sceneId === sceneId);
+    this.state.currentCueIndex = index > 0 ? index - 1 : -1;
+    return this.snapshot();
+  }
+
+  showReset() {
+    if (this.state.currentMessage) this.updateCurrent('stopped');
+    for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
+    this.state.currentMessage = null; this.state.queue = []; this.state.playbackStatus = 'idle';
+    this.state.currentCueIndex = -1; this.state.currentSceneId = null;
+    this.state.currentSubtitle = null; this.state.displayMode = 'ready';
+    for (const display of this.state.displays) { display.currentSubtitle = null; display.displayMode = 'ready'; }
+    void this.persist();
+  }
+
+  applyDisplayState(message) {
+    this.state.currentSubtitle = message.text; this.state.displayMode = 'speech';
+    for (const display of this.state.displays) {
+      if (!this.matchesTarget(display, message.target)) continue;
+      display.currentSubtitle = message.text; display.displayMode = 'speech';
+    }
+  }
+
+  validateSettings(input) {
+    const number = (value, fallback, min, max) => Number.isFinite(Number(value)) ? Math.min(max, Math.max(min, Number(value))) : fallback;
     return {
-      rate: numberInRange(input.rate, DEFAULT_SETTINGS.rate, 0.5, 2),
-      pitch: numberInRange(input.pitch, DEFAULT_SETTINGS.pitch, 0, 2),
-      volume: numberInRange(input.volume, DEFAULT_SETTINGS.volume, 0, 1),
+      rate: number(input.rate, 1, .5, 2), pitch: number(input.pitch, .9, 0, 2),
+      volume: number(input.volume, 1, 0, 1),
       voiceURI: typeof input.voiceURI === 'string' ? input.voiceURI.slice(0, 300) : '',
       subtitlesEnabled: input.subtitlesEnabled !== false,
-      historyLimit: Math.round(numberInRange(input.historyLimit, DEFAULT_SETTINGS.historyLimit, 20, 500)),
+      historyLimit: Math.round(number(input.historyLimit, 100, 20, 500)),
+      speechProvider: safeText(input.speechProvider) || 'browser',
     };
   }
 
   setSettings(patch) {
     this.state.settings = this.validateSettings({ ...this.state.settings, ...patch });
-    this.trimHistory();
-    void this.persist();
-    return this.state.settings;
+    this.trimHistory(); void this.persist(); return this.state.settings;
   }
 
-  trimHistory() {
-    this.state.history = this.state.history.slice(0, this.state.settings.historyLimit);
+  validateScenes(input) {
+    return Array.isArray(input) && input.length
+      ? input.map((scene, order) => ({ sceneId: validId(scene.sceneId, `scene-${order + 1}`), sceneName: safeText(scene.sceneName) || `Scene ${order + 1}`, order: Number(scene.order) || order }))
+      : structuredClone(DEFAULT_SCENES);
   }
+
+  validateCues(input) {
+    return Array.isArray(input) && input.length
+      ? input.map((cue, order) => ({ ...cue, cueId: validId(cue.cueId, `cue-${randomUUID()}`), cueNumber: safeText(cue.cueNumber) || String(order + 1).padStart(3, '0'), cueName: safeText(cue.cueName) || '名称未設定', text: safeText(cue.text), target: normalizeTarget(cue.target), enabled: cue.enabled !== false, order: Number.isFinite(Number(cue.order)) ? Number(cue.order) : order }))
+      : structuredClone(DEFAULT_CUES);
+  }
+
+  orderedCues() { return [...this.state.cues].sort((a, b) => a.order - b.order); }
+  reindexCues() { this.state.cues = this.orderedCues().map((cue, order) => ({ ...cue, order })); }
+  trimHistory() { this.state.history = this.state.history.slice(0, this.state.settings.historyLimit); }
 
   async persist() {
-    if (!this.stateFile) return;
-    const snapshot = JSON.stringify({ history: this.state.history, settings: this.state.settings }, null, 2);
-    this.persistChain = this.persistChain.then(async () => {
-      try {
-        await mkdir(path.dirname(this.stateFile), { recursive: true });
-        const temporary = `${this.stateFile}.tmp`;
-        await writeFile(temporary, snapshot, 'utf8');
-        await rename(temporary, this.stateFile);
-      } catch (error) {
-        this.logger.error('状態を保存できません', error);
-      }
+    return this.storage.save({
+      settings: this.state.settings, history: this.state.history,
+      displays: this.state.displays.map((display) => ({ ...display, online: false, audioReady: false })),
+      audioMasterId: this.state.audioMasterId, scenes: this.state.scenes, cues: this.state.cues,
     });
-    return this.persistChain;
   }
 }

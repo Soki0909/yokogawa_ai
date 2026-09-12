@@ -1,4 +1,4 @@
-export class BrowserSpeechAdapter {
+export class BrowserSpeechProvider {
   constructor(callbacks = {}, engine = globalThis.speechSynthesis, Utterance = globalThis.SpeechSynthesisUtterance) {
     this.callbacks = callbacks;
     this.engine = engine;
@@ -54,4 +54,12 @@ export class BrowserSpeechAdapter {
     this.engine.cancel();
     if (notify) this.callbacks.onStop?.(id);
   }
+}
+
+// Phase 1 name kept for backwards compatibility.
+export const BrowserSpeechAdapter = BrowserSpeechProvider;
+
+export function createSpeechProvider(provider, callbacks = {}, dependencies = {}) {
+  if (provider !== 'browser') throw new Error(`未対応のSpeech Providerです: ${provider}`);
+  return new BrowserSpeechProvider(callbacks, dependencies.engine, dependencies.Utterance);
 }

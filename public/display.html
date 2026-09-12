@@ -6,11 +6,12 @@
   <meta name="color-scheme" content="dark">
   <title>YOKOGAWA AI</title>
   <link rel="stylesheet" href="/css/display.css">
+  <link rel="stylesheet" href="/css/display-phase2.css">
 </head>
 <body>
   <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
   <main class="stage" id="stage">
-    <header><span class="system-label">YKGW // INTELLIGENCE TERMINAL</span><span class="connection" id="connection">CONNECTING</span></header>
+    <header><span class="system-label">YKGW // INTELLIGENCE TERMINAL · <span id="display-identity">DISPLAY</span></span><span><button class="setup-link" id="open-setup" type="button">DISPLAY設定</button> <span class="connection" id="connection">CONNECTING</span></span></header>
     <section class="identity" aria-label="横川AI">
       <div class="orb" id="orb"><div class="orb-core"></div><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div></div>
       <p class="designation">YOKOGAWA</p><h1>横川<span>AI</span></h1>
@@ -24,9 +25,11 @@
   <div class="audio-gate" id="audio-gate">
     <div class="audio-gate-card">
       <span>OUTPUT INITIALIZATION</span>
-      <h2>音声システムを準備</h2>
-      <p>公演開始前、または画面の再読み込み後に一度押してください。</p>
-      <button id="enable-audio" type="button">音声を有効化</button>
+      <h2>Displayを準備</h2>
+      <label>Display Name<input id="display-name" maxlength="80" autocomplete="off"></label>
+      <label class="audio-option"><input id="audio-enabled" type="checkbox"> この端末で音声出力を許可</label>
+      <p id="audio-help">Audio Masterに指定された端末だけが発話します。再読み込み後は再度準備してください。</p>
+      <button id="enable-audio" type="button">設定を保存して開始</button>
     </div>
   </div>
   <script type="module" src="/js/display.js"></script>

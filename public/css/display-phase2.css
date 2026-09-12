@@ -1,0 +1,28 @@
+.setup-link {
+  border: 1px solid #4aa88f66;
+  background: transparent;
+  color: #8ac8b9;
+  padding: 6px 9px;
+  font: 600 9px Consolas, monospace;
+  letter-spacing: .1em;
+  cursor: pointer;
+}
+.audio-gate-card label {
+  display: block;
+  text-align: left;
+  color: #b9d4cd;
+  font-size: 13px;
+  margin: 18px 0 8px;
+}
+.audio-gate-card input[type="text"],
+.audio-gate-card input:not([type]) {
+  width: 100%;
+  margin-top: 7px;
+  padding: 12px;
+  border: 1px solid #5adfc066;
+  background: #020807;
+  color: #fff;
+  font: 600 16px inherit;
+}
+.audio-option { display: flex !important; align-items: center; gap: 10px; }
+.audio-option input { width: 18px; height: 18px; accent-color: var(--cyan); }
