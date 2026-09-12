@@ -77,10 +77,12 @@ function renderHistory(history) {
     const fragment = elements['history-template'].content.cloneNode(true);
     const article = fragment.querySelector('article');
     const time = fragment.querySelector('time');
+    const id = fragment.querySelector('.history-id');
     const status = fragment.querySelector('.history-status');
     fragment.querySelector('p').textContent = item.text;
     time.textContent = new Intl.DateTimeFormat('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date(item.createdAt));
     time.dateTime = item.createdAt;
+    id.textContent = `#${item.id.slice(-8)}`;
     status.textContent = labels[item.status] ?? item.status;
     status.dataset.state = item.status;
     if (item.error) article.title = item.error;
