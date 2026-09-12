@@ -31,11 +31,13 @@ test('空文字と5000文字超過を拒否する', () => {
 test('投影切断時は再生中とキューを安全にエラー終了する', () => {
   const store = new StateStore({ logger: silentLogger });
   store.connectDisplay();
+  store.setDisplayAudioReady(true);
   const first = store.createMessage('再生中');
   const second = store.createMessage('待機中');
   store.enqueue(first); store.enqueue(second);
   store.disconnectDisplay();
   assert.equal(store.state.displayConnectionStatus, 'disconnected');
+  assert.equal(store.state.displayAudioReady, false);
   assert.equal(store.state.currentMessage, null);
   assert.equal(store.state.queue.length, 0);
   assert.equal(store.state.history[0].status, 'error');
@@ -57,4 +59,3 @@ test('設定と履歴をローカルファイルへ保存・復元する', async
   assert.equal(restored.state.settings.subtitlesEnabled, false);
   assert.equal(restored.state.history[0].text, '保存される履歴');
 });
-

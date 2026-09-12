@@ -25,6 +25,7 @@ export class StateStore {
     this.logger = logger;
     this.state = {
       displayConnectionStatus: 'disconnected',
+      displayAudioReady: false,
       currentMessage: null,
       playbackStatus: 'idle',
       queue: [],
@@ -53,11 +54,13 @@ export class StateStore {
   connectDisplay() {
     this.displayCount += 1;
     this.state.displayConnectionStatus = 'connected';
+    this.state.displayAudioReady = false;
   }
 
   disconnectDisplay() {
     this.displayCount = Math.max(0, this.displayCount - 1);
     this.state.displayConnectionStatus = this.displayCount > 0 ? 'connected' : 'disconnected';
+    if (this.displayCount === 0) this.state.displayAudioReady = false;
     if (this.displayCount === 0 && this.state.currentMessage) {
       this.updateCurrent('error', '投影画面との接続が切れました。履歴から再読み上げしてください。');
       this.state.currentMessage = null;
@@ -68,6 +71,10 @@ export class StateStore {
       this.state.queue = [];
       void this.persist();
     }
+  }
+
+  setDisplayAudioReady(ready) {
+    this.state.displayAudioReady = this.displayCount > 0 && ready === true;
   }
 
   createMessage(text, { replayOf = null } = {}) {

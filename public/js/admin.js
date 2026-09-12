@@ -38,7 +38,7 @@ function renderState() {
   elements['display-status'].textContent = displayConnected ? '接続済み' : '未接続';
   elements['display-card'].dataset.state = displayConnected ? 'good' : 'bad';
   const statusLabels = { idle: '待機中', received: '受信済み', speaking: '再生中', completed: '完了', stopped: '停止', error: 'エラー' };
-  elements['voice-status'].textContent = statusLabels[state.playbackStatus] ?? state.playbackStatus;
+  elements['voice-status'].textContent = displayConnected && !state.displayAudioReady ? '音声準備待ち' : statusLabels[state.playbackStatus] ?? state.playbackStatus;
   elements['voice-card'].dataset.state = state.playbackStatus === 'error' ? 'bad' : state.playbackStatus === 'speaking' ? 'active' : 'good';
   elements['current-message'].textContent = state.currentMessage?.text ?? '待機しています';
   elements['next-message'].textContent = state.queue[0]?.text ?? 'なし';
@@ -50,10 +50,11 @@ function renderState() {
 
 function updateControls() {
   const hasDisplay = state?.displayConnectionStatus === 'connected';
+  const audioReady = state?.displayAudioReady === true;
   const hasText = elements['speech-input'].value.trim().length > 0;
-  elements['send-button'].disabled = !connected || !hasDisplay || !hasText;
+  elements['send-button'].disabled = !connected || !hasDisplay || !audioReady || !hasText;
   elements['stop-button'].disabled = !connected || !state?.currentMessage;
-  elements['replay-button'].disabled = !connected || !hasDisplay || !state?.history.length;
+  elements['replay-button'].disabled = !connected || !hasDisplay || !audioReady || !state?.history.length;
 }
 
 function renderHistory(history) {
@@ -136,4 +137,3 @@ elements['clear-button'].addEventListener('click', () => { elements['speech-inpu
 for (const id of ['voice-select', 'rate-input', 'pitch-input', 'volume-input', 'subtitle-input']) elements[id].addEventListener('change', updateSettings);
 setInterval(() => { elements.clock.textContent = new Date().toLocaleTimeString('ja-JP', { hour12: false }); }, 250);
 updateCount();
-

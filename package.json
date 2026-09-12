@@ -10,8 +10,9 @@
   "scripts": {
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
-    "test": "node --test",
-    "check": "node --check src/server.js && node --test"
+    "test": "node --test test/state-store.test.js test/tts-adapter.test.js test/offline-assets.test.js test/server-flow.test.js",
+    "test:soak": "node scripts/soak-test.js",
+    "check": "node --check src/server.js && node --check public/js/admin.js && node --check public/js/display.js && node --check public/js/socket-client.js && node --check public/js/tts-adapter.js && node --test test/state-store.test.js test/tts-adapter.test.js test/offline-assets.test.js test/server-flow.test.js"
   },
   "dependencies": {
     "express": "5.1.0",

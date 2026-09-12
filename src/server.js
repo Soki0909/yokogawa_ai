@@ -22,7 +22,7 @@ app.get('/', (_request, response) => response.redirect('/admin'));
 app.get('/health', (_request, response) => response.json({ ok: true, displayConnected: store.displayCount > 0 }));
 
 const server = http.createServer(app);
-const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 16 * 1024 });
+const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
 const clients = new Map();
 
 function send(socket, type, payload = {}) {
@@ -57,6 +57,10 @@ function handleAdmin(socket, event) {
       send(socket, 'error', { code: 'DISPLAY_UNAVAILABLE', message: '投影画面が未接続です。/display を開いてから再送信してください。' });
       return;
     }
+    if (!store.state.displayAudioReady) {
+      send(socket, 'error', { code: 'AUDIO_NOT_READY', message: '投影画面で「音声を有効化」を押してください。' });
+      return;
+    }
     try {
       const message = store.createMessage(event.text);
       const result = store.enqueue(message);
@@ -89,6 +93,10 @@ function handleAdmin(socket, event) {
       send(socket, 'error', { code: 'DISPLAY_UNAVAILABLE', message: '投影画面が未接続です。' });
       return;
     }
+    if (!store.state.displayAudioReady) {
+      send(socket, 'error', { code: 'AUDIO_NOT_READY', message: '投影画面で「音声を有効化」を押してください。' });
+      return;
+    }
     const original = store.state.history.find((item) => item.id === event.id)
       ?? store.state.history[0];
     if (!original) {
@@ -113,6 +121,12 @@ function handleAdmin(socket, event) {
 }
 
 function handleDisplay(event) {
+  if (event.type === 'audio:ready') {
+    store.setDisplayAudioReady(true);
+    logger.info('投影画面の音声を有効化');
+    broadcastState();
+    return;
+  }
   if (event.type === 'playback') {
     try {
       const result = store.reportPlayback(event.id, event.status, event.error);

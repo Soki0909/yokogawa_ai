@@ -5,12 +5,15 @@ const caption = document.getElementById('caption');
 const connection = document.getElementById('connection');
 const orb = document.getElementById('orb');
 const modeLabel = document.getElementById('mode-label');
+const audioGate = document.getElementById('audio-gate');
+const enableAudio = document.getElementById('enable-audio');
 let settings = { rate: 1, pitch: 0.9, volume: 1, voiceURI: '', subtitlesEnabled: true };
 
 const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   connection.textContent = status === 'connected' ? 'ONLINE' : status === 'connecting' ? 'CONNECTING' : 'RECONNECTING';
   connection.dataset.state = status;
-  if (status !== 'connected') setMode('接続を復旧しています', 'error');
+  if (status === 'connected') setMode('SYSTEM READY', 'ready');
+  else setMode('接続を復旧しています', 'error');
 });
 
 const speech = new BrowserSpeechAdapter({
@@ -55,6 +58,12 @@ function publishVoices() {
   const voices = speech.getVoices();
   if (voices.length) socket.send({ type: 'voices', voices });
 }
-window.speechSynthesis.addEventListener('voiceschanged', publishVoices);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) window.speechSynthesis.resume(); });
-
+window.speechSynthesis?.addEventListener('voiceschanged', publishVoices);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) window.speechSynthesis?.resume(); });
+enableAudio.addEventListener('click', () => {
+  window.speechSynthesis?.cancel();
+  publishVoices();
+  socket.send({ type: 'audio:ready' });
+  audioGate.hidden = true;
+  setMode('SYSTEM READY', 'ready');
+});

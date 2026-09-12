@@ -85,6 +85,8 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   assert.equal((await admin.next((event) => event.type === 'error')).code, 'DISPLAY_UNAVAILABLE');
   const display = await client(port, 'display');
   assert.equal((await admin.next((event) => event.type === 'state' && event.state.displayConnectionStatus === 'connected')).state.displayConnectionStatus, 'connected');
+  display.send({ type: 'audio:ready' });
+  await admin.next((event) => event.type === 'state' && event.state.displayAudioReady === true);
 
   admin.send({ type: 'speak', text: 'こんにちは、横川AIです。' });
   const first = (await display.next((event) => event.type === 'speak')).message;
@@ -118,4 +120,3 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   reloaded.ws.close(); admin.ws.close();
   assert.doesNotMatch(output, /Unhandled|uncaught/i);
 });
-
