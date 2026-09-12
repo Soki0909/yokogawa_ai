@@ -96,6 +96,9 @@ try {
     display.send({ type: 'playback', id: message.id, status: 'completed' });
     await admin.next((event) => event.type === 'state' && event.state.playbackStatus === 'completed');
     completed += 1;
+    if (completed % Math.max(1, Math.round(300_000 / intervalMs)) === 0) {
+      console.log(`SOAK PROGRESS: ${Math.floor((Date.now() - startedAt) / 60_000)}分経過、${completed}件完了`);
+    }
     const remaining = intervalMs - (Date.now() - startedAt) % intervalMs;
     await new Promise((resolve) => setTimeout(resolve, Math.min(remaining, Math.max(0, durationMs - (Date.now() - startedAt)))));
   }
@@ -107,4 +110,3 @@ try {
   display?.socket.close();
   server.kill('SIGTERM');
 }
-

@@ -105,8 +105,10 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   display.send({ type: 'playback', id: maximumMessage.id, status: 'completed' });
   await admin.next((event) => event.type === 'state' && event.state.playbackStatus === 'completed');
 
+  const sentAt = performance.now();
   admin.send({ type: 'speak', text: 'こんにちは、横川AIです。' });
   const first = (await display.next((event) => event.type === 'speak')).message;
+  assert.ok(performance.now() - sentAt < 500, '字幕イベントは500ms以内に到達する');
   display.send({ type: 'playback', id: first.id, status: 'received' });
   display.send({ type: 'playback', id: first.id, status: 'speaking' });
   assert.equal((await admin.next((event) => event.type === 'state' && event.state.playbackStatus === 'speaking')).state.currentMessage.text, first.text);

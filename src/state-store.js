@@ -40,8 +40,18 @@ export class StateStore {
     if (!this.stateFile) return;
     try {
       const stored = JSON.parse(await readFile(this.stateFile, 'utf8'));
-      this.state.history = Array.isArray(stored.history) ? stored.history : [];
       this.state.settings = this.validateSettings(stored.settings ?? {});
+      const interrupted = new Set(['queued', 'received', 'speaking']);
+      this.state.history = (Array.isArray(stored.history) ? stored.history : []).map((item) => {
+        if (!interrupted.has(item.status)) return item;
+        return {
+          ...item,
+          status: 'error',
+          finishedAt: new Date().toISOString(),
+          error: 'サーバー再起動により発話が中断されました。必要なら再読み上げしてください。',
+        };
+      });
+      this.trimHistory();
     } catch (error) {
       if (error.code !== 'ENOENT') this.logger.error('状態ファイルを読み込めません', error);
     }
@@ -113,12 +123,20 @@ export class StateStore {
     this.updateCurrent(status, error);
     if (['completed', 'stopped', 'error'].includes(status)) {
       this.state.currentMessage = null;
+      if (status === 'error') {
+        for (const queued of this.state.queue) {
+          this.updateHistory(queued.id, { status: 'error', error: 'TTSエラーによりキューを解除しました。設定確認後に再送してください。' });
+        }
+        this.state.queue = [];
+        void this.persist();
+        return { accepted: true, next: null };
+      }
       const next = this.state.queue.shift() ?? null;
       if (next) {
         this.state.currentMessage = next;
         this.state.playbackStatus = 'received';
         this.updateHistory(next.id, { status: 'received' });
-      } else if (status !== 'error') {
+      } else {
         this.state.playbackStatus = status;
       }
       void this.persist();

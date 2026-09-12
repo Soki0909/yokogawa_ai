@@ -44,6 +44,18 @@ test('投影切断時は再生中とキューを安全にエラー終了する',
   assert.equal(store.state.history[1].status, 'error');
 });
 
+test('TTSエラー時は待機キューを連鎖再生せずエラー終了する', () => {
+  const store = new StateStore({ logger: silentLogger });
+  const current = store.createMessage('エラーになる発話');
+  const queued = store.createMessage('自動再生しない発話');
+  store.enqueue(current); store.enqueue(queued);
+  const result = store.reportPlayback(current.id, 'error', 'synthesis-failed');
+  assert.equal(result.next, null);
+  assert.equal(store.state.currentMessage, null);
+  assert.equal(store.state.queue.length, 0);
+  assert.equal(store.state.history.find((item) => item.id === queued.id).status, 'error');
+});
+
 test('設定と履歴をローカルファイルへ保存・復元する', async () => {
   const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-state-'));
   const stateFile = path.join(directory, 'state.json');
@@ -58,4 +70,6 @@ test('設定と履歴をローカルファイルへ保存・復元する', async
   await restored.load();
   assert.equal(restored.state.settings.subtitlesEnabled, false);
   assert.equal(restored.state.history[0].text, '保存される履歴');
+  assert.equal(restored.state.history[0].status, 'error');
+  assert.match(restored.state.history[0].error, /サーバー再起動/);
 });
