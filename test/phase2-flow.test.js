@@ -155,7 +155,7 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
   const heartbeatReconnectedC = heartbeat(reconnectedC);
   t.after(() => clearInterval(heartbeatReconnectedC));
   assert.equal(reconnectedC.initial.self.displayId, 'display-c');
-  assert.equal(reconnectedC.initial.self.currentSubtitle, 'システムに異常を検知しました。');
+  assert.equal(reconnectedC.initial.self.currentSubtitle, 'Master不在でも字幕継続');
   await assert.rejects(reconnectedC.next((event) => event.type === 'speak', 250), /timeout/, '再接続だけでは過去発話を再送しない');
 
   admin.send({ type: 'show:reset' });

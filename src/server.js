@@ -213,7 +213,8 @@ function handleDisplay(client, event) {
     try {
       const result = store.reportPlayback(event.id, event.status, event.error);
       if (!result.accepted) return;
-      logger.info(`TTS${event.status}`, { id: event.id, displayId: client.displayId, error: event.error });
+      const playbackLabels = { received: 'TTS受信', speaking: 'TTS開始', completed: 'TTS終了', stopped: 'TTS停止', error: 'TTSエラー' };
+      logger.info(playbackLabels[event.status] ?? `TTS状態: ${event.status}`, { id: event.id, displayId: client.displayId, error: event.error });
       broadcastState(); if (result.next) dispatch(result.next);
     } catch (error) { logger.error('不正な再生状態を受信', error); }
   } else if (event.type === 'voices') {

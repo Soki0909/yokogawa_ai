@@ -44,12 +44,17 @@ function render() {
   renderHistory(state.history);
   applySettings(state.settings);
   const master = state.displays.find((display) => display.displayId === state.audioMasterId);
-  elements['master-warning'].hidden = !state.audioMasterId || Boolean(master?.online);
   if (!state.audioMasterId) {
     elements['master-warning'].textContent = '⚠ AUDIO MASTER未指定 — 最初のDisplay接続時に自動指定されます';
     elements['master-warning'].hidden = false;
-  } else {
+  } else if (!master?.online) {
     elements['master-warning'].textContent = `⚠ AUDIO MASTER OFFLINE — ${master?.displayName ?? state.audioMasterId} の音声は再生されません`;
+    elements['master-warning'].hidden = false;
+  } else if (!master.audioEnabled || !master.audioReady) {
+    elements['master-warning'].textContent = `⚠ AUDIO MASTER音声準備待ち — ${master.displayName} のDisplay設定から音声を有効化してください`;
+    elements['master-warning'].hidden = false;
+  } else {
+    elements['master-warning'].hidden = true;
   }
   updateControls();
 }
@@ -97,7 +102,9 @@ function renderDisplays() {
     item.querySelector('strong').textContent = display.displayName;
     item.querySelector('small').textContent = `${display.displayId} · heartbeat ${heartbeat} · ${display.currentSubtitle ? '字幕表示中' : '待機'}`;
     item.querySelector('.display-badges span:first-child').textContent = display.online ? 'ONLINE' : 'OFFLINE';
-    item.querySelector('.display-badges span:last-child').textContent = state.audioMasterId === display.displayId ? 'AUDIO MASTER' : display.audioEnabled ? 'AUDIO OK' : 'MUTED';
+    item.querySelector('.display-badges span:last-child').textContent = state.audioMasterId === display.displayId
+      ? `AUDIO MASTER ${display.audioReady ? 'READY' : 'NOT READY'}`
+      : display.audioEnabled ? 'AUDIO ENABLED' : 'AUDIO DISABLED';
     elements['display-list'].append(item);
   }
 }
