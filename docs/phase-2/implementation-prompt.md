@@ -16,9 +16,9 @@ Phase 1のMVPはすでに完成しています。
 
 そのうえで、少なくとも以下を全文読んでください。
 
-- `yokogawa_ai_phase2_requirements.md`
+- `docs/phase-2/requirements.md`
 - 既存の `README.md`
-- 既存の `VERIFICATION.md`
+- 既存の `docs/phase-2/verification.md`
 - Phase 1の要件定義書・実装プロンプトが残っている場合はそれら
 - `package.json`
 - サーバー実装
@@ -28,7 +28,7 @@ Phase 1のMVPはすでに完成しています。
 - TTS adapter
 - 既存テスト
 
-`yokogawa_ai_phase2_requirements.md` を今回のPhase 2における要件の正としてください。
+`docs/phase-2/requirements.md` を今回のPhase 2における要件の正としてください。
 
 Phase 1の既存仕様・検証済み動作は、Phase 2要件と矛盾しない限り維持してください。
 
@@ -46,7 +46,7 @@ Goal機能そのものが利用不能でも、作業を止めないでくださ�
 
 ## Goal
 
-> 現在完成している横川AI Phase 1 MVPを後方互換で維持しながら、`yokogawa_ai_phase2_requirements.md` に従い、ローカルLAN、複数Display Client、Heartbeat、Broadcast・個別送信、Audio Master、State Sync、固定Cue、Scene、NEXT/BACK/REPLAY、任意Cue実行、Cue編集・永続化、Free Speak、Show Reset、将来のTTS Provider交換境界、Render等への将来デプロイ可能性を実装する。自動テスト・疑似マルチ端末テスト・実ブラウザ検証・長時間試験・回帰試験・README/検証記録・Git管理まで完了し、Phase 2受け入れ条件をすべて根拠付きで満たすまで継続する。
+> 現在完成している横川AI Phase 1 MVPを後方互換で維持しながら、`docs/phase-2/requirements.md` に従い、ローカルLAN、複数Display Client、Heartbeat、Broadcast・個別送信、Audio Master、State Sync、固定Cue、Scene、NEXT/BACK/REPLAY、任意Cue実行、Cue編集・永続化、Free Speak、Show Reset、将来のTTS Provider交換境界、Render等への将来デプロイ可能性を実装する。自動テスト・疑似マルチ端末テスト・実ブラウザ検証・長時間試験・回帰試験・README/検証記録・Git管理まで完了し、Phase 2受け入れ条件をすべて根拠付きで満たすまで継続する。
 
 ## Goalの停止条件
 
@@ -836,7 +836,7 @@ READMEをPhase 2仕様へ更新してください。
 - 本番前チェック
 - トラブルシューティング
 
-既存の `VERIFICATION.md` がある場合は、Phase 2検証結果へ更新またはPhase 2用検証記録を追加してください。
+既存の `docs/phase-2/verification.md` がある場合は、Phase 2検証結果へ更新またはPhase 2用検証記録を追加してください。
 
 テストシナリオごとに、
 
@@ -855,7 +855,7 @@ Scenario
 
 実装が終わったと思っても、すぐGoal達成にしないでください。
 
-`yokogawa_ai_phase2_requirements.md` を再度全文確認し、受け入れ条件を1項目ずつ照合してください。
+`docs/phase-2/requirements.md` を再度全文確認し、受け入れ条件を1項目ずつ照合してください。
 
 各項目について、
 
@@ -964,4 +964,4 @@ Goal達成後のみ最終報告してください。
 
 Goalの停止条件を満たすまで、自分で次の作業を判断して継続してください。
 
-では、現在のPhase 1実装、既存テスト、`yokogawa_ai_phase2_requirements.md` を確認し、`set_goal` でGoalを設定したうえで、Phase 2を完成まで自律的に実装してください。
+では、現在のPhase 1実装、既存テスト、`docs/phase-2/requirements.md` を確認し、`set_goal` でGoalを設定したうえで、Phase 2を完成まで自律的に実装してください。

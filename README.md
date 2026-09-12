@@ -180,6 +180,13 @@ npm run test:soak
 - [ ] インターネットなしの会場LANで字幕と実音を確認
 - [ ] プロジェクター、スピーカー、長文、全画面表示を実設備で確認
 
+## 開発ドキュメント
+
+- [文書索引](docs/README.md)
+- [Phase 2要件正本](docs/phase-2/requirements.md)
+- [Phase 2実装プロンプト](docs/phase-2/implementation-prompt.md)
+- [Phase 2受け入れ検証記録](docs/phase-2/verification.md)
+
 ## データ、ログ、公開時の注意
 
 - 状態: `data/state.json`
