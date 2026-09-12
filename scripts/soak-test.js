@@ -71,14 +71,18 @@ const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase2-soak-'))
 const server = spawn(process.execPath, ['src/server.js'], {
   cwd: process.cwd(),
   env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', HEARTBEAT_TIMEOUT_MS: '3500', STATE_FILE: path.join(temporary, 'state.json'), LOG_DIRECTORY: path.join(temporary, 'logs') },
-  stdio: ['ignore', 'ignore', 'pipe'],
+  stdio: ['ignore', 'pipe', 'pipe'],
 });
-let serverErrors = ''; server.stderr.on('data', (chunk) => { serverErrors += chunk; });
+let serverOutput = '';
+let serverErrors = '';
+server.stdout.on('data', (chunk) => { serverOutput = (serverOutput + chunk).slice(-30_000); });
+server.stderr.on('data', (chunk) => { serverErrors += chunk; });
 
 let admin;
 const displays = new Map();
 const heartbeats = new Map();
 const metrics = { totalEvents: 0, succeeded: 0, failed: 0, reconnects: 0, offlineDetections: 0, masterChanges: 0 };
+const processedMessageIds = new Set();
 const startedAt = Date.now();
 const durationMs = minutes * 60 * 1000;
 let initialHealth;
@@ -136,10 +140,13 @@ try {
       }
 
       const kind = iteration % 5;
+      let event;
       if (kind === 0) {
         const cueId = `cue-00${(iteration % 6) + 1}`;
         admin.send({ type: 'cue:execute', cueId }); metrics.totalEvents += 1;
-        const event = await displays.get(currentMaster).next((message) => message.type === 'speak' && message.message.cueId === cueId);
+        event = await displays.get(currentMaster).next((message) => message.type === 'speak'
+          && message.message.cueId === cueId
+          && !processedMessageIds.has(message.message.id));
         await completeSpeech(event);
       } else {
         const targeted = kind === 1;
@@ -147,13 +154,21 @@ try {
         admin.send({ type: 'speak', text, target: targeted ? { type: 'display', id: 'display-b' } : { type: 'all' } });
         metrics.totalEvents += 1;
         const receiver = targeted ? displays.get('display-b') : displays.get(currentMaster);
-        const event = await receiver.next((message) => message.type === 'speak' && message.message.text === text);
+        event = await receiver.next((message) => message.type === 'speak'
+          && message.message.text === text
+          && !processedMessageIds.has(message.message.id));
         await completeSpeech(event);
       }
-      await admin.next((event) => event.type === 'state' && event.state.history[0]?.status === 'completed');
+      const completedId = event.message.id;
+      processedMessageIds.add(completedId);
+      await admin.next((message) => message.type === 'state'
+        && message.state.currentMessage === null
+        && message.state.history.find((item) => item.id === completedId)?.status === 'completed');
       metrics.succeeded += 1;
     } catch (error) {
       metrics.failed += 1;
+      console.error(`SOAK FAILURE: iteration=${iteration} master=${currentMaster} elapsedMs=${Date.now() - startedAt}`);
+      console.error(serverOutput);
       throw error;
     }
     if (iteration % Math.max(1, Math.round(300_000 / intervalMs)) === 0) {
