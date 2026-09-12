@@ -83,9 +83,9 @@ const displays = new Map();
 const heartbeats = new Map();
 const metrics = { totalEvents: 0, succeeded: 0, failed: 0, reconnects: 0, offlineDetections: 0, masterChanges: 0 };
 const processedMessageIds = new Set();
-const startedAt = Date.now();
 const durationMs = minutes * 60 * 1000;
 let initialHealth;
+let startedAt = Date.now();
 let currentMaster = 'display-a';
 
 async function addDisplay(id, name) {
@@ -108,7 +108,7 @@ async function completeSpeech(event) {
 }
 
 try {
-  initialHealth = await waitForHealth(port);
+  await waitForHealth(port);
   admin = await connect(port, 'admin');
   await addDisplay('display-a', 'Main');
   await addDisplay('display-b', 'East');
@@ -116,6 +116,8 @@ try {
   await admin.next((event) => event.type === 'state' && event.state.displays.filter((display) => display.online).length === 3);
   displays.get(currentMaster).send({ type: 'audio:ready' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
+  initialHealth = await health(port);
+  startedAt = Date.now();
 
   let iteration = 0;
   let disconnectedOnce = false;
