@@ -4,57 +4,70 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
-  <title>横川AI CONTROL</title>
+  <title>横川AI CONTROL — SHOW CONTROL</title>
   <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="/css/admin-phase2.css">
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <p class="eyebrow">PERFORMANCE CONTROL SYSTEM</p>
-      <h1>横川AI <span>CONTROL</span></h1>
-    </div>
-    <div class="clock" id="clock" aria-label="現在時刻">--:--:--</div>
+    <div><p class="eyebrow">PERFORMANCE CONTROL SYSTEM</p><h1>YOKOGAWA AI <span>SHOW CONTROL</span></h1></div>
+    <div class="clock" id="clock">--:--:--</div>
   </header>
-
   <main>
     <section class="status-grid" aria-label="システム状態">
-      <div class="status-card" id="system-card"><span class="status-dot"></span><div><small>SYSTEM</small><strong id="system-status">接続中</strong></div></div>
-      <div class="status-card" id="display-card"><span class="status-dot"></span><div><small>DISPLAY</small><strong id="display-status">未接続</strong></div></div>
+      <div class="status-card" id="system-card"><span class="status-dot"></span><div><small>SERVER</small><strong id="system-status">接続中</strong></div></div>
+      <div class="status-card" id="display-card"><span class="status-dot"></span><div><small>DISPLAYS</small><strong id="display-status">0 ONLINE</strong></div></div>
       <div class="status-card" id="voice-card"><span class="status-dot"></span><div><small>VOICE</small><strong id="voice-status">待機中</strong></div></div>
     </section>
-
+    <div id="master-warning" class="master-warning" role="alert" hidden>⚠ AUDIO MASTER OFFLINE — 音声は再生されません</div>
     <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <section class="show-grid">
+      <div class="show-panel panel">
+        <div class="panel-heading"><div><span class="step">01</span><h2>SHOW CONTROL</h2></div></div>
+        <label class="scene-jump">CURRENT SCENE
+          <select id="scene-select"><option value="">未選択</option></select>
+        </label>
+        <div class="cue-focus">
+          <div><span>CURRENT CUE</span><strong id="current-cue">— 待機中</strong></div>
+          <div><span>NEXT CUE</span><strong id="next-cue">—</strong></div>
+        </div>
+        <div class="transport">
+          <button id="back-button" type="button">◀ BACK</button>
+          <button class="next-button" id="next-button" type="button">NEXT ▶</button>
+          <button id="cue-replay-button" type="button">↻ REPLAY</button>
+        </div>
+      </div>
+
+      <aside class="displays panel">
+        <div class="panel-heading"><div><span class="step">02</span><h2>DISPLAYS</h2></div></div>
+        <label class="master-select">AUDIO MASTER<select id="audio-master-select"><option value="">未指定</option></select></label>
+        <div id="display-list" class="display-list"><p class="empty">Displayは未登録です</p></div>
+      </aside>
+    </section>
+
+    <section class="cue-panel panel">
+      <div class="panel-heading"><div><span class="step">03</span><h2>CUE LIST</h2></div><button id="new-cue-button" class="ghost-button" type="button">＋ Cue追加</button></div>
+      <div id="cue-list" class="cue-list"></div>
+    </section>
 
     <section class="workspace">
       <div class="composer panel">
-        <div class="panel-heading">
-          <div><span class="step">01</span><h2>発話を作成</h2></div>
-          <span class="shortcut">Ctrl + Enter で送信</span>
-        </div>
-        <label class="sr-only" for="speech-input">読み上げる文章</label>
-        <textarea id="speech-input" maxlength="5000" placeholder="ここに横川AIのセリフを入力…" rows="7"></textarea>
-        <div class="input-meta"><span>Enter は改行</span><span id="character-count">0 / 5,000</span></div>
-        <button class="send-button" id="send-button" type="button">
-          <span>送信・読み上げ</span><small>DISPLAYへ即時送信</small>
-        </button>
+        <div class="panel-heading"><div><span class="step">04</span><h2>FREE SPEAK</h2></div><span class="shortcut">Ctrl + Enter</span></div>
+        <label class="target-label">TARGET<select id="target-select"><option value="all">ALL DISPLAYS</option></select></label>
+        <textarea id="speech-input" maxlength="5000" placeholder="想定外のセリフを入力…" rows="5"></textarea>
+        <div class="input-meta"><span>Cue進行には影響しません</span><span id="character-count">0 / 5,000</span></div>
+        <button class="send-button" id="send-button" type="button"><span>FREE SPEAK</span><small>選択したDisplayへ送信</small></button>
         <div class="control-row">
-          <button class="danger-button" id="stop-button" type="button">■ 音声を停止</button>
+          <button class="danger-button" id="stop-button" type="button">■ STOP AUDIO</button>
           <button class="secondary-button" id="replay-button" type="button">↻ 直前を再読み上げ</button>
           <button class="ghost-button" id="clear-button" type="button">入力クリア</button>
         </div>
       </div>
-
       <aside class="playback panel">
-        <div class="panel-heading"><div><span class="step">02</span><h2>再生状況</h2></div></div>
-        <div class="now-playing">
-          <span class="label">現在再生中</span>
-          <p id="current-message">待機しています</p>
-        </div>
-        <div class="queue-summary">
-          <div><span class="label">次の発話</span><p id="next-message">なし</p></div>
-          <span class="queue-count" id="queue-count">0 件</span>
-        </div>
-
+        <div class="panel-heading"><div><span class="step">05</span><h2>OUTPUT</h2></div></div>
+        <div class="now-playing"><span class="label">現在の発話</span><p id="current-message">待機しています</p></div>
+        <div class="queue-summary"><div><span class="label">次の発話</span><p id="next-message">なし</p></div><span class="queue-count" id="queue-count">0 件</span></div>
         <details class="settings">
           <summary>音声・表示設定</summary>
           <div class="settings-grid">
@@ -65,24 +78,32 @@
             <label class="toggle"><input id="subtitle-input" type="checkbox" checked><span>字幕を表示</span></label>
           </div>
         </details>
+        <button class="reset-button" id="reset-button" type="button">SHOW RESET</button>
+        <small class="reset-help">確認ダイアログ後、Cue位置・字幕・キューを初期化</small>
       </aside>
     </section>
 
     <section class="history panel">
-      <div class="panel-heading">
-        <div><span class="step">03</span><h2>発話履歴</h2></div>
-        <span class="history-help">新しい順・最大100件</span>
-      </div>
-      <div id="history-list" class="history-list"><p class="empty">発話履歴はまだありません</p></div>
+      <div class="panel-heading"><div><span class="step">06</span><h2>EVENT HISTORY</h2></div><span class="history-help">Cue / Free Speakを記録</span></div>
+      <div id="history-list" class="history-list"><p class="empty">履歴はまだありません</p></div>
     </section>
   </main>
 
-  <template id="history-template">
-    <article class="history-item">
-      <div class="history-main"><div class="history-meta"><time></time><span class="history-id"></span><span class="history-status"></span></div><p></p></div>
-      <div class="history-actions"><button class="restore-button" type="button">入力へ戻す</button><button class="history-replay-button" type="button">再読み上げ</button></div>
-    </article>
-  </template>
+  <dialog id="cue-dialog">
+    <form id="cue-form" method="dialog">
+      <div class="panel-heading"><h2>Cue編集</h2><button value="cancel" aria-label="閉じる">×</button></div>
+      <input id="cue-id" type="hidden">
+      <div class="cue-fields">
+        <label>番号<input id="cue-number" maxlength="20" required></label>
+        <label>Cue名<input id="cue-name" maxlength="120" required></label>
+        <label>Scene<select id="cue-scene"></select></label>
+        <label>Target<select id="cue-target"></select></label>
+        <label class="wide">発話テキスト<textarea id="cue-text" maxlength="5000" rows="6" required></textarea></label>
+        <label class="toggle wide"><input id="cue-enabled" type="checkbox" checked> 有効</label>
+      </div>
+      <div class="dialog-actions"><button value="cancel" class="ghost-button">キャンセル</button><button id="save-cue-button" value="default" type="submit" class="send-button">保存</button></div>
+    </form>
+  </dialog>
   <script type="module" src="/js/admin.js"></script>
 </body>
 </html>
