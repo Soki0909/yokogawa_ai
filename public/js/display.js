@@ -21,6 +21,7 @@ elements['display-identity'].textContent = identity.displayName;
 let settings = { rate: 1, pitch: .9, volume: 1, voiceURI: '', subtitlesEnabled: true };
 let isAudioMaster = false;
 let audioUnlocked = false;
+let identifyTimer;
 
 const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   elements.connection.textContent = status === 'connected' ? 'ONLINE' : status === 'connecting' ? 'CONNECTING' : 'RECONNECTING';
@@ -66,6 +67,12 @@ function handleEvent(event) {
     publishVoices();
   } else if (event.type === 'show:reset') {
     speech.stop(false); elements.caption.textContent = '待機しています'; setMode('SYSTEM READY', 'ready');
+  } else if (event.type === 'identify') {
+    clearTimeout(identifyTimer);
+    elements['identify-name'].textContent = identity.displayName;
+    elements['identify-id'].textContent = identity.displayId;
+    elements['identify-overlay'].hidden = false;
+    identifyTimer = window.setTimeout(() => { elements['identify-overlay'].hidden = true; }, Math.min(10_000, Math.max(1000, Number(event.durationMs) || 5000)));
   }
 }
 

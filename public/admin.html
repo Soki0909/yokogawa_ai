@@ -7,14 +7,21 @@
   <title>横川AI CONTROL — SHOW CONTROL</title>
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="stylesheet" href="/css/admin-phase2.css">
+  <link rel="stylesheet" href="/css/admin-phase3.css">
 </head>
-<body>
+<body data-mode="show">
   <header class="topbar">
     <div><p class="eyebrow">PERFORMANCE CONTROL SYSTEM</p><h1>YOKOGAWA AI <span>SHOW CONTROL</span></h1></div>
-    <div class="clock" id="clock">--:--:--</div>
+    <div class="topbar-actions">
+      <nav class="mode-switch" aria-label="管理画面モード">
+        <button id="show-mode-button" type="button" aria-pressed="true">本番モード</button>
+        <button id="advanced-mode-button" type="button" aria-pressed="false">詳細操作</button>
+      </nav>
+      <div class="clock" id="clock">--:--:--</div>
+    </div>
   </header>
   <main>
-    <section class="status-grid" aria-label="システム状態">
+    <section class="status-grid advanced-only" aria-label="システム状態">
       <div class="status-card" id="system-card"><span class="status-dot"></span><div><small>SERVER</small><strong id="system-status">接続中</strong></div></div>
       <div class="status-card" id="display-card"><span class="status-dot"></span><div><small>DISPLAYS</small><strong id="display-status">0 ONLINE</strong></div></div>
       <div class="status-card" id="voice-card"><span class="status-dot"></span><div><small>VOICE</small><strong id="voice-status">待機中</strong></div></div>
@@ -22,7 +29,42 @@
     <div id="master-warning" class="master-warning" role="alert" hidden>⚠ AUDIO MASTER OFFLINE — 音声は再生されません</div>
     <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
 
-    <section class="show-grid">
+    <section id="show-console" class="show-console show-only" aria-label="本番操作">
+      <div class="show-console-head">
+        <div><span class="label">CURRENT SCENE</span><strong id="show-current-scene">— 未選択</strong></div>
+        <button id="show-preflight-badge" class="preflight-badge" type="button" data-state="not-ready">NOT READY</button>
+      </div>
+      <article class="live-cue current-live-cue">
+        <span>CURRENT CUE</span>
+        <strong id="show-current-cue">— 待機中</strong>
+        <p id="show-current-text">NEXTを押すと最初のCueを実行します。</p>
+        <small id="show-current-target">TARGET —</small>
+      </article>
+      <button id="show-next-button" class="show-next-button" type="button"><span>NEXT</span><small id="show-next-button-label">次のCueを実行</small></button>
+      <article class="live-cue next-live-cue">
+        <span>NEXT CUE</span>
+        <strong id="show-next-cue">— END</strong>
+        <p id="show-next-text">次のCueはありません。</p>
+      </article>
+      <div class="show-transport">
+        <button id="show-back-button" type="button">◀ BACK</button>
+        <button id="show-replay-button" type="button">↻ REPLAY</button>
+        <button id="show-stop-button" class="show-stop" type="button">■ STOP</button>
+      </div>
+      <div id="show-alerts" class="show-alerts" role="status" aria-live="polite"></div>
+      <button id="open-advanced-button" class="show-details-button" type="button">詳細操作を開く</button>
+    </section>
+
+    <section id="preflight-panel" class="preflight-panel panel">
+      <div class="panel-heading">
+        <div><span class="step">CHECK</span><h2>本番前チェック</h2></div>
+        <div class="preflight-actions"><strong id="preflight-result" data-state="not-ready">NOT READY</strong><button id="audio-test-button" type="button">音声テスト</button></div>
+      </div>
+      <p id="preflight-summary" class="preflight-summary">状態を取得しています…</p>
+      <div id="preflight-list" class="preflight-list"></div>
+    </section>
+
+    <section class="show-grid advanced-only">
       <div class="show-panel panel">
         <div class="panel-heading"><div><span class="step">01</span><h2>SHOW CONTROL</h2></div></div>
         <label class="scene-jump">CURRENT SCENE
@@ -46,12 +88,24 @@
       </aside>
     </section>
 
-    <section class="cue-panel panel">
+    <section class="setup-grid advanced-only">
+      <section class="connection-panel panel">
+        <div class="panel-heading"><div><span class="step">SETUP</span><h2>設営・接続情報</h2></div></div>
+        <p class="connection-help">利用するLANと同じIPv4候補を選び、QRコードを端末で読み取ります。</p>
+        <div id="connection-list" class="connection-list"></div>
+      </section>
+      <section class="group-panel panel">
+        <div class="panel-heading"><div><span class="step">TARGET</span><h2>配信先セット</h2></div><button id="new-group-button" class="ghost-button" type="button">＋ 新規</button></div>
+        <div id="group-list" class="group-list"><p class="empty">配信先セットはありません</p></div>
+      </section>
+    </section>
+
+    <section class="cue-panel panel advanced-only">
       <div class="panel-heading"><div><span class="step">03</span><h2>CUE LIST</h2></div><button id="new-cue-button" class="ghost-button" type="button">＋ Cue追加</button></div>
       <div id="cue-list" class="cue-list"></div>
     </section>
 
-    <section class="workspace">
+    <section class="workspace advanced-only">
       <div class="composer panel">
         <div class="panel-heading"><div><span class="step">04</span><h2>FREE SPEAK</h2></div><span class="shortcut">Ctrl + Enter</span></div>
         <label class="target-label">TARGET<select id="target-select"><option value="all">ALL DISPLAYS</option></select></label>
@@ -83,7 +137,7 @@
       </aside>
     </section>
 
-    <section class="history panel">
+    <section class="history panel advanced-only">
       <div class="panel-heading"><div><span class="step">06</span><h2>EVENT HISTORY</h2></div><span class="history-help">Cue / Free Speakを記録</span></div>
       <div id="history-list" class="history-list"><p class="empty">履歴はまだありません</p></div>
     </section>
@@ -102,6 +156,19 @@
         <label class="toggle wide"><input id="cue-enabled" type="checkbox" checked> 有効</label>
       </div>
       <div class="dialog-actions"><button value="cancel" class="ghost-button">キャンセル</button><button id="save-cue-button" value="default" type="submit" class="send-button">保存</button></div>
+    </form>
+  </dialog>
+  <dialog id="group-dialog">
+    <form id="group-form" method="dialog">
+      <div class="panel-heading"><h2>配信先セット編集</h2><button value="cancel" aria-label="閉じる">×</button></div>
+      <input id="group-id" type="hidden">
+      <div class="cue-fields">
+        <label class="wide">表示名<input id="group-name" maxlength="120" required></label>
+        <fieldset class="wide group-display-fields"><legend>対象Display</legend><div id="group-display-options"></div></fieldset>
+        <label class="wide">メモ<textarea id="group-notes" maxlength="500" rows="3"></textarea></label>
+        <label class="toggle wide"><input id="group-enabled" type="checkbox" checked> 有効</label>
+      </div>
+      <div class="dialog-actions"><button value="cancel" class="ghost-button">キャンセル</button><button value="default" type="submit" class="send-button">保存</button></div>
     </form>
   </dialog>
   <script type="module" src="/js/admin.js"></script>
