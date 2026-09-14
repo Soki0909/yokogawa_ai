@@ -106,6 +106,23 @@ test('Cueから使用中の配信先セット削除を安全にブロックす�
   assert.throws(() => store.deleteTargetGroup('main'), /GROUP_IN_USE/);
 });
 
+test('required・配信先セット・Adminモードを保存して再起動後に復元する', async () => {
+  const storage = memoryStorage();
+  const store = new StateStore({ storage });
+  store.connectDisplay({ displayId: 'display-a', displayName: '201' });
+  store.setDisplayRequired('display-a', true);
+  store.saveTargetGroup({ id: 'main', name: 'Main', displayIds: ['display-a'], notes: '本番' });
+  store.setAdminMode('advanced');
+  await store.persist();
+
+  const restored = new StateStore({ storage });
+  await restored.load();
+  assert.equal(restored.getDisplay('display-a').required, true);
+  assert.deepEqual(restored.getTargetGroup('main').displayIds, ['display-a']);
+  assert.equal(restored.state.targetGroups[0].notes, '本番');
+  assert.equal(restored.state.adminMode, 'advanced');
+});
+
 test('本番モード切替はCue位置を変更しない', () => {
   const store = new StateStore({ storage: memoryStorage() });
   store.executeCue('cue-002');
