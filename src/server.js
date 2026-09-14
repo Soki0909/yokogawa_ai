@@ -3,9 +3,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
 import { WebSocketServer, WebSocket } from 'ws';
+import QRCode from 'qrcode';
 import { StateStore } from './state-store.js';
 import { createLogger } from './logger.js';
-import { accessUrls } from './network.js';
+import { accessUrls, connectionInfo } from './network.js';
 
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(moduleDirectory, '..');
@@ -32,10 +33,28 @@ app.get('/health', (_request, response) => response.json({
   ok: true, displayConnected: store.displayCount > 0, displays: store.displayCount,
   environment, uptimeSeconds: Math.round(process.uptime()), memoryRssBytes: process.memoryUsage().rss,
 }));
+app.get('/api/connection-info', (_request, response) => response.json(connectionInfo(port)));
+app.get('/api/qr', async (request, response) => {
+  const requestedUrl = typeof request.query.url === 'string' ? request.query.url : '';
+  const info = connectionInfo(port);
+  const allowed = new Set([
+    info.local.admin, info.local.display,
+    ...info.candidates.filter((candidate) => candidate.usable).flatMap((candidate) => [candidate.adminUrl, candidate.displayUrl]),
+  ]);
+  if (!allowed.has(requestedUrl)) return response.status(400).json({ error: 'INVALID_QR_URL' });
+  try {
+    const svg = await QRCode.toString(requestedUrl, { type: 'svg', errorCorrectionLevel: 'M', margin: 2, width: 240 });
+    response.setHeader('Cache-Control', 'no-store');
+    response.type('image/svg+xml').send(svg);
+  } catch (error) {
+    logger.error('QRコードを生成できません', error); response.status(500).json({ error: 'QR_GENERATION_FAILED' });
+  }
+});
 
 const server = http.createServer(app);
 const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
 const clients = new Map();
+const handledActionIds = new Map();
 
 function send(socket, type, payload = {}) {
   if (socket.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ type, ...payload }));
@@ -50,7 +69,7 @@ function broadcast(role, type, payload = {}) {
 }
 
 function broadcastState() {
-  broadcast('admin', 'state', { state: store.snapshot() });
+  broadcast('admin', 'state', { state: { ...store.snapshot(), connectionInfo: connectionInfo(port) } });
 }
 
 function displayState(socket, displayId) {
@@ -109,16 +128,27 @@ function errorResponse(socket, error) {
     EMPTY_TEXT: '読み上げる文章を入力してください。',
     TEXT_TOO_LONG: '文章は5,000文字以内にしてください。',
     DISPLAY_NOT_FOUND: '対象Displayが見つかりません。',
+    DISPLAY_ONLINE: 'ONLINEのDisplay登録は削除できません。先に対象端末を切断してください。',
     CUE_NOT_FOUND: 'Cueが見つかりません。',
     CUE_DISABLED: '無効なCueは実行できません。',
     NO_NEXT_CUE: '次のCueはありません。',
     NO_CURRENT_CUE: '再実行するCueがありません。',
     SCENE_NOT_FOUND: 'Sceneが見つかりません。',
+    GROUP_NOT_FOUND: '配信先セットが見つかりません。',
+    GROUP_IN_USE: 'Cueから使用中の配信先セットは削除できません。先にCueの送信先を変更してください。',
+    INVALID_GROUP: '配信先セットのIDが不正です。',
+    INVALID_MODE: '管理画面モードが不正です。',
+    DUPLICATE_ACTION: '同じ操作の二重送信を防止しました。',
   };
   send(socket, 'error', { code: error.message, message: messages[error.message] ?? '操作を完了できませんでした。' });
 }
 
 function validateTarget(socket, target) {
+  if (target?.type === 'group') {
+    const group = store.getTargetGroup(target.id);
+    if (!group) { send(socket, 'error', { code: 'GROUP_NOT_FOUND', message: '配信先セットが見つかりません。' }); return false; }
+    if (!group.enabled) { send(socket, 'error', { code: 'GROUP_DISABLED', message: '無効な配信先セットは使用できません。' }); return false; }
+  }
   if (!targetDisplays(target).length) {
     send(socket, 'error', { code: 'DISPLAY_UNAVAILABLE', message: '対象Displayが接続されていません。' });
     return false;
@@ -145,6 +175,13 @@ function handleSpeechRequest(socket, factory, logLabel) {
 function handleAdmin(socket, event) {
   if (event.type === 'speak') {
     handleSpeechRequest(socket, () => store.createMessage(event.text, { source: 'free', target: event.target }), 'Free Speakを受付');
+    return;
+  }
+  if (event.type === 'audio:test') {
+    const master = store.getDisplay(store.state.audioMasterId);
+    handleSpeechRequest(socket, () => store.createMessage('音声テストです。横川AIの音声を確認してください。', {
+      source: 'test', target: master ? { type: 'display', id: master.displayId } : { type: 'display', id: 'audio-master-unset' },
+    }), '音声テストを受付');
     return;
   }
   if (event.type === 'stop') {
@@ -178,6 +215,20 @@ function handleAdmin(socket, event) {
       forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId));
       broadcastState(); logger.info('Audio Master変更', { displayId: event.displayId || null });
     } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'display:required') {
+    try { store.setDisplayRequired(event.displayId, event.required); broadcastState(); logger.info('Display必須設定変更', { displayId: event.displayId, required: event.required === true }); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'display:delete') {
+    try { store.deleteDisplay(event.displayId); broadcastState(); logger.info('Display登録削除', { displayId: event.displayId }); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'display:identify') {
+    const target = displaySockets().find(([, client]) => client.displayId === event.displayId);
+    if (!target) errorResponse(socket, new Error('DISPLAY_NOT_FOUND'));
+    else { send(target[0], 'identify', { durationMs: 5000 }); send(socket, 'accepted', { id: `identify:${event.displayId}`, queued: false }); logger.info('Display識別表示', { displayId: event.displayId }); }
+  } else if (event.type === 'target-group:save') {
+    try { const group = store.saveTargetGroup(event.group); broadcastState(); logger.info('配信先セット保存', { groupId: group.id }); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'target-group:delete') {
+    try { store.deleteTargetGroup(event.groupId); broadcastState(); logger.info('配信先セット削除', { groupId: event.groupId }); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'admin-mode:set') {
+    try { store.setAdminMode(event.mode); broadcastState(); logger.info('Adminモード変更', { mode: event.mode }); } catch (error) { errorResponse(socket, error); }
   } else if (event.type === 'settings:update') {
     const settings = store.setSettings(event.settings ?? {});
     broadcast('display', 'settings', { settings }); broadcastState(); logger.info('設定を更新');
@@ -244,14 +295,22 @@ websocketServer.on('connection', (socket) => {
         logger.info('Display接続', { displayId: display.displayId, displayName: display.displayName });
         displayState(socket, display.displayId);
       } else {
-        send(socket, 'state', { state: store.snapshot(), restoreOnly: true });
+        send(socket, 'state', { state: { ...store.snapshot(), connectionInfo: connectionInfo(port) }, restoreOnly: true });
         logger.info('Admin接続');
         broadcast('display', 'voices:request');
       }
       if (client.role === 'display') broadcastState();
       return;
     }
-    if (client.role === 'admin') handleAdmin(socket, event);
+    if (client.role === 'admin') {
+      if (typeof event.actionId === 'string' && event.actionId.length <= 100) {
+        const now = Date.now();
+        for (const [id, handledAt] of handledActionIds) if (now - handledAt > 10_000) handledActionIds.delete(id);
+        if (handledActionIds.has(event.actionId)) { errorResponse(socket, new Error('DUPLICATE_ACTION')); return; }
+        handledActionIds.set(event.actionId, now);
+      }
+      handleAdmin(socket, event);
+    }
     else handleDisplay(client, event);
   });
   socket.on('close', () => {

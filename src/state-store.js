@@ -45,6 +45,7 @@ export class StateStore {
       displays: [], audioMasterId: null, currentMessage: null, currentSubtitle: null,
       displayMode: 'ready', playbackStatus: 'idle', queue: [], history: [],
       scenes: structuredClone(DEFAULT_SCENES), cues: structuredClone(DEFAULT_CUES),
+      targetGroups: [], adminMode: 'show',
       currentCueIndex: -1, currentSceneId: null, settings: { ...DEFAULT_SETTINGS },
     };
   }
@@ -62,10 +63,13 @@ export class StateStore {
       displayId: validId(display.displayId, `display-${randomUUID()}`),
       displayName: safeText(display.displayName).slice(0, 80) || 'Display',
       audioEnabled: display.audioEnabled !== false,
+      required: display.required === true,
       groups: Array.isArray(display.groups) ? display.groups.slice(0, 20) : [],
       online: false, audioReady: false, lastHeartbeat: display.lastHeartbeat ?? null,
       currentSubtitle: display.currentSubtitle ?? null, displayMode: display.displayMode ?? 'ready',
     }));
+    this.state.targetGroups = this.validateTargetGroups(stored.targetGroups);
+    this.state.adminMode = stored.adminMode === 'advanced' ? 'advanced' : 'show';
     const interrupted = new Set(['queued', 'received', 'speaking']);
     this.state.history = (Array.isArray(stored.history) ? stored.history : []).map((item) => interrupted.has(item.status)
       ? { ...item, status: 'error', finishedAt: this.now().toISOString(), error: 'サーバー再起動により発話が中断されました。' }
@@ -77,19 +81,20 @@ export class StateStore {
     const cues = this.orderedCues();
     const currentCue = this.state.currentCueIndex >= 0 ? cues[this.state.currentCueIndex] ?? null : null;
     const nextCue = cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
-    return structuredClone({ ...this.state, currentCue, nextCue });
+    return structuredClone({ ...this.state, currentCue, nextCue, preflight: this.preflight() });
   }
 
   registerDisplay(input = {}) {
     const displayId = validId(input.displayId, `display-${randomUUID()}`);
     let display = this.state.displays.find((item) => item.displayId === displayId);
     if (!display) {
-      display = { displayId, displayName: 'Display', audioEnabled: true, groups: [], currentSubtitle: null, displayMode: 'ready' };
+      display = { displayId, displayName: 'Display', audioEnabled: true, required: false, groups: [], currentSubtitle: null, displayMode: 'ready' };
       this.state.displays.push(display);
     }
     Object.assign(display, {
       displayName: safeText(input.displayName).slice(0, 80) || display.displayName,
       audioEnabled: input.audioEnabled !== false,
+      required: typeof input.required === 'boolean' ? input.required : display.required === true,
       groups: Array.isArray(input.groups) ? input.groups.filter((group) => validId(group, '')).slice(0, 20) : display.groups,
       online: true, audioReady: false, lastHeartbeat: this.now().toISOString(),
     });
@@ -136,6 +141,22 @@ export class StateStore {
 
   getDisplay(displayId) { return this.state.displays.find((item) => item.displayId === displayId); }
 
+  setDisplayRequired(displayId, required) {
+    const display = this.getDisplay(displayId);
+    if (!display) throw new Error('DISPLAY_NOT_FOUND');
+    display.required = required === true; void this.persist(); return display;
+  }
+
+  deleteDisplay(displayId) {
+    const display = this.getDisplay(displayId);
+    if (!display) throw new Error('DISPLAY_NOT_FOUND');
+    if (display.online) throw new Error('DISPLAY_ONLINE');
+    this.state.displays = this.state.displays.filter((item) => item.displayId !== displayId);
+    for (const group of this.state.targetGroups) group.displayIds = group.displayIds.filter((id) => id !== displayId);
+    if (this.state.audioMasterId === displayId) this.state.audioMasterId = null;
+    this.refreshLegacyStatus(); void this.persist(); return display;
+  }
+
   setDisplayAudioReady(displayId, ready) {
     if (typeof displayId === 'boolean') {
       ready = displayId;
@@ -161,7 +182,68 @@ export class StateStore {
   matchesTarget(display, target) {
     if (target.type === 'all') return true;
     if (target.type === 'display') return display.displayId === target.id;
-    return target.type === 'group' && display.groups.includes(target.id);
+    if (target.type !== 'group') return false;
+    const group = this.getTargetGroup(target.id);
+    return group ? group.enabled && group.displayIds.includes(display.displayId) : display.groups.includes(target.id);
+  }
+
+  getTargetGroup(groupId) { return this.state.targetGroups.find((group) => group.id === groupId); }
+
+  saveTargetGroup(input = {}) {
+    const id = validId(input.id, input.id ? '' : `group-${randomUUID()}`);
+    if (!id) throw new Error('INVALID_GROUP');
+    const existing = this.getTargetGroup(id);
+    const displayIds = [...new Set(Array.isArray(input.displayIds) ? input.displayIds.filter((displayId) => validId(displayId, '')) : [])];
+    if (displayIds.some((displayId) => !this.getDisplay(displayId))) throw new Error('DISPLAY_NOT_FOUND');
+    const group = {
+      id, name: safeText(input.name).slice(0, 120) || '名称未設定', displayIds,
+      enabled: input.enabled !== false, notes: safeText(input.notes).slice(0, 500),
+    };
+    if (existing) Object.assign(existing, group); else this.state.targetGroups.push(group);
+    void this.persist(); return group;
+  }
+
+  deleteTargetGroup(groupId) {
+    if (!this.getTargetGroup(groupId)) throw new Error('GROUP_NOT_FOUND');
+    if (this.state.cues.some((cue) => cue.target?.type === 'group' && cue.target.id === groupId)) throw new Error('GROUP_IN_USE');
+    this.state.targetGroups = this.state.targetGroups.filter((group) => group.id !== groupId);
+    void this.persist();
+  }
+
+  setAdminMode(mode) {
+    if (!['show', 'advanced'].includes(mode)) throw new Error('INVALID_MODE');
+    this.state.adminMode = mode; void this.persist(); return mode;
+  }
+
+  preflight() {
+    const items = [];
+    const add = (id, label, status, detail) => items.push({ id, label, status, detail });
+    add('server', 'サーバー', 'ok', '正常稼働中');
+    add('cues', 'Cueデータ', this.state.cues.length ? 'ok' : 'error', `${this.state.cues.length}件`);
+    add('position', 'Cue位置', this.state.currentCueIndex < 0 ? 'ok' : 'warning', this.state.currentCueIndex < 0 ? '開始位置' : `Cue ${this.orderedCues()[this.state.currentCueIndex]?.cueNumber ?? '—'} から再開`);
+    const registered = this.state.displays.length;
+    const online = this.displayCount;
+    add('displays', 'Display接続', online ? (online === registered ? 'ok' : 'warning') : 'error', `${online} ONLINE / ${registered} REGISTERED`);
+    for (const display of this.state.displays) {
+      const status = display.online ? 'ok' : display.required ? 'error' : 'warning';
+      add(`display:${display.displayId}`, `${display.required ? '必須' : '任意'}: ${display.displayName}`, status, display.online ? 'ONLINE' : 'OFFLINE');
+    }
+    const master = this.getDisplay(this.state.audioMasterId);
+    if (!this.state.audioMasterId) add('audio-master', 'Audio Master', 'error', '未設定');
+    else if (!master?.online) add('audio-master', 'Audio Master', 'error', `${master?.displayName ?? this.state.audioMasterId} OFFLINE`);
+    else add('audio-master', 'Audio Master', 'ok', `${master.displayName} ONLINE`);
+    if (master?.online) add('audio-ready', 'Audio Ready', master.audioEnabled && master.audioReady ? 'ok' : 'warning', master.audioEnabled && master.audioReady ? '音声有効化済み' : '音声未有効');
+    for (const group of this.state.targetGroups) {
+      if (!group.enabled) add(`group-disabled:${group.id}`, `配信先: ${group.name}`, 'warning', '無効');
+      if (!group.displayIds.length) add(`group-empty:${group.id}`, `配信先: ${group.name}`, 'warning', '対象Displayなし');
+      const missing = group.displayIds.filter((id) => !this.getDisplay(id));
+      if (missing.length) add(`group:${group.id}`, `配信先: ${group.name}`, 'warning', `不明なDisplay ${missing.length}件`);
+      const requiredOffline = group.displayIds.map((id) => this.getDisplay(id)).filter((display) => display?.required && !display.online);
+      if (requiredOffline.length) add(`group-required:${group.id}`, `配信先: ${group.name}`, 'error', `必須Display OFFLINE: ${requiredOffline.map((display) => display.displayName).join(', ')}`);
+    }
+    const errors = items.filter((item) => item.status === 'error').length;
+    const warnings = items.filter((item) => item.status === 'warning').length;
+    return { status: errors ? 'not-ready' : warnings ? 'warning' : 'ready', canStart: errors === 0, errors, warnings, items };
   }
 
   createMessage(text, { replayOf = null, source = 'free', cue = null, target = { type: 'all' } } = {}) {
@@ -333,6 +415,21 @@ export class StateStore {
       : structuredClone(DEFAULT_CUES);
   }
 
+  validateTargetGroups(input) {
+    if (!Array.isArray(input)) return [];
+    const seen = new Set();
+    return input.flatMap((group) => {
+      const id = validId(group?.id, '');
+      if (!id || seen.has(id)) return [];
+      seen.add(id);
+      return [{
+        id, name: safeText(group.name).slice(0, 120) || id,
+        displayIds: [...new Set(Array.isArray(group.displayIds) ? group.displayIds.filter((displayId) => validId(displayId, '')) : [])],
+        enabled: group.enabled !== false, notes: safeText(group.notes).slice(0, 500),
+      }];
+    });
+  }
+
   orderedCues() { return [...this.state.cues].sort((a, b) => a.order - b.order); }
   reindexCues() { this.state.cues = this.orderedCues().map((cue, order) => ({ ...cue, order })); }
   trimHistory() { this.state.history = this.state.history.slice(0, this.state.settings.historyLimit); }
@@ -342,6 +439,7 @@ export class StateStore {
       settings: this.state.settings, history: this.state.history,
       displays: this.state.displays.map((display) => ({ ...display, online: false, audioReady: false })),
       audioMasterId: this.state.audioMasterId, scenes: this.state.scenes, cues: this.state.cues,
+      targetGroups: this.state.targetGroups, adminMode: this.state.adminMode,
     });
   }
 }
