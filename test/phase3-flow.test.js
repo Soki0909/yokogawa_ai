@@ -109,6 +109,11 @@ test('Phase 3 group・preflight・音声テスト・接続支援をAdmin 1 + Dis
   const advanced = await admin.next((event) => event.type === 'state' && event.state.adminMode === 'advanced');
   assert.equal(advanced.state.currentCueIndex, cueIndex);
 
+  admin.send({ type: 'admin-mode:set', mode: 'show', actionId: 'duplicate-operation-check' });
+  await admin.next((event) => event.type === 'state' && event.state.adminMode === 'show');
+  admin.send({ type: 'admin-mode:set', mode: 'advanced', actionId: 'duplicate-operation-check' });
+  assert.equal((await admin.next((event) => event.type === 'error' && event.code === 'DUPLICATE_ACTION')).message, '同じ操作の二重送信を防止しました。');
+
   admin.send({ type: 'display:identify', displayId: 'display-c' });
   assert.equal((await c.next((event) => event.type === 'identify')).durationMs, 5000);
 

@@ -55,6 +55,27 @@ test('Audio Ready falseを接続状態と分けて警告する', () => {
   assert.equal(audio.detail, '音声未有効');
 });
 
+test('PreflightがCueなし・Audio Masterなし・Master Offlineを開始不可にする', () => {
+  const noMaster = new StateStore({ storage: memoryStorage() });
+  assert.equal(noMaster.preflight().items.find((item) => item.id === 'audio-master').status, 'error');
+  assert.equal(noMaster.preflight().canStart, false);
+
+  const noCues = new StateStore({ storage: memoryStorage() });
+  noCues.connectDisplay({ displayId: 'display-201', displayName: '201', audioEnabled: true });
+  noCues.setDisplayAudioReady('display-201', true);
+  noCues.state.cues = [];
+  assert.equal(noCues.preflight().items.find((item) => item.id === 'cues').status, 'error');
+  assert.equal(noCues.preflight().canStart, false);
+
+  const masterOffline = new StateStore({ storage: memoryStorage() });
+  masterOffline.connectDisplay({ displayId: 'display-201', displayName: '201', audioEnabled: true });
+  masterOffline.markOffline('display-201');
+  const audioMaster = masterOffline.preflight().items.find((item) => item.id === 'audio-master');
+  assert.equal(audioMaster.status, 'error');
+  assert.match(audioMaster.detail, /OFFLINE/);
+  assert.equal(masterOffline.preflight().canStart, false);
+});
+
 test('配信先セットを作成・編集・削除しDisplay IDで参照する', () => {
   const store = new StateStore({ storage: memoryStorage() });
   store.connectDisplay({ displayId: 'display-a', displayName: '201' });
