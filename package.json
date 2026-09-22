@@ -12,7 +12,7 @@
     "start": "node src/server.js",
     "test": "node --test test/*.test.js",
     "test:soak": "node scripts/soak-test.js",
-    "check": "node --check src/server.js && node --check src/state-store.js && node --check src/show-schema.js && node --check src/local-audio.js && node --check src/network.js && node --check src/json-storage.js && node --check public/js/admin.js && node --check public/js/display.js && node --check public/js/socket-client.js && node --check public/js/tts-adapter.js && node --check public/js/lip-sync.js && node --check scripts/soak-test.js && node --test test/*.test.js"
+    "check": "node --check src/server.js && node --check src/state-store.js && node --check src/show-schema.js && node --check src/local-audio.js && node --check src/network.js && node --check src/json-storage.js && node --check public/js/admin.js && node --check public/js/display.js && node --check public/js/socket-client.js && node --check public/js/tts-adapter.js && node --check public/js/lip-sync.js && node --check public/js/shortcuts.js && node --check scripts/soak-test.js && node --test test/*.test.js"
   },
   "dependencies": {
     "express": "5.1.0",

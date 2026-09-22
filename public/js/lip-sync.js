@@ -15,13 +15,13 @@ export class LipSyncStateMachine {
 }
 
 export class LipSyncController {
-  constructor(element) { this.element = element; this.machine = new LipSyncStateMachine(); this.timer = null; this.frame = null; }
+  constructor(element) { this.element = element; this.machine = new LipSyncStateMachine(); this.timer = null; this.frame = null; this.context = null; }
   set(state) { if (this.element) this.element.dataset.mouth = state; }
-  stop() { clearInterval(this.timer); cancelAnimationFrame(this.frame); this.timer = null; this.frame = null; this.set(this.machine.reset()); }
+  stop() { clearInterval(this.timer); cancelAnimationFrame(this.frame); this.context?.close?.(); this.timer = null; this.frame = null; this.context = null; this.set(this.machine.reset()); }
   simulate() { this.stop(); const sequence = ['half', 'open', 'half', 'closed']; let index = 0; this.timer = setInterval(() => this.set(sequence[index++ % sequence.length]), 190); }
   analyse(audio) {
     this.stop(); const Context = globalThis.AudioContext || globalThis.webkitAudioContext; if (!Context) { this.simulate(); return; }
-    const context = new Context(); const source = context.createMediaElementSource(audio); const analyser = context.createAnalyser(); analyser.fftSize = 512; source.connect(analyser); analyser.connect(context.destination);
+    const context = new Context(); this.context = context; const source = context.createMediaElementSource(audio); const analyser = context.createAnalyser(); analyser.fftSize = 512; source.connect(analyser); analyser.connect(context.destination);
     const data = new Uint8Array(analyser.fftSize); const tick = () => { analyser.getByteTimeDomainData(data); let sum = 0; for (const value of data) { const normalized = (value - 128) / 128; sum += normalized * normalized; } this.set(this.machine.update(Math.sqrt(sum / data.length))); this.frame = requestAnimationFrame(tick); }; tick();
   }
 }

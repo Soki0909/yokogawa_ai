@@ -287,11 +287,11 @@ function handleAdmin(socket, event) {
   } else if (event.type === 'clear') {
     const target = event.target ?? { type: 'all' }; store.state.currentSubtitle = null;
     for (const display of store.state.displays) if (store.matchesTarget(display, target)) display.currentSubtitle = null;
-    store.logRehearsal('clear', 'CLEAR'); dispatchPresentation({ kind: 'clear', target, displayText: '', presentationPreset: store.state.currentPresetId, avatar: store.state.currentAvatar }); send(socket, 'accepted', { id: 'clear', queued: false });
+    store.logRehearsal('clear', 'CLEAR'); void store.persist(); dispatchPresentation({ kind: 'clear', target, displayText: '', presentationPreset: store.state.currentPresetId, avatar: store.state.currentAvatar }); send(socket, 'accepted', { id: 'clear', queued: false });
   } else if (event.type === 'blackout') {
     const action = { kind: 'blackout', target: { type: 'all' }, blackout: true, presentationPreset: 'shutdown', avatar: { visible: false, state: 'shutdown' }, displayText: '' };
     if (!store.state.blackout) store.state.previousVisualState = { currentSubtitle: store.state.currentSubtitle, currentPresetId: store.state.currentPresetId, currentAvatar: store.state.currentAvatar };
-    store.state.blackout = true; for (const display of store.state.displays) display.blackout = true; store.logRehearsal('blackout', 'BLACKOUT'); dispatchPresentation(action);
+    store.state.blackout = true; for (const display of store.state.displays) display.blackout = true; store.logRehearsal('blackout', 'BLACKOUT'); void store.persist(); dispatchPresentation(action);
   } else if (event.type === 'blackout:clear') {
     store.clearBlackout(); forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId)); broadcastState();
   } else if (event.type === 'preset:save') {

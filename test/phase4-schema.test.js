@@ -16,6 +16,11 @@ test('旧CueをSchema v2へ後方互換移行する', () => {
   assert.equal(cue.speechText, '旧本文'); assert.equal(cue.displayText, '旧本文'); assert.equal(cue.kind, 'speech-display');
 });
 
+test('speech/display本文とroute/scene/locationを独立保持する', () => {
+  const cue = normalizeCue({ id: 'split', name: 'Split', route: 'route-b', scene: 'scene-b', location: '7号館', speechText: '話す内容', displayText: '表示する内容' });
+  assert.equal(cue.speechText, '話す内容'); assert.equal(cue.displayText, '表示する内容'); assert.equal(cue.route, 'route-b'); assert.equal(cue.scene, 'scene-b'); assert.equal(cue.location, '7号館');
+});
+
 test('全6 Cue種別と6標準Presetを提供する', () => {
   assert.deepEqual(CUE_KINDS, ['speech-display', 'speech-only', 'display-only', 'clear', 'blackout', 'preset-only']);
   assert.deepEqual(DEFAULT_PRESETS.map((item) => item.id), ['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']);
