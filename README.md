@@ -1,171 +1,129 @@
-# 横川AI Phase 3 — Production Show Control
+# 横川AI Phase 4 — Scripted Presentation System
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 3 / v0.3.0ではPhase 2のCue・複数Display・Audio Master・Free Speakを維持しつつ、他のスタッフでも迷いにくい本番モード、本番前チェック、配信先セット、LAN/QR接続支援を追加しました。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 4 / v0.4.0はPhase 3のCue進行・複数Display・Audio Master・Free Speak・Preflightを維持し、脚本、表示演出、ローカル音声、アバターをShow Fileで交換できるようにしました。
 
 ```text
-Admin /admin ── 本番モード / Preflight / Cue / Free Speak ──┐
-                                                               ▼
-                                             Node.js + WebSocket Server
-                                             状態・Cue・履歴・JSON保存
-                                                               │
-                     ┌─────────────────────────────────────────┼──────────────┐
-                     ▼                                         ▼              ▼
-              Display A /display                        Display B        Display C...
-              字幕 + AUDIO MASTER                       字幕のみ         字幕のみ
+Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
+                                                            │
+                         ┌──────────────────────────────────┼──────────┐
+                         ▼                                  ▼          ▼
+                  Display A /display                   Display B   Display C…
+                  字幕 + Audio Master                  字幕のみ    字幕のみ
 ```
 
-- Node.js 20以上、Express 5、`ws`、Vanilla HTML/CSS/JavaScript
-- QRコードはローカル生成し、公演中の中核機能にクラウドやCDNを使用しない
-- サーバーがCue位置、Display、字幕、キュー、履歴、Audio Masterのsource of truth
-- Display台数は固定せず、Admin 1台＋Display 3台を自動試験・実ブラウザ試験済み
-- `public/js/tts-adapter.js` にTTS Provider交換境界を維持
+Node.js 20以上、Express、`ws`、Vanilla HTML/CSS/JavaScriptを使用します。CDNやクラウドAPIは使わず、会場LAN内だけで中核機能が動作します。
 
-## セットアップと起動
-
-依存パッケージの初回取得時だけインターネットが必要です。
+## 起動と会場設営
 
 ```powershell
 npm install
 npm start
 ```
 
-`start-yokogawa-ai.cmd` のダブルクリックでも起動できます。既定は `HOST=0.0.0.0`、`PORT=3000` です。起動ログにlocalhostと利用可能なLAN IPv4のAdmin/Display URLが表示されます。
+`start-yokogawa-ai.cmd` でも起動できます。既定は `HOST=0.0.0.0`、`PORT=3000` です。
 
-| 変数 | 既定値 | 用途 |
-|---|---|---|
+1. Server、Admin、Displayを同じLANへ接続する。
+2. 起動ログまたはAdmin詳細画面のLAN URL/QRを使用する。
+3. Adminを `/admin`、投影端末を `/display` で開く。
+4. Display Nameを設定し、音を出す1台だけをAudio Masterにする。
+5. Audio Masterの「設定を保存して開始」を押す。
+6. 必要なDisplayをrequiredにし、PreflightのERRORを解消する。
+7. Show FileをDry Runし、リハーサルを開始して本番操作を確認する。
+
+| 変数 | 既定 | 用途 |
+|---|---:|---|
 | `PORT` | `3000` | HTTP/WebSocketポート |
-| `HOST` | `0.0.0.0` | LAN待受。単一PC限定なら `127.0.0.1` |
-| `NODE_ENV` | `production` | 実行環境名 |
+| `HOST` | `0.0.0.0` | LAN待受 |
 | `STATE_FILE` | `data/state.json` | 状態保存先 |
-| `LOG_DIRECTORY` | `logs` | ログ保存先 |
-| `HEARTBEAT_TIMEOUT_MS` | `7000` | Display Offline判定時間 |
+| `LOG_DIRECTORY` | `logs` | 運用ログ |
+| `HEARTBEAT_TIMEOUT_MS` | `7000` | OFFLINE判定 |
 
-ブラウザは `location.host` を使い、HTTPなら `ws://`、HTTPSなら `wss://` を選択します。コードはlocalhost、Windows固有パス、大学固有ネットワークへ固定していません。
+URL、WebSocket、保存先はlocalhostやWindows固有パスへ固定していません。HTTPS環境では同一hostの `wss:` を使用するため、将来のRender等への配置余地も残しています。
 
-## 会場LANの設営
+## Cue Schema v2
 
-1. サーバーPC、Admin端末、Display端末を同じLANへ接続します。
-2. サーバーPCで起動し、表示された会場LANのIPv4 URLを選びます。
-3. Adminで `/admin` を開き、「詳細操作」内の接続情報またはQRを使います。
-4. 各投影端末で `/display` を開き、Display Nameと音声出力許可を設定します。
-5. Adminの「識別表示」で端末名とDisplay IDが正しい投影先に出ることを確認します。
-6. 必須端末だけ `required` にし、その他は `optional` のままにします。
-7. Audio Masterを1台指定し、そのDisplayで「設定を保存して開始」を押します。
-8. 本番前チェックがREADY、または意図したWARNINGだけであることを確認します。
+Cueは `schemaVersion: 2` で、主要フィールドは次のとおりです。
 
-接続候補が複数ある場合は、会場LANと同じサブネットのアドレスを選んでください。仮想・リンクローカル等は可能な範囲で候補から除外・区別します。Windows Firewallの許可は利用するプライベートネットワークだけに限定してください。
+- `id/name/enabled/route/scene/location/kind/target`
+- `speechText`: 音声用。観客表示と別内容にできる
+- `displayText`: Display字幕用
+- `operatorNote/triggerNote`: Adminだけに表示しDisplayへ送らない
+- `presentationPreset`: 見た目のPreset ID
+- `avatar`: 表示可否と状態
+- `audio`: `speechMode/assetId/lipSyncMode`
 
-KIT-WLAP2ではPhase 2時点で端末間通信を実機確認済みです。Phase 3も同構成を想定しますが、コードはKIT-WLAP2固有仕様に依存しません。IP変更時はサーバーを再起動して新しいURL/QRを使用します。
+旧 `cueId/cueName/text/sceneId` は読み込み時にv2へ移行し、互換aliasも保持します。
 
-## Display登録、required / optional、Audio Ready
-
-Display ID、表示名、音声許可はブラウザのlocalStorageに保存されます。テスト時だけ `/display?id=rehearsal-a&name=Main` のように初期値を指定できます。本番は通常の `/display` を使ってください。
-
-- `required`: 切断すると本番前チェックがERROR / NOT READY
-- `optional`: 切断してもオンラインの対象へ継続し、WARNING
-- Heartbeatは2秒間隔、既定7秒でOFFLINE
-- 再接続は同じIDを復元し、過去字幕を同期するが過去音声は自動再生しない
-- Audio Readyはランタイム状態で、Audio Masterの再読込後は再度有効化が必要
-- Audio Masterは切断時も自動変更しない。運用者が状態を確認して手動変更する
-
-## 本番前チェック
-
-Cueを実行せず、Server、Cue件数、Cue位置、全Display名・接続状態・required属性、Audio Master、Audio Ready、配信先セットを確認できます。
-
-- `READY`: 必須条件がそろっている
-- `WARNING`: 開始可能だが、任意Display Offline、途中Cue、Audio未有効等の注意がある
-- `NOT READY`: Cueなし、Audio Master未設定/Offline、required Display Offline等
-
-「音声テスト」はAudio Masterだけへテスト文を送り、Current Cueを変更しません。
-
-## 配信先セット
-
-「詳細操作」から複数Displayを名前付きセットとして作成し、CueまたはFree Speakのtargetに選べます。セットはDisplay名ではなくDisplay IDを参照するため、名称変更後も維持されます。
-
-- group内の一部がOfflineでもオンライン端末へ配信
-- group内のrequired DisplayがOfflineならPreflightで警告
-- Display登録削除時はgroup参照を安全に除去
-- Cueが使用中のgroup削除はブロック
-- 無効または送信先0台のtargetは明確なエラー
-
-## 本番中の基本操作
-
-通常は「本番モード」で操作します。現在Scene、Current Cue本文/target、次Cue本文、Display/Audio警告を確認でき、NEXTを最大の主要ボタンとして表示します。
-
-- `NEXT`: 次の有効Cueを実行
-- `BACK`: Cue位置だけを1つ戻し、発話しない
-- `REPLAY`: Current Cueを新しい履歴イベントとして再実行
-- `STOP`: 現在のAudio Masterへ停止を送る
-
-Cue編集、任意Cue、Audio Master変更、Free Speak、配信先編集、Show Resetは「詳細操作」に分離しています。主要操作は短時間ロックとaction IDのサーバー側重複排除で二重実行を抑制します。
-
-固定Cueが本番の主系統です。Cue targetはALL、特定Display、配信先セットに対応します。Free Speakは想定外の台詞用で、Cueと同じキュー・履歴を使いますがCue位置を進めません。Show Resetは確認後にCue位置、字幕、発話キューを初期化し、Cue定義、Display登録、設定、履歴は保持します。
-
-## トラブル時
-
-| 状況 | 対応 |
+| kind | 動作 |
 |---|---|
-| required DisplayがOFFLINE | LANとブラウザを確認し、同じDisplay IDで再接続 |
-| optional DisplayがOFFLINE | 他Displayは継続。必要性を確認して復旧 |
-| Audio MasterがOFFLINE | 字幕は継続。自動切替されないため、復旧または手動で別Masterを指定 |
-| MasterがONLINEだが音がない | Audio Ready、端末音量、タブミュート、日本語音声を確認 |
-| Admin切断 | Displayとサーバーは継続。Adminを再読込するとCue位置と状態を同期 |
-| 送信先0台 | target/group有効状態と対象DisplayのONLINEを確認 |
-| TTSエラー | 字幕で継続し、音声設定後にCueまたは履歴から再実行 |
-| ポート使用中 | `$env:PORT=3100; npm start` |
+| `speech-display` | 発話と字幕 |
+| `speech-only` | 発話のみ |
+| `display-only` | 字幕のみ |
+| `clear` | 字幕を消去 |
+| `blackout` | 全面暗転。再接続でも維持 |
+| `preset-only` | 本文・音声を変えず演出だけ変更 |
 
-Audio Masterが発話中に切断した場合は、誤った自動継続を避け、現在発話と待機キューをエラー終了します。運用者が状態確認後に再実行してください。
+## Presentation / Avatar / Lip Sync
 
-## TTS Provider境界
+標準Presetは `normal`、`warning`、`hijacked`、`hostile`、`shutdown`、`recovery` です。色、背景、glow、motionはデータで調整できます。Presetと現在表示はServer authoritativeで、再接続時に復元します。`prefers-reduced-motion` とShow設定の `reducedMotion` に対応します。
 
-Phase 3も `createSpeechProvider` / `BrowserSpeechProvider` を使用し、Cue・WebSocket・Show Control層は `speechSynthesis` を直接呼びません。将来は同じ契約でVOICEVOX、事前生成音声等を追加できます。今回VOICEVOXや演者録音は導入していません。
+Displayは特定の演者をモデルにしない軽量SVGのローポリ風AI教授を表示します。顔・眼鏡・眉・口・胸上シルエットを同じ人物として保ち、状態だけを変えます。口は `closed/half/open` の3段階です。
 
-## テスト
+- `simulated`: Browser TTS向けのゆっくりした疑似口パク
+- `audio-reactive`: ローカル音声のWeb Audio振幅を平滑化し、hysteresisとholdで口を制御
+- `none`: 口パクなし
+
+Avatar非表示、STOP、終了、エラーでは口パク処理を停止してclosedへ戻します。
+
+## 音声
+
+`browser` は従来のBrowser Speech Synthesis、`audio-file` はAsset RegistryのWAV/MP3、`none` は無音です。実音声を出すのは常にGlobal Audio Master 1台だけで、他Displayは字幕・演出のみ同期します。ローカル音声もSTOP、Cue REPLAYに対応します。
+
+AssetはIDと `assets/audio/*.wav|*.mp3` の相対pathを分離します。`..`、絶対path、asset root外、MIME/拡張子不整合を拒否します。音声データをWebSocketへ流さず、HTTPのローカルasset endpointから取得します。
+
+## Show File
+
+詳細操作の「Show File書き出し／読込」を使用します。含むものはmetadata、routes、scenes、cues、groups、presets、avatar、assets、show settingsです。接続、heartbeat、Audio Ready、履歴、WebSocket session、秘密情報、OS絶対pathは含みません。
+
+Importは先にDry Runし、schema、重複ID、Cue kind、target、group、preset、avatar、audio asset、参照整合性を検査します。Error時は現在Showを一切変更しません。
+
+## 本番操作
+
+- `NEXT` / Space: 次の有効Cue
+- `BACK` / B: Cue位置だけ戻す
+- `REPLAY` / R: Current Cueを再実行
+- `STOP` / Esc: 現在音声を停止
+- `CLEAR` / C: 字幕を消去
+- `BLACKOUT`: 全Displayを暗転（単一キー割当なし）
+- `RESTORE`: BLACKOUT前のPreset/字幕へ復元
+
+input、textarea、select、contenteditableの操作中、modifier押下中、key repeatではショートカットを無効化します。設定からショートカット全体も無効化できます。Free SpeakはCue位置を変えず、想定外の台詞に使用します。
+
+## Rehearsal / Preflight
+
+Rehearsal Sessionは開始時刻を0秒としてCueと操作のtimestamp、elapsed time、route/scene/location、target、preset、speech mode、結果を記録します。CSV/JSONをローカルExportできます。
+
+PreflightはPhase 3項目に加え、Show Schema v2、Cue参照、Preset、Avatar、Audio Asset、target group、required Display、Audio Master/Readyを確認します。
+
+## 障害時
+
+- Display再接続: 同じIDで現在Preset、字幕、Avatar、BLACKOUTを復元。過去音声は再生しない
+- Admin再接続: ServerのCue位置、Show、ログを復元
+- Audio Master切断: 字幕は継続。音声とキューを安全に終了し、運用者が再指定
+- TTS/音声Assetエラー: 字幕は維持し、修正後にREPLAY
+- Show File Error: Dry Runのエラーを直すまでImportしない
+- Show Reset: Cue位置、字幕、発話、演出を初期化し、Show定義とDisplay登録は保持
+
+## 検証
 
 ```powershell
-npm test
 npm run check
-npm audit
-```
-
-30分のAdmin 1＋Display 3長時間試験:
-
-```powershell
+npm audit --omit=dev
 npm run test:soak
 ```
 
-短縮確認例:
+`test:soak` は既定30分です。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。詳細と100項目の受入照合は [Phase 4検証記録](docs/phase-4/verification.md) を参照してください。
 
-```powershell
-$env:SOAK_MINUTES='1'
-$env:SOAK_INTERVAL_MS='500'
-npm run test:soak
-```
+## Phase 4スコープ外
 
-長時間試験はNEXT/BACK/REPLAY/STOP、ALL/individual/group、Free Speak、required/optional/Master切断・再接続、Admin再接続、Preflight取得、RSS、異常終了を検証します。
-
-## 本番前チェックリスト
-
-- [ ] `npm run check` と30分試験が成功
-- [ ] LAN URLを別端末から開ける
-- [ ] 全required DisplayがONLINE、optionalの不在が意図どおり
-- [ ] 識別表示と実際の投影先が一致
-- [ ] Audio Masterが1台でAudio Ready、二重発話しない
-- [ ] Cue本文・順序・enabled・target groupを確認
-- [ ] NEXT / BACK / REPLAY / STOP / 任意Cue / Free Speakを稽古
-- [ ] Admin・Display再読込とShow Resetの範囲を確認
-- [ ] インターネットを切った会場LANで字幕と実音を確認
-- [ ] プロジェクター、スピーカー、長文、全画面表示を実設備で確認
-
-## Phase 3のスコープ外
-
-アバター本制作、リップシンク、通常/暴走時の具体演出、VOICEVOX本導入、録音音声、自律応答、脚本依存の大量Cue、認証・クラウド前提化はPhase 4以降です。本アプリは実際の施錠、防災、非常口、電源、セキュリティ設備を操作しません。
-
-## 文書と運用データ
-
-- [文書索引](docs/README.md)
-- [Phase 3要件正本](docs/phase-3/yokogawa_ai_phase3_requirements.md)
-- [Phase 3実装指示](docs/phase-3/codex_phase3_implementation_prompt.md)
-- [Phase 3検証記録](docs/phase-3/verification.md)
-
-状態は `data/state.json`、ログは `logs/yokogawa-ai.log` に保存します。認証は未実装です。将来インターネット公開する場合はAdmin認証、TLS、永続Storage、アクセス制御を追加してください。
+VOICEVOX本体、LLM連携、WebGL/3Dアバター、映像編集、複数Audio Zone、クラウド必須機能、特定演者の肖像再現は本番依存にしていません。ProviderとShowデータ境界を残し、後からBrowser TTS、VOICEVOX、事前生成音声を交換できます。
