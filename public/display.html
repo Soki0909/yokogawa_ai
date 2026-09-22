@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/display.css">
   <link rel="stylesheet" href="/css/display-phase2.css">
   <link rel="stylesheet" href="/css/display-phase3.css">
+  <link rel="stylesheet" href="/css/display-phase4.css">
 </head>
 <body>
   <div id="identify-overlay" class="identify-overlay" hidden><span>DISPLAY IDENTITY</span><strong id="identify-name">DISPLAY</strong><small id="identify-id">—</small></div>
@@ -15,6 +16,15 @@
   <main class="stage" id="stage">
     <header><span class="system-label">YKGW // INTELLIGENCE TERMINAL · <span id="display-identity">DISPLAY</span></span><span><button class="setup-link" id="open-setup" type="button">DISPLAY設定</button> <span class="connection" id="connection">CONNECTING</span></span></header>
     <section class="identity" aria-label="横川AI">
+      <div id="avatar-wrap" class="avatar-wrap" data-state="normal" data-mouth="closed" aria-label="AI教授アバター">
+        <svg class="avatar" viewBox="0 0 320 290" role="img" aria-label="ローポリゴンのAI教授">
+          <path class="coat" d="M52 286 76 211 124 192h72l48 19 24 75Z"/><path class="skin" d="m99 61 26-35 70 5 28 37-13 99-43 36-49-30Z"/>
+          <path class="shadow" d="m99 61 28 22-9 90-28-39Z"/><path class="shadow" d="m223 68-34 18 21 81 23-39Z"/><path class="skin" d="m126 190 9 38 25 17 27-18 9-37Z"/>
+          <path class="lens" d="m111 93 44-5 5 39-46 3Z"/><path class="lens" d="m165 88 43 5-2 37-46-3Z"/><circle class="eye" cx="140" cy="109" r="5"/><circle class="eye" cx="181" cy="109" r="5"/>
+          <path class="brow" d="m119 79 33-4"/><path class="brow" d="m169 75 31 5"/><path class="shadow" d="m158 116-12 31 24 1Z"/><rect class="mouth" x="143" y="164" width="35" height="5" rx="3"/>
+          <path class="coat" d="m124 192 36 53 36-53-9 94h-55Z"/>
+        </svg>
+      </div>
       <div class="orb" id="orb"><div class="orb-core"></div><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div></div>
       <p class="designation">YOKOGAWA</p><h1>横川<span>AI</span></h1>
     </section>
@@ -24,6 +34,7 @@
     </section>
     <footer><span>LOCAL SYSTEM</span><span aria-hidden="true">●</span><span>STAGE INTERFACE</span></footer>
   </main>
+  <div id="blackout" class="blackout" hidden aria-live="assertive">BLACKOUT</div>
   <div class="audio-gate" id="audio-gate">
     <div class="audio-gate-card">
       <span>OUTPUT INITIALIZATION</span>

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/css/admin.css">
   <link rel="stylesheet" href="/css/admin-phase2.css">
   <link rel="stylesheet" href="/css/admin-phase3.css">
+  <link rel="stylesheet" href="/css/admin-phase4.css">
 </head>
 <body data-mode="show">
   <header class="topbar">
@@ -51,6 +52,8 @@
         <button id="show-replay-button" type="button">↻ REPLAY</button>
         <button id="show-stop-button" class="show-stop" type="button">■ STOP</button>
       </div>
+      <div class="emergency-controls"><button id="show-clear-button" type="button">CLEAR</button><button id="show-blackout-button" type="button">BLACKOUT</button><button id="show-blackout-clear-button" type="button">RESTORE</button></div>
+      <div class="cue-notes"><p><span>OPERATOR</span> <strong id="show-operator-note">—</strong></p><p><span>TRIGGER</span> <strong id="show-trigger-note">—</strong></p></div>
       <div id="show-alerts" class="show-alerts" role="status" aria-live="polite"></div>
       <button id="open-advanced-button" class="show-details-button" type="button">詳細操作を開く</button>
     </section>
@@ -105,6 +108,12 @@
       <div id="cue-list" class="cue-list"></div>
     </section>
 
+    <section class="phase4-tools panel advanced-only">
+      <div class="panel-heading"><div><span class="step">P4</span><h2>SHOW FILE / REHEARSAL</h2></div></div>
+      <div class="tool-actions"><a class="button-link" href="/api/show-file" download>Show File書き出し</a><label class="button-link">Show File読込<input id="show-file-input" type="file" accept="application/json,.json" hidden></label><button id="rehearsal-toggle" type="button">リハーサル開始</button><a class="button-link" href="/api/rehearsal.csv" download>ログ CSV</a><a class="button-link" href="/api/rehearsal.json" download>ログ JSON</a></div>
+      <p id="rehearsal-status">リハーサル未開始</p><label class="toggle"><input id="shortcuts-input" type="checkbox" checked> 本番ショートカット（Space / R / Esc / B / C）</label>
+    </section>
+
     <section class="workspace advanced-only">
       <div class="composer panel">
         <div class="panel-heading"><div><span class="step">04</span><h2>FREE SPEAK</h2></div><span class="shortcut">Ctrl + Enter</span></div>
@@ -152,7 +161,16 @@
         <label>Cue名<input id="cue-name" maxlength="120" required></label>
         <label>Scene<select id="cue-scene"></select></label>
         <label>Target<select id="cue-target"></select></label>
-        <label class="wide">発話テキスト<textarea id="cue-text" maxlength="5000" rows="6" required></textarea></label>
+        <label>Cue種別<select id="cue-kind"><option value="speech-display">発話＋表示</option><option value="speech-only">発話のみ</option><option value="display-only">表示のみ</option><option value="clear">CLEAR</option><option value="blackout">BLACKOUT</option><option value="preset-only">Presetのみ</option></select></label>
+        <label>Preset<select id="cue-preset"></select></label>
+        <label>音声方式<select id="cue-speech-mode"><option value="browser">Browser TTS</option><option value="audio-file">ローカル音声</option><option value="none">音声なし</option></select></label>
+        <label>音声Asset<select id="cue-asset"><option value="">なし</option></select></label>
+        <label>Avatar状態<select id="cue-avatar-state"><option>normal</option><option>thinking</option><option>warning</option><option>hostile</option><option>shutdown</option><option>speaking</option></select></label>
+        <label>Lip Sync<select id="cue-lip-sync"><option value="simulated">simulated</option><option value="audio-reactive">audio-reactive</option><option value="none">none</option></select></label>
+        <label class="wide">発話テキスト<textarea id="cue-text" maxlength="5000" rows="4"></textarea></label>
+        <label class="wide">表示テキスト<textarea id="cue-display-text" maxlength="5000" rows="4"></textarea></label>
+        <label class="wide">Operator Note<textarea id="cue-operator-note" maxlength="1000" rows="2"></textarea></label>
+        <label class="wide">Trigger Note<textarea id="cue-trigger-note" maxlength="500" rows="2"></textarea></label>
         <label class="toggle wide"><input id="cue-enabled" type="checkbox" checked> 有効</label>
       </div>
       <div class="dialog-actions"><button value="cancel" class="ghost-button">キャンセル</button><button id="save-cue-button" value="default" type="submit" class="send-button">保存</button></div>

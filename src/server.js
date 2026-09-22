@@ -7,6 +7,7 @@ import QRCode from 'qrcode';
 import { StateStore } from './state-store.js';
 import { createLogger } from './logger.js';
 import { accessUrls, connectionInfo } from './network.js';
+import { createTestToneWav, resolveAudioAsset } from './local-audio.js';
 
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(moduleDirectory, '..');
@@ -21,6 +22,7 @@ await store.load();
 
 const app = express();
 app.disable('x-powered-by');
+app.use(express.json({ limit: '1mb' }));
 app.use((_request, response, next) => {
   response.setHeader('Content-Security-Policy', "default-src 'self'; connect-src 'self' ws: wss:; img-src 'self' data:; style-src 'self'; script-src 'self'; frame-ancestors 'none'; base-uri 'none'");
   response.setHeader('X-Content-Type-Options', 'nosniff');
@@ -34,6 +36,33 @@ app.get('/health', (_request, response) => response.json({
   environment, uptimeSeconds: Math.round(process.uptime()), memoryRssBytes: process.memoryUsage().rss,
 }));
 app.get('/api/connection-info', (_request, response) => response.json(connectionInfo(port)));
+app.get('/api/show-file', (_request, response) => {
+  response.setHeader('Content-Disposition', 'attachment; filename="yokogawa-show-v2.json"');
+  response.json(store.exportShowFile());
+});
+app.post('/api/show-file/validate', (request, response) => response.json(store.importShowFile(request.body, { apply: false })));
+app.post('/api/show-file/import', (request, response) => {
+  const result = store.importShowFile(request.body, { apply: true });
+  response.status(result.valid ? 200 : 422).json(result);
+  if (result.valid) broadcastState();
+});
+app.get('/api/rehearsal.json', (_request, response) => {
+  response.setHeader('Content-Disposition', 'attachment; filename="rehearsal-log.json"');
+  response.json({ session: store.state.rehearsalSession, events: store.state.rehearsalLog });
+});
+app.get('/api/rehearsal.csv', (_request, response) => {
+  const quote = (value) => `"${String(value ?? '').replaceAll('"', '""')}"`;
+  const rows = [['timestamp', 'elapsedMs', 'type', 'label', 'detail'], ...store.state.rehearsalLog.map((item) => [item.timestamp, item.elapsedMs, item.type, item.label, JSON.stringify(item.detail)])];
+  response.setHeader('Content-Disposition', 'attachment; filename="rehearsal-log.csv"'); response.type('text/csv').send('\ufeff' + rows.map((row) => row.map(quote).join(',')).join('\r\n'));
+});
+app.get('/api/assets/:assetId', (request, response) => {
+  const asset = store.state.assets.find((item) => item.id === request.params.assetId);
+  if (!asset) return response.status(404).json({ error: 'ASSET_NOT_FOUND' });
+  response.setHeader('Cache-Control', 'public, max-age=3600'); response.type(asset.mimeType);
+  if (asset.id === 'test-tone') return response.send(createTestToneWav());
+  try { return response.sendFile(resolveAudioAsset(publicDirectory, asset)); }
+  catch { return response.status(400).json({ error: 'UNSAFE_ASSET_PATH' }); }
+});
 app.get('/api/qr', async (request, response) => {
   const requestedUrl = typeof request.query.url === 'string' ? request.query.url : '';
   const info = connectionInfo(port);
@@ -74,7 +103,7 @@ function broadcastState() {
 
 function displayState(socket, displayId) {
   send(socket, 'state', {
-    state: store.snapshot(), self: store.getDisplay(displayId),
+    state: store.displaySnapshot(displayId), self: store.getDisplay(displayId),
     isAudioMaster: store.state.audioMasterId === displayId, restoreOnly: true,
   });
 }
@@ -94,7 +123,7 @@ function audioMasterReadyFor(target) {
 }
 
 function dispatch(message) {
-  store.applyDisplayState(message);
+  if (message.kind === 'speech-display' || !message.kind) store.applyDisplayState(message);
   const recipients = targetDisplays(message.target);
   let audioReceiver = false;
   for (const [socket, client] of recipients) {
@@ -114,6 +143,12 @@ function dispatch(message) {
     if (result.next) queueMicrotask(() => dispatch(result.next));
   }
   return recipients.length > 0;
+}
+
+function dispatchPresentation(action) {
+  const recipients = targetDisplays(action.target);
+  for (const [socket] of recipients) send(socket, 'presentation', { presentation: action, preset: store.getPreset(action.presentationPreset) });
+  broadcastState(); return recipients.length > 0;
 }
 
 function enqueueAndDispatch(socket, message) {
@@ -143,7 +178,7 @@ function errorResponse(socket, error) {
   send(socket, 'error', { code: error.message, message: messages[error.message] ?? '操作を完了できませんでした。' });
 }
 
-function validateTarget(socket, target) {
+function validateTarget(socket, target, requireAudio = true) {
   if (target?.type === 'group') {
     const group = store.getTargetGroup(target.id);
     if (!group) { send(socket, 'error', { code: 'GROUP_NOT_FOUND', message: '配信先セットが見つかりません。' }); return false; }
@@ -153,7 +188,7 @@ function validateTarget(socket, target) {
     send(socket, 'error', { code: 'DISPLAY_UNAVAILABLE', message: '対象Displayが接続されていません。' });
     return false;
   }
-  if (!audioMasterReadyFor(target)) {
+  if (requireAudio && !audioMasterReadyFor(target)) {
     send(socket, 'error', { code: 'AUDIO_NOT_READY', message: 'Audio Masterで「音声を有効化」を押してください。' });
     return false;
   }
@@ -170,6 +205,17 @@ function handleSpeechRequest(socket, factory, logLabel) {
   } catch (error) {
     errorResponse(socket, error);
   }
+}
+
+function handleCueRequest(socket, factory, logLabel) {
+  try {
+    const prepared = factory();
+    if (!validateTarget(socket, prepared.cue.target, Boolean(prepared.message))) return;
+    dispatchPresentation(prepared.action);
+    if (prepared.message) enqueueAndDispatch(socket, prepared.message);
+    else { send(socket, 'accepted', { id: `cue:${prepared.cue.cueId}`, queued: false }); broadcastState(); }
+    logger.info(logLabel, { cueId: prepared.cue.cueId, kind: prepared.cue.kind, target: prepared.cue.target });
+  } catch (error) { errorResponse(socket, error); }
 }
 
 function handleAdmin(socket, event) {
@@ -198,9 +244,9 @@ function handleAdmin(socket, event) {
     handleSpeechRequest(socket, () => store.createMessage(original.text, { replayOf: original.id, source: original.source, target: original.target }), '履歴再読み上げを受付');
     return;
   }
-  if (event.type === 'cue:next') handleSpeechRequest(socket, () => store.nextCue(), 'Cue NEXT');
-  else if (event.type === 'cue:execute') handleSpeechRequest(socket, () => store.executeCue(event.cueId), 'Cue直接実行');
-  else if (event.type === 'cue:replay') handleSpeechRequest(socket, () => store.replayCue(), 'Cue REPLAY');
+  if (event.type === 'cue:next') handleCueRequest(socket, () => store.nextCue(), 'Cue NEXT');
+  else if (event.type === 'cue:execute') handleCueRequest(socket, () => store.executeCue(event.cueId), 'Cue直接実行');
+  else if (event.type === 'cue:replay') handleCueRequest(socket, () => store.replayCue(), 'Cue REPLAY');
   else if (event.type === 'cue:back') {
     store.backCue(); broadcastState(); logger.info('Cue BACK');
   } else if (event.type === 'cue:save') {
@@ -235,6 +281,24 @@ function handleAdmin(socket, event) {
   } else if (event.type === 'show:reset') {
     forRole('display', (displaySocket) => send(displaySocket, 'show:reset'));
     store.showReset(); broadcastState(); logger.info('Show Reset');
+  } else if (event.type === 'clear') {
+    const target = event.target ?? { type: 'all' }; store.state.currentSubtitle = null;
+    for (const display of store.state.displays) if (store.matchesTarget(display, target)) display.currentSubtitle = null;
+    store.logRehearsal('clear', 'CLEAR'); dispatchPresentation({ kind: 'clear', target, displayText: '', presentationPreset: store.state.currentPresetId, avatar: store.state.currentAvatar }); send(socket, 'accepted', { id: 'clear', queued: false });
+  } else if (event.type === 'blackout') {
+    const action = { kind: 'blackout', target: { type: 'all' }, blackout: true, presentationPreset: 'shutdown', avatar: { visible: false, state: 'shutdown' }, displayText: '' };
+    if (!store.state.blackout) store.state.previousVisualState = { currentSubtitle: store.state.currentSubtitle, currentPresetId: store.state.currentPresetId, currentAvatar: store.state.currentAvatar };
+    store.state.blackout = true; for (const display of store.state.displays) display.blackout = true; store.logRehearsal('blackout', 'BLACKOUT'); dispatchPresentation(action);
+  } else if (event.type === 'blackout:clear') {
+    store.clearBlackout(); forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId)); broadcastState();
+  } else if (event.type === 'preset:save') {
+    try { store.savePreset(event.preset); broadcastState(); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'preset:delete') {
+    try { store.deletePreset(event.presetId); broadcastState(); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'rehearsal:start') {
+    store.startRehearsal(); broadcastState();
+  } else if (event.type === 'rehearsal:stop') {
+    store.stopRehearsal(); broadcastState();
   }
 }
 

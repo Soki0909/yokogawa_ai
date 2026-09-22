@@ -59,7 +59,22 @@ export class BrowserSpeechProvider {
 // Phase 1 name kept for backwards compatibility.
 export const BrowserSpeechAdapter = BrowserSpeechProvider;
 
+export class LocalAudioProvider {
+  constructor(callbacks = {}, AudioClass = globalThis.Audio) { this.callbacks = callbacks; this.AudioClass = AudioClass; this.active = null; }
+  getVoices() { return []; }
+  speak(message) {
+    if (!this.AudioClass || !message.audio?.assetId) throw new Error('ローカル音声アセットを利用できません');
+    this.stop(false); const audio = new this.AudioClass(`/api/assets/${encodeURIComponent(message.audio.assetId)}`); this.active = { id: message.id, audio };
+    audio.onplay = () => this.callbacks.onStart?.(message.id, audio);
+    audio.onended = () => { if (this.active?.audio !== audio) return; this.active = null; this.callbacks.onEnd?.(message.id); };
+    audio.onerror = () => { if (this.active?.audio !== audio) return; this.active = null; this.callbacks.onError?.(message.id, '音声ファイルの再生に失敗しました'); };
+    const result = audio.play(); result?.catch?.((error) => this.callbacks.onError?.(message.id, error.message)); return audio;
+  }
+  stop(notify = true) { if (!this.active) return; const { id, audio } = this.active; this.active = null; audio.pause(); audio.currentTime = 0; if (notify) this.callbacks.onStop?.(id); }
+}
+
 export function createSpeechProvider(provider, callbacks = {}, dependencies = {}) {
+  if (provider === 'audio-file') return new LocalAudioProvider(callbacks, dependencies.AudioClass);
   if (provider !== 'browser') throw new Error(`未対応のSpeech Providerです: ${provider}`);
   return new BrowserSpeechProvider(callbacks, dependencies.engine, dependencies.Utterance);
 }
