@@ -36,7 +36,7 @@ test('Show File exportはruntimeを含まずimport失敗時は状態を変更し
 test('Preset CRUD・Rehearsal経過ログ・拡張Preflightを管理する', async () => {
   let tick = 0; const now = () => new Date(1_800_000_000_000 + tick);
   const store = new StateStore({ storage: memory(), now }); await store.load();
-  store.savePreset({ id: 'custom', name: 'Custom', background: '#112233', accent: '#445566', text: '#ffffff' }); assert.equal(store.getPreset('custom').name, 'Custom'); store.deletePreset('custom'); assert.equal(store.getPreset('custom').id, 'normal');
+  store.savePreset({ id: 'custom', name: 'Custom', background: '#112233', accent: '#445566', text: '#ffffff' }); assert.equal(store.getPreset('custom').name, 'Custom'); store.savePreset({ id: 'custom', name: 'Updated', background: '#112233', accent: '#445566', text: '#ffffff' }); assert.equal(store.getPreset('custom').name, 'Updated'); store.deletePreset('custom'); assert.equal(store.getPreset('custom').id, 'normal');
   store.startRehearsal(); tick = 1250; store.logRehearsal('clear', 'CLEAR'); store.stopRehearsal(); assert.equal(store.state.rehearsalLog[1].elapsedMs, 1250);
   const ids = store.preflight().items.map((item) => item.id); for (const id of ['show-schema', 'presets', 'avatar', 'audio-assets']) assert.ok(ids.includes(id));
 });

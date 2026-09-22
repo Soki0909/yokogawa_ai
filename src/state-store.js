@@ -429,7 +429,7 @@ export class StateStore {
       display.currentAvatar = { ...this.state.currentAvatar }; display.blackout = cue.kind === 'blackout' ? true : display.blackout;
       display.displayMode = cue.kind;
     }
-    this.state.displayMode = cue.kind; this.logRehearsal('cue', `${cue.cueNumber} ${cue.cueName}`, { cueId: cue.cueId, kind: cue.kind });
+    this.state.displayMode = cue.kind; this.logRehearsal('cue', `${cue.cueNumber} ${cue.cueName}`, { cueId: cue.cueId, cueName: cue.cueName, route: cue.route, scene: cue.scene, location: cue.location, target: cue.target, preset: cue.presentationPreset, speechMode: cue.audio.speechMode, kind: cue.kind, result: 'success' });
     void this.persist(); return action;
   }
 

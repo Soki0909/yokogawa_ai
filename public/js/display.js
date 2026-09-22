@@ -49,7 +49,7 @@ const localAudio = createSpeechProvider('audio-file', {
 function applyPresentation(presentation = {}, preset = null) {
   if (preset) { document.documentElement.style.setProperty('--phase-bg', preset.background); document.documentElement.style.setProperty('--phase-accent', preset.accent); document.documentElement.style.setProperty('--phase-text', preset.text); document.documentElement.style.setProperty('--phase-glow', preset.glow); document.body.dataset.motion = preset.motion; }
   if (presentation.kind === 'clear') showCaption(''); else if (presentation.displayText && presentation.kind !== 'speech-only') showCaption(presentation.displayText);
-  if (presentation.avatar) { elements['avatar-wrap'].hidden = presentation.avatar.visible === false; elements['avatar-wrap'].dataset.state = presentation.avatar.state ?? 'normal'; }
+  if (presentation.avatar) { elements['avatar-wrap'].hidden = presentation.avatar.visible === false; elements['avatar-wrap'].dataset.state = presentation.avatar.state ?? 'normal'; if (presentation.avatar.visible === false) lipSync.stop(); }
   elements.blackout.hidden = presentation.blackout !== true;
 }
 

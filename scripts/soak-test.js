@@ -80,7 +80,7 @@ const close = (client) => new Promise((resolve) => {
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 const port = await freePort();
-const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase3-soak-'));
+const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase4-soak-'));
 const server = spawn(process.execPath, ['src/server.js'], {
   cwd: process.cwd(),
   env: {
@@ -106,6 +106,7 @@ const metrics = {
   replayEvents: 0, stopEvents: 0, reconnects: 0, adminReconnects: 0,
   offlineDetections: 0, requiredOfflineDetections: 0, masterReconnects: 0,
   masterChanges: 0, preflightChecks: 0,
+  presentationEvents: 0, blackoutEvents: 0, localAudioEvents: 0,
 };
 const processedMessageIds = new Set();
 const durationMs = minutes * 60 * 1000;
@@ -144,9 +145,23 @@ async function awaitCompleted(id) {
 }
 
 async function exerciseSpeech(iteration) {
-  const kind = iteration % 8;
+  const kind = iteration % 12;
   let event;
-  if (kind === 0) {
+  if (kind === 8) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-display' });
+    await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.displayText === 'Phase 4 display-only')));
+    metrics.presentationEvents += 1; return;
+  }
+  if (kind === 9) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-audio' });
+    event = await displays.get(currentMaster).next((item) => item.type === 'speak' && item.message.cueId === 'soak-audio' && !processedMessageIds.has(item.message.id));
+    assert.equal(event.message.audio.speechMode, 'audio-file'); metrics.localAudioEvents += 1;
+  } else if (kind === 10) {
+    admin.send({ type: 'clear' }); await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.kind === 'clear'))); metrics.presentationEvents += 1; return;
+  } else if (kind === 11) {
+    admin.send({ type: 'blackout' }); await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.blackout))); admin.send({ type: 'blackout:clear' }); await admin.next((item) => item.type === 'state' && item.state.blackout === false); metrics.blackoutEvents += 1; return;
+  }
+  else if (kind === 0) {
     const text = `Phase 3 broadcast ${iteration}: 日本語 English 123 !?`;
     admin.send({ type: 'speak', text, target: { type: 'all' } });
     event = await displays.get(currentMaster).next((item) => item.type === 'speak' && item.message.text === text && !processedMessageIds.has(item.message.id));
@@ -224,6 +239,8 @@ try {
   admin.send({ type: 'display:required', displayId: 'display-c', required: true });
   admin.send({ type: 'target-group:save', group: { id: 'front-pair', name: 'Main + East', displayIds: ['display-a', 'display-b'], enabled: true, notes: 'Phase 3 soak' } });
   admin.send({ type: 'admin-mode:set', mode: 'show' });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-display', cueNumber: 'P4-D', cueName: 'Display only', kind: 'display-only', displayText: 'Phase 4 display-only', speechText: '', presentationPreset: 'warning', target: { type: 'all' }, avatar: { visible: true, state: 'warning' }, audio: { speechMode: 'none', lipSyncMode: 'none' }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-audio', cueNumber: 'P4-A', cueName: 'Local audio', kind: 'speech-display', displayText: 'Phase 4 local audio', speechText: 'fallback', presentationPreset: 'hijacked', target: { type: 'all' }, avatar: { visible: true, state: 'speaking' }, audio: { speechMode: 'audio-file', assetId: 'test-tone', lipSyncMode: 'audio-reactive' }, enabled: true } });
   const ready = await admin.next((event) => event.type === 'state'
     && event.state.targetGroups.some((group) => group.id === 'front-pair')
     && event.state.displays.filter((display) => display.required).length === 2
@@ -324,6 +341,7 @@ try {
   assert.ok(metrics.cueEvents > 0);
   assert.ok(metrics.replayEvents > 0);
   assert.ok(metrics.stopEvents > 0);
+  assert.ok(metrics.presentationEvents > 0); assert.ok(metrics.blackoutEvents > 0); assert.ok(metrics.localAudioEvents > 0);
   assert.doesNotMatch(serverErrors, /Unhandled|uncaught/i);
   assert.ok(memoryGrowthBytes < 128 * 1024 * 1024, `RSS増加が128MiB未満: ${memoryGrowthBytes}`);
   console.log(`SOAK PASS: ${minutes}分 / ${JSON.stringify({ ...metrics, memoryStartBytes: initialHealth.memoryRssBytes, memoryEndBytes: finalHealth.memoryRssBytes, memoryGrowthBytes, abnormalExit: false })}`);

@@ -24,8 +24,10 @@ test('全6 Cue種別と6標準Presetを提供する', () => {
 test('Show Fileをdry-run検証し不正参照を原子的に拒否する', () => {
   assert.equal(validateShowFile(showFile()).valid, true);
   const invalid = showFile(); invalid.cues[0].presentationPreset = 'missing'; invalid.assets[0].path = '../secret.mp3';
+  invalid.cues[0].kind = 'unknown-kind'; invalid.cues[0].avatar = { state: 'invalid-avatar' };
   const result = validateShowFile(invalid); assert.equal(result.valid, false);
   assert.ok(result.errors.includes('CUE_PRESET_NOT_FOUND:c1')); assert.ok(result.errors.includes('UNSAFE_ASSET_PATH:tone'));
+  assert.ok(result.errors.includes('INVALID_CUE_KIND:c1')); assert.ok(result.errors.includes('INVALID_AVATAR_STATE:c1'));
 });
 
 test('音声Asset pathはローカルaudio配下のwav/mp3だけを許可する', () => {

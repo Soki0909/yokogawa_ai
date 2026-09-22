@@ -54,6 +54,8 @@
       </div>
       <div class="emergency-controls"><button id="show-clear-button" type="button">CLEAR</button><button id="show-blackout-button" type="button">BLACKOUT</button><button id="show-blackout-clear-button" type="button">RESTORE</button></div>
       <div class="cue-notes"><p><span>OPERATOR</span> <strong id="show-operator-note">—</strong></p><p><span>TRIGGER</span> <strong id="show-trigger-note">—</strong></p></div>
+      <p id="show-current-meta" class="show-current-meta">ROUTE main · PRESET normal · AVATAR normal · AUDIO browser</p>
+      <p class="shortcut-list">SHORTCUTS — Space: NEXT / R: REPLAY / Esc: STOP / B: BACK / C: CLEAR</p>
       <div id="show-alerts" class="show-alerts" role="status" aria-live="polite"></div>
       <button id="open-advanced-button" class="show-details-button" type="button">詳細操作を開く</button>
     </section>
@@ -165,7 +167,7 @@
         <label>Preset<select id="cue-preset"></select></label>
         <label>音声方式<select id="cue-speech-mode"><option value="browser">Browser TTS</option><option value="audio-file">ローカル音声</option><option value="none">音声なし</option></select></label>
         <label>音声Asset<select id="cue-asset"><option value="">なし</option></select></label>
-        <label>Avatar状態<select id="cue-avatar-state"><option>normal</option><option>thinking</option><option>warning</option><option>hostile</option><option>shutdown</option><option>speaking</option></select></label>
+        <label>Avatar状態<select id="cue-avatar-state"><option>normal</option><option>thinking</option><option>warning</option><option>hijacked</option><option>hostile</option><option>shutdown</option><option>recovery</option><option>speaking</option></select></label>
         <label>Lip Sync<select id="cue-lip-sync"><option value="simulated">simulated</option><option value="audio-reactive">audio-reactive</option><option value="none">none</option></select></label>
         <label class="wide">発話テキスト<textarea id="cue-text" maxlength="5000" rows="4"></textarea></label>
         <label class="wide">表示テキスト<textarea id="cue-display-text" maxlength="5000" rows="4"></textarea></label>

@@ -19,7 +19,7 @@ export const DEFAULT_AVATAR = Object.freeze({
 
 const ID = /^[a-zA-Z0-9_-]{1,100}$/;
 const HEX = /^#[0-9a-fA-F]{6}$/;
-const AVATAR_STATES = new Set(['normal', 'thinking', 'warning', 'hostile', 'shutdown', 'speaking']);
+const AVATAR_STATES = new Set(['normal', 'thinking', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery', 'speaking']);
 const SPEECH_MODES = new Set(['browser', 'audio-file', 'none']);
 const LIP_MODES = new Set(['none', 'simulated', 'audio-reactive']);
 const text = (value, limit = 5000) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
@@ -104,6 +104,12 @@ export function validateShowFile(input) {
     if (cue.audio.speechMode === 'audio-file' && !assetIds.has(cue.audio.assetId)) errors.push(`CUE_ASSET_NOT_FOUND:${cue.id}`);
     if (['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode === 'browser' && !cue.speechText) errors.push(`CUE_SPEECH_EMPTY:${cue.id}`);
     if (['speech-display', 'display-only'].includes(cue.kind) && !cue.displayText) errors.push(`CUE_DISPLAY_EMPTY:${cue.id}`);
+  }
+  for (const [index, raw] of (Array.isArray(input.cues) ? input.cues : []).entries()) {
+    const cueId = raw.id ?? raw.cueId ?? index;
+    if (raw.kind != null && !CUE_KINDS.includes(raw.kind)) errors.push(`INVALID_CUE_KIND:${cueId}`);
+    if (raw.target?.type && !['all', 'display', 'group'].includes(raw.target.type)) errors.push(`INVALID_TARGET:${cueId}`);
+    if (raw.avatar?.state && !AVATAR_STATES.has(raw.avatar.state)) errors.push(`INVALID_AVATAR_STATE:${cueId}`);
   }
   for (const asset of assets) if (!isSafeAssetPath(asset.path)) errors.push(`UNSAFE_ASSET_PATH:${asset.id}`);
   return { valid: errors.length === 0, errors: [...new Set(errors)], normalized: { cues, presets, assets } };

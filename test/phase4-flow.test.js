@@ -36,5 +36,8 @@ test('Phase 4をAdmin 1 + Display 3で表示・音声Master・Blackout・再接�
   admin.send({ type: 'blackout:clear' }); const restored = await reconnect.next((event) => event.type === 'state' && event.state.blackout === false); assert.equal(restored.state.currentSubtitle, '音声字幕');
 
   const exported = await fetch(`http://127.0.0.1:${port}/api/show-file`).then((response) => response.json()); assert.equal(exported.schemaVersion, 2); assert.equal('history' in exported, false);
+  admin.send({ type: 'rehearsal:start' }); await admin.next((event) => event.type === 'state' && event.state.rehearsalSession?.active); admin.send({ type: 'clear' }); await a.next((event) => event.type === 'presentation' && event.presentation.kind === 'clear'); admin.send({ type: 'rehearsal:stop' }); await admin.next((event) => event.type === 'state' && event.state.rehearsalSession?.active === false);
+  const jsonLog = await fetch(`http://127.0.0.1:${port}/api/rehearsal.json`).then((response) => response.json()); assert.ok(jsonLog.events.some((item) => item.type === 'clear'));
+  const csvLog = await fetch(`http://127.0.0.1:${port}/api/rehearsal.csv`).then((response) => response.text()); assert.match(csvLog, /elapsedMs/); assert.match(csvLog, /CLEAR/);
   const invalid = structuredClone(exported); invalid.assets[0].path = '../escape.wav'; const check = await fetch(`http://127.0.0.1:${port}/api/show-file/validate`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(invalid) }).then((response) => response.json()); assert.equal(check.valid, false);
 });

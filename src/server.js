@@ -214,12 +214,14 @@ function handleCueRequest(socket, factory, logLabel) {
     dispatchPresentation(prepared.action);
     if (prepared.message) enqueueAndDispatch(socket, prepared.message);
     else { send(socket, 'accepted', { id: `cue:${prepared.cue.cueId}`, queued: false }); broadcastState(); }
+    store.logRehearsal(logLabel.toLowerCase().replaceAll(' ', '-'), logLabel, { cueId: prepared.cue.cueId, result: 'accepted' }); void store.persist();
     logger.info(logLabel, { cueId: prepared.cue.cueId, kind: prepared.cue.kind, target: prepared.cue.target });
   } catch (error) { errorResponse(socket, error); }
 }
 
 function handleAdmin(socket, event) {
   if (event.type === 'speak') {
+    store.logRehearsal('free-speak', 'Free Speak', { target: event.target ?? { type: 'all' }, speechMode: store.state.settings.speechProvider, result: 'accepted' });
     handleSpeechRequest(socket, () => store.createMessage(event.text, { source: 'free', target: event.target }), 'Free Speakを受付');
     return;
   }
@@ -235,6 +237,7 @@ function handleAdmin(socket, event) {
       send(socket, 'error', { code: 'NOT_SPEAKING', message: '停止する発話はありません。' }); return;
     }
     const id = store.state.currentMessage.id;
+    store.logRehearsal('stop', 'STOP', { messageId: id, result: 'accepted' });
     forRole('display', (displaySocket) => send(displaySocket, 'stop', { id }));
     logger.info('TTS停止指示', { id }); return;
   }
@@ -248,7 +251,7 @@ function handleAdmin(socket, event) {
   else if (event.type === 'cue:execute') handleCueRequest(socket, () => store.executeCue(event.cueId), 'Cue直接実行');
   else if (event.type === 'cue:replay') handleCueRequest(socket, () => store.replayCue(), 'Cue REPLAY');
   else if (event.type === 'cue:back') {
-    store.backCue(); broadcastState(); logger.info('Cue BACK');
+    const cue = store.backCue(); store.logRehearsal('back', 'BACK', { cueId: cue?.cueId ?? null, result: 'success' }); broadcastState(); logger.info('Cue BACK');
   } else if (event.type === 'cue:save') {
     try { store.saveCue(event.cue ?? {}); broadcastState(); logger.info('Cueを保存', { cueId: event.cue?.cueId }); } catch (error) { errorResponse(socket, error); }
   } else if (event.type === 'cue:reorder') {
@@ -292,7 +295,7 @@ function handleAdmin(socket, event) {
   } else if (event.type === 'blackout:clear') {
     store.clearBlackout(); forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId)); broadcastState();
   } else if (event.type === 'preset:save') {
-    try { store.savePreset(event.preset); broadcastState(); } catch (error) { errorResponse(socket, error); }
+    try { const preset = store.savePreset(event.preset); store.logRehearsal('preset-change', 'Preset変更', { preset: preset.id, result: 'success' }); broadcastState(); } catch (error) { errorResponse(socket, error); }
   } else if (event.type === 'preset:delete') {
     try { store.deletePreset(event.presetId); broadcastState(); } catch (error) { errorResponse(socket, error); }
   } else if (event.type === 'rehearsal:start') {

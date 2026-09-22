@@ -11,6 +11,7 @@ body { background:var(--phase-bg); color:var(--phase-text); transition:backgroun
 .avatar-wrap[data-state="thinking"] { transform:rotate(-1.5deg); } .avatar-wrap[data-state="warning"] .eye,.avatar-wrap[data-state="hostile"] .eye { fill:#ff5a5a; }
 .avatar-wrap[data-state="hostile"] .brow:first-of-type { transform:rotate(12deg); } .avatar-wrap[data-state="hostile"] .brow:nth-of-type(2) { transform:rotate(-12deg); }
 .avatar-wrap[data-state="shutdown"] { filter:grayscale(1); opacity:.38; }
+.avatar-wrap[data-state="hijacked"] { transform:skewX(-2deg); } .avatar-wrap[data-state="recovery"] { opacity:.9; }
 .blackout { position:fixed; z-index:999; inset:0; background:#000; display:grid; place-items:center; color:#888; letter-spacing:.4em; }
 .blackout[hidden] { display:none; }
 body[data-motion="pulse"] .avatar-wrap { animation:phase-pulse 1.4s ease-in-out infinite; }
