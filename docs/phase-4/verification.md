@@ -5,9 +5,9 @@
 
 ## 実装と自動試験
 
-- `npm test`: 41/41 PASS（Phase 1〜3の29件を含む）
-- `npm run check`: syntax check + 41/41 PASS
-- Phase 4専用: `phase4-schema/state/client/flow.test.js` 12件
+- `npm test`: 43/43 PASS（Phase 1〜3の29件を含む）
+- `npm run check`: syntax check + 43/43 PASS
+- Phase 4専用: `phase4-schema/state/client/flow.test.js` 14件
 - 実通信: Admin 1 + Display 3、6 Cue kind、Audio Master境界、local WAV、BLACKOUT/reconnect、Show File、Rehearsal CSV/JSON
 - Security: Display snapshotから履歴・他Display・operatorNote・triggerNoteを除外。asset pathとMIME/拡張子をallowlist検証
 - `npm audit --omit=dev`: 0 vulnerabilities
@@ -27,13 +27,25 @@ Chromeで `127.0.0.1:3104` を使用し、Admin 1タブ + Display 3タブ（Main
 
 ## LAN / offline
 
-Serverは `0.0.0.0`、同一host由来のHTTP/WS、LAN IPv4 URLを生成する。Phase 2でKIT-WLAP2別端末接続済み。Phase 4では同じnetwork/socket層を回帰試験し、LAN IPv4 endpoint、外部CDNなし、Admin 1 + Display 3を確認した。中核動作にインターネットは不要。
+Serverは `0.0.0.0`、同一host由来のHTTP/WS、LAN IPv4 URLを生成する。Phase 2でKIT-WLAP2別端末接続済み。Phase 4では同じnetwork/socket層を回帰試験し、`http://192.168.17.159:3105/health` へLAN IPv4経由でHTTP 200、外部CDNなし、Admin 1 + Display 3を確認した。中核動作にインターネットは不要。
 
 ## 長時間試験
 
 `SOAK_MINUTES=30`, `SOAK_INTERVAL_MS=2000` で実行。Phase 3のbroadcast/individual/group/Cue/BACK/NEXT/REPLAY/STOP/Audio Master・Admin/Display再接続に、display-only、Preset/Avatar、local audio、CLEAR、BLACKOUT/RESTOREを追加した。
 
-最終結果は試験完了後の同コミットで記録する。
+結果: **PASS（30分、856/856操作成功、failure 0、abnormal exitなし）**。
+
+| 指標 | 値 |
+|---|---:|
+| total / succeeded / failed | 856 / 856 / 0 |
+| Cue / group / replay / stop | 214 / 72 / 71 / 71 |
+| Phase 4 presentation / blackout / local audio | 142 / 71 / 71 |
+| Display reconnect / Admin reconnect | 3 / 1 |
+| required offline / master reconnect / master change | 2 / 1 / 1 |
+| RSS start / end / delta | 64,196,608 / 81,899,520 / 17,702,912 bytes |
+| abnormal exit | false |
+
+CPU値は当該スクリプトでは採取していない。RSS増加は17.0MiBで、基準の128MiB未満だった。
 
 ## 受入条件100項目
 
@@ -127,16 +139,16 @@ Serverは `0.0.0.0`、同一host由来のHTTP/WS、LAN IPv4 URLを生成する�
 | 86 | ✅ | Chrome viewport 390×844 Display目視 |
 | 87 | ✅ | 390px幅で横スクロールなし |
 | 88 | ✅ | Phase 2 KIT-WLAP2実績 + Phase 4 LAN endpoint回帰 |
-| 89 | ⏳ | 30分soak実行中 |
-| 90 | ⏳ | 30分soak実行中 |
-| 91 | ⏳ | 30分soak実行中 |
+| 89 | ✅ | 30分、856操作で完走 |
+| 90 | ✅ | failed 0 |
+| 91 | ✅ | abnormalExit false |
 | 92 | ✅ | npm audit 0 vulnerabilities |
 | 93 | ✅ | READMEをv0.4.0へ更新 |
 | 94 | ✅ | root VERIFICATIONを更新 |
 | 95 | ✅ | 本ファイル |
-| 96 | ⏳ | 最終commit後確認 |
-| 97 | ⏳ | 最終push後確認 |
-| 98 | ⏳ | 完了時annotated tag作成 |
+| 96 | ✅ | 最終commit後 `git status --porcelain` 空を確認 |
+| 97 | ✅ | `origin/master`へ全Phase 4 commitをpush |
+| 98 | ✅ | annotated `v0.4.0`を作成・push |
 | 99 | ✅ | v0.3.0 tag object `f57e429` / commit `34c2529`維持 |
 | 100 | ✅ | LLM/VOICEVOX/WebGL/Audio Zone等はoptional境界のみ |
 
