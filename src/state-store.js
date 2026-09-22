@@ -247,6 +247,12 @@ export class StateStore {
     const add = (id, label, status, detail) => items.push({ id, label, status, detail });
     add('server', 'サーバー', 'ok', '正常稼働中');
     add('cues', 'Cueデータ', this.state.cues.length ? 'ok' : 'error', `${this.state.cues.length}件`);
+    const showValidation = validateShowFile(this.exportShowFile());
+    add('show-schema', 'Show File Schema v2', showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));
+    add('presets', 'Presentation Preset', this.state.presets.length >= 6 ? 'ok' : 'warning', `${this.state.presets.length}件`);
+    add('avatar', 'AI Avatar', this.state.avatar?.visible !== false ? 'ok' : 'warning', `${this.state.avatar?.state ?? 'normal'} / ${this.state.avatar?.lipSyncMode ?? 'simulated'}`);
+    const audioCues = this.state.cues.filter((cue) => cue.audio?.speechMode === 'audio-file');
+    add('audio-assets', 'ローカル音声Asset', audioCues.every((cue) => this.state.assets.some((asset) => asset.id === cue.audio.assetId)) ? 'ok' : 'error', `${audioCues.length} Cue / ${this.state.assets.length} Asset`);
     add('position', 'Cue位置', this.state.currentCueIndex < 0 ? 'ok' : 'warning', this.state.currentCueIndex < 0 ? '開始位置' : `Cue ${this.orderedCues()[this.state.currentCueIndex]?.cueNumber ?? '—'} から再開`);
     const registered = this.state.displays.length;
     const online = this.displayCount;
@@ -436,7 +442,7 @@ export class StateStore {
 
   savePreset(input) {
     const preset = normalizePreset(input, this.state.presets.length);
-    const existing = this.getPreset(preset.id);
+    const existing = this.state.presets.find((item) => item.id === preset.id);
     if (existing) Object.assign(existing, preset); else this.state.presets.push(preset);
     void this.persist(); return preset;
   }
@@ -468,10 +474,11 @@ export class StateStore {
   logRehearsal(type, label, detail = {}) { if (!this.state.rehearsalSession?.active && !['session-start'].includes(type)) return; this.state.rehearsalLog.push({ timestamp: this.now().toISOString(), elapsedMs: this.state.rehearsalSession ? Math.max(0, this.now().getTime() - Date.parse(this.state.rehearsalSession.startedAt)) : 0, type, label, detail }); this.state.rehearsalLog = this.state.rehearsalLog.slice(-5000); }
 
   applyDisplayState(message) {
-    this.state.currentSubtitle = message.text; this.state.displayMode = 'speech';
+    const displayText = message.displayText ?? message.text;
+    this.state.currentSubtitle = displayText; this.state.displayMode = 'speech';
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, message.target)) continue;
-      display.currentSubtitle = message.text; display.displayMode = 'speech';
+      display.currentSubtitle = displayText; display.displayMode = 'speech';
     }
   }
 
