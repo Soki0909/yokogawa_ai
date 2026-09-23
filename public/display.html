@@ -16,8 +16,14 @@
   <main class="stage" id="stage">
     <header><span class="system-label">YKGW // INTELLIGENCE TERMINAL · <span id="display-identity">DISPLAY</span></span><span><button class="setup-link" id="open-setup" type="button">DISPLAY設定</button> <span class="connection" id="connection">CONNECTING</span></span></header>
     <section class="identity" aria-label="横川AI">
-      <div id="avatar-wrap" class="avatar-wrap" data-state="normal" data-mouth="closed" aria-label="AI教授アバター">
-        <svg class="avatar" viewBox="0 0 320 290" role="img" aria-label="ローポリゴンのAI教授">
+      <div id="avatar-wrap" class="avatar-wrap" data-state="normal" data-mouth="closed" data-blink="open" data-avatar-mode="image-yokogawa-v1" aria-label="横川AIアバター">
+        <div class="image-avatar" role="img" aria-label="ローポリゴンの横川AI教授">
+          <img class="avatar-image avatar-base" data-asset-id="yokogawa-v1-mouth-closed" src="/assets/avatar/yokogawa/v1/base.png" alt="" width="1254" height="1254">
+          <img class="avatar-image avatar-mouth avatar-mouth-half" data-asset-id="yokogawa-v1-mouth-half" src="/assets/avatar/yokogawa/v1/mouth-half.png" alt="" width="1254" height="1254">
+          <img class="avatar-image avatar-mouth avatar-mouth-open" data-asset-id="yokogawa-v1-mouth-open" src="/assets/avatar/yokogawa/v1/mouth-open.png" alt="" width="1254" height="1254">
+          <img class="avatar-image avatar-eyes-closed" data-asset-id="yokogawa-v1-eyes-closed" src="/assets/avatar/yokogawa/v1/eyes-closed.png" alt="" width="1254" height="1254">
+        </div>
+        <svg class="avatar avatar-svg" viewBox="0 0 320 290" role="img" aria-label="ローポリゴンのAI教授（フォールバック）">
           <path class="coat" d="M52 286 76 211 124 192h72l48 19 24 75Z"/><path class="skin" d="m99 61 26-35 70 5 28 37-13 99-43 36-49-30Z"/>
           <path class="shadow" d="m99 61 28 22-9 90-28-39Z"/><path class="shadow" d="m223 68-34 18 21 81 23-39Z"/><path class="skin" d="m126 190 9 38 25 17 27-18 9-37Z"/>
           <path class="lens" d="m111 93 44-5 5 39-46 3Z"/><path class="lens" d="m165 88 43 5-2 37-46-3Z"/><circle class="eye" cx="140" cy="109" r="5"/><circle class="eye" cx="181" cy="109" r="5"/>

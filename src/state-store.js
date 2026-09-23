@@ -45,9 +45,9 @@ export class StateStore {
       scenes: structuredClone(DEFAULT_SCENES), cues: structuredClone(DEFAULT_CUES),
       targetGroups: [], adminMode: 'show',
       currentCueIndex: -1, currentSceneId: null, settings: { ...DEFAULT_SETTINGS },
-      schemaVersion: SHOW_SCHEMA_VERSION, metadata: { title: '横川AI Show', version: '0.4.0' }, routes: [{ id: 'main', name: 'Main' }],
+      schemaVersion: SHOW_SCHEMA_VERSION, metadata: { title: '横川AI Show', version: '0.4.1' }, routes: [{ id: 'main', name: 'Main' }],
       presets: structuredClone(DEFAULT_PRESETS), assets: [{ id: 'test-tone', name: '内蔵テスト音', path: 'assets/audio/test-tone.wav', mimeType: 'audio/wav' }],
-      avatar: { ...DEFAULT_AVATAR }, currentPresetId: 'normal', currentAvatar: { visible: true, state: 'normal', lipSyncMode: 'simulated' },
+      avatar: { ...DEFAULT_AVATAR }, currentPresetId: 'normal', currentAvatar: { ...DEFAULT_AVATAR },
       blackout: false, previousVisualState: null, rehearsalSession: null, rehearsalLog: [],
     };
   }

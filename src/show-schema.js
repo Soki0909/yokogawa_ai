@@ -13,8 +13,18 @@ export const DEFAULT_PRESETS = Object.freeze([
   { id: 'recovery', name: 'Recovery', background: '#061d18', accent: '#53f3c2', text: '#edfff9', glow: .5, motion: 'calm' },
 ]);
 
+export const AVATAR_ASSET_SETS = Object.freeze({
+  'yokogawa-v1': Object.freeze({
+    base: Object.freeze({ id: 'yokogawa-v1-mouth-closed', path: 'assets/avatar/yokogawa/v1/base.png' }),
+    mouthHalf: Object.freeze({ id: 'yokogawa-v1-mouth-half', path: 'assets/avatar/yokogawa/v1/mouth-half.png' }),
+    mouthOpen: Object.freeze({ id: 'yokogawa-v1-mouth-open', path: 'assets/avatar/yokogawa/v1/mouth-open.png' }),
+    eyesClosed: Object.freeze({ id: 'yokogawa-v1-eyes-closed', path: 'assets/avatar/yokogawa/v1/eyes-closed.png' }),
+  }),
+});
+
 export const DEFAULT_AVATAR = Object.freeze({
-  visible: true, state: 'normal', lipSyncMode: 'simulated', label: 'AI PROFESSOR',
+  visible: true, state: 'normal', lipSyncMode: 'simulated', label: 'YOKOGAWA AI',
+  mode: 'image-yokogawa-v1', assetSetId: 'yokogawa-v1',
 });
 
 const ID = /^[a-zA-Z0-9_-]{1,100}$/;
@@ -22,6 +32,7 @@ const HEX = /^#[0-9a-fA-F]{6}$/;
 const AVATAR_STATES = new Set(['normal', 'thinking', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery', 'speaking']);
 const SPEECH_MODES = new Set(['browser', 'audio-file', 'none']);
 const LIP_MODES = new Set(['none', 'simulated', 'audio-reactive']);
+const AVATAR_MODES = new Set(['image-yokogawa-v1', 'svg-fallback']);
 const text = (value, limit = 5000) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
 const id = (value, fallback = '') => ID.test(value ?? '') ? value : fallback;
 
@@ -111,6 +122,8 @@ export function validateShowFile(input) {
     if (raw.target?.type && !['all', 'display', 'group'].includes(raw.target.type)) errors.push(`INVALID_TARGET:${cueId}`);
     if (raw.avatar?.state && !AVATAR_STATES.has(raw.avatar.state)) errors.push(`INVALID_AVATAR_STATE:${cueId}`);
   }
+  if (input.avatar?.mode != null && !AVATAR_MODES.has(input.avatar.mode)) errors.push('INVALID_AVATAR_MODE');
+  if (input.avatar?.assetSetId != null && !AVATAR_ASSET_SETS[input.avatar.assetSetId]) errors.push('AVATAR_ASSET_SET_NOT_FOUND');
   for (const asset of assets) if (!isSafeAssetPath(asset.path)) errors.push(`UNSAFE_ASSET_PATH:${asset.id}`);
   return { valid: errors.length === 0, errors: [...new Set(errors)], normalized: { cues, presets, assets } };
 }

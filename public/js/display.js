@@ -1,6 +1,7 @@
 import { ReconnectingSocket } from './socket-client.js';
 import { createSpeechProvider } from './tts-adapter.js';
 import { LipSyncController } from './lip-sync.js';
+import { BlinkController } from './blink-controller.js';
 
 const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((element) => [element.id, element]));
 const storageKey = 'yokogawa-display-v2';
@@ -24,6 +25,7 @@ let isAudioMaster = false;
 let audioUnlocked = false;
 let identifyTimer;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
+const blink = new BlinkController(elements['avatar-wrap']);
 
 const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   elements.connection.textContent = status === 'connected' ? 'ONLINE' : status === 'connecting' ? 'CONNECTING' : 'RECONNECTING';
@@ -47,10 +49,17 @@ const localAudio = createSpeechProvider('audio-file', {
 });
 
 function applyPresentation(presentation = {}, preset = null) {
-  if (preset) { document.documentElement.style.setProperty('--phase-bg', preset.background); document.documentElement.style.setProperty('--phase-accent', preset.accent); document.documentElement.style.setProperty('--phase-text', preset.text); document.documentElement.style.setProperty('--phase-glow', preset.glow); document.body.dataset.motion = preset.motion; }
+  if (preset) { document.documentElement.style.setProperty('--phase-bg', preset.background); document.documentElement.style.setProperty('--phase-accent', preset.accent); document.documentElement.style.setProperty('--phase-text', preset.text); document.documentElement.style.setProperty('--phase-glow', preset.glow); document.body.dataset.motion = preset.motion; document.body.dataset.preset = preset.id; }
   if (presentation.kind === 'clear') showCaption(''); else if (presentation.displayText && presentation.kind !== 'speech-only') showCaption(presentation.displayText);
-  if (presentation.avatar) { elements['avatar-wrap'].hidden = presentation.avatar.visible === false; elements['avatar-wrap'].dataset.state = presentation.avatar.state ?? 'normal'; if (presentation.avatar.visible === false) lipSync.stop(); }
+  if (presentation.avatar) {
+    const visible = presentation.avatar.visible !== false;
+    elements['avatar-wrap'].hidden = !visible;
+    elements['avatar-wrap'].dataset.state = presentation.avatar.state ?? 'normal';
+    elements['avatar-wrap'].dataset.avatarMode = presentation.avatar.mode ?? 'image-yokogawa-v1';
+    if (!visible) lipSync.stop();
+  }
   elements.blackout.hidden = presentation.blackout !== true;
+  blink.update({ visible: !elements['avatar-wrap'].hidden, state: elements['avatar-wrap'].dataset.state, blackout: presentation.blackout === true });
 }
 
 function handleEvent(event) {
@@ -85,7 +94,7 @@ function handleEvent(event) {
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    speech.stop(false); localAudio.stop(false); lipSync.stop(); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
+    speech.stop(false); localAudio.stop(false); lipSync.stop(); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false }); setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
     elements['identify-name'].textContent = identity.displayName;
@@ -113,7 +122,9 @@ function openSetup() {
 }
 
 window.speechSynthesis?.addEventListener('voiceschanged', publishVoices);
-document.addEventListener('visibilitychange', () => { if (!document.hidden) window.speechSynthesis?.resume(); });
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden) window.speechSynthesis?.resume();
+});
 elements['open-setup'].addEventListener('click', openSetup);
 elements['enable-audio'].addEventListener('click', () => {
   identity = {
