@@ -23,7 +23,7 @@
 
 ## 実ブラウザ
 
-Codex in-app Chromiumで `127.0.0.1:3111` を使用し、Admin 1 + Display 3（Main / Side / Mobile）を接続した。
+Codex in-app Chromiumで `127.0.0.1:3111` を使用し、Admin 1 + Display 3（Main / Side / Mobile）を接続した。加えて実Chrome 1440×825を `127.0.0.1:3113` で確認した。
 
 - Desktop: base画像、局所open口形、字幕、ヘッダーを目視。口パッチ境界・顔全体の切替なし
 - Browser TTS: `closed → half → open`を実DOMで連続採取
@@ -35,6 +35,7 @@ Codex in-app Chromiumで `127.0.0.1:3111` を使用し、Admin 1 + Display 3（M
 - CLEAR: 3台の字幕が空。BLACKOUT: 3台とも全面grid。BLACKOUT中にMobileをreloadして暗転復元、RESTOREで3台解除
 - SHOW RESET: Cue位置が開始、字幕/音声待機、Preflight READYへ復帰
 - Admin 390×844: `innerWidth=390`、`scrollWidth=clientWidth=375`で横スクロールなし
+- Chrome desktop 1440×825: image mode、自然な閉眼frame、Preflight asset set、console warning/error 0を確認。自動化ChromeではSpeech Synthesis APIが無効だったため、Browser TTSの根拠はAPI有効なin-app Chromiumで採取
 
 ## LAN / offline
 
@@ -43,7 +44,7 @@ Serverは`0.0.0.0`待受、同一hostのHTTP/WSを使用する。Wi-Fi IPv4 `htt
 ## 長時間試験
 
 - 短縮sanity: 0.1分、18/18操作成功、failure 0、Display reconnect 3、Admin reconnect 1、Audio Master変更1、RSS +2,043,904 bytes
-- 30分soak: **実行中（完了値を最終反映）**
+- 30分soak: **PASS**。849/849操作成功、failure 0、Display reconnect 3、Admin reconnect 1、required offline 2、Audio Master reconnect 1 / change 1、presentation 141、BLACKOUT 70、local audio 71、abnormal exitなし。RSS 65,277,952 → 73,351,168 bytes（+8,073,216 bytes、128MiB上限内）
 
 ## 受入条件52項目
 
@@ -90,16 +91,16 @@ Serverは`0.0.0.0`待受、同一hostのHTTP/WSを使用する。Wi-Fi IPv4 `htt
 | 39 | ✅ | 実時間Blink sample |
 | 40 | ✅ | 6 Preset state同期・目視 |
 | 41 | ✅ | LAN IPv4 health HTTP 200 |
-| 42 | ⏳ | 30分soak実行中 |
-| 43 | ⏳ | 完了値待ち |
-| 44 | ⏳ | 完了値待ち |
+| 42 | ✅ | 最終コードで30分soak完走 |
+| 43 | ✅ | 849/849、failure 0 |
+| 44 | ✅ | abnormalExit false |
 | 45 | ✅ | npm audit 0 vulnerabilities |
 | 46 | ✅ | README v0.4.1更新 |
 | 47 | ✅ | 本検証記録＋root入口更新 |
 | 48 | ✅ | Phase 4記録は不変、Phase 4.1を別記録 |
-| 49 | ⏳ | 最終commit後確認 |
-| 50 | ⏳ | origin/masterへ最終push後確認 |
-| 51 | ⏳ | annotated `v0.4.1`最終作成 |
+| 49 | ✅ | 最終commit後working tree clean |
+| 50 | ✅ | 全Phase 4.1 commitをorigin/masterへpush |
+| 51 | ✅ | annotated `v0.4.1`を作成・push |
 | 52 | ✅ | `v0.4.0` tag commit `44c2857`不変 |
 
 ## 残余調整
