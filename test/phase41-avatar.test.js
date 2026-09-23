@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
-import { AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, validateShowFile } from '../src/show-schema.js';
+import { AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, normalizeAvatar, validateShowFile } from '../src/show-schema.js';
 import { BlinkController, randomBlinkTiming } from '../public/js/blink-controller.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -38,6 +38,7 @@ test('Avatar modeは旧Show File互換を保ち不明なmodeとasset setを拒�
   assert.equal(validateShowFile({ ...base, avatar: { visible: true } }).valid, true);
   assert.deepEqual(validateShowFile({ ...base, avatar: { mode: 'unknown' } }).errors, ['INVALID_AVATAR_MODE']);
   assert.deepEqual(validateShowFile({ ...base, avatar: { assetSetId: 'missing' } }).errors, ['AVATAR_ASSET_SET_NOT_FOUND']);
+  assert.deepEqual(normalizeAvatar({ mode: 'unknown', assetSetId: 'missing' }), DEFAULT_AVATAR);
 });
 
 test('まばたきは3〜6秒間隔・100〜180ms表示時間の範囲に収まる', () => {

@@ -36,6 +36,18 @@ const AVATAR_MODES = new Set(['image-yokogawa-v1', 'svg-fallback']);
 const text = (value, limit = 5000) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
 const id = (value, fallback = '') => ID.test(value ?? '') ? value : fallback;
 
+export function normalizeAvatar(input = {}) {
+  return {
+    ...DEFAULT_AVATAR,
+    visible: input.visible !== false,
+    state: AVATAR_STATES.has(input.state) ? input.state : DEFAULT_AVATAR.state,
+    lipSyncMode: LIP_MODES.has(input.lipSyncMode) ? input.lipSyncMode : DEFAULT_AVATAR.lipSyncMode,
+    label: text(input.label, 120) || DEFAULT_AVATAR.label,
+    mode: AVATAR_MODES.has(input.mode) ? input.mode : DEFAULT_AVATAR.mode,
+    assetSetId: AVATAR_ASSET_SETS[input.assetSetId] ? input.assetSetId : DEFAULT_AVATAR.assetSetId,
+  };
+}
+
 export function normalizeTarget(target) {
   if (target?.type === 'display' && id(target.id)) return { type: 'display', id: target.id };
   if (target?.type === 'group' && id(target.id)) return { type: 'group', id: target.id };

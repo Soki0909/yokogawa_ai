@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { JsonFileStorage } from './json-storage.js';
 import {
-  DEFAULT_AVATAR, DEFAULT_PRESETS, SHOW_SCHEMA_VERSION, normalizeAsset, normalizeCue,
+  AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, SHOW_SCHEMA_VERSION, normalizeAsset, normalizeAvatar, normalizeCue,
   normalizePreset, normalizeTarget, publicCue, validateShowFile,
 } from './show-schema.js';
 
@@ -77,7 +77,7 @@ export class StateStore {
     this.state.routes = Array.isArray(stored.routes) && stored.routes.length ? stored.routes : this.state.routes;
     this.state.presets = Array.isArray(stored.presets) && stored.presets.length ? stored.presets.map(normalizePreset) : structuredClone(DEFAULT_PRESETS);
     this.state.assets = Array.isArray(stored.assets) ? stored.assets.map(normalizeAsset) : this.state.assets;
-    this.state.avatar = { ...DEFAULT_AVATAR, ...(stored.avatar ?? {}) };
+    this.state.avatar = normalizeAvatar(stored.avatar);
     this.state.currentPresetId = this.state.presets.some((preset) => preset.id === stored.currentPresetId) ? stored.currentPresetId : 'normal';
     this.state.currentAvatar = { ...this.state.avatar, ...(stored.currentAvatar ?? {}) };
     this.state.blackout = stored.blackout === true; this.state.previousVisualState = stored.previousVisualState ?? null;
@@ -250,7 +250,8 @@ export class StateStore {
     const showValidation = validateShowFile(this.exportShowFile());
     add('show-schema', 'Show File Schema v2', showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));
     add('presets', 'Presentation Preset', this.state.presets.length >= 6 ? 'ok' : 'warning', `${this.state.presets.length}件`);
-    add('avatar', 'AI Avatar', this.state.avatar?.visible !== false ? 'ok' : 'warning', `${this.state.avatar?.state ?? 'normal'} / ${this.state.avatar?.lipSyncMode ?? 'simulated'}`);
+    const avatarAssetsReady = Boolean(AVATAR_ASSET_SETS[this.state.avatar?.assetSetId]);
+    add('avatar', 'AI Avatar', !avatarAssetsReady ? 'error' : this.state.avatar?.visible !== false ? 'ok' : 'warning', `${this.state.avatar?.mode ?? 'svg-fallback'} / ${this.state.avatar?.assetSetId ?? 'none'} / ${this.state.avatar?.lipSyncMode ?? 'simulated'}`);
     const audioCues = this.state.cues.filter((cue) => cue.audio?.speechMode === 'audio-file');
     add('audio-assets', 'ローカル音声Asset', audioCues.every((cue) => this.state.assets.some((asset) => asset.id === cue.audio.assetId)) ? 'ok' : 'error', `${audioCues.length} Cue / ${this.state.assets.length} Asset`);
     add('position', 'Cue位置', this.state.currentCueIndex < 0 ? 'ok' : 'warning', this.state.currentCueIndex < 0 ? '開始位置' : `Cue ${this.orderedCues()[this.state.currentCueIndex]?.cueNumber ?? '—'} から再開`);
@@ -464,7 +465,7 @@ export class StateStore {
     if (!result.valid || !apply) return { valid: result.valid, errors: result.errors, summary: { cues: result.normalized?.cues.length ?? 0, presets: result.normalized?.presets.length ?? 0, assets: result.normalized?.assets.length ?? 0 } };
     const next = { metadata: structuredClone(input.metadata ?? {}), routes: structuredClone(input.routes ?? [{ id: 'main', name: 'Main' }]),
       scenes: this.validateScenes(input.scenes), cues: result.normalized.cues, targetGroups: this.validateTargetGroups(input.groups),
-      presets: result.normalized.presets, assets: result.normalized.assets, avatar: { ...DEFAULT_AVATAR, ...(input.avatar ?? {}) }, settings: this.validateSettings(input.settings ?? {}) };
+      presets: result.normalized.presets, assets: result.normalized.assets, avatar: normalizeAvatar(input.avatar), settings: this.validateSettings(input.settings ?? {}) };
     Object.assign(this.state, next); this.showReset(); this.logRehearsal('show-import', 'Show File適用', { cues: next.cues.length }); void this.persist();
     return { valid: true, errors: [], applied: true, summary: { cues: next.cues.length, presets: next.presets.length, assets: next.assets.length } };
   }
