@@ -1,9 +1,9 @@
+/data/*.json
+/logs/
 node_modules/
-data/state.json
-logs/
 coverage/
 playwright-report/
 test-results/
 .env
 *.log
-
+/.tmp-*/
