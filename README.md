@@ -1,6 +1,6 @@
-# 横川AI Phase 4.1 — Layered Image Avatar
+# 横川AI Phase 4.2 — Presentation Preset Visual Overhaul
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 4.1 / v0.4.1はv0.4.0のCue進行・複数Display・Audio Master・Free Speak・Preflightを維持し、横川AIの画像Avatarを局所差分レイヤーで追加しました。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 4.2 / v0.4.2はv0.4.1のCue進行・複数Display・Audio Master・Free Speak・画像Avatarを維持し、6種のPresentation Presetを舞台距離でも判別できる全画面演出へ更新しました。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
@@ -65,7 +65,18 @@ Cueは `schemaVersion: 2` で、主要フィールドは次のとおりです。
 
 ## Presentation / Avatar / Lip Sync
 
-標準Presetは `normal`、`warning`、`hijacked`、`hostile`、`shutdown`、`recovery` です。色、背景、glow、motionはデータで調整できます。Presetと現在表示はServer authoritativeで、再接続時に復元します。`prefers-reduced-motion` とShow設定の `reducedMotion` に対応します。
+標準Presetは `normal`、`warning`、`hijacked`、`hostile`、`shutdown`、`recovery` です。Presetと現在表示はServer authoritativeで、再接続時に復元します。
+
+Phase 4.2では同じAvatar・字幕レイアウトの背面に、共有Environment layerを追加しました。状態差は色だけに依存しません。
+
+- `normal`: 青緑の安定した同心円と低密度Grid
+- `warning`: 琥珀色の大型Geometry、斜めScan、Pulse
+- `hijacked`: magenta/violetの侵入Band、UI offset、非同期Ring
+- `hostile`: red/blackの高強度Environment、破断Ring、Rupture
+- `shutdown`: 無彩色化、閉眼、主要Animation完全停止
+- `recovery`: tealの修復走査、Grid再整列、段階的Ring復帰
+
+Avatarと字幕は演出レイヤーの外に置き、glitchやscanで位置を動かしません。`prefers-reduced-motion` とShow設定の `reducedMotion` ではAnimationを停止しても、色・Geometry・Status labelで6状態を識別できます。BLACKOUTは全演出より上位です。
 
 標準Displayは `image-yokogawa-v1` を表示します。`public/assets/avatar/yokogawa/v1/` の `base.png` を常時表示し、その上へ `mouth-half.png` / `mouth-open.png` の口周辺だけ、`eyes-closed.png` の目周辺だけをCSS clipで重ねます。全身画像を切り替えないため、口とまばたきは互いに独立し、顔全体のちらつきを抑えます。従来SVGは `svg-fallback` として残しています。
 
@@ -122,12 +133,13 @@ PreflightはPhase 3項目に加え、Show Schema v2、Cue参照、Preset、Avata
 
 ```powershell
 npm run check
+npm run test:browser-console
 npm audit --omit=dev
 npm run test:soak
 ```
 
-`test:soak` は既定30分です。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase 4.1の詳細と52項目の受入照合は [Phase 4.1検証記録](docs/phase-4-1/verification.md) を参照してください。Phase 4の100項目は [Phase 4検証記録](docs/phase-4/verification.md) に保持しています。
+`test:soak` は既定30分です。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase 4.2の実ブラウザ画像、Visual Pass、30分試験、75項目の受入照合は [Phase 4.2検証記録](docs/phase-4-2/verification.md) を参照してください。過去Phaseの記録も `docs/` に保持しています。
 
-## Phase 4.1スコープ外
+## Phase 4.2スコープ外
 
 VOICEVOX本体、LLM連携、WebGL/3Dアバター、映像編集、複数Audio Zone、クラウド必須機能、特定演者の肖像再現は本番依存にしていません。ProviderとShowデータ境界を残し、後からBrowser TTS、VOICEVOX、事前生成音声を交換できます。
