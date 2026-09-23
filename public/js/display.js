@@ -49,7 +49,19 @@ const localAudio = createSpeechProvider('audio-file', {
 });
 
 function applyPresentation(presentation = {}, preset = null) {
-  if (preset) { document.documentElement.style.setProperty('--phase-bg', preset.background); document.documentElement.style.setProperty('--phase-accent', preset.accent); document.documentElement.style.setProperty('--phase-text', preset.text); document.documentElement.style.setProperty('--phase-glow', preset.glow); document.body.dataset.motion = preset.motion; document.body.dataset.preset = preset.id; }
+  if (preset) {
+    document.documentElement.style.setProperty('--phase-bg', preset.background);
+    document.documentElement.style.setProperty('--phase-accent', preset.accent);
+    document.documentElement.style.setProperty('--phase-text', preset.text);
+    document.documentElement.style.setProperty('--phase-glow', preset.glow);
+    document.body.dataset.motion = preset.motion;
+    document.body.dataset.preset = preset.id;
+    elements['preset-status'].textContent = preset.name?.toUpperCase?.() || preset.id.toUpperCase();
+    elements['preset-detail'].textContent = ({
+      normal: 'SECURITY ACTIVE', warning: 'ANOMALY DETECTED', hijacked: 'CONTROL OVERRIDDEN',
+      hostile: 'CONTAINMENT FAILED', shutdown: 'SYSTEM OFFLINE', recovery: 'SYNC RESTORING',
+    })[preset.id] ?? 'CUSTOM PROFILE';
+  }
   if (presentation.kind === 'clear') showCaption(''); else if (presentation.displayText && presentation.kind !== 'speech-only') showCaption(presentation.displayText);
   if (presentation.avatar) {
     const visible = presentation.avatar.visible !== false;
