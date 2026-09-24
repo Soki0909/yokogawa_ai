@@ -82,3 +82,17 @@ test('NORMALはPhase 4.2デザインイメージの舞台構図をコードで�
   assert.match(css, /clip-path: polygon\(2\.4% 0, 97\.6% 0/);
   assert.match(css, /\.identity \.designation,[\s\S]*\.identity h1 \{ display: none; \}/);
 });
+
+test('円形HUDは単一の中心軸を共有して左右対称を維持する', async () => {
+  const css = await text('public/css/display-phase42.css');
+  assert.match(css, /--hud-center-x: 50%;[\s\S]*--hud-center-y: 34%;/);
+  assert.match(css, /\.preset-core \{[\s\S]*left: var\(--hud-center-x\);[\s\S]*top: var\(--hud-center-y\);/);
+  assert.match(css, /\.preset-rings \{[\s\S]*left: var\(--hud-center-x\);[\s\S]*top: var\(--hud-center-y\);/);
+  assert.match(css, /\.preset-sector \{[\s\S]*left: var\(--hud-center-x\);[\s\S]*top: var\(--hud-center-y\);/);
+  assert.match(css, /radial-gradient\(ellipse at var\(--hud-center-x\) var\(--hud-center-y\)/);
+  assert.match(css, /\.preset-grid \{[\s\S]*background-position: center;/);
+  assert.match(css, /\.ring-outer \{[\s\S]*border-color: color-mix\(in srgb, var\(--preset-accent\) 52%, transparent\);/);
+  assert.match(css, /\.ring-inner::before \{[\s\S]*border-color: color-mix\(in srgb, var\(--preset-accent-2\) 34%, transparent\);/);
+  assert.doesNotMatch(css, /body\[data-preset="[^"]+"\] \.preset-(?:core|rings|sector) \{[^}]*\b(?:left|top):/);
+  assert.doesNotMatch(css, /\.preset-rings \{ top: \d+%; \}/);
+});
