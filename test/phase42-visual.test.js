@@ -66,3 +66,19 @@ test('Preset statusは既知6状態を表示し未知Presetを安全に扱う', 
   }
   assert.match(script, /\?\? 'CUSTOM PROFILE'/);
 });
+
+test('NORMALはPhase 4.2デザインイメージの舞台構図をコードで固定する', async () => {
+  const [html, css] = await Promise.all([
+    text('public/display.html'), text('public/css/display-phase42.css'),
+  ]);
+  assert.match(html, /class="system-brand">YOKOGAWA <b>AI<\/b>/);
+  assert.match(html, /class="connection-row"[\s\S]*id="connection"/);
+  assert.match(html, /system-rail-right" aria-label="Display status"/);
+  assert.match(css, /reference composition — docs\/phase-4-2\/デザインイメージ\.png/);
+  assert.match(css, /\.avatar-wrap,[\s\S]*width: min\(52vw, 680px\)/);
+  assert.match(css, /\.orb \{[\s\S]*top: 64%/);
+  assert.match(css, /\.system-rail \{[\s\S]*top: 22\.5%/);
+  assert.match(css, /\.caption-shell \{[\s\S]*left: 3vw;[\s\S]*right: 3vw;[\s\S]*bottom: 7vh/);
+  assert.match(css, /clip-path: polygon\(2\.4% 0, 97\.6% 0/);
+  assert.match(css, /\.identity \.designation,[\s\S]*\.identity h1 \{ display: none; \}/);
+});

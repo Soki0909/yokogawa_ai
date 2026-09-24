@@ -47,7 +47,7 @@ const waitForEndpoint = async () => {
 };
 
 const inspect = async (url) => {
-  const response = await fetch(`http://127.0.0.1:${port}/json/new?${encodeURIComponent(url)}`, { method: 'PUT' });
+  const response = await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' });
   if (!response.ok) throw new Error(`Could not create browser target: ${response.status}`);
   const target = await response.json();
   const socket = new WebSocket(target.webSocketDebuggerUrl);
@@ -59,7 +59,11 @@ const inspect = async (url) => {
     pending.set(id, { resolve, reject });
     socket.send(JSON.stringify({ id, method, params }));
   });
-  await new Promise((resolve, reject) => { socket.once('open', resolve); socket.once('error', reject); });
+  await new Promise((resolve, reject) => {
+    const timeout = setTimeout(() => reject(new Error(`DevTools socket timeout: ${url}`)), 5000);
+    socket.once('open', () => { clearTimeout(timeout); resolve(); });
+    socket.once('error', (error) => { clearTimeout(timeout); reject(error); });
+  });
   socket.on('message', (raw) => {
     const event = JSON.parse(raw);
     if (event.id && pending.has(event.id)) {
@@ -72,15 +76,27 @@ const inspect = async (url) => {
     if (event.method === 'Runtime.consoleAPICalled' && ['error', 'warning'].includes(event.params.type)) errors.push(`console.${event.params.type}`);
     if (event.method === 'Log.entryAdded' && ['error', 'warning'].includes(event.params.entry.level)) errors.push(`${event.params.entry.level}: ${event.params.entry.url ?? ''} ${event.params.entry.text}`);
   });
-  await Promise.all([send('Runtime.enable'), send('Log.enable'), send('Page.enable')]);
-  await new Promise((resolve) => setTimeout(resolve, 2500));
-  const result = await send('Runtime.evaluate', {
-    expression: `({ title: document.title, ready: document.readyState, connection: document.querySelector('#connection')?.textContent ?? null })`,
-    returnByValue: true,
+  socket.on('close', () => {
+    for (const request of pending.values()) request.reject(new Error(`DevTools socket closed: ${url}`));
+    pending.clear();
   });
+  await Promise.all([send('Runtime.enable'), send('Log.enable'), send('Page.enable')]);
+  await send('Page.navigate', { url });
+  const deadline = Date.now() + 8000;
+  let value;
+  while (Date.now() < deadline) {
+    const result = await send('Runtime.evaluate', {
+      expression: `({ url: location.href, title: document.title, ready: document.readyState, connection: document.querySelector('#connection')?.textContent ?? null, viewport: [innerWidth, innerHeight] })`,
+      returnByValue: true,
+    });
+    value = result.result.value;
+    if (value.url === url && value.ready === 'complete') break;
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
   socket.close();
   if (errors.length) throw new Error(`${url}: ${errors.join(' | ')}`);
-  return result.result.value;
+  if (value?.url !== url || value.ready !== 'complete') throw new Error(`${url}: page did not complete navigation`);
+  return value;
 };
 
 try {
@@ -88,10 +104,15 @@ try {
   const results = [];
   results.push(await inspect(new URL('/admin', baseUrl).href));
   results.push(await inspect(new URL('/display?id=console-check&name=Console-Check', baseUrl).href));
-  if (results.some((result) => result.ready !== 'complete')) throw new Error('Browser page did not complete');
+  if (results[0].title !== '横川AI CONTROL — SHOW CONTROL') throw new Error('Admin title mismatch');
+  if (results[1].title !== 'YOKOGAWA AI' || results[1].connection !== 'ONLINE') throw new Error('Display did not reach ONLINE');
   console.log(`BROWSER CONSOLE PASS: 2 pages / 0 warning / 0 error / ${JSON.stringify(results)}`);
 } finally {
   browser.kill();
-  await new Promise((resolve) => { browser.once('exit', resolve); setTimeout(resolve, 3000).unref(); });
-  await rm(profile, { recursive: true, force: true });
+  await new Promise((resolve) => {
+    if (browser.exitCode !== null || browser.signalCode !== null) return resolve();
+    browser.once('exit', resolve);
+    setTimeout(resolve, 3000);
+  });
+  await rm(profile, { recursive: true, force: true, maxRetries: 8, retryDelay: 250 });
 }
