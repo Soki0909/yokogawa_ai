@@ -21,6 +21,8 @@
   --preset-motion-scale: 1;
   --preset-avatar-filter: none;
   --preset-avatar-glow: 0 0 28px #62d9ff66;
+  --hud-center-x: 50%;
+  --hud-center-y: 34%;
 }
 
 body[data-preset="normal"] {
@@ -145,7 +147,7 @@ body {
   overflow: hidden;
   pointer-events: none;
   background:
-    radial-gradient(circle at 50% 36%, color-mix(in srgb, var(--preset-accent) 18%, transparent) 0, transparent 31%),
+    radial-gradient(circle at var(--hud-center-x) var(--hud-center-y), color-mix(in srgb, var(--preset-accent) 18%, transparent) 0, transparent 31%),
     linear-gradient(128deg, var(--preset-bg-0) 0%, var(--preset-bg-1) 52%, var(--preset-bg-0) 100%);
   transition: background .7s ease;
 }
@@ -158,14 +160,15 @@ body {
     linear-gradient(color-mix(in srgb, var(--preset-accent) 26%, transparent) 1px, transparent 1px),
     linear-gradient(90deg, color-mix(in srgb, var(--preset-accent) 26%, transparent) 1px, transparent 1px);
   background-size: clamp(48px, 5vw, 80px) clamp(48px, 5vw, 80px);
+  background-position: center;
 }
 
 .preset-core {
   position: absolute;
   width: min(72vw, 980px);
   aspect-ratio: 1;
-  left: 50%;
-  top: 36%;
+  left: var(--hud-center-x);
+  top: var(--hud-center-y);
   transform: translate(-50%, -50%);
   border-radius: 50%;
   opacity: var(--preset-ring-opacity);
@@ -175,8 +178,8 @@ body {
 
 .preset-rings {
   position: absolute;
-  left: 50%;
-  top: 37%;
+  left: var(--hud-center-x);
+  top: var(--hud-center-y);
   aspect-ratio: 1;
   border-radius: 50%;
   opacity: var(--preset-ring-opacity);
@@ -212,8 +215,8 @@ body {
   position: absolute;
   width: min(88vw, 1240px);
   aspect-ratio: 1;
-  left: 50%;
-  top: 37%;
+  left: var(--hud-center-x);
+  top: var(--hud-center-y);
   transform: translate(-50%, -50%);
   opacity: 0;
   background: conic-gradient(from 220deg, transparent 0 20%, color-mix(in srgb, var(--preset-accent) 30%, transparent) 20% 28%, transparent 28% 58%, color-mix(in srgb, var(--preset-accent-2) 22%, transparent) 58% 65%, transparent 65%);
@@ -378,7 +381,6 @@ body[data-reduced-motion="true"] *::after {
 @media (max-width: 900px) {
   .system-rail { top: 18%; max-width: 23vw; }
   .system-rail-left span:not(:first-child), .system-rail-right span:last-child { display: none; }
-  .preset-rings { top: 34%; }
 }
 
 @media (max-width: 600px) {
@@ -420,7 +422,7 @@ body[data-preset="normal"] {
 
 .preset-environment {
   background:
-    radial-gradient(ellipse at 50% 28%, color-mix(in srgb, var(--preset-accent) 28%, transparent) 0, color-mix(in srgb, var(--preset-accent) 9%, transparent) 23%, transparent 48%),
+    radial-gradient(ellipse at var(--hud-center-x) var(--hud-center-y), color-mix(in srgb, var(--preset-accent) 28%, transparent) 0, color-mix(in srgb, var(--preset-accent) 9%, transparent) 23%, transparent 48%),
     linear-gradient(142deg, color-mix(in srgb, var(--preset-accent) 4%, transparent) 0 35%, transparent 35% 62%, color-mix(in srgb, var(--preset-accent-2) 4%, transparent) 62% 76%, transparent 76%),
     linear-gradient(128deg, var(--preset-bg-0) 0%, var(--preset-bg-1) 50%, var(--preset-bg-0) 100%);
 }
@@ -439,7 +441,7 @@ body[data-preset="normal"] {
 .preset-environment::after {
   content: "";
   position: absolute;
-  left: 50%;
+  left: var(--hud-center-x);
   top: -94vw;
   width: 150vw;
   aspect-ratio: 1;
@@ -456,21 +458,15 @@ body[data-preset="normal"] {
 }
 
 .preset-core {
-  top: 32%;
   width: min(58vw, 920px);
   animation: preset-breathe 6.5s ease-in-out infinite;
-}
-
-.preset-rings {
-  top: 34%;
 }
 
 .ring-outer {
   width: min(52vw, 820px);
   border-width: 2px;
   border-style: solid;
-  border-left-color: transparent;
-  border-bottom-color: color-mix(in srgb, var(--preset-accent) 22%, transparent);
+  border-color: color-mix(in srgb, var(--preset-accent) 52%, transparent);
 }
 
 .ring-inner {
@@ -483,8 +479,7 @@ body[data-preset="normal"] {
   inset: 8%;
   border-width: 1px;
   border-style: dashed;
-  border-left-color: transparent;
-  border-bottom-color: color-mix(in srgb, var(--preset-accent-2) 18%, transparent);
+  border-color: color-mix(in srgb, var(--preset-accent-2) 34%, transparent);
 }
 
 .stage > header {
@@ -744,13 +739,13 @@ body[data-preset="normal"] {
 }
 
 @media (max-width: 900px) {
+  :root { --hud-center-y: 35%; }
   .avatar-wrap,
   .avatar-wrap[data-state="thinking"],
   .avatar-wrap[data-state="hijacked"] {
     top: 3vh;
     width: min(68vw, 620px);
   }
-  .preset-rings { top: 35%; }
   .ring-outer { width: 74vw; }
   .ring-inner { width: 56vw; }
   .system-rail { top: 19%; max-width: 25vw; }
@@ -771,7 +766,7 @@ body[data-preset="normal"] {
   .system-rail { display: none; }
   .ring-outer { width: 118vw; }
   .ring-inner { width: 88vw; }
-  .preset-core { top: 34%; width: 108vw; }
+  .preset-core { width: 108vw; }
   .caption-shell {
     left: 4vw;
     right: 4vw;
@@ -785,6 +780,7 @@ body[data-preset="normal"] {
 }
 
 @media (max-height: 650px) and (min-width: 601px) {
+  :root { --hud-center-y: 34%; }
   .avatar-wrap,
   .avatar-wrap[data-state="thinking"],
   .avatar-wrap[data-state="hijacked"] { width: min(45vw, 550px); top: -8vh; }
