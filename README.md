@@ -67,7 +67,7 @@ Cueは `schemaVersion: 2` で、主要フィールドは次のとおりです。
 
 標準Presetは `normal`、`warning`、`hijacked`、`hostile`、`shutdown`、`recovery` です。Presetと現在表示はServer authoritativeで、再接続時に復元します。
 
-Phase 4.2では同じAvatar・字幕レイアウトの背面に、共有Environment layerを追加しました。NORMALは参照画像に合わせ、中央の大型Avatar、左右22.5%位置のsystem rail、64%位置のdiamond node、左右3%・画面下部22%を使う字幕panelを基準構図にしています。中央の重複タイトルは表示せず、Avatarと字幕を主役にします。状態差は色だけに依存しません。
+Phase 4.2では同じAvatar・字幕レイアウトの背面に、共有Environment layerを追加しました。NORMALは参照画像に合わせ、中央の大型Avatar、左右22.5%位置のsystem rail、64%位置のdiamond node、左右3%・画面下部22%を使う字幕panelを基準構図にしています。円形HUDのcore・ring・sector・radial glowは単一の中心軸を共有し、Desktopと狭幅のどちらでも左右対称を維持します。中央の重複タイトルは表示せず、Avatarと字幕を主役にします。状態差は色だけに依存しません。
 
 - `normal`: 青緑の安定した同心円と低密度Grid
 - `warning`: 琥珀色の大型Geometry、斜めScan、Pulse

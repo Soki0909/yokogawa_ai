@@ -44,7 +44,7 @@ Admin 1 + Display 3を同時接続し、3台へのWARNING BroadcastとDisplay 3�
 
 ```text
 npm run check
-57 tests / 57 pass / 0 fail
+58 tests / 58 pass / 0 fail
 
 npm run test:browser-console
 BROWSER CONSOLE PASS: Admin / Display、warning 0 / error 0
@@ -68,6 +68,34 @@ preflight 6 / presentation 142 / BLACKOUT 71 / local audio 71
 RSS 61,489,152 → 89,276,416 bytes（+27,787,264 bytes、128MiB上限内）
 abnormalExit: false
 ```
+
+## 円形HUD対称性（2026-09-24追補）
+
+円形HUDを構成するradial glow、core、outer/inner ring、sectorがそれぞれY=28% / 32% / 34% / 37%を持っていたため、個々には中央でも同心円全体がズレて見えていた。さらにouter ring左辺だけ透明だったため、右側が強く見える錯視が生じていた。
+
+`--hud-center-x: 50%`と`--hud-center-y: 34%`を唯一のDesktop中心として導入し、全円形要素とradial glowを同じ変数へ接続した。gridも中央原点へ変更し、円周の左右border輝度を均等化した。900px以下は単一のY=35%へ切り替え、ringだけに残っていた旧34%上書きも除去した。
+
+実ブラウザの`getBoundingClientRect()`で次を確認した。
+
+| Viewport / Preset | core / outer ring / inner ring / sector中心 |
+|---|---|
+| 1440×769 / NORMAL | x=720.00、y=261.57 |
+| 1440×769 / WARNING | x=720.00、y=261.57 |
+| 1440×769 / HIJACKED | x=720.00、y=261.57 |
+| 1440×769 / HOSTILE | x=720.00、y=261.57 |
+| 1440×769 / SHUTDOWN | x=720.00、y=261.57 |
+| 1440×769 / RECOVERY | x=720.00、y=261.57 |
+| 390×844 / NORMAL | x=195.00、y=295.40 |
+
+狭幅の初回確認ではringだけy=286.96となる8.44px差を検出し、旧media queryを除去して再検証した。最終値は4要素すべて完全一致した。`prefers-reduced-motion`とShow設定のreduced motionではanimationだけを停止し、中心変数と左右対称形状は変化しない。
+
+| 証跡 | 画像 |
+|---|---|
+| 中心統一後・線輝度修正前 | [`reference-symmetry-normal.png`](../../artifacts/visual-v042/reference-symmetry-normal.png) |
+| 最終NORMAL | [`reference-symmetry-normal-final.png`](../../artifacts/visual-v042/reference-symmetry-normal-final.png) |
+| WARNING | [`reference-symmetry-warning.png`](../../artifacts/visual-v042/reference-symmetry-warning.png) |
+| HOSTILE | [`reference-symmetry-hostile.png`](../../artifacts/visual-v042/reference-symmetry-hostile.png) |
+| 390×844最終 | [`reference-symmetry-normal-390x844.png`](../../artifacts/visual-v042/reference-symmetry-normal-390x844.png) |
 
 ## Screenshot Matrix
 
@@ -158,7 +186,7 @@ abnormalExit: false
 | 1 | ✅ | v0.4.1 commit `5888728`を基準化 |
 | 2 | ✅ | v0.4.0 commit `44c2857`不変 |
 | 3 | ✅ | v0.4.1 commit `5888728`不変 |
-| 4 | ✅ | 既存50試験を含む57/57 PASS |
+| 4 | ✅ | 既存50試験を含む58/58 PASS |
 | 5 | ✅ | 4 PNGのSHA-256固定試験PASS |
 | 6 | ✅ | 同じ画像Assetを使用、人物造形変更なし |
 | 7 | ✅ | `.identity`内のAvatarを中央維持、重複wordmarkのみ非表示 |
@@ -216,7 +244,7 @@ abnormalExit: false
 | 59 | ✅ | 最終Screenshot matrixで再評価 |
 | 60 | ✅ | CDP自動検査で2ページ warning 0 / error 0 |
 | 61 | ✅ | visual-state 7試験PASS（参照構図契約を追加） |
-| 62 | ✅ | full regression 57/57 PASS |
+| 62 | ✅ | full regression 58/58 PASS |
 | 63 | ✅ | 最終コードで30分soak実施（上記結果） |
 | 64 | ✅ | soak failure 0 |
 | 65 | ✅ | soak abnormal exitなし |
