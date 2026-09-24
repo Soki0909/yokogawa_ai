@@ -1,6 +1,7 @@
 # 横川AI Phase 4.2 / v0.4.2 検証記録
 
 検証日: 2026-09-23（Asia/Tokyo）  
+追補検証日: 2026-09-24（Asia/Tokyo）
 基準: `master` / `origin/master` / annotated `v0.4.1` = `5888728`、`v0.4.0` = `44c2857`  
 対象: Presentation Preset Visual Overhaul
 
@@ -17,6 +18,56 @@ Phase 4.1のShow Control、画像Avatar、Blink、Lip Sync、Audio Master、再�
 ## Visual Architecture
 
 `public/display.html`の`.preset-environment`はheader、Avatar、captionより前に置き、`public/css/display-phase42.css`で`z-index: 0`に固定した。Avatarは3、captionは8、BLACKOUTは999である。`public/js/display.js`はServer authoritativeなPreset IDを`body.dataset.preset`へ反映し、既知6状態のStatus labelを更新する。未知Presetは`CUSTOM PROFILE`へ安全に退避する。
+
+## 参照画像忠実化（2026-09-24追補）
+
+`デザインイメージ.png`を再度正本として、最終NORMALを構図単位で比較した。参照画像の主要比率をCSSへ明示し、中央Avatarを`min(52vw, 680px)`まで拡大、左右railを上端22.5%、diamond nodeを上端64%、字幕を左右3%・下端7%・高さ22%へ固定した。中央の重複する「横川AI」タイトルを隠し、左に`YOKOGAWA AI` brand rail、右に実接続状態とPreset詳細を置いた。背景は濃紺、同心円、低密度grid、斜線beamで再構成している。
+
+初回passでは字幕幅が中央列に制約され、nodeが参照より上にあった。`justify-self: stretch`、全幅absolute配置、node 64%への補正、beamの減光、下側arcのmaskを適用して再撮影した。最終NORMALは人物の頭頂・肩切れ、左右rail、中央node、字幕panelの上下比率が参照画像と一致する。機能上必要な`DISPLAY設定`は通常時に目立たない低コントラストで右上へ残した。
+
+追補の実ブラウザ証跡は次のとおり。旧`final-*`はv0.4.2初回完成時の履歴として残し、以下を最終比較に使用する。
+
+| 状態・試験 | 追補証跡 |
+|---|---|
+| NORMAL pass 1 / 最終 | [`reference-normal-pass1.png`](../../artifacts/visual-v042/reference-normal-pass1.png)、[`reference-normal-pass2.png`](../../artifacts/visual-v042/reference-normal-pass2.png) |
+| 最終6 Preset比較 | [`reference-comparison-6-presets.png`](../../artifacts/visual-v042/reference-comparison-6-presets.png) |
+| WARNING / HIJACKED / HOSTILE | [`reference-warning.png`](../../artifacts/visual-v042/reference-warning.png)、[`reference-hijacked.png`](../../artifacts/visual-v042/reference-hijacked.png)、[`reference-hostile.png`](../../artifacts/visual-v042/reference-hostile.png) |
+| SHUTDOWN 2時点 | [`reference-shutdown-t1.png`](../../artifacts/visual-v042/reference-shutdown-t1.png)、[`reference-shutdown-t2.png`](../../artifacts/visual-v042/reference-shutdown-t2.png) |
+| RECOVERY 2時点 | [`reference-recovery-t1.png`](../../artifacts/visual-v042/reference-recovery-t1.png)、[`reference-recovery-t2.png`](../../artifacts/visual-v042/reference-recovery-t2.png) |
+| 390×844狭幅 / 低いviewport | [`reference-normal-narrow-390x844.png`](../../artifacts/visual-v042/reference-normal-narrow-390x844.png)、[`reference-normal-mobile.png`](../../artifacts/visual-v042/reference-normal-mobile.png) |
+| Admin 1 + Display 3 Broadcast | [`reference-multidisplay-1.png`](../../artifacts/visual-v042/reference-multidisplay-1.png)、[`reference-multidisplay-2.png`](../../artifacts/visual-v042/reference-multidisplay-2.png)、[`reference-multidisplay-3.png`](../../artifacts/visual-v042/reference-multidisplay-3.png) |
+| Display個別送信 | [`reference-individual-display1-warning.png`](../../artifacts/visual-v042/reference-individual-display1-warning.png)、[`reference-individual-display3-normal.png`](../../artifacts/visual-v042/reference-individual-display3-normal.png) |
+| 切断中変更→同一ID再接続 | [`reference-reconnect-hostile.png`](../../artifacts/visual-v042/reference-reconnect-hostile.png) |
+| BLACKOUT | [`reference-blackout.png`](../../artifacts/visual-v042/reference-blackout.png) |
+
+Admin 1 + Display 3を同時接続し、3台へのWARNING BroadcastとDisplay 3だけのNORMAL個別送信を確認した。Display 3を切断したままHOSTILEへ変更し、同一IDで再接続した直後に`ONLINE / HOSTILE / CONTAINMENT FAILED`と字幕が復元された。Adminは`3 ONLINE`を表示した。BLACKOUTは全画面を覆い、RESTOREは直前のHOSTILEへ復帰した。SHUTDOWNの2 PNGはbyte単位で一致し、reduced motionは自動試験で主要animation停止と静的識別を確認した。
+
+```text
+npm run check
+57 tests / 57 pass / 0 fail
+
+npm run test:browser-console
+BROWSER CONSOLE PASS: Admin / Display、warning 0 / error 0
+
+npm audit --audit-level=high
+found 0 vulnerabilities
+```
+
+追加した構図契約試験はbrand/status rail、Avatar幅、node 64%、字幕比率、clip shape、中央タイトル非表示を固定する。CDP検査は実URLへ明示navigateし、正しいtitle・Display `ONLINE`まで確認するため、`about:blank`の誤通過を許さない。
+
+参照画像忠実化後の最終コードでも30分soakを再実施した。
+
+```text
+SOAK PASS: 30分
+totalEvents/succeeded/failed: 853 / 853 / 0
+group 71 / cue 213 / replay 71 / stop 71
+Display reconnect 3 / Admin reconnect 1
+offline 1 / required offline 2
+Audio Master reconnect 1 / change 1
+preflight 6 / presentation 142 / BLACKOUT 71 / local audio 71
+RSS 61,489,152 → 89,276,416 bytes（+27,787,264 bytes、128MiB上限内）
+abnormalExit: false
+```
 
 ## Screenshot Matrix
 
@@ -107,17 +158,17 @@ abnormalExit: false
 | 1 | ✅ | v0.4.1 commit `5888728`を基準化 |
 | 2 | ✅ | v0.4.0 commit `44c2857`不変 |
 | 3 | ✅ | v0.4.1 commit `5888728`不変 |
-| 4 | ✅ | 既存50試験を含む56/56 PASS |
+| 4 | ✅ | 既存50試験を含む57/57 PASS |
 | 5 | ✅ | 4 PNGのSHA-256固定試験PASS |
 | 6 | ✅ | 同じ画像Assetを使用、人物造形変更なし |
-| 7 | ✅ | `.identity`構造と中央位置を維持 |
-| 8 | ✅ | Avatar既存寸法を変更せず表示 |
-| 9 | ✅ | 左info railを維持 |
-| 10 | ✅ | 右status railを維持・状態詳細追加 |
-| 11 | ✅ | `.caption-shell`位置を維持、transformなし |
+| 7 | ✅ | `.identity`内のAvatarを中央維持、重複wordmarkのみ非表示 |
+| 8 | ✅ | Avatar asset不変、参照構図に合わせ表示寸法を拡大 |
+| 9 | ✅ | 左railを参照画像準拠の`YOKOGAWA AI` brandへ改良 |
+| 10 | ✅ | 右railを実接続状態・Preset詳細として維持 |
+| 11 | ✅ | `.caption-shell`を参照比率へ拡大、transformなし |
 | 12 | ✅ | 既存6 Preset ID不変 |
 | 13 | ✅ | `baseline-normal.png`取得 |
-| 14 | ✅ | NORMALのAvatar・字幕・基本構図不変を比較確認 |
+| 14 | ✅ | NORMALを参照画像と再比較し、人物・rail・node・字幕比率を反映 |
 | 15 | ✅ | WARNING全画面amber環境を実画像確認 |
 | 16 | ✅ | 大型concentric ring / sector / grid |
 | 17 | ✅ | 固定scanのopacity pulse |
@@ -164,8 +215,8 @@ abnormalExit: false
 | 58 | ✅ | compositor破断を発見し自律修正 |
 | 59 | ✅ | 最終Screenshot matrixで再評価 |
 | 60 | ✅ | CDP自動検査で2ページ warning 0 / error 0 |
-| 61 | ✅ | 追加visual-state 6試験PASS |
-| 62 | ✅ | full regression 56/56 PASS |
+| 61 | ✅ | visual-state 7試験PASS（参照構図契約を追加） |
+| 62 | ✅ | full regression 57/57 PASS |
 | 63 | ✅ | 最終コードで30分soak実施（上記結果） |
 | 64 | ✅ | soak failure 0 |
 | 65 | ✅ | soak abnormal exitなし |
@@ -189,7 +240,11 @@ Phase 4.1を保護し、次の単位へ分割した。全commitを`origin/master
 - `c8dad25` test(display): cover Phase 4.2 visual states
 - `bdd85ac` test(display): record browser visual review evidence
 - `4303e95` fix(web): verify clean browser console
-- docs: publish Phase 4.2 verification（本記録）
+- `012829a` docs: publish Phase 4.2 verification
+- `7474650` feat(display): align Phase 4.2 with reference design
+- `61b4a1c` test(display): lock reference composition and browser checks
+- `775c98c` test(display): record reference fidelity evidence
+- docs: record Phase 4.2 reference fidelity（本追補）
 
 ## 残余の会場依存確認
 

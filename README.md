@@ -1,6 +1,6 @@
 # 横川AI Phase 4.2 — Presentation Preset Visual Overhaul
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 4.2 / v0.4.2はv0.4.1のCue進行・複数Display・Audio Master・Free Speak・画像Avatarを維持し、6種のPresentation Presetを舞台距離でも判別できる全画面演出へ更新しました。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 4.2 / v0.4.2はv0.4.1のCue進行・複数Display・Audio Master・Free Speak・画像Avatarを維持し、`docs/phase-4-2/デザインイメージ.png`をNORMALの構図基準として、6種のPresentation Presetを舞台距離でも判別できる全画面演出へ更新しました。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
@@ -67,7 +67,7 @@ Cueは `schemaVersion: 2` で、主要フィールドは次のとおりです。
 
 標準Presetは `normal`、`warning`、`hijacked`、`hostile`、`shutdown`、`recovery` です。Presetと現在表示はServer authoritativeで、再接続時に復元します。
 
-Phase 4.2では同じAvatar・字幕レイアウトの背面に、共有Environment layerを追加しました。状態差は色だけに依存しません。
+Phase 4.2では同じAvatar・字幕レイアウトの背面に、共有Environment layerを追加しました。NORMALは参照画像に合わせ、中央の大型Avatar、左右22.5%位置のsystem rail、64%位置のdiamond node、左右3%・画面下部22%を使う字幕panelを基準構図にしています。中央の重複タイトルは表示せず、Avatarと字幕を主役にします。状態差は色だけに依存しません。
 
 - `normal`: 青緑の安定した同心円と低密度Grid
 - `warning`: 琥珀色の大型Geometry、斜めScan、Pulse
@@ -138,7 +138,7 @@ npm audit --omit=dev
 npm run test:soak
 ```
 
-`test:soak` は既定30分です。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase 4.2の実ブラウザ画像、Visual Pass、30分試験、75項目の受入照合は [Phase 4.2検証記録](docs/phase-4-2/verification.md) を参照してください。過去Phaseの記録も `docs/` に保持しています。
+`test:soak` は既定30分です。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。参照画像との再比較、最終6 Preset、実ブラウザ、Admin 1 + Display 3、BLACKOUT・再接続、Visual Pass、30分試験、75項目の受入照合は [Phase 4.2検証記録](docs/phase-4-2/verification.md) を参照してください。過去Phaseの記録も `docs/` に保持しています。
 
 ## Phase 4.2スコープ外
 
