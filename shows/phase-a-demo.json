@@ -19,7 +19,10 @@
     { "id": "shutdown", "name": "Shutdown", "background": "#020305", "accent": "#6c7785", "text": "#d5dae0", "glow": 0.12, "motion": "none" },
     { "id": "recovery", "name": "Recovery", "background": "#061d18", "accent": "#53f3c2", "text": "#edfff9", "glow": 0.5, "motion": "calm" }
   ],
-  "assets": [{ "id": "test-tone", "name": "内蔵テスト音", "path": "assets/audio/test-tone.wav", "mimeType": "audio/wav" }],
+  "assets": [
+    { "id": "test-tone", "name": "内蔵テスト音", "path": "assets/audio/test-tone.wav", "mimeType": "audio/wav" },
+    { "id": "phase-a-placeholder", "name": "Phase A Visual Placeholder", "path": "assets/visual/phase-a-placeholder.svg", "mimeType": "image/svg+xml" }
+  ],
   "avatar": { "visible": true, "state": "normal", "lipSyncMode": "simulated", "label": "YOKOGAWA AI", "mode": "image-yokogawa-v1", "assetSetId": "yokogawa-v1" },
   "settings": { "rate": 1, "pitch": 0.9, "volume": 1, "subtitlesEnabled": true, "speechProvider": "browser", "shortcutsEnabled": true, "reducedMotion": false },
   "cues": [
