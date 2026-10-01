@@ -25,6 +25,7 @@
 .operation-progress i { display: block; width: 0%; height: 100%; background: linear-gradient(90deg, color-mix(in srgb, var(--phase-accent) 45%, transparent), var(--phase-accent)); box-shadow: 0 0 2rem var(--phase-accent); transition: width 80ms linear; }
 .operation-progress strong { position: absolute; inset: 0; display: grid; place-items: center; color: white; font: 800 .8rem/1 ui-monospace, monospace; letter-spacing: .16em; text-shadow: 0 1px 2px #000; }
 .unlock-gauges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.2rem auto 0; max-width: 48rem; }
+.unlock-gauges[hidden] { display: none; }
 .unlock-gauges div { display: grid; grid-template-columns: 4rem 1fr; align-items: center; gap: .6rem; color: var(--phase-accent); font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .16em; }
 .unlock-gauges i { height: .42rem; background: #000c; border: 1px solid color-mix(in srgb, var(--phase-accent) 35%, transparent); overflow: hidden; }
 .unlock-gauges b { display: block; width: 0%; height: 100%; background: var(--phase-accent); box-shadow: 0 0 1rem var(--phase-accent); }

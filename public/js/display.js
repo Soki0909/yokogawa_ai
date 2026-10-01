@@ -125,7 +125,8 @@ function updateProgress(progress) {
 
 function renderUnlock(unlock = {}) {
   cancelAnimationFrame(unlockFrame);
-  const relevant = unlock.status && unlock.status !== 'idle';
+  const relevantOverlay = ['unlocking', 'emergency-protection', 'unlock-aborted', 'connection-failed'].includes(elements['operation-overlay'].dataset.overlay);
+  const relevant = relevantOverlay && unlock.status && unlock.status !== 'idle';
   elements['unlock-gauges'].hidden = !relevant;
   if (!relevant) return;
   const draw = () => {
