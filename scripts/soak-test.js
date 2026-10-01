@@ -107,6 +107,7 @@ const metrics = {
   offlineDetections: 0, requiredOfflineDetections: 0, masterReconnects: 0,
   masterChanges: 0, preflightChecks: 0,
   presentationEvents: 0, blackoutEvents: 0, localAudioEvents: 0,
+  phaseAEvents: 0, unlockEvents: 0, emergencyEvents: 0,
 };
 const processedMessageIds = new Set();
 const durationMs = minutes * 60 * 1000;
@@ -145,12 +146,29 @@ async function awaitCompleted(id) {
 }
 
 async function exerciseSpeech(iteration) {
-  const kind = iteration % 12;
+  const kind = iteration % 15;
   let event;
   if (kind === 8) {
     admin.send({ type: 'cue:execute', cueId: 'soak-display' });
     await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.displayText === 'Phase 4 display-only')));
     metrics.presentationEvents += 1; return;
+  }
+  if (kind === 12) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-unlock' });
+    const events = await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.transition?.id === 'unlock-start')));
+    assert.ok(events.every((item) => item.presentation.unlock.status === 'running'));
+    metrics.phaseAEvents += 1; metrics.unlockEvents += 1; return;
+  }
+  if (kind === 13) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-emergency' });
+    const events = await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.overlay?.id === 'emergency-protection')));
+    assert.ok(events.every((item) => item.presentation.unlock.status === 'aborted'));
+    metrics.phaseAEvents += 1; metrics.emergencyEvents += 1; return;
+  }
+  if (kind === 14) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-hostile' });
+    await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.transition?.id === 'hostile-enter')));
+    metrics.phaseAEvents += 1; return;
   }
   if (kind === 9) {
     admin.send({ type: 'cue:execute', cueId: 'soak-audio' });
@@ -241,6 +259,9 @@ try {
   admin.send({ type: 'admin-mode:set', mode: 'show' });
   admin.send({ type: 'cue:save', cue: { cueId: 'soak-display', cueNumber: 'P4-D', cueName: 'Display only', kind: 'display-only', displayText: 'Phase 4 display-only', speechText: '', presentationPreset: 'warning', target: { type: 'all' }, avatar: { visible: true, state: 'warning' }, audio: { speechMode: 'none', lipSyncMode: 'none' }, enabled: true } });
   admin.send({ type: 'cue:save', cue: { cueId: 'soak-audio', cueNumber: 'P4-A', cueName: 'Local audio', kind: 'speech-display', displayText: 'Phase 4 local audio', speechText: 'fallback', presentationPreset: 'hijacked', target: { type: 'all' }, avatar: { visible: true, state: 'speaking' }, audio: { speechMode: 'audio-file', assetId: 'test-tone', lipSyncMode: 'audio-reactive' }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-unlock', cueNumber: 'PA-U', cueName: 'Unlock', kind: 'display-only', displayText: 'UNLOCKING', presentationPreset: 'recovery', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'unlock-start', durationMs: 800 }, overlay: { id: 'unlocking', visible: true, title: 'UNLOCKING' }, timing: { unlockDurationMs: 3000 }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-emergency', cueNumber: 'PA-E', cueName: 'Emergency', kind: 'display-only', displayText: 'EMERGENCY', presentationPreset: 'warning', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'emergency-interrupt', durationMs: 500 }, overlay: { id: 'emergency-protection', visible: true, title: 'EMERGENCY' }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-hostile', cueNumber: 'PA-H', cueName: 'Hostile', kind: 'display-only', displayText: 'HOSTILE', presentationPreset: 'hostile', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'hostile-enter', durationMs: 600 }, enabled: true } });
   const ready = await admin.next((event) => event.type === 'state'
     && event.state.targetGroups.some((group) => group.id === 'front-pair')
     && event.state.displays.filter((display) => display.required).length === 2
@@ -342,6 +363,7 @@ try {
   assert.ok(metrics.replayEvents > 0);
   assert.ok(metrics.stopEvents > 0);
   assert.ok(metrics.presentationEvents > 0); assert.ok(metrics.blackoutEvents > 0); assert.ok(metrics.localAudioEvents > 0);
+  assert.ok(metrics.phaseAEvents > 0); assert.ok(metrics.unlockEvents > 0); assert.ok(metrics.emergencyEvents > 0);
   assert.doesNotMatch(serverErrors, /Unhandled|uncaught/i);
   assert.ok(memoryGrowthBytes < 128 * 1024 * 1024, `RSS増加が128MiB未満: ${memoryGrowthBytes}`);
   console.log(`SOAK PASS: ${minutes}分 / ${JSON.stringify({ ...metrics, memoryStartBytes: initialHealth.memoryRssBytes, memoryEndBytes: finalHealth.memoryRssBytes, memoryGrowthBytes, abnormalExit: false })}`);
