@@ -7,7 +7,7 @@ import QRCode from 'qrcode';
 import { StateStore } from './state-store.js';
 import { createLogger } from './logger.js';
 import { accessUrls, connectionInfo } from './network.js';
-import { createTestToneWav, resolveAudioAsset } from './local-audio.js';
+import { createTestToneWav, resolveLocalAsset } from './local-audio.js';
 
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(moduleDirectory, '..');
@@ -60,7 +60,7 @@ app.get('/api/assets/:assetId', (request, response) => {
   if (!asset) return response.status(404).json({ error: 'ASSET_NOT_FOUND' });
   response.setHeader('Cache-Control', 'public, max-age=3600'); response.type(asset.mimeType);
   if (asset.id === 'test-tone') return response.send(createTestToneWav());
-  try { return response.sendFile(resolveAudioAsset(publicDirectory, asset)); }
+  try { return response.sendFile(resolveLocalAsset(publicDirectory, asset)); }
   catch { return response.status(400).json({ error: 'UNSAFE_ASSET_PATH' }); }
 });
 app.get('/api/qr', async (request, response) => {

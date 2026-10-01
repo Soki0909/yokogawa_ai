@@ -36,3 +36,13 @@ test('Phase A ID集合・期間・同期マーカーを正規化し未知IDを�
   assert.ok(checked.errors.includes('INVALID_OVERLAY:legacy'));
   assert.ok(checked.errors.includes('INVALID_VISUAL_TYPE:legacy'));
 });
+
+test('Scene imageはlocal visual assetだけを参照しMIME不整合を拒否する', () => {
+  const imageShow = v2Show(); imageShow.schemaVersion = 3;
+  imageShow.assets.push({ id: 'map', name: 'Map', path: 'assets/visual/map.webp', mimeType: 'image/webp' });
+  Object.assign(imageShow.cues[0], { visual: { id: 'map-card', type: 'image', assetId: 'map', visible: true } });
+  assert.equal(validateShowFile(imageShow).valid, true);
+  imageShow.cues[0].visual.assetId = 'missing'; assert.ok(validateShowFile(imageShow).errors.includes('CUE_VISUAL_ASSET_NOT_FOUND:legacy'));
+  imageShow.cues[0].visual.assetId = 'map'; imageShow.assets.find((asset) => asset.id === 'map').mimeType = 'image/png';
+  assert.ok(validateShowFile(imageShow).errors.includes('ASSET_MIME_MISMATCH:map'));
+});

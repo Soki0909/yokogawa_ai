@@ -202,6 +202,7 @@ function openCue(cue = {}) {
   elements['cue-transition-duration'].value = cue.transition?.durationMs ?? 900; elements['cue-transition-intensity'].value = cue.transition?.intensity ?? 1;
   elements['cue-overlay-visible'].checked = cue.overlay?.visible === true; elements['cue-overlay-progress'].value = cue.overlay?.progress ?? ''; elements['cue-overlay-title'].value = cue.overlay?.title ?? ''; elements['cue-overlay-message'].value = cue.overlay?.message ?? '';
   elements['cue-visual-id'].value = cue.visual?.id ?? 'none'; elements['cue-visual-visible'].checked = cue.visual?.visible === true; elements['cue-visual-title'].value = cue.visual?.title ?? ''; elements['cue-visual-message'].value = cue.visual?.message ?? ''; elements['cue-visual-items'].value = (cue.visual?.items ?? []).join('\n');
+  replaceOptions(elements['cue-visual-asset'], [option('', 'なし'), ...state.assets.filter((asset) => asset.mimeType?.startsWith('image/')).map((asset) => option(asset.id, asset.name))], cue.visual?.assetId ?? '');
   elements['cue-unlock-duration'].value = cue.timing?.unlockDurationMs ?? 5000; elements['cue-overlay-clear'].value = cue.timing?.autoClearOverlayMs ?? ''; elements['cue-visual-hide'].value = cue.timing?.autoHideVisualMs ?? '';
   elements['cue-sync-markers'].value = cue.syncMarkers?.length ? JSON.stringify(cue.syncMarkers, null, 2) : '';
   elements['cue-dialog'].showModal();
@@ -230,7 +231,7 @@ elements['cue-form'].addEventListener('submit', (event) => {
     avatar: { visible: true, state: elements['cue-avatar-state'].value }, audio: { speechMode: elements['cue-speech-mode'].value, assetId: elements['cue-asset'].value || null, lipSyncMode: elements['cue-lip-sync'].value },
     transition: { id: elements['cue-transition'].value, durationMs: Number(elements['cue-transition-duration'].value), intensity: Number(elements['cue-transition-intensity'].value) },
     overlay: { id: elements['cue-overlay'].value, visible: elements['cue-overlay-visible'].checked, title: elements['cue-overlay-title'].value, message: elements['cue-overlay-message'].value, progress: nullableNumber(elements['cue-overlay-progress'].value) },
-    visual: { id: elements['cue-visual-id'].value, type: elements['cue-visual-type'].value, visible: elements['cue-visual-visible'].checked, title: elements['cue-visual-title'].value, message: elements['cue-visual-message'].value, items: elements['cue-visual-items'].value.split('\n').map((value) => value.trim()).filter(Boolean) },
+    visual: { id: elements['cue-visual-id'].value, type: elements['cue-visual-type'].value, assetId: elements['cue-visual-asset'].value || null, visible: elements['cue-visual-visible'].checked, title: elements['cue-visual-title'].value, message: elements['cue-visual-message'].value, items: elements['cue-visual-items'].value.split('\n').map((value) => value.trim()).filter(Boolean) },
     timing: { unlockDurationMs: Number(elements['cue-unlock-duration'].value), autoClearOverlayMs: nullableNumber(elements['cue-overlay-clear'].value), autoHideVisualMs: nullableNumber(elements['cue-visual-hide'].value) }, syncMarkers,
     operatorNote: elements['cue-operator-note'].value, triggerNote: elements['cue-trigger-note'].value, enabled: elements['cue-enabled'].checked,
   } });

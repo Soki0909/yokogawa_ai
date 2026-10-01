@@ -1,13 +1,15 @@
 import path from 'node:path';
 import { isSafeAssetPath } from './show-schema.js';
 
-export function resolveAudioAsset(publicDirectory, asset) {
+export function resolveLocalAsset(publicDirectory, asset) {
   if (!asset || !isSafeAssetPath(asset.path)) throw new Error('UNSAFE_ASSET_PATH');
-  const root = path.resolve(publicDirectory, 'assets', 'audio');
+  const root = path.resolve(publicDirectory, 'assets');
   const resolved = path.resolve(publicDirectory, asset.path);
   if (!resolved.startsWith(`${root}${path.sep}`)) throw new Error('UNSAFE_ASSET_PATH');
   return resolved;
 }
+
+export const resolveAudioAsset = resolveLocalAsset;
 
 // Short local WAV fixture used for preflight and offline demonstrations.
 export function createTestToneWav({ frequency = 440, durationMs = 420, sampleRate = 16000 } = {}) {

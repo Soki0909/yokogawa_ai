@@ -6,7 +6,7 @@ const load = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('DisplayはPreset・Avatar・Scene Visual・Subtitle・Operation Overlay・Blackoutを独立した層で持つ', async () => {
   const [html, css] = await Promise.all([load('public/display.html'), load('public/css/display-phase-a.css')]);
-  for (const id of ['scene-visual', 'operation-overlay', 'transition-layer', 'unlock-gauges', 'blackout']) assert.match(html, new RegExp(`id="${id}"`));
+  for (const id of ['scene-visual', 'scene-visual-image', 'operation-overlay', 'transition-layer', 'unlock-gauges', 'blackout']) assert.match(html, new RegExp(`id="${id}"`));
   assert.match(html, /display-phase-a\.css/);
   assert.match(css, /\.scene-visual[\s\S]*z-index:\s*22/);
   assert.match(css, /\.operation-overlay[\s\S]*z-index:\s*35/);
@@ -23,4 +23,5 @@ test('Display clientはtransition・overlay・visual・unlockをsnapshotとイ�
   assert.match(script, /relevantOverlay/);
   assert.match(script, /Date\.parse\(overlay\.expiresAt\) - Date\.now\(\)/);
   assert.match(script, /Date\.parse\(visual\.expiresAt\) - Date\.now\(\)/);
+  assert.match(script, /\/api\/assets\/\$\{encodeURIComponent\(visual\.assetId\)\}/);
 });

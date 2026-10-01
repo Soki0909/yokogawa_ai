@@ -119,6 +119,10 @@ function renderVisual(visual = {}) {
   elements['scene-visual-label'].textContent = visual.mode && visual.mode !== 'default' ? visual.mode.toUpperCase() : 'SCENE VISUAL';
   elements['scene-visual-title'].textContent = visual.title || String(visual.id ?? '').replaceAll('-', ' ');
   elements['scene-visual-message'].textContent = visual.message ?? '';
+  const showImage = visible && visual.type === 'image' && visual.assetId;
+  elements['scene-visual-image'].hidden = !showImage;
+  if (showImage) { elements['scene-visual-image'].src = `/api/assets/${encodeURIComponent(visual.assetId)}`; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
+  else elements['scene-visual-image'].removeAttribute('src');
   elements['scene-visual-items'].replaceChildren(...(visual.items ?? []).map((value) => { const item = document.createElement('li'); item.textContent = value; return item; }));
   if (visible && visual.expiresAt) visualTimer = window.setTimeout(() => { elements['scene-visual'].hidden = true; }, Math.max(0, Date.parse(visual.expiresAt) - Date.now()));
 }

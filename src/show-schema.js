@@ -131,16 +131,19 @@ export function normalizePreset(input = {}, index = 0) {
 }
 
 export function normalizeAsset(input = {}, index = 0) {
+  const mimeTypes = ['audio/wav', 'audio/mpeg', 'image/png', 'image/jpeg', 'image/webp', 'image/svg+xml'];
   return {
     id: id(input.id, `asset-${index + 1}`), name: text(input.name, 120) || `Audio ${index + 1}`,
-    path: text(input.path, 300), mimeType: ['audio/wav', 'audio/mpeg'].includes(input.mimeType) ? input.mimeType : 'audio/wav',
+    path: text(input.path, 300), mimeType: mimeTypes.includes(input.mimeType) ? input.mimeType : 'audio/wav',
   };
 }
 
 export function isSafeAssetPath(value) {
   if (!value || typeof value !== 'string' || value.includes('..') || value.includes('\\') || value.startsWith('/') || /^[a-zA-Z]:/.test(value)) return false;
-  return /^assets\/audio\/[a-zA-Z0-9_.-]+\.(wav|mp3)$/i.test(value);
+  return /^assets\/(audio\/[a-zA-Z0-9_.-]+\.(wav|mp3)|visual\/[a-zA-Z0-9_.-]+\.(png|jpe?g|webp|svg))$/i.test(value);
 }
+
+export function isImageAsset(asset) { return asset?.mimeType?.startsWith('image/') && /^assets\/visual\//i.test(asset.path ?? ''); }
 
 export function normalizeCue(input = {}, order = 0) {
   const cueId = id(input.cueId ?? input.id, `cue-${order + 1}`);
@@ -193,6 +196,8 @@ export function validateShowFile(input) {
     if (!presetIds.has(cue.presentationPreset)) errors.push(`CUE_PRESET_NOT_FOUND:${cue.id}`);
     if (cue.target.type === 'group' && !groupIds.has(cue.target.id)) errors.push(`CUE_GROUP_NOT_FOUND:${cue.id}`);
     if (cue.audio.speechMode === 'audio-file' && !assetIds.has(cue.audio.assetId)) errors.push(`CUE_ASSET_NOT_FOUND:${cue.id}`);
+    if (cue.visual.type === 'image' && !assetIds.has(cue.visual.assetId)) errors.push(`CUE_VISUAL_ASSET_NOT_FOUND:${cue.id}`);
+    if (cue.visual.type === 'image' && assetIds.has(cue.visual.assetId) && !isImageAsset(assets.find((asset) => asset.id === cue.visual.assetId))) errors.push(`CUE_VISUAL_ASSET_NOT_IMAGE:${cue.id}`);
     if (['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode === 'browser' && !cue.speechText) errors.push(`CUE_SPEECH_EMPTY:${cue.id}`);
     if (['speech-display', 'display-only'].includes(cue.kind) && !cue.displayText) errors.push(`CUE_DISPLAY_EMPTY:${cue.id}`);
   }
@@ -207,7 +212,13 @@ export function validateShowFile(input) {
   }
   if (input.avatar?.mode != null && !AVATAR_MODES.has(input.avatar.mode)) errors.push('INVALID_AVATAR_MODE');
   if (input.avatar?.assetSetId != null && !AVATAR_ASSET_SETS[input.avatar.assetSetId]) errors.push('AVATAR_ASSET_SET_NOT_FOUND');
-  for (const asset of assets) if (!isSafeAssetPath(asset.path)) errors.push(`UNSAFE_ASSET_PATH:${asset.id}`);
+  for (const asset of assets) {
+    if (!isSafeAssetPath(asset.path)) errors.push(`UNSAFE_ASSET_PATH:${asset.id}`);
+    const extensionMatches = asset.mimeType === 'audio/wav' ? /\.wav$/i : asset.mimeType === 'audio/mpeg' ? /\.mp3$/i
+      : asset.mimeType === 'image/png' ? /\.png$/i : asset.mimeType === 'image/jpeg' ? /\.jpe?g$/i
+        : asset.mimeType === 'image/webp' ? /\.webp$/i : /\.svg$/i;
+    if (!extensionMatches.test(asset.path)) errors.push(`ASSET_MIME_MISMATCH:${asset.id}`);
+  }
   return { valid: errors.length === 0, errors: [...new Set(errors)], normalized: { cues, presets, assets } };
 }
 

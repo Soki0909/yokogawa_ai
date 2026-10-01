@@ -6,7 +6,7 @@ const load = (path) => readFile(new URL(`../${path}`, import.meta.url), 'utf8');
 
 test('AdminはCurrent/Next演出詳細・Cue jump・Phase A編集フィールドを持つ', async () => {
   const [html, script] = await Promise.all([load('public/admin.html'), load('public/js/admin.js')]);
-  for (const id of ['show-current-detail', 'show-next-detail', 'cue-transition', 'cue-overlay', 'cue-visual-type', 'cue-unlock-duration', 'cue-sync-markers']) assert.match(html, new RegExp(`id="${id}"`));
+  for (const id of ['show-current-detail', 'show-next-detail', 'cue-transition', 'cue-overlay', 'cue-visual-type', 'cue-visual-asset', 'cue-unlock-duration', 'cue-sync-markers']) assert.match(html, new RegExp(`id="${id}"`));
   assert.match(script, /data-action="jump"/); assert.match(script, /performAction\('cue:jump'/);
   assert.match(script, /function cueDetail\(/); assert.match(script, /syncMarkers/);
   assert.match(script, /transition:/); assert.match(script, /overlay:/); assert.match(script, /visual:/); assert.match(script, /timing:/);
