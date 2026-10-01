@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { JsonFileStorage } from './json-storage.js';
 import {
   AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, SHOW_SCHEMA_VERSION, normalizeAsset, normalizeAvatar, normalizeCue,
-  normalizePreset, normalizeTarget, publicCue, validateShowFile,
+  normalizeOverlay, normalizePreset, normalizeTarget, normalizeTransition, normalizeVisual, publicCue, validateShowFile,
 } from './show-schema.js';
 
 export const DEFAULT_SETTINGS = Object.freeze({
@@ -32,6 +32,10 @@ const TERMINAL = new Set(['completed', 'stopped', 'error']);
 const PLAYBACK = new Set(['idle', 'received', 'speaking', ...TERMINAL]);
 const safeText = (value) => typeof value === 'string' ? value.trim() : '';
 const validId = (value, fallback) => /^[a-zA-Z0-9_-]{1,100}$/.test(value ?? '') ? value : fallback;
+const EMPTY_OVERLAY = Object.freeze(normalizeOverlay());
+const EMPTY_VISUAL = Object.freeze(normalizeVisual());
+const EMPTY_TRANSITION = Object.freeze({ ...normalizeTransition(), status: 'idle', startedAt: null, completedAt: null });
+const EMPTY_UNLOCK = Object.freeze({ status: 'idle', progress: 0, startedAt: null, durationMs: 5000, completedAt: null });
 
 export class StateStore {
   constructor({ stateFile, storage, logger = console, now = () => new Date() } = {}) {
@@ -45,10 +49,12 @@ export class StateStore {
       scenes: structuredClone(DEFAULT_SCENES), cues: structuredClone(DEFAULT_CUES),
       targetGroups: [], adminMode: 'show',
       currentCueIndex: -1, currentSceneId: null, settings: { ...DEFAULT_SETTINGS },
-      schemaVersion: SHOW_SCHEMA_VERSION, metadata: { title: '横川AI Show', version: '0.4.1' }, routes: [{ id: 'main', name: 'Main' }],
+      schemaVersion: SHOW_SCHEMA_VERSION, metadata: { title: '横川AI Show', version: '0.5.0' }, routes: [{ id: 'main', name: 'Main' }],
       presets: structuredClone(DEFAULT_PRESETS), assets: [{ id: 'test-tone', name: '内蔵テスト音', path: 'assets/audio/test-tone.wav', mimeType: 'audio/wav' }],
       avatar: { ...DEFAULT_AVATAR }, currentPresetId: 'normal', currentAvatar: { ...DEFAULT_AVATAR },
       blackout: false, previousVisualState: null, rehearsalSession: null, rehearsalLog: [],
+      currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
+      currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK),
     };
   }
 
@@ -71,6 +77,9 @@ export class StateStore {
       currentSubtitle: display.currentSubtitle ?? null, displayMode: display.displayMode ?? 'ready',
       currentPresetId: display.currentPresetId ?? this.state.currentPresetId,
       currentAvatar: display.currentAvatar ?? structuredClone(this.state.currentAvatar), blackout: display.blackout === true,
+      currentOverlay: { ...normalizeOverlay(display.currentOverlay), ...(display.currentOverlay?.expiresAt ? { expiresAt: display.currentOverlay.expiresAt } : {}) },
+      currentVisual: { ...normalizeVisual(display.currentVisual), ...(display.currentVisual?.expiresAt ? { expiresAt: display.currentVisual.expiresAt } : {}) },
+      currentTransition: this.restoreTransition(display.currentTransition), unlock: this.restoreUnlock(display.unlock),
     }));
     this.state.targetGroups = this.validateTargetGroups(stored.targetGroups);
     this.state.metadata = stored.metadata && typeof stored.metadata === 'object' ? stored.metadata : this.state.metadata;
@@ -81,6 +90,10 @@ export class StateStore {
     this.state.currentPresetId = this.state.presets.some((preset) => preset.id === stored.currentPresetId) ? stored.currentPresetId : 'normal';
     this.state.currentAvatar = { ...this.state.avatar, ...(stored.currentAvatar ?? {}) };
     this.state.blackout = stored.blackout === true; this.state.previousVisualState = stored.previousVisualState ?? null;
+    this.state.currentOverlay = { ...normalizeOverlay(stored.currentOverlay), ...(stored.currentOverlay?.expiresAt ? { expiresAt: stored.currentOverlay.expiresAt } : {}) };
+    this.state.currentVisual = { ...normalizeVisual(stored.currentVisual), ...(stored.currentVisual?.expiresAt ? { expiresAt: stored.currentVisual.expiresAt } : {}) };
+    this.state.currentTransition = this.restoreTransition(stored.currentTransition);
+    this.state.unlock = this.restoreUnlock(stored.unlock);
     this.state.rehearsalSession = stored.rehearsalSession ?? null;
     this.state.rehearsalLog = Array.isArray(stored.rehearsalLog) ? stored.rehearsalLog.slice(-5000) : [];
     this.state.adminMode = stored.adminMode === 'advanced' ? 'advanced' : 'show';
@@ -92,6 +105,7 @@ export class StateStore {
   }
 
   snapshot() {
+    this.settleTimedPresentation();
     const cues = this.orderedCues();
     const currentCue = this.state.currentCueIndex >= 0 ? cues[this.state.currentCueIndex] ?? null : null;
     const nextCue = cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
@@ -99,6 +113,7 @@ export class StateStore {
   }
 
   displaySnapshot(displayId) {
+    this.settleTimedPresentation();
     const display = this.getDisplay(displayId);
     return structuredClone({
       schemaVersion: SHOW_SCHEMA_VERSION, settings: this.state.settings,
@@ -107,6 +122,10 @@ export class StateStore {
       currentPreset: this.getPreset(display?.currentPresetId ?? this.state.currentPresetId),
       currentAvatar: display?.currentAvatar ?? this.state.currentAvatar,
       blackout: display?.blackout ?? this.state.blackout,
+      currentOverlay: display?.currentOverlay ?? this.state.currentOverlay,
+      currentVisual: display?.currentVisual ?? this.state.currentVisual,
+      currentTransition: display?.currentTransition ?? this.state.currentTransition,
+      unlock: display?.unlock ?? this.state.unlock,
       currentCue: publicCue(this.snapshot().currentCue),
     });
   }
@@ -115,7 +134,9 @@ export class StateStore {
     const displayId = validId(input.displayId, `display-${randomUUID()}`);
     let display = this.state.displays.find((item) => item.displayId === displayId);
     if (!display) {
-      display = { displayId, displayName: 'Display', audioEnabled: true, required: false, groups: [], currentSubtitle: null, displayMode: 'ready', currentPresetId: this.state.currentPresetId, currentAvatar: structuredClone(this.state.currentAvatar), blackout: this.state.blackout };
+      display = { displayId, displayName: 'Display', audioEnabled: true, required: false, groups: [], currentSubtitle: null, displayMode: 'ready', currentPresetId: this.state.currentPresetId, currentAvatar: structuredClone(this.state.currentAvatar), blackout: this.state.blackout,
+        currentOverlay: structuredClone(this.state.currentOverlay), currentVisual: structuredClone(this.state.currentVisual),
+        currentTransition: structuredClone(this.state.currentTransition), unlock: structuredClone(this.state.unlock) };
       this.state.displays.push(display);
     }
     Object.assign(display, {
@@ -248,7 +269,7 @@ export class StateStore {
     add('server', 'サーバー', 'ok', '正常稼働中');
     add('cues', 'Cueデータ', this.state.cues.length ? 'ok' : 'error', `${this.state.cues.length}件`);
     const showValidation = validateShowFile(this.exportShowFile());
-    add('show-schema', 'Show File Schema v2', showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));
+    add('show-schema', `Show File Schema v${SHOW_SCHEMA_VERSION}`, showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));
     add('presets', 'Presentation Preset', this.state.presets.length >= 6 ? 'ok' : 'warning', `${this.state.presets.length}件`);
     const avatarAssetsReady = Boolean(AVATAR_ASSET_SETS[this.state.avatar?.assetSetId]);
     add('avatar', 'AI Avatar', !avatarAssetsReady ? 'error' : this.state.avatar?.visible !== false ? 'ok' : 'warning', `${this.state.avatar?.mode ?? 'svg-fallback'} / ${this.state.avatar?.assetSetId ?? 'none'} / ${this.state.avatar?.lipSyncMode ?? 'simulated'}`);
@@ -288,7 +309,8 @@ export class StateStore {
       id: `msg-${randomUUID()}`, text: normalized, createdAt: this.now().toISOString(), status: 'queued',
       source, target: normalizeTarget(target), speechProvider: cue?.speechProvider ?? this.state.settings.speechProvider,
       ...(cue ? { cueId: cue.cueId, cueName: cue.cueName, kind: cue.kind, displayText: cue.displayText,
-        presentationPreset: cue.presentationPreset, avatar: cue.avatar, audio: cue.audio } : {}),
+        presentationPreset: cue.presentationPreset, avatar: cue.avatar, audio: cue.audio,
+        transition: cue.transition, overlay: cue.overlay, visual: cue.visual, timing: cue.timing } : {}),
       ...(replayOf ? { replayOf } : {}),
     };
     this.state.history.unshift(message); this.trimHistory(); return message;
@@ -400,6 +422,17 @@ export class StateStore {
     return this.snapshot();
   }
 
+  jumpCue(cueId) {
+    const cues = this.orderedCues();
+    const index = cues.findIndex((cue) => cue.cueId === cueId);
+    if (index < 0) throw new Error('CUE_NOT_FOUND');
+    this.state.currentCueIndex = index;
+    this.state.currentSceneId = cues[index].sceneId ?? null;
+    this.logRehearsal('cue-jump', 'Cue位置移動', { cueId, executed: false });
+    void this.persist();
+    return cues[index];
+  }
+
   showReset() {
     if (this.state.currentMessage) this.updateCurrent('stopped');
     for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
@@ -407,20 +440,81 @@ export class StateStore {
     this.state.currentCueIndex = -1; this.state.currentSceneId = null;
     this.state.currentSubtitle = null; this.state.displayMode = 'ready';
     this.state.currentPresetId = 'normal'; this.state.currentAvatar = { ...DEFAULT_AVATAR }; this.state.blackout = false; this.state.previousVisualState = null;
-    for (const display of this.state.displays) { Object.assign(display, { currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: { ...DEFAULT_AVATAR }, blackout: false }); }
+    this.state.currentOverlay = structuredClone(EMPTY_OVERLAY); this.state.currentVisual = structuredClone(EMPTY_VISUAL);
+    this.state.currentTransition = structuredClone(EMPTY_TRANSITION); this.state.unlock = structuredClone(EMPTY_UNLOCK);
+    for (const display of this.state.displays) { Object.assign(display, { currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: { ...DEFAULT_AVATAR }, blackout: false,
+      currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
+      currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK) }); }
     this.logRehearsal('show-reset', 'SHOW RESET');
     void this.persist();
   }
 
   getPreset(presetId) { return this.state.presets.find((preset) => preset.id === presetId) ?? this.state.presets[0] ?? null; }
 
+  restoreTransition(input = {}) {
+    const normalized = normalizeTransition(input);
+    return { ...normalized, status: ['idle', 'active', 'completed', 'stopped'].includes(input?.status) ? input.status : 'idle',
+      startedAt: input?.startedAt ?? null, completedAt: input?.completedAt ?? null };
+  }
+
+  restoreUnlock(input = {}) {
+    return {
+      status: ['idle', 'running', 'completed', 'stopped', 'aborted'].includes(input?.status) ? input.status : 'idle',
+      progress: Number.isFinite(Number(input?.progress)) ? Math.min(100, Math.max(0, Number(input.progress))) : 0,
+      startedAt: input?.startedAt ?? null,
+      durationMs: Number.isFinite(Number(input?.durationMs)) ? Math.min(10_000, Math.max(3000, Number(input.durationMs))) : 5000,
+      completedAt: input?.completedAt ?? null,
+    };
+  }
+
+  settlePresentation(presentation) {
+    const nowMs = this.now().getTime();
+    if (presentation.currentTransition?.status === 'active' && presentation.currentTransition.startedAt) {
+      const end = Date.parse(presentation.currentTransition.startedAt) + presentation.currentTransition.durationMs;
+      if (nowMs >= end) Object.assign(presentation.currentTransition, { status: 'completed', completedAt: new Date(end).toISOString() });
+    }
+    if (presentation.unlock?.status === 'running' && presentation.unlock.startedAt) {
+      const elapsed = nowMs - Date.parse(presentation.unlock.startedAt);
+      presentation.unlock.progress = Math.min(100, Math.max(0, elapsed / presentation.unlock.durationMs * 100));
+      if (presentation.unlock.progress >= 100) Object.assign(presentation.unlock, { status: 'completed', progress: 100, completedAt: new Date(Date.parse(presentation.unlock.startedAt) + presentation.unlock.durationMs).toISOString() });
+    }
+    if (presentation.currentOverlay?.expiresAt && nowMs >= Date.parse(presentation.currentOverlay.expiresAt)) presentation.currentOverlay = structuredClone(EMPTY_OVERLAY);
+    if (presentation.currentVisual?.expiresAt && nowMs >= Date.parse(presentation.currentVisual.expiresAt)) presentation.currentVisual = structuredClone(EMPTY_VISUAL);
+  }
+
+  settleTimedPresentation() {
+    this.settlePresentation(this.state);
+    for (const display of this.state.displays) this.settlePresentation(display);
+  }
+
+  stopPresentation(target = { type: 'all' }, status = 'stopped') {
+    this.settleTimedPresentation();
+    const stop = (presentation) => {
+      if (presentation.currentTransition?.status === 'active') presentation.currentTransition.status = 'stopped';
+      if (presentation.unlock?.status === 'running') presentation.unlock.status = status === 'aborted' ? 'aborted' : 'stopped';
+    };
+    stop(this.state);
+    for (const display of this.state.displays) if (this.matchesTarget(display, target)) stop(display);
+    void this.persist();
+  }
+
   applyCue(cue) {
-    const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset, avatar: cue.avatar, blackout: cue.kind === 'blackout' };
+    const startedAt = this.now().toISOString();
+    const transition = { ...cue.transition, status: cue.transition.id === 'none' ? 'idle' : 'active', startedAt: cue.transition.id === 'none' ? null : startedAt, completedAt: null };
+    const overlay = { ...cue.overlay, ...(cue.timing.autoClearOverlayMs != null && cue.overlay.visible ? { expiresAt: new Date(this.now().getTime() + cue.timing.autoClearOverlayMs).toISOString() } : {}) };
+    const visual = { ...cue.visual, ...(cue.timing.autoHideVisualMs != null && cue.visual.visible ? { expiresAt: new Date(this.now().getTime() + cue.timing.autoHideVisualMs).toISOString() } : {}) };
+    const startsUnlock = cue.transition.id === 'unlock-start' || cue.overlay.id === 'unlocking';
+    const abortsUnlock = ['emergency-protection', 'unlock-aborted', 'connection-failed'].includes(cue.overlay.id) || cue.transition.id === 'emergency-interrupt';
+    let unlock = startsUnlock ? { status: 'running', progress: 0, startedAt, durationMs: cue.timing.unlockDurationMs, completedAt: null } : structuredClone(this.state.unlock);
+    if (abortsUnlock) { this.settleTimedPresentation(); unlock = { ...this.state.unlock, status: 'aborted' }; }
+    const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset, avatar: cue.avatar, blackout: cue.kind === 'blackout', transition, overlay, visual, unlock };
     if (cue.kind === 'blackout' && !this.state.blackout) this.state.previousVisualState = { currentSubtitle: this.state.currentSubtitle, currentPresetId: this.state.currentPresetId, currentAvatar: this.state.currentAvatar };
     if (cue.kind === 'clear') this.state.currentSubtitle = null;
     else if (['speech-display', 'display-only'].includes(cue.kind)) this.state.currentSubtitle = cue.displayText;
     if (cue.kind !== 'blackout') this.state.currentPresetId = cue.presentationPreset;
     this.state.currentAvatar = { ...this.state.currentAvatar, ...cue.avatar, lipSyncMode: cue.audio.lipSyncMode };
+    this.state.currentTransition = structuredClone(transition); this.state.currentOverlay = structuredClone(overlay);
+    this.state.currentVisual = structuredClone(visual); this.state.unlock = structuredClone(unlock);
     if (cue.kind === 'blackout') this.state.blackout = true;
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, cue.target)) continue;
@@ -428,6 +522,8 @@ export class StateStore {
       else if (['speech-display', 'display-only'].includes(cue.kind)) display.currentSubtitle = cue.displayText;
       if (cue.kind !== 'blackout') display.currentPresetId = cue.presentationPreset;
       display.currentAvatar = { ...this.state.currentAvatar }; display.blackout = cue.kind === 'blackout' ? true : display.blackout;
+      display.currentTransition = structuredClone(transition); display.currentOverlay = structuredClone(overlay);
+      display.currentVisual = structuredClone(visual); display.unlock = structuredClone(unlock);
       display.displayMode = cue.kind;
     }
     this.state.displayMode = cue.kind; this.logRehearsal('cue', `${cue.cueNumber} ${cue.cueName}`, { cueId: cue.cueId, cueName: cue.cueName, route: cue.route, scene: cue.scene, location: cue.location, target: cue.target, preset: cue.presentationPreset, speechMode: cue.audio.speechMode, kind: cue.kind, result: 'success' });
@@ -541,6 +637,8 @@ export class StateStore {
       metadata: this.state.metadata, routes: this.state.routes, presets: this.state.presets, assets: this.state.assets,
       avatar: this.state.avatar, currentPresetId: this.state.currentPresetId, currentAvatar: this.state.currentAvatar,
       blackout: this.state.blackout, previousVisualState: this.state.previousVisualState,
+      currentOverlay: this.state.currentOverlay, currentVisual: this.state.currentVisual,
+      currentTransition: this.state.currentTransition, unlock: this.state.unlock,
       rehearsalSession: this.state.rehearsalSession, rehearsalLog: this.state.rehearsalLog,
     });
   }

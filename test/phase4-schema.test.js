@@ -10,10 +10,11 @@ const showFile = () => ({
   cues: [{ id: 'c1', name: 'Cue', scene: 's1', kind: 'speech-display', speechText: '話す', displayText: '表示', presentationPreset: 'normal', target: { type: 'all' }, audio: { speechMode: 'browser', lipSyncMode: 'simulated' } }],
 });
 
-test('旧CueをSchema v2へ後方互換移行する', () => {
+test('旧CueをSchema v3へ後方互換移行する', () => {
   const cue = normalizeCue({ cueId: 'legacy', cueName: '旧Cue', text: '旧本文', sceneId: 's1' }, 3);
-  assert.equal(cue.schemaVersion, 2); assert.equal(cue.id, 'legacy'); assert.equal(cue.cueId, 'legacy');
+  assert.equal(cue.schemaVersion, 3); assert.equal(cue.id, 'legacy'); assert.equal(cue.cueId, 'legacy');
   assert.equal(cue.speechText, '旧本文'); assert.equal(cue.displayText, '旧本文'); assert.equal(cue.kind, 'speech-display');
+  assert.equal(validateShowFile(showFile()).valid, true);
 });
 
 test('speech/display本文とroute/scene/locationを独立保持する', () => {

@@ -35,7 +35,7 @@ test('Phase 4をAdmin 1 + Display 3で表示・音声Master・Blackout・再接�
   await close(c); const reconnect = await connect(port, 'display', { displayId: 'c', displayName: 'C', audioEnabled: false }); assert.equal(reconnect.initial.state.blackout, true); assert.doesNotMatch(JSON.stringify(reconnect.initial), /Displayへ送らない|秘密/); t.after(() => close(reconnect));
   admin.send({ type: 'blackout:clear' }); const restored = await reconnect.next((event) => event.type === 'state' && event.state.blackout === false); assert.equal(restored.state.currentSubtitle, '音声字幕');
 
-  const exported = await fetch(`http://127.0.0.1:${port}/api/show-file`).then((response) => response.json()); assert.equal(exported.schemaVersion, 2); assert.equal('history' in exported, false);
+  const exported = await fetch(`http://127.0.0.1:${port}/api/show-file`).then((response) => response.json()); assert.equal(exported.schemaVersion, 3); assert.equal('history' in exported, false);
   admin.send({ type: 'rehearsal:start' }); await admin.next((event) => event.type === 'state' && event.state.rehearsalSession?.active); admin.send({ type: 'clear' }); await a.next((event) => event.type === 'presentation' && event.presentation.kind === 'clear'); admin.send({ type: 'rehearsal:stop' }); await admin.next((event) => event.type === 'state' && event.state.rehearsalSession?.active === false);
   const jsonLog = await fetch(`http://127.0.0.1:${port}/api/rehearsal.json`).then((response) => response.json()); assert.ok(jsonLog.events.some((item) => item.type === 'clear'));
   const csvLog = await fetch(`http://127.0.0.1:${port}/api/rehearsal.csv`).then((response) => response.text()); assert.match(csvLog, /elapsedMs/); assert.match(csvLog, /CLEAR/);

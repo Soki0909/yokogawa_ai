@@ -1,4 +1,20 @@
-export const SHOW_SCHEMA_VERSION = 2;
+export const SHOW_SCHEMA_VERSION = 3;
+export const SUPPORTED_SHOW_SCHEMA_VERSIONS = Object.freeze([2, 3]);
+
+export const TRANSITION_IDS = Object.freeze([
+  'none', 'boot', 'anomaly', 'takeover', 'riddle-enter', 'final-challenge-enter',
+  'auth-success', 'unlock-start', 'emergency-interrupt', 'hostile-enter',
+  'shutdown', 'recovery', 'normalize',
+]);
+
+export const OVERLAY_IDS = Object.freeze([
+  'none', 'booting', 'communication-locked', 'access-denied', 'authentication-failed',
+  'riddle-active', 'all-conditions-met', 'final-challenge', 'authenticating',
+  'authentication-success', 'unlocking', 'emergency-protection', 'unlock-aborted',
+  'connection-failed', 'forced-runaway', 'system-shutdown', 'restoring',
+]);
+
+export const VISUAL_TYPES = Object.freeze(['none', 'text-card', 'image', 'final-challenge', 'riddle-status']);
 
 export const CUE_KINDS = Object.freeze([
   'speech-display', 'speech-only', 'display-only', 'clear', 'blackout', 'preset-only',
@@ -35,6 +51,55 @@ const LIP_MODES = new Set(['none', 'simulated', 'audio-reactive']);
 const AVATAR_MODES = new Set(['image-yokogawa-v1', 'svg-fallback']);
 const text = (value, limit = 5000) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
 const id = (value, fallback = '') => ID.test(value ?? '') ? value : fallback;
+const finite = (value, fallback, min, max) => Number.isFinite(Number(value))
+  ? Math.min(max, Math.max(min, Number(value))) : fallback;
+
+export function normalizeTransition(input = {}) {
+  return {
+    id: TRANSITION_IDS.includes(input?.id) ? input.id : 'none',
+    durationMs: Math.round(finite(input?.durationMs, 900, 0, 30_000)),
+    intensity: finite(input?.intensity, 1, 0, 1),
+  };
+}
+
+export function normalizeOverlay(input = {}) {
+  return {
+    id: OVERLAY_IDS.includes(input?.id) ? input.id : 'none',
+    visible: input?.visible === true && input?.id !== 'none',
+    title: text(input?.title, 160), message: text(input?.message, 1000),
+    progress: input?.progress == null ? null : finite(input.progress, 0, 0, 100),
+    variant: id(input?.variant, '') || 'default',
+  };
+}
+
+export function normalizeVisual(input = {}) {
+  const type = VISUAL_TYPES.includes(input?.type) ? input.type : 'none';
+  return {
+    id: id(input?.id, '') || 'none', type,
+    assetId: id(input?.assetId, '') || null,
+    mode: id(input?.mode, '') || 'default',
+    visible: input?.visible === true && type !== 'none',
+    title: text(input?.title, 160), message: text(input?.message, 1000),
+    items: Array.isArray(input?.items) ? input.items.slice(0, 20).map((item) => text(item, 200)).filter(Boolean) : [],
+  };
+}
+
+export function normalizeTiming(input = {}) {
+  return {
+    autoClearOverlayMs: input?.autoClearOverlayMs == null ? null : Math.round(finite(input.autoClearOverlayMs, 0, 0, 600_000)),
+    autoHideVisualMs: input?.autoHideVisualMs == null ? null : Math.round(finite(input.autoHideVisualMs, 0, 0, 600_000)),
+    unlockDurationMs: Math.round(finite(input?.unlockDurationMs, 5000, 3000, 10_000)),
+  };
+}
+
+export function normalizeSyncMarkers(input) {
+  if (!Array.isArray(input)) return [];
+  return input.slice(0, 50).flatMap((marker) => {
+    const department = id(marker?.department, '');
+    const markerId = id(marker?.id, '');
+    return department && markerId ? [{ department, id: markerId, note: text(marker.note, 500) }] : [];
+  });
+}
 
 export function normalizeAvatar(input = {}) {
   return {
@@ -97,6 +162,9 @@ export function normalizeCue(input = {}, order = 0) {
     target: normalizeTarget(input.target), presentationPreset: id(input.presentationPreset, '') || 'normal',
     avatar: { visible: input.avatar?.visible !== false, state: avatarState },
     audio: { speechMode, assetId: audioAsset, lipSyncMode },
+    transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
+    visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing),
+    syncMarkers: normalizeSyncMarkers(input.syncMarkers),
     order: Number.isFinite(Number(input.order)) ? Number(input.order) : order,
     cueId, cueNumber: text(input.cueNumber, 20) || String(order + 1).padStart(3, '0'), cueName,
     text: speechText || displayText, sceneId, displayMode: kind, speechProvider: speechMode,
@@ -109,7 +177,7 @@ export function normalizeCue(input = {}, order = 0) {
 export function validateShowFile(input) {
   const errors = [];
   if (!input || typeof input !== 'object' || Array.isArray(input)) return { valid: false, errors: ['SHOW_FILE_NOT_OBJECT'] };
-  if (input.schemaVersion !== SHOW_SCHEMA_VERSION) errors.push('UNSUPPORTED_SCHEMA_VERSION');
+  if (!SUPPORTED_SHOW_SCHEMA_VERSIONS.includes(input.schemaVersion)) errors.push('UNSUPPORTED_SCHEMA_VERSION');
   for (const key of ['scenes', 'cues', 'presets', 'assets']) if (!Array.isArray(input[key])) errors.push(`${key.toUpperCase()}_NOT_ARRAY`);
   const cues = Array.isArray(input.cues) ? input.cues.map(normalizeCue) : [];
   const presets = Array.isArray(input.presets) ? input.presets.map(normalizePreset) : [];
@@ -133,6 +201,9 @@ export function validateShowFile(input) {
     if (raw.kind != null && !CUE_KINDS.includes(raw.kind)) errors.push(`INVALID_CUE_KIND:${cueId}`);
     if (raw.target?.type && !['all', 'display', 'group'].includes(raw.target.type)) errors.push(`INVALID_TARGET:${cueId}`);
     if (raw.avatar?.state && !AVATAR_STATES.has(raw.avatar.state)) errors.push(`INVALID_AVATAR_STATE:${cueId}`);
+    if (raw.transition?.id && !TRANSITION_IDS.includes(raw.transition.id)) errors.push(`INVALID_TRANSITION:${cueId}`);
+    if (raw.overlay?.id && !OVERLAY_IDS.includes(raw.overlay.id)) errors.push(`INVALID_OVERLAY:${cueId}`);
+    if (raw.visual?.type && !VISUAL_TYPES.includes(raw.visual.type)) errors.push(`INVALID_VISUAL_TYPE:${cueId}`);
   }
   if (input.avatar?.mode != null && !AVATAR_MODES.has(input.avatar.mode)) errors.push('INVALID_AVATAR_MODE');
   if (input.avatar?.assetSetId != null && !AVATAR_ASSET_SETS[input.avatar.assetSetId]) errors.push('AVATAR_ASSET_SET_NOT_FOUND');
@@ -142,6 +213,6 @@ export function validateShowFile(input) {
 
 export function publicCue(cue) {
   if (!cue) return null;
-  const { operatorNote, triggerNote, notes, actions, ...safe } = cue;
+  const { operatorNote, triggerNote, notes, actions, syncMarkers, ...safe } = cue;
   return safe;
 }

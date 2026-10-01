@@ -37,7 +37,7 @@ app.get('/health', (_request, response) => response.json({
 }));
 app.get('/api/connection-info', (_request, response) => response.json(connectionInfo(port)));
 app.get('/api/show-file', (_request, response) => {
-  response.setHeader('Content-Disposition', 'attachment; filename="yokogawa-show-v2.json"');
+  response.setHeader('Content-Disposition', 'attachment; filename="yokogawa-show-v3.json"');
   response.json(store.exportShowFile());
 });
 app.post('/api/show-file/validate', (request, response) => response.json(store.importShowFile(request.body, { apply: false })));
@@ -233,13 +233,12 @@ function handleAdmin(socket, event) {
     return;
   }
   if (event.type === 'stop') {
-    if (!store.state.currentMessage) {
-      send(socket, 'error', { code: 'NOT_SPEAKING', message: '停止する発話はありません。' }); return;
-    }
-    const id = store.state.currentMessage.id;
+    const id = store.state.currentMessage?.id ?? null;
+    store.stopPresentation({ type: 'all' });
     store.logRehearsal('stop', 'STOP', { messageId: id, result: 'accepted' });
-    forRole('display', (displaySocket) => send(displaySocket, 'stop', { id }));
-    logger.info('TTS停止指示', { id }); return;
+    forRole('display', (displaySocket, client) => { send(displaySocket, 'stop', { id }); displayState(displaySocket, client.displayId); });
+    send(socket, 'accepted', { id: id ?? 'presentation:stop', queued: false }); broadcastState();
+    logger.info('TTS・演出停止指示', { id }); return;
   }
   if (event.type === 'replay') {
     const original = store.state.history.find((item) => item.id === event.id) ?? store.state.history[0];
@@ -249,6 +248,9 @@ function handleAdmin(socket, event) {
   }
   if (event.type === 'cue:next') handleCueRequest(socket, () => store.nextCue(), 'Cue NEXT');
   else if (event.type === 'cue:execute') handleCueRequest(socket, () => store.executeCue(event.cueId), 'Cue直接実行');
+  else if (event.type === 'cue:jump') {
+    try { const cue = store.jumpCue(event.cueId); broadcastState(); send(socket, 'accepted', { id: `jump:${cue.cueId}`, queued: false }); logger.info('Cue位置移動', { cueId: cue.cueId }); } catch (error) { errorResponse(socket, error); }
+  }
   else if (event.type === 'cue:replay') handleCueRequest(socket, () => store.replayCue(), 'Cue REPLAY');
   else if (event.type === 'cue:back') {
     const cue = store.backCue(); store.logRehearsal('back', 'BACK', { cueId: cue?.cueId ?? null, result: 'success' }); broadcastState(); logger.info('Cue BACK');
