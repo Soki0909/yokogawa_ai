@@ -110,7 +110,7 @@ Displayは下から `Preset Environment → Avatar → Scene Visual → Subtitle
 
 `browser` は従来のBrowser Speech Synthesis、`audio-file` はAsset RegistryのWAV/MP3、`none` は無音です。実音声を出すのは常にGlobal Audio Master 1台だけで、他Displayは字幕・演出のみ同期します。ローカル音声もSTOP、Cue REPLAYに対応します。
 
-AssetはIDと `assets/audio/*.wav|*.mp3` の相対pathを分離します。`..`、絶対path、asset root外、MIME/拡張子不整合を拒否します。音声データをWebSocketへ流さず、HTTPのローカルasset endpointから取得します。
+AssetはIDと相対pathを分離します。音声は `assets/audio/*.wav|*.mp3`、Scene画像は `assets/visual/*.png|*.jpg|*.jpeg|*.webp|*.svg` だけを許可します。`..`、絶対path、asset root外、MIME/拡張子不整合を拒否します。バイナリをWebSocketへ流さず、HTTPのローカルasset endpointから取得します。
 
 ## Show File
 
