@@ -9,6 +9,9 @@ let actionLocked = false;
 let cueRenderSignature = '';
 let selectRenderSignature = '';
 let connectionRenderSignature = '';
+const transitionIds = ['none', 'boot', 'anomaly', 'takeover', 'riddle-enter', 'final-challenge-enter', 'auth-success', 'unlock-start', 'emergency-interrupt', 'hostile-enter', 'shutdown', 'recovery', 'normalize'];
+const overlayIds = ['none', 'booting', 'communication-locked', 'access-denied', 'authentication-failed', 'riddle-active', 'all-conditions-met', 'final-challenge', 'authenticating', 'authentication-success', 'unlocking', 'emergency-protection', 'unlock-aborted', 'connection-failed', 'forced-runaway', 'system-shutdown', 'restoring'];
+const visualTypes = ['none', 'text-card', 'image', 'final-challenge', 'riddle-status'];
 
 const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
   connected = status === 'connected';
@@ -48,6 +51,18 @@ function option(value, label) { return new Option(label, value); }
 function replaceOptions(select, options, selected) { if (document.activeElement === select) return; select.replaceChildren(...options); select.value = selected ?? ''; }
 function targetValue(target) { return target?.type === 'display' ? `display:${target.id}` : target?.type === 'group' ? `group:${target.id}` : 'all'; }
 function parseTarget(value) { const [type, ...parts] = value.split(':'); return type === 'display' || type === 'group' ? { type, id: parts.join(':') } : { type: 'all' }; }
+function nullableNumber(value) { return value === '' ? null : Number(value); }
+function parseSyncMarkers(value) {
+  if (!value.trim()) return [];
+  const parsed = JSON.parse(value);
+  if (!Array.isArray(parsed)) throw new Error('Sync MarkersはJSON配列で入力してください。');
+  return parsed;
+}
+function cueDetail(cue) {
+  if (!cue) return '—';
+  const markers = cue.syncMarkers?.map((marker) => `${marker.department}:${marker.id}${marker.note ? `(${marker.note})` : ''}`).join(', ') || 'なし';
+  return `ID ${cue.cueId} · TARGET ${targetLabel(cue.target)} · PRESET ${cue.presentationPreset} · TRANSITION ${cue.transition?.id ?? 'none'} / ${cue.transition?.durationMs ?? 0}ms · OVERLAY ${cue.overlay?.id ?? 'none'} · VISUAL ${cue.visual?.type ?? 'none'}:${cue.visual?.id ?? 'none'} · AUDIO ${cue.audio?.speechMode ?? 'none'} · SYNC ${markers}`;
+}
 function targetLabel(target) {
   if (!target || target.type === 'all') return 'ALL DISPLAYS';
   if (target.type === 'display') return state.displays.find((display) => display.displayId === target.id)?.displayName ?? `不明なDisplay (${target.id})`;
@@ -93,9 +108,9 @@ function renderCues() {
   for (const [index, cue] of cues.entries()) {
     const scene = state.scenes.find((item) => item.sceneId === cue.sceneId);
     const item = document.createElement('article'); item.className = `cue-item ${state.currentCue?.cueId === cue.cueId ? 'current' : ''} ${cue.enabled ? '' : 'disabled'}`; item.dataset.cueId = cue.cueId;
-    item.innerHTML = '<strong class="cue-number"></strong><strong class="cue-name"></strong><p></p><small></small><div class="cue-actions"><button data-action="run">▶</button><button data-action="edit">編集</button><button data-action="up">↑</button><button data-action="down">↓</button></div>';
+    item.innerHTML = '<strong class="cue-number"></strong><strong class="cue-name"></strong><p></p><small></small><div class="cue-actions"><button data-action="run">▶ 実行</button><button data-action="jump">位置のみ</button><button data-action="edit">編集</button><button data-action="up">↑</button><button data-action="down">↓</button></div>';
     item.querySelector('.cue-number').textContent = cue.cueNumber; item.querySelector('.cue-name').textContent = cue.cueName; item.querySelector('p').textContent = cue.displayText || cue.speechText || cue.text || '（表示・発話なし）';
-    item.querySelector('small').textContent = `${scene?.sceneName ?? 'Sceneなし'} · ${cue.kind ?? 'speech-display'} · ${cue.presentationPreset ?? 'normal'} · ${targetLabel(cue.target)}${cue.enabled ? '' : ' · DISABLED'}`;
+    item.querySelector('small').textContent = `${scene?.sceneName ?? 'Sceneなし'} · ${cue.kind ?? 'speech-display'} · ${cue.presentationPreset ?? 'normal'} · ${cue.transition?.id ?? 'none'} · ${cue.overlay?.id ?? 'none'} · ${targetLabel(cue.target)}${cue.enabled ? '' : ' · DISABLED'}`;
     item.querySelector('[data-action=up]').disabled = index === 0; item.querySelector('[data-action=down]').disabled = index === cues.length - 1; elements['cue-list'].append(item);
   }
 }
@@ -138,6 +153,7 @@ function renderShowMode() {
   elements['show-current-cue'].textContent = cueTitle(state.currentCue, '— 待機中'); elements['show-current-text'].textContent = state.currentCue?.text ?? 'NEXTを押すと最初のCueを実行します。'; elements['show-current-target'].textContent = `TARGET — ${state.currentCue ? targetLabel(state.currentCue.target) : '—'}`;
   elements['show-next-cue'].textContent = cueTitle(state.nextCue, '— END'); elements['show-next-text'].textContent = state.nextCue?.text ?? '次のCueはありません。'; elements['show-next-button-label'].textContent = state.nextCue ? `${state.nextCue.cueNumber} ${state.nextCue.cueName}` : '次のCueはありません';
   elements['show-operator-note'].textContent = state.currentCue?.operatorNote || '—'; elements['show-trigger-note'].textContent = state.currentCue?.triggerNote || '—';
+  elements['show-current-detail'].textContent = cueDetail(state.currentCue); elements['show-next-detail'].textContent = cueDetail(state.nextCue);
   elements['show-current-meta'].textContent = state.currentCue ? `ROUTE ${state.currentCue.route ?? 'main'} · LOCATION ${state.currentCue.location || '—'} · PRESET ${state.currentCue.presentationPreset ?? 'normal'} · AVATAR ${state.currentCue.avatar?.state ?? 'normal'} · AUDIO ${state.currentCue.audio?.speechMode ?? 'browser'}` : 'ROUTE main · PRESET normal · AVATAR normal · AUDIO browser';
   elements['rehearsal-toggle'].textContent = state.rehearsalSession?.active ? 'リハーサル終了' : 'リハーサル開始';
   const elapsed = state.rehearsalSession ? Math.max(0, Date.now() - Date.parse(state.rehearsalSession.startedAt)) : 0; elements['rehearsal-status'].textContent = state.rehearsalSession ? `${state.rehearsalSession.active ? '記録中' : '終了'} · ${Math.floor(elapsed / 60000)}:${String(Math.floor(elapsed / 1000) % 60).padStart(2, '0')} · ${state.rehearsalLog.length}件` : 'リハーサル未開始';
@@ -168,12 +184,28 @@ function updateControls() {
   for (const id of ['next-button', 'show-next-button']) elements[id].disabled = locked || !state?.nextCue || !hasDisplay;
   for (const id of ['back-button', 'show-back-button']) elements[id].disabled = locked || (state?.currentCueIndex ?? -1) < 0;
   for (const id of ['cue-replay-button', 'show-replay-button']) elements[id].disabled = locked || !state?.currentCue || !hasDisplay;
-  for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || !state?.currentMessage;
+  const presentationActive = state?.currentTransition?.status === 'active' || state?.unlock?.status === 'running';
+  for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || (!state?.currentMessage && !presentationActive);
   const master = state?.displays.find((display) => display.displayId === state.audioMasterId); elements['audio-test-button'].disabled = !connected || !master?.online || !master?.audioReady;
 }
 function performAction(type, extra = {}) { if (actionLocked) return; actionLocked = true; updateControls(); socket.send({ type, actionId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, ...extra }); window.setTimeout(() => { actionLocked = false; updateControls(); }, 650); }
 function updateSettings() { socket.send({ type: 'settings:update', settings: { voiceURI: elements['voice-select'].value, rate: Number(elements['rate-input'].value), pitch: Number(elements['pitch-input'].value), volume: Number(elements['volume-input'].value), subtitlesEnabled: elements['subtitle-input'].checked, shortcutsEnabled: elements['shortcuts-input'].checked } }); }
-function openCue(cue = {}) { elements['cue-id'].value = cue.cueId ?? ''; elements['cue-number'].value = cue.cueNumber ?? String(state.cues.length + 1).padStart(3, '0'); elements['cue-name'].value = cue.cueName ?? ''; elements['cue-text'].value = cue.speechText ?? cue.text ?? ''; elements['cue-display-text'].value = cue.displayText ?? cue.text ?? ''; elements['cue-kind'].value = cue.kind ?? 'speech-display'; elements['cue-speech-mode'].value = cue.audio?.speechMode ?? 'browser'; elements['cue-avatar-state'].value = cue.avatar?.state ?? 'normal'; elements['cue-lip-sync'].value = cue.audio?.lipSyncMode ?? 'simulated'; elements['cue-operator-note'].value = cue.operatorNote ?? ''; elements['cue-trigger-note'].value = cue.triggerNote ?? ''; elements['cue-location'].value = cue.location ?? ''; elements['cue-enabled'].checked = cue.enabled !== false; replaceOptions(elements['cue-scene'], [option('', 'Sceneなし'), ...state.scenes.map((scene) => option(scene.sceneId, scene.sceneName))], cue.sceneId); replaceOptions(elements['cue-route'], (state.routes ?? [{ id: 'main', name: 'Main' }]).map((route) => option(route.id, route.name ?? route.id)), cue.route ?? 'main'); replaceOptions(elements['cue-target'], targetOptions(), targetValue(cue.target)); replaceOptions(elements['cue-preset'], state.presets.map((preset) => option(preset.id, preset.name)), cue.presentationPreset ?? 'normal'); replaceOptions(elements['cue-asset'], [option('', 'なし'), ...state.assets.map((asset) => option(asset.id, asset.name))], cue.audio?.assetId ?? ''); elements['cue-dialog'].showModal(); }
+function openCue(cue = {}) {
+  elements['cue-id'].value = cue.cueId ?? ''; elements['cue-number'].value = cue.cueNumber ?? String(state.cues.length + 1).padStart(3, '0'); elements['cue-name'].value = cue.cueName ?? '';
+  elements['cue-text'].value = cue.speechText ?? cue.text ?? ''; elements['cue-display-text'].value = cue.displayText ?? cue.text ?? ''; elements['cue-kind'].value = cue.kind ?? 'speech-display';
+  elements['cue-speech-mode'].value = cue.audio?.speechMode ?? 'browser'; elements['cue-avatar-state'].value = cue.avatar?.state ?? 'normal'; elements['cue-lip-sync'].value = cue.audio?.lipSyncMode ?? 'simulated';
+  elements['cue-operator-note'].value = cue.operatorNote ?? ''; elements['cue-trigger-note'].value = cue.triggerNote ?? ''; elements['cue-location'].value = cue.location ?? ''; elements['cue-enabled'].checked = cue.enabled !== false;
+  replaceOptions(elements['cue-scene'], [option('', 'Sceneなし'), ...state.scenes.map((scene) => option(scene.sceneId, scene.sceneName))], cue.sceneId);
+  replaceOptions(elements['cue-route'], (state.routes ?? [{ id: 'main', name: 'Main' }]).map((route) => option(route.id, route.name ?? route.id)), cue.route ?? 'main'); replaceOptions(elements['cue-target'], targetOptions(), targetValue(cue.target));
+  replaceOptions(elements['cue-preset'], state.presets.map((preset) => option(preset.id, preset.name)), cue.presentationPreset ?? 'normal'); replaceOptions(elements['cue-asset'], [option('', 'なし'), ...state.assets.map((asset) => option(asset.id, asset.name))], cue.audio?.assetId ?? '');
+  replaceOptions(elements['cue-transition'], transitionIds.map((id) => option(id, id)), cue.transition?.id ?? 'none'); replaceOptions(elements['cue-overlay'], overlayIds.map((id) => option(id, id)), cue.overlay?.id ?? 'none'); replaceOptions(elements['cue-visual-type'], visualTypes.map((id) => option(id, id)), cue.visual?.type ?? 'none');
+  elements['cue-transition-duration'].value = cue.transition?.durationMs ?? 900; elements['cue-transition-intensity'].value = cue.transition?.intensity ?? 1;
+  elements['cue-overlay-visible'].checked = cue.overlay?.visible === true; elements['cue-overlay-progress'].value = cue.overlay?.progress ?? ''; elements['cue-overlay-title'].value = cue.overlay?.title ?? ''; elements['cue-overlay-message'].value = cue.overlay?.message ?? '';
+  elements['cue-visual-id'].value = cue.visual?.id ?? 'none'; elements['cue-visual-visible'].checked = cue.visual?.visible === true; elements['cue-visual-title'].value = cue.visual?.title ?? ''; elements['cue-visual-message'].value = cue.visual?.message ?? ''; elements['cue-visual-items'].value = (cue.visual?.items ?? []).join('\n');
+  elements['cue-unlock-duration'].value = cue.timing?.unlockDurationMs ?? 5000; elements['cue-overlay-clear'].value = cue.timing?.autoClearOverlayMs ?? ''; elements['cue-visual-hide'].value = cue.timing?.autoHideVisualMs ?? '';
+  elements['cue-sync-markers'].value = cue.syncMarkers?.length ? JSON.stringify(cue.syncMarkers, null, 2) : '';
+  elements['cue-dialog'].showModal();
+}
 function openGroup(group = {}) { elements['group-id'].value = group.id ?? ''; elements['group-name'].value = group.name ?? ''; elements['group-notes'].value = group.notes ?? ''; elements['group-enabled'].checked = group.enabled !== false; elements['group-display-options'].replaceChildren(); for (const display of state.displays) { const label = document.createElement('label'); const input = document.createElement('input'); input.type = 'checkbox'; input.value = display.displayId; input.checked = group.displayIds?.includes(display.displayId) ?? false; const text = document.createElement('span'); text.textContent = `${display.displayName} (${display.online ? 'ONLINE' : 'OFFLINE'})`; label.append(input, text); elements['group-display-options'].append(label); } elements['group-dialog'].showModal(); }
 
 elements['speech-input'].addEventListener('input', updateCount);
@@ -186,9 +218,24 @@ elements['show-mode-button'].addEventListener('click', () => socket.send({ type:
 elements['new-cue-button'].addEventListener('click', () => openCue()); elements['new-group-button'].addEventListener('click', () => openGroup());
 elements['display-list'].addEventListener('change', (event) => { if (event.target.dataset.action === 'required') socket.send({ type: 'display:required', displayId: event.target.closest('.display-item').dataset.displayId, required: event.target.checked }); });
 elements['display-list'].addEventListener('click', (event) => { const button = event.target.closest('button'); const item = button?.closest('.display-item'); if (!button || !item) return; if (button.dataset.action === 'identify') socket.send({ type: 'display:identify', displayId: item.dataset.displayId }); else if (button.dataset.action === 'delete' && window.confirm('このOFFLINE Display登録を削除しますか？\n配信先セットからも安全に除去されます。')) socket.send({ type: 'display:delete', displayId: item.dataset.displayId }); });
-elements['cue-list'].addEventListener('click', (event) => { const button = event.target.closest('button'); const item = button?.closest('.cue-item'); if (!button || !item) return; const cue = state.cues.find((entry) => entry.cueId === item.dataset.cueId); if (button.dataset.action === 'run') performAction('cue:execute', { cueId: cue.cueId }); else if (button.dataset.action === 'edit') openCue(cue); else { const cues = [...state.cues].sort((a, b) => a.order - b.order); const index = cues.findIndex((entry) => entry.cueId === cue.cueId); const other = button.dataset.action === 'up' ? index - 1 : index + 1; [cues[index], cues[other]] = [cues[other], cues[index]]; socket.send({ type: 'cue:reorder', cueIds: cues.map((entry) => entry.cueId) }); } });
+elements['cue-list'].addEventListener('click', (event) => { const button = event.target.closest('button'); const item = button?.closest('.cue-item'); if (!button || !item) return; const cue = state.cues.find((entry) => entry.cueId === item.dataset.cueId); if (button.dataset.action === 'run') performAction('cue:execute', { cueId: cue.cueId }); else if (button.dataset.action === 'jump') performAction('cue:jump', { cueId: cue.cueId }); else if (button.dataset.action === 'edit') openCue(cue); else { const cues = [...state.cues].sort((a, b) => a.order - b.order); const index = cues.findIndex((entry) => entry.cueId === cue.cueId); const other = button.dataset.action === 'up' ? index - 1 : index + 1; [cues[index], cues[other]] = [cues[other], cues[index]]; socket.send({ type: 'cue:reorder', cueIds: cues.map((entry) => entry.cueId) }); } });
 elements['group-list'].addEventListener('click', (event) => { const button = event.target.closest('button'); const item = button?.closest('.group-item'); if (!button || !item) return; const group = state.targetGroups.find((entry) => entry.id === item.dataset.groupId); if (button.dataset.action === 'edit') openGroup(group); else if (window.confirm(`配信先セット「${group.name}」を削除しますか？`)) socket.send({ type: 'target-group:delete', groupId: group.id }); });
-elements['cue-form'].addEventListener('submit', (event) => { event.preventDefault(); socket.send({ type: 'cue:save', cue: { cueId: elements['cue-id'].value || undefined, cueNumber: elements['cue-number'].value, cueName: elements['cue-name'].value, route: elements['cue-route'].value, location: elements['cue-location'].value, speechText: elements['cue-text'].value, displayText: elements['cue-display-text'].value, kind: elements['cue-kind'].value, presentationPreset: elements['cue-preset'].value, sceneId: elements['cue-scene'].value || null, target: parseTarget(elements['cue-target'].value), avatar: { visible: true, state: elements['cue-avatar-state'].value }, audio: { speechMode: elements['cue-speech-mode'].value, assetId: elements['cue-asset'].value || null, lipSyncMode: elements['cue-lip-sync'].value }, operatorNote: elements['cue-operator-note'].value, triggerNote: elements['cue-trigger-note'].value, enabled: elements['cue-enabled'].checked } }); elements['cue-dialog'].close(); });
+elements['cue-form'].addEventListener('submit', (event) => {
+  event.preventDefault();
+  let syncMarkers;
+  try { syncMarkers = parseSyncMarkers(elements['cue-sync-markers'].value); } catch (error) { showNotice(error.message, 'error'); return; }
+  socket.send({ type: 'cue:save', cue: {
+    cueId: elements['cue-id'].value || undefined, cueNumber: elements['cue-number'].value, cueName: elements['cue-name'].value, route: elements['cue-route'].value, location: elements['cue-location'].value,
+    speechText: elements['cue-text'].value, displayText: elements['cue-display-text'].value, kind: elements['cue-kind'].value, presentationPreset: elements['cue-preset'].value, sceneId: elements['cue-scene'].value || null, target: parseTarget(elements['cue-target'].value),
+    avatar: { visible: true, state: elements['cue-avatar-state'].value }, audio: { speechMode: elements['cue-speech-mode'].value, assetId: elements['cue-asset'].value || null, lipSyncMode: elements['cue-lip-sync'].value },
+    transition: { id: elements['cue-transition'].value, durationMs: Number(elements['cue-transition-duration'].value), intensity: Number(elements['cue-transition-intensity'].value) },
+    overlay: { id: elements['cue-overlay'].value, visible: elements['cue-overlay-visible'].checked, title: elements['cue-overlay-title'].value, message: elements['cue-overlay-message'].value, progress: nullableNumber(elements['cue-overlay-progress'].value) },
+    visual: { id: elements['cue-visual-id'].value, type: elements['cue-visual-type'].value, visible: elements['cue-visual-visible'].checked, title: elements['cue-visual-title'].value, message: elements['cue-visual-message'].value, items: elements['cue-visual-items'].value.split('\n').map((value) => value.trim()).filter(Boolean) },
+    timing: { unlockDurationMs: Number(elements['cue-unlock-duration'].value), autoClearOverlayMs: nullableNumber(elements['cue-overlay-clear'].value), autoHideVisualMs: nullableNumber(elements['cue-visual-hide'].value) }, syncMarkers,
+    operatorNote: elements['cue-operator-note'].value, triggerNote: elements['cue-trigger-note'].value, enabled: elements['cue-enabled'].checked,
+  } });
+  elements['cue-dialog'].close();
+});
 elements['group-form'].addEventListener('submit', (event) => { event.preventDefault(); socket.send({ type: 'target-group:save', group: { id: elements['group-id'].value || undefined, name: elements['group-name'].value, notes: elements['group-notes'].value, enabled: elements['group-enabled'].checked, displayIds: [...elements['group-display-options'].querySelectorAll('input:checked')].map((input) => input.value) } }); elements['group-dialog'].close(); });
 elements['reset-button'].addEventListener('click', () => { if (window.confirm('SHOW RESETを実行しますか？\nCue位置・字幕・発話キューを初期化します。Cue定義とDisplay登録は保持されます。')) socket.send({ type: 'show:reset' }); });
 for (const id of ['voice-select', 'rate-input', 'pitch-input', 'volume-input', 'subtitle-input', 'shortcuts-input']) elements[id].addEventListener('change', updateSettings);

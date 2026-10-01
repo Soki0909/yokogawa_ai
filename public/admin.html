@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="/css/admin-phase2.css">
   <link rel="stylesheet" href="/css/admin-phase3.css">
   <link rel="stylesheet" href="/css/admin-phase4.css">
+  <link rel="stylesheet" href="/css/admin-phase-a.css">
 </head>
 <body data-mode="show">
   <header class="topbar">
@@ -56,6 +57,7 @@
       <div class="emergency-controls"><button id="show-clear-button" type="button">CLEAR</button><button id="show-blackout-button" type="button">BLACKOUT</button><button id="show-blackout-clear-button" type="button">RESTORE</button></div>
       <div class="cue-notes"><p><span>OPERATOR</span> <strong id="show-operator-note">—</strong></p><p><span>TRIGGER</span> <strong id="show-trigger-note">—</strong></p></div>
       <p id="show-current-meta" class="show-current-meta">ROUTE main · PRESET normal · AVATAR normal · AUDIO browser</p>
+      <div class="phase-a-cue-detail"><div><span>CURRENT DETAIL</span><p id="show-current-detail">—</p></div><div><span>NEXT DETAIL</span><p id="show-next-detail">—</p></div></div>
       <p class="shortcut-list">SHORTCUTS — Space: NEXT / R: REPLAY / Esc: STOP / B: BACK / C: CLEAR</p>
       <div id="show-alerts" class="show-alerts" role="status" aria-live="polite"></div>
       <button id="open-advanced-button" class="show-details-button" type="button">詳細操作を開く</button>
@@ -172,8 +174,26 @@
         <label>音声Asset<select id="cue-asset"><option value="">なし</option></select></label>
         <label>Avatar状態<select id="cue-avatar-state"><option>normal</option><option>thinking</option><option>warning</option><option>hijacked</option><option>hostile</option><option>shutdown</option><option>recovery</option><option>speaking</option></select></label>
         <label>Lip Sync<select id="cue-lip-sync"><option value="simulated">simulated</option><option value="audio-reactive">audio-reactive</option><option value="none">none</option></select></label>
+        <label>Transition<select id="cue-transition"></select></label>
+        <label>Transition時間(ms)<input id="cue-transition-duration" type="number" min="0" max="30000" step="100" value="900"></label>
+        <label>Transition強度<input id="cue-transition-intensity" type="number" min="0" max="1" step="0.1" value="1"></label>
+        <label>Overlay<select id="cue-overlay"></select></label>
+        <label class="toggle"><input id="cue-overlay-visible" type="checkbox"> Overlay表示</label>
+        <label>Overlay進捗(%)<input id="cue-overlay-progress" type="number" min="0" max="100"></label>
+        <label>Visual種別<select id="cue-visual-type"></select></label>
+        <label>Visual ID<input id="cue-visual-id" maxlength="100" value="none"></label>
+        <label class="toggle"><input id="cue-visual-visible" type="checkbox"> Visual表示</label>
+        <label>Unlock時間(ms)<input id="cue-unlock-duration" type="number" min="3000" max="10000" step="100" value="5000"></label>
+        <label>Overlay自動消去(ms)<input id="cue-overlay-clear" type="number" min="0" max="600000"></label>
+        <label>Visual自動消去(ms)<input id="cue-visual-hide" type="number" min="0" max="600000"></label>
         <label class="wide">発話テキスト<textarea id="cue-text" maxlength="5000" rows="4"></textarea></label>
         <label class="wide">表示テキスト<textarea id="cue-display-text" maxlength="5000" rows="4"></textarea></label>
+        <label class="wide">Overlayタイトル<input id="cue-overlay-title" maxlength="160"></label>
+        <label class="wide">Overlayメッセージ<textarea id="cue-overlay-message" maxlength="1000" rows="2"></textarea></label>
+        <label class="wide">Visualタイトル<input id="cue-visual-title" maxlength="160"></label>
+        <label class="wide">Visualメッセージ<textarea id="cue-visual-message" maxlength="1000" rows="2"></textarea></label>
+        <label class="wide">Visual項目（1行1項目）<textarea id="cue-visual-items" maxlength="2000" rows="3"></textarea></label>
+        <label class="wide">Sync Markers（JSON配列）<textarea id="cue-sync-markers" maxlength="5000" rows="3" placeholder='[{"department":"LX","id":"LX-001","note":"GO"}]'></textarea></label>
         <label class="wide">Operator Note<textarea id="cue-operator-note" maxlength="1000" rows="2"></textarea></label>
         <label class="wide">Trigger Note<textarea id="cue-trigger-note" maxlength="500" rows="2"></textarea></label>
         <label class="toggle wide"><input id="cue-enabled" type="checkbox" checked> 有効</label>
