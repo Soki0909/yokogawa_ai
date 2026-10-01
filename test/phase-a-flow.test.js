@@ -23,6 +23,10 @@ test('Phase AをAdmin 1 + Display 3でimport・target・unlock・再接続・安
   const admin = await connect(port, 'admin'); const a = await connect(port, 'display', { displayId: 'a', displayName: 'A', audioEnabled: true }); const b = await connect(port, 'display', { displayId: 'b', displayName: 'B', audioEnabled: false }); const c = await connect(port, 'display', { displayId: 'c', displayName: 'C', audioEnabled: false });
   t.after(async () => Promise.all([admin, a, b, c].map(close))); await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3); a.send({ type: 'audio:ready' });
 
+  admin.send({ type: 'cue:execute', cueId: 'pa-002' }); await a.next((event) => event.type === 'presentation' && event.presentation.transition?.id === 'boot');
+  await admin.next((event) => event.type === 'state' && event.state.currentTransition.status === 'completed');
+  const autoCleared = await admin.next((event) => event.type === 'state' && event.state.currentOverlay.visible === false); assert.equal(autoCleared.state.currentVisual.visible, false);
+
   admin.send({ type: 'cue:execute', cueId: 'pa-016' });
   const unlocks = await Promise.all([a, b, c].map((client) => client.next((event) => event.type === 'presentation' && event.presentation.transition?.id === 'unlock-start')));
   assert.ok(unlocks.every((event) => event.presentation.unlock.status === 'running' && event.presentation.overlay.id === 'unlocking'));

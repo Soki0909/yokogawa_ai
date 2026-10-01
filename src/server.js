@@ -148,7 +148,24 @@ function dispatch(message) {
 function dispatchPresentation(action) {
   const recipients = targetDisplays(action.target);
   for (const [socket] of recipients) send(socket, 'presentation', { presentation: action, preset: store.getPreset(action.presentationPreset) });
+  schedulePresentationSettlement(action);
   broadcastState(); return recipients.length > 0;
+}
+
+function schedulePresentationSettlement(action) {
+  const delays = [
+    action.transition?.status === 'active' ? action.transition.durationMs : null,
+    action.unlock?.status === 'running' ? action.unlock.durationMs : null,
+    action.overlay?.expiresAt ? Date.parse(action.overlay.expiresAt) - Date.now() : null,
+    action.visual?.expiresAt ? Date.parse(action.visual.expiresAt) - Date.now() : null,
+  ].filter((value) => Number.isFinite(value) && value >= 0);
+  for (const delay of new Set(delays)) {
+    setTimeout(() => {
+      store.settleTimedPresentation(); void store.persist();
+      forRole('display', (socket, client) => displayState(socket, client.displayId));
+      broadcastState();
+    }, Math.min(600_000, delay + 25)).unref();
+  }
 }
 
 function enqueueAndDispatch(socket, message) {
