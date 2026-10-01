@@ -46,6 +46,13 @@ test('Phase AをAdmin 1 + Display 3でimport・target・unlock・再接続・安
   admin.send({ type: 'blackout' }); await a.next((event) => event.type === 'presentation' && event.presentation.blackout); admin.send({ type: 'blackout:clear' }); await admin.next((event) => event.type === 'state' && event.state.blackout === false);
   admin.send({ type: 'show:reset' }); const reset = await admin.next((event) => event.type === 'state' && event.state.currentCueIndex === -1); assert.equal(reset.state.currentOverlay.visible, false); assert.equal(reset.state.unlock.status, 'idle');
 
+  const optionalFinal = { ...show.cues.find((cue) => cue.id === 'pa-027'), cueId: 'pa-027', enabled: true };
+  admin.send({ type: 'cue:save', cue: optionalFinal }); await admin.next((event) => event.type === 'state' && event.state.cues.find((cue) => cue.cueId === 'pa-027')?.enabled === true);
+  admin.send({ type: 'cue:execute', cueId: 'pa-027' });
+  await Promise.all([a, b, reconnected].map((client) => client.next((event) => event.type === 'presentation' && event.presentation.displayText === optionalFinal.displayText)));
+  const finalSpeech = await Promise.all([a, b, reconnected].map((client) => client.next((event) => event.type === 'speak' && event.message.cueId === 'pa-027'))); assert.deepEqual(finalSpeech.map((event) => event.shouldSpeak), [true, false, false]);
+  a.send({ type: 'playback', id: finalSpeech[0].message.id, status: 'completed' });
+
   const before = await fetch(`http://127.0.0.1:${port}/api/show-file`).then((response) => response.json()); const invalid = structuredClone(before); invalid.cues[0].transition = { id: 'not-valid' };
   const rejected = await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(invalid) }); assert.equal(rejected.status, 422);
   const after = await fetch(`http://127.0.0.1:${port}/api/show-file`).then((response) => response.json()); assert.equal(after.cues.length, before.cues.length); assert.equal(after.cues[0].id, before.cues[0].id);
