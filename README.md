@@ -1,6 +1,6 @@
-# 横川AI Phase 4.2 — Presentation Preset Visual Overhaul
+# 横川AI Phase A — Performance Presentation System
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase 4.2 / v0.4.2はv0.4.1のCue進行・複数Display・Audio Master・Free Speak・画像Avatarを維持し、`docs/phase-4-2/デザインイメージ.png`をNORMALの構図基準として、6種のPresentation Presetを舞台距離でも判別できる全画面演出へ更新しました。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase A / v0.5.0はPhase 4.2のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・6 Presentation Presetを維持し、Transition、Operation Overlay、Scene Visual、Unlock GaugeをServer authoritativeな公演状態として追加しました。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
@@ -40,9 +40,9 @@ npm start
 
 URL、WebSocket、保存先はlocalhostやWindows固有パスへ固定していません。HTTPS環境では同一hostの `wss:` を使用するため、将来のRender等への配置余地も残しています。
 
-## Cue Schema v2
+## Cue Schema v3
 
-Cueは `schemaVersion: 2` で、主要フィールドは次のとおりです。
+Cueは `schemaVersion: 3` です。Schema v2 Show Fileもそのまま読み込み、Phase Aのoptionalフィールドを既定値で補完してv3へ移行します。
 
 - `id/name/enabled/route/scene/location/kind/target`
 - `speechText`: 音声用。観客表示と別内容にできる
@@ -51,8 +51,13 @@ Cueは `schemaVersion: 2` で、主要フィールドは次のとおりです。
 - `presentationPreset`: 見た目のPreset ID
 - `avatar`: 表示可否と状態
 - `audio`: `speechMode/assetId/lipSyncMode`
+- `transition`: `id/durationMs/intensity`
+- `overlay`: `id/visible/title/message/progress/variant`
+- `visual`: `id/type/assetId/mode/visible/title/message/items`
+- `timing`: Overlay/Visualの自動消去、3,000〜10,000msのUnlock時間
+- `syncMarkers`: 照明・音響・演者向けの部署別マーカー。Adminだけに表示
 
-旧 `cueId/cueName/text/sceneId` は読み込み時にv2へ移行し、互換aliasも保持します。
+旧 `cueId/cueName/text/sceneId` は読み込み時にv3へ移行し、互換aliasも保持します。未知のTransition/Overlay/Visual typeはDry Runで拒否します。
 
 | kind | 動作 |
 |---|---|
@@ -90,6 +95,17 @@ Avatar assetは `AVATAR_ASSET_SETS` で意味IDとローカルpathを管理し�
 
 Avatar非表示、STOP、終了、エラーでは口パク処理を停止してclosedへ戻します。画像・Lip Sync・Blinkの境界を分けているため、将来はAsset Setや音声Providerを独立交換できます。
 
+### Phase A演出レイヤー
+
+Displayは下から `Preset Environment → Avatar → Scene Visual → Subtitle/Status → Operation Overlay → BLACKOUT` の順で合成します。Transitionは一時的な全画面効果で、`prefers-reduced-motion` とShow設定を尊重します。BLACKOUTは従来どおり常に最上位です。
+
+- Transition: boot / anomaly / takeover / riddle / final challenge / auth / unlock / emergency / hostile / shutdown / recovery / normalize
+- Operation Overlay: 起動、通信封鎖、拒否、認証、解除、緊急保護、暴走、停止、復旧など
+- Scene Visual: text-card / image / final-challenge / riddle-status
+- Unlock Gauge: AUTH / CORE / GATEの複数表示で0→100%。既定5秒、100%保持、STOP・REPLAY・再接続対応
+
+演出中の開始時刻、完了、中断、現在進捗、target別状態はServerが保持します。Display再接続時は途中進捗または完了状態を復元し、過去Transitionを先頭から再生しません。
+
 ## 音声
 
 `browser` は従来のBrowser Speech Synthesis、`audio-file` はAsset RegistryのWAV/MP3、`none` は無音です。実音声を出すのは常にGlobal Audio Master 1台だけで、他Displayは字幕・演出のみ同期します。ローカル音声もSTOP、Cue REPLAYに対応します。
@@ -101,6 +117,8 @@ AssetはIDと `assets/audio/*.wav|*.mp3` の相対pathを分離します。`..`�
 詳細操作の「Show File書き出し／読込」を使用します。含むものはmetadata、routes、scenes、cues、groups、presets、avatar、assets、show settingsです。接続、heartbeat、Audio Ready、履歴、WebSocket session、秘密情報、OS絶対pathは含みません。
 
 Importは先にDry Runし、schema、重複ID、Cue kind、target、group、preset、avatar、audio asset、参照整合性を検査します。Error時は現在Showを一切変更しません。
+
+Phase Aの本番デモは [`shows/phase-a-demo.json`](shows/phase-a-demo.json) です。通常待機から異常、乗っ取り、謎解き、201集合、最終課題、認証、Unlock、緊急中断、暴走、停止、復旧まで27 Cueを収録します。Show File読込からDry Runして適用してください。状態間は自動連鎖せず、すべてオペレーターがNEXTで進行します。
 
 ## 本番操作
 
@@ -114,15 +132,17 @@ Importは先にDry Runし、schema、重複ID、Cue kind、target、group、pres
 
 input、textarea、select、contenteditableの操作中、modifier押下中、key repeatではショートカットを無効化します。設定からショートカット全体も無効化できます。Free SpeakはCue位置を変えず、想定外の台詞に使用します。
 
+Cue Listの「位置のみ」はCurrent位置だけを移動し、表示・音声・演出を実行しません。「実行」は指定Cueを即時実行します。STOPは音声に加えて進行中Transition/Unlockも安全に停止します。
+
 ## Rehearsal / Preflight
 
 Rehearsal Sessionは開始時刻を0秒としてCueと操作のtimestamp、elapsed time、route/scene/location、target、preset、speech mode、結果を記録します。CSV/JSONをローカルExportできます。
 
-PreflightはPhase 3項目に加え、Show Schema v2、Cue参照、Preset、Avatar、Audio Asset、target group、required Display、Audio Master/Readyを確認します。
+PreflightはPhase 3項目に加え、Show Schema v3、Cue参照、Preset、Avatar、Audio Asset、target group、required Display、Audio Master/Readyを確認します。
 
 ## 障害時
 
-- Display再接続: 同じIDで現在Preset、字幕、Avatar、BLACKOUTを復元。過去音声は再生しない
+- Display再接続: 同じIDで現在Preset、字幕、Avatar、Overlay、Visual、Transition/Unlock進捗、BLACKOUTを復元。過去音声は再生しない
 - Admin再接続: ServerのCue位置、Show、ログを復元
 - Audio Master切断: 字幕は継続。音声とキューを安全に終了し、運用者が再指定
 - TTS/音声Assetエラー: 字幕は維持し、修正後にREPLAY
@@ -138,8 +158,8 @@ npm audit --omit=dev
 npm run test:soak
 ```
 
-`test:soak` は既定30分です。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。参照画像との再比較、最終6 Preset、実ブラウザ、Admin 1 + Display 3、BLACKOUT・再接続、Visual Pass、30分試験、75項目の受入照合は [Phase 4.2検証記録](docs/phase-4-2/verification.md) を参照してください。過去Phaseの記録も `docs/` に保持しています。
+`test:soak` は既定30分で、Phase AのUnlock・緊急中断・Hostileも周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase A検証記録](docs/phase-A/verification.md) を参照してください。過去Phaseの記録も `docs/` に保持しています。
 
-## Phase 4.2スコープ外
+## Phase Aスコープ外
 
 VOICEVOX本体、LLM連携、WebGL/3Dアバター、映像編集、複数Audio Zone、クラウド必須機能、特定演者の肖像再現は本番依存にしていません。ProviderとShowデータ境界を残し、後からBrowser TTS、VOICEVOX、事前生成音声を交換できます。
