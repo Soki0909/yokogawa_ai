@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="/css/display-phase3.css">
   <link rel="stylesheet" href="/css/display-phase4.css">
   <link rel="stylesheet" href="/css/display-phase42.css">
+  <link rel="stylesheet" href="/css/display-phase-a.css">
 </head>
 <body>
   <div id="identify-overlay" class="identify-overlay" hidden><span>DISPLAY IDENTITY</span><strong id="identify-name">DISPLAY</strong><small id="identify-id">—</small></div>
@@ -60,10 +61,28 @@
       <div class="orb" id="orb"><div class="orb-core"></div><div class="orb-ring ring-one"></div><div class="orb-ring ring-two"></div></div>
       <p class="designation">YOKOGAWA</p><h1>横川<span>AI</span></h1>
     </section>
+    <section id="scene-visual" class="scene-visual" hidden aria-live="polite" data-type="none">
+      <span id="scene-visual-label">SCENE VISUAL</span>
+      <h2 id="scene-visual-title"></h2>
+      <p id="scene-visual-message"></p>
+      <ol id="scene-visual-items"></ol>
+    </section>
     <section class="caption-shell" aria-live="polite">
       <div class="caption-rule"><span id="mode-label">SYSTEM READY</span></div>
       <p class="caption" id="caption">待機しています</p>
     </section>
+    <section id="operation-overlay" class="operation-overlay" hidden aria-live="assertive" data-overlay="none">
+      <div class="operation-overlay-frame">
+        <span class="operation-kicker">OPERATION STATUS</span>
+        <h2 id="operation-title"></h2>
+        <p id="operation-message"></p>
+        <div id="operation-progress" class="operation-progress" hidden><i id="operation-progress-value"></i><strong id="operation-progress-label">0%</strong></div>
+        <div id="unlock-gauges" class="unlock-gauges" hidden aria-label="Unlock progress">
+          <div><span>AUTH</span><i><b></b></i></div><div><span>CORE</span><i><b></b></i></div><div><span>GATE</span><i><b></b></i></div>
+        </div>
+      </div>
+    </section>
+    <div id="transition-layer" class="transition-layer" aria-hidden="true"></div>
     <footer><span>LOCAL SYSTEM</span><span aria-hidden="true">●</span><span>STAGE INTERFACE</span></footer>
   </main>
   <div id="blackout" class="blackout" hidden aria-live="assertive">BLACKOUT</div>

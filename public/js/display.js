@@ -24,6 +24,8 @@ let settings = { rate: 1, pitch: .9, volume: 1, voiceURI: '', subtitlesEnabled: 
 let isAudioMaster = false;
 let audioUnlocked = false;
 let identifyTimer;
+let transitionTimer;
+let unlockFrame;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
 const blink = new BlinkController(elements['avatar-wrap']);
 
@@ -71,7 +73,69 @@ function applyPresentation(presentation = {}, preset = null) {
     if (!visible) lipSync.stop();
   }
   elements.blackout.hidden = presentation.blackout !== true;
+  if (presentation.transition) renderTransition(presentation.transition);
+  if (presentation.overlay) renderOverlay(presentation.overlay);
+  if (presentation.visual) renderVisual(presentation.visual);
+  if (presentation.unlock) renderUnlock(presentation.unlock);
   blink.update({ visible: !elements['avatar-wrap'].hidden, state: elements['avatar-wrap'].dataset.state, blackout: presentation.blackout === true });
+}
+
+function renderTransition(transition = {}) {
+  clearTimeout(transitionTimer);
+  document.body.dataset.transition = transition.id ?? 'none';
+  document.body.dataset.transitionStatus = transition.status ?? 'idle';
+  document.documentElement.style.setProperty('--phase-a-transition-ms', `${Math.max(0, Number(transition.durationMs) || 0)}ms`);
+  document.documentElement.style.setProperty('--phase-a-intensity', String(Math.min(1, Math.max(0, Number(transition.intensity) || 0))));
+  if (transition.status === 'active') {
+    elements['transition-layer'].style.animation = 'none'; void elements['transition-layer'].offsetWidth;
+    elements['transition-layer'].style.animation = '';
+    const elapsed = transition.startedAt ? Math.max(0, Date.now() - Date.parse(transition.startedAt)) : 0;
+    transitionTimer = window.setTimeout(() => { document.body.dataset.transitionStatus = 'completed'; }, Math.max(0, (Number(transition.durationMs) || 0) - elapsed));
+  }
+}
+
+function renderOverlay(overlay = {}) {
+  const visible = overlay.visible === true && overlay.id !== 'none';
+  elements['operation-overlay'].hidden = !visible;
+  elements['operation-overlay'].dataset.overlay = overlay.id ?? 'none';
+  document.body.dataset.overlay = overlay.id ?? 'none';
+  elements['operation-title'].textContent = overlay.title || String(overlay.id ?? '').replaceAll('-', ' ');
+  elements['operation-message'].textContent = overlay.message ?? '';
+  if (overlay.progress != null) updateProgress(Number(overlay.progress));
+  else elements['operation-progress'].hidden = overlay.id !== 'unlocking';
+}
+
+function renderVisual(visual = {}) {
+  const visible = visual.visible === true && visual.type !== 'none';
+  elements['scene-visual'].hidden = !visible;
+  elements['scene-visual'].dataset.type = visual.type ?? 'none';
+  elements['scene-visual-label'].textContent = visual.mode && visual.mode !== 'default' ? visual.mode.toUpperCase() : 'SCENE VISUAL';
+  elements['scene-visual-title'].textContent = visual.title || String(visual.id ?? '').replaceAll('-', ' ');
+  elements['scene-visual-message'].textContent = visual.message ?? '';
+  elements['scene-visual-items'].replaceChildren(...(visual.items ?? []).map((value) => { const item = document.createElement('li'); item.textContent = value; return item; }));
+}
+
+function updateProgress(progress) {
+  const value = Math.min(100, Math.max(0, progress));
+  elements['operation-progress'].hidden = false;
+  elements['operation-progress-value'].style.width = `${value}%`;
+  elements['operation-progress-label'].textContent = `${Math.round(value)}%`;
+  for (const [index, gauge] of [...elements['unlock-gauges'].querySelectorAll('b')].entries()) gauge.style.width = `${Math.min(100, Math.max(0, value * 1.12 - index * 6))}%`;
+}
+
+function renderUnlock(unlock = {}) {
+  cancelAnimationFrame(unlockFrame);
+  const relevant = unlock.status && unlock.status !== 'idle';
+  elements['unlock-gauges'].hidden = !relevant;
+  if (!relevant) return;
+  const draw = () => {
+    let progress = Number(unlock.progress) || 0;
+    if (unlock.status === 'running' && unlock.startedAt) progress = Math.min(100, Math.max(progress, (Date.now() - Date.parse(unlock.startedAt)) / (Number(unlock.durationMs) || 5000) * 100));
+    updateProgress(progress);
+    elements['operation-progress'].dataset.status = progress >= 100 ? 'completed' : unlock.status;
+    if (unlock.status === 'running' && progress < 100) unlockFrame = requestAnimationFrame(draw);
+  };
+  draw();
 }
 
 function handleEvent(event) {
@@ -80,7 +144,8 @@ function handleEvent(event) {
     isAudioMaster = event.isAudioMaster === true;
     const restoredText = event.self?.currentSubtitle;
     if (restoredText) showCaption(restoredText);
-    applyPresentation({ displayText: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout }, event.state.currentPreset);
+    applyPresentation({ displayText: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
+      transition: event.state.currentTransition, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
     document.body.dataset.reducedMotion = String(event.state.settings?.reducedMotion === true);
     elements['audio-help'].textContent = isAudioMaster
       ? 'この端末はAudio Masterです。公演開始前または再読み込み後に準備してください。'
@@ -100,13 +165,13 @@ function handleEvent(event) {
   } else if (event.type === 'presentation') {
     applyPresentation(event.presentation, event.preset);
   } else if (event.type === 'stop') {
-    speech.stop(); localAudio.stop(); lipSync.stop();
+    speech.stop(); localAudio.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); document.body.dataset.transitionStatus = 'stopped';
   } else if (event.type === 'settings') {
     settings = event.settings; elements.caption.hidden = !settings.subtitlesEnabled;
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    speech.stop(false); localAudio.stop(false); lipSync.stop(); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false }); setMode('SYSTEM READY', 'ready');
+    speech.stop(false); localAudio.stop(false); lipSync.stop(); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false, transition: { id: 'none', status: 'idle' }, overlay: { id: 'none', visible: false }, visual: { type: 'none', visible: false }, unlock: { status: 'idle', progress: 0 } }); setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
     elements['identify-name'].textContent = identity.displayName;

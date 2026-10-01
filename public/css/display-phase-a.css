@@ -1,0 +1,48 @@
+:root {
+  --phase-a-transition-ms: 900ms;
+  --phase-a-intensity: 1;
+}
+
+.scene-visual,
+.operation-overlay,
+.transition-layer { position: absolute; inset: 0; pointer-events: none; }
+.scene-visual { z-index: 22; display: grid; place-content: center; justify-items: center; padding: 8vh 10vw 23vh; text-align: center; }
+.scene-visual[hidden], .operation-overlay[hidden] { display: none; }
+.scene-visual::before { content: ""; position: absolute; inset: 19% 15% 27%; border: 1px solid color-mix(in srgb, var(--phase-accent) 48%, transparent); background: color-mix(in srgb, var(--phase-bg) 78%, transparent); box-shadow: 0 0 5rem color-mix(in srgb, var(--phase-accent) 18%, transparent), inset 0 0 3rem #0008; clip-path: polygon(3% 0, 97% 0, 100% 9%, 100% 91%, 97% 100%, 3% 100%, 0 91%, 0 9%); backdrop-filter: blur(8px); }
+.scene-visual > * { position: relative; max-width: 62rem; }
+#scene-visual-label, .operation-kicker { color: var(--phase-accent); font: 700 clamp(.62rem, 1vw, .86rem)/1.2 ui-monospace, monospace; letter-spacing: .38em; }
+.scene-visual h2 { margin: 1.2rem 0 .6rem; color: var(--phase-text); font-size: clamp(1.8rem, 5vw, 4.6rem); letter-spacing: .08em; text-shadow: 0 0 1.5rem color-mix(in srgb, var(--phase-accent) 70%, transparent); }
+.scene-visual p { margin: 0; color: color-mix(in srgb, var(--phase-text) 88%, transparent); font-size: clamp(1rem, 2.1vw, 1.7rem); }
+.scene-visual ol { display: flex; gap: 1rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+.scene-visual li { min-width: 3rem; padding: .65rem 1rem; border: 1px solid var(--phase-accent); color: var(--phase-text); background: #0008; }
+.scene-visual[data-type="riddle-status"] li::before { content: "◆ "; color: var(--phase-accent); }
+
+.operation-overlay { z-index: 35; display: grid; place-items: center; padding: 7vh 8vw 20vh; background: radial-gradient(circle at 50% 45%, transparent 0 18%, color-mix(in srgb, var(--phase-bg) 48%, transparent) 66%, #0009); }
+.operation-overlay-frame { position: relative; width: min(76rem, 88vw); padding: clamp(1.2rem, 3.5vw, 3rem); text-align: center; border: 1px solid color-mix(in srgb, var(--phase-accent) 66%, transparent); background: linear-gradient(120deg, #02070de8, color-mix(in srgb, var(--phase-bg) 78%, #000)); box-shadow: 0 0 0 1px #ffffff0b, 0 0 5rem color-mix(in srgb, var(--phase-accent) 22%, transparent), inset 0 0 4rem #0009; clip-path: polygon(2% 0, 98% 0, 100% 14%, 100% 86%, 98% 100%, 2% 100%, 0 86%, 0 14%); }
+.operation-overlay h2 { margin: .7rem 0 .35rem; color: var(--phase-text); font: 800 clamp(1.7rem, 4.5vw, 4.2rem)/1.05 system-ui, sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+.operation-overlay p { margin: 0 auto; max-width: 60rem; color: color-mix(in srgb, var(--phase-text) 80%, transparent); font-size: clamp(.95rem, 1.8vw, 1.35rem); }
+.operation-progress { position: relative; height: 1.6rem; margin: 1.7rem auto 0; max-width: 48rem; overflow: hidden; border: 1px solid var(--phase-accent); background: #000b; }
+.operation-progress i { display: block; width: 0%; height: 100%; background: linear-gradient(90deg, color-mix(in srgb, var(--phase-accent) 45%, transparent), var(--phase-accent)); box-shadow: 0 0 2rem var(--phase-accent); transition: width 80ms linear; }
+.operation-progress strong { position: absolute; inset: 0; display: grid; place-items: center; color: white; font: 800 .8rem/1 ui-monospace, monospace; letter-spacing: .16em; text-shadow: 0 1px 2px #000; }
+.unlock-gauges { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.2rem auto 0; max-width: 48rem; }
+.unlock-gauges div { display: grid; grid-template-columns: 4rem 1fr; align-items: center; gap: .6rem; color: var(--phase-accent); font: 700 .68rem/1 ui-monospace, monospace; letter-spacing: .16em; }
+.unlock-gauges i { height: .42rem; background: #000c; border: 1px solid color-mix(in srgb, var(--phase-accent) 35%, transparent); overflow: hidden; }
+.unlock-gauges b { display: block; width: 0%; height: 100%; background: var(--phase-accent); box-shadow: 0 0 1rem var(--phase-accent); }
+
+.transition-layer { z-index: 42; opacity: 0; mix-blend-mode: screen; }
+body[data-transition-status="active"] .transition-layer { animation: phase-a-transition var(--phase-a-transition-ms) ease both; }
+body[data-transition="boot"] .transition-layer, body[data-transition="recovery"] .transition-layer, body[data-transition="normalize"] .transition-layer { background: radial-gradient(circle, color-mix(in srgb, var(--phase-accent) calc(35% * var(--phase-a-intensity)), transparent), transparent 62%); }
+body[data-transition="anomaly"] .transition-layer, body[data-transition="emergency-interrupt"] .transition-layer { background: repeating-linear-gradient(0deg, transparent 0 5px, color-mix(in srgb, #ffb14a calc(26% * var(--phase-a-intensity)), transparent) 6px 7px); }
+body[data-transition="takeover"] .transition-layer, body[data-transition="hostile-enter"] .transition-layer, body[data-transition="shutdown"] .transition-layer { background: repeating-linear-gradient(90deg, transparent 0 9%, color-mix(in srgb, #ff3e62 calc(30% * var(--phase-a-intensity)), transparent) 9.5% 10%); }
+body[data-transition="riddle-enter"] .transition-layer, body[data-transition="final-challenge-enter"] .transition-layer, body[data-transition="auth-success"] .transition-layer, body[data-transition="unlock-start"] .transition-layer { background: conic-gradient(from 45deg, transparent, color-mix(in srgb, var(--phase-accent) calc(32% * var(--phase-a-intensity)), transparent), transparent 38%); }
+@keyframes phase-a-transition { 0% { opacity: 0; transform: scale(1.08); filter: blur(14px); } 28% { opacity: .95; } 100% { opacity: 0; transform: scale(1); filter: blur(0); } }
+
+body[data-overlay="system-shutdown"] .operation-overlay-frame,
+body[data-overlay="forced-runaway"] .operation-overlay-frame,
+body[data-overlay="connection-failed"] .operation-overlay-frame { border-color: #ff4a58; --phase-accent: #ff4a58; }
+body[data-overlay="authentication-success"] .operation-overlay-frame,
+body[data-overlay="restoring"] .operation-overlay-frame { border-color: #57ffc8; --phase-accent: #57ffc8; }
+
+body[data-reduced-motion="true"] .transition-layer { animation: none !important; opacity: .16; }
+@media (prefers-reduced-motion: reduce) { .transition-layer { animation: none !important; opacity: .16; } .operation-progress i { transition: none; } }
+@media (max-width: 700px) { .operation-overlay { padding-inline: 4vw; } .unlock-gauges { gap: .35rem; } .unlock-gauges div { grid-template-columns: 1fr; } .scene-visual { padding-inline: 5vw; } }
