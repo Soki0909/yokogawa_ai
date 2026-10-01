@@ -314,7 +314,10 @@ try {
         metrics.requiredOfflineDetections += 1;
         metrics.preflightChecks += 1;
         await addDisplay('display-a', 'Main');
-        const notReady = await admin.next((event) => event.type === 'state' && event.state.displays.find((display) => display.displayId === 'display-a')?.online === true && event.state.displayAudioReady === false);
+        const notReady = await admin.next((event) => event.type === 'state'
+          && event.state.displays.find((display) => display.displayId === 'display-a')?.online === true
+          && event.state.displayAudioReady === false
+          && event.state.preflight.status === 'warning');
         assert.equal(notReady.state.preflight.status, 'warning');
         displays.get('display-a').send({ type: 'audio:ready' });
         await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
