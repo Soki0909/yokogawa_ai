@@ -23,3 +23,10 @@ test('Cue jumpは位置だけを変え、execute時だけ演出を適用する',
   store.jumpCue(cue.cueId); assert.equal(store.state.currentSubtitle, null); assert.equal(store.state.currentOverlay.visible, false);
   store.executeCue(cue.cueId); assert.equal(store.state.currentSubtitle, '実行された'); assert.equal(store.state.currentOverlay.id, 'access-denied');
 });
+
+test('OverlayとVisualの自動消去期限をsnapshotで確定する', async () => {
+  let tick = 0; const store = new StateStore({ storage: memory(), now: () => new Date(1_900_100_000_000 + tick) }); await store.load(); store.registerDisplay({ displayId: 'a' });
+  const cue = store.saveCue({ cueId: 'timed', cueName: 'Timed', kind: 'display-only', displayText: 'timed', target: { type: 'all' }, audio: { speechMode: 'none' }, overlay: { id: 'booting', visible: true }, visual: { id: 'card', type: 'text-card', visible: true }, timing: { autoClearOverlayMs: 500, autoHideVisualMs: 800 } });
+  store.executeCue(cue.cueId); tick = 600; assert.equal(store.displaySnapshot('a').currentOverlay.visible, false); assert.equal(store.displaySnapshot('a').currentVisual.visible, true);
+  tick = 900; assert.equal(store.displaySnapshot('a').currentVisual.visible, false);
+});

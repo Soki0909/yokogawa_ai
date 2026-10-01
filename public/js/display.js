@@ -26,6 +26,8 @@ let audioUnlocked = false;
 let identifyTimer;
 let transitionTimer;
 let unlockFrame;
+let overlayTimer;
+let visualTimer;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
 const blink = new BlinkController(elements['avatar-wrap']);
 
@@ -95,6 +97,7 @@ function renderTransition(transition = {}) {
 }
 
 function renderOverlay(overlay = {}) {
+  clearTimeout(overlayTimer);
   const visible = overlay.visible === true && overlay.id !== 'none';
   elements['operation-overlay'].hidden = !visible;
   elements['operation-overlay'].dataset.overlay = overlay.id ?? 'none';
@@ -103,9 +106,13 @@ function renderOverlay(overlay = {}) {
   elements['operation-message'].textContent = overlay.message ?? '';
   if (overlay.progress != null) updateProgress(Number(overlay.progress));
   else elements['operation-progress'].hidden = overlay.id !== 'unlocking';
+  if (visible && overlay.expiresAt) overlayTimer = window.setTimeout(() => {
+    elements['operation-overlay'].hidden = true; document.body.dataset.overlay = 'none';
+  }, Math.max(0, Date.parse(overlay.expiresAt) - Date.now()));
 }
 
 function renderVisual(visual = {}) {
+  clearTimeout(visualTimer);
   const visible = visual.visible === true && visual.type !== 'none';
   elements['scene-visual'].hidden = !visible;
   elements['scene-visual'].dataset.type = visual.type ?? 'none';
@@ -113,6 +120,7 @@ function renderVisual(visual = {}) {
   elements['scene-visual-title'].textContent = visual.title || String(visual.id ?? '').replaceAll('-', ' ');
   elements['scene-visual-message'].textContent = visual.message ?? '';
   elements['scene-visual-items'].replaceChildren(...(visual.items ?? []).map((value) => { const item = document.createElement('li'); item.textContent = value; return item; }));
+  if (visible && visual.expiresAt) visualTimer = window.setTimeout(() => { elements['scene-visual'].hidden = true; }, Math.max(0, Date.parse(visual.expiresAt) - Date.now()));
 }
 
 function updateProgress(progress) {
@@ -172,7 +180,7 @@ function handleEvent(event) {
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    speech.stop(false); localAudio.stop(false); lipSync.stop(); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false, transition: { id: 'none', status: 'idle' }, overlay: { id: 'none', visible: false }, visual: { type: 'none', visible: false }, unlock: { status: 'idle', progress: 0 } }); setMode('SYSTEM READY', 'ready');
+    speech.stop(false); localAudio.stop(false); lipSync.stop(); clearTimeout(overlayTimer); clearTimeout(visualTimer); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false, transition: { id: 'none', status: 'idle' }, overlay: { id: 'none', visible: false }, visual: { type: 'none', visible: false }, unlock: { status: 'idle', progress: 0 } }); setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
     elements['identify-name'].textContent = identity.displayName;

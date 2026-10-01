@@ -21,4 +21,6 @@ test('Display clientはtransition・overlay・visual・unlockをsnapshotとイ�
   assert.match(script, /requestAnimationFrame\(draw\)/);
   assert.match(script, /cancelAnimationFrame\(unlockFrame\)/);
   assert.match(script, /relevantOverlay/);
+  assert.match(script, /Date\.parse\(overlay\.expiresAt\) - Date\.now\(\)/);
+  assert.match(script, /Date\.parse\(visual\.expiresAt\) - Date\.now\(\)/);
 });
