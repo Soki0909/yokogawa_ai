@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/display-phase4.css">
   <link rel="stylesheet" href="/css/display-phase42.css">
   <link rel="stylesheet" href="/css/display-phase-a.css">
+  <link rel="stylesheet" href="/css/display-phase-b.css">
 </head>
 <body>
   <div id="identify-overlay" class="identify-overlay" hidden><span>DISPLAY IDENTITY</span><strong id="identify-name">DISPLAY</strong><small id="identify-id">—</small></div>
@@ -29,6 +30,13 @@
       <div class="preset-rupture"></div>
       <div class="preset-noise"></div>
       <div class="preset-repair"></div>
+      <div class="phaseb-depth"></div>
+      <div class="phaseb-axis"></div>
+      <div class="phaseb-orbit phaseb-orbit-a"></div>
+      <div class="phaseb-orbit phaseb-orbit-b"></div>
+      <div class="phaseb-frame phaseb-frame-left"></div>
+      <div class="phaseb-frame phaseb-frame-right"></div>
+      <div class="phaseb-pressure"></div>
     </div>
     <aside class="system-rail system-rail-left" aria-hidden="true">
       <strong class="system-brand">YOKOGAWA <b>AI</b></strong>
@@ -83,7 +91,12 @@
         </div>
       </div>
     </section>
-    <div id="transition-layer" class="transition-layer" aria-hidden="true"></div>
+    <div id="transition-layer" class="transition-layer" aria-hidden="true">
+      <i class="transition-flash"></i>
+      <i class="transition-core"></i>
+      <i class="transition-sweep"></i>
+      <i class="transition-fracture"></i>
+    </div>
     <footer><span>LOCAL SYSTEM</span><span aria-hidden="true">●</span><span>STAGE INTERFACE</span></footer>
   </main>
   <div id="blackout" class="blackout" hidden aria-live="assertive">BLACKOUT</div>

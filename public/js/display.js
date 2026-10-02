@@ -88,10 +88,11 @@ function renderTransition(transition = {}) {
   document.body.dataset.transitionStatus = transition.status ?? 'idle';
   document.documentElement.style.setProperty('--phase-a-transition-ms', `${Math.max(0, Number(transition.durationMs) || 0)}ms`);
   document.documentElement.style.setProperty('--phase-a-intensity', String(Math.min(1, Math.max(0, Number(transition.intensity) || 0))));
+  const elapsed = transition.startedAt ? Math.max(0, Date.now() - Date.parse(transition.startedAt)) : 0;
+  document.documentElement.style.setProperty('--phaseb-transition-delay', `${-Math.min(elapsed, Number(transition.durationMs) || 0)}ms`);
   if (transition.status === 'active') {
     elements['transition-layer'].style.animation = 'none'; void elements['transition-layer'].offsetWidth;
     elements['transition-layer'].style.animation = '';
-    const elapsed = transition.startedAt ? Math.max(0, Date.now() - Date.parse(transition.startedAt)) : 0;
     transitionTimer = window.setTimeout(() => { document.body.dataset.transitionStatus = 'completed'; }, Math.max(0, (Number(transition.durationMs) || 0) - elapsed));
   }
 }
@@ -107,7 +108,7 @@ function renderOverlay(overlay = {}) {
   if (overlay.progress != null) updateProgress(Number(overlay.progress));
   else elements['operation-progress'].hidden = overlay.id !== 'unlocking';
   if (visible && overlay.expiresAt) overlayTimer = window.setTimeout(() => {
-    elements['operation-overlay'].hidden = true; document.body.dataset.overlay = 'none';
+    elements['operation-overlay'].hidden = true; document.body.dataset.overlay = 'none'; elements['unlock-gauges'].hidden = true;
   }, Math.max(0, Date.parse(overlay.expiresAt) - Date.now()));
 }
 
@@ -116,6 +117,7 @@ function renderVisual(visual = {}) {
   const visible = visual.visible === true && visual.type !== 'none';
   elements['scene-visual'].hidden = !visible;
   elements['scene-visual'].dataset.type = visual.type ?? 'none';
+  document.body.dataset.visual = visible ? visual.type : 'none';
   elements['scene-visual-label'].textContent = visual.mode && visual.mode !== 'default' ? visual.mode.toUpperCase() : 'SCENE VISUAL';
   elements['scene-visual-title'].textContent = visual.title || String(visual.id ?? '').replaceAll('-', ' ');
   elements['scene-visual-message'].textContent = visual.message ?? '';
@@ -124,7 +126,7 @@ function renderVisual(visual = {}) {
   if (showImage) { elements['scene-visual-image'].src = `/api/assets/${encodeURIComponent(visual.assetId)}`; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
   else elements['scene-visual-image'].removeAttribute('src');
   elements['scene-visual-items'].replaceChildren(...(visual.items ?? []).map((value) => { const item = document.createElement('li'); item.textContent = value; return item; }));
-  if (visible && visual.expiresAt) visualTimer = window.setTimeout(() => { elements['scene-visual'].hidden = true; }, Math.max(0, Date.parse(visual.expiresAt) - Date.now()));
+  if (visible && visual.expiresAt) visualTimer = window.setTimeout(() => { elements['scene-visual'].hidden = true; document.body.dataset.visual = 'none'; }, Math.max(0, Date.parse(visual.expiresAt) - Date.now()));
 }
 
 function updateProgress(progress) {
@@ -132,20 +134,26 @@ function updateProgress(progress) {
   elements['operation-progress'].hidden = false;
   elements['operation-progress-value'].style.width = `${value}%`;
   elements['operation-progress-label'].textContent = `${Math.round(value)}%`;
-  for (const [index, gauge] of [...elements['unlock-gauges'].querySelectorAll('b')].entries()) gauge.style.width = `${Math.min(100, Math.max(0, value * 1.12 - index * 6))}%`;
+  for (const [index, gauge] of [...elements['unlock-gauges'].children].entries()) {
+    const gaugeValue = Math.min(100, Math.max(0, value * 1.12 - index * 6));
+    gauge.style.setProperty('--gauge-progress', String(gaugeValue));
+    const meter = gauge.querySelector('i');
+    if (meter) meter.dataset.progress = `${Math.round(gaugeValue)}%`;
+  }
 }
 
 function renderUnlock(unlock = {}) {
   cancelAnimationFrame(unlockFrame);
-  const relevantOverlay = ['unlocking', 'emergency-protection', 'unlock-aborted', 'connection-failed'].includes(elements['operation-overlay'].dataset.overlay);
+  const relevantOverlay = ['unlocking', 'emergency-protection', 'unlock-aborted'].includes(elements['operation-overlay'].dataset.overlay);
   const relevant = relevantOverlay && unlock.status && unlock.status !== 'idle';
   elements['unlock-gauges'].hidden = !relevant;
-  if (!relevant) return;
+  document.body.dataset.unlockStatus = relevant ? unlock.status : 'idle';
+  if (!relevant) { elements['operation-progress'].dataset.status = 'idle'; return; }
   const draw = () => {
     let progress = Number(unlock.progress) || 0;
     if (unlock.status === 'running' && unlock.startedAt) progress = Math.min(100, Math.max(progress, (Date.now() - Date.parse(unlock.startedAt)) / (Number(unlock.durationMs) || 5000) * 100));
     updateProgress(progress);
-    elements['operation-progress'].dataset.status = progress >= 100 ? 'completed' : unlock.status;
+    elements['operation-progress'].dataset.status = ['aborted', 'stopped'].includes(unlock.status) ? unlock.status : progress >= 100 ? 'completed' : unlock.status;
     if (unlock.status === 'running' && progress < 100) unlockFrame = requestAnimationFrame(draw);
   };
   draw();
