@@ -1,6 +1,6 @@
-# 横川AI Phase A — Performance Presentation System
+# 横川AI Phase B RC — Performance Presentation System
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase A / v0.5.0はPhase 4.2のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・6 Presentation Presetを維持し、Transition、Operation Overlay、Scene Visual、Unlock GaugeをServer authoritativeな公演状態として追加しました。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0-rc.1は、Phase A / v0.5.0のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・Server authoritativeな演出状態を維持し、6 Presentation Preset、Transition、Operation Overlay、Final Challenge、Unlock / Emergencyを舞台映像として改良したVisual候補です。最終Visual承認版ではありません。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
@@ -95,7 +95,7 @@ Avatar assetは `AVATAR_ASSET_SETS` で意味IDとローカルpathを管理し�
 
 Avatar非表示、STOP、終了、エラーでは口パク処理を停止してclosedへ戻します。画像・Lip Sync・Blinkの境界を分けているため、将来はAsset Setや音声Providerを独立交換できます。
 
-### Phase A演出レイヤー
+### Phase B演出レイヤー
 
 Displayは下から `Preset Environment → Avatar → Scene Visual → Subtitle/Status → Operation Overlay → BLACKOUT` の順で合成します。Transitionは一時的な全画面効果で、`prefers-reduced-motion` とShow設定を尊重します。BLACKOUTは従来どおり常に最上位です。
 
@@ -158,8 +158,8 @@ npm audit --omit=dev
 npm run test:soak
 ```
 
-`test:soak` は既定30分で、Phase AのUnlock・緊急中断・Hostileも周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase A検証記録](docs/phase-A/verification.md) を参照してください。過去Phaseの記録も `docs/` に保持しています。
+`test:soak` は既定30分で、Unlock・緊急中断・Hostile・Shutdown・Recovery・NORMAL cleanupを周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase Bの自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase B検証記録](docs/phase-B/verification.md) と [Visual Review Guide](docs/phase-B/review-guide.md) を参照してください。Review画像は [`artifacts/phase-b-review/`](artifacts/phase-b-review/) にあります。
 
-## Phase Aスコープ外
+## Phase Bスコープ外
 
 VOICEVOX本体、LLM連携、WebGL/3Dアバター、映像編集、複数Audio Zone、クラウド必須機能、特定演者の肖像再現は本番依存にしていません。ProviderとShowデータ境界を残し、後からBrowser TTS、VOICEVOX、事前生成音声を交換できます。
