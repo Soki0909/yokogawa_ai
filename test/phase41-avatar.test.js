@@ -4,7 +4,7 @@ import { access, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, normalizeAvatar, validateShowFile } from '../src/show-schema.js';
-import { BlinkController, randomBlinkTiming } from '../public/js/blink-controller.js';
+import { BLINK_PROFILES, BlinkController, randomBlinkTiming } from '../public/js/blink-controller.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -83,6 +83,26 @@ test('shutdownは目を閉じてまばたきを停止しrecoveryで再開する'
   controller.update({ state: 'recovery' });
   assert.equal(controller.running, true);
   assert.equal(element.dataset.blink, 'open');
+});
+
+test('6状態のblink profileは異常度を表情変更なしの時間差で示す', () => {
+  assert.ok(BLINK_PROFILES.warning.maxDelayMs < BLINK_PROFILES.normal.maxDelayMs);
+  assert.ok(BLINK_PROFILES.hijacked.minDelayMs < BLINK_PROFILES.warning.minDelayMs);
+  assert.ok(BLINK_PROFILES.hostile.minDelayMs > BLINK_PROFILES.normal.maxDelayMs);
+  assert.ok(BLINK_PROFILES.recovery.minDelayMs > BLINK_PROFILES.warning.minDelayMs);
+  const element = { dataset: {} };
+  const pending = [];
+  const controller = new BlinkController(element, {
+    random: () => 0,
+    setTimer: (callback, delay) => { const timer = { callback, delay }; pending.push(timer); return timer; },
+    clearTimer: () => {},
+  });
+  controller.update({ state: 'warning' });
+  assert.equal(element.dataset.blinkProfile, 'warning');
+  assert.equal(pending.at(-1).delay, BLINK_PROFILES.warning.minDelayMs);
+  controller.update({ state: 'hostile' });
+  assert.equal(element.dataset.blinkProfile, 'hostile');
+  assert.equal(pending.at(-1).delay, BLINK_PROFILES.hostile.minDelayMs);
 });
 
 test('6 Presetは同じ画像AvatarへCSS effectとして適用される', async () => {

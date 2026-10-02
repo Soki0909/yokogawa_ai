@@ -30,6 +30,7 @@ let overlayTimer;
 let visualTimer;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
 const blink = new BlinkController(elements['avatar-wrap']);
+const systemStates = new Set(['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']);
 
 const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   elements.connection.textContent = status === 'connected' ? 'ONLINE' : status === 'connecting' ? 'CONNECTING' : 'RECONNECTING';
@@ -79,7 +80,9 @@ function applyPresentation(presentation = {}, preset = null) {
   if (presentation.overlay) renderOverlay(presentation.overlay);
   if (presentation.visual) renderVisual(presentation.visual);
   if (presentation.unlock) renderUnlock(presentation.unlock);
-  blink.update({ visible: !elements['avatar-wrap'].hidden, state: elements['avatar-wrap'].dataset.state, blackout: presentation.blackout === true });
+  const systemState = systemStates.has(document.body.dataset.preset) ? document.body.dataset.preset : elements['avatar-wrap'].dataset.state;
+  elements['avatar-wrap'].dataset.systemState = systemState;
+  blink.update({ visible: !elements['avatar-wrap'].hidden, state: systemState, blackout: presentation.blackout === true });
 }
 
 function renderTransition(transition = {}) {

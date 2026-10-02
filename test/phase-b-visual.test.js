@@ -21,9 +21,37 @@ test('Phase B環境geometryを既存layer内かつ字幕より背面へ置く', 
     assert.match(html, new RegExp(`class="[^"]*${name}`));
   }
   assert.ok(html.indexOf('phaseb-depth') < html.indexOf('class="caption-shell"'));
+  assert.ok(html.indexOf('id="avatar-wrap"') < html.indexOf('id="avatar-foreground"'));
+  assert.ok(html.indexOf('id="avatar-foreground"') < html.indexOf('id="scene-visual"'));
   assert.ok(html.indexOf('class="caption-shell"') < html.indexOf('id="operation-overlay"'));
   assert.ok(html.indexOf('id="operation-overlay"') < html.indexOf('id="transition-layer"'));
   assert.ok(html.indexOf('id="transition-layer"') < html.indexOf('id="blackout"'));
+});
+
+test('Avatar自身が6状態のsystem effectと人格非依存の差を持つ', async () => {
+  const [html, script, css] = await Promise.all([load('public/display.html'), load('public/js/display.js'), load('public/css/display-phase-b.css')]);
+  for (const name of ['avatar-system-effects', 'avatar-face-light', 'avatar-eye-left', 'avatar-eye-right', 'avatar-lens-reflection', 'avatar-sync-echo']) {
+    assert.match(html, new RegExp(`class="[^"]*${name}`));
+  }
+  for (const id of ['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']) {
+    assert.match(css, new RegExp(`data-preset="${id}"[\\s\\S]*avatar-`));
+  }
+  assert.match(css, /data-preset="hostile"[^\n]*avatar-wrap \.brow \{ transform: none !important/);
+  assert.match(css, /data-preset="shutdown"[^\n]*avatar-system-effects \{ opacity: 0/);
+  assert.match(script, /dataset\.systemState = systemState/);
+});
+
+test('Foreground interferenceはAvatar前面かつ字幕・Show layer・BLACKOUTより背面にある', async () => {
+  const [html, phase4, css] = await Promise.all([load('public/display.html'), load('public/css/display-phase4.css'), load('public/css/display-phase-b.css')]);
+  for (const name of ['foreground-scan', 'foreground-band-a', 'foreground-band-b', 'foreground-noise', 'foreground-rupture']) {
+    assert.match(html, new RegExp(`class="[^"]*${name}`));
+  }
+  assert.match(css, /\.avatar-foreground \{[\s\S]*z-index: 4;/);
+  assert.match(css, /data-preset="hijacked"[^\n]*foreground-band[\s\S]*phaseb-foreground-hijack-band/);
+  assert.match(css, /data-preset="hostile"[^\n]*foreground-band[\s\S]*height: 7\.5%/);
+  assert.match(css, /data-preset="shutdown"[^\n]*avatar-foreground \{ opacity: 0/);
+  assert.match(css, /data-preset="recovery"[^\n]*avatar-foreground[\s\S]*phaseb-foreground-recovery/);
+  assert.match(phase4, /\.blackout \{ position:fixed; z-index:999;/);
 });
 
 test('6状態を色以外のgeometryとmotionで差別化する', async () => {

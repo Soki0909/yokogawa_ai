@@ -5,6 +5,14 @@ export function randomBlinkTiming(random = Math.random, {
   return { delayMs: within(minDelayMs, maxDelayMs), durationMs: within(minDurationMs, maxDurationMs) };
 }
 
+export const BLINK_PROFILES = Object.freeze({
+  normal: Object.freeze({ minDelayMs: 3000, maxDelayMs: 6000, minDurationMs: 100, maxDurationMs: 180 }),
+  warning: Object.freeze({ minDelayMs: 1800, maxDelayMs: 3200, minDurationMs: 70, maxDurationMs: 110 }),
+  hijacked: Object.freeze({ minDelayMs: 900, maxDelayMs: 5200, minDurationMs: 55, maxDurationMs: 210 }),
+  hostile: Object.freeze({ minDelayMs: 9000, maxDelayMs: 14000, minDurationMs: 80, maxDurationMs: 110 }),
+  recovery: Object.freeze({ minDelayMs: 4200, maxDelayMs: 7200, minDurationMs: 120, maxDurationMs: 190 }),
+});
+
 export class BlinkController {
   constructor(element, {
     random = Math.random,
@@ -16,10 +24,12 @@ export class BlinkController {
     this.random = random;
     this.setTimer = setTimer;
     this.clearTimer = clearTimer;
+    this.baseTiming = timing;
     this.timing = timing;
     this.timer = null;
     this.durationTimer = null;
     this.running = false;
+    this.state = null;
   }
 
   set(closed) {
@@ -61,8 +71,13 @@ export class BlinkController {
   }
 
   update({ visible = true, state = 'normal', blackout = false } = {}) {
+    const changed = this.state !== state;
+    this.state = state;
+    this.timing = { ...(BLINK_PROFILES[state] ?? BLINK_PROFILES.normal), ...this.baseTiming };
+    if (this.element) this.element.dataset.blinkProfile = state;
     if (!visible || blackout) this.stop();
     else if (state === 'shutdown') this.stop({ closed: true });
+    else if (changed && this.running) { this.stop(); this.start(); }
     else this.start();
   }
 }
