@@ -65,3 +65,13 @@
 
 技術的な完成条件は満たした候補ですが、強度・色・間・感動の大きさはユーザーVisual Reviewに残します。
 
+## rc.2 Avatar / interference review
+
+- NORMAL: 人物画像を主役に保ち、目元・眼鏡は低強度。foregroundは透明で基準状態を汚さない。
+- WARNING: 顔面に琥珀色の警告光と薄いscanを加えた。異常開始として読める一方、侵入済みには見えない強度に抑えた。
+- HIJACKED: magenta/cyanの輪郭二重像、顔を横切る細いband、文字系を含むdata corruptionで「映像feedが奪われた」状態を形成した。Avatarと字幕は識別可能。
+- HOSTILE: 太い斜線警告帯、赤いrupture、高いpulse密度、長い凝視でHIJACKEDより明確に危険。ただし眉と口は変形させず、人格変化ではなくsystem lockとして見せた。
+- SHUTDOWN: 閉眼、無彩色化、effect消灯、foregroundとanimationの完全停止をcomputed styleで確認した。
+- RECOVERY: 青緑と暖色の再点灯、4.8秒の剥離・正常化を追加。撮影後のNORMAL復帰でanimation/state leakがないことを確認した。
+- 自主修正: system presetをblinkの正本にし、Avatar stateだけが古い値のときもSHUTDOWN閉眼が保証されるよう修正。HOSTILE眉変形を明示的に無効化。Avatarとforegroundを同じresponsive tokenで配置して位置ずれを防止した。
+- 残る感性的判断: HOSTILEの2本の太い警告帯が舞台距離では効果的だが、近距離視聴では目元を強く横切る。危険度を優先した現候補を採用するか、帯opacityを少し下げるかはユーザーVisual Review対象。

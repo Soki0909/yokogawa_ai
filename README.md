@@ -1,6 +1,6 @@
 # 横川AI Phase B RC — Performance Presentation System
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0-rc.1は、Phase A / v0.5.0のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・Server authoritativeな演出状態を維持し、6 Presentation Preset、Transition、Operation Overlay、Final Challenge、Unlock / Emergencyを舞台映像として改良したVisual候補です。最終Visual承認版ではありません。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0-rc.2は、Phase A / v0.5.0のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・Server authoritativeな演出状態を維持し、6 Presentation Preset、Transition、Operation Overlay、Final Challenge、Unlock / Emergencyを舞台映像として改良したVisual候補です。rc.2ではAvatar自身の6状態差とForeground Interferenceを追加しました。最終Visual承認版ではありません。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket

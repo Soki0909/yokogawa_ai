@@ -1,6 +1,6 @@
 {
   "name": "yokogawa-ai",
-  "version": "0.6.0-rc.1",
+  "version": "0.6.0-rc.2",
   "private": true,
   "description": "横川AI 公演用ローカルWebアプリ",
   "type": "module",

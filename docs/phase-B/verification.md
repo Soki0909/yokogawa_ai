@@ -1,12 +1,13 @@
 # Phase B Autonomous Visual Verification
 
-Status: **Phase B autonomous visual candidate complete / user visual review pending**
+Status: **Phase B rc.2 autonomous visual candidate complete / user visual review pending**
 
 ## Baseline and candidate
 
 - Protected baseline: `v0.5.0` (`8fbe042`, Phase A)
-- Candidate version: `0.6.0-rc.1`
-- Candidate tag: annotated `v0.6.0-rc.1`（この検証記録を含む最終HEADへ付与）
+- Previous candidate baseline: annotated `v0.6.0-rc.1` (`afba510`)
+- Candidate version: `0.6.0-rc.2`
+- Candidate tag: annotated `v0.6.0-rc.2`（この検証記録を含む最終HEADへ付与）
 - Canonical specification: [`yokogawa_ai_phase_b_autonomous_visual_spec_v1.0.md`](yokogawa_ai_phase_b_autonomous_visual_spec_v1.0.md)
 - Implementation directive: [`codex_yokogawa_ai_phase_b_autonomous_visual_prompt_v1.0.md`](codex_yokogawa_ai_phase_b_autonomous_visual_prompt_v1.0.md)
 - Production dependencies: 追加なし
@@ -136,3 +137,16 @@ Resolution:
 ## Subjective items pending user review
 
 技術的な壊れ・状態漏れ・描画崩れではなく、WARNING / HOSTILEの強度、Unlock成功感、Emergency落差、SHUTDOWN静寂、RECOVERYの温かさ、Final Challenge主役感、全体強度階層の9項目だけを [`review-guide.md`](review-guide.md) に残した。
+
+## rc.2 Avatar / foreground interference verification
+
+- Avatarの基本画像と無表情な人物設計を維持し、目元発光、顔面色光、眼鏡反射、二重像、状態別blinkで6状態を区別した。
+- WARNINGは短いblinkと薄いscan、HIJACKEDはmagenta/cyan位相ずれ・細いjamming band・data corruption、HOSTILEは長い凝視・太い警告帯・rupture・高圧pulseとし、色だけでない差を設けた。
+- HOSTILEのfallback SVG眉変形を無効化し、「怒ったAI」ではなく無表情の危険なsystem lockを維持した。
+- SHUTDOWNは閉眼、Avatar effect opacity 0、foreground opacity 0、全foreground/avatar effect animation `none`を実ブラウザcomputed styleで確認した。
+- RECOVERYは4.8秒の再点灯とinterference剥離を経て安定し、NORMAL復帰後はforeground opacity 0、全foreground child animation `none`、system/blink profile `normal`を確認した。
+- Foreground layerはAvatar前面かつScene Visual / Operation Overlay / Transition / BLACKOUTより背面で、字幕の可読性を維持した。
+- 実ブラウザviewport 1440×825で6状態を撮影。横・縦overflow 0、console warning 0 / error 0。
+- 証跡: [`rc2/contact-sheet-avatar-states.png`](../../artifacts/phase-b-review/rc2/contact-sheet-avatar-states.png) および同directoryの6状態原寸画像。
+- `npm run check`: **83 pass / 0 fail**。rc.1の80件にAvatar/foreground/blink profile契約を追加。
+- short state/reconnect soak: **0.25分 / 93 event / failure 0 / abnormal exit false**。既存30分soak証跡はrc.1から継承し、rc.2差分に対して短時間回帰を追加した。
