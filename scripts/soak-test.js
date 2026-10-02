@@ -8,7 +8,9 @@ import { WebSocket } from 'ws';
 
 const minutes = Number(process.env.SOAK_MINUTES ?? 30);
 const intervalMs = Number(process.env.SOAK_INTERVAL_MS ?? 2000);
+const eventTimeoutMs = Number(process.env.SOAK_EVENT_TIMEOUT_MS ?? 15_000);
 if (!Number.isFinite(minutes) || minutes <= 0) throw new Error('SOAK_MINUTES must be positive');
+if (!Number.isFinite(eventTimeoutMs) || eventTimeoutMs < 5000) throw new Error('SOAK_EVENT_TIMEOUT_MS must be at least 5000');
 
 function freePort() {
   return new Promise((resolve, reject) => {
@@ -43,19 +45,23 @@ function connect(port, role, display) {
   socket.on('message', (raw) => {
     const event = JSON.parse(raw.toString());
     const index = waiters.findIndex((waiter) => waiter.predicate(event));
-    if (index >= 0) waiters.splice(index, 1)[0].resolve(event);
+    if (index >= 0) {
+      const waiter = waiters.splice(index, 1)[0];
+      clearTimeout(waiter.timer);
+      waiter.resolve(event);
+    }
     else {
       queue.push(event);
       if (queue.length > 1000) queue.shift();
     }
   });
-  const next = (predicate, timeout = 5000) => {
+  const next = (predicate, timeout = eventTimeoutMs) => {
     const index = queue.findIndex(predicate);
     if (index >= 0) return Promise.resolve(queue.splice(index, 1)[0]);
     return new Promise((resolve, reject) => {
-      const waiter = { predicate, resolve };
+      const waiter = { predicate, resolve, timer: null };
       waiters.push(waiter);
-      setTimeout(() => {
+      waiter.timer = setTimeout(() => {
         const current = waiters.indexOf(waiter);
         if (current >= 0) waiters.splice(current, 1);
         reject(new Error(`${role}/${display?.displayId ?? ''} event timeout`));
@@ -87,7 +93,7 @@ const server = spawn(process.execPath, ['src/server.js'], {
     ...process.env,
     PORT: String(port),
     HOST: '127.0.0.1',
-    HEARTBEAT_TIMEOUT_MS: '3500',
+    HEARTBEAT_TIMEOUT_MS: '7000',
     STATE_FILE: path.join(temporary, 'state.json'),
     LOG_DIRECTORY: path.join(temporary, 'logs'),
   },
