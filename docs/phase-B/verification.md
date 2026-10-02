@@ -32,6 +32,7 @@ Visual tokenは色、frame、glow、motion duration、transition intensity、gau
 | 2 | SHUTDOWNで全animationを止めた結果、transitionの赤いflashまで停止 | underlying layerだけ停止し、transition layerは完了・除去までrunning |
 | 3 | 静的`unlocking: 100`でUnlock timerが再始動 | `unlock-start`だけ開始、100%はcompleted保持、Emergencyはaborted保持、別Cueでidle cleanup |
 | 3 | 汎用Cue CLIが発話付きCueのmessage ID ackを待てない | 短命な専用Admin接続の最初のacceptedを成功として扱うよう修正 |
+| 4 | 初回30分soakが19分時点で、3.5秒heartbeat判定と5秒event timeoutの競合により検証client timeout | 本番既定と同じ7秒heartbeat判定、15秒event timeout、解決済みwaiter timerの明示cleanupへ修正。短縮再試験後、0分から30分を再実行 |
 
 詳細は [`visual-self-critique.md`](visual-self-critique.md)。
 
@@ -82,7 +83,9 @@ Resolution:
 
 ## Soak and performance
 
-- Final 30-minute run: 最終試験記録へ反映。
+- Final 30-minute run: **30分 / 795 iteration / failure 0 / abnormal exitなし**。
+- Reconnect 3、Admin reconnect 1、Audio Master reconnect 1、Master change 1、BLACKOUT 44、Unlock / Emergency / Shutdown / Recovery / normalize各44、cleanup check 132。
+- RSS: 65,400,832 → 93,904,896 bytes（+28,504,064 bytes）。795反復後も処理成功率100%で、unbounded growthや異常終了なし。
 - Short final-candidate smoke: 9秒、42/42 iteration、failure 0、reconnect 3、admin reconnect 1、master reconnect 1、master change 1、shutdown / recovery / normalize各2、cleanup check 6、abnormal exitなし。
 - AnimationはCSS transform / opacity中心。Canvas / WebGL、particle、大量DOM生成、JS毎frame描画、新規runtime依存を追加していない。
 - timerはtransition cleanupとUnlock stateに限定し、終了・中断・別Cue・再接続を試験した。
@@ -120,14 +123,16 @@ Resolution:
 | Evidence | Screenshot / frames / sheets | ✅ review package 3 contact sheets + individual files |
 | Evidence | self-critique / 修正履歴 | ✅ self-critique + commit history |
 | Verification | automated / browser / 4 tabs | ✅ 80/80、console 0/0、Admin 1 + Display 3 |
-| Verification | soak / failure 0 | ⏳ 最終30分run完了後に確定 |
-| Verification | audit重大問題なし | ⏳ 最終audit後に確定 |
+| Verification | soak / failure 0 | ✅ 30分、795/795、failure 0、abnormal exitなし |
+| Verification | audit重大問題なし | ✅ `npm audit --omit=dev`: 0 vulnerabilities |
 
 ## Final test record
 
-最終30分soakとauditの数値は、完了後にこの節へ記録する。途中失敗時は修正後0分から再実行する。
+- `npm run check`: 80 pass / 0 fail / 0 skipped。
+- `npm audit --omit=dev`: found 0 vulnerabilities。
+- `SOAK_MINUTES=30 SOAK_INTERVAL_MS=2000 node scripts/soak-test.js`: 795 pass / failure 0 / abnormal exit false。
+- 初回試験の検証client timeoutを修正後、要件どおり0分から全時間を再実行した。最終ログは [`soak-30m.log`](../../artifacts/phase-b-review/soak-30m.log)。
 
 ## Subjective items pending user review
 
 技術的な壊れ・状態漏れ・描画崩れではなく、WARNING / HOSTILEの強度、Unlock成功感、Emergency落差、SHUTDOWN静寂、RECOVERYの温かさ、Final Challenge主役感、全体強度階層の9項目だけを [`review-guide.md`](review-guide.md) に残した。
-
