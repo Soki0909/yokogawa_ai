@@ -88,6 +88,7 @@ test('SHUTDOWN・reduced motion・BLACKOUT・viewportの安全契約を保つ', 
   assert.match(base, /html,body\{height:100%;overflow:hidden\}/);
   assert.match(phase4, /\.blackout \{ position:fixed; z-index:999;/);
   assert.match(phaseB, /data-preset="shutdown"[\s\S]*animation: none !important/);
+  assert.match(phaseB, /data-preset="shutdown"[^\n]*transition-layer[\s\S]*animation-play-state: running !important/);
   assert.match(phaseB, /@media \(prefers-reduced-motion: reduce\)/);
   assert.match(phaseB, /data-reduced-motion="true"[\s\S]*animation: none !important/);
   assert.match(phaseB, /@media \(max-width: 900px\)/);

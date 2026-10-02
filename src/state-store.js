@@ -503,10 +503,17 @@ export class StateStore {
     const transition = { ...cue.transition, status: cue.transition.id === 'none' ? 'idle' : 'active', startedAt: cue.transition.id === 'none' ? null : startedAt, completedAt: null };
     const overlay = { ...cue.overlay, ...(cue.timing.autoClearOverlayMs != null && cue.overlay.visible ? { expiresAt: new Date(this.now().getTime() + cue.timing.autoClearOverlayMs).toISOString() } : {}) };
     const visual = { ...cue.visual, ...(cue.timing.autoHideVisualMs != null && cue.visual.visible ? { expiresAt: new Date(this.now().getTime() + cue.timing.autoHideVisualMs).toISOString() } : {}) };
-    const startsUnlock = cue.transition.id === 'unlock-start' || cue.overlay.id === 'unlocking';
+    const startsUnlock = cue.transition.id === 'unlock-start';
+    const holdsUnlock = cue.overlay.id === 'unlocking' && !startsUnlock;
     const abortsUnlock = ['emergency-protection', 'unlock-aborted', 'connection-failed'].includes(cue.overlay.id) || cue.transition.id === 'emergency-interrupt';
-    let unlock = startsUnlock ? { status: 'running', progress: 0, startedAt, durationMs: cue.timing.unlockDurationMs, completedAt: null } : structuredClone(this.state.unlock);
-    if (abortsUnlock) { this.settleTimedPresentation(); unlock = { ...this.state.unlock, status: 'aborted' }; }
+    let unlock = structuredClone(EMPTY_UNLOCK);
+    if (startsUnlock) unlock = { status: 'running', progress: 0, startedAt, durationMs: cue.timing.unlockDurationMs, completedAt: null };
+    else if (holdsUnlock) {
+      const progress = Math.min(100, Math.max(0, Number(cue.overlay.progress) || Number(this.state.unlock.progress) || 0));
+      unlock = { status: progress >= 100 ? 'completed' : 'running', progress, startedAt: null, durationMs: 0, completedAt: progress >= 100 ? startedAt : null };
+    } else if (abortsUnlock) {
+      this.settleTimedPresentation(); unlock = { ...this.state.unlock, status: 'aborted' };
+    }
     const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset, avatar: cue.avatar, blackout: cue.kind === 'blackout', transition, overlay, visual, unlock };
     if (cue.kind === 'blackout' && !this.state.blackout) this.state.previousVisualState = { currentSubtitle: this.state.currentSubtitle, currentPresetId: this.state.currentPresetId, currentAvatar: this.state.currentAvatar };
     if (cue.kind === 'clear') this.state.currentSubtitle = null;

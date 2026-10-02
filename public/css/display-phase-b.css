@@ -202,6 +202,8 @@ body[data-preset="shutdown"] .phaseb-axis { opacity: .06; box-shadow: none; }
 body[data-preset="shutdown"] .phaseb-frame { opacity: .11; background: none; }
 body[data-preset="shutdown"] .system-rail { opacity: .32; }
 body[data-preset="shutdown"] .caption-shell { filter: grayscale(1); box-shadow: none; }
+body[data-preset="shutdown"] .transition-layer,
+body[data-preset="shutdown"] .transition-layer > i { animation-play-state: running !important; }
 
 body[data-preset="recovery"] .phaseb-depth {
   background:

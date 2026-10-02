@@ -1,7 +1,8 @@
 import { WebSocket } from 'ws';
 
 const cueId = process.argv[2]?.trim();
-if (!cueId) throw new Error('Usage: node scripts/execute-cue.js <cue-id>');
+const reset = cueId === '--reset';
+if (!cueId) throw new Error('Usage: node scripts/execute-cue.js <cue-id|--reset>');
 
 const endpoint = new URL(process.env.VISUAL_BASE_URL ?? 'http://127.0.0.1:3000');
 endpoint.protocol = endpoint.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -20,14 +21,19 @@ socket.on('open', () => {
 
 socket.on('message', (raw) => {
   const event = JSON.parse(raw);
-  if (event.type === 'state' && !event.state.cues.some((cue) => cue.cueId === cueId)) {
+  if (!reset && event.type === 'state' && !event.state.cues.some((cue) => cue.cueId === cueId)) {
     clearTimeout(timeout);
     socket.close();
     throw new Error(`Unknown cue: ${cueId}`);
   }
   if (event.type === 'state' && !requested) {
     requested = true;
-    socket.send(JSON.stringify({ type: 'cue:execute', cueId }));
+    socket.send(JSON.stringify(reset ? { type: 'show:reset' } : { type: 'cue:execute', cueId }));
+  }
+  if (reset && requested && event.type === 'state' && event.state.currentCueIndex === -1) {
+    clearTimeout(timeout);
+    console.log('Show reset complete');
+    socket.close();
   }
   if (event.type === 'accepted' && event.id === `cue:${cueId}`) {
     clearTimeout(timeout);

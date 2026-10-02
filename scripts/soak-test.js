@@ -108,6 +108,7 @@ const metrics = {
   masterChanges: 0, preflightChecks: 0,
   presentationEvents: 0, blackoutEvents: 0, localAudioEvents: 0,
   phaseAEvents: 0, unlockEvents: 0, emergencyEvents: 0,
+  shutdownEvents: 0, recoveryEvents: 0, normalizationEvents: 0, stateCleanupChecks: 0,
 };
 const processedMessageIds = new Set();
 const durationMs = minutes * 60 * 1000;
@@ -146,7 +147,7 @@ async function awaitCompleted(id) {
 }
 
 async function exerciseSpeech(iteration) {
-  const kind = iteration % 15;
+  const kind = iteration % 18;
   let event;
   if (kind === 8) {
     admin.send({ type: 'cue:execute', cueId: 'soak-display' });
@@ -169,6 +170,27 @@ async function exerciseSpeech(iteration) {
     admin.send({ type: 'cue:execute', cueId: 'soak-hostile' });
     await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.transition?.id === 'hostile-enter')));
     metrics.phaseAEvents += 1; return;
+  }
+  if (kind === 15) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-shutdown' });
+    const events = await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.transition?.id === 'shutdown')));
+    assert.ok(events.every((item) => item.presentation.overlay?.id === 'system-shutdown'));
+    metrics.phaseAEvents += 1; metrics.shutdownEvents += 1; return;
+  }
+  if (kind === 16) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-recovery' });
+    const events = await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.transition?.id === 'recovery')));
+    assert.ok(events.every((item) => item.preset?.id === 'recovery'));
+    metrics.phaseAEvents += 1; metrics.recoveryEvents += 1; return;
+  }
+  if (kind === 17) {
+    admin.send({ type: 'cue:execute', cueId: 'soak-normalize' });
+    const events = await Promise.all([...displays.values()].map((client) => client.next((item) => item.type === 'presentation' && item.presentation.transition?.id === 'normalize')));
+    assert.ok(events.every((item) => item.preset?.id === 'normal'
+      && item.presentation.overlay?.visible === false
+      && item.presentation.visual?.visible === false
+      && item.presentation.unlock?.status === 'idle'));
+    metrics.phaseAEvents += 1; metrics.normalizationEvents += 1; metrics.stateCleanupChecks += events.length; return;
   }
   if (kind === 9) {
     admin.send({ type: 'cue:execute', cueId: 'soak-audio' });
@@ -262,6 +284,9 @@ try {
   admin.send({ type: 'cue:save', cue: { cueId: 'soak-unlock', cueNumber: 'PA-U', cueName: 'Unlock', kind: 'display-only', displayText: 'UNLOCKING', presentationPreset: 'recovery', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'unlock-start', durationMs: 800 }, overlay: { id: 'unlocking', visible: true, title: 'UNLOCKING' }, timing: { unlockDurationMs: 3000 }, enabled: true } });
   admin.send({ type: 'cue:save', cue: { cueId: 'soak-emergency', cueNumber: 'PA-E', cueName: 'Emergency', kind: 'display-only', displayText: 'EMERGENCY', presentationPreset: 'warning', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'emergency-interrupt', durationMs: 500 }, overlay: { id: 'emergency-protection', visible: true, title: 'EMERGENCY' }, enabled: true } });
   admin.send({ type: 'cue:save', cue: { cueId: 'soak-hostile', cueNumber: 'PA-H', cueName: 'Hostile', kind: 'display-only', displayText: 'HOSTILE', presentationPreset: 'hostile', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'hostile-enter', durationMs: 600 }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-shutdown', cueNumber: 'PB-S', cueName: 'Shutdown', kind: 'display-only', displayText: 'SHUTDOWN', presentationPreset: 'shutdown', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'shutdown', durationMs: 700 }, overlay: { id: 'system-shutdown', visible: true, title: 'SYSTEM SHUTDOWN' }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-recovery', cueNumber: 'PB-R', cueName: 'Recovery', kind: 'display-only', displayText: 'RESTORING', presentationPreset: 'recovery', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'recovery', durationMs: 800 }, overlay: { id: 'restoring', visible: true, title: 'RESTORING' }, enabled: true } });
+  admin.send({ type: 'cue:save', cue: { cueId: 'soak-normalize', cueNumber: 'PB-N', cueName: 'Normalize', kind: 'display-only', displayText: 'SYSTEM NORMAL', presentationPreset: 'normal', target: { type: 'all' }, audio: { speechMode: 'none' }, transition: { id: 'normalize', durationMs: 600 }, overlay: { id: 'none', visible: false }, visual: { id: 'none', type: 'none', visible: false }, enabled: true } });
   const ready = await admin.next((event) => event.type === 'state'
     && event.state.targetGroups.some((group) => group.id === 'front-pair')
     && event.state.displays.filter((display) => display.required).length === 2
@@ -367,6 +392,7 @@ try {
   assert.ok(metrics.stopEvents > 0);
   assert.ok(metrics.presentationEvents > 0); assert.ok(metrics.blackoutEvents > 0); assert.ok(metrics.localAudioEvents > 0);
   assert.ok(metrics.phaseAEvents > 0); assert.ok(metrics.unlockEvents > 0); assert.ok(metrics.emergencyEvents > 0);
+  assert.ok(metrics.shutdownEvents > 0); assert.ok(metrics.recoveryEvents > 0); assert.ok(metrics.normalizationEvents > 0); assert.ok(metrics.stateCleanupChecks > 0);
   assert.doesNotMatch(serverErrors, /Unhandled|uncaught/i);
   assert.ok(memoryGrowthBytes < 128 * 1024 * 1024, `RSS増加が128MiB未満: ${memoryGrowthBytes}`);
   console.log(`SOAK PASS: ${minutes}分 / ${JSON.stringify({ ...metrics, memoryStartBytes: initialHealth.memoryRssBytes, memoryEndBytes: finalHealth.memoryRssBytes, memoryGrowthBytes, abnormalExit: false })}`);
