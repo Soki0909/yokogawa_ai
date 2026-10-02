@@ -47,6 +47,7 @@ const waitForEndpoint = async () => {
 };
 
 const inspect = async (url) => {
+  const expectsOnline = new URL(url).pathname === '/display';
   const response = await fetch(`http://127.0.0.1:${port}/json/new?about:blank`, { method: 'PUT' });
   if (!response.ok) throw new Error(`Could not create browser target: ${response.status}`);
   const target = await response.json();
@@ -90,7 +91,7 @@ const inspect = async (url) => {
       returnByValue: true,
     });
     value = result.result.value;
-    if (value.url === url && value.ready === 'complete') break;
+    if (value.url === url && value.ready === 'complete' && (!expectsOnline || value.connection === 'ONLINE')) break;
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
   socket.close();
