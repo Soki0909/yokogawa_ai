@@ -35,7 +35,11 @@ socket.on('message', (raw) => {
     console.log('Show reset complete');
     socket.close();
   }
-  if (event.type === 'accepted' && event.id === `cue:${cueId}`) {
+  // Display-only cues acknowledge with `cue:<id>`, while cues that also speak
+  // acknowledge with the generated message id. This helper owns a short-lived,
+  // isolated admin connection, so the first acceptance after our request is the
+  // acceptance for this cue.
+  if (!reset && requested && event.type === 'accepted') {
     clearTimeout(timeout);
     console.log(`Executed ${cueId}`);
     socket.close();
