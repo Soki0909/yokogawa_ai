@@ -1,6 +1,6 @@
-# 横川AI Phase B RC — Performance Presentation System
+# 横川AI Phase B — Performance Presentation System
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0-rc.2は、Phase A / v0.5.0のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・Server authoritativeな演出状態を維持し、6 Presentation Preset、Transition、Operation Overlay、Final Challenge、Unlock / Emergencyを舞台映像として改良したVisual候補です。rc.2ではAvatar自身の6状態差とForeground Interferenceを追加しました。最終Visual承認版ではありません。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0は、Phase A / v0.5.0のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・Server authoritativeな演出状態を維持し、6 Presentation Preset、Avatar自身の状態差、Foreground Interference、Transition、Operation Overlay、Final Challenge、Unlock / Emergencyを舞台映像として完成させた正式版です。Visual Reviewは承認済みです。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
@@ -158,7 +158,9 @@ npm audit --omit=dev
 npm run test:soak
 ```
 
-`test:soak` は既定30分で、Unlock・緊急中断・Hostile・Shutdown・Recovery・NORMAL cleanupを周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase Bの自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase B検証記録](docs/phase-B/verification.md) と [Visual Review Guide](docs/phase-B/review-guide.md) を参照してください。Review画像は [`artifacts/phase-b-review/`](artifacts/phase-b-review/) にあります。
+`test:soak` は既定30分で、Unlock・緊急中断・Hostile・Shutdown・Recovery・NORMAL cleanupを周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase Bの自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase B検証記録](docs/phase-B/verification.md)、正式版の要約は [v0.6.0 Release Notes](docs/phase-B/release-notes.md) を参照してください。承認済みReview画像は [`artifacts/phase-b-review/`](artifacts/phase-b-review/) にあります。
+
+次Phaseの設計方針は [Phase C — Production Integration](docs/phase-C/production-integration-plan.md) に記録しています。Phase Cは未着手で、v0.6.0にLocal TTS、音声生成、Production Show File、Free Speak変更は含みません。
 
 ## Phase Bスコープ外
 

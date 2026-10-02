@@ -1,6 +1,6 @@
-# Phase B Visual Review Guide
+# Phase B Visual Review Record
 
-技術的な不具合・状態漏れ・主要解像度での崩れは自律検証済みです。久米さんには次の9点だけを、好みと舞台効果の観点で確認いただきます。
+Visual Reviewは完了し、v0.6.0として現Visualを承認済みです。次の9項目を確認対象として使用しました。
 
 1. WARNINGは「異常が起きた」と瞬時に伝わる強さですか。
 2. HIJACKEDはWARNINGとは別の、制御を奪われた画面に見えますか。
@@ -14,3 +14,4 @@
 
 比較には [`artifacts/phase-b-review/contact-sheet-states.png`](../../artifacts/phase-b-review/contact-sheet-states.png)、[`contact-sheet-climax.png`](../../artifacts/phase-b-review/contact-sheet-climax.png)、[`contact-sheet-transitions.png`](../../artifacts/phase-b-review/contact-sheet-transitions.png) を使用してください。
 
+判定: **Approved**。6状態、Avatar状態差、Foreground Interference、HIJACKED、HOSTILE、SHUTDOWN、RECOVERYを含む`v0.6.0-rc.2`のVisualを変更せず正式版へ採用しました。

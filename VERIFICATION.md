@@ -1,6 +1,6 @@
 # 横川AI 検証記録
 
-Visual承認済みの保護基準はPhase A / v0.5.0です。現在の開発候補はPhase B / v0.6.0-rc.2で、6 Preset、Avatar自身の6状態差、Foreground Interference、Transition、Operation Overlay、Final Challenge、Unlock / Emergency、Admin 1台 + Display 3台、実ブラウザ画像、30分試験、受入条件を次の検証正本にまとめています。
+現在の正式版はPhase B / v0.6.0です。Visual Review承認済みの6 Preset、Avatar自身の6状態差、Foreground Interference、Transition、Operation Overlay、Final Challenge、Unlock / Emergency、Admin 1台 + Display 3台、実ブラウザ画像、30分試験、受入条件を次の検証正本にまとめています。
 
 - [Phase B検証記録](docs/phase-B/verification.md)
 - [Phase B Visual Review Guide](docs/phase-B/review-guide.md)
@@ -11,5 +11,6 @@ Visual承認済みの保護基準はPhase A / v0.5.0です。現在の開発候�
 - [Phase 3検証記録](docs/phase-3/verification.md)
 - [Phase 2検証記録](docs/phase-2/verification.md)
 - [全ドキュメント索引](docs/README.md)
+- [Phase C Production Integration方針](docs/phase-C/production-integration-plan.md)
 
 ルートには初見利用者向けの入口だけを置き、フェーズ固有の詳細は `docs/phase-N/` / `docs/phase-A/` に保管します。

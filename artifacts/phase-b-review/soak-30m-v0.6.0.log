@@ -1,0 +1,7 @@
+Phase B v0.6.0 final soak verification
+
+Command (PowerShell):
+$env:SOAK_MINUTES='30'; $env:SOAK_INTERVAL_MS='2000'; npm run test:soak
+
+Result:
+SOAK PASS: 30分 / {"totalEvents":837,"succeeded":837,"failed":0,"groupEvents":47,"cueEvents":141,"replayEvents":47,"stopEvents":47,"reconnects":3,"adminReconnects":1,"offlineDetections":1,"requiredOfflineDetections":2,"masterReconnects":1,"masterChanges":1,"preflightChecks":6,"presentationEvents":93,"blackoutEvents":46,"localAudioEvents":47,"phaseAEvents":276,"unlockEvents":46,"emergencyEvents":46,"shutdownEvents":46,"recoveryEvents":46,"normalizationEvents":46,"stateCleanupChecks":138,"memoryStartBytes":63123456,"memoryEndBytes":85991424,"memoryGrowthBytes":22867968,"abnormalExit":false}

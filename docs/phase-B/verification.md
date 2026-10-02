@@ -1,13 +1,14 @@
 # Phase B Autonomous Visual Verification
 
-Status: **Phase B rc.2 autonomous visual candidate complete / user visual review pending**
+Status: **Visual Review approved / Phase B complete**
 
-## Baseline and candidate
+## Baseline and release
 
 - Protected baseline: `v0.5.0` (`8fbe042`, Phase A)
 - Previous candidate baseline: annotated `v0.6.0-rc.1` (`afba510`)
-- Candidate version: `0.6.0-rc.2`
-- Candidate tag: annotated `v0.6.0-rc.2`（この検証記録を含む最終HEADへ付与）
+- Approved candidate: annotated `v0.6.0-rc.2` (`e57e688`)
+- Release version: `0.6.0`
+- Release tag: annotated `v0.6.0`
 - Canonical specification: [`yokogawa_ai_phase_b_autonomous_visual_spec_v1.0.md`](yokogawa_ai_phase_b_autonomous_visual_spec_v1.0.md)
 - Implementation directive: [`codex_yokogawa_ai_phase_b_autonomous_visual_prompt_v1.0.md`](codex_yokogawa_ai_phase_b_autonomous_visual_prompt_v1.0.md)
 - Production dependencies: 追加なし
@@ -34,6 +35,7 @@ Visual tokenは色、frame、glow、motion duration、transition intensity、gau
 | 3 | 静的`unlocking: 100`でUnlock timerが再始動 | `unlock-start`だけ開始、100%はcompleted保持、Emergencyはaborted保持、別Cueでidle cleanup |
 | 3 | 汎用Cue CLIが発話付きCueのmessage ID ackを待てない | 短命な専用Admin接続の最初のacceptedを成功として扱うよう修正 |
 | 4 | 初回30分soakが19分時点で、3.5秒heartbeat判定と5秒event timeoutの競合により検証client timeout | 本番既定と同じ7秒heartbeat判定、15秒event timeout、解決済みwaiter timerの明示cleanupへ修正。短縮再試験後、0分から30分を再実行 |
+| Final | browser console helperがDisplayのWebSocket接続前に判定する競合 | `/display`だけ`ONLINE`まで待つよう検証器を最小修正し、2ページ / warning 0 / error 0を再確認 |
 
 詳細は [`visual-self-critique.md`](visual-self-critique.md)。
 
@@ -46,7 +48,7 @@ npm run check
 npm audit --omit=dev
 ```
 
-- `npm run check`: **80 tests PASS / 0 fail**。Phase A baseline 71件を維持し、Phase B固有9件を追加。
+- `npm run check`: **83 tests PASS / 0 fail**。Phase A baseline 71件を維持し、Phase BのVisual・Avatar・Foreground Interference契約を追加。
 - Syntax check: server、state、schema、audio、network、全主要client、soak / preset / cue / browser helperをPASS。
 - `npm audit --omit=dev`: 最終実行結果を下記「最終試験記録」に記載。
 
@@ -67,10 +69,20 @@ npm audit --omit=dev
 - BLACKOUT / RESTORE、NORMAL → WARNING → HIJACKED → UNLOCK → ERROR → HOSTILE → SHUTDOWN → RECOVERY → NORMALを確認。
 - Admin + Display A/B/Cのconsole: **warning 0 / error 0**。
 
+正式版候補では、承認済みVisualを変更せず次を再確認した。
+
+- NORMAL → WARNING → HIJACKED → HOSTILE → SHUTDOWN → RECOVERY → NORMALを3 Displayへ連続配信。
+- Unlock完了後の100%保持からEmergency interruptへ移行し、3 Displayすべてで`completed → aborted`を確認。
+- STOP / REPLAY / BLACKOUT / RESTOREを実操作し、BLACKOUT最上位・RESTORE後の状態復元を確認。
+- Admin、Display、Audio Masterを個別にreloadし、Cue位置・字幕・Presentation state・Master準備状態を復元。
+- NORMAL復帰後、foreground opacity 0、child animation `none`、overlay / visual非表示、unlock `idle`、overflow 0を3 Displayで確認。
+- Admin + Display A/B/C、および解像度確認用Displayのconsole: **warning 0 / error 0**。
+- 独立headless Chrome検査: **2 pages / warning 0 / error 0**。
+
 Resolution:
 
 - 1280×720: viewportとdocumentが一致、横縦scrollなし。
-- 1920×1080相当: viewportとdocumentが一致、横縦scrollなし。証跡 [`normal-1920x1080.png`](../../artifacts/phase-b-review/normal-1920x1080.png)。
+- 1920×1080: viewportとdocumentが一致、横縦scrollなし。証跡 [`normal-1920x1080.png`](../../artifacts/phase-b-review/normal-1920x1080.png)。
 - Avatar、字幕、status、overlayにclipping / unintended overlapなし。中央HUDは共通中心軸上で左右対称。
 
 ## Screenshot and transition evidence
@@ -84,10 +96,10 @@ Resolution:
 
 ## Soak and performance
 
-- Final 30-minute run: **30分 / 795 iteration / failure 0 / abnormal exitなし**。
-- Reconnect 3、Admin reconnect 1、Audio Master reconnect 1、Master change 1、BLACKOUT 44、Unlock / Emergency / Shutdown / Recovery / normalize各44、cleanup check 132。
-- RSS: 65,400,832 → 93,904,896 bytes（+28,504,064 bytes）。795反復後も処理成功率100%で、unbounded growthや異常終了なし。
-- Short final-candidate smoke: 9秒、42/42 iteration、failure 0、reconnect 3、admin reconnect 1、master reconnect 1、master change 1、shutdown / recovery / normalize各2、cleanup check 6、abnormal exitなし。
+- v0.6.0 final 30-minute run: **30分 / 837 event / 837 success / failure 0 / abnormal exitなし**。
+- Reconnect 3、Admin reconnect 1、Audio Master reconnect 1、Master change 1、BLACKOUT 46、Unlock / Emergency / Shutdown / Recovery / normalize各46、cleanup check 138。
+- RSS: 63,123,456 → 85,991,424 bytes（+22,867,968 bytes）。全event成功で、unbounded growthや異常終了なし。
+- rc.1 final-candidate runも30分 / 795 event / failure 0、rc.2 short state/reconnect soakも93 event / failure 0で完走済み。
 - AnimationはCSS transform / opacity中心。Canvas / WebGL、particle、大量DOM生成、JS毎frame描画、新規runtime依存を追加していない。
 - timerはtransition cleanupとUnlock stateに限定し、終了・中断・別Cue・再接続を試験した。
 
@@ -95,7 +107,7 @@ Resolution:
 
 | 区分 | 条件 | 結果・根拠 |
 |---|---|---|
-| Regression | Phase A機能回帰なし | ✅ baseline 71 testを含む80 test PASS |
+| Regression | Phase A機能回帰なし | ✅ baseline 71 testを含む83 test PASS |
 | Regression | v2/v3 Show互換 | ✅ schema / migration / import rollback tests PASS |
 | Regression | Admin / Display / Audio Master | ✅ 実ブラウザ4タブ + WebSocket flow |
 | Regression | reconnect | ✅ Display / Admin / Master再接続、state restore |
@@ -116,27 +128,27 @@ Resolution:
 | Sequence | Hostile enter | ✅ transition evidence |
 | Sequence | Shutdown落差 | ✅ before/after + motion停止 |
 | Sequence | Recovery sequence | ✅ staged frame + cleanup |
-| Rendering | clipping / overlap / scrollなし | ✅ 1280×720、1920×1080相当 |
+| Rendering | clipping / overlap / scrollなし | ✅ 1280×720、1920×1080 |
 | Rendering | subtitle可読 / Avatar識別 | ✅ matrix原寸確認 |
 | Rendering | BLACKOUT最上位 / z-index | ✅ automated contract + browser |
 | Cleanup | overlay / visual / gauge / transition残留なし | ✅ state tests + NORMAL dataset |
 | Cleanup | reconnect後過去Transitionなし | ✅ negative-delay / completed restore test + browser reload |
 | Evidence | Screenshot / frames / sheets | ✅ review package 3 contact sheets + individual files |
 | Evidence | self-critique / 修正履歴 | ✅ self-critique + commit history |
-| Verification | automated / browser / 4 tabs | ✅ 80/80、console 0/0、Admin 1 + Display 3 |
-| Verification | soak / failure 0 | ✅ 30分、795/795、failure 0、abnormal exitなし |
+| Verification | automated / browser / 4 tabs | ✅ 83/83、console 0/0、Admin 1 + Display 3 |
+| Verification | soak / failure 0 | ✅ 30分、837/837、failure 0、abnormal exitなし |
 | Verification | audit重大問題なし | ✅ `npm audit --omit=dev`: 0 vulnerabilities |
 
 ## Final test record
 
-- `npm run check`: 80 pass / 0 fail / 0 skipped。
+- `npm run check`: 83 pass / 0 fail / 0 skipped。
 - `npm audit --omit=dev`: found 0 vulnerabilities。
-- `SOAK_MINUTES=30 SOAK_INTERVAL_MS=2000 node scripts/soak-test.js`: 795 pass / failure 0 / abnormal exit false。
-- 初回試験の検証client timeoutを修正後、要件どおり0分から全時間を再実行した。最終ログは [`soak-30m.log`](../../artifacts/phase-b-review/soak-30m.log)。
+- `$env:SOAK_MINUTES='30'; $env:SOAK_INTERVAL_MS='2000'; npm run test:soak`: 837 pass / failure 0 / abnormal exit false。
+- v0.6.0正式版候補に対し、要件どおり0分から全時間を再実行した。最終ログは [`soak-30m-v0.6.0.log`](../../artifacts/phase-b-review/soak-30m-v0.6.0.log)。
 
-## Subjective items pending user review
+## Visual Review decision
 
-技術的な壊れ・状態漏れ・描画崩れではなく、WARNING / HOSTILEの強度、Unlock成功感、Emergency落差、SHUTDOWN静寂、RECOVERYの温かさ、Final Challenge主役感、全体強度階層の9項目だけを [`review-guide.md`](review-guide.md) に残した。
+ユーザーVisual Reviewは完了した。6状態、Avatar状態差、Foreground Interference、HIJACKEDのjamming / hacking、HOSTILEの強度、SHUTDOWN、RECOVERYを含む`v0.6.0-rc.2`の現Visualを承認し、感性的な追加調整なしで`v0.6.0`へ採用した。判定記録は [`review-guide.md`](review-guide.md) に残す。
 
 ## rc.2 Avatar / foreground interference verification
 
@@ -150,3 +162,7 @@ Resolution:
 - 証跡: [`rc2/contact-sheet-avatar-states.png`](../../artifacts/phase-b-review/rc2/contact-sheet-avatar-states.png) および同directoryの6状態原寸画像。
 - `npm run check`: **83 pass / 0 fail**。rc.1の80件にAvatar/foreground/blink profile契約を追加。
 - short state/reconnect soak: **0.25分 / 93 event / failure 0 / abnormal exit false**。既存30分soak証跡はrc.1から継承し、rc.2差分に対して短時間回帰を追加した。
+
+## Phase C handoff
+
+次PhaseのVoice / Production Integration方針と実装順序は [`../phase-C/production-integration-plan.md`](../phase-C/production-integration-plan.md) に記録した。v0.6.0ではPhase C実装を開始していない。
