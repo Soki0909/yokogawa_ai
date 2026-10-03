@@ -22,9 +22,9 @@ Status: **Verified candidate / USER REVIEW REQUIRED**
 | 1280×720 / 1920×1080 | PASS | 実ブラウザでoverflow、clipping、字幕阻害なし |
 | Phase B Visual | PASS | 6 state、Avatar、Foreground Interference、BLACKOUT/RESTORE回帰なし |
 | Browser console | PASS | Admin / Display 3でwarning 0 / error 0 |
-| `npm run check` | PASS | syntax checks + 95/95 tests、fail 0 |
+| `npm run check` | PASS | syntax checks + 97/97 tests、fail 0 |
 | `npm audit --omit=dev` | PASS | 0 vulnerabilities |
-| 30min soak | PASS | 30:00完走、329/329、failure 0、reconnect 3、abnormal exit false、RSS +26,034,176 bytes |
+| 30min soak | PASS | 最終HEADで30:00連続完走、364/364、failure 0、reconnect 3、abnormal exit false、RSS +34,914,304 bytes |
 
 ## Browser scenario evidence
 
@@ -38,11 +38,11 @@ Status: **Verified candidate / USER REVIEW REQUIRED**
 - NORMAL / WARNING / HIJACKED / HOSTILE / SHUTDOWN / RECOVERY / NORMAL cleanup
 - 1280×720と1920×1080、長文字幕、console warning/error 0
 
-検証中、Local TTS合成中はserverがSTOP可能なのにAdminボタンだけdisabledとなるUI欠陥を検出した。`localTts.activity === synthesizing`をSTOP有効条件へ追加し、focused testと実ブラウザで修正を確認した。長文字幕がstage frameを越える問題もadaptive font/line clampで修正済み。
+検証中、Local TTS合成中はserverがSTOP可能なのにAdminボタンだけdisabledとなるUI欠陥を検出した。`localTts.activity === synthesizing`をSTOP有効条件へ追加し、focused testと実ブラウザで修正を確認した。長文字幕がstage frameを越える問題もadaptive font/line clampで修正済み。さらにWindowsの一時的なstate file rename競合を検出し、EPERM / EBUSY / EACCESだけを有限回再試行するよう修正した。非一時エラーは従来どおり即時報告する。
 
 ## Automated checks
 
-候補版で以下を実行した。Voice/profile検査、`npm run check`（95/95）、`npm audit --omit=dev`（0 vulnerabilities）、headless browser console（2 pages / 0 warning / 0 error）はPASS。30分soakも0分から完走した。
+候補版で以下を実行した。Voice/profile検査、`npm run check`（97/97）、`npm audit --omit=dev`（0 vulnerabilities）、headless browser console（2 pages / 0 warning / 0 error）はPASS。30分soakもstate保存耐性修正後の最終HEADで0分から連続完走した。
 
 ```powershell
 npm run voice:profile:verify
@@ -54,6 +54,8 @@ npm run test:soak:phase-c
 ```
 
 30分結果は`artifacts/phase-c-review/soak-30m.json`、ブラウザ確認要約は`artifacts/phase-c-review/browser-verification.json`へ保存する。
+
+PCスリープを経た試行は連続運転として採用しない。ハーネスは60秒を超えるscheduler gapを`SOAK_INVALID_SCHEDULER_GAP`として失格にし、最終証跡はスリープ抑止下で連続30分を0分から測定する。
 
 ## Remaining review gate
 

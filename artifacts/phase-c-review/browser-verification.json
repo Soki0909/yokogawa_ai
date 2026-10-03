@@ -45,6 +45,7 @@
     "Phase B Visual is unchanged except the focused long-subtitle containment fix.",
     "A STOP-button state bug found during synthesis was fixed and rechecked in the browser.",
     "With AivisSpeech stopped, Admin showed NOT READY, AIVIS_UNREACHABLE and Browser fallbackなし; after restart it returned to READY with runtime Style 1310138977.",
+    "A transient Windows state-file rename lock observed during shutdown was hardened with bounded retry and regression tests.",
     "Chrome provided the genuine 1920x1080 viewport check; the in-app browser provided the repeated Admin 1 + Display 3 interaction check."
   ]
 }
