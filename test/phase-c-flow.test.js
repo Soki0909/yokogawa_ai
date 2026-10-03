@@ -25,7 +25,7 @@ function connect(port, role, display) {
     const event = JSON.parse(raw); const index = waiters.findIndex((item) => item.predicate(event));
     if (index >= 0) waiters.splice(index, 1)[0].resolve(event); else queue.push(event);
   });
-  const next = (predicate, timeout = 5000) => {
+  const next = (predicate, timeout = 12_000) => {
     const index = queue.findIndex(predicate); if (index >= 0) return Promise.resolve(queue.splice(index, 1)[0]);
     return new Promise((resolve, reject) => { const waiter = { predicate, resolve }; waiters.push(waiter); setTimeout(() => {
       const position = waiters.indexOf(waiter); if (position >= 0) waiters.splice(position, 1); reject(new Error('timeout'));

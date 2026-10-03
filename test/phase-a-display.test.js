@@ -25,3 +25,12 @@ test('Display clientはtransition・overlay・visual・unlockをsnapshotとイ�
   assert.match(script, /Date\.parse\(visual\.expiresAt\) - Date\.now\(\)/);
   assert.match(script, /\/api\/assets\/\$\{encodeURIComponent\(visual\.assetId\)\}/);
 });
+
+test('長いproduction字幕を文字数別に縮小して固定枠のclippingを防ぐ', async () => {
+  const [script, css] = await Promise.all([
+    load('public/js/display.js'),
+    load('public/css/display-phase42.css'),
+  ]);
+  assert.match(script, /dataset\.length = normalized\.length > 100 \? 'extra-long'/);
+  for (const size of ['medium', 'long', 'extra-long']) assert.match(css, new RegExp(`caption\\[data-length="${size}"\\]`));
+});

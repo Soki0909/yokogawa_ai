@@ -216,7 +216,10 @@ function handleEvent(event) {
 }
 
 function showCaption(text) {
-  elements.caption.textContent = text; elements.caption.hidden = !settings.subtitlesEnabled;
+  const normalized = String(text ?? '');
+  elements.caption.textContent = normalized;
+  elements.caption.dataset.length = normalized.length > 100 ? 'extra-long' : normalized.length > 64 ? 'long' : normalized.length > 32 ? 'medium' : 'short';
+  elements.caption.hidden = !settings.subtitlesEnabled;
 }
 function setMode(label, state) {
   elements['mode-label'].textContent = label; elements.orb.dataset.state = state;

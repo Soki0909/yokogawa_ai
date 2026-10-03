@@ -716,6 +716,11 @@ body[data-preset="normal"] {
   text-shadow: 0 2px 18px #000;
 }
 
+/* Keep long production-script subtitles inside the fixed stage caption frame. */
+.caption[data-length="medium"] { font-size: clamp(26px, 2.5vw, 36px); line-height: 1.18; }
+.caption[data-length="long"] { font-size: clamp(22px, 2vw, 30px); line-height: 1.16; }
+.caption[data-length="extra-long"] { font-size: clamp(19px, 1.7vw, 26px); line-height: 1.14; }
+
 .stage > footer {
   position: absolute;
   z-index: 8;
