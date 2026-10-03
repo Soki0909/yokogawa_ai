@@ -94,7 +94,11 @@ const server = spawn(process.execPath, ['src/server.js'], {
     ...process.env,
     PORT: String(port),
     HOST: '127.0.0.1',
-    HEARTBEAT_TIMEOUT_MS: '7000',
+    // Long Windows/browser automation runs can pause this harness process for
+    // several seconds. Deliberate disconnect coverage below closes sockets
+    // explicitly, so use a wider timeout here to avoid counting scheduler
+    // suspension as a product heartbeat failure.
+    HEARTBEAT_TIMEOUT_MS: '30000',
     STATE_FILE: path.join(temporary, 'state.json'),
     LOG_DIRECTORY: path.join(temporary, 'logs'),
   },
