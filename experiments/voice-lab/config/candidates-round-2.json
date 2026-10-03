@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "round": 2,
+  "userFeedback": "Candidate Aの低い中年男性の声質が最良。ただし、より無機質な人工音声を希望。",
+  "selectionPolicy": "阿井田 茂の声質を固定し、pitch後処理とDSPを避け、Calmの感情強度・テンポ変動およびHeavy Styleだけを比較する",
+  "candidates": [
+    {
+      "id": "round-2-a-calm-restrained",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Calm",
+      "styleId": 1310138977,
+      "direction": "Aの声質を維持しつつ、感情とテンポ変動を穏やかに抑える",
+      "source": "https://hub.aivis-project.com/aivm-models/47e53151-a378-46f3-abee-ce13aa07feb1",
+      "license": "Aivis Common Model License 1.0",
+      "parameters": {
+        "speedScale": 0.93,
+        "pitchScale": 0.0,
+        "intonationScale": 0.45,
+        "tempoDynamicsScale": 0.2,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.18,
+        "pauseLength": null,
+        "pauseLengthScale": 1.0,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    },
+    {
+      "id": "round-2-b-calm-flat",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Calm",
+      "styleId": 1310138977,
+      "direction": "同じCalm声で感情とテンポ変動を強く抑え、一定感を優先する",
+      "source": "https://hub.aivis-project.com/aivm-models/47e53151-a378-46f3-abee-ce13aa07feb1",
+      "license": "Aivis Common Model License 1.0",
+      "parameters": {
+        "speedScale": 0.96,
+        "pitchScale": 0.0,
+        "intonationScale": 0.15,
+        "tempoDynamicsScale": 0.05,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.18,
+        "pauseLength": null,
+        "pauseLengthScale": 1.0,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    },
+    {
+      "id": "round-2-c-heavy-flat",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Heavy",
+      "styleId": 1310138979,
+      "direction": "低さと重厚感をStyleで補いながら、感情とテンポ変動を強く抑える",
+      "source": "https://hub.aivis-project.com/aivm-models/47e53151-a378-46f3-abee-ce13aa07feb1",
+      "license": "Aivis Common Model License 1.0",
+      "parameters": {
+        "speedScale": 0.96,
+        "pitchScale": 0.0,
+        "intonationScale": 0.15,
+        "tempoDynamicsScale": 0.05,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.18,
+        "pauseLength": null,
+        "pauseLengthScale": 1.0,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    }
+  ]
+}
+

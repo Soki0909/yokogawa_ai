@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>横川AI Voice Lab</title>
+    <link rel="stylesheet" href="/review/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">YOKOGAWA AI · VOICE LAB</p>
+          <h1>声を、同じ台詞で聴き比べる。</h1>
+          <p class="intro">再生すると、いま鳴っている音声を止めて次の候補へ切り替えます。</p>
+        </div>
+        <button class="stop-button" id="stop-all" type="button" disabled>■ すべて停止</button>
+      </header>
+
+      <nav class="round-tabs" aria-label="比較ラウンド">
+        <button class="round-tab is-active" type="button" data-round="round-2" aria-pressed="true">
+          <span>ROUND 2</span>
+          <small>無機質さを調整</small>
+        </button>
+        <button class="round-tab" type="button" data-round="round-1" aria-pressed="false">
+          <span>ROUND 1</span>
+          <small>声質を比較</small>
+        </button>
+      </nav>
+
+      <section class="candidate-strip" id="candidate-strip" aria-label="候補設定"></section>
+
+      <section class="comparison" aria-live="polite">
+        <div class="comparison-head">
+          <div>
+            <p class="section-label" id="round-label">ROUND 2</p>
+            <h2 id="round-title">阿井田 茂 — 無機質さの比較</h2>
+          </div>
+          <p class="hint">各行の ▶ で個別再生、右端で3候補を連続再生</p>
+        </div>
+        <div class="matrix-wrap">
+          <table class="matrix">
+            <thead id="matrix-head"></thead>
+            <tbody id="matrix-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <aside class="now-playing" id="now-playing" aria-live="polite" hidden>
+      <div class="now-copy">
+        <span class="now-kicker">NOW PLAYING</span>
+        <strong id="now-title"></strong>
+        <span id="now-sample"></span>
+      </div>
+      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      <span class="time" id="time-display">0:00 / 0:00</span>
+    </aside>
+
+    <audio id="audio-player" preload="metadata"></audio>
+    <script type="module" src="/review/app.js"></script>
+  </body>
+</html>

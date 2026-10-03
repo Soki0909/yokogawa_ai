@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "profileId": "yokogawa-professor-v1",
+  "generatedAt": "2026-10-03T02:24:08.902Z",
+  "source": {
+    "path": "experiments/voice-lab/config/selected-profile.json",
+    "sha256": "sha256:d5c1ef23058df792bf2f27b3422c6212e31d62a2b186e90d305af6731216f739",
+    "selectedAt": "2026-10-03",
+    "sourceRound": 2,
+    "sourceCandidate": "round-2-a-calm-restrained",
+    "displayName": "2A"
+  },
+  "model": {
+    "name": "阿井田 茂",
+    "uuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+    "version": "1.0.0"
+  },
+  "speaker": {
+    "name": "阿井田 茂",
+    "uuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d"
+  },
+  "style": {
+    "name": "Calm",
+    "selectedStyleId": 1310138977
+  },
+  "parameters": {
+    "speedScale": 1.2,
+    "pitchScale": 0,
+    "intonationScale": 0.45,
+    "tempoDynamicsScale": 0.2,
+    "volumeScale": 0.95,
+    "prePhonemeLength": 0.1,
+    "postPhonemeLength": 0.18,
+    "pauseLength": null,
+    "pauseLengthScale": 1,
+    "outputSamplingRate": 44100,
+    "outputStereo": false
+  },
+  "output": {
+    "sampleRate": 44100,
+    "channels": 1,
+    "bitsPerSample": 16,
+    "mimeType": "audio/wav"
+  },
+  "attribution": {
+    "engine": "AivisSpeech",
+    "voiceModel": "阿井田 茂（Aivis Common Model License 1.0）",
+    "modelBinaryBundled": false
+  }
+}

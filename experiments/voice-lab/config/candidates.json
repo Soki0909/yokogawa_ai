@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "selectionPolicy": "低い男性声、60歳の教授らしい重厚感、知的、落ち着き、過剰に演じない一定感、明瞭さを満たす可能性がある異なる声質を3系統に限定",
+  "candidates": [
+    {
+      "id": "candidate-a-aida-calm",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Calm",
+      "styleId": 1310138977,
+      "modelCategory": "中年男性の声 / バリトン",
+      "source": "https://hub.aivis-project.com/aivm-models/47e53151-a378-46f3-abee-ce13aa07feb1",
+      "license": "Aivis Common Model License 1.0",
+      "parameters": {
+        "speedScale": 0.92,
+        "pitchScale": -0.03,
+        "intonationScale": 0.78,
+        "tempoDynamicsScale": 0.82,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.18,
+        "pauseLength": null,
+        "pauseLengthScale": 1.05,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    },
+    {
+      "id": "candidate-b-fumifumi-normal",
+      "model": "fumifumi",
+      "modelUuid": "71e72188-2726-4739-9aa9-39567396fb2a",
+      "modelVersion": "1.0.0",
+      "speaker": "fumifumi",
+      "speakerUuid": "754d769b-7128-4172-964e-b10945d55e39",
+      "style": "ノーマル",
+      "styleId": 606865152,
+      "modelCategory": "壮年男性の声 / 落ち着いた声",
+      "source": "https://hub.aivis-project.com/aivm-models/71e72188-2726-4739-9aa9-39567396fb2a",
+      "license": "Aivis Common Model License 1.0",
+      "parameters": {
+        "speedScale": 0.9,
+        "pitchScale": -0.04,
+        "intonationScale": 0.78,
+        "tempoDynamicsScale": 0.82,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.18,
+        "pauseLength": null,
+        "pauseLengthScale": 1.05,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    },
+    {
+      "id": "candidate-c-rotejin-elder",
+      "model": "ろてじん（長老ボイス）",
+      "modelUuid": "696c98a2-c0b7-4fe7-8cf2-c7e9b8a9bd82",
+      "modelVersion": "1.0.0",
+      "speaker": "ろてじん（長老ボイス）",
+      "speakerUuid": "452fee2b-d102-4053-bccd-c0f8c265c147",
+      "style": "ノーマル",
+      "styleId": 391794336,
+      "modelCategory": "熟年男性の声 / 老人を意識した演技",
+      "source": "https://hub.aivis-project.com/aivm-models/696c98a2-c0b7-4fe7-8cf2-c7e9b8a9bd82",
+      "license": "Aivis Common Model License 1.0",
+      "parameters": {
+        "speedScale": 0.94,
+        "pitchScale": 0.0,
+        "intonationScale": 0.72,
+        "tempoDynamicsScale": 0.8,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.18,
+        "pauseLength": null,
+        "pauseLengthScale": 1.05,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    }
+  ]
+}
+

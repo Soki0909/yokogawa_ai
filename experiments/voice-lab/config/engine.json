@@ -1,0 +1,7 @@
+{
+  "name": "AivisSpeech Engine",
+  "baseUrl": "http://127.0.0.1:10101",
+  "requestTimeoutMs": 120000,
+  "expectedApi": "VOICEVOX-compatible /audio_query + /synthesis"
+}
+

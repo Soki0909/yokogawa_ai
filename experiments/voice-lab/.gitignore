@@ -1,0 +1,4 @@
+# Generated audio and machine-specific reports are reproducible and can be large.
+output/*
+!output/.gitkeep
+
