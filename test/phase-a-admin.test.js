@@ -12,9 +12,11 @@ test('AdminはCurrent/Next演出詳細・Cue jump・Phase A編集フィールド
   assert.match(script, /transition:/); assert.match(script, /overlay:/); assert.match(script, /visual:/); assert.match(script, /timing:/);
 });
 
-test('演出実行中は音声がなくてもSTOPを有効にする', async () => {
+test('演出またはLocal TTS生成中は音声がなくてもSTOPを有効にする', async () => {
   const script = await load('public/js/admin.js');
   assert.match(script, /presentationActive/);
   assert.match(script, /currentTransition\?\.status === 'active'/);
   assert.match(script, /unlock\?\.status === 'running'/);
+  assert.match(script, /localTts\?\.activity === 'synthesizing'/);
+  assert.match(script, /!localTtsActive/);
 });

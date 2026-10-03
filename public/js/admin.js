@@ -189,7 +189,8 @@ function updateControls() {
   for (const id of ['back-button', 'show-back-button']) elements[id].disabled = locked || (state?.currentCueIndex ?? -1) < 0;
   for (const id of ['cue-replay-button', 'show-replay-button']) elements[id].disabled = locked || !state?.currentCue || !hasDisplay;
   const presentationActive = state?.currentTransition?.status === 'active' || state?.unlock?.status === 'running';
-  for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || (!state?.currentMessage && !presentationActive);
+  const localTtsActive = state?.localTts?.activity === 'synthesizing';
+  for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || (!state?.currentMessage && !presentationActive && !localTtsActive);
   const master = state?.displays.find((display) => display.displayId === state.audioMasterId); elements['audio-test-button'].disabled = !connected || !master?.online || !master?.audioReady;
   elements['local-tts-test-button'].disabled = !connected || !master?.online || !master?.audioReady || state?.localTts?.status !== 'ready';
 }
