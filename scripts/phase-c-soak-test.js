@@ -9,9 +9,11 @@ import { WebSocket } from 'ws';
 const minutes = Number(process.env.SOAK_MINUTES ?? 30);
 const intervalMs = Number(process.env.SOAK_INTERVAL_MS ?? 4000);
 const eventTimeoutMs = Number(process.env.SOAK_EVENT_TIMEOUT_MS ?? 60_000);
+const maxSchedulerGapMs = Number(process.env.SOAK_MAX_SCHEDULER_GAP_MS ?? 60_000);
 const reportPath = process.env.SOAK_REPORT_FILE?.trim();
 if (!Number.isFinite(minutes) || minutes <= 0) throw new Error('SOAK_MINUTES must be positive');
 if (!Number.isFinite(eventTimeoutMs) || eventTimeoutMs < 5000) throw new Error('SOAK_EVENT_TIMEOUT_MS must be at least 5000');
+if (!Number.isFinite(maxSchedulerGapMs) || maxSchedulerGapMs < intervalMs * 2) throw new Error('SOAK_MAX_SCHEDULER_GAP_MS must be at least twice SOAK_INTERVAL_MS');
 
 function freePort() {
   return new Promise((resolve, reject) => {
@@ -324,10 +326,16 @@ try {
   startedAt = Date.now();
 
   let iteration = 0;
+  let lastLoopAt = Date.now();
   const milestones = { optional: false, admin: false, required: false, master: false, changedMaster: false };
   while (Date.now() - startedAt < durationMs) {
+    const loopStartedAt = Date.now();
+    const schedulerGapMs = loopStartedAt - lastLoopAt;
+    if (schedulerGapMs > maxSchedulerGapMs) {
+      throw new Error(`SOAK_INVALID_SCHEDULER_GAP:${schedulerGapMs}ms`);
+    }
     iteration += 1;
-    const elapsed = Date.now() - startedAt;
+    const elapsed = loopStartedAt - startedAt;
     try {
       if (!milestones.optional && elapsed >= durationMs * 0.2) {
         await removeDisplay('display-b');
@@ -402,11 +410,20 @@ try {
       metrics.failed += 1;
       console.error(`SOAK FAILURE: iteration=${iteration} master=${currentMaster} elapsedMs=${Date.now() - startedAt}`);
       console.error(serverOutput);
+      const operationGapMs = Date.now() - loopStartedAt;
+      if (operationGapMs > maxSchedulerGapMs) {
+        throw new Error(`SOAK_INVALID_SCHEDULER_GAP:${operationGapMs}ms`, { cause: error });
+      }
       throw error;
+    }
+    const operationDurationMs = Date.now() - loopStartedAt;
+    if (operationDurationMs > maxSchedulerGapMs) {
+      throw new Error(`SOAK_INVALID_SCHEDULER_GAP:${operationDurationMs}ms`);
     }
     if (iteration % Math.max(1, Math.round(300_000 / intervalMs)) === 0) {
       console.log(`SOAK PROGRESS: ${Math.floor((Date.now() - startedAt) / 60_000)}分 / ${metrics.succeeded}件成功`);
     }
+    lastLoopAt = Date.now();
     await wait(Math.min(intervalMs, Math.max(0, durationMs - (Date.now() - startedAt))));
   }
 
