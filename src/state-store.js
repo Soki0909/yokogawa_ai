@@ -7,7 +7,7 @@ import {
 
 export const DEFAULT_SETTINGS = Object.freeze({
   rate: 1, pitch: 0.9, volume: 1, voiceURI: '', subtitlesEnabled: true, historyLimit: 100,
-  speechProvider: 'browser', shortcutsEnabled: true, reducedMotion: false,
+  speechProvider: 'browser', freeSpeakMode: 'browser', shortcutsEnabled: true, reducedMotion: false,
 });
 
 export const DEFAULT_SCENES = Object.freeze([
@@ -55,6 +55,7 @@ export class StateStore {
       blackout: false, previousVisualState: null, rehearsalSession: null, rehearsalLog: [],
       currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
       currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK),
+      localTts: { status: 'unknown', profileId: 'yokogawa-professor-v1', engineVersion: null, runtimeStyleId: null, error: null },
     };
   }
 
@@ -275,6 +276,10 @@ export class StateStore {
     add('avatar', 'AI Avatar', !avatarAssetsReady ? 'error' : this.state.avatar?.visible !== false ? 'ok' : 'warning', `${this.state.avatar?.mode ?? 'svg-fallback'} / ${this.state.avatar?.assetSetId ?? 'none'} / ${this.state.avatar?.lipSyncMode ?? 'simulated'}`);
     const audioCues = this.state.cues.filter((cue) => cue.audio?.speechMode === 'audio-file');
     add('audio-assets', 'ローカル音声Asset', audioCues.every((cue) => this.state.assets.some((asset) => asset.id === cue.audio.assetId)) ? 'ok' : 'error', `${audioCues.length} Cue / ${this.state.assets.length} Asset`);
+    const localTtsRequired = this.state.settings.freeSpeakMode === 'local-tts' || this.state.cues.some((cue) => cue.audio?.speechMode === 'local-tts');
+    if (localTtsRequired) add('local-tts', 'AivisSpeech / Local TTS', this.state.localTts.status === 'ready' ? 'ok' : 'error', this.state.localTts.status === 'ready'
+      ? `${this.state.localTts.profileId} / ${this.state.localTts.engineVersion} / Style ${this.state.localTts.runtimeStyleId}`
+      : `${this.state.localTts.profileId}: ${this.state.localTts.error ?? 'Engine未確認'}`);
     add('position', 'Cue位置', this.state.currentCueIndex < 0 ? 'ok' : 'warning', this.state.currentCueIndex < 0 ? '開始位置' : `Cue ${this.orderedCues()[this.state.currentCueIndex]?.cueNumber ?? '—'} から再開`);
     const registered = this.state.displays.length;
     const online = this.displayCount;
@@ -301,16 +306,17 @@ export class StateStore {
     return { status: errors ? 'not-ready' : warnings ? 'warning' : 'ready', canStart: errors === 0, errors, warnings, items };
   }
 
-  createMessage(text, { replayOf = null, source = 'free', cue = null, target = { type: 'all' } } = {}) {
+  createMessage(text, { replayOf = null, source = 'free', cue = null, target = { type: 'all' }, audio = null, kind = null, displayText = null, speechProvider = null } = {}) {
     const normalized = safeText(text);
     if (!normalized) throw new Error('EMPTY_TEXT');
     if (normalized.length > 5000) throw new Error('TEXT_TOO_LONG');
     const message = {
       id: `msg-${randomUUID()}`, text: normalized, createdAt: this.now().toISOString(), status: 'queued',
-      source, target: normalizeTarget(target), speechProvider: cue?.speechProvider ?? this.state.settings.speechProvider,
+      source, target: normalizeTarget(target), speechProvider: speechProvider ?? cue?.speechProvider ?? this.state.settings.speechProvider,
       ...(cue ? { cueId: cue.cueId, cueName: cue.cueName, kind: cue.kind, displayText: cue.displayText,
         presentationPreset: cue.presentationPreset, avatar: cue.avatar, audio: cue.audio,
         transition: cue.transition, overlay: cue.overlay, visual: cue.visual, timing: cue.timing } : {}),
+      ...(!cue && kind ? { kind } : {}), ...(!cue && displayText ? { displayText } : {}), ...(!cue && audio ? { audio } : {}),
       ...(replayOf ? { replayOf } : {}),
     };
     this.state.history.unshift(message); this.trimHistory(); return message;
@@ -595,6 +601,7 @@ export class StateStore {
       subtitlesEnabled: input.subtitlesEnabled !== false,
       historyLimit: Math.round(number(input.historyLimit, 100, 20, 500)),
       speechProvider: safeText(input.speechProvider) || 'browser',
+      freeSpeakMode: ['browser', 'local-tts'].includes(input.freeSpeakMode) ? input.freeSpeakMode : 'browser',
       shortcutsEnabled: input.shortcutsEnabled !== false, reducedMotion: input.reducedMotion === true,
     };
   }
@@ -602,6 +609,11 @@ export class StateStore {
   setSettings(patch) {
     this.state.settings = this.validateSettings({ ...this.state.settings, ...patch });
     this.trimHistory(); void this.persist(); return this.state.settings;
+  }
+
+  setLocalTtsStatus(status = {}) {
+    this.state.localTts = { ...this.state.localTts, ...status };
+    return this.state.localTts;
   }
 
   validateScenes(input) {

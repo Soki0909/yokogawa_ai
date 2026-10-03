@@ -46,7 +46,7 @@ export const DEFAULT_AVATAR = Object.freeze({
 const ID = /^[a-zA-Z0-9_-]{1,100}$/;
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const AVATAR_STATES = new Set(['normal', 'thinking', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery', 'speaking']);
-const SPEECH_MODES = new Set(['browser', 'audio-file', 'none']);
+export const SPEECH_MODES = new Set(['browser', 'audio-file', 'local-tts', 'none']);
 const LIP_MODES = new Set(['none', 'simulated', 'audio-reactive']);
 const AVATAR_MODES = new Set(['image-yokogawa-v1', 'svg-fallback']);
 const text = (value, limit = 5000) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
@@ -155,7 +155,8 @@ export function normalizeCue(input = {}, order = 0) {
   const speechMode = SPEECH_MODES.has(input.audio?.speechMode ?? input.speechProvider)
     ? (input.audio?.speechMode ?? input.speechProvider) : (input.audioAsset ? 'audio-file' : 'browser');
   const audioAsset = id(input.audio?.assetId ?? input.audioAsset, '') || null;
-  const lipSyncMode = LIP_MODES.has(input.audio?.lipSyncMode) ? input.audio.lipSyncMode : (speechMode === 'audio-file' ? 'audio-reactive' : 'simulated');
+  const lipSyncMode = LIP_MODES.has(input.audio?.lipSyncMode) ? input.audio.lipSyncMode
+    : (['audio-file', 'local-tts'].includes(speechMode) ? 'audio-reactive' : speechMode === 'browser' ? 'simulated' : 'none');
   const avatarState = AVATAR_STATES.has(input.avatar?.state) ? input.avatar.state : 'normal';
   const sceneId = id(input.sceneId ?? input.scene, '') || null;
   const result = {
@@ -198,7 +199,7 @@ export function validateShowFile(input) {
     if (cue.audio.speechMode === 'audio-file' && !assetIds.has(cue.audio.assetId)) errors.push(`CUE_ASSET_NOT_FOUND:${cue.id}`);
     if (cue.visual.type === 'image' && !assetIds.has(cue.visual.assetId)) errors.push(`CUE_VISUAL_ASSET_NOT_FOUND:${cue.id}`);
     if (cue.visual.type === 'image' && assetIds.has(cue.visual.assetId) && !isImageAsset(assets.find((asset) => asset.id === cue.visual.assetId))) errors.push(`CUE_VISUAL_ASSET_NOT_IMAGE:${cue.id}`);
-    if (['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode === 'browser' && !cue.speechText) errors.push(`CUE_SPEECH_EMPTY:${cue.id}`);
+    if (['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none' && !cue.speechText) errors.push(`CUE_SPEECH_EMPTY:${cue.id}`);
     if (['speech-display', 'display-only'].includes(cue.kind) && !cue.displayText) errors.push(`CUE_DISPLAY_EMPTY:${cue.id}`);
   }
   for (const [index, raw] of (Array.isArray(input.cues) ? input.cues : []).entries()) {

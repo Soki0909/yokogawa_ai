@@ -8,6 +8,10 @@ import { StateStore } from './state-store.js';
 import { createLogger } from './logger.js';
 import { accessUrls, connectionInfo } from './network.js';
 import { createTestToneWav, resolveLocalAsset } from './local-audio.js';
+import { loadProductionVoiceProfile } from './voice-profile.js';
+import { AivisSpeechClient } from './tts/aivis-speech-client.js';
+import { RuntimeAudioCache } from './tts/runtime-audio-cache.js';
+import { LocalTtsService } from './tts/local-tts-service.js';
 
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(moduleDirectory, '..');
@@ -19,6 +23,17 @@ const heartbeatTimeoutMs = Number.parseInt(process.env.HEARTBEAT_TIMEOUT_MS ?? '
 const logger = createLogger(process.env.LOG_DIRECTORY ?? path.join(projectRoot, 'logs'));
 const store = new StateStore({ stateFile: process.env.STATE_FILE ?? path.join(projectRoot, 'data', 'state.json'), logger });
 await store.load();
+const voiceProfile = await loadProductionVoiceProfile();
+const runtimeAudioCache = new RuntimeAudioCache();
+const localTtsService = new LocalTtsService({ client: new AivisSpeechClient(), profile: voiceProfile, cache: runtimeAudioCache });
+store.setLocalTtsStatus(localTtsService.status());
+
+async function refreshLocalTtsStatus() {
+  const status = await localTtsService.preflight();
+  store.setLocalTtsStatus({ ...status, activity: localTtsService.active ? 'synthesizing' : 'idle' });
+  broadcastState();
+  return status;
+}
 
 const app = express();
 app.disable('x-powered-by');
@@ -62,6 +77,18 @@ app.get('/api/assets/:assetId', (request, response) => {
   if (asset.id === 'test-tone') return response.send(createTestToneWav());
   try { return response.sendFile(resolveLocalAsset(publicDirectory, asset)); }
   catch { return response.status(400).json({ error: 'UNSAFE_ASSET_PATH' }); }
+});
+app.get('/api/runtime-audio/:id', (request, response) => {
+  const entry = runtimeAudioCache.get(request.params.id);
+  if (!entry) return response.status(404).json({ error: 'RUNTIME_AUDIO_NOT_FOUND' });
+  response.setHeader('Content-Type', 'audio/wav');
+  response.setHeader('Content-Length', entry.bytes);
+  response.setHeader('Cache-Control', 'no-store');
+  return response.send(entry.buffer);
+});
+app.get('/api/local-tts/status', async (_request, response) => {
+  const status = await refreshLocalTtsStatus();
+  response.status(status.status === 'ready' ? 200 : 503).json(status);
 });
 app.get('/api/qr', async (request, response) => {
   const requestedUrl = typeof request.query.url === 'string' ? request.query.url : '';
@@ -224,6 +251,34 @@ function handleSpeechRequest(socket, factory, logLabel) {
   }
 }
 
+function dispatchSubtitleAfterLocalTtsFailure(text, target) {
+  const message = { id: `local-tts-error-${Date.now()}`, text, displayText: text, kind: 'speech-display', source: 'free', target,
+    audio: { speechMode: 'local-tts', lipSyncMode: 'audio-reactive' } };
+  for (const [displaySocket] of targetDisplays(target)) send(displaySocket, 'speak', { message, settings: store.state.settings, shouldSpeak: false });
+}
+
+async function handleLocalTtsRequest(socket, text, { source = 'free', target = { type: 'all' }, replayOf = null } = {}) {
+  if (!validateTarget(socket, target)) return;
+  const normalized = typeof text === 'string' ? text.trim() : '';
+  if (!normalized) return errorResponse(socket, new Error('EMPTY_TEXT'));
+  if (normalized.length > 5000) return errorResponse(socket, new Error('TEXT_TOO_LONG'));
+  store.setLocalTtsStatus({ ...localTtsService.status(), activity: 'synthesizing' }); broadcastState();
+  try {
+    const runtime = await localTtsService.synthesize(normalized, { source, target });
+    const message = store.createMessage(normalized, { source, target, replayOf, kind: 'speech-display', displayText: normalized,
+      speechProvider: 'local-tts', audio: { speechMode: 'local-tts', runtimeUrl: runtime.runtimeUrl, runtimeAudioId: runtime.id, lipSyncMode: 'audio-reactive', profileId: voiceProfile.profileId } });
+    store.setLocalTtsStatus({ ...localTtsService.status(), activity: 'idle' });
+    enqueueAndDispatch(socket, message);
+    logger.info('Local TTS発話を受付', { id: message.id, source, target, runtimeAudioId: runtime.id });
+  } catch (error) {
+    store.setLocalTtsStatus({ ...localTtsService.status(), activity: 'idle' });
+    if (error.message !== 'LOCAL_TTS_CANCELLED') dispatchSubtitleAfterLocalTtsFailure(normalized, target);
+    send(socket, 'error', { code: error.message, message: error.message === 'LOCAL_TTS_CANCELLED'
+      ? 'Local TTS音声生成を停止しました。' : `Local TTS音声生成に失敗しました。Browser TTSへは切り替えません。(${error.message})` });
+    broadcastState();
+  }
+}
+
 function handleCueRequest(socket, factory, logLabel) {
   try {
     const prepared = factory();
@@ -238,8 +293,15 @@ function handleCueRequest(socket, factory, logLabel) {
 
 function handleAdmin(socket, event) {
   if (event.type === 'speak') {
-    store.logRehearsal('free-speak', 'Free Speak', { target: event.target ?? { type: 'all' }, speechMode: store.state.settings.speechProvider, result: 'accepted' });
-    handleSpeechRequest(socket, () => store.createMessage(event.text, { source: 'free', target: event.target }), 'Free Speakを受付');
+    const mode = store.state.settings.freeSpeakMode;
+    store.logRehearsal('free-speak', 'Free Speak', { target: event.target ?? { type: 'all' }, speechMode: mode, result: 'accepted' });
+    if (mode === 'local-tts') void handleLocalTtsRequest(socket, event.text, { source: 'free', target: event.target ?? { type: 'all' } });
+    else handleSpeechRequest(socket, () => store.createMessage(event.text, { source: 'free', target: event.target }), 'Free Speakを受付');
+    return;
+  }
+  if (event.type === 'local-tts:test') {
+    const master = store.getDisplay(store.state.audioMasterId);
+    void handleLocalTtsRequest(socket, '横川AI、音声出力テストを実行します。', { source: 'test', target: master ? { type: 'display', id: master.displayId } : { type: 'display', id: 'audio-master-unset' } });
     return;
   }
   if (event.type === 'audio:test') {
@@ -250,6 +312,7 @@ function handleAdmin(socket, event) {
     return;
   }
   if (event.type === 'stop') {
+    localTtsService.cancelCurrent('operator-stop');
     const id = store.state.currentMessage?.id ?? null;
     store.stopPresentation({ type: 'all' });
     store.logRehearsal('stop', 'STOP', { messageId: id, result: 'accepted' });
@@ -260,7 +323,9 @@ function handleAdmin(socket, event) {
   if (event.type === 'replay') {
     const original = store.state.history.find((item) => item.id === event.id) ?? store.state.history[0];
     if (!original) { send(socket, 'error', { code: 'NO_HISTORY', message: '再読み上げできる履歴がありません。' }); return; }
-    handleSpeechRequest(socket, () => store.createMessage(original.text, { replayOf: original.id, source: original.source, target: original.target }), '履歴再読み上げを受付');
+    if (original.audio?.speechMode === 'local-tts' || original.speechProvider === 'local-tts') void handleLocalTtsRequest(socket, original.text, { replayOf: original.id, source: original.source, target: original.target });
+    else handleSpeechRequest(socket, () => store.createMessage(original.text, { replayOf: original.id, source: original.source, target: original.target,
+      kind: original.kind, displayText: original.displayText, speechProvider: original.speechProvider, audio: original.audio }), '履歴再読み上げを受付');
     return;
   }
   if (event.type === 'cue:next') handleCueRequest(socket, () => store.nextCue(), 'Cue NEXT');
@@ -301,6 +366,7 @@ function handleAdmin(socket, event) {
     const settings = store.setSettings(event.settings ?? {});
     broadcast('display', 'settings', { settings }); broadcastState(); logger.info('設定を更新');
   } else if (event.type === 'show:reset') {
+    localTtsService.cancelCurrent('show-reset'); runtimeAudioCache.clear();
     forRole('display', (displaySocket) => send(displaySocket, 'show:reset'));
     store.showReset(); broadcastState(); logger.info('Show Reset');
   } else if (event.type === 'clear') {
@@ -404,6 +470,7 @@ websocketServer.on('connection', (socket) => {
     if (client.role === 'display') {
       const duplicateStillOpen = [...clients.values()].some((other) => other.role === 'display' && other.displayId === client.displayId);
       if (!duplicateStillOpen) {
+        if (store.state.audioMasterId === client.displayId) localTtsService.cancelCurrent('audio-master-disconnected');
         store.disconnectDisplay(client.displayId);
         logger.info('Display切断', { displayId: client.displayId }); broadcastState();
       }
@@ -432,6 +499,10 @@ const offlineMonitor = setInterval(() => {
 }, 1000);
 offlineMonitor.unref();
 
+const localTtsHealthMonitor = setInterval(() => { void refreshLocalTtsStatus(); }, 30_000);
+localTtsHealthMonitor.unref();
+void refreshLocalTtsStatus();
+
 server.on('error', (error) => { logger.error('サーバー起動エラー', error); process.exitCode = 1; });
 server.listen(port, host, () => {
   const urls = accessUrls(port);
@@ -441,7 +512,8 @@ server.listen(port, host, () => {
 
 function shutdown(signal) {
   logger.info(`${signal} を受信。サーバーを終了します。`);
-  clearInterval(socketHeartbeat); clearInterval(offlineMonitor);
+  clearInterval(socketHeartbeat); clearInterval(offlineMonitor); clearInterval(localTtsHealthMonitor);
+  localTtsService.cancelCurrent('server-shutdown'); runtimeAudioCache.clear();
   for (const socket of clients.keys()) socket.close(1001, 'server shutdown');
   server.close(() => process.exit(0)); setTimeout(() => process.exit(1), 3000).unref();
 }

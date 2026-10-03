@@ -66,9 +66,10 @@
     <section id="preflight-panel" class="preflight-panel panel">
       <div class="panel-heading">
         <div><span class="step">CHECK</span><h2>本番前チェック</h2></div>
-        <div class="preflight-actions"><strong id="preflight-result" data-state="not-ready">NOT READY</strong><button id="audio-test-button" type="button">音声テスト</button></div>
+        <div class="preflight-actions"><strong id="preflight-result" data-state="not-ready">NOT READY</strong><button id="audio-test-button" type="button">Browser音声テスト</button><button id="local-tts-test-button" type="button">Local TTSテスト</button></div>
       </div>
       <p id="preflight-summary" class="preflight-summary">状態を取得しています…</p>
+      <p id="local-tts-summary" class="preflight-summary">Local TTS状態を取得しています…</p>
       <div id="preflight-list" class="preflight-list"></div>
     </section>
 
@@ -170,7 +171,7 @@
         <label>Target<select id="cue-target"></select></label>
         <label>Cue種別<select id="cue-kind"><option value="speech-display">発話＋表示</option><option value="speech-only">発話のみ</option><option value="display-only">表示のみ</option><option value="clear">CLEAR</option><option value="blackout">BLACKOUT</option><option value="preset-only">Presetのみ</option></select></label>
         <label>Preset<select id="cue-preset"></select></label>
-        <label>音声方式<select id="cue-speech-mode"><option value="browser">Browser TTS</option><option value="audio-file">ローカル音声</option><option value="none">音声なし</option></select></label>
+        <label>音声方式<select id="cue-speech-mode"><option value="browser">Browser TTS</option><option value="audio-file">ローカル音声</option><option value="local-tts">Local TTS</option><option value="none">音声なし</option></select></label>
         <label>音声Asset<select id="cue-asset"><option value="">なし</option></select></label>
         <label>Avatar状態<select id="cue-avatar-state"><option>normal</option><option>thinking</option><option>warning</option><option>hijacked</option><option>hostile</option><option>shutdown</option><option>recovery</option><option>speaking</option></select></label>
         <label>Lip Sync<select id="cue-lip-sync"><option value="simulated">simulated</option><option value="audio-reactive">audio-reactive</option><option value="none">none</option></select></label>

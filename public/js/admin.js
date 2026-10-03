@@ -146,6 +146,10 @@ function renderPreflight() {
   elements['preflight-summary'].textContent = preflight.status === 'ready' ? '本番開始可能です。すべての必須項目が正常です。' : preflight.status === 'warning' ? `本番開始可能ですが、${preflight.warnings}件の注意事項があります。` : `本番開始できません。${preflight.errors}件のエラーを解消してください。`;
   elements['preflight-list'].replaceChildren();
   for (const check of preflight.items) { const item = document.createElement('article'); item.className = 'preflight-item'; item.dataset.state = check.status; const badge = document.createElement('b'); badge.textContent = check.status.toUpperCase(); const name = document.createElement('span'); name.textContent = check.label; const detail = document.createElement('small'); detail.textContent = check.detail; item.append(badge, name, detail); elements['preflight-list'].append(item); }
+  const local = state.localTts ?? {};
+  elements['local-tts-summary'].textContent = local.status === 'ready'
+    ? `Local TTS READY — ${local.profileId} / Engine ${local.engineVersion} / ${local.styleName} (runtime Style ${local.runtimeStyleId})`
+    : `Local TTS ${String(local.status ?? 'unknown').toUpperCase()} — ${local.profileId ?? 'profile不明'} / ${local.error ?? 'Engine未確認'} / Browser fallbackなし`;
 }
 
 function renderShowMode() {
@@ -187,6 +191,7 @@ function updateControls() {
   const presentationActive = state?.currentTransition?.status === 'active' || state?.unlock?.status === 'running';
   for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || (!state?.currentMessage && !presentationActive);
   const master = state?.displays.find((display) => display.displayId === state.audioMasterId); elements['audio-test-button'].disabled = !connected || !master?.online || !master?.audioReady;
+  elements['local-tts-test-button'].disabled = !connected || !master?.online || !master?.audioReady || state?.localTts?.status !== 'ready';
 }
 function performAction(type, extra = {}) { if (actionLocked) return; actionLocked = true; updateControls(); socket.send({ type, actionId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, ...extra }); window.setTimeout(() => { actionLocked = false; updateControls(); }, 650); }
 function updateSettings() { socket.send({ type: 'settings:update', settings: { voiceURI: elements['voice-select'].value, rate: Number(elements['rate-input'].value), pitch: Number(elements['pitch-input'].value), volume: Number(elements['volume-input'].value), subtitlesEnabled: elements['subtitle-input'].checked, shortcutsEnabled: elements['shortcuts-input'].checked } }); }
@@ -214,7 +219,7 @@ elements['speech-input'].addEventListener('keydown', (event) => { if ((event.ctr
 elements['send-button'].addEventListener('click', () => socket.send({ type: 'speak', text: elements['speech-input'].value.trim(), target: parseTarget(elements['target-select'].value) }));
 elements['clear-button'].addEventListener('click', () => { elements['speech-input'].value = ''; updateCount(); elements['speech-input'].focus(); });
 for (const [id, type] of [['stop-button', 'stop'], ['show-stop-button', 'stop'], ['back-button', 'cue:back'], ['show-back-button', 'cue:back'], ['next-button', 'cue:next'], ['show-next-button', 'cue:next'], ['cue-replay-button', 'cue:replay'], ['show-replay-button', 'cue:replay']]) elements[id].addEventListener('click', () => performAction(type));
-elements['replay-button'].addEventListener('click', () => socket.send({ type: 'replay' })); elements['scene-select'].addEventListener('change', () => { if (elements['scene-select'].value) socket.send({ type: 'scene:jump', sceneId: elements['scene-select'].value }); }); elements['audio-master-select'].addEventListener('change', () => socket.send({ type: 'audio-master:set', displayId: elements['audio-master-select'].value || null })); elements['audio-test-button'].addEventListener('click', () => performAction('audio:test'));
+elements['replay-button'].addEventListener('click', () => socket.send({ type: 'replay' })); elements['scene-select'].addEventListener('change', () => { if (elements['scene-select'].value) socket.send({ type: 'scene:jump', sceneId: elements['scene-select'].value }); }); elements['audio-master-select'].addEventListener('change', () => socket.send({ type: 'audio-master:set', displayId: elements['audio-master-select'].value || null })); elements['audio-test-button'].addEventListener('click', () => performAction('audio:test')); elements['local-tts-test-button'].addEventListener('click', () => performAction('local-tts:test'));
 elements['show-mode-button'].addEventListener('click', () => socket.send({ type: 'admin-mode:set', mode: 'show' })); elements['advanced-mode-button'].addEventListener('click', () => socket.send({ type: 'admin-mode:set', mode: 'advanced' })); elements['open-advanced-button'].addEventListener('click', () => socket.send({ type: 'admin-mode:set', mode: 'advanced' })); elements['show-preflight-badge'].addEventListener('click', () => elements['preflight-panel'].scrollIntoView({ behavior: 'smooth' }));
 elements['new-cue-button'].addEventListener('click', () => openCue()); elements['new-group-button'].addEventListener('click', () => openGroup());
 elements['display-list'].addEventListener('change', (event) => { if (event.target.dataset.action === 'required') socket.send({ type: 'display:required', displayId: event.target.closest('.display-item').dataset.displayId, required: event.target.checked }); });

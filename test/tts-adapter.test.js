@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { BrowserSpeechAdapter } from '../public/js/tts-adapter.js';
+import { BrowserSpeechAdapter, createSpeechProvider } from '../public/js/tts-adapter.js';
 
 class FakeUtterance {
   constructor(text) { this.text = text; }
@@ -55,3 +55,17 @@ test('音声合成APIがなくても一覧は空で、発話だけを安全に�
   assert.throws(() => adapter.speak({ id: 'x', text: '字幕は継続' }, {}), /利用できません/);
 });
 
+test('Local TTS Providerは同一originの一時音声だけを再生する', async () => {
+  const events = [];
+  class FakeAudio {
+    constructor(src) { this.src = src; FakeAudio.last = this; this.currentTime = 0; }
+    play() { this.onplay?.(); return Promise.resolve(); }
+    pause() {}
+  }
+  const provider = createSpeechProvider('local-tts', { onStart: (id) => events.push(['start', id]), onEnd: (id) => events.push(['end', id]) }, { AudioClass: FakeAudio });
+  provider.speak({ id: 'runtime-1', audio: { runtimeUrl: '/api/runtime-audio/abc' } });
+  assert.equal(FakeAudio.last.src, '/api/runtime-audio/abc');
+  FakeAudio.last.onended();
+  assert.deepEqual(events, [['start', 'runtime-1'], ['end', 'runtime-1']]);
+  assert.throws(() => provider.speak({ id: 'bad', audio: { runtimeUrl: 'https://example.com/audio.wav' } }), /URLが不正/);
+});

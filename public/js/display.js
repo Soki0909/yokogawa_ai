@@ -52,6 +52,12 @@ const localAudio = createSpeechProvider('audio-file', {
   onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'error', error }); },
 });
+const localTts = createSpeechProvider('local-tts', {
+  onStart: (id, audio) => { lipSync.analyse(audio); setMode('LOCAL TTS', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking' }); },
+  onEnd: (id) => { lipSync.stop(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
+  onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
+  onError: (id, error) => { lipSync.stop(); setMode('LOCAL TTS ERROR — 字幕は継続中', 'error'); socket.send({ type: 'playback', id, status: 'error', error }); },
+});
 
 function applyPresentation(presentation = {}, preset = null) {
   if (preset) {
@@ -184,18 +190,22 @@ function handleEvent(event) {
       return;
     }
     socket.send({ type: 'playback', id: event.message.id, status: 'received' });
-    try { (event.message.audio?.speechMode === 'audio-file' ? localAudio : speech).speak(event.message, settings); }
+    try {
+      const provider = event.message.audio?.speechMode === 'audio-file' ? localAudio
+        : event.message.audio?.speechMode === 'local-tts' ? localTts : speech;
+      provider.speak(event.message, settings);
+    }
     catch (error) { socket.send({ type: 'playback', id: event.message.id, status: 'error', error: error.message }); }
   } else if (event.type === 'presentation') {
     applyPresentation(event.presentation, event.preset);
   } else if (event.type === 'stop') {
-    speech.stop(); localAudio.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); document.body.dataset.transitionStatus = 'stopped';
+    speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); document.body.dataset.transitionStatus = 'stopped';
   } else if (event.type === 'settings') {
     settings = event.settings; elements.caption.hidden = !settings.subtitlesEnabled;
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    speech.stop(false); localAudio.stop(false); lipSync.stop(); clearTimeout(overlayTimer); clearTimeout(visualTimer); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false, transition: { id: 'none', status: 'idle' }, overlay: { id: 'none', visible: false }, visual: { type: 'none', visible: false }, unlock: { status: 'idle', progress: 0 } }); setMode('SYSTEM READY', 'ready');
+    speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); clearTimeout(overlayTimer); clearTimeout(visualTimer); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false, transition: { id: 'none', status: 'idle' }, overlay: { id: 'none', visible: false }, visual: { type: 'none', visible: false }, unlock: { status: 'idle', progress: 0 } }); setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
     elements['identify-name'].textContent = identity.displayName;
