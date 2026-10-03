@@ -1,8 +1,8 @@
 # Phase C — Production Integration
 
-Status: **Planning only / implementation not started**
+Status: **Implementation candidate / USER REVIEW REQUIRED**
 
-Phase B / v0.6.0確定後のProduction Integration方針を記録する。これは設計・順序の引き継ぎ文書であり、Local TTS、音声生成、Production Show File、Free Speak変更などのPhase C機能はまだ実装しない。
+Phase B / v0.6.0を基準にProduction Integrationを実装した。正式tagは作成せず、実機でのVoice Reviewと通し稽古を待つ候補版として扱う。実装詳細は [`implementation.md`](implementation.md)、検証根拠は [`verification.md`](verification.md) を参照する。
 
 ## Voice production policy
 
@@ -19,7 +19,7 @@ Phase B / v0.6.0確定後のProduction Integration方針を記録する。これ
 
 ### Emergency / Free Speak
 
-想定外の発話、Free Speak、緊急発話は、将来のLocal TTS Providerを使用する。
+想定外の発話、Free Speak、緊急発話は、Server-sideのLocal TTS Providerを使用する。
 
 - Browser依存Voiceを使用しない。
 - 同一Voice Profileを固定し、可能な限り事前生成WAVと同一人物に聞こえるようにする。
@@ -61,7 +61,7 @@ TTS Engine固有APIをCue、Admin、Displayへ直接漏らさず、Providerを�
 - SHUTDOWN: 停止・途切れを演出可能にする。
 - RECOVERY: 元の安定した声へ段階的に戻す。
 
-## Implementation order
+## Implemented order
 
 1. Audio Architecture正式仕様化
 2. Local TTS Provider設計・実装
@@ -89,15 +89,13 @@ Voice architecture
 → 全台詞生成
 ```
 
-全台詞を最初から生成しない。Production Show FileはPhase A demoと分離し、`shows/phase-a-demo.json`を上書きしない。
+代表音声によるVoice Labとユーザー選定を先に完了し、その正本から全18台詞を生成した。Production Show FileはPhase A demoと分離し、`shows/phase-a-demo.json`を上書きしていない。
 
-## Explicitly out of scope for v0.6.0
+## Candidate stop gate
 
-- Local TTS Engine
-- VOICEVOX等の導入
-- 全台詞音声生成
-- Production Show File
-- 最新台本からのCue抽出
-- Free SpeakのTTS変更
-- Voice effect
-- Phase C機能開発
+- HIJACKED / HOSTILE / SHUTDOWN固有のVoice DSP
+- 正式`v0.7.0` tag
+- `master`へのmerge
+- 実会場PAでの音量・間・演者とのタイミング確定
+
+現在のGoogle Docs台本revisionを正とし、台本文面自体は変更していない。横川ルート固有台詞の配置は推測せず、別Show Fileとして保留している。

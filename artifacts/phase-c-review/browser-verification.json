@@ -1,0 +1,50 @@
+{
+  "phase": "Phase C Production Audio Integration",
+  "status": "PASS - USER REVIEW REQUIRED",
+  "date": "2026-10-03",
+  "topology": {
+    "admin": 1,
+    "displays": 3,
+    "audioMasters": 1
+  },
+  "resolutions": [
+    "1280x720",
+    "1920x1080"
+  ],
+  "checks": {
+    "productionShowImport": "PASS",
+    "scriptedWavAudioMasterOnly": "PASS",
+    "freeSpeakRealAivisAudioMasterOnly": "PASS",
+    "stopDuringLocalTtsSynthesis": "PASS",
+    "replay": "PASS",
+    "blackoutRestore": "PASS",
+    "showReset": "PASS",
+    "displayReconnect": "PASS",
+    "adminReconnect": "PASS",
+    "audioMasterReconnectAndReady": "PASS",
+    "pastAudioNotReplayedOnReconnect": "PASS",
+    "aivisDownShowsBlockingError": "PASS",
+    "aivisDownBrowserFallbackDisabled": "PASS",
+    "aivisRecoveryReturnsReady": "PASS",
+    "sixVisualStatesAndNormalCleanup": "PASS",
+    "longSubtitleClipping": "PASS",
+    "overflow": "PASS",
+    "subtitleObstruction": "PASS"
+  },
+  "console": {
+    "adminWarnings": 0,
+    "adminErrors": 0,
+    "displayMasterWarnings": 0,
+    "displayMasterErrors": 0,
+    "displayBWarnings": 0,
+    "displayBErrors": 0,
+    "displayCWarnings": 0,
+    "displayCErrors": 0
+  },
+  "notes": [
+    "Phase B Visual is unchanged except the focused long-subtitle containment fix.",
+    "A STOP-button state bug found during synthesis was fixed and rechecked in the browser.",
+    "With AivisSpeech stopped, Admin showed NOT READY, AIVIS_UNREACHABLE and Browser fallbackなし; after restart it returned to READY with runtime Style 1310138977.",
+    "Chrome provided the genuine 1920x1080 viewport check; the in-app browser provided the repeated Admin 1 + Display 3 interaction check."
+  ]
+}

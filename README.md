@@ -1,6 +1,6 @@
-# 横川AI Phase B — Performance Presentation System
+# 横川AI Phase C Candidate — Production Audio Integration
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0は、Phase A / v0.5.0のCue進行・複数Display・Audio Master・Free Speak・画像Avatar・Server authoritativeな演出状態を維持し、6 Presentation Preset、Avatar自身の状態差、Foreground Interference、Transition、Operation Overlay、Final Challenge、Unlock / Emergencyを舞台映像として完成させた正式版です。Visual Reviewは承認済みです。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0の承認済みVisualを維持し、Phase C候補では現在の台本に準拠した固定WAVとServer-side Local TTSを追加しました。Phase Cは`USER REVIEW REQUIRED`で、正式tagやmaster mergeはまだ行いません。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket
@@ -37,8 +37,9 @@ npm start
 | `STATE_FILE` | `data/state.json` | 状態保存先 |
 | `LOG_DIRECTORY` | `logs` | 運用ログ |
 | `HEARTBEAT_TIMEOUT_MS` | `7000` | OFFLINE判定 |
+| `AIVIS_ENGINE_URL` | `http://127.0.0.1:10101` | Serverから接続するAivisSpeech Engine |
 
-URL、WebSocket、保存先はlocalhostやWindows固有パスへ固定していません。HTTPS環境では同一hostの `wss:` を使用するため、将来のRender等への配置余地も残しています。
+Admin/Display URL、WebSocket、保存先はlocalhostやWindows固有パスへ固定していません。Local TTS Engineだけは会場PC内の既定URLを持ち、`AIVIS_ENGINE_URL`で変更できます。HTTPS環境では同一hostの `wss:` を使用するため、将来のRender等への配置余地も残しています。
 
 ## Cue Schema v3
 
@@ -108,7 +109,27 @@ Displayは下から `Preset Environment → Avatar → Scene Visual → Subtitle
 
 ## 音声
 
-`browser` は従来のBrowser Speech Synthesis、`audio-file` はAsset RegistryのWAV/MP3、`none` は無音です。実音声を出すのは常にGlobal Audio Master 1台だけで、他Displayは字幕・演出のみ同期します。ローカル音声もSTOP、Cue REPLAYに対応します。
+本番のscripted speechは`audio-file`、Free Speak / emergency speechは`local-tts`です。`browser`はdevelopment/legacy用途に限り、本番経路でLocal TTSが失敗しても暗黙fallbackしません。実音声を出すのは常にGlobal Audio Master 1台だけで、他Displayは字幕・演出のみ同期します。いずれもSTOP、Cue REPLAYに対応します。
+
+選定VoiceはCandidate 2A、AivisSpeech「阿井田 茂 / Calm」です。速度はユーザー指定の`1.20`、出力は44.1kHz・mono・16-bit WAVです。`config/voice-profiles/yokogawa-professor-v1.json`をProduction snapshotとし、Voice Lab正本とのhash driftを検出します。
+
+```powershell
+# AivisSpeech Engineを127.0.0.1:10101で先に起動
+npm start
+npm run voice:profile:verify
+npm run voice:production:verify
+```
+
+Serverはspeaker UUIDとstyle名からruntime style IDを解決し、全profile parameterを適用します。合成WAVは上限付きmemory cacheから同一originで配信されます。Engine停止・profile不一致・合成失敗時はAdminへ理由を表示し、字幕は維持します。
+
+Production起動順は次のとおりです。
+
+1. AivisSpeechを起動し、「阿井田 茂 / Calm」modelが使用可能か確認する。
+2. 横川AI Serverを起動し、AdminのLocal TTS表示がREADYになるまで待つ。
+3. Display 3台を接続し、音を出す1台だけをAudio Master / Audio Readyにする。
+4. `shows/production.json`をDry Run後にimportする。
+5. Preflightを通し、Local TTS Testと代表WAV Cueを再生する。
+6. route選択とCue位置を確認してから本番を開始する。
 
 AssetはIDと相対pathを分離します。音声は `assets/audio/*.wav|*.mp3`、Scene画像は `assets/visual/*.png|*.jpg|*.jpeg|*.webp|*.svg` だけを許可します。`..`、絶対path、asset root外、MIME/拡張子不整合を拒否します。バイナリをWebSocketへ流さず、HTTPのローカルasset endpointから取得します。
 
@@ -118,7 +139,9 @@ AssetはIDと相対pathを分離します。音声は `assets/audio/*.wav|*.mp3`
 
 Importは先にDry Runし、schema、重複ID、Cue kind、target、group、preset、avatar、audio asset、参照整合性を検査します。Error時は現在Showを一切変更しません。
 
-Phase Aの本番デモは [`shows/phase-a-demo.json`](shows/phase-a-demo.json) です。通常待機から異常、乗っ取り、謎解き、201集合、最終課題、認証、Unlock、緊急中断、暴走、停止、復旧まで27 Cueを収録します。Show File読込からDry Runして適用してください。状態間は自動連鎖せず、すべてオペレーターがNEXTで進行します。
+本番候補は [`shows/production.json`](shows/production.json) です。現在のGoogle Docs台本revisionに一致する固定音声17件とVisual Cueを収録し、全scripted speechは`audio-file`です。横川ルート固有の台詞018は、台詞010との配置判断を推測せず [`shows/production-yokogawa-route.json`](shows/production-yokogawa-route.json) に分離しています。Show File読込からDry Runして適用してください。
+
+Phase Aデモ [`shows/phase-a-demo.json`](shows/phase-a-demo.json) は上書きせず保存しています。状態間は自動連鎖せず、オペレーターがNEXTで進行します。
 
 ## 本番操作
 
@@ -156,11 +179,22 @@ npm run check
 npm run test:browser-console
 npm audit --omit=dev
 npm run test:soak
+npm run test:soak:phase-c
+npm run voice:profile:verify
+npm run voice:production:verify
 ```
 
 `test:soak` は既定30分で、Unlock・緊急中断・Hostile・Shutdown・Recovery・NORMAL cleanupを周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase Bの自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase B検証記録](docs/phase-B/verification.md)、正式版の要約は [v0.6.0 Release Notes](docs/phase-B/release-notes.md) を参照してください。承認済みReview画像は [`artifacts/phase-b-review/`](artifacts/phase-b-review/) にあります。
 
-次Phaseの設計方針は [Phase C — Production Integration](docs/phase-C/production-integration-plan.md) に記録しています。Phase Cは未着手で、v0.6.0にLocal TTS、音声生成、Production Show File、Free Speak変更は含みません。
+Phase Cの構造は [実装記録](docs/phase-C/implementation.md)、結果は [検証記録](docs/phase-C/verification.md) に記録しています。現在は正式release前の検証候補で、実PAによるVoice、速度1.20、音量、Cue timingのユーザーレビューが必要です。
+
+### Phase C障害対応
+
+- AivisSpeech DOWN: Engineを`AIVIS_ENGINE_URL`で起動し、AdminのLocal TTS表示がREADYへ戻るまで待つ。Browser TTSへは切り替えない。
+- Audio Master DOWN: 字幕進行は継続する。再接続後にAudio Masterを選び直し、「設定を保存して開始」でAudio Readyにする。
+- WAV missing: Show Dry RunまたはPreflightのasset errorを解消し、生成済みassetを復元してREPLAYする。
+- Profile mismatch: `npm run voice:profile:verify`で差分を確認し、意図した変更だけ`voice:profile:sync`する。
+- Local TTS synthesis error: Adminの詳細を確認し、Engine/modelを復旧後に再送する。字幕は維持される。
 
 ## Phase Bスコープ外
 

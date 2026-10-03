@@ -13,8 +13,8 @@
 | Phase 4.2 | [`phase-4-2/yokogawa_ai_v0.4.2_visual_overhaul_requirements.md`](phase-4-2/yokogawa_ai_v0.4.2_visual_overhaul_requirements.md) | [`phase-4-2/codex_v0.4.2_visual_overhaul_prompt.md`](phase-4-2/codex_v0.4.2_visual_overhaul_prompt.md) | [`phase-4-2/verification.md`](phase-4-2/verification.md) | `v0.4.2` |
 | Phase A | [`phase-A/yokogawa_ai_phase_a_spec_v1.0.md`](phase-A/yokogawa_ai_phase_a_spec_v1.0.md) | [`phase-A/codex_yokogawa_ai_phase_a_prompt_v1.0.md`](phase-A/codex_yokogawa_ai_phase_a_prompt_v1.0.md) | [`phase-A/verification.md`](phase-A/verification.md) | `v0.5.0` |
 | Phase B | [`phase-B/yokogawa_ai_phase_b_autonomous_visual_spec_v1.0.md`](phase-B/yokogawa_ai_phase_b_autonomous_visual_spec_v1.0.md) | [`phase-B/codex_yokogawa_ai_phase_b_autonomous_visual_prompt_v1.0.md`](phase-B/codex_yokogawa_ai_phase_b_autonomous_visual_prompt_v1.0.md) | [`phase-B/verification.md`](phase-B/verification.md) | `v0.6.0` |
-| Phase C（計画のみ） | [`phase-C/production-integration-plan.md`](phase-C/production-integration-plan.md) | 未着手 | 未着手 | 未作成 |
+| Phase C（候補） | [`phase-C/production-integration-plan.md`](phase-C/production-integration-plan.md) | [`phase-C/codex-yokokawa-ai-phase-c-production-audio-integration-v1.0.md`](phase-C/codex-yokokawa-ai-phase-c-production-audio-integration-v1.0.md) | [`phase-C/verification.md`](phase-C/verification.md) | USER REVIEW REQUIRED / tag未作成 |
 
-Phase B / `v0.6.0`がVisual Review承認済みの正式版です。Phase CはProduction Integrationの方針と実装順序だけを記録しており、機能実装は開始していません。過去Phaseの正本と検証記録は実行コードから分離し、内容とGit基準点を保持しています。
+Phase B / `v0.6.0`がVisual Review承認済みの正式版です。Phase CはProduction Audio Integrationの検証候補で、実PAによるVoice Review前のSTOP GATEにあります。過去Phaseの正本と検証記録は実行コードから分離し、内容とGit基準点を保持しています。
 
 Phase B正式版の変更要約は [`phase-B/release-notes.md`](phase-B/release-notes.md)、Visual承認記録は [`phase-B/review-guide.md`](phase-B/review-guide.md) を参照してください。
