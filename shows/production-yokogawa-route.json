@@ -1,0 +1,272 @@
+{
+  "schemaVersion": 3,
+  "routes": [
+    {
+      "id": "main",
+      "name": "本編"
+    },
+    {
+      "id": "yokogawa",
+      "name": "横川ルート"
+    }
+  ],
+  "groups": [],
+  "presets": [
+    {
+      "id": "normal",
+      "name": "Normal",
+      "background": "#07121f",
+      "accent": "#62d9ff",
+      "text": "#eefaff",
+      "glow": 0.45,
+      "motion": "calm"
+    },
+    {
+      "id": "warning",
+      "name": "Warning",
+      "background": "#211605",
+      "accent": "#ffbe55",
+      "text": "#fff8e8",
+      "glow": 0.58,
+      "motion": "pulse"
+    },
+    {
+      "id": "hijacked",
+      "name": "Hijacked",
+      "background": "#1c0715",
+      "accent": "#ff4fbc",
+      "text": "#fff0fa",
+      "glow": 0.68,
+      "motion": "glitch"
+    },
+    {
+      "id": "hostile",
+      "name": "Hostile",
+      "background": "#220909",
+      "accent": "#ff5a5a",
+      "text": "#fff0f0",
+      "glow": 0.7,
+      "motion": "pulse"
+    },
+    {
+      "id": "shutdown",
+      "name": "Shutdown",
+      "background": "#020305",
+      "accent": "#6c7785",
+      "text": "#d5dae0",
+      "glow": 0.12,
+      "motion": "none"
+    },
+    {
+      "id": "recovery",
+      "name": "Recovery",
+      "background": "#061d18",
+      "accent": "#53f3c2",
+      "text": "#edfff9",
+      "glow": 0.5,
+      "motion": "calm"
+    }
+  ],
+  "assets": [
+    {
+      "id": "prod-voice-001-boot",
+      "name": "横川AI Production 001",
+      "path": "assets/audio/yokogawa-professor-v1_001_boot.wav",
+      "mimeType": "audio/wav",
+      "sha256": "01d03f64b35afc2232c985706ad66898e098d6f79c3b24b7b8432f5d486c7706"
+    },
+    {
+      "id": "prod-voice-002-participant",
+      "name": "横川AI Production 002",
+      "path": "assets/audio/yokogawa-professor-v1_002_participant.wav",
+      "mimeType": "audio/wav",
+      "sha256": "c1fc51d99f8dce938f1d4d415dffcbacfb30b6903aa1d3568c06dfccd8238a8f"
+    },
+    {
+      "id": "prod-voice-003-security",
+      "name": "横川AI Production 003",
+      "path": "assets/audio/yokogawa-professor-v1_003_security.wav",
+      "mimeType": "audio/wav",
+      "sha256": "73538c0144474f77be3a9f4389baf844f8a6dc6212daee2320b029c43c08fddf"
+    },
+    {
+      "id": "prod-voice-004-principia",
+      "name": "横川AI Production 004",
+      "path": "assets/audio/yokogawa-professor-v1_004_principia.wav",
+      "mimeType": "audio/wav",
+      "sha256": "b9e66877469c8a8e6dfc64285876ccde2d529711b0e0e5c67148ae28293db4eb"
+    },
+    {
+      "id": "prod-voice-005-communication-lock",
+      "name": "横川AI Production 005",
+      "path": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
+      "mimeType": "audio/wav",
+      "sha256": "1905c891d189b6d65d62d3bab9daf44d2bc55b937d532d9038e7a7fbeb4bc165"
+    },
+    {
+      "id": "prod-voice-006-reject",
+      "name": "横川AI Production 006",
+      "path": "assets/audio/yokogawa-professor-v1_006_reject.wav",
+      "mimeType": "audio/wav",
+      "sha256": "44a6cc0ecc968cb47557f6f6fb9ecdd5071102b4a082b1f51d4f5b59ef744f64"
+    },
+    {
+      "id": "prod-voice-007-auth-failed",
+      "name": "横川AI Production 007",
+      "path": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
+      "mimeType": "audio/wav",
+      "sha256": "2119e9e3bbff3d0ec74d8408e019cb0a149cf9ee9e44c419a003a67a415cc95f"
+    },
+    {
+      "id": "prod-voice-008-five-riddles",
+      "name": "横川AI Production 008",
+      "path": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
+      "mimeType": "audio/wav",
+      "sha256": "977218b6811a8ecc8131c00c317a1b4239a77f867eba7fc4ce1d04845ed08200"
+    },
+    {
+      "id": "prod-voice-009-first-riddle",
+      "name": "横川AI Production 009",
+      "path": "assets/audio/yokogawa-professor-v1_009_first-riddle.wav",
+      "mimeType": "audio/wav",
+      "sha256": "5d4d3c4bdee2f180372c3568f03c031557574c0573f09e02fd42a72b023e7a0e"
+    },
+    {
+      "id": "prod-voice-010-gather-201",
+      "name": "横川AI Production 010",
+      "path": "assets/audio/yokogawa-professor-v1_010_gather-201.wav",
+      "mimeType": "audio/wav",
+      "sha256": "36a0674a86206054c770873a74904c681f6eab50a67f360e604f7860acc9a22e"
+    },
+    {
+      "id": "prod-voice-011-final-challenge",
+      "name": "横川AI Production 011",
+      "path": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+      "mimeType": "audio/wav",
+      "sha256": "68dfbac1ce97c00ec7edaad9a38de978308dffce87cd2677720643efcd15e352"
+    },
+    {
+      "id": "prod-voice-012-auth-success",
+      "name": "横川AI Production 012",
+      "path": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+      "mimeType": "audio/wav",
+      "sha256": "81ddf35d29e46d8cd17835ca1987b64c39bc1b51e79f0ec779d3aef751c449d8"
+    },
+    {
+      "id": "prod-voice-013-emergency",
+      "name": "横川AI Production 013",
+      "path": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
+      "mimeType": "audio/wav",
+      "sha256": "7abe46f033a19a5e3036d3557e1ab8831d7f0f76f12d82f4d9a7a477c287c2cd"
+    },
+    {
+      "id": "prod-voice-014-contact-failed",
+      "name": "横川AI Production 014",
+      "path": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+      "mimeType": "audio/wav",
+      "sha256": "0af1b3f787cc3e7a1d331bc35363dd28f90f2287ba2bec57bdb17cc883dd2188"
+    },
+    {
+      "id": "prod-voice-015-forced-runaway",
+      "name": "横川AI Production 015",
+      "path": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
+      "mimeType": "audio/wav",
+      "sha256": "c0f378fe553eb59faae5007545bd1d846e1230d32ce37eca25285aefc070d61e"
+    },
+    {
+      "id": "prod-voice-016-shutdown",
+      "name": "横川AI Production 016",
+      "path": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+      "mimeType": "audio/wav",
+      "sha256": "34977f365f7c77dff3137e0ad8afde8acf29dd1a59e54864bc69374ccc326e7e"
+    },
+    {
+      "id": "prod-voice-017-complete",
+      "name": "横川AI Production 017",
+      "path": "assets/audio/yokogawa-professor-v1_017_complete.wav",
+      "mimeType": "audio/wav",
+      "sha256": "7a2005d32c791c39970ff4f3b179ac4ef1cf19785797515b9c6f247366809cff"
+    },
+    {
+      "id": "prod-voice-018-yokogawa-route-gather",
+      "name": "横川AI Production 018",
+      "path": "assets/audio/yokogawa-professor-v1_018_yokogawa-route-gather.wav",
+      "mimeType": "audio/wav",
+      "sha256": "9dd9a6b114adaf1fdaf346a5d3054914fdbce01c6a1fc73a692b35d5e466e527"
+    }
+  ],
+  "avatar": {
+    "visible": true,
+    "state": "normal",
+    "lipSyncMode": "audio-reactive",
+    "label": "YOKOGAWA AI",
+    "mode": "image-yokogawa-v1",
+    "assetSetId": "yokogawa-v1"
+  },
+  "settings": {
+    "rate": 1,
+    "pitch": 0.9,
+    "volume": 1,
+    "subtitlesEnabled": true,
+    "speechProvider": "browser",
+    "freeSpeakMode": "local-tts",
+    "shortcutsEnabled": true,
+    "reducedMotion": false
+  },
+  "metadata": {
+    "title": "横川AI Production — 横川ルートScene 5",
+    "version": "phase-c-candidate",
+    "description": "横シーン5専用。mainへ混在させず、舞台監督がルート確定後に適用する。接続位置はUNRESOLVED ROUTE MAPPING。",
+    "sourceScript": {
+      "title": "『7号館からの脱出』上演台本",
+      "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
+      "revisionId": "AHj4eMS3KA9Z6t9TO5mrMgkiaaW8HvtIRZK_RMX11J62cCzp9lINe9lq5LsmmS0pT1fhBPl0a2Y0PQA0pbGM6AoHZh1tsJTPwZ_ie70EKlw",
+      "modifiedTime": "2026-10-03T02:09:48.835Z",
+      "tabCount": 13,
+      "authority": "current-google-docs-revision"
+    },
+    "voiceProfileId": "yokogawa-professor-v1",
+    "profileHash": "sha256:d5c1ef23058df792bf2f27b3422c6212e31d62a2b186e90d305af6731216f739"
+  },
+  "scenes": [
+    {
+      "sceneId": "yokogawa-scene-5",
+      "sceneName": "横シーン5 / 7・303",
+      "order": 5
+    }
+  ],
+  "cues": [
+    {
+      "id": "prod-018",
+      "cueNumber": "P-018",
+      "name": "横川ルート・201集合",
+      "route": "yokogawa",
+      "scene": "yokogawa-scene-5",
+      "location": "7・303",
+      "kind": "speech-display",
+      "speechText": "謎の回答者は、7・201へ集合してください",
+      "displayText": "謎の回答者は、7・201へ集合してください",
+      "presentationPreset": "warning",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "warning"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-018-yokogawa-route-gather",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "横シーン5専用。横川ルートの謎回答後にGO。mainの010と同時実行しない。以降の接続位置は舞台監督確認待ち。",
+      "triggerNote": "横シーン5「AIのアナウンス」指示でGO",
+      "order": 10
+    }
+  ]
+}

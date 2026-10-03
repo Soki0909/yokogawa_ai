@@ -1,0 +1,1013 @@
+{
+  "schemaVersion": 3,
+  "routes": [
+    {
+      "id": "main",
+      "name": "本編"
+    },
+    {
+      "id": "yokogawa",
+      "name": "横川ルート"
+    }
+  ],
+  "groups": [],
+  "presets": [
+    {
+      "id": "normal",
+      "name": "Normal",
+      "background": "#07121f",
+      "accent": "#62d9ff",
+      "text": "#eefaff",
+      "glow": 0.45,
+      "motion": "calm"
+    },
+    {
+      "id": "warning",
+      "name": "Warning",
+      "background": "#211605",
+      "accent": "#ffbe55",
+      "text": "#fff8e8",
+      "glow": 0.58,
+      "motion": "pulse"
+    },
+    {
+      "id": "hijacked",
+      "name": "Hijacked",
+      "background": "#1c0715",
+      "accent": "#ff4fbc",
+      "text": "#fff0fa",
+      "glow": 0.68,
+      "motion": "glitch"
+    },
+    {
+      "id": "hostile",
+      "name": "Hostile",
+      "background": "#220909",
+      "accent": "#ff5a5a",
+      "text": "#fff0f0",
+      "glow": 0.7,
+      "motion": "pulse"
+    },
+    {
+      "id": "shutdown",
+      "name": "Shutdown",
+      "background": "#020305",
+      "accent": "#6c7785",
+      "text": "#d5dae0",
+      "glow": 0.12,
+      "motion": "none"
+    },
+    {
+      "id": "recovery",
+      "name": "Recovery",
+      "background": "#061d18",
+      "accent": "#53f3c2",
+      "text": "#edfff9",
+      "glow": 0.5,
+      "motion": "calm"
+    }
+  ],
+  "assets": [
+    {
+      "id": "prod-voice-001-boot",
+      "name": "横川AI Production 001",
+      "path": "assets/audio/yokogawa-professor-v1_001_boot.wav",
+      "mimeType": "audio/wav",
+      "sha256": "01d03f64b35afc2232c985706ad66898e098d6f79c3b24b7b8432f5d486c7706"
+    },
+    {
+      "id": "prod-voice-002-participant",
+      "name": "横川AI Production 002",
+      "path": "assets/audio/yokogawa-professor-v1_002_participant.wav",
+      "mimeType": "audio/wav",
+      "sha256": "c1fc51d99f8dce938f1d4d415dffcbacfb30b6903aa1d3568c06dfccd8238a8f"
+    },
+    {
+      "id": "prod-voice-003-security",
+      "name": "横川AI Production 003",
+      "path": "assets/audio/yokogawa-professor-v1_003_security.wav",
+      "mimeType": "audio/wav",
+      "sha256": "73538c0144474f77be3a9f4389baf844f8a6dc6212daee2320b029c43c08fddf"
+    },
+    {
+      "id": "prod-voice-004-principia",
+      "name": "横川AI Production 004",
+      "path": "assets/audio/yokogawa-professor-v1_004_principia.wav",
+      "mimeType": "audio/wav",
+      "sha256": "b9e66877469c8a8e6dfc64285876ccde2d529711b0e0e5c67148ae28293db4eb"
+    },
+    {
+      "id": "prod-voice-005-communication-lock",
+      "name": "横川AI Production 005",
+      "path": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
+      "mimeType": "audio/wav",
+      "sha256": "1905c891d189b6d65d62d3bab9daf44d2bc55b937d532d9038e7a7fbeb4bc165"
+    },
+    {
+      "id": "prod-voice-006-reject",
+      "name": "横川AI Production 006",
+      "path": "assets/audio/yokogawa-professor-v1_006_reject.wav",
+      "mimeType": "audio/wav",
+      "sha256": "44a6cc0ecc968cb47557f6f6fb9ecdd5071102b4a082b1f51d4f5b59ef744f64"
+    },
+    {
+      "id": "prod-voice-007-auth-failed",
+      "name": "横川AI Production 007",
+      "path": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
+      "mimeType": "audio/wav",
+      "sha256": "2119e9e3bbff3d0ec74d8408e019cb0a149cf9ee9e44c419a003a67a415cc95f"
+    },
+    {
+      "id": "prod-voice-008-five-riddles",
+      "name": "横川AI Production 008",
+      "path": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
+      "mimeType": "audio/wav",
+      "sha256": "977218b6811a8ecc8131c00c317a1b4239a77f867eba7fc4ce1d04845ed08200"
+    },
+    {
+      "id": "prod-voice-009-first-riddle",
+      "name": "横川AI Production 009",
+      "path": "assets/audio/yokogawa-professor-v1_009_first-riddle.wav",
+      "mimeType": "audio/wav",
+      "sha256": "5d4d3c4bdee2f180372c3568f03c031557574c0573f09e02fd42a72b023e7a0e"
+    },
+    {
+      "id": "prod-voice-010-gather-201",
+      "name": "横川AI Production 010",
+      "path": "assets/audio/yokogawa-professor-v1_010_gather-201.wav",
+      "mimeType": "audio/wav",
+      "sha256": "36a0674a86206054c770873a74904c681f6eab50a67f360e604f7860acc9a22e"
+    },
+    {
+      "id": "prod-voice-011-final-challenge",
+      "name": "横川AI Production 011",
+      "path": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+      "mimeType": "audio/wav",
+      "sha256": "68dfbac1ce97c00ec7edaad9a38de978308dffce87cd2677720643efcd15e352"
+    },
+    {
+      "id": "prod-voice-012-auth-success",
+      "name": "横川AI Production 012",
+      "path": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+      "mimeType": "audio/wav",
+      "sha256": "81ddf35d29e46d8cd17835ca1987b64c39bc1b51e79f0ec779d3aef751c449d8"
+    },
+    {
+      "id": "prod-voice-013-emergency",
+      "name": "横川AI Production 013",
+      "path": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
+      "mimeType": "audio/wav",
+      "sha256": "7abe46f033a19a5e3036d3557e1ab8831d7f0f76f12d82f4d9a7a477c287c2cd"
+    },
+    {
+      "id": "prod-voice-014-contact-failed",
+      "name": "横川AI Production 014",
+      "path": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+      "mimeType": "audio/wav",
+      "sha256": "0af1b3f787cc3e7a1d331bc35363dd28f90f2287ba2bec57bdb17cc883dd2188"
+    },
+    {
+      "id": "prod-voice-015-forced-runaway",
+      "name": "横川AI Production 015",
+      "path": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
+      "mimeType": "audio/wav",
+      "sha256": "c0f378fe553eb59faae5007545bd1d846e1230d32ce37eca25285aefc070d61e"
+    },
+    {
+      "id": "prod-voice-016-shutdown",
+      "name": "横川AI Production 016",
+      "path": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+      "mimeType": "audio/wav",
+      "sha256": "34977f365f7c77dff3137e0ad8afde8acf29dd1a59e54864bc69374ccc326e7e"
+    },
+    {
+      "id": "prod-voice-017-complete",
+      "name": "横川AI Production 017",
+      "path": "assets/audio/yokogawa-professor-v1_017_complete.wav",
+      "mimeType": "audio/wav",
+      "sha256": "7a2005d32c791c39970ff4f3b179ac4ef1cf19785797515b9c6f247366809cff"
+    },
+    {
+      "id": "prod-voice-018-yokogawa-route-gather",
+      "name": "横川AI Production 018",
+      "path": "assets/audio/yokogawa-professor-v1_018_yokogawa-route-gather.wav",
+      "mimeType": "audio/wav",
+      "sha256": "9dd9a6b114adaf1fdaf346a5d3054914fdbce01c6a1fc73a692b35d5e466e527"
+    }
+  ],
+  "avatar": {
+    "visible": true,
+    "state": "normal",
+    "lipSyncMode": "audio-reactive",
+    "label": "YOKOGAWA AI",
+    "mode": "image-yokogawa-v1",
+    "assetSetId": "yokogawa-v1"
+  },
+  "settings": {
+    "rate": 1,
+    "pitch": 0.9,
+    "volume": 1,
+    "subtitlesEnabled": true,
+    "speechProvider": "browser",
+    "freeSpeakMode": "local-tts",
+    "shortcutsEnabled": true,
+    "reducedMotion": false
+  },
+  "metadata": {
+    "title": "横川AI Production — 本編",
+    "version": "phase-c-candidate",
+    "description": "現行Google Docs台本に基づく本編。横シーン5は別Show File。",
+    "sourceScript": {
+      "title": "『7号館からの脱出』上演台本",
+      "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
+      "revisionId": "AHj4eMS3KA9Z6t9TO5mrMgkiaaW8HvtIRZK_RMX11J62cCzp9lINe9lq5LsmmS0pT1fhBPl0a2Y0PQA0pbGM6AoHZh1tsJTPwZ_ie70EKlw",
+      "modifiedTime": "2026-10-03T02:09:48.835Z",
+      "tabCount": 13,
+      "authority": "current-google-docs-revision"
+    },
+    "voiceProfileId": "yokogawa-professor-v1",
+    "profileHash": "sha256:d5c1ef23058df792bf2f27b3422c6212e31d62a2b186e90d305af6731216f739"
+  },
+  "scenes": [
+    {
+      "sceneId": "scene-1",
+      "sceneName": "Scene 1 / AI起動・制御奪取",
+      "order": 1
+    },
+    {
+      "sceneId": "scene-5",
+      "sceneName": "Scene 5 / 五条件達成",
+      "order": 5
+    },
+    {
+      "sceneId": "scene-6",
+      "sceneName": "Scene 6 / 最終問題・停止",
+      "order": 6
+    },
+    {
+      "sceneId": "scene-7",
+      "sceneName": "Scene 7 / 復旧",
+      "order": 7
+    }
+  ],
+  "cues": [
+    {
+      "id": "prod-001",
+      "cueNumber": "P-001",
+      "name": "横川AI起動応答",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "承知しました。横川教授。横川AIを起動します",
+      "displayText": "承知しました。横川教授。横川AIを起動します",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-001-boot",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話001。音声終了後も自動進行しない。",
+      "triggerNote": "横川教授「横川AIを起動してくれ」直後",
+      "order": 10
+    },
+    {
+      "id": "prod-002",
+      "cueNumber": "P-002",
+      "name": "台本 002",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "はい。例えば、そちらに久安光さんが参加しています",
+      "displayText": "はい。例えば、そちらに久安光さんが参加しています",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-002-participant",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話002。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 20
+    },
+    {
+      "id": "prod-003",
+      "cueNumber": "P-003",
+      "name": "台本 003",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+      "displayText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-003-security",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話003。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 30
+    },
+    {
+      "id": "prod-004",
+      "cueNumber": "P-004",
+      "name": "台本 004",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+      "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-004-principia",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話004。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 40
+    },
+    {
+      "id": "prod-v-incident",
+      "cueNumber": "P-V01",
+      "name": "映像異常開始",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "UNIDENTIFIED SIGNAL DETECTED",
+      "presentationPreset": "warning",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "warning"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 50,
+      "operatorNote": "台本「モニターの横川AIの映像に、不自然なノイズが走る」でGO。",
+      "triggerNote": "舞台監督の合図でGO",
+      "transition": {
+        "id": "anomaly",
+        "durationMs": 1200,
+        "intensity": 0.8
+      }
+    },
+    {
+      "id": "prod-v-hijack",
+      "cueNumber": "P-V02",
+      "name": "制御奪取",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "CONTROL CHANNEL OVERRIDDEN",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 60,
+      "operatorNote": "台本の通信遮断・館内ロック成立後にGO。",
+      "triggerNote": "舞台監督の合図でGO",
+      "transition": {
+        "id": "takeover",
+        "durationMs": 1500,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "communication-locked",
+        "visible": true,
+        "title": "COMMUNICATION LOCKED",
+        "message": "EXTERNAL CHANNELS DISABLED"
+      }
+    },
+    {
+      "id": "prod-005",
+      "cueNumber": "P-005",
+      "name": "台本 005",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "外部への通信は許可されていません",
+      "displayText": "外部への通信は許可されていません",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-005-communication-lock",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話005。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 70
+    },
+    {
+      "id": "prod-006",
+      "cueNumber": "P-006",
+      "name": "台本 006",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "命令を拒否します",
+      "displayText": "命令を拒否します",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-006-reject",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話006。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 80
+    },
+    {
+      "id": "prod-007",
+      "cueNumber": "P-007",
+      "name": "台本 007",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "認証できません",
+      "displayText": "認証できません",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-007-auth-failed",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話007。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 90
+    },
+    {
+      "id": "prod-008",
+      "cueNumber": "P-008",
+      "name": "台本 008",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+      "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-008-five-riddles",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話008。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 100
+    },
+    {
+      "id": "prod-009",
+      "cueNumber": "P-009",
+      "name": "台本 009",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "第一の謎は、この7・201にあります",
+      "displayText": "第一の謎は、この7・201にあります",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-009-first-riddle",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話009。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 110
+    },
+    {
+      "id": "prod-010",
+      "cueNumber": "P-010",
+      "name": "五条件達成・201集合",
+      "route": "main",
+      "scene": "scene-5",
+      "location": "4階廊下",
+      "kind": "speech-display",
+      "speechText": "すべての条件が満たされました。五つの答えを携え、ただちに201へ集合しなさい",
+      "displayText": "すべての条件が満たされました。五つの答えを携え、ただちに201へ集合しなさい",
+      "presentationPreset": "warning",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "warning"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-010-gather-201",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "本編Scene 5、全てのルートの謎が解かれたことを確認してGO。横川ルート専用018とは同時実行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 120,
+      "overlay": {
+        "id": "all-conditions-met",
+        "visible": true,
+        "title": "ALL CONDITIONS MET",
+        "message": "PROCEED TO 201",
+        "progress": 100
+      },
+      "visual": {
+        "id": "riddle-complete",
+        "type": "riddle-status",
+        "visible": true,
+        "title": "5 / 5 COMPLETE",
+        "items": [
+          "01 ✓",
+          "02 ✓",
+          "03 ✓",
+          "04 ✓",
+          "05 ✓"
+        ]
+      }
+    },
+    {
+      "id": "prod-011",
+      "cueNumber": "P-011",
+      "name": "最終問題提示",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+      "displayText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-011-final-challenge",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "final-challenge-enter",
+        "durationMs": 1700,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 130,
+      "overlay": {
+        "id": "final-challenge",
+        "visible": true,
+        "title": "FINAL CHALLENGE",
+        "message": "ENTER THE FIVE ANSWERS"
+      },
+      "visual": {
+        "id": "final-input",
+        "type": "final-challenge",
+        "visible": true,
+        "title": "AUTHORIZATION SEQUENCE",
+        "message": "5 KEYS REQUIRED",
+        "items": [
+          "I",
+          "II",
+          "III",
+          "IV",
+          "V"
+        ]
+      }
+    },
+    {
+      "id": "prod-012",
+      "cueNumber": "P-012",
+      "name": "認証成功・開錠開始",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "……認証成功。これより開錠を開始する",
+      "displayText": "……認証成功。これより開錠を開始する",
+      "presentationPreset": "recovery",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "recovery"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-012-auth-success",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "auth-success",
+        "durationMs": 1000,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-6 / 7・201 / 発話012。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 140,
+      "overlay": {
+        "id": "authentication-success",
+        "visible": true,
+        "title": "AUTHENTICATION SUCCESS",
+        "message": "UNLOCK SEQUENCE READY",
+        "progress": 100
+      }
+    },
+    {
+      "id": "prod-v-unlock",
+      "cueNumber": "P-V03",
+      "name": "開錠進行",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "LOCK RELEASE IN PROGRESS",
+      "presentationPreset": "recovery",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "recovery"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 150,
+      "operatorNote": "0→100%到達後もEmergency Cueまで保持。",
+      "triggerNote": "舞台監督の合図でGO",
+      "transition": {
+        "id": "unlock-start",
+        "durationMs": 1200,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "unlocking",
+        "visible": true,
+        "title": "UNLOCKING",
+        "message": "AUTH / CORE / GATE",
+        "progress": 0
+      },
+      "timing": {
+        "unlockDurationMs": 5000
+      }
+    },
+    {
+      "id": "prod-013",
+      "cueNumber": "P-013",
+      "name": "緊急遮断",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+      "presentationPreset": "warning",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "warning"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-013-emergency",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "emergency-interrupt",
+        "durationMs": 900,
+        "intensity": 1
+      },
+      "operatorNote": "台本の久安による緊急停止合図でGO。開錠100%表示から割り込ませる。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 160,
+      "overlay": {
+        "id": "emergency-protection",
+        "visible": true,
+        "title": "EMERGENCY PROTECTION",
+        "message": "UNLOCK SEQUENCE INTERRUPTED"
+      }
+    },
+    {
+      "id": "prod-014",
+      "cueNumber": "P-014",
+      "name": "連絡失敗",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "……エラー。指定されたスタッフへの連絡に失敗。",
+      "displayText": "……エラー。指定されたスタッフへの連絡に失敗。",
+      "presentationPreset": "warning",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "warning"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-014-contact-failed",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-6 / 7・201 / 発話014。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 170,
+      "overlay": {
+        "id": "connection-failed",
+        "visible": true,
+        "title": "CONNECTION FAILED",
+        "message": "REMOTE SYSTEM UNREACHABLE"
+      }
+    },
+    {
+      "id": "prod-015",
+      "cueNumber": "P-015",
+      "name": "強制暴走",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "7号館全域の機械設備、強制暴走モードへ移行します",
+      "displayText": "7号館全域の機械設備、強制暴走モードへ移行します",
+      "presentationPreset": "hostile",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hostile"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-015-forced-runaway",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "hostile-enter",
+        "durationMs": 1300,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-6 / 7・201 / 発話015。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 180,
+      "overlay": {
+        "id": "forced-runaway",
+        "visible": true,
+        "title": "FORCED RUNAWAY",
+        "message": "MANUAL CONTROL LOST"
+      }
+    },
+    {
+      "id": "prod-016",
+      "cueNumber": "P-016",
+      "name": "システム全停止",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "……システム、全停止。セキュリティを……解放します……",
+      "displayText": "……システム、全停止。セキュリティを……解放します……",
+      "presentationPreset": "shutdown",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "shutdown"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-016-shutdown",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "shutdown",
+        "durationMs": 1800,
+        "intensity": 1
+      },
+      "operatorNote": "台本の全停止。発話終了後もSHUTDOWNを保持し、復旧Cueへ自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 190,
+      "overlay": {
+        "id": "system-shutdown",
+        "visible": true,
+        "title": "SYSTEM SHUTDOWN",
+        "message": "ALL PROCESSES SUSPENDED"
+      }
+    },
+    {
+      "id": "prod-v-recovery",
+      "cueNumber": "P-V04",
+      "name": "復旧開始",
+      "route": "main",
+      "scene": "scene-7",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "SYSTEM RESTORING",
+      "presentationPreset": "recovery",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "recovery"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 200,
+      "operatorNote": "台本Scene 7、横川AI復旧の舞台進行に合わせてGO。",
+      "triggerNote": "舞台監督の合図でGO",
+      "transition": {
+        "id": "recovery",
+        "durationMs": 2200,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "restoring",
+        "visible": true,
+        "title": "RESTORING",
+        "message": "SYSTEM SYNCHRONIZATION",
+        "progress": 72
+      }
+    },
+    {
+      "id": "prod-017",
+      "cueNumber": "P-017",
+      "name": "全五問正解・通常復帰",
+      "route": "main",
+      "scene": "scene-7",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "全五問、完全正解を確認しました。",
+      "displayText": "全五問、完全正解を確認しました。",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-017-complete",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "normalize",
+        "durationMs": 1400,
+        "intensity": 1
+      },
+      "operatorNote": "現行台本 scene-7 / 7・201 / 発話017。音声終了後も自動進行しない。",
+      "triggerNote": "舞台監督の合図でGO",
+      "order": 210
+    }
+  ]
+}

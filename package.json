@@ -14,7 +14,15 @@
     "test:browser-console": "node scripts/browser-console-check.js",
     "cue": "node scripts/execute-cue.js",
     "test:soak": "node scripts/soak-test.js",
-    "check": "node --check src/server.js && node --check src/state-store.js && node --check src/show-schema.js && node --check src/local-audio.js && node --check src/network.js && node --check src/json-storage.js && node --check public/js/admin.js && node --check public/js/display.js && node --check public/js/socket-client.js && node --check public/js/tts-adapter.js && node --check public/js/lip-sync.js && node --check public/js/blink-controller.js && node --check public/js/shortcuts.js && node --check scripts/soak-test.js && node --check scripts/set-visual-preset.js && node --check scripts/execute-cue.js && node --check scripts/browser-console-check.js && node --test test/*.test.js"
+    "voice:lab": "node experiments/voice-lab/scripts/voice-lab.mjs all",
+    "voice:lab:round2": "node experiments/voice-lab/scripts/voice-lab.mjs all --candidates candidates-round-2.json --output round-2",
+    "voice:lab:review": "node experiments/voice-lab/scripts/review-server.mjs",
+    "voice:profile:sync": "node scripts/sync-production-voice-profile.mjs",
+    "voice:profile:verify": "node scripts/verify-production-voice-profile.mjs",
+    "voice:production:generate": "node scripts/generate-production-speech.mjs && node scripts/build-production-show.mjs",
+    "voice:production:verify": "node scripts/verify-production-speech.mjs",
+    "show:production:build": "node scripts/build-production-show.mjs",
+    "check": "node --check src/server.js && node --check src/state-store.js && node --check src/show-schema.js && node --check src/local-audio.js && node --check src/network.js && node --check src/json-storage.js && node --check src/voice-profile.js && node --check src/tts/aivis-speech-client.js && node --check src/tts/local-tts-service.js && node --check src/tts/runtime-audio-cache.js && node --check src/audio/wav-analysis.js && node --check public/js/admin.js && node --check public/js/display.js && node --check public/js/socket-client.js && node --check public/js/tts-adapter.js && node --check public/js/lip-sync.js && node --check public/js/blink-controller.js && node --check public/js/shortcuts.js && node --check scripts/build-production-show.mjs && node --check scripts/generate-production-speech.mjs && node --check scripts/production-voice-profile.mjs && node --check scripts/verify-production-speech.mjs && node --check scripts/verify-production-voice-profile.mjs && node --check scripts/soak-test.js && node --check scripts/set-visual-preset.js && node --check scripts/execute-cue.js && node --check scripts/browser-console-check.js && node --test test/*.test.js"
   },
   "dependencies": {
     "express": "5.1.0",
