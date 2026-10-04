@@ -2,6 +2,8 @@
 
 Phase CのProduction統合より先に、横川AIの素のVoice Profileを比較する独立実験環境です。`public/`、`src/`、Show Schema、Admin、Display、Free Speak、Audio Masterには接続しません。AivisSpeech Engineが停止している場合も、このCLIが明示的に失敗するだけで既存アプリへ影響しません。
 
+Production Samplerは、確定済みの本番固定WAV 18本を検索・絞り込み・RAW／本番処理で試聴する静的サイトです。公演のネタバレを含むため、Netlifyではサイト全体を共有パスワードで保護します。
+
 ## 評価範囲
 
 - 対象: 上演台本に存在する正本10台詞 × 絞り込んだ複数Candidate
@@ -37,7 +39,15 @@ npm run voice:lab
 npm run voice:lab:review
 ```
 
-表示された `http://127.0.0.1:4174` をブラウザで開きます。Round 1 / Round 2を切り替え、個別のWAVをワンクリック再生するか、同じ台詞の3候補を順番に再生できます。AivisSpeech Engineは不要です。
+表示された `http://127.0.0.1:4174` はProduction Sampler、`/compare` は従来のRound 1 / Round 2比較です。いずれもAivisSpeech Engineは不要です。
+
+### Production Samplerの静的build
+
+```powershell
+npm run voice:lab:site:build
+```
+
+`dist/voice-lab/`へ18 WAVとsanitize済みJSONだけを生成します。台詞は`config/production-speech/yokogawa-ai-v1.json`、演出状態とeffectはProduction Show、Voice情報は`config/voice-profiles/yokogawa-professor-v1.json`から取得し、Sampler側へ手書きで複製しません。
 
 個別コマンド:
 
@@ -88,3 +98,5 @@ output/
 最初に各Candidateの `01-normal-short.wav`、`02-normal-conversation.wav` を横並びで聞き、低い男性声、教授らしい重厚感、知性、一定感、明瞭さを確認します。次に `03-normal-long.wav` で長文の安定性、`09-hostile.wav` で怒鳴らず同じ人物のまま危険な命令を淡々と実行できるか、`10-shutdown.wav` で句読点と長い間の扱いを比較してください。
 
 技術QAは音声ファイルの健全性のみを判定します。「横川AIとして最も良い声」の判断は行いません。
+
+Production Samplerの運用・更新手順は `docs/voice-lab-production-sampler.md`、Netlifyとパスワード保護は `docs/deployment/voice-lab-netlify.md` を参照してください。

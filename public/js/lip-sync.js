@@ -1,3 +1,5 @@
+import { connectPlaybackEffect } from './audio-playback-effects.js';
+
 export class LipSyncStateMachine {
   constructor({ holdMs = 100, openHigh = .18, openLow = .12, halfHigh = .06, halfLow = .035 } = {}) {
     Object.assign(this, { holdMs, openHigh, openLow, halfHigh, halfLow }); this.state = 'closed'; this.changedAt = 0; this.smoothed = 0;
@@ -22,15 +24,7 @@ export class LipSyncController {
   analyse(audio, playbackEffect = 'none') {
     this.stop(); const Context = globalThis.AudioContext || globalThis.webkitAudioContext; if (!Context) { this.simulate(); return; }
     const context = new Context(); this.context = context; const source = context.createMediaElementSource(audio); const analyser = context.createAnalyser(); analyser.fftSize = 512;
-    if (playbackEffect === 'hijacked-subtle-v1') {
-      const highpass = context.createBiquadFilter(); highpass.type = 'highpass'; highpass.frequency.value = 115; highpass.Q.value = .55;
-      const lowpass = context.createBiquadFilter(); lowpass.type = 'lowpass'; lowpass.frequency.value = 5600; lowpass.Q.value = .45;
-      const dry = context.createGain(); dry.gain.value = .94;
-      const delay = context.createDelay(.05); delay.delayTime.value = .011;
-      const wet = context.createGain(); wet.gain.value = .085;
-      source.connect(highpass); highpass.connect(lowpass); lowpass.connect(dry); dry.connect(analyser);
-      lowpass.connect(delay); delay.connect(wet); wet.connect(analyser);
-    } else source.connect(analyser);
+    connectPlaybackEffect(context, source, analyser, playbackEffect);
     analyser.connect(context.destination);
     const data = new Uint8Array(analyser.fftSize); const tick = () => { analyser.getByteTimeDomainData(data); let sum = 0; for (const value of data) { const normalized = (value - 128) / 128; sum += normalized * normalized; } this.set(this.machine.update(Math.sqrt(sum / data.length))); this.frame = requestAnimationFrame(tick); }; tick();
   }

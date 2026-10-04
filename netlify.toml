@@ -1,0 +1,3 @@
+[build]
+  command = "npm run voice:lab:site:build"
+  publish = "dist/voice-lab"

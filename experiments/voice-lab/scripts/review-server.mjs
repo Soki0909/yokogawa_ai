@@ -4,6 +4,7 @@ import { createServer } from "node:http";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import { buildVoiceLabSite, outputRoot as siteRoot } from "../../../scripts/build-voice-lab-site.mjs";
 
 const labRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const host = "127.0.0.1";
@@ -18,10 +19,13 @@ const mimeTypes = new Map([
 ]);
 
 function resolveRequestPath(url) {
-  const pathname = decodeURIComponent(new URL(url, `http://${host}:${port}`).pathname);
-  const relative = pathname === "/" ? "review/index.html" : pathname.replace(/^\/+/, "");
-  const resolved = path.resolve(labRoot, relative);
-  if (resolved !== labRoot && !resolved.startsWith(`${labRoot}${path.sep}`)) return null;
+  let pathname;
+  try { pathname = decodeURIComponent(new URL(url, `http://${host}:${port}`).pathname); } catch { return null; }
+  const compare = pathname === "/compare" || pathname.startsWith("/review/") || pathname.startsWith("/config/") || pathname.startsWith("/output/");
+  const root = compare ? labRoot : siteRoot;
+  const relative = pathname === "/" ? "index.html" : pathname === "/compare" ? "review/index.html" : pathname.replace(/^\/+/, "");
+  const resolved = path.resolve(root, relative);
+  if (resolved !== root && !resolved.startsWith(`${root}${path.sep}`)) return null;
   return resolved;
 }
 
@@ -64,6 +68,8 @@ const server = createServer(async (request, response) => {
   }
 });
 
+await buildVoiceLabSite();
 server.listen(port, host, () => {
   console.log(`Yokogawa AI Voice Lab review: http://${host}:${port}`);
+  console.log(`Round comparison: http://${host}:${port}/compare`);
 });

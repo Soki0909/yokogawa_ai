@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>横川AI Voice Lab — Production Samples</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="masthead">
+      <div class="masthead__copy">
+        <p class="eyebrow">YOKOGAWA AI</p>
+        <h1>VOICE LAB <span>— PRODUCTION SAMPLES</span></h1>
+        <p class="lede">公演関係者向け。本番固定音声を台詞・状態・演出処理ごとに確認できます。</p>
+      </div>
+      <a class="logout" href="/?logout=1">ログアウト</a>
+    </header>
+
+    <main>
+      <section class="profile" aria-labelledby="profile-heading">
+        <div><p class="section-label">SELECTED VOICE PROFILE</p><h2 id="profile-heading">読み込み中</h2></div>
+        <dl id="profile-values"></dl>
+      </section>
+
+      <section class="controls" aria-label="音声の検索と絞り込み">
+        <label class="search"><span>本文検索</span><input id="search" type="search" placeholder="台詞を検索" autocomplete="off" /></label>
+        <label><span>Scene</span><select id="scene-filter"><option value="">すべて</option></select></label>
+        <label><span>State</span><select id="state-filter"><option value="">すべて</option></select></label>
+        <label><span>Status</span><select id="status-filter"><option value="">すべて</option></select></label>
+        <fieldset class="mode-toggle"><legend>再生モード</legend><button type="button" data-mode="production" aria-pressed="true">本番再生</button><button type="button" data-mode="raw" aria-pressed="false">RAW</button></fieldset>
+      </section>
+
+      <div class="list-head"><div><p class="section-label">PRODUCTION</p><h2>本番セリフ</h2></div><p><strong id="result-count">0</strong> / 18</p></div>
+      <p class="message" id="message" role="status" aria-live="polite"></p>
+      <section class="sample-list" id="sample-list" aria-label="本番セリフ一覧"></section>
+      <p class="empty" id="empty" hidden>条件に一致する台詞はありません。</p>
+    </main>
+
+    <aside class="player" id="player" aria-label="音声プレイヤー" hidden>
+      <div class="player__info"><span class="player__label">NOW PLAYING</span><strong id="player-title"></strong><span id="player-text"></span></div>
+      <div class="player__controls">
+        <button type="button" id="previous" aria-label="前の台詞">← 前へ</button>
+        <button type="button" id="pause" aria-label="一時停止">一時停止</button>
+        <button type="button" id="stop" aria-label="停止">■ 停止</button>
+        <button type="button" id="next" aria-label="次の台詞">次へ →</button>
+      </div>
+      <div class="player__progress"><div class="progress-track" aria-hidden="true"><span id="progress"></span></div><span id="time">0:00 / 0:00</span></div>
+    </aside>
+
+    <footer><p>横川AI音声：AivisSpeechによる音声合成</p><p>使用音声モデル：阿井田 茂（ACML 1.0）</p></footer>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
