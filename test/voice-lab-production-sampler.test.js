@@ -5,6 +5,7 @@ import path from 'node:path';
 import { buildVoiceLabSite, outputRoot, resolveAudioSource, sanitizeSamples } from '../scripts/build-voice-lab-site.mjs';
 import { parseLineId } from '../experiments/voice-lab/production-site/line-selection.js';
 import { PLAYBACK_EFFECTS } from '../public/js/audio-playback-effects.js';
+import { AudioBufferPlayer } from '../experiments/voice-lab/shared/audio-buffer-player.js';
 import passwordGate, { config as passwordGateConfig } from '../netlify/edge-functions/password-gate.js';
 
 const load = async (relative) => JSON.parse(await readFile(relative, 'utf8'));
@@ -28,6 +29,8 @@ test('Production Sampler manifestは正本から18件をsanitizeする', async (
   const routeSample = samples.find((item) => item.scriptId === '018');
   assert.equal(routeSample.status.label, '横ルート');
   assert.equal(routeSample.routeScene, '横シーン5');
+  assert.equal(samples.find((item) => item.scriptId === '009').text, '第一の謎は、この201にあります');
+  assert.equal(routeSample.text, '謎の回答者は、201へ集合してください');
   assert.doesNotMatch(JSON.stringify(routeSample), /302|303/);
 });
 
@@ -59,9 +62,44 @@ test('static buildは音声18件と公開用最小assetだけを生成する', a
   assert.deepEqual(audio, Array.from({ length: 18 }, (_, index) => `${String(index + 1).padStart(3, '0')}.wav`));
   for (const file of audio) await access(path.join(outputRoot, 'audio', file));
   const top = (await readdir(outputRoot)).sort();
-  assert.deepEqual(top, ['app.js', 'audio', 'audio-playback-effects.js', 'data', 'index.html', 'line-selection.js', 'styles.css']);
+  assert.deepEqual(top, ['app.js', 'audio', 'audio-buffer-player.js', 'audio-playback-effects.js', 'data', 'index.html', 'line-selection.js', 'styles.css']);
   const deployed = await readFile(path.join(outputRoot, 'data', 'production-samples.json'), 'utf8');
   for (const forbidden of ['operatorNote', 'triggerNote', 'syncMarkers', 'revisionId', 'baseUrl', '127.0.0.1', 'docs.google', 'speakerUuid']) assert.doesNotMatch(deployed, new RegExp(forbidden, 'i'));
+});
+
+test('Production Samplerは全WAVをdecode済みcacheから即時再生し停止・retry・破棄できる', async () => {
+  let fetchCount = 0; let decodeCount = 0; let failOnce = true; const effects = [];
+  class FakeSource {
+    connect() {} disconnect() {} start() { this.started = true; } stop() { this.stopped = true; }
+  }
+  class FakeContext {
+    constructor() { this.currentTime = 1; this.state = 'running'; this.destination = {}; }
+    async decodeAudioData() { decodeCount += 1; return { duration: 2 }; }
+    createBufferSource() { return new FakeSource(); }
+    async resume() { this.state = 'running'; }
+    async close() {}
+  }
+  const fetchImpl = async (url) => { fetchCount += 1; if (url === '/retry.wav' && failOnce) { failOnce = false; return { ok: false, status: 503 }; } return { ok: true, arrayBuffer: async () => new ArrayBuffer(8) }; };
+  const player = new AudioBufferPlayer({ AudioContextClass: FakeContext, fetchImpl, connectEffect: (_context, _source, _destination, effect) => effects.push(effect), now: (() => { let value = 0; return () => ++value; })() });
+  const samples = Array.from({ length: 18 }, (_, index) => ({ id: String(index + 1).padStart(3, '0'), url: `/${index + 1}.wav` }));
+  await player.preload(samples, ['001', '004', '008', '013', '015', '016']);
+  assert.equal(player.readyCount, 18); assert.equal(fetchCount, 18); assert.equal(decodeCount, 18);
+  const beforePlay = [fetchCount, decodeCount]; const played = await player.start(samples[7], 'hijacked-subtle-v1');
+  assert.deepEqual([fetchCount, decodeCount], beforePlay); assert.equal(effects.at(-1), 'hijacked-subtle-v1'); assert.ok(played.schedulingMs <= 2);
+  player.pause(); assert.equal(player.paused, true); await player.resume(); assert.deepEqual([fetchCount, decodeCount], beforePlay);
+  player.stop(); assert.equal(player.current, null);
+  await assert.rejects(player.load({ id: 'retry', url: '/retry.wav' }), /HTTP 503/); assert.equal(player.status('retry').status, 'error');
+  await player.load({ id: 'retry', url: '/retry.wav' }); assert.equal(player.status('retry').status, 'ready');
+  await player.clear(); assert.equal(player.readyCount, 0); assert.equal(player.buffers.size, 0);
+});
+
+test('Production Sampler UIはprogressive preloadを通常経路にしPlay内でfetch/decodeしない', async () => {
+  const source = await readFile('experiments/voice-lab/production-site/app.js', 'utf8');
+  assert.match(source, /priorityIds = \['001', '004', '008', '013', '015', '016'\]/);
+  assert.match(source, /state\.player\.preload/); assert.match(source, /音声準備完了/); assert.match(source, /data-retry/);
+  const playBody = source.slice(source.indexOf('async function play('), source.indexOf('function adjacent('));
+  assert.doesNotMatch(playBody, /fetch\(|decodeAudioData/); assert.match(playBody, /state\.player\.start/);
+  assert.match(source, /\.logout.*clear/); assert.match(source, /pagehide/);
 });
 
 test('Netlify password gateは全pathをfail-closedで保護しcredentialを埋め込まない', async () => {

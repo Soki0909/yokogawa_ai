@@ -1,4 +1,4 @@
-const defaults = { text: 'エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。', punctuationMode: 'none', speedScale: 1.08, intonationScale: .25, tempoDynamicsScale: .08, pauseLengthScale: 1.35 };
+const defaults = { text: '受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています', punctuationMode: 'one', speedScale: 1.08, intonationScale: .25, tempoDynamicsScale: .08, pauseLengthScale: 1.35 };
 const elements = {
   form: document.querySelector('#sandbox-form'), text: document.querySelector('#sandbox-text'), count: document.querySelector('#character-count'),
   punctuation: document.querySelector('#punctuation-mode'), speed: document.querySelector('#speed-scale'), intonation: document.querySelector('#intonation-scale'),

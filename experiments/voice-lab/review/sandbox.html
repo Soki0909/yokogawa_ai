@@ -20,12 +20,12 @@
       <form class="sandbox-panel" id="sandbox-form">
         <label class="sandbox-field sandbox-text">
           <span>読ませる文字列</span>
-          <textarea id="sandbox-text" maxlength="500" rows="7">エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。</textarea>
+          <textarea id="sandbox-text" maxlength="500" rows="7">受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています</textarea>
           <small><span id="character-count">0</span> / 500文字</small>
         </label>
 
         <div class="sandbox-controls">
-          <label class="sandbox-field"><span>句点の直後</span><select id="punctuation-mode"><option value="none">変更なし</option><option value="one">。…</option><option value="two">。……</option></select></label>
+          <label class="sandbox-field"><span>句点の直後</span><select id="punctuation-mode"><option value="none">変更なし</option><option value="one" selected>。…（暫定）</option><option value="two">。……</option></select></label>
           <label class="sandbox-field"><span>speed</span><input id="speed-scale" type="number" min="0.8" max="1.3" step="0.01" value="1.08" /></label>
           <label class="sandbox-field"><span>intonation</span><input id="intonation-scale" type="number" min="0" max="1" step="0.01" value="0.25" /></label>
           <label class="sandbox-field"><span>tempo dynamics</span><input id="tempo-scale" type="number" min="0" max="1" step="0.01" value="0.08" /></label>

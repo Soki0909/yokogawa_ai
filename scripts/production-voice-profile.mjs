@@ -5,8 +5,8 @@ export const PRODUCTION_PROFILE_PATH = 'config/voice-profiles/yokogawa-professor
 
 export function deriveProductionProfile(sourceText, generatedAt = new Date().toISOString()) {
   const selected = JSON.parse(sourceText);
-  if (selected.sourceCandidate !== 'round-2-a-calm-restrained' || selected.displayName !== '2A') {
-    throw new Error('Selected profile is not approved Candidate 2A.');
+  if (selected.sourceCandidate !== '2d' || selected.displayName !== '2D') {
+    throw new Error('Selected profile is not approved Candidate 2D.');
   }
   const parameters = structuredClone(selected.parameters);
   return {
@@ -25,6 +25,7 @@ export function deriveProductionProfile(sourceText, generatedAt = new Date().toI
     speaker: { name: selected.speaker, uuid: selected.speakerUuid },
     style: { name: selected.style, selectedStyleId: selected.styleId },
     parameters,
+    synthesisTextPolicy: structuredClone(selected.synthesisTextPolicy),
     output: {
       sampleRate: parameters.outputSamplingRate,
       channels: parameters.outputStereo ? 2 : 1,

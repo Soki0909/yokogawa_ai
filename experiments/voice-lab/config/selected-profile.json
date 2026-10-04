@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "status": "selected-in-voice-lab",
-  "selectedAt": "2026-10-03",
-  "sourceRound": 2,
-  "sourceCandidate": "round-2-a-calm-restrained",
-  "displayName": "2A",
+  "status": "selected-for-production",
+  "selectedAt": "2026-10-04",
+  "sourceRound": "retune-2026-10",
+  "sourceCandidate": "2d",
+  "displayName": "2D",
   "model": "阿井田 茂",
   "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
   "modelVersion": "1.0.0",
@@ -13,20 +13,62 @@
   "style": "Calm",
   "styleId": 1310138977,
   "parameters": {
-    "speedScale": 1.2,
+    "speedScale": 1.08,
     "pitchScale": 0.0,
-    "intonationScale": 0.45,
-    "tempoDynamicsScale": 0.2,
+    "intonationScale": 0.25,
+    "tempoDynamicsScale": 0.08,
     "volumeScale": 0.95,
     "prePhonemeLength": 0.1,
-    "postPhonemeLength": 0.18,
+    "postPhonemeLength": 0.1,
     "pauseLength": null,
-    "pauseLengthScale": 1.0,
+    "pauseLengthScale": 1.35,
     "outputSamplingRate": 44100,
     "outputStereo": false
   },
+  "synthesisTextPolicy": {
+    "id": "yokogawa-ai-final-v1",
+    "internalFullStopSuffix": "…",
+    "globalReplacements": [
+      {
+        "from": "セキュリティ",
+        "to": "セキュリティー"
+      }
+    ],
+    "scriptOverrides": {
+      "002": [
+        {
+          "from": "久安光",
+          "to": "ヒサヤス ヒカル"
+        }
+      ],
+      "003": [
+        {
+          "from": "貴重書『プリンキピア』",
+          "to": "貴重書、『プリンキピア』"
+        }
+      ],
+      "009": [
+        {
+          "from": "201",
+          "to": "ニーマルイチ"
+        }
+      ],
+      "010": [
+        {
+          "from": "201",
+          "to": "ニーマルイチ"
+        }
+      ],
+      "018": [
+        {
+          "from": "201",
+          "to": "ニーマルイチ"
+        }
+      ]
+    }
+  },
   "productionIntegration": {
-    "status": "not-started",
-    "note": "Voice LabでCandidate 2Aを選定。Phase C統合時のユーザー指定によりspeedScaleのみ1.20へ調整。"
+    "status": "approved-for-regeneration",
+    "note": "Voice LabでCandidate 2Dを選定。文中句点後の「…」と台本読み補正を全18音声へ適用する。"
   }
 }

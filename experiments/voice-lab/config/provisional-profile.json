@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "2e-provisional",
+  "displayName": "正式採用",
+  "status": "SELECTED FOR PRODUCTION",
+  "baseCandidateId": "2d",
+  "description": "2Dの声質を維持し、文中の句点後へ「…」と確定した読み補正を適用する採用候補",
+  "synthesisTextTransform": {
+    "id": "full-stop-ellipsis-v1",
+    "suffix": "…"
+  },
+  "globalTextReplacements": [
+    {
+      "from": "セキュリティ",
+      "to": "セキュリティー",
+      "note": "セキュリティを長音付きで発音"
+    }
+  ],
+  "textOverrides": [
+    {
+      "scriptId": "003",
+      "from": "貴重書『プリンキピア』",
+      "to": "貴重書、『プリンキピア』",
+      "note": "貴重書と『プリンキピア』の間へ読点を追加"
+    }
+  ]
+}

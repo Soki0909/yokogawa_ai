@@ -29,9 +29,9 @@ const mimeTypes = new Map([
 function resolveRequestPath(url) {
   let pathname;
   try { pathname = decodeURIComponent(new URL(url, `http://${host}:${port}`).pathname); } catch { return null; }
-  const compare = pathname === "/compare" || pathname === "/retune" || pathname === "/pause-test" || pathname === "/sandbox" || pathname.startsWith("/review/") || pathname.startsWith("/config/") || pathname.startsWith("/output/");
+  const compare = pathname === "/compare" || pathname === "/retune" || pathname === "/pause-test" || pathname === "/provisional" || pathname === "/sandbox" || pathname.startsWith("/review/") || pathname.startsWith("/shared/") || pathname.startsWith("/config/") || pathname.startsWith("/output/");
   const root = compare ? labRoot : siteRoot;
-  const relative = pathname === "/" ? "index.html" : pathname === "/sandbox" ? "review/sandbox.html" : pathname === "/compare" || pathname === "/retune" || pathname === "/pause-test" ? "review/index.html" : pathname.replace(/^\/+/, "");
+  const relative = pathname === "/" ? "index.html" : pathname === "/sandbox" ? "review/sandbox.html" : pathname === "/compare" || pathname === "/retune" || pathname === "/pause-test" || pathname === "/provisional" ? "review/index.html" : pathname.replace(/^\/+/, "");
   const resolved = path.resolve(root, relative);
   if (resolved !== root && !resolved.startsWith(`${root}${path.sep}`)) return null;
   return resolved;
@@ -130,6 +130,7 @@ server.listen(port, host, () => {
   console.log(`Yokogawa AI Voice Lab review: http://${host}:${port}`);
   console.log(`Voice Retune: http://${host}:${port}/retune`);
   console.log(`Sentence pause test: http://${host}:${port}/pause-test`);
+  console.log(`Provisional profile: http://${host}:${port}/provisional`);
   console.log(`Voice Sandbox: http://${host}:${port}/sandbox`);
   console.log(`Round comparison: http://${host}:${port}/compare`);
 });

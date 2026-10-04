@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "status": "historical-retune-baseline",
+  "selectedAt": "2026-10-03",
+  "sourceRound": 2,
+  "sourceCandidate": "round-2-a-calm-restrained",
+  "displayName": "2A",
+  "model": "阿井田 茂",
+  "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+  "modelVersion": "1.0.0",
+  "speaker": "阿井田 茂",
+  "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+  "style": "Calm",
+  "styleId": 1310138977,
+  "parameters": {
+    "speedScale": 1.2,
+    "pitchScale": 0.0,
+    "intonationScale": 0.45,
+    "tempoDynamicsScale": 0.2,
+    "volumeScale": 0.95,
+    "prePhonemeLength": 0.1,
+    "postPhonemeLength": 0.18,
+    "pauseLength": null,
+    "pauseLengthScale": 1.0,
+    "outputSamplingRate": 44100,
+    "outputStereo": false
+  }
+}

@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "profileId": "yokogawa-professor-v1",
-  "generatedAt": "2026-10-03T02:24:08.902Z",
+  "generatedAt": "2026-10-04T07:37:09.726Z",
   "source": {
     "path": "experiments/voice-lab/config/selected-profile.json",
-    "sha256": "sha256:d5c1ef23058df792bf2f27b3422c6212e31d62a2b186e90d305af6731216f739",
-    "selectedAt": "2026-10-03",
-    "sourceRound": 2,
-    "sourceCandidate": "round-2-a-calm-restrained",
-    "displayName": "2A"
+    "sha256": "sha256:773bba886303d8e7d6e172aee97a29911d80198048662a77882cadf0358cdfe1",
+    "selectedAt": "2026-10-04",
+    "sourceRound": "retune-2026-10",
+    "sourceCandidate": "2d",
+    "displayName": "2D"
   },
   "model": {
     "name": "阿井田 茂",
@@ -24,17 +24,59 @@
     "selectedStyleId": 1310138977
   },
   "parameters": {
-    "speedScale": 1.2,
+    "speedScale": 1.08,
     "pitchScale": 0,
-    "intonationScale": 0.45,
-    "tempoDynamicsScale": 0.2,
+    "intonationScale": 0.25,
+    "tempoDynamicsScale": 0.08,
     "volumeScale": 0.95,
     "prePhonemeLength": 0.1,
-    "postPhonemeLength": 0.18,
+    "postPhonemeLength": 0.1,
     "pauseLength": null,
-    "pauseLengthScale": 1,
+    "pauseLengthScale": 1.35,
     "outputSamplingRate": 44100,
     "outputStereo": false
+  },
+  "synthesisTextPolicy": {
+    "id": "yokogawa-ai-final-v1",
+    "internalFullStopSuffix": "…",
+    "globalReplacements": [
+      {
+        "from": "セキュリティ",
+        "to": "セキュリティー"
+      }
+    ],
+    "scriptOverrides": {
+      "002": [
+        {
+          "from": "久安光",
+          "to": "ヒサヤス ヒカル"
+        }
+      ],
+      "003": [
+        {
+          "from": "貴重書『プリンキピア』",
+          "to": "貴重書、『プリンキピア』"
+        }
+      ],
+      "009": [
+        {
+          "from": "201",
+          "to": "ニーマルイチ"
+        }
+      ],
+      "010": [
+        {
+          "from": "201",
+          "to": "ニーマルイチ"
+        }
+      ],
+      "018": [
+        {
+          "from": "201",
+          "to": "ニーマルイチ"
+        }
+      ]
+    }
   },
   "output": {
     "sampleRate": 44100,

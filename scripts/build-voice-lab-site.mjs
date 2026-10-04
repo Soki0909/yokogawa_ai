@@ -49,6 +49,7 @@ export function sanitizeSamples(manifest, mainShow, routeShow) {
       status,
       text: speech.scriptText,
       durationSeconds: Number(speech.durationSeconds.toFixed(3)),
+      bytes: speech.bytes,
       audio: `audio/${speech.scriptId}.wav`,
       playbackEffect: effect,
       ...(speech.scriptId === '018' ? { routeScene: '横シーン5' } : {}),
@@ -96,6 +97,7 @@ export async function buildVoiceLabSite() {
     await cp(path.join(sourceRoot, file), path.join(outputRoot, file));
   }
   await cp(path.join(publicRoot, 'js', 'audio-playback-effects.js'), path.join(outputRoot, 'audio-playback-effects.js'));
+  await cp(path.join(root, 'experiments', 'voice-lab', 'shared', 'audio-buffer-player.js'), path.join(outputRoot, 'audio-buffer-player.js'));
   await writeFile(path.join(outputRoot, 'data', 'production-samples.json'), `${JSON.stringify({ schemaVersion: 1, samples }, null, 2)}\n`);
   await writeFile(path.join(outputRoot, 'data', 'voice-profile.json'), `${JSON.stringify(sanitizeVoiceProfile(profile), null, 2)}\n`);
 

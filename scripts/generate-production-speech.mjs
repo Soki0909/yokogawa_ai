@@ -15,6 +15,7 @@ if (manifest.speeches.length !== 18) throw new Error(`Expected 18 production spe
 const client = new AivisSpeechClient();
 const [engineVersion, style] = await Promise.all([client.version(), client.resolveStyle(profile)]);
 const generatedAt = new Date().toISOString();
+manifest.audioSourceScriptRevision = manifest.sourceScript.revisionId;
 for (const speech of manifest.speeches) {
   if (speech.scriptText !== speech.synthesisText) console.warn(`${speech.scriptId}: synthesisText differs from the current script text.`);
   const { wav } = await client.synthesize(speech.synthesisText, profile, { style });

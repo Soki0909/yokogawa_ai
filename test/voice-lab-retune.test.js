@@ -9,14 +9,14 @@ const json = async (file) => JSON.parse(await readFile(file, 'utf8'));
 
 test('Voice Retuneはselected-profileの2Aと新規2B〜2Dを分離する', async () => {
   const [selected, config, samples, production] = await Promise.all([
-    json('experiments/voice-lab/config/selected-profile.json'), json('experiments/voice-lab/config/candidates-retune.json'),
+    json('experiments/voice-lab/config/baseline-2a.json'), json('experiments/voice-lab/config/candidates-retune.json'),
     json('experiments/voice-lab/config/samples-retune.json'), json('config/production-speech/yokogawa-ai-v1.json'),
   ]);
   assert.equal(validateRetuneConfig(selected, config, samples, production), true);
   const model = await loadRetuneModel();
   assert.deepEqual(model.candidates.map((candidate) => candidate.displayName), ['2A', '2B', '2C', '2D']);
   assert.equal(model.candidates[0].parameters.speedScale, 1.2);
-  assert.equal(model.candidates[0].source, 'selected-profile.json + existing Production WAV');
+  assert.equal(model.candidates[0].source, 'baseline-2a.json + archived 2A WAV');
   assert.deepEqual(model.candidates.slice(1).map((candidate) => [candidate.id, candidate.parameters.speedScale, candidate.parameters.intonationScale, candidate.parameters.tempoDynamicsScale, candidate.parameters.pauseLengthScale]), [
     ['2b', 1.12, .35, .15, 1.2], ['2c', 1.10, .30, .10, 1.3], ['2d', 1.08, .25, .08, 1.35],
   ]);
@@ -30,8 +30,8 @@ test('Voice Retuneは指定7台詞だけを比較し#002の表示と読みを分
   assert.equal(sample.synthesisText, 'はい。例えば、そちらにヒサヤス ヒカルさんが参加しています');
   assert.equal(sample.pronunciationOverride.note, '久安 光 = ヒサヤス ヒカル');
   assert.deepEqual(model.samples.filter((item) => item.scriptText !== item.synthesisText).map((item) => item.scriptId), ['002']);
-  const production = await json('config/production-speech/yokogawa-ai-v1.json');
-  assert.ok(production.speeches.every((speech) => speech.scriptText === speech.synthesisText));
+  const selected = await json('experiments/voice-lab/config/selected-profile.json');
+  assert.equal(selected.sourceCandidate, '2d');
 });
 
 test('AudioQuery overrideは既知8項目だけを上書きしunknown fieldを保持する', () => {
@@ -59,6 +59,22 @@ test('句点比較は2Dを固定し「。…」と「。……」だけを切り
   assert.equal(applyCandidateSynthesisText(text, { id: 'full-stop-ellipsis-v1', suffix: '……' }), 'エラー。……指定されたスタッフへの連絡に失敗。');
 });
 
+test('暫定候補は2Dを基準に「。…」と#003の読点だけを合成文へ適用する', async () => {
+  const provisional = await json('experiments/voice-lab/config/provisional-profile.json');
+  assert.equal(provisional.baseCandidateId, '2d');
+  assert.equal(provisional.status, 'SELECTED FOR PRODUCTION');
+  assert.deepEqual(provisional.synthesisTextTransform, { id: 'full-stop-ellipsis-v1', suffix: '…' });
+  assert.deepEqual(provisional.globalTextReplacements, [{ from: 'セキュリティ', to: 'セキュリティー', note: 'セキュリティを長音付きで発音' }]);
+  assert.deepEqual(provisional.textOverrides, [{
+    scriptId: '003', from: '貴重書『プリンキピア』', to: '貴重書、『プリンキピア』',
+    note: '貴重書と『プリンキピア』の間へ読点を追加',
+  }]);
+  assert.equal(
+    applyCandidateSynthesisText('貴重書、『プリンキピア』です。次の文です。', provisional.synthesisTextTransform),
+    '貴重書、『プリンキピア』です。…次の文です。',
+  );
+});
+
 test('Retune生成物はProduction WAVから分離されHIJACKED effect値を変更しない', async () => {
   assert.equal(path.relative(process.cwd(), retuneOutputRoot).replaceAll('\\', '/'), 'experiments/voice-lab/output/retune-2026-10');
   assert.deepEqual(PLAYBACK_EFFECTS['hijacked-subtle-v1'], {
@@ -79,6 +95,7 @@ test('Voice Retune UIはProduction defaultを維持し個別・連続・RAW/本�
   assert.match(productionHtml, /PRODUCTION SAMPLES/); assert.match(productionHtml, /href="\/\?logout=1"/);
   assert.match(reviewHtml, /VOICE RETUNE/); assert.match(reviewHtml, /data-mode="production"/); assert.match(reviewHtml, /data-mode="raw"/);
   assert.match(reviewHtml, /句点の間/); assert.match(reviewApp, /pause-test/); assert.match(server, /pathname === "\/pause-test"/);
+  assert.match(reviewHtml, /正式採用/); assert.match(reviewApp, /provisional-profile-2026-10/); assert.match(server, /pathname === "\/provisional"/);
   assert.match(reviewHtml, /href="\/sandbox"/); assert.match(server, /\/api\/sandbox\/synthesize/); assert.match(server, /Text must contain 1 to 500 characters/);
   assert.match(reviewApp, /4候補を順番に再生|\$\{count\}候補を順番に再生/);
   assert.match(reviewApp, /connectPlaybackEffect/); assert.match(server, /pathname === "\/retune"/);

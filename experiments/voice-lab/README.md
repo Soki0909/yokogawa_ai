@@ -13,7 +13,7 @@ Production Samplerは、確定済みの本番固定WAV 18本を検索・絞り�
 
 ## 採用Voice Profile
 
-2026-10-03のユーザー試聴により、Round 2 Candidate 2A（阿井田 茂 / Calm）を横川AIのVoice Profileとして確定しました。完全な設定値は `config/selected-profile.json` を正本とします。これはVoice Lab内の選定記録であり、Phase C Productionコードにはまだ反映していません。
+2026-10-04のユーザー試聴により、Candidate 2D（阿井田 茂 / Calm）を正式採用しました。文中句点後の「…」、「セキュリティー」読み、#002と#003の読み補正を含む完全な設定は `config/selected-profile.json` を正本とし、Production 18 WAVへ反映します。
 
 ## 前提
 
@@ -39,7 +39,7 @@ npm run voice:lab
 npm run voice:lab:review
 ```
 
-表示された `http://127.0.0.1:4174` はProduction Sampler、`/retune` は2A〜2Dの再調整比較、`/compare` は従来のRound 1 / Round 2比較です。生成済みWAVの試聴時はAivisSpeech Engineは不要です。
+表示された `http://127.0.0.1:4174` はProduction Sampler、`/provisional` は暫定候補、`/retune` は2A〜2Dの再調整比較、`/compare` は従来のRound 1 / Round 2比較です。生成済みWAVの試聴時はAivisSpeech Engineは不要です。
 
 ### Voice Retune（2A / 2B / 2C / 2D）
 
@@ -70,9 +70,21 @@ npm run voice:lab:review
 
 設定は `config/sentence-pause-test.json`、生成物は `output/sentence-pause-test-2026-10/` へ分離されます。
 
+### 正式採用（2D + 「。…」＋読み補正）
+
+2DのVoice Profileを基準に、文中の句点後へ「…」を1個追加します。表示する台本文を変更せず、合成時だけ「セキュリティー」、#002「ヒサヤス ヒカル」、#003「貴重書、『プリンキピア』」の読みを適用します。
+
+```powershell
+npm run voice:lab:provisional
+npm run voice:lab:review
+# http://127.0.0.1:4174/provisional
+```
+
+設定の正本は `config/provisional-profile.json`、生成物は `output/provisional-profile-2026-10/` です。比較画面では既存2Dと暫定候補を同じ7台詞で聞き比べられます。
+
 ### 自由入力Voice Sandbox
 
-ローカル比較サーバーを起動した状態で `http://127.0.0.1:4174/sandbox` を開きます。任意の500文字以内の文章と、句点後の記号、speed、intonation、tempo dynamics、pause scaleを指定して、その場でAivisSpeech音声を生成・再生できます。初期値は2Dです。入力文・生成WAVは保存されず、Productionへも反映されません。
+ローカル比較サーバーを起動した状態で `http://127.0.0.1:4174/sandbox` を開きます。任意の500文字以内の文章と、句点後の記号、speed、intonation、tempo dynamics、pause scaleを指定して、その場でAivisSpeech音声を生成・再生できます。初期値は2D + 「。…」で、#003の読点を入れた合成文です。入力文・生成WAVは保存されず、Productionへも反映されません。
 
 ### Production Samplerの静的build
 

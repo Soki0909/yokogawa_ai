@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "round": "retune-2026-10",
   "baseline": {
-    "source": "selected-profile.json",
+    "source": "baseline-2a.json",
     "displayName": "2A",
     "direction": "Current Production",
     "note": "#002は旧読み（久安光の読み修正前）"

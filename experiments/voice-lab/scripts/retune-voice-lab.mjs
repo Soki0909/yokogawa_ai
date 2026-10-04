@@ -12,7 +12,7 @@ export const retuneOutputRoot = path.join(labRoot, 'output', 'retune-2026-10');
 const engineConfigPath = path.join(configRoot, 'engine.json');
 const candidateConfigPath = path.join(configRoot, 'candidates-retune.json');
 const sampleConfigPath = path.join(configRoot, 'samples-retune.json');
-const selectedProfilePath = path.join(configRoot, 'selected-profile.json');
+const baselineProfilePath = path.join(configRoot, 'baseline-2a.json');
 const productionManifestPath = path.join(root, 'config', 'production-speech', 'yokogawa-ai-v1.json');
 
 const readJson = async (file) => JSON.parse(await readFile(file, 'utf8'));
@@ -77,7 +77,7 @@ export function buildComparisonModel(selected, config, sampleConfig, productionM
     id: '2a', displayName: '2A', direction: config.baseline.direction,
     description: '現在のProduction基準音声', note: config.baseline.note,
     model: selected.model, speaker: selected.speaker, style: selected.style, styleId: selected.styleId,
-    source: 'selected-profile.json + existing Production WAV', parameters: selected.parameters,
+    source: 'baseline-2a.json + archived 2A WAV', parameters: selected.parameters,
   };
   return { schemaVersion: 1, round: config.round, candidates: [baseline, ...config.candidates], samples };
 }
@@ -234,7 +234,7 @@ async function verifyAndReport(model) {
 }
 
 export async function loadRetuneModel() {
-  const [selected, config, samples, production] = await Promise.all([readJson(selectedProfilePath), readJson(candidateConfigPath), readJson(sampleConfigPath), readJson(productionManifestPath)]);
+  const [selected, config, samples, production] = await Promise.all([readJson(baselineProfilePath), readJson(candidateConfigPath), readJson(sampleConfigPath), readJson(productionManifestPath)]);
   return buildComparisonModel(selected, config, samples, production);
 }
 
