@@ -36,6 +36,13 @@ test('Show Fileをdry-run検証し不正参照を原子的に拒否する', () =
   assert.ok(result.errors.includes('INVALID_CUE_KIND:c1')); assert.ok(result.errors.includes('INVALID_AVATAR_STATE:c1'));
 });
 
+test('音声playback effectは既知profileだけを許可する', () => {
+  const valid = showFile(); valid.cues[0].audio.playbackEffect = 'hijacked-subtle-v1';
+  assert.equal(validateShowFile(valid).valid, true);
+  const invalid = showFile(); invalid.cues[0].audio.playbackEffect = 'villain-random';
+  assert.deepEqual(validateShowFile(invalid).errors, [`INVALID_PLAYBACK_EFFECT:${invalid.cues[0].id}`]);
+});
+
 test('音声Asset pathはローカルaudio配下のwav/mp3だけを許可する', () => {
   assert.equal(isSafeAssetPath('assets/audio/cue-01.wav'), true); assert.equal(isSafeAssetPath('assets/audio/cue.mp3'), true);
   for (const unsafe of ['../secret.wav', '/etc/passwd', 'C:\\secret.wav', 'assets/audio/../../secret.mp3', 'assets/video/a.wav']) assert.equal(isSafeAssetPath(unsafe), false);

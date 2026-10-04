@@ -47,6 +47,7 @@ const ID = /^[a-zA-Z0-9_-]{1,100}$/;
 const HEX = /^#[0-9a-fA-F]{6}$/;
 const AVATAR_STATES = new Set(['normal', 'thinking', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery', 'speaking']);
 export const SPEECH_MODES = new Set(['browser', 'audio-file', 'local-tts', 'none']);
+export const PLAYBACK_EFFECTS = new Set(['none', 'hijacked-subtle-v1']);
 const LIP_MODES = new Set(['none', 'simulated', 'audio-reactive']);
 const AVATAR_MODES = new Set(['image-yokogawa-v1', 'svg-fallback']);
 const text = (value, limit = 5000) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
@@ -157,6 +158,7 @@ export function normalizeCue(input = {}, order = 0) {
   const audioAsset = id(input.audio?.assetId ?? input.audioAsset, '') || null;
   const lipSyncMode = LIP_MODES.has(input.audio?.lipSyncMode) ? input.audio.lipSyncMode
     : (['audio-file', 'local-tts'].includes(speechMode) ? 'audio-reactive' : speechMode === 'browser' ? 'simulated' : 'none');
+  const playbackEffect = PLAYBACK_EFFECTS.has(input.audio?.playbackEffect) ? input.audio.playbackEffect : 'none';
   const avatarState = AVATAR_STATES.has(input.avatar?.state) ? input.avatar.state : 'normal';
   const sceneId = id(input.sceneId ?? input.scene, '') || null;
   const result = {
@@ -165,7 +167,7 @@ export function normalizeCue(input = {}, order = 0) {
     speechText, displayText, operatorNote: text(input.operatorNote ?? input.notes, 1000), triggerNote: text(input.triggerNote, 500),
     target: normalizeTarget(input.target), presentationPreset: id(input.presentationPreset, '') || 'normal',
     avatar: { visible: input.avatar?.visible !== false, state: avatarState },
-    audio: { speechMode, assetId: audioAsset, lipSyncMode },
+    audio: { speechMode, assetId: audioAsset, lipSyncMode, playbackEffect },
     transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
     visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing),
     syncMarkers: normalizeSyncMarkers(input.syncMarkers),
@@ -207,6 +209,7 @@ export function validateShowFile(input) {
     if (raw.kind != null && !CUE_KINDS.includes(raw.kind)) errors.push(`INVALID_CUE_KIND:${cueId}`);
     if (raw.target?.type && !['all', 'display', 'group'].includes(raw.target.type)) errors.push(`INVALID_TARGET:${cueId}`);
     if (raw.avatar?.state && !AVATAR_STATES.has(raw.avatar.state)) errors.push(`INVALID_AVATAR_STATE:${cueId}`);
+    if (raw.audio?.playbackEffect && !PLAYBACK_EFFECTS.has(raw.audio.playbackEffect)) errors.push(`INVALID_PLAYBACK_EFFECT:${cueId}`);
     if (raw.transition?.id && !TRANSITION_IDS.includes(raw.transition.id)) errors.push(`INVALID_TRANSITION:${cueId}`);
     if (raw.overlay?.id && !OVERLAY_IDS.includes(raw.overlay.id)) errors.push(`INVALID_OVERLAY:${cueId}`);
     if (raw.visual?.type && !VISUAL_TYPES.includes(raw.visual.type)) errors.push(`INVALID_VISUAL_TYPE:${cueId}`);

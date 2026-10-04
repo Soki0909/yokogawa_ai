@@ -47,7 +47,7 @@ const speech = createSpeechProvider('browser', {
   onError: (id, error) => { lipSync.stop(); setMode('VOICE ERROR — 字幕は継続中', 'error'); socket.send({ type: 'playback', id, status: 'error', error }); },
 });
 const localAudio = createSpeechProvider('audio-file', {
-  onStart: (id, audio) => { lipSync.analyse(audio); setMode('LOCAL AUDIO', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking' }); },
+  onStart: (id, audio, message) => { lipSync.analyse(audio, message.audio?.playbackEffect); setMode('LOCAL AUDIO', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking' }); },
   onEnd: (id) => { lipSync.stop(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
   onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'error', error }); },
@@ -205,7 +205,7 @@ function handleEvent(event) {
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); clearTimeout(overlayTimer); clearTimeout(visualTimer); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; applyPresentation({ avatar: { visible: true, state: 'normal', mode: 'image-yokogawa-v1' }, blackout: false, transition: { id: 'none', status: 'idle' }, overlay: { id: 'none', visible: false }, visual: { type: 'none', visible: false }, unlock: { status: 'idle', progress: 0 } }); setMode('SYSTEM READY', 'ready');
+    speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); clearTimeout(overlayTimer); clearTimeout(visualTimer); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
     elements['identify-name'].textContent = identity.displayName;

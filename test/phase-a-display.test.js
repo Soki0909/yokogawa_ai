@@ -14,6 +14,13 @@ test('DisplayはPreset・Avatar・Scene Visual・Subtitle・Operation Overlay・
   assert.match(css, /\.unlock-gauges\[hidden\]\s*\{\s*display:\s*none/);
 });
 
+test('長いOperation Overlay見出しを1920x1080でもframe内へ収める', async () => {
+  const css = await readFile('public/css/display-phase-a.css', 'utf8');
+  assert.match(css, /operation-overlay-frame[^}]*width: min\(82rem, 88vw\)/);
+  assert.match(css, /operation-overlay h2[^}]*clamp\(1\.7rem, 3\.5vw, 3\.4rem\)/);
+  assert.match(css, /operation-overlay h2[^}]*overflow-wrap: anywhere/);
+});
+
 test('Display clientはtransition・overlay・visual・unlockをsnapshotとイベント双方から描画する', async () => {
   const script = await load('public/js/display.js');
   for (const name of ['renderTransition', 'renderOverlay', 'renderVisual', 'renderUnlock']) assert.match(script, new RegExp(`function ${name}\\(`));

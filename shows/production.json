@@ -196,7 +196,7 @@
     }
   ],
   "avatar": {
-    "visible": true,
+    "visible": false,
     "state": "normal",
     "lipSyncMode": "audio-reactive",
     "label": "YOKOGAWA AI",
@@ -220,8 +220,8 @@
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
       "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
-      "revisionId": "AHj4eMS3KA9Z6t9TO5mrMgkiaaW8HvtIRZK_RMX11J62cCzp9lINe9lq5LsmmS0pT1fhBPl0a2Y0PQA0pbGM6AoHZh1tsJTPwZ_ie70EKlw",
-      "modifiedTime": "2026-10-03T02:09:48.835Z",
+      "revisionId": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
+      "modifiedTime": "2026-10-03T15:28:38.878Z",
       "tabCount": 13,
       "authority": "current-google-docs-revision"
     },
@@ -275,13 +275,23 @@
         "lipSyncMode": "audio-reactive"
       },
       "transition": {
-        "id": "none",
-        "durationMs": 0,
+        "id": "boot",
+        "durationMs": 1600,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話001。音声終了後も自動進行しない。",
-      "triggerNote": "横川教授「横川AIを起動してくれ」直後",
-      "order": 10
+      "operatorNote": "Production起動Cue。非表示STANDBYからAvatarをrevealし、WAV001終了後もNORMALを保持する。",
+      "triggerNote": "横川教授「横川AIを起動してくれ」直後。STANDBYからGO。",
+      "order": 10,
+      "overlay": {
+        "id": "booting",
+        "visible": true,
+        "title": "SYSTEM BOOT",
+        "message": "INITIALIZING YOKOGAWA AI",
+        "progress": 42
+      },
+      "timing": {
+        "autoClearOverlayMs": 2600
+      }
     },
     {
       "id": "prod-002",
@@ -401,54 +411,35 @@
         "lipSyncMode": "none"
       },
       "order": 50,
-      "operatorNote": "台本「モニターの横川AIの映像に、不自然なノイズが走る」でGO。",
-      "triggerNote": "舞台監督の合図でGO",
+      "operatorNote": "WAV004完了後、台本「モニターの横川AIの映像に、不自然なノイズが走る」でGO。ここではFULL HIJACKEDへ進めない。出演者の調査芝居を待つ。",
+      "triggerNote": "WAV004完了後、映像ノイズ開始の舞台監督合図でGO",
       "transition": {
         "id": "anomaly",
         "durationMs": 1200,
         "intensity": 0.8
-      }
-    },
-    {
-      "id": "prod-v-hijack",
-      "cueNumber": "P-V02",
-      "name": "制御奪取",
-      "route": "main",
-      "scene": "scene-1",
-      "location": "7・201",
-      "kind": "display-only",
-      "displayText": "CONTROL CHANNEL OVERRIDDEN",
-      "presentationPreset": "hijacked",
-      "target": {
-        "type": "all"
       },
-      "avatar": {
-        "visible": true,
-        "state": "hijacked"
-      },
-      "audio": {
-        "speechMode": "none",
-        "lipSyncMode": "none"
-      },
-      "order": 60,
-      "operatorNote": "台本の通信遮断・館内ロック成立後にGO。",
-      "triggerNote": "舞台監督の合図でGO",
-      "transition": {
-        "id": "takeover",
-        "durationMs": 1500,
-        "intensity": 1
-      },
-      "overlay": {
-        "id": "communication-locked",
-        "visible": true,
-        "title": "COMMUNICATION LOCKED",
-        "message": "EXTERNAL CHANNELS DISABLED"
-      }
+      "syncMarkers": [
+        {
+          "department": "LX",
+          "id": "ALIGN-LX-ANOMALY",
+          "note": "照明明滅。記述用markerであり正式照明Cue番号ではない。"
+        },
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-DOOR-LOCK",
+          "note": "扉施錠音。記述用markerであり正式音響Cue番号ではない。"
+        },
+        {
+          "department": "ACT",
+          "id": "ALIGN-ACT-INVESTIGATE",
+          "note": "出演者が通信・扉・状況を調査する芝居区間。"
+        }
+      ]
     },
     {
       "id": "prod-005",
       "cueNumber": "P-005",
-      "name": "台本 005",
+      "name": "制御奪取・台本005",
       "route": "main",
       "scene": "scene-1",
       "location": "7・201",
@@ -466,16 +457,30 @@
       "audio": {
         "speechMode": "audio-file",
         "assetId": "prod-voice-005-communication-lock",
-        "lipSyncMode": "audio-reactive"
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "hijacked-subtle-v1"
       },
       "transition": {
-        "id": "none",
-        "durationMs": 0,
+        "id": "takeover",
+        "durationMs": 1500,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話005。音声終了後も自動進行しない。",
-      "triggerNote": "舞台監督の合図でGO",
-      "order": 70
+      "operatorNote": "消灯・復灯後、このCueで初めてFULL HIJACKEDへ移行しWAV005を再生する。subtle hijacked effect適用。",
+      "triggerNote": "照明の消灯・復灯完了直後にGO",
+      "order": 60,
+      "overlay": {
+        "id": "communication-locked",
+        "visible": true,
+        "title": "COMMUNICATION LOCKED",
+        "message": "EXTERNAL CHANNELS DISABLED"
+      },
+      "syncMarkers": [
+        {
+          "department": "LX",
+          "id": "ALIGN-LX-HIJACK-REVEAL",
+          "note": "消灯・復灯後にGO。記述用markerであり正式照明Cue番号ではない。"
+        }
+      ]
     },
     {
       "id": "prod-006",
@@ -498,16 +503,17 @@
       "audio": {
         "speechMode": "audio-file",
         "assetId": "prod-voice-006-reject",
-        "lipSyncMode": "audio-reactive"
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "hijacked-subtle-v1"
       },
       "transition": {
         "id": "none",
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話006。音声終了後も自動進行しない。",
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話006。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 80
+      "order": 70
     },
     {
       "id": "prod-007",
@@ -530,16 +536,17 @@
       "audio": {
         "speechMode": "audio-file",
         "assetId": "prod-voice-007-auth-failed",
-        "lipSyncMode": "audio-reactive"
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "hijacked-subtle-v1"
       },
       "transition": {
         "id": "none",
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話007。音声終了後も自動進行しない。",
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話007。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 90
+      "order": 80
     },
     {
       "id": "prod-008",
@@ -562,16 +569,67 @@
       "audio": {
         "speechMode": "audio-file",
         "assetId": "prod-voice-008-five-riddles",
-        "lipSyncMode": "audio-reactive"
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "hijacked-subtle-v1"
       },
       "transition": {
         "id": "none",
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話008。音声終了後も自動進行しない。",
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話008。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 100
+      "order": 90
+    },
+    {
+      "id": "prod-v-riddle-enter",
+      "cueNumber": "P-V02",
+      "name": "五つの謎・第1問開始",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "FIVE RIDDLES — FIRST: 7・201",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 100,
+      "operatorNote": "台本にある「五つの謎」「第一の謎」「7・201」だけを表示。問題本文は未提供のため表示しない。",
+      "triggerNote": "WAV008終了後、画面変化の合図でGO",
+      "transition": {
+        "id": "riddle-enter",
+        "durationMs": 1300,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "riddle-active",
+        "visible": true,
+        "title": "RIDDLE ACTIVE",
+        "message": "FIRST LOCATION — 7・201"
+      },
+      "visual": {
+        "id": "riddle-five",
+        "type": "riddle-status",
+        "visible": true,
+        "title": "5 QUESTIONS",
+        "message": "FIRST — 7・201",
+        "items": [
+          "01 ACTIVE",
+          "02",
+          "03",
+          "04",
+          "05"
+        ]
+      }
     },
     {
       "id": "prod-009",
@@ -594,14 +652,15 @@
       "audio": {
         "speechMode": "audio-file",
         "assetId": "prod-voice-009-first-riddle",
-        "lipSyncMode": "audio-reactive"
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "hijacked-subtle-v1"
       },
       "transition": {
         "id": "none",
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話009。音声終了後も自動進行しない。",
+      "operatorNote": "現行台本 scene-1 / 7・201 / 発話009。HIJACKED状態とsubtle voice effectを継続。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 110
     },
@@ -633,9 +692,10 @@
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "本編Scene 5、全てのルートの謎が解かれたことを確認してGO。横川ルート専用018とは同時実行しない。",
-      "triggerNote": "舞台監督の合図でGO",
+      "operatorNote": "UNRESOLVED ROUTE MAPPING。館内放送WAV010は無効化してmain NEXTから隔離。全route達成と接続位置を確認後、Operatorが有効化して直接実行する。横川ルート専用018とは同時実行しない。",
+      "triggerNote": "main NEXT対象外。Scene 5の全条件達成と接続位置を確認後、有効化して直接実行",
       "order": 120,
+      "enabled": false,
       "overlay": {
         "id": "all-conditions-met",
         "visible": true,
@@ -719,13 +779,13 @@
       "kind": "speech-display",
       "speechText": "……認証成功。これより開錠を開始する",
       "displayText": "……認証成功。これより開錠を開始する",
-      "presentationPreset": "recovery",
+      "presentationPreset": "hijacked",
       "target": {
         "type": "all"
       },
       "avatar": {
         "visible": true,
-        "state": "recovery"
+        "state": "hijacked"
       },
       "audio": {
         "speechMode": "audio-file",
@@ -737,7 +797,7 @@
         "durationMs": 1000,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-6 / 7・201 / 発話012。音声終了後も自動進行しない。",
+      "operatorNote": "WAV012認証成功。終了後に電子音SE、続いて開錠進行Cueを手動GO。ここではHIJACKED状態を保持する。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 140,
       "overlay": {
@@ -746,7 +806,14 @@
         "title": "AUTHENTICATION SUCCESS",
         "message": "UNLOCK SEQUENCE READY",
         "progress": 100
-      }
+      },
+      "syncMarkers": [
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-AUTH-CHIME-AFTER",
+          "note": "WAV012終了後に電子音。記述用markerであり正式音響Cue番号ではない。"
+        }
+      ]
     },
     {
       "id": "prod-v-unlock",
@@ -757,21 +824,21 @@
       "location": "7・201",
       "kind": "display-only",
       "displayText": "LOCK RELEASE IN PROGRESS",
-      "presentationPreset": "recovery",
+      "presentationPreset": "warning",
       "target": {
         "type": "all"
       },
       "avatar": {
         "visible": true,
-        "state": "recovery"
+        "state": "warning"
       },
       "audio": {
         "speechMode": "none",
         "lipSyncMode": "none"
       },
       "order": 150,
-      "operatorNote": "0→100%到達後もEmergency Cueまで保持。",
-      "triggerNote": "舞台監督の合図でGO",
+      "operatorNote": "電子音SE後に手動GO。複数ゲージを0→100%へ進め、到達後もEmergency Cueまで保持。自動進行しない。",
+      "triggerNote": "WAV012終了後の電子音SEを確認してGO",
       "transition": {
         "id": "unlock-start",
         "durationMs": 1200,
@@ -816,15 +883,22 @@
         "durationMs": 900,
         "intensity": 1
       },
-      "operatorNote": "台本の久安による緊急停止合図でGO。開錠100%表示から割り込ませる。",
-      "triggerNote": "舞台監督の合図でGO",
+      "operatorNote": "警告SE完了後にWAV013をGO。開錠100%表示から割り込ませる。",
+      "triggerNote": "虎谷の端末操作→警告SE完了後にGO",
       "order": 160,
       "overlay": {
         "id": "emergency-protection",
         "visible": true,
         "title": "EMERGENCY PROTECTION",
         "message": "UNLOCK SEQUENCE INTERRUPTED"
-      }
+      },
+      "syncMarkers": [
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-WARNING-BEFORE-013",
+          "note": "WAV013より前に警告音。記述用markerであり正式音響Cue番号ではない。"
+        }
+      ]
     },
     {
       "id": "prod-014",
@@ -854,7 +928,7 @@
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-6 / 7・201 / 発話014。音声終了後も自動進行しない。",
+      "operatorNote": "WAV014終了後に警告SE。音声終了後も自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 170,
       "overlay": {
@@ -862,7 +936,62 @@
         "visible": true,
         "title": "CONNECTION FAILED",
         "message": "REMOTE SYSTEM UNREACHABLE"
-      }
+      },
+      "syncMarkers": [
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-WARNING-AFTER-014",
+          "note": "WAV014終了後に警告音。記述用markerであり正式音響Cue番号ではない。"
+        }
+      ]
+    },
+    {
+      "id": "prod-v-hostile-enter",
+      "cueNumber": "P-V04",
+      "name": "危険状態・警報開始",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "HOSTILE CONTROL DETECTED",
+      "presentationPreset": "hostile",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hostile"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 180,
+      "operatorNote": "虎谷の端末操作でWAV015より先にGO。AI危険表示、照明明滅、警報開始。",
+      "triggerNote": "虎谷が端末を操作した瞬間にGO",
+      "transition": {
+        "id": "hostile-enter",
+        "durationMs": 1300,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "forced-runaway",
+        "visible": true,
+        "title": "FORCED RUNAWAY",
+        "message": "MANUAL CONTROL LOST"
+      },
+      "syncMarkers": [
+        {
+          "department": "LX",
+          "id": "ALIGN-LX-HOSTILE-FLICKER",
+          "note": "照明明滅開始。記述用markerであり正式照明Cue番号ではない。"
+        },
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-ALARM-START",
+          "note": "警報開始。記述用markerであり正式音響Cue番号ではない。"
+        }
+      ]
     },
     {
       "id": "prod-015",
@@ -888,19 +1017,120 @@
         "lipSyncMode": "audio-reactive"
       },
       "transition": {
-        "id": "hostile-enter",
-        "durationMs": 1300,
+        "id": "none",
+        "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-6 / 7・201 / 発話015。音声終了後も自動進行しない。",
-      "triggerNote": "舞台監督の合図でGO",
-      "order": 180,
+      "operatorNote": "HOSTILE先行Cueと警報開始後にWAV015をGO。終了後に轟音SE。",
+      "triggerNote": "虎谷の暴走命令を受けてGO",
+      "order": 190,
       "overlay": {
         "id": "forced-runaway",
         "visible": true,
         "title": "FORCED RUNAWAY",
         "message": "MANUAL CONTROL LOST"
+      },
+      "syncMarkers": [
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-RUMBLE-AFTER-015",
+          "note": "WAV015終了後に轟音。記述用markerであり正式音響Cue番号ではない。"
+        }
+      ]
+    },
+    {
+      "id": "prod-v-emergency-riddle",
+      "cueNumber": "P-V05",
+      "name": "非常停止問題",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "EMERGENCY STOP CHALLENGE — CONTENT PENDING",
+      "presentationPreset": "hostile",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hostile"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 200,
+      "operatorNote": "非常停止問題の表示container。台本で問題本文・ヒント内容が未確定のため創作しない。素材受領後に差し替える。",
+      "triggerNote": "WAV015後、非常停止の謎を提示する舞台進行でGO",
+      "overlay": {
+        "id": "riddle-active",
+        "visible": true,
+        "title": "EMERGENCY STOP",
+        "message": "CHALLENGE CONTENT PENDING"
+      },
+      "visual": {
+        "id": "emergency-stop-riddle",
+        "type": "riddle-status",
+        "visible": true,
+        "title": "EMERGENCY STOP CHALLENGE",
+        "message": "SCRIPT CONTENT NOT PROVIDED",
+        "items": [
+          "INPUT PENDING"
+        ]
       }
+    },
+    {
+      "id": "prod-v-stop-code",
+      "cueNumber": "P-V06",
+      "name": "停止コード・システム停止",
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "display-only",
+      "displayText": "STOP CODE ACCEPTED — SYSTEM SHUTDOWN",
+      "presentationPreset": "shutdown",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "shutdown"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "order": 210,
+      "operatorNote": "停止コード入力でGO。警報・照明明滅・HOSTILE motionを停止してSHUTDOWNへ移行し、その後WAV016を実行する。",
+      "triggerNote": "非常停止コード入力成立の瞬間にGO",
+      "transition": {
+        "id": "shutdown",
+        "durationMs": 1800,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "system-shutdown",
+        "visible": true,
+        "title": "SYSTEM SHUTDOWN",
+        "message": "ALL PROCESSES SUSPENDED"
+      },
+      "syncMarkers": [
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-ALARM-STOP",
+          "note": "警報STOP。記述用markerであり正式音響Cue番号ではない。"
+        },
+        {
+          "department": "LX",
+          "id": "ALIGN-LX-FLICKER-STOP",
+          "note": "照明明滅STOP。記述用markerであり正式照明Cue番号ではない。"
+        },
+        {
+          "department": "ACT",
+          "id": "ALIGN-ACT-RUNAWAY-STOP",
+          "note": "機械設備の暴走芝居を停止。"
+        }
+      ]
     },
     {
       "id": "prod-016",
@@ -926,23 +1156,35 @@
         "lipSyncMode": "audio-reactive"
       },
       "transition": {
-        "id": "shutdown",
-        "durationMs": 1800,
+        "id": "none",
+        "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "台本の全停止。発話終了後もSHUTDOWNを保持し、復旧Cueへ自動進行しない。",
-      "triggerNote": "舞台監督の合図でGO",
-      "order": 190,
+      "operatorNote": "停止コードCueのshutdown transition後にWAV016。終了後も長時間SHUTDOWNを保持し、RECOVERYへ自動進行しない。",
+      "triggerNote": "停止コードCueのtransition開始後にGO",
+      "order": 220,
       "overlay": {
         "id": "system-shutdown",
         "visible": true,
         "title": "SYSTEM SHUTDOWN",
         "message": "ALL PROCESSES SUSPENDED"
-      }
+      },
+      "syncMarkers": [
+        {
+          "department": "SE",
+          "id": "ALIGN-SE-DOOR-UNLOCK-AFTER-016",
+          "note": "WAV016終了後に扉解錠音。記述用markerであり正式音響Cue番号ではない。"
+        },
+        {
+          "department": "ACT",
+          "id": "ALIGN-ACT-CHECK-DOOR",
+          "note": "馬場・久保が扉を確認する芝居。"
+        }
+      ]
     },
     {
       "id": "prod-v-recovery",
-      "cueNumber": "P-V04",
+      "cueNumber": "P-V07",
       "name": "復旧開始",
       "route": "main",
       "scene": "scene-7",
@@ -961,7 +1203,7 @@
         "speechMode": "none",
         "lipSyncMode": "none"
       },
-      "order": 200,
+      "order": 230,
       "operatorNote": "台本Scene 7、横川AI復旧の舞台進行に合わせてGO。",
       "triggerNote": "舞台監督の合図でGO",
       "transition": {
@@ -1005,9 +1247,10 @@
         "durationMs": 1400,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-7 / 7・201 / 発話017。音声終了後も自動進行しない。",
-      "triggerNote": "舞台監督の合図でGO",
-      "order": 210
+      "operatorNote": "UNRESOLVED SCRIPT。Scene 6内包Scene 7と独立Scene 7でWAV017有無が競合するため、Asset/Cueを保持したまま無効化しmain NEXTから除外。脚本・舞台監督確認後に有効化して直接実行。",
+      "triggerNote": "通常NEXT対象外。WAV017採用と接続位置の確認後、有効化して直接実行",
+      "order": 240,
+      "enabled": false
     }
   ]
 }

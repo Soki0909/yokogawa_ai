@@ -67,6 +67,10 @@ export class StateStore {
     this.state.settings = this.validateSettings(stored.settings ?? {});
     this.state.scenes = this.validateScenes(stored.scenes);
     this.state.cues = this.validateCues(stored.cues);
+    this.state.currentSubtitle = typeof stored.currentSubtitle === 'string' ? stored.currentSubtitle : null;
+    this.state.displayMode = typeof stored.displayMode === 'string' ? stored.displayMode : 'ready';
+    this.state.currentCueIndex = Number.isInteger(stored.currentCueIndex) && stored.currentCueIndex >= -1 && stored.currentCueIndex < this.state.cues.length ? stored.currentCueIndex : -1;
+    this.state.currentSceneId = typeof stored.currentSceneId === 'string' ? stored.currentSceneId : null;
     this.state.audioMasterId = typeof stored.audioMasterId === 'string' ? stored.audioMasterId : null;
     this.state.displays = (Array.isArray(stored.displays) ? stored.displays : []).map((display) => ({
       displayId: validId(display.displayId, `display-${randomUUID()}`),
@@ -135,7 +139,7 @@ export class StateStore {
     const displayId = validId(input.displayId, `display-${randomUUID()}`);
     let display = this.state.displays.find((item) => item.displayId === displayId);
     if (!display) {
-      display = { displayId, displayName: 'Display', audioEnabled: true, required: false, groups: [], currentSubtitle: null, displayMode: 'ready', currentPresetId: this.state.currentPresetId, currentAvatar: structuredClone(this.state.currentAvatar), blackout: this.state.blackout,
+      display = { displayId, displayName: 'Display', audioEnabled: true, required: false, groups: [], currentSubtitle: this.state.currentSubtitle, displayMode: this.state.displayMode, currentPresetId: this.state.currentPresetId, currentAvatar: structuredClone(this.state.currentAvatar), blackout: this.state.blackout,
         currentOverlay: structuredClone(this.state.currentOverlay), currentVisual: structuredClone(this.state.currentVisual),
         currentTransition: structuredClone(this.state.currentTransition), unlock: structuredClone(this.state.unlock) };
       this.state.displays.push(display);
@@ -445,10 +449,10 @@ export class StateStore {
     this.state.currentMessage = null; this.state.queue = []; this.state.playbackStatus = 'idle';
     this.state.currentCueIndex = -1; this.state.currentSceneId = null;
     this.state.currentSubtitle = null; this.state.displayMode = 'ready';
-    this.state.currentPresetId = 'normal'; this.state.currentAvatar = { ...DEFAULT_AVATAR }; this.state.blackout = false; this.state.previousVisualState = null;
+    this.state.currentPresetId = 'normal'; this.state.currentAvatar = { ...this.state.avatar }; this.state.blackout = false; this.state.previousVisualState = null;
     this.state.currentOverlay = structuredClone(EMPTY_OVERLAY); this.state.currentVisual = structuredClone(EMPTY_VISUAL);
     this.state.currentTransition = structuredClone(EMPTY_TRANSITION); this.state.unlock = structuredClone(EMPTY_UNLOCK);
-    for (const display of this.state.displays) { Object.assign(display, { currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: { ...DEFAULT_AVATAR }, blackout: false,
+    for (const display of this.state.displays) { Object.assign(display, { currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: { ...this.state.avatar }, blackout: false,
       currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
       currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK) }); }
     this.logRehearsal('show-reset', 'SHOW RESET');
@@ -655,6 +659,8 @@ export class StateStore {
       targetGroups: this.state.targetGroups, adminMode: this.state.adminMode,
       metadata: this.state.metadata, routes: this.state.routes, presets: this.state.presets, assets: this.state.assets,
       avatar: this.state.avatar, currentPresetId: this.state.currentPresetId, currentAvatar: this.state.currentAvatar,
+      currentSubtitle: this.state.currentSubtitle, displayMode: this.state.displayMode,
+      currentCueIndex: this.state.currentCueIndex, currentSceneId: this.state.currentSceneId,
       blackout: this.state.blackout, previousVisualState: this.state.previousVisualState,
       currentOverlay: this.state.currentOverlay, currentVisual: this.state.currentVisual,
       currentTransition: this.state.currentTransition, unlock: this.state.unlock,

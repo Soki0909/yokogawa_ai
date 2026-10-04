@@ -9,6 +9,8 @@ const manifest = JSON.parse(await readFile(path.resolve('config', 'production-sp
 const profile = await loadProductionVoiceProfile();
 assert.equal(manifest.speeches.length, 18);
 assert.equal(manifest.profileHash, profile.source.sha256);
+assert.ok(manifest.sourceScript?.revisionId, 'authoritative source script revision is required');
+assert.ok(manifest.audioSourceScriptRevision, 'audio source script revision is required');
 assert.equal(new Set(manifest.speeches.map((speech) => speech.scriptId)).size, 18);
 assert.ok(manifest.speeches.every((speech) => speech.scriptText && speech.scriptText === speech.synthesisText));
 assert.ok(manifest.speeches.every((speech) => speech.voiceProfileId === profile.profileId));
@@ -18,6 +20,12 @@ for (const speech of manifest.speeches) {
   const result = verifyProductionWav(file);
   assert.equal(result.pass, true, `${speech.scriptId}: technical WAV check failed`);
   assert.equal(result.wav.sampleRate, 44100); assert.equal(result.wav.channels, 1); assert.equal(result.wav.bitsPerSample, 16);
-  assert.equal(speech.sourceScriptRevision, manifest.sourceScript.revisionId);
+  assert.equal(
+    speech.sourceScriptRevision,
+    manifest.audioSourceScriptRevision,
+    `${speech.scriptId}: raw WAV provenance revision mismatch`,
+  );
 }
-console.log(`Production speech verified: 18/18 / ${manifest.sourceScript.revisionId}`);
+console.log(
+  `Production speech verified: 18/18 / audio source ${manifest.audioSourceScriptRevision} / current script ${manifest.sourceScript.revisionId}`,
+);
