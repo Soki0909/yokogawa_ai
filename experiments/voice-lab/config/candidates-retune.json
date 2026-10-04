@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "round": "retune-2026-10",
+  "baseline": {
+    "source": "selected-profile.json",
+    "displayName": "2A",
+    "direction": "Current Production",
+    "note": "#002は旧読み（久安光の読み修正前）"
+  },
+  "candidates": [
+    {
+      "id": "2b",
+      "displayName": "2B",
+      "direction": "少し落ち着く",
+      "description": "2Aの印象を保ちながら、少し遅く、少し無機質にする",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Calm",
+      "styleId": 1310138977,
+      "parameters": {
+        "speedScale": 1.12,
+        "pitchScale": 0.0,
+        "intonationScale": 0.35,
+        "tempoDynamicsScale": 0.15,
+        "volumeScale": 0.95,
+        "pauseLengthScale": 1.20,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    },
+    {
+      "id": "2c",
+      "displayName": "2C",
+      "direction": "無機質寄り",
+      "description": "2Aの人物性を保ちながら、無機質さを明確に強める",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Calm",
+      "styleId": 1310138977,
+      "parameters": {
+        "speedScale": 1.10,
+        "pitchScale": 0.0,
+        "intonationScale": 0.30,
+        "tempoDynamicsScale": 0.10,
+        "volumeScale": 0.95,
+        "pauseLengthScale": 1.30,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    },
+    {
+      "id": "2d",
+      "displayName": "2D",
+      "direction": "かなり淡々",
+      "description": "2Cより一段無機質で、一定感を優先する比較候補",
+      "model": "阿井田 茂",
+      "modelUuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+      "modelVersion": "1.0.0",
+      "speaker": "阿井田 茂",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "style": "Calm",
+      "styleId": 1310138977,
+      "parameters": {
+        "speedScale": 1.08,
+        "pitchScale": 0.0,
+        "intonationScale": 0.25,
+        "tempoDynamicsScale": 0.08,
+        "volumeScale": 0.95,
+        "pauseLengthScale": 1.35,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      }
+    }
+  ]
+}

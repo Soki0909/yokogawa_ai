@@ -39,7 +39,24 @@ npm run voice:lab
 npm run voice:lab:review
 ```
 
-表示された `http://127.0.0.1:4174` はProduction Sampler、`/compare` は従来のRound 1 / Round 2比較です。いずれもAivisSpeech Engineは不要です。
+表示された `http://127.0.0.1:4174` はProduction Sampler、`/retune` は2A〜2Dの再調整比較、`/compare` は従来のRound 1 / Round 2比較です。生成済みWAVの試聴時はAivisSpeech Engineは不要です。
+
+### Voice Retune（2A / 2B / 2C / 2D）
+
+キャストフィードバックを比較する7台詞だけを、Productionとは分離した `output/retune-2026-10/` へ生成します。2Aは既存Production WAVをbaselineとしてコピーし、2B〜2DのみAivisSpeechで生成します。`selected-profile.json`、Production WAV、Production Showは変更しません。
+
+```powershell
+# AivisSpeech Engineが127.0.0.1:10101で起動している状態で、2B〜2Dの21本を生成・QA
+npm run voice:lab:retune
+
+# 生成済みWAVをローカル画面で比較
+npm run voice:lab:review
+# http://127.0.0.1:4174/retune
+```
+
+再生成せずQAだけ行う場合は `npm run voice:lab:retune:verify` を使います。候補値は `config/candidates-retune.json`、7台詞と #002 の発音指定は `config/samples-retune.json` が正本です。#002は画面上の「久安光」を維持し、合成時のみ「ヒサヤス ヒカル」を使います。
+
+VOICE RETUNE画面では各台詞の個別再生と2A→2B→2C→2Dの連続比較ができます。#008のみRAW／本番再生を切り替えられ、本番再生には既存の `hijacked-subtle-v1` をそのまま適用します。
 
 ### Production Samplerの静的build
 

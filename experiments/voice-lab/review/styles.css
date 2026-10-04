@@ -78,12 +78,18 @@ h1 { margin: 0; font-size: clamp(30px, 4vw, 54px); line-height: 1.1; letter-spac
 .round-tab.is-active { border-color: var(--cyan); background: var(--cyan-soft); box-shadow: inset 0 0 0 1px rgba(98,230,223,.16); }
 .round-tab.is-active small { color: #b6d6da; }
 
-.candidate-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 26px; }
+.mode-toggle { display:flex; align-items:center; gap:8px; margin:0 0 18px; padding:12px 14px; border:1px solid var(--line); border-radius:10px; background:rgba(16,24,32,.78); }
+.mode-toggle[hidden] { display:none; }
+.mode-toggle legend { padding:0 7px; color:var(--muted); font-size:12px; }
+.mode-toggle button { min-height:38px; padding:8px 15px; border:1px solid var(--line); border-radius:7px; color:var(--text); background:var(--panel-2); cursor:pointer; }
+.mode-toggle button[aria-pressed="true"] { border-color:var(--cyan); color:var(--cyan); background:var(--cyan-soft); }
+.candidate-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 26px; }
 .candidate-card { padding: 15px 17px; border: 1px solid var(--line); border-radius: 10px; background: rgba(16,24,32,.78); }
 .candidate-id { color: var(--cyan); font-family: Consolas, monospace; font-size: 12px; font-weight: 700; }
 .candidate-card h3 { margin: 7px 0 5px; font-size: 16px; }
 .candidate-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.45; }
 .params { margin-top: 10px !important; color: #bdd0da !important; font-family: Consolas, monospace; font-size: 11px !important; }
+.candidate-note { margin-top:8px !important; color:var(--amber) !important; }
 
 .comparison { overflow: hidden; border: 1px solid var(--line); border-radius: 12px; background: rgba(16,24,32,.88); }
 .comparison-head { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding: 22px 24px; border-bottom: 1px solid var(--line); }
@@ -99,6 +105,8 @@ h1 { margin: 0; font-size: clamp(30px, 4vw, 54px); line-height: 1.1; letter-spac
 .sample-number { display: block; color: var(--cyan); font-family: Consolas, monospace; font-size: 11px; }
 .sample-label { display: block; margin-top: 3px; font-size: 13px; font-weight: 700; }
 .sample-text { max-width: 360px; color: #c5d2da; font-size: 13px; line-height: 1.5; }
+.sample-note { display:block; margin-top:6px; color:var(--amber); font-size:11px; }
+.duration { display:block; margin-top:4px; color:var(--muted); font-family:Consolas,monospace; font-size:10px; }
 
 .play-button, .sequence-button { min-height: 40px; border-radius: 7px; transition: border-color .15s, background .15s, color .15s; }
 .play-button { width: 100%; min-width: 120px; padding: 8px 10px; }

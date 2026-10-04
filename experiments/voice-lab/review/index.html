@@ -22,6 +22,10 @@
           <span>PRODUCTION</span>
           <small>本番セリフ18本</small>
         </a>
+        <button class="round-tab" type="button" data-round="retune" aria-pressed="false">
+          <span>VOICE RETUNE</span>
+          <small>2A〜2D · 7台詞</small>
+        </button>
         <button class="round-tab is-active" type="button" data-round="round-2" aria-pressed="true">
           <span>ROUND 2</span>
           <small>無機質さを調整</small>
@@ -32,6 +36,12 @@
         </button>
       </nav>
 
+      <fieldset class="mode-toggle" id="mode-toggle" hidden>
+        <legend>#008 再生モード</legend>
+        <button type="button" data-mode="production" aria-pressed="true">本番再生</button>
+        <button type="button" data-mode="raw" aria-pressed="false">RAW</button>
+      </fieldset>
+
       <section class="candidate-strip" id="candidate-strip" aria-label="候補設定"></section>
 
       <section class="comparison" aria-live="polite">
@@ -40,7 +50,7 @@
             <p class="section-label" id="round-label">ROUND 2</p>
             <h2 id="round-title">阿井田 茂 — 無機質さの比較</h2>
           </div>
-          <p class="hint">各行の ▶ で個別再生、右端で3候補を連続再生</p>
+          <p class="hint" id="comparison-hint">各行の ▶ で個別再生、右端で候補を連続再生</p>
         </div>
         <div class="matrix-wrap">
           <table class="matrix">

@@ -21,9 +21,9 @@ const mimeTypes = new Map([
 function resolveRequestPath(url) {
   let pathname;
   try { pathname = decodeURIComponent(new URL(url, `http://${host}:${port}`).pathname); } catch { return null; }
-  const compare = pathname === "/compare" || pathname.startsWith("/review/") || pathname.startsWith("/config/") || pathname.startsWith("/output/");
+  const compare = pathname === "/compare" || pathname === "/retune" || pathname.startsWith("/review/") || pathname.startsWith("/config/") || pathname.startsWith("/output/");
   const root = compare ? labRoot : siteRoot;
-  const relative = pathname === "/" ? "index.html" : pathname === "/compare" ? "review/index.html" : pathname.replace(/^\/+/, "");
+  const relative = pathname === "/" ? "index.html" : pathname === "/compare" || pathname === "/retune" ? "review/index.html" : pathname.replace(/^\/+/, "");
   const resolved = path.resolve(root, relative);
   if (resolved !== root && !resolved.startsWith(`${root}${path.sep}`)) return null;
   return resolved;
@@ -71,5 +71,6 @@ const server = createServer(async (request, response) => {
 await buildVoiceLabSite();
 server.listen(port, host, () => {
   console.log(`Yokogawa AI Voice Lab review: http://${host}:${port}`);
+  console.log(`Voice Retune: http://${host}:${port}/retune`);
   console.log(`Round comparison: http://${host}:${port}/compare`);
 });
