@@ -25,6 +25,12 @@ export function applyRetuneParameters(query, parameters) {
   return query;
 }
 
+export function applyCandidateSynthesisText(text, transform) {
+  if (!transform) return text;
+  if (transform.id !== 'full-stop-ellipsis-v1' || !['…', '……'].includes(transform.suffix)) throw new Error(`Unknown synthesis text transform: ${transform.id}`);
+  return text.replace(/。(?=.)/gu, `。${transform.suffix}`);
+}
+
 export function validateRetuneConfig(selected, config, sampleConfig, productionManifest) {
   if (selected.displayName !== '2A' || selected.style !== 'Calm' || selected.parameters.speedScale !== 1.2) throw new Error('2A baseline does not match the selected profile.');
   const expectedCandidates = {
@@ -123,7 +129,8 @@ async function generateCandidates(engine, model) {
     const queryRoot = path.join(retuneOutputRoot, 'metadata', candidate.id);
     await mkdir(candidateRoot, { recursive: true }); await mkdir(queryRoot, { recursive: true });
     for (const sample of model.samples) {
-      const params = new URLSearchParams({ text: sample.synthesisText, speaker: String(candidate.styleId) });
+      const synthesisText = applyCandidateSynthesisText(sample.synthesisText, candidate.synthesisTextTransform);
+      const params = new URLSearchParams({ text: synthesisText, speaker: String(candidate.styleId) });
       const query = await engineFetch(engine, `/audio_query?${params}`, { method: 'POST' }).then((response) => response.json());
       applyRetuneParameters(query, candidate.parameters);
       const queryJson = `${JSON.stringify(query, null, 2)}\n`;
@@ -132,8 +139,9 @@ async function generateCandidates(engine, model) {
         method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(query),
       }).then((response) => response.arrayBuffer()));
       await writeFile(path.join(candidateRoot, sample.audioFile), wav);
-      run.files.push({ candidate: candidate.id, sample: sample.scriptId, scriptText: sample.scriptText, synthesisText: sample.synthesisText,
-        pronunciationOverride: sample.pronunciationOverride ?? null, audioQuerySha256: sha256(queryJson), wavSha256: sha256(wav), bytes: wav.length });
+      run.files.push({ candidate: candidate.id, sample: sample.scriptId, scriptText: sample.scriptText, synthesisText,
+        pronunciationOverride: sample.pronunciationOverride ?? null, synthesisTextTransform: candidate.synthesisTextTransform ?? null,
+        audioQuerySha256: sha256(queryJson), wavSha256: sha256(wav), bytes: wav.length });
       console.log(`generated ${candidate.id}/${sample.audioFile}`);
     }
   }
@@ -179,6 +187,7 @@ export function analyseSilence(buffer) {
 }
 
 async function verifyAndReport(model) {
+  const expectedGeneratedWavCount = (model.candidates.length - 1) * model.samples.length;
   const report = { schemaVersion: 1, verifiedAt: new Date().toISOString(), pass: true, generatedWavCount: 0, candidates: [], durationComparison: [], pauseComparison: [] };
   const durationBySample = new Map(model.samples.map((sample) => [sample.scriptId, {}]));
   for (const candidate of model.candidates) {
@@ -208,13 +217,13 @@ async function verifyAndReport(model) {
       return [candidate.id, { durationSeconds: file.wav.durationSeconds, longestInternalSilenceSeconds: longest, internalSilenceCount: file.silence.internalSilences.length }];
     })) });
   }
-  report.pass &&= report.generatedWavCount === 21;
+  report.pass &&= report.generatedWavCount === expectedGeneratedWavCount;
   const manifest = { ...model, generatedAt: report.verifiedAt, qa: { pass: report.pass, generatedWavCount: report.generatedWavCount },
     candidates: model.candidates.map((candidate) => ({ ...candidate, durations: Object.fromEntries(report.durationComparison.map((row) => [row.scriptId, row[candidate.id].durationSeconds])) })) };
   await writeFile(path.join(retuneOutputRoot, 'qa-report.json'), `${JSON.stringify(report, null, 2)}\n`);
   await writeFile(path.join(retuneOutputRoot, 'comparison-manifest.json'), `${JSON.stringify(manifest, null, 2)}\n`);
-  const lines = ['# Voice Retune comparison', '', '| Line | 2A | 2B | 2C | 2D |', '| --- | ---: | ---: | ---: | ---: |'];
-  for (const row of report.durationComparison) lines.push(`| #${row.scriptId} ${row.label} | ${row['2a'].durationSeconds.toFixed(2)}s | ${row['2b'].durationSeconds.toFixed(2)}s (${row['2b'].differencePercentFrom2A}%) | ${row['2c'].durationSeconds.toFixed(2)}s (${row['2c'].differencePercentFrom2A}%) | ${row['2d'].durationSeconds.toFixed(2)}s (${row['2d'].differencePercentFrom2A}%) |`);
+  const lines = ['# Voice Retune comparison', '', `| Line | ${model.candidates.map((candidate) => candidate.displayName).join(' | ')} |`, `| --- | ${model.candidates.map(() => '---:').join(' | ')} |`];
+  for (const row of report.durationComparison) lines.push(`| #${row.scriptId} ${row.label} | ${model.candidates.map((candidate) => `${row[candidate.id].durationSeconds.toFixed(2)}s${candidate.id === '2a' ? '' : ` (${row[candidate.id].differencePercentFrom2A}%)`}`).join(' | ')} |`);
   lines.push('', '## Pause proxy', '', '10ms窓のRMS振幅から60ms以上の内部無音区間を検出。詳細はqa-report.json。', '', '| Line | Candidate | Longest internal silence | Count |', '| --- | --- | ---: | ---: |');
   for (const row of report.pauseComparison) for (const candidate of model.candidates) {
     const pause = row.candidates[candidate.id]; lines.push(`| #${row.scriptId} | ${candidate.displayName} | ${pause.longestInternalSilenceSeconds.toFixed(2)}s | ${pause.internalSilenceCount} |`);
@@ -236,7 +245,8 @@ async function main() {
   if (['generate', 'all'].includes(command)) await generateCandidates(engine, model);
   if (['verify', 'all'].includes(command)) {
     const report = await verifyAndReport(model);
-    console.log(`Voice Retune QA: ${report.pass ? 'PASS' : 'FAIL'} / generated ${report.generatedWavCount}/21`);
+    const expected = (model.candidates.length - 1) * model.samples.length;
+    console.log(`Voice Retune QA: ${report.pass ? 'PASS' : 'FAIL'} / generated ${report.generatedWavCount}/${expected}`);
     if (!report.pass) process.exitCode = 1;
   }
   if (!['prepare', 'generate', 'verify', 'all'].includes(command)) throw new Error(`Unknown command: ${command}`);

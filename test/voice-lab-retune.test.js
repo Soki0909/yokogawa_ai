@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { applyRetuneParameters, loadRetuneModel, retuneOutputRoot, validateRetuneConfig } from '../experiments/voice-lab/scripts/retune-voice-lab.mjs';
+import { applyCandidateSynthesisText, applyRetuneParameters, loadRetuneModel, retuneOutputRoot, validateRetuneConfig } from '../experiments/voice-lab/scripts/retune-voice-lab.mjs';
 import { PLAYBACK_EFFECTS } from '../public/js/audio-playback-effects.js';
 
 const json = async (file) => JSON.parse(await readFile(file, 'utf8'));
@@ -46,6 +46,19 @@ test('AudioQuery overrideは既知8項目だけを上書きしunknown fieldを�
   for (const [key, value] of Object.entries(parameters)) assert.equal(result[key], value);
 });
 
+test('句点比較は2Dを固定し「。…」と「。……」だけを切り替える', async () => {
+  const [pauseConfig, candidates] = await Promise.all([
+    json('experiments/voice-lab/config/sentence-pause-test.json'), json('experiments/voice-lab/config/candidates-retune.json'),
+  ]);
+  assert.equal(pauseConfig.baseCandidateId, '2d'); assert.equal(pauseConfig.sampleId, '013');
+  assert.deepEqual(pauseConfig.variants.map((variant) => variant.suffix), ['…', '……']);
+  const base = candidates.candidates.find((candidate) => candidate.id === pauseConfig.baseCandidateId);
+  assert.deepEqual([base.parameters.speedScale, base.parameters.intonationScale, base.parameters.tempoDynamicsScale, base.parameters.pauseLengthScale], [1.08, .25, .08, 1.35]);
+  const text = 'エラー。指定されたスタッフへの連絡に失敗。';
+  assert.equal(applyCandidateSynthesisText(text, { id: 'full-stop-ellipsis-v1', suffix: '…' }), 'エラー。…指定されたスタッフへの連絡に失敗。');
+  assert.equal(applyCandidateSynthesisText(text, { id: 'full-stop-ellipsis-v1', suffix: '……' }), 'エラー。……指定されたスタッフへの連絡に失敗。');
+});
+
 test('Retune生成物はProduction WAVから分離されHIJACKED effect値を変更しない', async () => {
   assert.equal(path.relative(process.cwd(), retuneOutputRoot).replaceAll('\\', '/'), 'experiments/voice-lab/output/retune-2026-10');
   assert.deepEqual(PLAYBACK_EFFECTS['hijacked-subtle-v1'], {
@@ -65,6 +78,8 @@ test('Voice Retune UIはProduction defaultを維持し個別・連続・RAW/本�
   ]);
   assert.match(productionHtml, /PRODUCTION SAMPLES/); assert.match(productionHtml, /href="\/\?logout=1"/);
   assert.match(reviewHtml, /VOICE RETUNE/); assert.match(reviewHtml, /data-mode="production"/); assert.match(reviewHtml, /data-mode="raw"/);
+  assert.match(reviewHtml, /句点の間/); assert.match(reviewApp, /pause-test/); assert.match(server, /pathname === "\/pause-test"/);
+  assert.match(reviewHtml, /href="\/sandbox"/); assert.match(server, /\/api\/sandbox\/synthesize/); assert.match(server, /Text must contain 1 to 500 characters/);
   assert.match(reviewApp, /4候補を順番に再生|\$\{count\}候補を順番に再生/);
   assert.match(reviewApp, /connectPlaybackEffect/); assert.match(server, /pathname === "\/retune"/);
   assert.match(gate, /path: '\/\*'/);

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "round": "sentence-pause-test-2026-10",
+  "baseCandidateId": "2d",
+  "sampleId": "013",
+  "description": "2Dの声質を固定し、句点直後の三点リーダー数だけを比較する",
+  "variants": [
+    {
+      "id": "pause-one",
+      "displayName": "。…",
+      "direction": "短い文間",
+      "description": "文中の句点直後へ三点リーダー1個を追加",
+      "suffix": "…"
+    },
+    {
+      "id": "pause-two",
+      "displayName": "。……",
+      "direction": "長い文間",
+      "description": "文中の句点直後へ三点リーダー2個を追加",
+      "suffix": "……"
+    }
+  ]
+}

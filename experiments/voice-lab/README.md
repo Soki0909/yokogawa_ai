@@ -58,6 +58,22 @@ npm run voice:lab:review
 
 VOICE RETUNE画面では各台詞の個別再生と2A→2B→2C→2Dの連続比較ができます。#008のみRAW／本番再生を切り替えられ、本番再生には既存の `hijacked-subtle-v1` をそのまま適用します。
 
+### 「。…」と「。……」の句点比較
+
+2Dの声質設定を固定し、#013「緊急エラー」1台詞だけで、文中の句点直後へ三点リーダーを1個／2個追加した合成音声を比較します。表示本文は変更しません。
+
+```powershell
+npm run voice:lab:pause-test
+npm run voice:lab:review
+# http://127.0.0.1:4174/pause-test
+```
+
+設定は `config/sentence-pause-test.json`、生成物は `output/sentence-pause-test-2026-10/` へ分離されます。
+
+### 自由入力Voice Sandbox
+
+ローカル比較サーバーを起動した状態で `http://127.0.0.1:4174/sandbox` を開きます。任意の500文字以内の文章と、句点後の記号、speed、intonation、tempo dynamics、pause scaleを指定して、その場でAivisSpeech音声を生成・再生できます。初期値は2Dです。入力文・生成WAVは保存されず、Productionへも反映されません。
+
 ### Production Samplerの静的build
 
 ```powershell

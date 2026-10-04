@@ -2,6 +2,7 @@ import { assertPlaybackEffect, connectPlaybackEffect } from '/audio-playback-eff
 
 const rounds = {
   retune: { label: 'VOICE RETUNE', title: '2A基準 — 速度・無機質さ・文間の比較', manifestFile: '/output/retune-2026-10/comparison-manifest.json', audioRoot: '/output/retune-2026-10' },
+  'pause-test': { label: '句点の間', title: '2D固定 — 「。…」と「。……」の比較', manifestFile: '/output/sentence-pause-test-2026-10/comparison-manifest.json', audioRoot: '/output/sentence-pause-test-2026-10' },
   'round-1': { label: 'ROUND 1', title: 'モデル・声質の比較', candidatesFile: '/config/candidates.json', samplesFile: '/config/samples.json', audioRoot: '/output' },
   'round-2': { label: 'ROUND 2', title: '阿井田 茂 — 無機質さの比較', candidatesFile: '/config/candidates-round-2.json', samplesFile: '/config/samples.json', audioRoot: '/output/round-2' },
 };
@@ -122,4 +123,4 @@ document.querySelectorAll('[data-round]').forEach((button) => button.addEventLis
 document.querySelectorAll('[data-mode]').forEach((button) => button.addEventListener('click', async () => { state.mode = button.dataset.mode; document.querySelectorAll('[data-mode]').forEach((item) => item.setAttribute('aria-pressed', String(item.dataset.mode === state.mode))); await stopPlayback(); }));
 
 function showError(error) { document.querySelector('.comparison').innerHTML = `<p style="padding:24px;color:#f0bc63">${escapeHtml(error.message)}</p>`; }
-selectRound(location.pathname === '/retune' ? 'retune' : 'round-2').catch(showError);
+selectRound(location.pathname === '/pause-test' ? 'pause-test' : location.pathname === '/retune' ? 'retune' : 'round-2').catch(showError);
