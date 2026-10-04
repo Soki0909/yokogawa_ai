@@ -1,4 +1,4 @@
-# 横川AI Phase C Candidate — Production Audio Integration
+# 横川AI Phase C Candidate — Script-aligned Production Audio
 
 演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0の承認済みVisualを維持し、Phase C候補では現在の台本に準拠した固定WAVとServer-side Local TTSを追加しました。Phase Cは`USER REVIEW REQUIRED`で、正式tagやmaster mergeはまだ行いません。
 
@@ -139,7 +139,9 @@ AssetはIDと相対pathを分離します。音声は `assets/audio/*.wav|*.mp3`
 
 Importは先にDry Runし、schema、重複ID、Cue kind、target、group、preset、avatar、audio asset、参照整合性を検査します。Error時は現在Showを一切変更しません。
 
-本番候補は [`shows/production.json`](shows/production.json) です。現在のGoogle Docs台本revisionに一致する固定音声17件とVisual Cueを収録し、全scripted speechは`audio-file`です。横川ルート固有の台詞018は、台詞010との配置判断を推測せず [`shows/production-yokogawa-route.json`](shows/production-yokogawa-route.json) に分離しています。Show File読込からDry Runして適用してください。
+本番候補は [`shows/production.json`](shows/production.json) です。24 Cueと固定音声17件を、現在のGoogle Docs台本に沿う順序と外部同期境界で収録し、全scripted speechは`audio-file`です。開始時とSHOW RESET後はUIを残したPRE-SHOW / STANDBY（Avatar hidden）へ戻ります。WAV005〜009だけにraw WAVを変えない`hijacked-subtle-v1`再生処理を適用します。
+
+route mapping未確定のWAV010と、Scene 7内で記載が競合するWAV017は削除せず通常NEXTから無効化しています。確認後のみ直接実行してください。横川ルート固有の台詞018は [`shows/production-yokogawa-route.json`](shows/production-yokogawa-route.json) に分離したままです。Show File読込からDry Runして適用してください。
 
 Phase Aデモ [`shows/phase-a-demo.json`](shows/phase-a-demo.json) は上書きせず保存しています。状態間は自動連鎖せず、オペレーターがNEXTで進行します。
 
@@ -186,7 +188,7 @@ npm run voice:production:verify
 
 `test:soak` は既定30分で、Unlock・緊急中断・Hostile・Shutdown・Recovery・NORMAL cleanupを周期投入します。短縮確認は `$env:SOAK_MINUTES='0.1'` のように指定できます。Phase Bの自動試験、実ブラウザ、Admin 1 + Display 3、Screenshot、console、30分試験、受入照合は [Phase B検証記録](docs/phase-B/verification.md)、正式版の要約は [v0.6.0 Release Notes](docs/phase-B/release-notes.md) を参照してください。承認済みReview画像は [`artifacts/phase-b-review/`](artifacts/phase-b-review/) にあります。
 
-Phase Cの構造は [実装記録](docs/phase-C/implementation.md)、結果は [検証記録](docs/phase-C/verification.md) に記録しています。現在は正式release前の検証候補で、実PAによるVoice、速度1.20、音量、Cue timingのユーザーレビューが必要です。
+Phase Cの構造は [実装記録](docs/phase-C/implementation.md)、台本照合は [Alignment Audit](docs/phase-C/script-alignment-audit.md)、結果は [検証記録](docs/phase-C/verification.md) に記録しています。現在は正式release前の検証候補で、実PAによるVoice、速度1.20、音量、Cue timingと未確定Cueのユーザーレビューが必要です。
 
 ### Phase C障害対応
 

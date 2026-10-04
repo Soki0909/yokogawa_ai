@@ -1,6 +1,6 @@
 # 横川AI 検証記録
 
-現在の正式版はPhase B / v0.6.0です。その上にPhase C Production Audio Integrationの検証候補を実装しており、正式tag前の`USER REVIEW REQUIRED`で停止します。
+現在の正式版はPhase B / v0.6.0です。その上にPhase C Production Audio Integrationと最新台本Alignment Patchの検証候補を実装しており、正式tag前の`USER REVIEW REQUIRED`で停止します。
 
 - [Phase B検証記録](docs/phase-B/verification.md)
 - [Phase B Visual Review Guide](docs/phase-B/review-guide.md)
@@ -13,6 +13,7 @@
 - [全ドキュメント索引](docs/README.md)
 - [Phase C Production Integration方針](docs/phase-C/production-integration-plan.md)
 - [Phase C実装記録](docs/phase-C/implementation.md)
+- [Phase C台本Alignment Audit](docs/phase-C/script-alignment-audit.md)
 - [Phase C検証記録](docs/phase-C/verification.md)
 
 ルートには初見利用者向けの入口だけを置き、フェーズ固有の詳細は各`docs/phase-*`に保管します。

@@ -1,71 +1,53 @@
 # Phase C Production Audio Integration — Implementation
 
-Status: **Verified candidate / USER REVIEW REQUIRED**
+Status: **Script Alignment Candidate / USER REVIEW REQUIRED**
 
-Phase B / `v0.6.0`のVisualと運用機能を維持し、本番固定音声とServer-side Local TTSをProvider境界の内側へ統合した。正式release、master merge、Voice DSPは行っていない。
+Phase B / `v0.6.0`の承認済みVisualとPhase C音声基盤を維持したまま、最新台本との不一致だけを修正した。正式release、master merge、tag、pushはSTOP GATEにより行わない。
 
-## Source of truth
+## Source of truth and provenance
 
-- 台本: Google Docs「『7号館からの脱出』上演台本」current revision
-- revision: `AHj4eMS3KA9Z6t9TO5mrMgkiaaW8HvtIRZK_RMX11J62cCzp9lINe9lq5LsmmS0pT1fhBPl0a2Y0PQA0pbGM6AoHZh1tsJTPwZ_ie70EKlw`
-- modified: `2026-10-03T02:09:48.835Z`
-- Voice Profile正本: `experiments/voice-lab/config/selected-profile.json`
-- Production snapshot: `config/voice-profiles/yokogawa-professor-v1.json`
-- source hash: `sha256:d5c1ef23058df792bf2f27b3422c6212e31d62a2b186e90d305af6731216f739`
+- 台本: Google Docs「『7号館からの脱出』上演台本」（読取専用）
+- 現在の監査revision: `ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0`
+- modified: `2026-10-03T15:28:38.878Z`
+- raw WAV生成時revision: `AHj4eMS3KA9Z6t9TO5mrMgkiaaW8HvtIRZK_RMX11J62cCzp9lINe9lq5LsmmS0pT1fhBPl0a2Y0PQA0pbGM6AoHZh1tsJTPwZ_ie70EKlw`
+- Voice Profile: Candidate 2A / `yokogawa-professor-v1` / speed `1.20`
 
-台本は読取専用で参照し、編集していない。manifestの全18件は`scriptText === synthesisText`であり、任意の読み替えを加えていない。
+manifestでは現在の台本revisionとraw WAV生成時revisionを分離した。18件の台詞本文、WAV、SHA-256、Candidate 2A profileは変更していない。
 
-## Selected voice
+## Alignment result
 
-- Candidate: **2A** (`round-2-a-calm-restrained`)
-- AivisSpeech model / speaker: 阿井田 茂
-- style: Calm
-- speaker UUID: `561e4e59-3bc9-4726-9028-44a3c12a6f1d`
-- model UUID: `47e53151-a378-46f3-abee-ce13aa07feb1`
-- runtime style ID: `1310138977`
-- speed: **1.20**（Lab測定より速くするユーザー指定）
-- pitch: `0.00`, intonation: `0.45`, tempo dynamics: `0.20`, volume: `0.95`
-- output: WAV / 44.1kHz / mono / 16-bit
+事前監査は [`script-alignment-audit.md`](script-alignment-audit.md) に保存した。17項目の内訳はMATCH 3、MISMATCH 13、UNRESOLVED_SCRIPT 1。MATCHのAL-003、AL-009、AL-016は意味・順序を変更していない。
 
-同期・検証スクリプトは選定正本とのhash drift、profile値、speaker/styleを照合する。Engineの列挙結果からUUIDとstyle名でruntime IDを解決し、固定IDだけに依存しない。
+主な修正は次のとおり。
 
-## Architecture
+- Production import / SHOW RESETを、UI表示・Avatar非表示・非BLACKOUTのPRE-SHOW / STANDBYへ戻す。
+- WAV001へboot transitionと段階的Avatar revealを付ける。Phase A初期Avatarは従来どおり表示する。
+- WAV004完了後に独立ANOMALYを置き、FULL HIJACKEDは消灯・復灯後のWAV005開始時まで遅らせる。
+- WAV005〜009だけに`hijacked-subtle-v1`を適用する。
+- WAV008と009の間に「5問 / 第1問 / 7・201」だけを示すriddle-enterを置く。
+- WAV010は未確定routeの誤進行を防ぐため通常NEXTから無効化し、確認後の直接実行用として保持する。
+- WAV012後の電子音、Unlock手動開始、100%保持を明示する。
+- WAV013前・WAV014後の警告SE接続点を明示する。
+- 虎谷の端末操作をtriggerとするHOSTILE先行CueをWAV015前に置き、WAV015後の轟音接続点を明示する。
+- 非常停止問題は本文を創作せず、`CONTENT PENDING`の専用containerだけを用意する。
+- 停止コードCueで警報・照明明滅停止とSHUTDOWNを先行し、その後WAV016、扉解錠SE、出演者確認へ接続する。
+- SHUTDOWNは長時間保持し、独立RECOVERY Cueだけで復旧する。
+- 競合するWAV017は削除せず無効化して保持する。WAV018は横川route別Showのまま維持する。
 
-```text
-Production Cue ── audio-file ──> local WAV asset ──> Audio Master only
-Free Speak/Test ─ local-tts ───> Node provider ──> AivisSpeech
-                                      │
-                                      └─ bounded runtime WAV cache
-Browser TTS ─ development/legacy only; production fallback disabled
-```
+照明・音響・役者の接続点は`syncMarkers`、`operatorNote`、`triggerNote`だけで表した。Appから外部設備を直接制御せず、正式Cue番号も創作していない。
 
-Local TTSのengine固有処理、profile適用、WAV検査、cache、HTTP配信はserver側へ閉じ込めた。Displayは同一originの一時音声URLだけを扱う。cacheは32件・96MiB・30分TTLの上限を持つ。STOPは合成中リクエストと再生中音声の両方を取消し、失敗時は字幕を残してOperatorへ明示し、Browser TTSへ暗黙fallbackしない。
+## HIJACKED voice boundary
 
-## Production assets and shows
+`hijacked-subtle-v1`はDisplayのWeb Audio再生層で決定的に構成する。115Hz high-pass、5.6kHz low-pass、11msの低レベルdoubleを使用し、同一人物性と明瞭度を保つ。raw WAVは不変で、同じAudio要素をLip Sync analyserへ接続するため、Audio Master、STOP、REPLAY、audio-reactive lip syncの境界も維持する。SHUTDOWNを含む他のWAVには適用しない。
 
-- Manifest: `config/production-speech/yokogawa-ai-v1.json`
-- WAV: `public/assets/audio/yokogawa-professor-v1_*.wav`（18件、合計90.96秒 / 8,023,356 bytes）
-- Main show: `shows/production.json`（21 Cue、scripted speech 17件、18 assets登録）
-- Route supplement: `shows/production-yokogawa-route.json`（台詞018）
-- Preserved demo: `shows/phase-a-demo.json`
+## Production shows
 
-台詞010と横川ルート固有台詞018の上演上の排他・配置は台本から一意に確定できないため、`UNRESOLVED ROUTE MAPPING`として別Showに分離した。演出判断を受ける前に推測で本線へ混ぜない。
+- Main: `shows/production.json` — 24 Cue / 18 assets
+- 横川route supplement: `shows/production-yokogawa-route.json` — 1 Cue / 18 assets
+- Phase A demo: `shows/phase-a-demo.json` — 変更なし
 
-## Operator behavior
+未確定事項は、WAV010のroute mapping、Scene 7で競合するWAV017、非常停止問題本文・素材である。これらは推測で解決せず、安全な無効化またはplaceholder containerで止めている。
 
-- Scripted Cueは`audio-file`のみを使用する。
-- Free SpeakとLocal TTS testは`local-tts`を使用する。
-- 音声はGlobal Audio Masterだけが再生し、他Displayは字幕・演出を同期する。
-- AivisSpeech停止、profile不一致、合成失敗、WAV不正はAdminへ明示する。
-- 再接続で現在字幕・演出は復元するが、過去音声を自動再生しない。
-- STOP / REPLAY / BLACKOUT / RESTORE / Show Resetは従来どおり使用できる。
+## STOP GATE
 
-## Intentionally not implemented
-
-- 状態別Voice DSP / effect
-- クラウドTTS
-- Aivis model binaryのrepository同梱
-- 正式`v0.7.0` release/tag、master merge
-- 未確定route mappingの推測
-
-次の判断は、実会場のスピーカーで固定WAVとFree Speakを聞き、Voice、速度1.20、音量、Cue timing、演者との間をレビューした後に行う。
+本候補は技術検証済みだが、実PAでのHIJACKED音声明瞭度、boot reveal、外部部署との手動同期、WAV010 / 017の採否と配置についてユーザーレビューが必要である。`v0.7.0`のtag、master merge、pushは行わない。
