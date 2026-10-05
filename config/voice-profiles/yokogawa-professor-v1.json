@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
   "profileId": "yokogawa-professor-v1",
-  "generatedAt": "2026-10-04T07:37:09.726Z",
+  "generatedAt": "2026-10-05T02:04:24.793Z",
   "source": {
     "path": "experiments/voice-lab/config/selected-profile.json",
-    "sha256": "sha256:773bba886303d8e7d6e172aee97a29911d80198048662a77882cadf0358cdfe1",
+    "sha256": "sha256:4439d5bf445359067a9a5acd15dcd6c7a56bee8b25b07a7906e23c74ea39fb88",
     "selectedAt": "2026-10-04",
     "sourceRound": "retune-2026-10",
     "sourceCandidate": "2d",
@@ -56,6 +56,12 @@
         {
           "from": "貴重書『プリンキピア』",
           "to": "貴重書、『プリンキピア』"
+        }
+      ],
+      "008": [
+        {
+          "from": "館内に隠された五つの謎を",
+          "to": "館内に隠された、五つの謎、を"
         }
       ],
       "009": [
