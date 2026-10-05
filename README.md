@@ -13,6 +13,23 @@ Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSoc
 
 Node.js 20以上、Express、`ws`、Vanilla HTML/CSS/JavaScriptを使用します。CDNやクラウドAPIは使わず、会場LAN内だけで中核機能が動作します。
 
+## 7・201 本番 — 1台PC運用
+
+本番は7・201の1台PCだけで横川AIを実行し、PC後方のAdmin画面から20m HDMIで接続したセカンドモニターへDisplay画面を出す運用を標準とします。無線LAN・会場LAN・Netlifyは本番動作に不要です。
+
+```text
+PC内
+├─ http://localhost:3000/admin   操作用
+├─ http://localhost:3000/display セカンドモニター用
+└─ public/assets/audio/*.wav     Production固定音声
+        │
+        └─ HDMI 20m → 7・201 前方表示
+```
+
+Windows本番起動は `start-yokogawa-ai-single-pc.cmd` を使用します。この起動方法ではServerを `127.0.0.1` のみにbindし、LAN側から接続できない状態にします。DisplayがAudio MasterになるとProduction固定WAVをlocalhost経由で事前ロードし、全件準備完了後にAudio Readyへ移行します。WAVバイナリをWebSocketで送信することはありません。
+
+詳細な設営・本番確認は [Single-PC Production Runbook](docs/production/single-pc-runbook.md) を参照してください。
+
 ## 起動と会場設営
 
 ```powershell

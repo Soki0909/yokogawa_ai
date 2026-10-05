@@ -2,6 +2,7 @@ import { ReconnectingSocket } from './socket-client.js';
 import { createSpeechProvider } from './tts-adapter.js';
 import { LipSyncController } from './lip-sync.js';
 import { BlinkController } from './blink-controller.js';
+import { prepareProductionAudio } from './audio-preload.js';
 
 const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((element) => [element.id, element]));
 const storageKey = 'yokogawa-display-v2';
@@ -23,6 +24,8 @@ elements['display-identity'].textContent = identity.displayName;
 let settings = { rate: 1, pitch: .9, volume: 1, voiceURI: '', subtitlesEnabled: true };
 let isAudioMaster = false;
 let audioUnlocked = false;
+let audioPreloadPromise = null;
+let audioPreloadResult = null;
 let identifyTimer;
 let transitionTimer;
 let unlockFrame;
@@ -58,6 +61,37 @@ const localTts = createSpeechProvider('local-tts', {
   onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); setMode('LOCAL TTS ERROR — 字幕は継続中', 'error'); socket.send({ type: 'playback', id, status: 'error', error }); },
 });
+
+
+function setAudioPreloadHelp(message) {
+  elements['audio-help'].textContent = message;
+}
+
+async function ensureProductionAudioPreloaded() {
+  if (audioPreloadResult?.total > 0 && audioPreloadResult.ready === audioPreloadResult.total) return audioPreloadResult;
+  if (audioPreloadPromise) return audioPreloadPromise;
+  audioPreloadPromise = prepareProductionAudio({
+    concurrency: 4,
+    onProgress: ({ ready, total }) => {
+      setAudioPreloadHelp(`固定WAVを準備しています… ${ready} / ${total}`);
+      elements['enable-audio'].textContent = `音声準備中 ${ready}/${total}`;
+    },
+  }).then((result) => {
+    if (!result.total || result.ready !== result.total) throw new Error('Production WAVの準備が完了していません');
+    audioPreloadResult = result;
+    setAudioPreloadHelp(`固定WAV ${result.ready} / ${result.total} READY。設定を保存して開始してください。`);
+    elements['enable-audio'].textContent = '設定を保存して開始';
+    return result;
+  }).catch((error) => {
+    audioPreloadResult = null;
+    setAudioPreloadHelp(`固定WAVの準備に失敗しました。再試行してください。(${error.message})`);
+    elements['enable-audio'].textContent = '再試行';
+    throw error;
+  }).finally(() => {
+    audioPreloadPromise = null;
+  });
+  return audioPreloadPromise;
+}
 
 function applyPresentation(presentation = {}, preset = null) {
   if (preset) {
@@ -178,8 +212,9 @@ function handleEvent(event) {
       transition: event.state.currentTransition, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
     document.body.dataset.reducedMotion = String(event.state.settings?.reducedMotion === true);
     elements['audio-help'].textContent = isAudioMaster
-      ? 'この端末はAudio Masterです。公演開始前または再読み込み後に準備してください。'
+      ? 'この端末はAudio Masterです。固定WAVを事前準備してから音声出力を開始します。'
       : '字幕Displayとして接続します。Audio Masterに指定されるまで音声は再生しません。';
+    if (isAudioMaster && identity.audioEnabled && !audioUnlocked) void ensureProductionAudioPreloaded().catch(() => {});
     if (!isAudioMaster || !identity.audioEnabled || audioUnlocked) elements['audio-gate'].hidden = true;
     publishVoices();
   } else if (event.type === 'speak') {
@@ -240,7 +275,7 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) window.speechSynthesis?.resume();
 });
 elements['open-setup'].addEventListener('click', openSetup);
-elements['enable-audio'].addEventListener('click', () => {
+elements['enable-audio'].addEventListener('click', async () => {
   identity = {
     ...identity,
     displayName: elements['display-name'].value.trim() || identity.displayName,
@@ -250,8 +285,23 @@ elements['enable-audio'].addEventListener('click', () => {
   elements['display-identity'].textContent = identity.displayName;
   socket.send({ type: 'display:configure', display: identity });
   window.speechSynthesis?.cancel(); publishVoices();
+
   if (identity.audioEnabled && isAudioMaster) {
-    audioUnlocked = true; socket.send({ type: 'audio:ready' });
+    elements['enable-audio'].disabled = true;
+    try {
+      await ensureProductionAudioPreloaded();
+      if (isAudioMaster && identity.audioEnabled) {
+        audioUnlocked = true;
+        socket.send({ type: 'audio:ready' });
+      }
+    } catch {
+      setMode('AUDIO PRELOAD ERROR', 'error');
+      elements['enable-audio'].disabled = false;
+      elements['audio-gate'].hidden = false;
+      return;
+    }
+    elements['enable-audio'].disabled = false;
   }
+
   elements['audio-gate'].hidden = true; setMode('SYSTEM READY', 'ready');
 });

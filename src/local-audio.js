@@ -11,6 +11,19 @@ export function resolveLocalAsset(publicDirectory, asset) {
 
 export const resolveAudioAsset = resolveLocalAsset;
 
+export function productionAudioPreloadManifest(assets = []) {
+  return assets
+    .filter((asset) => asset?.mimeType === 'audio/wav'
+      && /^prod-voice-\d{3}-/.test(asset.id ?? '')
+      && isSafeAssetPath(asset.path))
+    .sort((left, right) => left.id.localeCompare(right.id))
+    .map((asset) => ({
+      id: asset.id,
+      url: `/api/assets/${encodeURIComponent(asset.id)}`,
+      sha256: asset.sha256 ?? null,
+    }));
+}
+
 // Short local WAV fixture used for preflight and offline demonstrations.
 export function createTestToneWav({ frequency = 440, durationMs = 420, sampleRate = 16000 } = {}) {
   const samples = Math.floor(sampleRate * durationMs / 1000);

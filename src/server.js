@@ -7,7 +7,7 @@ import QRCode from 'qrcode';
 import { StateStore } from './state-store.js';
 import { createLogger } from './logger.js';
 import { accessUrls, connectionInfo } from './network.js';
-import { createTestToneWav, resolveLocalAsset } from './local-audio.js';
+import { createTestToneWav, productionAudioPreloadManifest, resolveLocalAsset } from './local-audio.js';
 import { loadProductionVoiceProfile } from './voice-profile.js';
 import { AivisSpeechClient } from './tts/aivis-speech-client.js';
 import { RuntimeAudioCache } from './tts/runtime-audio-cache.js';
@@ -19,6 +19,10 @@ const publicDirectory = path.join(projectRoot, 'public');
 const port = Number.parseInt(process.env.PORT ?? '3000', 10);
 const host = process.env.HOST ?? '0.0.0.0';
 const environment = process.env.NODE_ENV ?? 'production';
+const singlePcMode = ['127.0.0.1', 'localhost', '::1'].includes(host);
+const runtimeConnectionInfo = () => singlePcMode
+  ? { local: { admin: `http://localhost:${port}/admin`, display: `http://localhost:${port}/display` }, candidates: [] }
+  : connectionInfo(port);
 const heartbeatTimeoutMs = Number.parseInt(process.env.HEARTBEAT_TIMEOUT_MS ?? '7000', 10);
 const logger = createLogger(process.env.LOG_DIRECTORY ?? path.join(projectRoot, 'logs'));
 const store = new StateStore({ stateFile: process.env.STATE_FILE ?? path.join(projectRoot, 'data', 'state.json'), logger });
@@ -69,6 +73,10 @@ app.get('/api/rehearsal.csv', (_request, response) => {
   const quote = (value) => `"${String(value ?? '').replaceAll('"', '""')}"`;
   const rows = [['timestamp', 'elapsedMs', 'type', 'label', 'detail'], ...store.state.rehearsalLog.map((item) => [item.timestamp, item.elapsedMs, item.type, item.label, JSON.stringify(item.detail)])];
   response.setHeader('Content-Disposition', 'attachment; filename="rehearsal-log.csv"'); response.type('text/csv').send('\ufeff' + rows.map((row) => row.map(quote).join(',')).join('\r\n'));
+});
+app.get('/api/audio-assets', (_request, response) => {
+  response.setHeader('Cache-Control', 'no-store');
+  return response.json({ assets: productionAudioPreloadManifest(store.state.assets) });
 });
 app.get('/api/assets/:assetId', (request, response) => {
   const asset = store.state.assets.find((item) => item.id === request.params.assetId);
@@ -125,7 +133,7 @@ function broadcast(role, type, payload = {}) {
 }
 
 function broadcastState() {
-  broadcast('admin', 'state', { state: { ...store.snapshot(), connectionInfo: connectionInfo(port) } });
+  broadcast('admin', 'state', { state: { ...store.snapshot(), connectionInfo: runtimeConnectionInfo() } });
 }
 
 function displayState(socket, displayId) {
@@ -447,7 +455,7 @@ websocketServer.on('connection', (socket) => {
         logger.info('Display接続', { displayId: display.displayId, displayName: display.displayName });
         displayState(socket, display.displayId);
       } else {
-        send(socket, 'state', { state: { ...store.snapshot(), connectionInfo: connectionInfo(port) }, restoreOnly: true });
+        send(socket, 'state', { state: { ...store.snapshot(), connectionInfo: runtimeConnectionInfo() }, restoreOnly: true });
         logger.info('Admin接続');
         broadcast('display', 'voices:request');
       }
@@ -505,7 +513,7 @@ void refreshLocalTtsStatus();
 
 server.on('error', (error) => { logger.error('サーバー起動エラー', error); process.exitCode = 1; });
 server.listen(port, host, () => {
-  const urls = accessUrls(port);
+  const urls = singlePcMode ? accessUrls(port, []) : accessUrls(port);
   logger.info('Yokogawa AI System started', { environment, host, port, lan: urls.lan });
   console.log('\nYokogawa AI System started.\n\nLocal:\n' + urls.local.join('\n') + (urls.lan.length ? '\n\nLAN:\n' + urls.lan.join('\n') : '\n\nLAN:\n利用可能なLAN IPv4アドレスが見つかりません。') + '\n');
 });
