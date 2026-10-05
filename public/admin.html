@@ -37,6 +37,23 @@
         <div><span class="label">CURRENT SCENE</span><strong id="show-current-scene">— 未選択</strong></div>
         <button id="show-preflight-badge" class="preflight-badge" type="button" data-state="not-ready">NOT READY</button>
       </div>
+      <section class="scene-rehearsal" aria-labelledby="scene-rehearsal-title">
+        <div class="scene-rehearsal-copy">
+          <span>SCENE REHEARSAL</span>
+          <strong id="scene-rehearsal-title">台本Sceneの冒頭へ復元</strong>
+          <p id="scene-rehearsal-help">リハーサル開始後に使用できます。選択だけでは状態は変わりません。</p>
+        </div>
+        <button id="scene-rehearsal-session-toggle" class="scene-rehearsal-session" type="button">リハーサル開始</button>
+        <label>SCENE
+          <select id="rehearsal-scene-select"><option value="">Sceneを選択</option></select>
+        </label>
+        <button id="scene-rehearsal-start" type="button">このSceneの冒頭へ</button>
+        <div id="scene-rehearsal-ready" class="scene-rehearsal-ready" role="status" aria-live="polite" hidden>
+          <span>REHEARSAL START READY</span>
+          <strong id="scene-rehearsal-ready-scene">—</strong>
+          <p id="scene-rehearsal-ready-next">—</p>
+        </div>
+      </section>
       <article class="live-cue current-live-cue">
         <span>CURRENT CUE</span>
         <strong id="show-current-cue">— 待機中</strong>

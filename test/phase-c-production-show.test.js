@@ -40,7 +40,7 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
   assert.equal(ids.includes('prod-v-hijack'), false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-v-hostile-enter').order < main.cues.find((cue) => cue.id === 'prod-015').order, true);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-v-stop-code').order < main.cues.find((cue) => cue.id === 'prod-016').order, true);
-  assert.equal(main.cues.find((cue) => cue.id === 'prod-010').enabled, false);
+  assert.notEqual(main.cues.find((cue) => cue.id === 'prod-010').enabled, false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-017').enabled, false);
   assert.match(main.cues.find((cue) => cue.id === 'prod-v-emergency-riddle').visual.message, /NOT PROVIDED/);
   assert.ok(main.cues.flatMap((cue) => cue.syncMarkers ?? []).every((marker) => marker.id.startsWith('ALIGN-')));

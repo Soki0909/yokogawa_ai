@@ -122,11 +122,10 @@ const mainCues = [
   }),
   speechCue('010', 120, {
     name: '五条件達成・201集合',
-    enabled: false,
     overlay: { id: 'all-conditions-met', visible: true, title: 'ALL CONDITIONS MET', message: 'PROCEED TO 201', progress: 100 },
     visual: { id: 'riddle-complete', type: 'riddle-status', visible: true, title: '5 / 5 COMPLETE', items: ['01 ✓', '02 ✓', '03 ✓', '04 ✓', '05 ✓'] },
-    operatorNote: 'UNRESOLVED ROUTE MAPPING。館内放送WAV010は無効化してmain NEXTから隔離。全route達成と接続位置を確認後、Operatorが有効化して直接実行する。横川ルート専用018とは同時実行しない。',
-    triggerNote: 'main NEXT対象外。Scene 5の全条件達成と接続位置を確認後、有効化して直接実行',
+    operatorNote: '現行台本Scene 5の館内放送。五つ目の謎が解け、全条件達成後にGO。横シーン5専用018とは別routeのため同時実行しない。',
+    triggerNote: 'Scene 5「すべての条件が満たされました」の舞台進行でGO',
   }),
   speechCue('011', 130, {
     name: '最終問題提示', transition: { id: 'final-challenge-enter', durationMs: 1700, intensity: 1 },
@@ -218,14 +217,22 @@ const mainShow = {
   ...common,
   metadata: {
     title: '横川AI Production — 本編', version: 'phase-c-candidate',
-    description: '現行Google Docs台本に基づく本編。横シーン5は別Show File。',
+    description: '現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。',
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
+    sceneStructureSource: {
+      documentId: '16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo',
+      revisionId: 'ANLCKQn2B1C85Cdk8kqXy2V7gTeD4QxQWOP2Y1SdHtkg_xKHhgmvWV0V4zHe-LJn583X0Oli8hdJ4f8v3g4W8o3tVZpgXWeZAhOZbGdclKw',
+      tabCount: 14,
+    },
   },
   scenes: [
-    { sceneId: 'scene-1', sceneName: 'Scene 1 / AI起動・制御奪取', order: 1 },
-    { sceneId: 'scene-5', sceneName: 'Scene 5 / 五条件達成', order: 5 },
-    { sceneId: 'scene-6', sceneName: 'Scene 6 / 最終問題・停止', order: 6 },
-    { sceneId: 'scene-7', sceneName: 'Scene 7 / 復旧', order: 7 },
+    { sceneId: 'scene-1', sceneName: 'Scene 1 / 7・201 / AI起動・制御奪取', order: 1, scriptTabId: 't.tyup3idqskfk', location: '7・201' },
+    { sceneId: 'scene-2', sceneName: 'Scene 2 / 7・203', order: 2, scriptTabId: 't.7im6uhbfkk6m', location: '7・203' },
+    { sceneId: 'scene-3', sceneName: 'Scene 3 / 7・306', order: 3, scriptTabId: 't.vl6lnjb0yh3q', location: '7・306' },
+    { sceneId: 'scene-4', sceneName: 'Scene 4 / 7・413', order: 4, scriptTabId: 't.e7k2svyhnomc', location: '7・413' },
+    { sceneId: 'scene-5', sceneName: 'Scene 5 / 4階廊下 / 五条件達成', order: 5, scriptTabId: 't.qexxsordbvdd', location: '4階廊下' },
+    { sceneId: 'scene-6', sceneName: 'Scene 6 / 7・201 / 最終問題・停止', order: 6, scriptTabId: 't.lquo4bdx2m2q', location: '7・201' },
+    { sceneId: 'scene-7', sceneName: 'Scene 7 / 7・201 / 復旧', order: 7, scriptTabId: 't.6gopn4tnzuo', location: '7・201' },
   ],
   cues: mainCues,
 };

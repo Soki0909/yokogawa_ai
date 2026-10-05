@@ -37,6 +37,71 @@ const EMPTY_VISUAL = Object.freeze(normalizeVisual());
 const EMPTY_TRANSITION = Object.freeze({ ...normalizeTransition(), status: 'idle', startedAt: null, completedAt: null });
 const EMPTY_UNLOCK = Object.freeze({ status: 'idle', progress: 0, startedAt: null, durationMs: 5000, completedAt: null });
 
+const PRESENTATION_KEYS = Object.freeze([
+  'currentSubtitle', 'displayMode', 'currentPresetId', 'currentAvatar', 'blackout', 'previousVisualState',
+  'currentOverlay', 'currentVisual', 'currentTransition', 'unlock',
+]);
+
+export function canonicalPresentationState(avatar = DEFAULT_AVATAR) {
+  return {
+    currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: structuredClone(avatar),
+    blackout: false, previousVisualState: null, currentOverlay: structuredClone(EMPTY_OVERLAY),
+    currentVisual: structuredClone(EMPTY_VISUAL), currentTransition: structuredClone(EMPTY_TRANSITION),
+    unlock: structuredClone(EMPTY_UNLOCK),
+  };
+}
+
+function assignPresentationState(target, source) {
+  for (const key of PRESENTATION_KEYS) target[key] = structuredClone(source[key]);
+  return target;
+}
+
+function presentationStateOf(source) {
+  return Object.fromEntries(PRESENTATION_KEYS.map((key) => [key, structuredClone(source[key])]));
+}
+
+export function applyCueStateEffects(presentation, cue, { settled = false, now = new Date() } = {}) {
+  const next = structuredClone(presentation);
+  const startedAt = settled ? null : now.toISOString();
+  const transition = {
+    ...cue.transition,
+    status: cue.transition.id === 'none' ? 'idle' : settled ? 'completed' : 'active',
+    startedAt,
+    completedAt: settled && cue.transition.id !== 'none' ? null : null,
+  };
+  const overlay = settled && cue.timing.autoClearOverlayMs != null
+    ? structuredClone(EMPTY_OVERLAY)
+    : { ...cue.overlay, ...(!settled && cue.timing.autoClearOverlayMs != null && cue.overlay.visible
+      ? { expiresAt: new Date(now.getTime() + cue.timing.autoClearOverlayMs).toISOString() } : {}) };
+  const visual = settled && cue.timing.autoHideVisualMs != null
+    ? structuredClone(EMPTY_VISUAL)
+    : { ...cue.visual, ...(!settled && cue.timing.autoHideVisualMs != null && cue.visual.visible
+      ? { expiresAt: new Date(now.getTime() + cue.timing.autoHideVisualMs).toISOString() } : {}) };
+  const startsUnlock = cue.transition.id === 'unlock-start';
+  const holdsUnlock = cue.overlay.id === 'unlocking' && !startsUnlock;
+  const abortsUnlock = ['emergency-protection', 'unlock-aborted', 'connection-failed'].includes(cue.overlay.id) || cue.transition.id === 'emergency-interrupt';
+  let unlock = structuredClone(EMPTY_UNLOCK);
+  if (startsUnlock) unlock = settled
+    ? { status: 'completed', progress: 100, startedAt: null, durationMs: cue.timing.unlockDurationMs, completedAt: null }
+    : { status: 'running', progress: 0, startedAt, durationMs: cue.timing.unlockDurationMs, completedAt: null };
+  else if (holdsUnlock) {
+    const progress = settled ? 100 : Math.min(100, Math.max(0, Number(cue.overlay.progress) || Number(next.unlock.progress) || 0));
+    unlock = { status: progress >= 100 ? 'completed' : 'running', progress, startedAt: null, durationMs: 0, completedAt: null };
+  } else if (abortsUnlock) unlock = { ...next.unlock, status: 'aborted', startedAt: null, completedAt: null };
+
+  if (cue.kind === 'blackout' && !next.blackout) next.previousVisualState = {
+    currentSubtitle: next.currentSubtitle, currentPresetId: next.currentPresetId, currentAvatar: structuredClone(next.currentAvatar),
+  };
+  if (cue.kind === 'clear') next.currentSubtitle = null;
+  else if (['speech-display', 'display-only'].includes(cue.kind)) next.currentSubtitle = cue.displayText;
+  if (cue.kind !== 'blackout') next.currentPresetId = cue.presentationPreset;
+  next.currentAvatar = { ...next.currentAvatar, ...cue.avatar, lipSyncMode: cue.audio.lipSyncMode };
+  next.currentTransition = transition; next.currentOverlay = overlay; next.currentVisual = visual; next.unlock = unlock;
+  if (cue.kind === 'blackout') next.blackout = true;
+  next.displayMode = cue.kind;
+  return next;
+}
+
 export class StateStore {
   constructor({ stateFile, storage, logger = console, now = () => new Date() } = {}) {
     this.logger = logger;
@@ -53,6 +118,7 @@ export class StateStore {
       presets: structuredClone(DEFAULT_PRESETS), assets: [{ id: 'test-tone', name: '内蔵テスト音', path: 'assets/audio/test-tone.wav', mimeType: 'audio/wav' }],
       avatar: { ...DEFAULT_AVATAR }, currentPresetId: 'normal', currentAvatar: { ...DEFAULT_AVATAR },
       blackout: false, previousVisualState: null, rehearsalSession: null, rehearsalLog: [],
+      sceneRehearsal: null,
       currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
       currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK),
       localTts: { status: 'unknown', profileId: 'yokogawa-professor-v1', engineVersion: null, runtimeStyleId: null, error: null },
@@ -101,6 +167,7 @@ export class StateStore {
     this.state.unlock = this.restoreUnlock(stored.unlock);
     this.state.rehearsalSession = stored.rehearsalSession ?? null;
     this.state.rehearsalLog = Array.isArray(stored.rehearsalLog) ? stored.rehearsalLog.slice(-5000) : [];
+    this.state.sceneRehearsal = stored.sceneRehearsal?.ready === true ? stored.sceneRehearsal : null;
     this.state.adminMode = stored.adminMode === 'advanced' ? 'advanced' : 'show';
     const interrupted = new Set(['queued', 'received', 'speaking']);
     this.state.history = (Array.isArray(stored.history) ? stored.history : []).map((item) => interrupted.has(item.status)
@@ -112,8 +179,11 @@ export class StateStore {
   snapshot() {
     this.settleTimedPresentation();
     const cues = this.orderedCues();
-    const currentCue = this.state.currentCueIndex >= 0 ? cues[this.state.currentCueIndex] ?? null : null;
-    const nextCue = cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
+    const atSceneBoundary = this.state.sceneRehearsal?.ready === true;
+    const currentCue = atSceneBoundary ? null : this.state.currentCueIndex >= 0 ? cues[this.state.currentCueIndex] ?? null : null;
+    const nextCue = atSceneBoundary
+      ? cues.find((cue) => cue.cueId === this.state.sceneRehearsal.nextCueId) ?? null
+      : cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
     return structuredClone({ ...this.state, currentCue, nextCue, preflight: this.preflight() });
   }
 
@@ -374,6 +444,7 @@ export class StateStore {
     if (index < 0) throw new Error('CUE_NOT_FOUND');
     const cue = cues[index];
     if (!cue.enabled) throw new Error('CUE_DISABLED');
+    this.state.sceneRehearsal = null;
     this.state.currentCueIndex = index; this.state.currentSceneId = cue.sceneId ?? null;
     const action = this.applyCue(cue);
     const needsSpeech = ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none';
@@ -382,6 +453,10 @@ export class StateStore {
   }
 
   nextCue() {
+    if (this.state.sceneRehearsal?.ready) {
+      if (!this.state.sceneRehearsal.nextCueId) throw new Error('NO_SCENE_CUE');
+      return this.executeCue(this.state.sceneRehearsal.nextCueId);
+    }
     const cue = this.orderedCues().slice(this.state.currentCueIndex + 1).find((item) => item.enabled);
     if (!cue) throw new Error('NO_NEXT_CUE');
     return this.executeCue(cue.cueId);
@@ -389,6 +464,12 @@ export class StateStore {
 
   backCue() {
     const cues = this.orderedCues();
+    if (this.state.sceneRehearsal?.ready) {
+      this.state.sceneRehearsal = null;
+      const cue = this.state.currentCueIndex >= 0 ? cues[this.state.currentCueIndex] ?? null : null;
+      this.state.currentSceneId = cue?.sceneId ?? null;
+      return cue;
+    }
     for (let index = this.state.currentCueIndex - 1; index >= 0; index -= 1) {
       if (!cues[index].enabled) continue;
       this.state.currentCueIndex = index; this.state.currentSceneId = cues[index].sceneId ?? null;
@@ -398,6 +479,7 @@ export class StateStore {
   }
 
   replayCue() {
+    if (this.state.sceneRehearsal?.ready) throw new Error('NO_CURRENT_CUE');
     const cue = this.orderedCues()[this.state.currentCueIndex];
     if (!cue) throw new Error('NO_CURRENT_CUE');
     const original = this.state.history.find((item) => item.cueId === cue.cueId);
@@ -428,7 +510,7 @@ export class StateStore {
 
   jumpScene(sceneId) {
     if (!this.state.scenes.some((scene) => scene.sceneId === sceneId)) throw new Error('SCENE_NOT_FOUND');
-    this.state.currentSceneId = sceneId;
+    this.state.sceneRehearsal = null; this.state.currentSceneId = sceneId;
     const index = this.orderedCues().findIndex((cue) => cue.sceneId === sceneId);
     this.state.currentCueIndex = index > 0 ? index - 1 : -1;
     return this.snapshot();
@@ -438,25 +520,74 @@ export class StateStore {
     const cues = this.orderedCues();
     const index = cues.findIndex((cue) => cue.cueId === cueId);
     if (index < 0) throw new Error('CUE_NOT_FOUND');
-    this.state.currentCueIndex = index;
+    this.state.sceneRehearsal = null; this.state.currentCueIndex = index;
     this.state.currentSceneId = cues[index].sceneId ?? null;
     this.logRehearsal('cue-jump', 'Cue位置移動', { cueId, executed: false });
     void this.persist();
     return cues[index];
   }
 
+  prepareSceneRehearsal(sceneId) {
+    if (!this.state.rehearsalSession?.active) throw new Error('REHEARSAL_NOT_ACTIVE');
+    const scenes = [...this.state.scenes].sort((a, b) => a.order - b.order);
+    const scene = scenes.find((item) => item.sceneId === sceneId);
+    if (!scene) throw new Error('SCENE_NOT_FOUND');
+    const sceneOrders = new Map(scenes.map((item) => [item.sceneId, item.order]));
+    const cues = this.orderedCues();
+    const prior = cues.filter((cue) => cue.enabled && sceneOrders.has(cue.sceneId) && sceneOrders.get(cue.sceneId) < scene.order);
+    const firstCue = cues.find((cue) => cue.enabled && cue.sceneId === sceneId) ?? null;
+    let presentation = canonicalPresentationState(this.state.avatar);
+    for (const cue of prior) presentation = applyCueStateEffects(presentation, cue, { settled: true });
+    const displayPresentations = this.state.displays.map((display) => {
+      let displayPresentation = canonicalPresentationState(this.state.avatar);
+      for (const cue of prior) if (this.matchesTarget(display, cue.target)) {
+        displayPresentation = applyCueStateEffects(displayPresentation, cue, { settled: true });
+      }
+      return { displayId: display.displayId, presentation: displayPresentation };
+    });
+    const lastPriorIndex = cues.reduce((result, cue, index) => prior.some((item) => item.cueId === cue.cueId) ? index : result, -1);
+    return {
+      scene: structuredClone(scene), presentation, displayPresentations,
+      currentCueIndex: lastPriorIndex,
+      nextCueId: firstCue?.cueId ?? null,
+    };
+  }
+
+  commitSceneRehearsal(plan) {
+    if (!plan?.scene || !this.state.scenes.some((scene) => scene.sceneId === plan.scene.sceneId)) throw new Error('SCENE_NOT_FOUND');
+    if (this.state.currentMessage) this.updateCurrent('stopped');
+    for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
+    this.state.currentMessage = null; this.state.queue = []; this.state.playbackStatus = 'idle';
+    assignPresentationState(this.state, plan.presentation);
+    for (const display of this.state.displays) {
+      const next = plan.displayPresentations.find((item) => item.displayId === display.displayId)?.presentation ?? plan.presentation;
+      assignPresentationState(display, next);
+    }
+    this.state.currentCueIndex = plan.currentCueIndex;
+    this.state.currentSceneId = plan.scene.sceneId;
+    this.state.sceneRehearsal = {
+      ready: true, sceneId: plan.scene.sceneId, sceneName: plan.scene.sceneName,
+      nextCueId: plan.nextCueId, startedAt: this.now().toISOString(),
+    };
+    this.logRehearsal('scene-rehearsal-start', 'Scene Rehearsal Start', {
+      sceneId: plan.scene.sceneId, sceneName: plan.scene.sceneName, nextCueId: plan.nextCueId,
+    });
+    void this.persist();
+    return structuredClone(this.state.sceneRehearsal);
+  }
+
+  startSceneRehearsal(sceneId) {
+    return this.commitSceneRehearsal(this.prepareSceneRehearsal(sceneId));
+  }
+
   showReset() {
     if (this.state.currentMessage) this.updateCurrent('stopped');
     for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
     this.state.currentMessage = null; this.state.queue = []; this.state.playbackStatus = 'idle';
-    this.state.currentCueIndex = -1; this.state.currentSceneId = null;
-    this.state.currentSubtitle = null; this.state.displayMode = 'ready';
-    this.state.currentPresetId = 'normal'; this.state.currentAvatar = { ...this.state.avatar }; this.state.blackout = false; this.state.previousVisualState = null;
-    this.state.currentOverlay = structuredClone(EMPTY_OVERLAY); this.state.currentVisual = structuredClone(EMPTY_VISUAL);
-    this.state.currentTransition = structuredClone(EMPTY_TRANSITION); this.state.unlock = structuredClone(EMPTY_UNLOCK);
-    for (const display of this.state.displays) { Object.assign(display, { currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: { ...this.state.avatar }, blackout: false,
-      currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
-      currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK) }); }
+    this.state.currentCueIndex = -1; this.state.currentSceneId = null; this.state.sceneRehearsal = null;
+    const reset = canonicalPresentationState(this.state.avatar);
+    assignPresentationState(this.state, reset);
+    for (const display of this.state.displays) assignPresentationState(display, reset);
     this.logRehearsal('show-reset', 'SHOW RESET');
     void this.persist();
   }
@@ -511,41 +642,18 @@ export class StateStore {
   }
 
   applyCue(cue) {
-    const startedAt = this.now().toISOString();
-    const transition = { ...cue.transition, status: cue.transition.id === 'none' ? 'idle' : 'active', startedAt: cue.transition.id === 'none' ? null : startedAt, completedAt: null };
-    const overlay = { ...cue.overlay, ...(cue.timing.autoClearOverlayMs != null && cue.overlay.visible ? { expiresAt: new Date(this.now().getTime() + cue.timing.autoClearOverlayMs).toISOString() } : {}) };
-    const visual = { ...cue.visual, ...(cue.timing.autoHideVisualMs != null && cue.visual.visible ? { expiresAt: new Date(this.now().getTime() + cue.timing.autoHideVisualMs).toISOString() } : {}) };
-    const startsUnlock = cue.transition.id === 'unlock-start';
-    const holdsUnlock = cue.overlay.id === 'unlocking' && !startsUnlock;
-    const abortsUnlock = ['emergency-protection', 'unlock-aborted', 'connection-failed'].includes(cue.overlay.id) || cue.transition.id === 'emergency-interrupt';
-    let unlock = structuredClone(EMPTY_UNLOCK);
-    if (startsUnlock) unlock = { status: 'running', progress: 0, startedAt, durationMs: cue.timing.unlockDurationMs, completedAt: null };
-    else if (holdsUnlock) {
-      const progress = Math.min(100, Math.max(0, Number(cue.overlay.progress) || Number(this.state.unlock.progress) || 0));
-      unlock = { status: progress >= 100 ? 'completed' : 'running', progress, startedAt: null, durationMs: 0, completedAt: progress >= 100 ? startedAt : null };
-    } else if (abortsUnlock) {
-      this.settleTimedPresentation(); unlock = { ...this.state.unlock, status: 'aborted' };
-    }
-    const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset, avatar: cue.avatar, blackout: cue.kind === 'blackout', transition, overlay, visual, unlock };
-    if (cue.kind === 'blackout' && !this.state.blackout) this.state.previousVisualState = { currentSubtitle: this.state.currentSubtitle, currentPresetId: this.state.currentPresetId, currentAvatar: this.state.currentAvatar };
-    if (cue.kind === 'clear') this.state.currentSubtitle = null;
-    else if (['speech-display', 'display-only'].includes(cue.kind)) this.state.currentSubtitle = cue.displayText;
-    if (cue.kind !== 'blackout') this.state.currentPresetId = cue.presentationPreset;
-    this.state.currentAvatar = { ...this.state.currentAvatar, ...cue.avatar, lipSyncMode: cue.audio.lipSyncMode };
-    this.state.currentTransition = structuredClone(transition); this.state.currentOverlay = structuredClone(overlay);
-    this.state.currentVisual = structuredClone(visual); this.state.unlock = structuredClone(unlock);
-    if (cue.kind === 'blackout') this.state.blackout = true;
+    this.settleTimedPresentation();
+    const now = this.now();
+    const next = applyCueStateEffects(presentationStateOf(this.state), cue, { now });
+    assignPresentationState(this.state, next);
+    const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset,
+      avatar: next.currentAvatar, blackout: next.blackout, transition: next.currentTransition,
+      overlay: next.currentOverlay, visual: next.currentVisual, unlock: next.unlock };
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, cue.target)) continue;
-      if (cue.kind === 'clear') display.currentSubtitle = null;
-      else if (['speech-display', 'display-only'].includes(cue.kind)) display.currentSubtitle = cue.displayText;
-      if (cue.kind !== 'blackout') display.currentPresetId = cue.presentationPreset;
-      display.currentAvatar = { ...this.state.currentAvatar }; display.blackout = cue.kind === 'blackout' ? true : display.blackout;
-      display.currentTransition = structuredClone(transition); display.currentOverlay = structuredClone(overlay);
-      display.currentVisual = structuredClone(visual); display.unlock = structuredClone(unlock);
-      display.displayMode = cue.kind;
+      assignPresentationState(display, applyCueStateEffects(presentationStateOf(display), cue, { now }));
     }
-    this.state.displayMode = cue.kind; this.logRehearsal('cue', `${cue.cueNumber} ${cue.cueName}`, { cueId: cue.cueId, cueName: cue.cueName, route: cue.route, scene: cue.scene, location: cue.location, target: cue.target, preset: cue.presentationPreset, speechMode: cue.audio.speechMode, kind: cue.kind, result: 'success' });
+    this.logRehearsal('cue', `${cue.cueNumber} ${cue.cueName}`, { cueId: cue.cueId, cueName: cue.cueName, route: cue.route, scene: cue.scene, location: cue.location, target: cue.target, preset: cue.presentationPreset, speechMode: cue.audio.speechMode, kind: cue.kind, result: 'success' });
     void this.persist(); return action;
   }
 
@@ -624,7 +732,12 @@ export class StateStore {
 
   validateScenes(input) {
     return Array.isArray(input) && input.length
-      ? input.map((scene, order) => ({ sceneId: validId(scene.sceneId, `scene-${order + 1}`), sceneName: safeText(scene.sceneName) || `Scene ${order + 1}`, order: Number(scene.order) || order }))
+      ? input.map((scene, order) => ({
+        sceneId: validId(scene.sceneId, `scene-${order + 1}`), sceneName: safeText(scene.sceneName) || `Scene ${order + 1}`,
+        order: Number(scene.order) || order,
+        ...(typeof scene.scriptTabId === 'string' && /^[a-zA-Z0-9._-]{1,100}$/.test(scene.scriptTabId) ? { scriptTabId: scene.scriptTabId } : {}),
+        ...(safeText(scene.location) ? { location: safeText(scene.location).slice(0, 120) } : {}),
+      }))
       : structuredClone(DEFAULT_SCENES);
   }
 
@@ -667,6 +780,7 @@ export class StateStore {
       currentOverlay: this.state.currentOverlay, currentVisual: this.state.currentVisual,
       currentTransition: this.state.currentTransition, unlock: this.state.unlock,
       rehearsalSession: this.state.rehearsalSession, rehearsalLog: this.state.rehearsalLog,
+      sceneRehearsal: this.state.sceneRehearsal,
     });
   }
 }

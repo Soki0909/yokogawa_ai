@@ -10,8 +10,10 @@ const read = (file) => readFile(new URL(`../${file}`, import.meta.url), 'utf8');
 test('低ポリゴンAvatar・Blackout・Phase4操作UIをローカル配信する', async () => {
   const [display, admin, script, shortcuts] = await Promise.all([read('public/display.html'), read('public/admin.html'), read('public/js/admin.js'), read('public/js/shortcuts.js')]);
   for (const token of ['id="avatar-wrap"', '<svg', 'id="blackout"']) assert.match(display, new RegExp(token));
-  for (const id of ['show-clear-button', 'show-blackout-button', 'show-file-input', 'rehearsal-toggle', 'cue-kind', 'cue-preset', 'cue-operator-note']) assert.match(admin, new RegExp(`id="${id}"`));
+  for (const id of ['show-clear-button', 'show-blackout-button', 'show-file-input', 'rehearsal-toggle', 'cue-kind', 'cue-preset', 'cue-operator-note',
+    'rehearsal-scene-select', 'scene-rehearsal-start', 'scene-rehearsal-session-toggle', 'scene-rehearsal-ready']) assert.match(admin, new RegExp(`id="${id}"`));
   assert.match(shortcuts, /event\.repeat/); assert.match(shortcuts, /contenteditable=true/); assert.match(script, /\/api\/show-file\/validate/);
+  assert.match(script, /scene:rehearsal-start/); assert.doesNotMatch(shortcuts, /scene:rehearsal-start/);
 });
 
 test('Lip Syncは平滑化・閾値差・最小holdでチャタリングを抑える', () => {

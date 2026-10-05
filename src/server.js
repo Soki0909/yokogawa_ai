@@ -119,6 +119,7 @@ const server = http.createServer(app);
 const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
 const clients = new Map();
 const handledActionIds = new Map();
+let sceneRehearsalInProgress = false;
 
 function send(socket, type, payload = {}) {
   if (socket.readyState === WebSocket.OPEN) socket.send(JSON.stringify({ type, ...payload }));
@@ -221,6 +222,9 @@ function errorResponse(socket, error) {
     NO_NEXT_CUE: '次のCueはありません。',
     NO_CURRENT_CUE: '再実行するCueがありません。',
     SCENE_NOT_FOUND: 'Sceneが見つかりません。',
+    REHEARSAL_NOT_ACTIVE: '先にリハーサルを開始してください。',
+    REHEARSAL_IN_PROGRESS: 'Scene Rehearsal Startを実行中です。',
+    NO_SCENE_CUE: 'このScene内に横川AI Cueはありません。',
     GROUP_NOT_FOUND: '配信先セットが見つかりません。',
     GROUP_IN_USE: 'Cueから使用中の配信先セットは削除できません。先にCueの送信先を変更してください。',
     INVALID_GROUP: '配信先セットのIDが不正です。',
@@ -350,6 +354,21 @@ function handleAdmin(socket, event) {
     try { store.reorderCues(event.cueIds); broadcastState(); logger.info('Cueを並び替え'); } catch (error) { errorResponse(socket, error); }
   } else if (event.type === 'scene:jump') {
     try { store.jumpScene(event.sceneId); broadcastState(); logger.info('Sceneへ移動', { sceneId: event.sceneId }); } catch (error) { errorResponse(socket, error); }
+  } else if (event.type === 'scene:rehearsal-start') {
+    if (sceneRehearsalInProgress) { errorResponse(socket, new Error('REHEARSAL_IN_PROGRESS')); return; }
+    sceneRehearsalInProgress = true;
+    try {
+      const plan = store.prepareSceneRehearsal(event.sceneId);
+      localTtsService.cancelCurrent('scene-rehearsal-start'); runtimeAudioCache.clear();
+      const stoppedId = store.state.currentMessage?.id ?? null;
+      forRole('display', (displaySocket) => send(displaySocket, 'stop', { id: stoppedId }));
+      const result = store.commitSceneRehearsal(plan);
+      forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId));
+      send(socket, 'accepted', { id: `scene-rehearsal:${result.sceneId}`, queued: false });
+      broadcastState();
+      logger.info('Scene Rehearsal Start', { sceneId: result.sceneId, nextCueId: result.nextCueId });
+    } catch (error) { errorResponse(socket, error); }
+    finally { sceneRehearsalInProgress = false; }
   } else if (event.type === 'audio-master:set') {
     try {
       store.setAudioMaster(event.displayId || null);

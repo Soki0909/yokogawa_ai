@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
 import { existsSync } from 'node:fs';
-import { mkdtemp, readFile, rm } from 'node:fs/promises';
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import net from 'node:net';
 import os from 'node:os';
 import path from 'node:path';
@@ -106,6 +106,15 @@ class DevToolsPage {
     return this.evaluate(`(() => { const element = document.querySelector(${JSON.stringify(selector)}); if (!element) throw new Error('missing ${selector}'); element.click(); return true; })()`);
   }
 
+  setViewport(width, height) {
+    return this.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
+  }
+
+  async screenshot(file) {
+    const result = await this.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
+    await writeFile(file, Buffer.from(result.data, 'base64'));
+  }
+
   close() { this.socket.close(); }
 }
 
@@ -138,6 +147,8 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
 };
 
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-production-browser-'));
+const artifactDirectory = path.resolve('artifacts/scene-rehearsal-start');
+await mkdir(artifactDirectory, { recursive: true });
 const serverPort = await freePort();
 const debugPort = await freePort();
 const baseUrl = `http://127.0.0.1:${serverPort}`;
@@ -189,6 +200,49 @@ try {
   await admin.evaluate(`(() => { const input = document.querySelector('.display-item[data-display-id="production-check"] [data-action="required"]'); input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('REQUIRED')`, 'Required Display');
 
+  await admin.click('#scene-rehearsal-session-toggle');
+  await admin.waitFor(`document.querySelector('#scene-rehearsal-session-toggle')?.textContent === 'リハーサル終了'`, 'rehearsal safety gate active');
+  const selectScene = (sceneId) => admin.evaluate(`(() => { const select = document.querySelector('#rehearsal-scene-select'); select.value = ${JSON.stringify(sceneId)}; select.dispatchEvent(new Event('change', { bubbles: true })); return select.value; })()`);
+  const startScene = async (sceneId) => {
+    await selectScene(sceneId);
+    await admin.waitFor(`document.querySelector('#scene-rehearsal-start')?.disabled === false`, `${sceneId} rehearsal start enabled`);
+    await admin.click('#scene-rehearsal-start');
+    await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-scene')?.textContent.includes(${JSON.stringify(`Scene ${sceneId.split('-')[1]}`)})`, `${sceneId} ready`);
+  };
+
+  const noCuePlayCount = await display.evaluate('window.__yokogawaAudioPlays.length');
+  await startScene('scene-2');
+  await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-next')?.textContent.includes('このScene内に横川AI Cueはありません')`, 'no-AI-Cue ready message');
+  await admin.waitFor(`document.querySelector('#show-next-button')?.disabled === true`, 'no-AI-Cue NEXT blocked');
+  await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent.includes('第一の謎')`, 'Scene 2 start state');
+  if (await display.evaluate('window.__yokogawaAudioPlays.length') !== noCuePlayCount) throw new Error('Scene 2 start unexpectedly played audio');
+  const scene2State = await display.evaluate(`({ preset: document.body.dataset.preset, caption: document.querySelector('#caption')?.textContent, overlay: document.body.dataset.overlay, visual: document.body.dataset.visual, transition: document.body.dataset.transitionStatus, unlock: document.body.dataset.unlockStatus })`);
+  await admin.setViewport(1920, 1080); await admin.screenshot(path.join(artifactDirectory, 'admin-1920x1080-no-ai-cue.png'));
+
+  await startScene('scene-6');
+  await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-next')?.textContent.includes('P-011')`, 'Scene 6 first Cue');
+  await display.waitFor(`document.body.dataset.preset === 'warning'`, 'Scene 6 start state');
+  await admin.screenshot(path.join(artifactDirectory, 'admin-1920x1080-ai-cue.png'));
+  await admin.setViewport(1280, 720); await admin.screenshot(path.join(artifactDirectory, 'admin-1280x720-ai-cue.png'));
+  await startScene('scene-2');
+  await admin.screenshot(path.join(artifactDirectory, 'admin-1280x720-no-ai-cue.png'));
+  const scene2Again = await display.evaluate(`({ preset: document.body.dataset.preset, caption: document.querySelector('#caption')?.textContent, overlay: document.body.dataset.overlay, visual: document.body.dataset.visual, transition: document.body.dataset.transitionStatus, unlock: document.body.dataset.unlockStatus })`);
+  if (JSON.stringify(scene2Again) !== JSON.stringify(scene2State)) throw new Error(`Scene state drift: ${JSON.stringify({ scene2State, scene2Again })}`);
+  await admin.setViewport(1920, 1080);
+
+  await display.send('Page.reload', { ignoreCache: false });
+  await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Scene 2 Display reload');
+  await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent.includes('第一の謎') && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 2 reload final state only');
+  if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Scene 2 Display reload replayed historical audio');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('18 / 18 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'Scene 2 reload preload gate');
+  await display.click('#enable-audio');
+  await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY after Scene 2 reload');
+
+  const playsBeforeSceneNext = await display.evaluate('window.__yokogawaAudioPlays.length');
+  await startScene('scene-6'); await admin.waitFor(`document.querySelector('#show-next-button')?.disabled === false`, 'Scene 6 NEXT enabled'); await admin.click('#show-next-button');
+  await display.waitFor(`window.__yokogawaAudioPlays.length > ${playsBeforeSceneNext} && window.__yokogawaAudioPlays.at(-1).includes('prod-voice-011-')`, 'Scene 6 NEXT uses tuned P-011');
+  await admin.waitFor(`document.querySelector('#show-stop-button')?.disabled === false`, 'Scene 6 NEXT STOP'); await admin.click('#show-stop-button'); await delay(700);
+
   const representative = ['prod-001', 'prod-004', 'prod-008', 'prod-013', 'prod-015', 'prod-016'];
   for (const cueId of representative) {
     const cue = production.cues.find((item) => item.id === cueId);
@@ -235,11 +289,15 @@ try {
   await admin.click('#show-blackout-clear-button');
   await display.waitFor(`document.querySelector('#blackout')?.hidden === true`, 'RESTORE');
 
+  await startScene('scene-7');
+  await display.waitFor(`document.body.dataset.preset === 'shutdown' && document.body.dataset.transitionStatus !== 'active'`, 'Scene 7 settled state before restart');
   const errorsBeforeRestart = [admin.errors.length, display.errors.length];
   await stopChild(server);
   await display.waitFor(`document.querySelector('#connection')?.textContent !== 'ONLINE'`, 'Display disconnect');
   await startServer();
   await display.waitFor(`document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reconnect', 20_000);
+  await display.waitFor(`document.body.dataset.preset === 'shutdown' && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 7 state restored after reconnect', 20_000);
+  await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-scene')?.textContent.includes('Scene 7')`, 'Scene 7 ready after reconnect', 20_000);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY restored after reconnect', 20_000);
   for (const [index, page] of [admin, display].entries()) {
     const restartErrors = page.errors.splice(errorsBeforeRestart[index]);
@@ -268,7 +326,8 @@ try {
 
   console.log(JSON.stringify({
     status: 'PASS', viewport: [1920, 1080], preload: '18/18', cues: representative,
-    controls: ['STOP', 'REPLAY', 'BLACKOUT', 'RESTORE'], reconnectReady: true, reloadReady: true,
+    sceneRehearsal: ['scene-2:no-cue', 'scene-6:P-011', 'scene-7:reconnect'], screenshots: 4,
+    controls: ['NEXT', 'STOP', 'REPLAY', 'BLACKOUT', 'RESTORE'], reconnectReady: true, reloadReady: true,
     productionAssetRequests: assetRequests.length, externalBrowserRequests: 0, browserErrors: 0,
   }));
 } finally {
