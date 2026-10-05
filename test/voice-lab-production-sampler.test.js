@@ -91,6 +91,47 @@ test('Production Samplerは全WAVをdecode済みcacheから即時再生し停止
   await assert.rejects(player.load({ id: 'retry', url: '/retry.wav' }), /HTTP 503/); assert.equal(player.status('retry').status, 'error');
   await player.load({ id: 'retry', url: '/retry.wav' }); assert.equal(player.status('retry').status, 'ready');
   await player.clear(); assert.equal(player.readyCount, 0); assert.equal(player.buffers.size, 0);
+  await assert.rejects(player.start(samples[0]), /not ready|disposed/i);
+});
+
+test('AudioBufferPlayerはAudioContextを共有し必要な場合だけgesture内でresumeする', async () => {
+  let contexts = 0; let resumes = 0;
+  class FakeSource { connect() {} disconnect() {} start() {} stop() {} }
+  class FakeContext {
+    constructor() { contexts += 1; this.currentTime = 0; this.state = 'suspended'; this.destination = {}; }
+    async decodeAudioData() { return { duration: 1 }; }
+    createBufferSource() { return new FakeSource(); }
+    async resume() { resumes += 1; this.state = 'running'; }
+    async close() { this.state = 'closed'; }
+  }
+  const player = new AudioBufferPlayer({ AudioContextClass: FakeContext, fetchImpl: async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) }), connectEffect: () => {} });
+  await player.load({ id: '001', url: '/001.wav' });
+  await player.start({ id: '001', url: '/001.wav' }); player.stop();
+  await player.start({ id: '001', url: '/001.wav' }); player.stop();
+  assert.equal(contexts, 1); assert.equal(player.contextCount, 1); assert.equal(resumes, 1);
+});
+
+test('AudioBufferPlayerはdecodeを直列化し再生中は次のbackground decodeを開始しない', async () => {
+  let activeDecodes = 0; let maxActiveDecodes = 0; const releases = [];
+  class FakeSource { connect() {} disconnect() {} start() {} stop() {} }
+  class FakeContext {
+    constructor() { this.currentTime = 0; this.state = 'running'; this.destination = {}; }
+    decodeAudioData() { activeDecodes += 1; maxActiveDecodes = Math.max(maxActiveDecodes, activeDecodes); return new Promise((resolve) => releases.push(() => { activeDecodes -= 1; resolve({ duration: 1 }); })); }
+    createBufferSource() { return new FakeSource(); }
+    async close() { this.state = 'closed'; }
+  }
+  const player = new AudioBufferPlayer({ AudioContextClass: FakeContext, fetchImpl: async () => ({ ok: true, arrayBuffer: async () => new ArrayBuffer(8) }), connectEffect: () => {} });
+  const firstLoad = player.load({ id: '001', url: '/001.wav' });
+  await new Promise((resolve) => setImmediate(resolve)); releases.shift()(); await firstLoad;
+  await player.start({ id: '001', url: '/001.wav' });
+  const secondLoad = player.load({ id: '002', url: '/002.wav' });
+  const thirdLoad = player.load({ id: '003', url: '/003.wav' });
+  await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(releases.length, 0); assert.equal(player.decodeInProgress, 0); assert.ok(player.decodeQueueLength >= 1);
+  player.stop(); await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(releases.length, 1); releases.shift()(); await new Promise((resolve) => setImmediate(resolve));
+  assert.equal(releases.length, 1); releases.shift()(); await Promise.all([secondLoad, thirdLoad]);
+  assert.equal(maxActiveDecodes, 1); assert.equal(player.maxDecodeInProgress, 1);
 });
 
 test('Production Sampler UIはprogressive preloadを通常経路にしPlay内でfetch/decodeしない', async () => {
@@ -100,6 +141,10 @@ test('Production Sampler UIはprogressive preloadを通常経路にしPlay内で
   const playBody = source.slice(source.indexOf('async function play('), source.indexOf('function adjacent('));
   assert.doesNotMatch(playBody, /fetch\(|decodeAudioData/); assert.match(playBody, /state\.player\.start/);
   assert.match(source, /\.logout.*clear/); assert.match(source, /pagehide/);
+  assert.match(source, /navigator\.audioSession\.type = 'playback'/);
+  assert.match(source, /visibilitychange/); assert.match(source, /pageshow/); assert.match(source, /event\.persisted/);
+  assert.match(source, /debugAudio/); assert.match(source, /maxDecodeInProgress/); assert.match(source, /diagnosticEvents\.length > 100/);
+  assert.doesNotMatch(source, /PROTECTED_PAGE_PASSWORD|document\.cookie|localStorage|sessionStorage/);
 });
 
 test('Netlify password gateは全pathをfail-closedで保護しcredentialを埋め込まない', async () => {
