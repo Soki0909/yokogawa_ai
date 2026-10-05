@@ -73,126 +73,126 @@
       "name": "横川AI Production 001",
       "path": "assets/audio/yokogawa-professor-v1_001_boot.wav",
       "mimeType": "audio/wav",
-      "sha256": "58c545359653c544344d9209a06d0ec661380e5aff9b67f32058d269d4c336e4"
+      "sha256": "0c33dd4ba3aa4b847059b169ab48a6bd247ca157699738895da022e017e22020"
     },
     {
       "id": "prod-voice-002-participant",
       "name": "横川AI Production 002",
       "path": "assets/audio/yokogawa-professor-v1_002_participant.wav",
       "mimeType": "audio/wav",
-      "sha256": "4c2bf1c26b802dbcba25c9dc193176e19cef428b2f6fdf70ecc870dfb3f1f5a3"
+      "sha256": "63f4a050e224a159e4701c9d73718f33e9984f1c6a8091b3315a0c09761c4b05"
     },
     {
       "id": "prod-voice-003-security",
       "name": "横川AI Production 003",
       "path": "assets/audio/yokogawa-professor-v1_003_security.wav",
       "mimeType": "audio/wav",
-      "sha256": "87e5e96ad880c2a144c72bd9491ca84904aa8cbdcf75a5bad151f9c78d9b8290"
+      "sha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3"
     },
     {
       "id": "prod-voice-004-principia",
       "name": "横川AI Production 004",
       "path": "assets/audio/yokogawa-professor-v1_004_principia.wav",
       "mimeType": "audio/wav",
-      "sha256": "bd3e89a4cc57abe0a79d8705b3b3c9ff8d1da59fc5017685072a8fdddc98b67a"
+      "sha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c"
     },
     {
       "id": "prod-voice-005-communication-lock",
       "name": "横川AI Production 005",
       "path": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
       "mimeType": "audio/wav",
-      "sha256": "539eb2be1536afab460d407f15d00d1c3cac5192fed495df4190cd712f6007ec"
+      "sha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc"
     },
     {
       "id": "prod-voice-006-reject",
       "name": "横川AI Production 006",
       "path": "assets/audio/yokogawa-professor-v1_006_reject.wav",
       "mimeType": "audio/wav",
-      "sha256": "d9ce95a9671efc89040b5f9b4f08db904c151847ab4d1ed4e2e27b7758cf4115"
+      "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
     },
     {
       "id": "prod-voice-007-auth-failed",
       "name": "横川AI Production 007",
       "path": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
       "mimeType": "audio/wav",
-      "sha256": "454846b689d379bc2359f520c8a23de6c603b58687de119941fb5fb17a977878"
+      "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
     },
     {
       "id": "prod-voice-008-five-riddles",
       "name": "横川AI Production 008",
       "path": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
       "mimeType": "audio/wav",
-      "sha256": "23a8544a6862c394c5e6dc47c9d352e1fddc0a9afa67cc22931f94a3f034d157"
+      "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
     },
     {
       "id": "prod-voice-009-first-riddle",
       "name": "横川AI Production 009",
       "path": "assets/audio/yokogawa-professor-v1_009_first-riddle.wav",
       "mimeType": "audio/wav",
-      "sha256": "38bf162c99c7e5f470dc07984ccd2b9347d8c8a3731127cb0eb111215ded22c9"
+      "sha256": "6b47b3831a438e904eb8b35a551206ff1600c3dfa2a214054377a4e9cacf12cf"
     },
     {
       "id": "prod-voice-010-gather-201",
       "name": "横川AI Production 010",
       "path": "assets/audio/yokogawa-professor-v1_010_gather-201.wav",
       "mimeType": "audio/wav",
-      "sha256": "408802f6e62a8a21ec118e1bc79e4d84c83623e57a0bff22f6a67f95b45f1468"
+      "sha256": "a0412819126fdfb9fcad4ec2f954a570c0beec5542be1137f1117731d4e9d198"
     },
     {
       "id": "prod-voice-011-final-challenge",
       "name": "横川AI Production 011",
       "path": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
       "mimeType": "audio/wav",
-      "sha256": "ee427f641b6922f9503b61cba8575b6a00224a7cbe72af60e70e005e91039fb4"
+      "sha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216"
     },
     {
       "id": "prod-voice-012-auth-success",
       "name": "横川AI Production 012",
       "path": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
       "mimeType": "audio/wav",
-      "sha256": "4d02bc14993583cb2ea04ae17e457cfb2ccfb277294340cfebfb452243c0aac6"
+      "sha256": "b5ccaa7da5616b068f91594c5777f0c62492529e2ea709f0ba8cc783e7e50ceb"
     },
     {
       "id": "prod-voice-013-emergency",
       "name": "横川AI Production 013",
       "path": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
       "mimeType": "audio/wav",
-      "sha256": "e523f89aeadbc3ffca0a42596cce58738b699e1c3e65407aa34f59ccd2a56558"
+      "sha256": "b9a867d19a34676598214c581d515887a36cd62b1a7b9f2a79f97ee662083868"
     },
     {
       "id": "prod-voice-014-contact-failed",
       "name": "横川AI Production 014",
       "path": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
       "mimeType": "audio/wav",
-      "sha256": "3df07c0edcf0487f6bfba04a392a9e908df4ac70eea0cd009137ae82be0c1c1a"
+      "sha256": "9c7a3afd0cdec0c63fcc6c48bcc74c51505eec590284c10b6e9189c40fb8b4ce"
     },
     {
       "id": "prod-voice-015-forced-runaway",
       "name": "横川AI Production 015",
       "path": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
       "mimeType": "audio/wav",
-      "sha256": "411b28639ffa6982e7b8aa06fb19d4e5d9dd8a051f238670ef6b33a807fc4a29"
+      "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
     },
     {
       "id": "prod-voice-016-shutdown",
       "name": "横川AI Production 016",
       "path": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
       "mimeType": "audio/wav",
-      "sha256": "ac787bbc7476c672d6b4fa95e7138162b879d032d720d77566083cf8d2a01f25"
+      "sha256": "43c7a3a43b337cfc3b165abb23ae3af91f9f7444fdd57c28abb7cab561c7bdd4"
     },
     {
       "id": "prod-voice-017-complete",
       "name": "横川AI Production 017",
       "path": "assets/audio/yokogawa-professor-v1_017_complete.wav",
       "mimeType": "audio/wav",
-      "sha256": "fd81f85061fb5dd527c78c59accaac5972ff227c2084c0af4c2ea0bf67d83443"
+      "sha256": "68cdda6ebc4ac80ce28424f7762ff765d3f9486861b975c5ba728bd3564546b3"
     },
     {
       "id": "prod-voice-018-yokogawa-route-gather",
       "name": "横川AI Production 018",
       "path": "assets/audio/yokogawa-professor-v1_018_yokogawa-route-gather.wav",
       "mimeType": "audio/wav",
-      "sha256": "079e71aeb0e9e834c8493df57896d28d7308b7f4281cc9a949f449eb0b470f0d"
+      "sha256": "d80fa5c30e1c9fd1d0ba34347d8774a82ce1e75a1efa2611a0fc8b799f64bc5e"
     }
   ],
   "avatar": {
@@ -226,7 +226,7 @@
       "authority": "current-google-docs-revision"
     },
     "voiceProfileId": "yokogawa-professor-v1",
-    "profileHash": "sha256:4439d5bf445359067a9a5acd15dcd6c7a56bee8b25b07a7906e23c74ea39fb88"
+    "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3"
   },
   "scenes": [
     {

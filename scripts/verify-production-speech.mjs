@@ -18,7 +18,7 @@ assert.deepEqual(manifest.synthesisTextPolicy, profile.synthesisTextPolicy);
 assert.ok(manifest.speeches.every((speech) => speech.synthesisText === deriveProductionSynthesisText(speech.scriptId, speech.scriptText, profile.synthesisTextPolicy)));
 assert.equal(manifest.speeches.find((speech) => speech.scriptId === '002').synthesisText.includes('ヒサヤス ヒカル'), true);
 assert.equal(manifest.speeches.find((speech) => speech.scriptId === '003').synthesisText.includes("貴重書、『プリンキピア』"), true);
-assert.equal(manifest.speeches.find((speech) => speech.scriptId === '008').synthesisText, '7号館から脱出したければ、館内に隠された、五つの謎、を解いてください');
+assert.equal(manifest.speeches.find((speech) => speech.scriptId === '008').synthesisText, '7号館から脱出したければ、館内に隠された、五つの謎を解いてください');
 assert.ok(manifest.speeches.filter((speech) => speech.scriptText.includes('セキュリティ')).every((speech) => speech.synthesisText.includes('セキュリティー')));
 assert.ok(manifest.speeches.every((speech) => speech.voiceProfileId === profile.profileId));
 for (const speech of manifest.speeches) {
