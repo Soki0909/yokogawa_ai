@@ -38,5 +38,9 @@ export async function preloadProductionAudioAssets(assets, {
 
 export async function prepareProductionAudio(options = {}) {
   const assets = options.assets ?? await loadProductionAudioManifest(options.fetchImpl);
+  const expectedCount = Number.isInteger(options.expectedCount) ? options.expectedCount : 18;
+  if (assets.length !== expectedCount) {
+    throw new Error(`Production WAV count mismatch: expected ${expectedCount}, got ${assets.length}`);
+  }
   return preloadProductionAudioAssets(assets, options);
 }
