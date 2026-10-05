@@ -24,6 +24,7 @@ elements['display-identity'].textContent = identity.displayName;
 let settings = { rate: 1, pitch: .9, volume: 1, voiceURI: '', subtitlesEnabled: true };
 let isAudioMaster = false;
 let audioUnlocked = false;
+let audioReadySent = false;
 let audioPreloadPromise = null;
 let audioPreloadResult = null;
 let identifyTimer;
@@ -39,6 +40,7 @@ const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   elements.connection.textContent = status === 'connected' ? 'ONLINE' : status === 'connecting' ? 'CONNECTING' : 'RECONNECTING';
   elements.connection.dataset.state = status;
   elements['enable-audio'].disabled = status !== 'connected';
+  if (status !== 'connected') audioReadySent = false;
   if (status === 'connected') setMode('SYSTEM READY', 'ready');
   else setMode('接続を復旧しています', 'error');
 }, { helloData: () => ({ display: identity }), heartbeatMs: 2000 });
@@ -91,6 +93,19 @@ async function ensureProductionAudioPreloaded() {
     audioPreloadPromise = null;
   });
   return audioPreloadPromise;
+}
+
+async function syncAudioReady() {
+  if (!isAudioMaster || !identity.audioEnabled || !audioUnlocked || audioReadySent) return;
+  try {
+    await ensureProductionAudioPreloaded();
+    if (isAudioMaster && identity.audioEnabled && !audioReadySent) {
+      audioReadySent = socket.send({ type: 'audio:ready' });
+    }
+  } catch {
+    setMode('AUDIO PRELOAD ERROR', 'error');
+    elements['audio-gate'].hidden = false;
+  }
 }
 
 function applyPresentation(presentation = {}, preset = null) {
@@ -206,6 +221,7 @@ function handleEvent(event) {
   if (event.type === 'state') {
     settings = event.state.settings;
     isAudioMaster = event.isAudioMaster === true;
+    audioReadySent = event.self?.audioReady === true;
     const restoredText = event.self?.currentSubtitle;
     if (restoredText) showCaption(restoredText);
     applyPresentation({ displayText: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
@@ -215,6 +231,7 @@ function handleEvent(event) {
       ? 'この端末はAudio Masterです。固定WAVを事前準備してから音声出力を開始します。'
       : '字幕Displayとして接続します。Audio Masterに指定されるまで音声は再生しません。';
     if (isAudioMaster && identity.audioEnabled && !audioUnlocked) void ensureProductionAudioPreloaded().catch(() => {});
+    else void syncAudioReady();
     if (!isAudioMaster || !identity.audioEnabled || audioUnlocked) elements['audio-gate'].hidden = true;
     publishVoices();
   } else if (event.type === 'speak') {
@@ -292,7 +309,7 @@ elements['enable-audio'].addEventListener('click', async () => {
       await ensureProductionAudioPreloaded();
       if (isAudioMaster && identity.audioEnabled) {
         audioUnlocked = true;
-        socket.send({ type: 'audio:ready' });
+        audioReadySent = socket.send({ type: 'audio:ready' });
       }
     } catch {
       setMode('AUDIO PRELOAD ERROR', 'error');

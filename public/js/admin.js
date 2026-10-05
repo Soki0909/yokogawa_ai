@@ -188,6 +188,8 @@ function updateControls() {
   for (const id of ['next-button', 'show-next-button']) elements[id].disabled = locked || !state?.nextCue || !hasDisplay;
   for (const id of ['back-button', 'show-back-button']) elements[id].disabled = locked || (state?.currentCueIndex ?? -1) < 0;
   for (const id of ['cue-replay-button', 'show-replay-button']) elements[id].disabled = locked || !state?.currentCue || !hasDisplay;
+  for (const id of ['show-clear-button', 'show-blackout-button', 'show-blackout-clear-button']) elements[id].disabled = locked || !hasDisplay;
+  for (const button of elements['cue-list'].querySelectorAll('[data-action="run"], [data-action="jump"]')) button.disabled = locked || !hasDisplay;
   const presentationActive = state?.currentTransition?.status === 'active' || state?.unlock?.status === 'running';
   const localTtsActive = state?.localTts?.activity === 'synthesizing';
   for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || (!state?.currentMessage && !presentationActive && !localTtsActive);
