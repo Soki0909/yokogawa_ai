@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { productionAudioPreloadManifest } from '../src/local-audio.js';
-import { loadProductionAudioManifest, preloadProductionAudioAssets } from '../public/js/audio-preload.js';
+import { loadProductionAudioManifest, preloadProductionAudioAssets, prepareProductionAudio } from '../public/js/audio-preload.js';
 
 test('Production audio manifestは固定WAVだけを安全なURLへ公開する', () => {
   const assets = [
@@ -62,6 +62,16 @@ test('Production audio preloadの同時fetchは指定concurrencyを超えない'
   assert.equal(maxActive, 4);
   assert.deepEqual(result, { ready: 9, total: 9 });
   assert.equal(progress.at(-1), 9);
+});
+
+test('Production audio prepareは18本未満をAudio Ready相当にしない', async () => {
+  await assert.rejects(
+    () => prepareProductionAudio({
+      assets: Array.from({ length: 17 }, (_, index) => ({ id: String(index), url: `/audio/${index}.wav` })),
+      fetchImpl: async () => ({ ok: true, arrayBuffer: async () => new Uint8Array(64).buffer }),
+    }),
+    /expected 18, got 17/,
+  );
 });
 
 test('Single-PC launcherはServerをloopbackだけへbindする', async () => {
