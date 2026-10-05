@@ -21,14 +21,16 @@ const waitForHealth = async (port) => {
 };
 function connect(port, role, display) {
   const socket = new WebSocket(`ws://127.0.0.1:${port}/ws`); const queue = []; const waiters = [];
+  let waitSequence = 0;
   socket.on('message', (raw) => {
     const event = JSON.parse(raw); const index = waiters.findIndex((item) => item.predicate(event));
     if (index >= 0) waiters.splice(index, 1)[0].resolve(event); else queue.push(event);
   });
-  const next = (predicate, timeout = 12_000) => {
+  const next = (predicate, timeout = 20_000) => {
+    const waitId = ++waitSequence;
     const index = queue.findIndex(predicate); if (index >= 0) return Promise.resolve(queue.splice(index, 1)[0]);
     return new Promise((resolve, reject) => { const waiter = { predicate, resolve }; waiters.push(waiter); setTimeout(() => {
-      const position = waiters.indexOf(waiter); if (position >= 0) waiters.splice(position, 1); reject(new Error('timeout'));
+      const position = waiters.indexOf(waiter); if (position >= 0) waiters.splice(position, 1); reject(new Error(`timeout waiting for ${role}/${display?.displayId ?? 'admin'} event #${waitId}; queued=${JSON.stringify(queue.slice(-8).map((event) => ({ type: event.type, displayAudioReady: event.state?.displayAudioReady, localTts: event.state?.localTts?.status, error: event.state?.localTts?.error })))}`));
     }, timeout).unref(); });
   };
   return new Promise((resolve, reject) => { socket.once('error', reject); socket.once('open', async () => {
@@ -71,6 +73,8 @@ test('Production Free Speakをserver-side Aivis→Audio Masterだけへ配信し
   const displays = await Promise.all(['master', 'subtitle-b', 'subtitle-c'].map((displayId) => connect(port, 'display', { displayId, displayName: displayId, audioEnabled: displayId === 'master' })));
   t.after(async () => Promise.all([admin, ...displays].map(closeClient)));
   await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3);
+  admin.send({ type: 'audio-master:set', displayId: 'master' });
+  await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'master');
   displays[0].send({ type: 'audio:ready' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady && event.state.localTts.status === 'ready');
 

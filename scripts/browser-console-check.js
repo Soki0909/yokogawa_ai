@@ -82,12 +82,13 @@ const inspect = async (url) => {
     pending.clear();
   });
   await Promise.all([send('Runtime.enable'), send('Log.enable'), send('Page.enable')]);
+  if (expectsOnline) await send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
   await send('Page.navigate', { url });
   const deadline = Date.now() + 8000;
   let value;
   while (Date.now() < deadline) {
     const result = await send('Runtime.evaluate', {
-      expression: `({ url: location.href, title: document.title, ready: document.readyState, connection: document.querySelector('#connection')?.textContent ?? null, viewport: [innerWidth, innerHeight] })`,
+      expression: `({ url: location.href, title: document.title, ready: document.readyState, connection: document.querySelector('#connection')?.textContent ?? null, viewport: [innerWidth, innerHeight], resources: performance.getEntriesByType('resource').map((entry) => entry.name) })`,
       returnByValue: true,
     });
     value = result.result.value;
@@ -97,6 +98,13 @@ const inspect = async (url) => {
   socket.close();
   if (errors.length) throw new Error(`${url}: ${errors.join(' | ')}`);
   if (value?.url !== url || value.ready !== 'complete') throw new Error(`${url}: page did not complete navigation`);
+  const offOriginResources = (value.resources ?? []).filter((resource) => {
+    try {
+      const parsed = new URL(resource);
+      return ['http:', 'https:'].includes(parsed.protocol) && parsed.origin !== new URL(url).origin;
+    } catch { return false; }
+  });
+  if (offOriginResources.length) throw new Error(`${url}: off-origin browser requests: ${offOriginResources.join(', ')}`);
   return value;
 };
 
@@ -107,6 +115,7 @@ try {
   results.push(await inspect(new URL('/display?id=console-check&name=Console-Check', baseUrl).href));
   if (results[0].title !== '横川AI CONTROL — SHOW CONTROL') throw new Error('Admin title mismatch');
   if (results[1].title !== 'YOKOGAWA AI' || results[1].connection !== 'ONLINE') throw new Error('Display did not reach ONLINE');
+  if (results[1].viewport[0] !== 1920 || results[1].viewport[1] !== 1080) throw new Error('Display did not use the 16:9 production viewport');
   console.log(`BROWSER CONSOLE PASS: 2 pages / 0 warning / 0 error / ${JSON.stringify(results)}`);
 } finally {
   browser.kill();

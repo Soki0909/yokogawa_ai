@@ -23,7 +23,10 @@ test('Production audio preloadはmanifestをno-store、WAVをforce-cacheで取�
     calls.push([url, options.cache]);
     if (url === '/api/audio-assets') return {
       ok: true,
-      json: async () => ({ assets: [{ id: '001', url: '/api/assets/001' }, { id: '002', url: '/api/assets/002' }] }),
+      json: async () => ({ assets: [
+        { id: 'prod-voice-001-a', url: '/api/assets/prod-voice-001-a' },
+        { id: 'prod-voice-002-b', url: '/api/assets/prod-voice-002-b' },
+      ] }),
     };
     return { ok: true, arrayBuffer: async () => new Uint8Array(64).buffer };
   };
@@ -32,9 +35,25 @@ test('Production audio preloadはmanifestをno-store、WAVをforce-cacheで取�
   assert.deepEqual(result, { ready: 2, total: 2 });
   assert.deepEqual(calls, [
     ['/api/audio-assets', 'no-store'],
-    ['/api/assets/001', 'force-cache'],
-    ['/api/assets/002', 'force-cache'],
+    ['/api/assets/prod-voice-001-a', 'force-cache'],
+    ['/api/assets/prod-voice-002-b', 'force-cache'],
   ]);
+});
+
+test('Production audio manifestは外部URL・重複・不正IDをfail-closedで拒否する', async () => {
+  for (const assets of [
+    [{ id: 'prod-voice-001-a', url: 'https://example.com/a.wav' }],
+    [
+      { id: 'prod-voice-001-a', url: '/api/assets/prod-voice-001-a' },
+      { id: 'prod-voice-001-a', url: '/api/assets/prod-voice-001-a' },
+    ],
+    [{ id: 'test-tone', url: '/api/assets/test-tone' }],
+  ]) {
+    await assert.rejects(
+      () => loadProductionAudioManifest(async () => ({ ok: true, json: async () => ({ assets }) })),
+      /manifest/,
+    );
+  }
 });
 
 test('Production audio preloadの同時fetchは指定concurrencyを超えない', async () => {
@@ -74,12 +93,41 @@ test('Production audio prepareは18本未満をAudio Ready相当にしない', a
   );
 });
 
+test('Production audio prepareは18本超過もAudio Ready相当にしない', async () => {
+  await assert.rejects(
+    () => prepareProductionAudio({
+      assets: Array.from({ length: 19 }, (_, index) => ({ id: String(index), url: `/audio/${index}.wav` })),
+      fetchImpl: async () => ({ ok: true, arrayBuffer: async () => new Uint8Array(64).buffer }),
+    }),
+    /expected 18, got 19/,
+  );
+});
+
+test('Production audio preloadは404と空WAVをfail-closedで拒否する', async () => {
+  const assets = Array.from({ length: 18 }, (_, index) => ({ id: `prod-voice-${String(index + 1).padStart(3, '0')}-sample`, url: `/api/assets/prod-voice-${String(index + 1).padStart(3, '0')}-sample` }));
+  await assert.rejects(
+    () => prepareProductionAudio({ assets, fetchImpl: async (url) => url.endsWith('-018-sample')
+      ? { ok: false, status: 404 }
+      : { ok: true, arrayBuffer: async () => new Uint8Array(64).buffer } }),
+    /preload failed \(404\)/,
+  );
+  await assert.rejects(
+    () => prepareProductionAudio({ assets, fetchImpl: async (url) => url.endsWith('-018-sample')
+      ? { ok: true, arrayBuffer: async () => new ArrayBuffer(0) }
+      : { ok: true, arrayBuffer: async () => new Uint8Array(64).buffer } }),
+    /preload returned empty audio/,
+  );
+});
+
 test('Single-PC launcherはServerをloopbackだけへbindする', async () => {
   const command = await readFile('start-yokogawa-ai-single-pc.cmd', 'utf8');
   assert.match(command, /HOST=127\.0\.0\.1/);
-  assert.match(command, /npm start/);
+  assert.match(command, /AIVIS_ENGINE_URL=http:\/\/127\.0\.0\.1:10101/);
+  assert.match(command, /node src\/server\.js/);
   const server = await readFile('src/server.js', 'utf8');
   assert.match(server, /singlePcMode/);
   assert.match(server, /runtimeConnectionInfo/);
   assert.match(server, /\/api\/audio-assets/);
+  assert.match(server, /response\.json\(runtimeConnectionInfo\(\)\)/);
+  assert.match(server, /client\.displayId !== store\.state\.audioMasterId \|\| !display\.audioEnabled/);
 });

@@ -67,12 +67,15 @@ test('Phase 3 group・preflight・音声テスト・接続支援をAdmin 1 + Dis
 
   const connectionResponse = await fetch(`http://127.0.0.1:${port}/api/connection-info`);
   assert.equal(connectionResponse.ok, true);
-  assert.equal((await connectionResponse.json()).local.admin, `http://localhost:${port}/admin`);
+  const connectionInfo = await connectionResponse.json();
+  assert.equal(connectionInfo.local.admin, `http://localhost:${port}/admin`);
+  assert.deepEqual(connectionInfo.candidates, [], 'loopback bindではLAN候補を公開しない');
   const qrResponse = await fetch(`http://127.0.0.1:${port}/api/qr?url=${encodeURIComponent(`http://localhost:${port}/admin`)}`);
   assert.equal(qrResponse.ok, true);
   assert.match(qrResponse.headers.get('content-type'), /image\/svg\+xml/);
   assert.match(await qrResponse.text(), /<svg/);
   assert.equal((await fetch(`http://127.0.0.1:${port}/api/qr?url=${encodeURIComponent('https://invalid.example')}`)).status, 400);
+  assert.equal((await fetch(`http://127.0.0.1:${port}/api/qr?url=${encodeURIComponent(`http://192.168.1.23:${port}/admin`)}`)).status, 400, 'loopback bindではLAN URLのQRを生成しない');
 
   const admin = await connect(port, 'admin');
   const a = await connect(port, 'display', { displayId: 'display-a', displayName: '201', audioEnabled: true });

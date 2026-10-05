@@ -4,7 +4,18 @@ export async function loadProductionAudioManifest(fetchImpl = globalThis.fetch) 
   if (!response.ok) throw new Error(`Production audio manifest request failed: ${response.status ?? 'unknown'}`);
   const payload = await response.json();
   if (!Array.isArray(payload?.assets)) throw new Error('Production audio manifest is invalid');
-  return payload.assets.filter((asset) => typeof asset?.id === 'string' && typeof asset?.url === 'string');
+  const seen = new Set();
+  for (const asset of payload.assets) {
+    if (typeof asset?.id !== 'string' || !/^prod-voice-\d{3}-[a-z0-9-]+$/.test(asset.id)) {
+      throw new Error('Production audio manifest contains an invalid asset ID');
+    }
+    if (asset.url !== `/api/assets/${encodeURIComponent(asset.id)}`) {
+      throw new Error(`Production audio manifest contains an unsafe URL: ${asset.id}`);
+    }
+    if (seen.has(asset.id)) throw new Error(`Production audio manifest contains a duplicate asset: ${asset.id}`);
+    seen.add(asset.id);
+  }
+  return payload.assets;
 }
 
 export async function preloadProductionAudioAssets(assets, {

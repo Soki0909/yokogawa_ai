@@ -280,8 +280,10 @@ export class StateStore {
     add('avatar', 'AI Avatar', !avatarAssetsReady ? 'error' : this.state.avatar?.visible !== false ? 'ok' : 'warning', `${this.state.avatar?.mode ?? 'svg-fallback'} / ${this.state.avatar?.assetSetId ?? 'none'} / ${this.state.avatar?.lipSyncMode ?? 'simulated'}`);
     const audioCues = this.state.cues.filter((cue) => cue.audio?.speechMode === 'audio-file');
     add('audio-assets', 'ローカル音声Asset', audioCues.every((cue) => this.state.assets.some((asset) => asset.id === cue.audio.assetId)) ? 'ok' : 'error', `${audioCues.length} Cue / ${this.state.assets.length} Asset`);
-    const localTtsRequired = this.state.settings.freeSpeakMode === 'local-tts' || this.state.cues.some((cue) => cue.audio?.speechMode === 'local-tts');
-    if (localTtsRequired) add('local-tts', 'AivisSpeech / Local TTS', this.state.localTts.status === 'ready' ? 'ok' : 'error', this.state.localTts.status === 'ready'
+    const localTtsCueRequired = this.state.cues.some((cue) => cue.audio?.speechMode === 'local-tts');
+    const localTtsAvailable = this.state.localTts.status === 'ready';
+    const localTtsConfigured = this.state.settings.freeSpeakMode === 'local-tts';
+    if (localTtsCueRequired || localTtsConfigured) add('local-tts', 'AivisSpeech / Local TTS', localTtsAvailable ? 'ok' : localTtsCueRequired ? 'error' : 'warning', localTtsAvailable
       ? `${this.state.localTts.profileId} / ${this.state.localTts.engineVersion} / Style ${this.state.localTts.runtimeStyleId}`
       : `${this.state.localTts.profileId}: ${this.state.localTts.error ?? 'Engine未確認'}`);
     add('position', 'Cue位置', this.state.currentCueIndex < 0 ? 'ok' : 'warning', this.state.currentCueIndex < 0 ? '開始位置' : `Cue ${this.orderedCues()[this.state.currentCueIndex]?.cueNumber ?? '—'} から再開`);

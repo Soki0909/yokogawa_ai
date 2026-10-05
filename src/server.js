@@ -54,7 +54,7 @@ app.get('/health', (_request, response) => response.json({
   ok: true, displayConnected: store.displayCount > 0, displays: store.displayCount,
   environment, uptimeSeconds: Math.round(process.uptime()), memoryRssBytes: process.memoryUsage().rss,
 }));
-app.get('/api/connection-info', (_request, response) => response.json(connectionInfo(port)));
+app.get('/api/connection-info', (_request, response) => response.json(runtimeConnectionInfo()));
 app.get('/api/show-file', (_request, response) => {
   response.setHeader('Content-Disposition', 'attachment; filename="yokogawa-show-v3.json"');
   response.json(store.exportShowFile());
@@ -100,7 +100,7 @@ app.get('/api/local-tts/status', async (_request, response) => {
 });
 app.get('/api/qr', async (request, response) => {
   const requestedUrl = typeof request.query.url === 'string' ? request.query.url : '';
-  const info = connectionInfo(port);
+  const info = runtimeConnectionInfo();
   const allowed = new Set([
     info.local.admin, info.local.display,
     ...info.candidates.filter((candidate) => candidate.usable).flatMap((candidate) => [candidate.adminUrl, candidate.displayUrl]),
@@ -415,6 +415,10 @@ function handleDisplay(client, event) {
     broadcastState(); return;
   }
   if (event.type === 'audio:ready') {
+    if (client.displayId !== store.state.audioMasterId || !display.audioEnabled) {
+      logger.info('Audio Master以外の準備完了通知を無視', { displayId: client.displayId });
+      return;
+    }
     store.setDisplayAudioReady(client.displayId, true);
     logger.info('Display TTS準備完了', { displayId: client.displayId }); broadcastState(); return;
   }

@@ -73,6 +73,25 @@ test('Production import/resetは非BLACKOUTのSTANDBYへ戻りPhase Aの初期Av
   assert.equal(store.state.currentAvatar.visible, true);
 });
 
+test('AivisSpeech停止中でも固定WAV運用を開始でき、Local TTS Cueがある場合は開始を止める', async () => {
+  const memory = { async load() { return null; }, async save() {} };
+  const store = new StateStore({ storage: memory }); await store.load();
+  store.importShowFile(await load('production.json'), { apply: true });
+  const display = store.connectDisplay({ displayId: 'display-201', displayName: '7・201', audioEnabled: true });
+  store.setAudioMaster(display.displayId);
+  store.setDisplayAudioReady(display.displayId, true);
+  store.setLocalTtsStatus({ status: 'error', profileId: 'yokogawa-professor-v1', error: 'AIVIS_UNREACHABLE' });
+
+  const fixedWavPreflight = store.preflight();
+  assert.equal(fixedWavPreflight.canStart, true);
+  assert.equal(fixedWavPreflight.items.find((item) => item.id === 'local-tts').status, 'warning');
+
+  store.state.cues[0].audio.speechMode = 'local-tts';
+  const localTtsCuePreflight = store.preflight();
+  assert.equal(localTtsCuePreflight.canStart, false);
+  assert.equal(localTtsCuePreflight.items.find((item) => item.id === 'local-tts').status, 'error');
+});
+
 test('途中参加の新規Displayも現在字幕とPresentation stateを初回接続で同期する', async () => {
   const memory = { async load() { return null; }, async save() {} };
   const store = new StateStore({ storage: memory }); await store.load();

@@ -15,10 +15,13 @@
 ## 起動
 
 1. HDMIを接続し、Windowsを「表示画面を拡張する」にする。
+   - `Win + P` →「拡張」を選び、Windowsの「設定 > システム > ディスプレイ」で前方画面をセカンドモニターとして識別する。
+   - 「設定 > システム > サウンド」で、会場へ音を出すHDMIまたは音響出力を選び、Windowsのテスト音で確認する。
 2. 必要ならAivisSpeechを起動する。固定WAVだけならAivisSpeech停止中でも公演可能。
 3. `start-yokogawa-ai-single-pc.cmd` を実行する。
 4. PC本体画面で `http://localhost:3000/admin` を開く。
 5. セカンドモニター側で `http://localhost:3000/display` を全画面表示する。
+   - ブラウザをセカンドモニターへ移動して `F11`。PC本体画面のAdminを全画面にしない。
 6. Production ShowをDry Run後に適用する。
 7. DisplayをAudio Masterにする。
 8. Displayの「設定を保存して開始」を押す。
@@ -46,6 +49,7 @@ DisplayがAudio Masterかつ音声出力有効になると、`/api/audio-assets`
 3. Displayが1台だけONLINEになっていること。
 4. そのDisplayだけをRequired / Audio Masterにする。
 5. 過去のDisplay B/C等がRequiredのまま残っていないこと。
+   - OFFLINEの旧DisplayはRequiredを解除する。不要であれば、ONLINEでないことを確認して登録削除する。
 6. Production固定WAV preloadが完了し、Audio Readyになること。
 7. 代表Cueを確認する。
    - #001 NORMAL
@@ -57,6 +61,8 @@ DisplayがAudio Masterかつ音声出力有効になると、`/api/audio-assets`
 8. STOP → REPLAYを確認する。
 9. BLACKOUT → RESTOREを確認する。
 10. HDMI出力先・Windows音声出力先を確認する。
+11. Wi-FiをOFFにしたままAdminとDisplayを再読み込みし、localhostで復帰することを確認する。
+    - Display reload後はAudio Readyが解除される。18/18準備完了の表示を待ち、「設定を保存して開始」をもう一度押してから本番へ戻る。
 
 ## 受入条件
 
@@ -80,7 +86,7 @@ Server起動
 Displayの準備画面に留まりAudio Readyへ進まない。Show Fileと `public/assets/audio` を確認し、再試行する。
 
 ### Displayを再読み込みした
-固定WAVを再度preloadしてからAudio Readyへ戻す。本番中に不用意に再読み込みしない。
+Audio Readyはいったん解除される。固定WAVを再度preloadし、「設定を保存して開始」を押してからAudio Readyへ戻す。本番中に不用意に再読み込みしない。
 
 ### Wi-Fiが切れた
 Single-PCモードには影響しない。

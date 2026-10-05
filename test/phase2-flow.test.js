@@ -82,6 +82,12 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
   const heartbeatC = heartbeat(c);
   t.after(() => { clearInterval(heartbeatA); clearInterval(heartbeatB); clearInterval(heartbeatC); });
   await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3);
+  b.send({ type: 'audio:ready' });
+  admin.send({ type: 'audio-master:set', displayId: 'display-b' });
+  const unpreparedB = await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'display-b');
+  assert.equal(unpreparedB.state.displayAudioReady, false, '非Audio Master時のaudio:readyは受理しない');
+  admin.send({ type: 'audio-master:set', displayId: 'display-a' });
+  await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'display-a');
   a.send({ type: 'audio:ready' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
 
