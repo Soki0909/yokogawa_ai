@@ -505,7 +505,7 @@ body[data-preset="normal"] {
 }
 
 .identity {
-  position: absolute !important;
+  position: absolute;
   z-index: 3 !important;
   inset: 0;
   display: block;
@@ -647,7 +647,7 @@ body[data-preset="normal"] {
 }
 
 .caption-shell {
-  position: absolute !important;
+  position: absolute;
   z-index: 8 !important;
   left: 3vw;
   right: 3vw;

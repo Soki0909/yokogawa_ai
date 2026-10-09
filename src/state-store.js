@@ -6,7 +6,7 @@ import {
 } from './show-schema.js';
 
 export const DEFAULT_SETTINGS = Object.freeze({
-  rate: 1, pitch: 0.9, volume: 1, voiceURI: '', subtitlesEnabled: true, historyLimit: 100,
+  rate: 1, pitch: 0.9, volume: 1, sfxVolume: .65, voiceURI: '', subtitlesEnabled: true, historyLimit: 100,
   speechProvider: 'browser', freeSpeakMode: 'browser', shortcutsEnabled: true, reducedMotion: false,
 });
 
@@ -73,7 +73,7 @@ export function applyCueStateEffects(presentation, cue, { settled = false, now =
   const startedAt = settled ? null : now.toISOString();
   const transition = {
     ...cue.transition,
-    ...(cue.sequence?.length ? { phases: structuredClone(cue.sequence), phaseIndex: 0 } : {}),
+    ...(cue.sequence?.length ? { phases: structuredClone(cue.sequence), phaseIndex: settled ? cue.sequence.length : 0 } : {}),
     status: cue.transition.id === 'none' ? 'idle' : settled ? 'completed' : 'active',
     startedAt,
     completedAt: settled && cue.transition.id !== 'none' ? null : null,
@@ -102,7 +102,7 @@ export function applyCueStateEffects(presentation, cue, { settled = false, now =
     currentSubtitle: next.currentSubtitle, currentPresetId: next.currentPresetId, currentAvatar: structuredClone(next.currentAvatar),
   };
   if (cue.kind === 'clear' || cue.timing.speechDelayMs > 0 || (cue.kind === 'preset-only' && cue.sequence?.length) || ['anomaly', 'takeover'].includes(cue.transition.id)) next.currentSubtitle = null;
-  else if (['speech-display', 'display-only'].includes(cue.kind)) next.currentSubtitle = cue.displayText;
+  else if (['speech-display', 'display-only'].includes(cue.kind)) next.currentSubtitle = cue.speech?.segments?.[0]?.displayText ?? cue.displayText;
   if (cue.kind !== 'blackout') next.currentPresetId = cue.presentationPreset;
   next.currentAvatar = { ...next.currentAvatar, ...cue.avatar, lipSyncMode: cue.audio.lipSyncMode };
   next.currentTransition = transition; next.currentOverlay = overlay; next.currentVisual = visual; next.unlock = unlock;
@@ -401,7 +401,7 @@ export class StateStore {
       source, target: normalizeTarget(target), speechProvider: speechProvider ?? cue?.speechProvider ?? this.state.settings.speechProvider,
       ...(cue ? { cueId: cue.cueId, cueName: cue.cueName, kind: cue.kind, displayText: cue.displayText,
         presentationPreset: cue.presentationPreset, avatar: cue.avatar, audio: cue.audio,
-        transition: cue.transition, overlay: cue.overlay, visual: cue.visual, timing: cue.timing } : {}),
+        transition: cue.transition, overlay: cue.overlay, visual: cue.visual, timing: cue.timing, speech: cue.speech } : {}),
       ...(!cue && kind ? { kind } : {}), ...(!cue && displayText ? { displayText } : {}), ...(!cue && audio ? { audio } : {}),
       ...(replayOf ? { replayOf } : {}),
     };
@@ -549,12 +549,14 @@ export class StateStore {
     let presentation = canonicalPresentationState(this.state.avatar);
     for (const cue of prior) presentation = applyCueStateEffects(presentation, cue, { settled: true });
     presentation.currentSubtitle = null;
+    presentation.currentVisual = structuredClone(EMPTY_VISUAL);
     const displayPresentations = this.state.displays.map((display) => {
       let displayPresentation = canonicalPresentationState(this.state.avatar);
       for (const cue of prior) if (this.matchesTarget(display, cue.target)) {
         displayPresentation = applyCueStateEffects(displayPresentation, cue, { settled: true });
       }
       displayPresentation.currentSubtitle = null;
+      displayPresentation.currentVisual = structuredClone(EMPTY_VISUAL);
       return { displayId: display.displayId, presentation: displayPresentation };
     });
     const lastPriorIndex = cues.reduce((result, cue, index) => prior.some((item) => item.cueId === cue.cueId) ? index : result, -1);
@@ -716,7 +718,7 @@ export class StateStore {
   logRehearsal(type, label, detail = {}) { if (!this.state.rehearsalSession?.active && !['session-start'].includes(type)) return; this.state.rehearsalLog.push({ timestamp: this.now().toISOString(), elapsedMs: this.state.rehearsalSession ? Math.max(0, this.now().getTime() - Date.parse(this.state.rehearsalSession.startedAt)) : 0, type, label, detail }); this.state.rehearsalLog = this.state.rehearsalLog.slice(-5000); }
 
   applyDisplayState(message) {
-    const displayText = message.displayText ?? message.text;
+    const displayText = message.speech?.segments?.[0]?.displayText ?? message.displayText ?? message.text;
     this.state.currentSubtitle = displayText; this.state.displayMode = 'speech';
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, message.target)) continue;
@@ -729,6 +731,7 @@ export class StateStore {
     return {
       rate: number(input.rate, 1, .5, 2), pitch: number(input.pitch, .9, 0, 2),
       volume: number(input.volume, 1, 0, 1),
+      sfxVolume: number(input.sfxVolume, .65, 0, 1),
       voiceURI: typeof input.voiceURI === 'string' ? input.voiceURI.slice(0, 300) : '',
       subtitlesEnabled: input.subtitlesEnabled !== false,
       historyLimit: Math.round(number(input.historyLimit, 100, 20, 500)),
@@ -760,7 +763,7 @@ export class StateStore {
   }
 
   validateCues(input) {
-    return Array.isArray(input) && input.length
+    return Array.isArray(input)
       ? input.map((cue, order) => normalizeCue({ ...cue, cueId: validId(cue.cueId ?? cue.id, `cue-${randomUUID()}`) }, order))
       : structuredClone(DEFAULT_CUES);
   }

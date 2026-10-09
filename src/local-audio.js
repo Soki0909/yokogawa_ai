@@ -14,7 +14,7 @@ export const resolveAudioAsset = resolveLocalAsset;
 export function productionAudioPreloadManifest(assets = []) {
   return assets
     .filter((asset) => asset?.mimeType === 'audio/wav'
-      && /^prod-voice-\d{3}-/.test(asset.id ?? '')
+      && /^(prod-voice-\d{3}-|prod-sfx-)/.test(asset.id ?? '')
       && isSafeAssetPath(asset.path))
     .sort((left, right) => left.id.localeCompare(right.id))
     .map((asset) => ({

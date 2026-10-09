@@ -16,7 +16,7 @@ const close = (client) => new Promise((resolve) => { if (client.socket.readyStat
 
 test('Phase AをAdmin 1 + Display 3でimport・target・unlock・再接続・安全操作まで処理する', { timeout: 35_000 }, async (t) => {
   const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase-a-'));
-  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') }, stdio: 'ignore' }); t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
+  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') }, stdio: 'ignore' }); t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
   const show = JSON.parse(await readFile(new URL('../shows/phase-a-demo.json', import.meta.url), 'utf8'));
   const imported = await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(show) }).then((response) => response.json()); assert.equal(imported.valid, true); assert.equal(imported.summary.cues, 27);
   const visualAsset = await fetch(`http://127.0.0.1:${port}/api/assets/phase-a-placeholder`); assert.equal(visualAsset.status, 200); assert.match(visualAsset.headers.get('content-type'), /image\/svg\+xml/); assert.match(await visualAsset.text(), /LOCAL ASSET READY/);

@@ -1,4 +1,15 @@
 /data/*.json
+/data/speech-drafts/
+/public/assets/audio/production-edit-*
+/public/assets/visual/puzzle-first-*.png
+/public/assets/visual/puzzle-first-*.jpg
+/public/assets/visual/puzzle-first-*.webp
+/public/assets/visual/puzzle-final-*.png
+/public/assets/visual/puzzle-final-*.jpg
+/public/assets/visual/puzzle-final-*.webp
+/public/assets/visual/puzzle-emergency-*.png
+/public/assets/visual/puzzle-emergency-*.jpg
+/public/assets/visual/puzzle-emergency-*.webp
 /logs/
 node_modules/
 coverage/

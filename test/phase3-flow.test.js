@@ -58,7 +58,7 @@ test('Phase 3 group・preflight・音声テスト・接続支援をAdmin 1 + Dis
   const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase3-flow-'));
   const child = spawn(process.execPath, ['src/server.js'], {
     cwd: process.cwd(),
-    env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
+    env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   let output = ''; child.stdout.on('data', (data) => { output += data; }); child.stderr.on('data', (data) => { output += data; });

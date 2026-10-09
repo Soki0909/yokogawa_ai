@@ -61,7 +61,7 @@ test('Production Free Speakをserver-side Aivis→Audio Masterだけへ配信し
   t.after(() => { if (engineOpen) engine.close(); });
 
   const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase-c-'));
-  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1',
+  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1',
     AIVIS_ENGINE_URL: `http://127.0.0.1:${enginePort}`, STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') }, stdio: 'ignore' });
   t.after(() => child.kill('SIGTERM'));
   await waitForHealth(port);

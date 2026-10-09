@@ -6,20 +6,20 @@ import { StateStore } from '../src/state-store.js';
 
 const load = async (name) => JSON.parse(await readFile(`shows/${name}`, 'utf8'));
 
-test('Production Showは全18 Assetを登録しscripted speechをaudio-fileへ固定する', async () => {
+test('Production Showは最新16 speech・11 SFX・3 puzzle slotsを登録する', async () => {
   const [main, route, manifest] = await Promise.all([
     load('production.json'), load('production-yokogawa-route.json'),
-    readFile('config/production-speech/yokogawa-ai-v1.json', 'utf8').then(JSON.parse),
+    readFile('config/production-speech/yokogawa-ai-v2.json', 'utf8').then(JSON.parse),
   ]);
   assert.equal(validateShowFile(main).valid, true);
   assert.equal(validateShowFile(route).valid, true);
-  assert.equal(main.assets.length, 18);
-  assert.equal(route.assets.length, 18);
+  assert.equal(main.assets.length, 30);
+  assert.equal(route.assets.length, 30);
   const speech = [...main.cues, ...route.cues].filter((cue) => cue.kind.startsWith('speech'));
-  assert.equal(speech.length, 18);
-  assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 18);
+  assert.equal(speech.length, 16);
+  assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 16);
   assert.equal(speech.filter((cue) => cue.audio.speechMode === 'browser').length, 0);
-  assert.deepEqual(speech.map((cue) => cue.speechText), manifest.speeches.map((item) => item.scriptText));
+  assert.deepEqual(speech.map((cue) => cue.displayText).sort(), manifest.speeches.map((item) => item.scriptText).sort());
   assert.equal(main.settings.freeSpeakMode, 'local-tts');
   assert.equal(route.metadata.description.includes('UNRESOLVED ROUTE MAPPING'), true);
 });
@@ -29,10 +29,10 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
   const ids = main.cues.map((cue) => cue.id);
   assert.deepEqual(ids, [
     'prod-001', 'prod-002', 'prod-003', 'prod-004', 'prod-v-incident',
-    'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-v-riddle-enter',
-    'prod-010', 'prod-011', 'prod-012', 'prod-v-unlock', 'prod-013', 'prod-014',
+    'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-019', 'prod-v-riddle-enter',
+    'prod-011', 'prod-012', 'prod-v-unlock', 'prod-013', 'prod-014',
     'prod-v-hostile-enter', 'prod-015', 'prod-v-emergency-riddle', 'prod-v-stop-code',
-    'prod-v-recovery', 'prod-017',
+    'prod-v-recovery',
   ]);
   assert.equal(main.avatar.visible, false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-001').transition.id, 'boot');
@@ -40,9 +40,8 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
   assert.equal(ids.includes('prod-v-hijack'), false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-v-hostile-enter').order < main.cues.find((cue) => cue.id === 'prod-015').order, true);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-v-stop-code').audio.assetId, 'prod-voice-016-shutdown');
-  assert.notEqual(main.cues.find((cue) => cue.id === 'prod-010').enabled, false);
-  assert.equal(main.cues.find((cue) => cue.id === 'prod-017').enabled, false);
-  assert.match(main.cues.find((cue) => cue.id === 'prod-v-emergency-riddle').visual.message, /NOT PROVIDED/);
+  assert.equal(main.cues.some(cue => ['prod-010', 'prod-017', 'prod-018'].includes(cue.id)), false);
+  assert.match(main.cues.find((cue) => cue.id === 'prod-v-emergency-riddle').visual.message, /未提供/);
   assert.ok(main.cues.flatMap((cue) => cue.syncMarkers ?? []).every((marker) => marker.id.startsWith('ALIGN-')));
 });
 
@@ -56,7 +55,7 @@ test('HIJACKED voice effectはWAV005〜009だけへ適用しraw Assetを維持�
     assert.equal(cue.audio.playbackEffect, 'hijacked-subtle-v1');
     assert.equal(cue.audio.assetId, `prod-voice-${id}-${({ '005': 'communication-lock', '006': 'reject', '007': 'auth-failed', '008': 'five-riddles', '009': 'first-riddle' })[id]}`);
   }
-  for (const id of ['001', '002', '003', '004', '010', '011', '012', '013', '014', '015', '016', '017']) {
+  for (const id of ['001', '002', '003', '004', '011', '012', '013', '014', '015', '016', '019']) {
     assert.equal(speech.get(`prod-${id}`).audio.playbackEffect ?? 'none', 'none');
   }
 });
@@ -100,10 +99,10 @@ test('途中参加の新規Displayも現在字幕とPresentation stateを初回�
   const production = await load('production.json'); store.importShowFile(production, { apply: true });
   store.executeCue('prod-v-riddle-enter');
   const display = store.registerDisplay({ displayId: 'late-display', displayName: 'Late Display' });
-  assert.equal(display.currentSubtitle, null);
+  assert.equal(display.currentSubtitle, '第一の謎は、こちらです');
   assert.equal(display.currentPresetId, 'hijacked');
   assert.equal(display.currentOverlay.id, 'none');
-  assert.equal(display.currentVisual.id, 'riddle-five');
+  assert.equal(display.currentVisual.id, 'none');
 });
 
 test('server再起動後も現在字幕とCue位置を復元し途中参加Displayへ同期する', async () => {
@@ -112,8 +111,8 @@ test('server再起動後も現在字幕とCue位置を復元し途中参加Displ
   const production = await load('production.json'); first.importShowFile(production, { apply: true });
   first.executeCue('prod-v-riddle-enter'); await first.persist();
   const restored = new StateStore({ storage: persisted }); await restored.load();
-  assert.equal(restored.state.currentSubtitle, null);
+  assert.equal(restored.state.currentSubtitle, '第一の謎は、こちらです');
   assert.equal(restored.snapshot().currentCue.cueId, 'prod-v-riddle-enter');
   const display = restored.registerDisplay({ displayId: 'post-restart-display' });
-  assert.equal(display.currentSubtitle, null);
+  assert.equal(display.currentSubtitle, '第一の謎は、こちらです');
 });

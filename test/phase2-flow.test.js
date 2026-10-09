@@ -62,7 +62,7 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
   const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase2-flow-'));
   const child = spawn(process.execPath, ['src/server.js'], {
     cwd: process.cwd(),
-    env: { ...process.env, NODE_ENV: 'phase2-test', PORT: String(port), HOST: '127.0.0.1', HEARTBEAT_TIMEOUT_MS: '900', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
+    env: { ...process.env, SHOW_STARTUP_MODE: 'saved', NODE_ENV: 'phase2-test', PORT: String(port), HOST: '127.0.0.1', HEARTBEAT_TIMEOUT_MS: '900', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   let output = ''; child.stdout.on('data', (data) => { output += data; }); child.stderr.on('data', (data) => { output += data; });
@@ -185,7 +185,7 @@ test('同一Display IDの連続connect/disconnect/reconnectで登録が増殖し
   const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase2-stress-'));
   const child = spawn(process.execPath, ['src/server.js'], {
     cwd: process.cwd(),
-    env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
+    env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   let output = ''; child.stdout.on('data', (data) => { output += data; }); child.stderr.on('data', (data) => { output += data; });

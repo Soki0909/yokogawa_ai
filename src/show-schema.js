@@ -41,6 +41,8 @@ export const AVATAR_ASSET_SETS = Object.freeze({
 export const DEFAULT_AVATAR = Object.freeze({
   visible: true, state: 'normal', lipSyncMode: 'simulated', label: 'YOKOGAWA AI',
   mode: 'image-yokogawa-v1', assetSetId: 'yokogawa-v1',
+  layers: null,
+  paintBottomInset: .062,
 });
 
 const ID = /^[a-zA-Z0-9_-]{1,100}$/;
@@ -57,6 +59,7 @@ const finite = (value, fallback, min, max) => Number.isFinite(Number(value))
 
 export function normalizeTransition(input = {}) {
   return {
+    mode: ['cut', 'fade', 'glitch'].includes(input?.mode) ? input.mode : (['anomaly', 'takeover', 'hostile-enter'].includes(input?.id) ? 'glitch' : input?.id === 'shutdown' ? 'cut' : 'fade'),
     id: TRANSITION_IDS.includes(input?.id) ? input.id : 'none',
     durationMs: Math.round(finite(input?.durationMs, 900, 0, 30_000)),
     intensity: finite(input?.intensity, 1, 0, 1),
@@ -78,6 +81,7 @@ export function normalizeVisual(input = {}) {
   return {
     id: id(input?.id, '') || 'none', type,
     assetId: id(input?.assetId, '') || null,
+    assetVersion: /^[a-f0-9]{64}$/.test(input?.assetVersion ?? '') ? input.assetVersion : null,
     mode: id(input?.mode, '') || 'default',
     visible: input?.visible === true && type !== 'none',
     title: text(input?.title, 160), message: text(input?.message, 1000),
@@ -124,6 +128,8 @@ export function normalizeAvatar(input = {}) {
     label: text(input.label, 120) || DEFAULT_AVATAR.label,
     mode: AVATAR_MODES.has(input.mode) ? input.mode : DEFAULT_AVATAR.mode,
     assetSetId: AVATAR_ASSET_SETS[input.assetSetId] ? input.assetSetId : DEFAULT_AVATAR.assetSetId,
+    layers: input.layers && ['base', 'mouthHalf', 'mouthOpen', 'eyesClosed'].every(key => /^assets\/avatar\/[a-zA-Z0-9_/-]+\.(png|webp)$/.test(input.layers[key] ?? '') && !input.layers[key].includes('..')) ? { ...input.layers } : null,
+    paintBottomInset: finite(input.paintBottomInset, input.layers ? 0 : .062, 0, .3),
   };
 }
 
@@ -149,6 +155,8 @@ export function normalizeAsset(input = {}, index = 0) {
   return {
     id: id(input.id, `asset-${index + 1}`), name: text(input.name, 120) || `Audio ${index + 1}`,
     path: text(input.path, 300), mimeType: mimeTypes.includes(input.mimeType) ? input.mimeType : 'audio/wav',
+    sha256: /^[a-f0-9]{64}$/.test(input.sha256 ?? '') ? input.sha256 : null,
+    durationMs: Math.round(finite(input.durationMs, 0, 0, 180000)),
   };
 }
 
@@ -181,6 +189,8 @@ export function normalizeCue(input = {}, order = 0) {
     target: normalizeTarget(input.target), presentationPreset: id(input.presentationPreset, '') || 'normal',
     avatar: { visible: input.avatar?.visible !== false, state: avatarState },
     audio: { speechMode, assetId: audioAsset, lipSyncMode, playbackEffect },
+    speech: { spokenText: text(input.speech?.spokenText ?? speechText), segments: (Array.isArray(input.speech?.segments) ? input.speech.segments : []).slice(0, 100).map(segment => ({ displayText: text(segment?.displayText), spokenText: text(segment?.spokenText), startMs: Math.round(finite(segment?.startMs, 0, 0, 180000)), endMs: Math.round(finite(segment?.endMs, 0, 0, 180000)), pauseAfterMs: Math.round(finite(segment?.pauseAfterMs, 0, 0, 10000)) })) },
+    sfx: (Array.isArray(input.sfx) ? input.sfx : []).slice(0, 20).map(effect => ({ assetId: id(effect.assetId), atMs: Math.round(finite(effect.atMs, 0, 0, 180000)), volume: finite(effect.volume, 1, 0, 1), durationMs: Math.round(finite(effect.durationMs, 0, 0, 180000)) })),
     transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
     visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing), sequence: normalizeSequence(input.sequence),
     syncMarkers: normalizeSyncMarkers(input.syncMarkers),
@@ -208,6 +218,12 @@ export function validateShowFile(input) {
   const sceneIds = new Set((Array.isArray(input.scenes) ? input.scenes : []).map((item) => item.sceneId ?? item.id));
   const groupIds = new Set((Array.isArray(input.groups) ? input.groups : []).map((item) => item.id));
   for (const cue of cues) {
+    let previousEnd = 0;
+    for (const segment of cue.speech.segments) {
+      if (!segment.displayText || segment.endMs <= segment.startMs || segment.startMs < previousEnd) errors.push(`CUE_SPEECH_TIMELINE_INVALID:${cue.id}`);
+      previousEnd = segment.endMs;
+    }
+    for (const effect of cue.sfx) if (!assets.some(asset => asset.id === effect.assetId && asset.mimeType.startsWith('audio/'))) errors.push(`CUE_SFX_NOT_FOUND:${cue.id}`);
     for (const phase of cue.sequence) {
       if (cue.transition.id === 'none' || phase.atMs > cue.transition.durationMs) errors.push(`CUE_SEQUENCE_OUTSIDE_TRANSITION:${cue.id}`);
       if (phase.presentationPreset && !presetIds.has(phase.presentationPreset)) errors.push(`CUE_SEQUENCE_PRESET_NOT_FOUND:${cue.id}`);
@@ -234,6 +250,7 @@ export function validateShowFile(input) {
   }
   if (input.avatar?.mode != null && !AVATAR_MODES.has(input.avatar.mode)) errors.push('INVALID_AVATAR_MODE');
   if (input.avatar?.assetSetId != null && !AVATAR_ASSET_SETS[input.avatar.assetSetId]) errors.push('AVATAR_ASSET_SET_NOT_FOUND');
+  if (input.avatar?.layers != null && !normalizeAvatar(input.avatar).layers) errors.push('INVALID_AVATAR_LAYERS');
   for (const asset of assets) {
     if (!isSafeAssetPath(asset.path)) errors.push(`UNSAFE_ASSET_PATH:${asset.id}`);
     const extensionMatches = asset.mimeType === 'audio/wav' ? /\.wav$/i : asset.mimeType === 'audio/mpeg' ? /\.mp3$/i

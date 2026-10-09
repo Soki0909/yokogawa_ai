@@ -16,12 +16,13 @@ const close = (client) => new Promise((resolve) => { if (client.socket.readyStat
 
 test('merged Cue server runtime cancels pending audio on STOP/Reset/Rehearsal and REPLAY dispatches once', { timeout: 30_000 }, async (t) => {
   const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-merged-cue-'));
-  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs'), AIVIS_ENGINE_URL: 'http://127.0.0.1:9' }, stdio: 'ignore' });
+  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs'), AIVIS_ENGINE_URL: 'http://127.0.0.1:9' }, stdio: 'ignore' });
   t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
   const production = JSON.parse(await readFile('shows/production.json', 'utf8'));
   // Exercise the actual scheduler quickly; production timing values are tested separately.
   for (const cue of production.cues.filter(c => ['prod-v-riddle-enter', 'prod-v-stop-code'].includes(c.id))) {
     cue.timing.speechDelayMs = 200; cue.transition.durationMs = 200;
+    cue.sequence = [];
   }
   assert.ok((await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(production) })).ok);
   const admin = await connect(port, 'admin'); const display = await connect(port, 'display', { displayId: 'stage', audioEnabled: true });
@@ -46,7 +47,7 @@ test('merged Cue server runtime cancels pending audio on STOP/Reset/Rehearsal an
 
 test('scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安全に接続する', { timeout: 30_000 }, async (t) => {
   const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-scene-rehearsal-'));
-  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs'), AIVIS_ENGINE_URL: 'http://127.0.0.1:9' }, stdio: 'ignore' });
+  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs'), AIVIS_ENGINE_URL: 'http://127.0.0.1:9' }, stdio: 'ignore' });
   t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
   const production = JSON.parse(await readFile('shows/production.json', 'utf8'));
   const imported = await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(production) });
@@ -71,7 +72,7 @@ test('scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安�
   assert.equal(log.events.filter((item) => item.type === 'scene-rehearsal-start').length, 1);
 
   admin.send({ type: 'scene:rehearsal-start', sceneId: 'scene-6', actionId: 'scene-6-once' });
-  await display.next((event) => event.type === 'stop'); await display.next((event) => event.type === 'state' && event.state.currentPresetId === 'warning');
+  await display.next((event) => event.type === 'stop'); await display.next((event) => event.type === 'state' && event.state.currentPresetId === 'hijacked');
   const scene6 = await admin.next((event) => event.type === 'state' && event.state.sceneRehearsal?.sceneId === 'scene-6');
   assert.equal(scene6.state.nextCue.cueId, 'prod-011');
   admin.send({ type: 'cue:next', actionId: 'scene-6-next' });

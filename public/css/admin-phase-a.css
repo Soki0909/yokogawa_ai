@@ -5,3 +5,29 @@
 .cue-item .cue-actions [data-action="jump"] { border-color: #ffca5870; color: #ffd98a; }
 .cue-item small .sync-marker { color: #ffca58; }
 @media (max-width: 760px) { .phase-a-cue-detail { grid-template-columns: 1fr; } }
+/* Show operations follow readiness > actor trigger > NEXT > secondary controls. */
+.show-console { display: flex; flex-direction: column; gap: 16px; }
+.show-console-head { order: 0; }
+.production-version { order: 1; color: #b4c6dc; margin: 0; }
+.current-live-cue { order: 2; }
+.next-trigger { order: 3; padding: 18px 22px; background: #172c43; border-left: 5px solid #73d9ff; margin: 0; }
+.next-trigger span { display: block; font-size: 12px; letter-spacing: .12em; color: #93bedb; margin-bottom: 8px; }
+.next-trigger strong { font-size: 22px; }
+.show-next-button { order: 4; }
+.next-live-cue { order: 5; }
+.show-transport { order: 6; }
+.show-console > :not(.show-console-head):not(.production-version):not(.current-live-cue):not(.next-trigger):not(.show-next-button):not(.next-live-cue):not(.show-transport) { order: 7; }
+.show-console .scene-rehearsal { order: 9 !important; }
+.production-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; }
+.production-actions a { color: #83d8ff; }
+.production-actions label { display: flex; gap: 10px; align-items: center; }
+@media (max-height: 800px) {
+  .topbar { padding-block: 12px; }
+  .show-console { gap: 10px; padding: 18px; }
+  .current-live-cue { min-height: 0; padding: 16px; }
+  .current-live-cue strong { font-size: 24px; }
+  .current-live-cue p { margin: 10px 0; font-size: 17px; }
+  .next-trigger { padding: 12px 18px; }
+  .next-trigger strong { font-size: 20px; }
+  .show-next-button { min-height: 82px; }
+}

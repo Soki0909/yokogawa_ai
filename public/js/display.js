@@ -3,6 +3,7 @@ import { createSpeechProvider } from './tts-adapter.js';
 import { LipSyncController } from './lip-sync.js';
 import { BlinkController } from './blink-controller.js';
 import { prepareProductionAudio } from './audio-preload.js';
+import { CueSfxPlayer } from './cue-sfx.js';
 
 const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((element) => [element.id, element]));
 const storageKey = 'yokogawa-display-v2';
@@ -32,6 +33,8 @@ let transitionTimer;
 let unlockFrame;
 let overlayTimer;
 let visualTimer;
+let subtitleFrame;
+const sfx = new CueSfxPlayer();
 const lipSync = new LipSyncController(elements['avatar-wrap']);
 const blink = new BlinkController(elements['avatar-wrap']);
 const systemStates = new Set(['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']);
@@ -130,6 +133,12 @@ function applyPresentation(presentation = {}, preset = null) {
     elements['avatar-wrap'].hidden = !visible;
     elements['avatar-wrap'].dataset.state = presentation.avatar.state ?? 'normal';
     elements['avatar-wrap'].dataset.avatarMode = presentation.avatar.mode ?? 'image-yokogawa-v1';
+    elements['avatar-wrap'].style.setProperty('--avatar-paint-bottom-inset', `${(presentation.avatar.paintBottomInset ?? .062) * 100}%`);
+    const avatarLayers = presentation.avatar.layers ?? { base: 'assets/avatar/yokogawa/v1/base.png', mouthHalf: 'assets/avatar/yokogawa/v1/mouth-half.png', mouthOpen: 'assets/avatar/yokogawa/v1/mouth-open.png', eyesClosed: 'assets/avatar/yokogawa/v1/eyes-closed.png' };
+    for (const [key, selector] of Object.entries({ base: '.avatar-base', mouthHalf: '.avatar-mouth-half', mouthOpen: '.avatar-mouth-open', eyesClosed: '.avatar-eyes-closed' })) {
+      const image = elements['avatar-wrap'].querySelector(selector); const url = `/${avatarLayers[key]}`;
+      if (new URL(image.src).pathname !== url) image.src = url;
+    }
     if (!visible) lipSync.stop();
   }
   elements.blackout.hidden = presentation.blackout !== true;
@@ -154,6 +163,7 @@ function applyPresentation(presentation = {}, preset = null) {
 function renderTransition(transition = {}) {
   clearTimeout(transitionTimer);
   document.body.dataset.transition = transition.id ?? 'none';
+  document.body.dataset.transitionMode = transition.mode ?? 'fade';
   document.body.dataset.transitionStatus = transition.status ?? 'idle';
   document.documentElement.style.setProperty('--phase-a-transition-ms', `${Math.max(0, Number(transition.durationMs) || 0)}ms`);
   document.documentElement.style.setProperty('--phase-a-intensity', String(Math.min(1, Math.max(0, Number(transition.intensity) || 0))));
@@ -195,7 +205,7 @@ function renderVisual(visual = {}) {
   elements['scene-visual-message'].textContent = visual.message ?? '';
   const showImage = visible && visual.type === 'image' && visual.assetId;
   elements['scene-visual-image'].hidden = !showImage;
-  if (showImage) { elements['scene-visual-image'].src = `/api/assets/${encodeURIComponent(visual.assetId)}`; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
+  if (showImage) { elements['scene-visual-image'].src = `/api/assets/${encodeURIComponent(visual.assetId)}${visual.assetVersion ? `?v=${visual.assetVersion}` : ''}`; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
   else elements['scene-visual-image'].removeAttribute('src');
   const signature = JSON.stringify([visual.id, visual.items]);
   if (elements['scene-visual-items'].dataset.signature !== signature) {
@@ -255,7 +265,7 @@ function handleEvent(event) {
     publishVoices();
   } else if (event.type === 'speak') {
     settings = event.settings;
-    if (event.message.kind !== 'speech-only') showCaption(event.message.displayText || event.message.text);
+    if (event.message.kind !== 'speech-only') showCaption(event.message.speech?.segments?.[0]?.displayText ?? event.message.displayText ?? event.message.text);
     if (!event.shouldSpeak) {
       setMode('SUBTITLE OUTPUT', 'ready');
       return;
@@ -269,13 +279,21 @@ function handleEvent(event) {
     catch (error) { socket.send({ type: 'playback', id: event.message.id, status: 'error', error: error.message }); }
   } else if (event.type === 'presentation') {
     applyPresentation(event.presentation, event.preset);
+  } else if (event.type === 'subtitle') {
+    revealCaption(event.text, event.durationMs);
+  } else if (event.type === 'sfx') {
+    if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume).catch(error => socket.send({ type: 'playback', id: 'sfx', status: 'error', error: error.message }));
+  } else if (event.type === 'sfx:stop') {
+    sfx.stop(); cancelAnimationFrame(subtitleFrame);
   } else if (event.type === 'stop') {
+    sfx.stop(); cancelAnimationFrame(subtitleFrame); showCaption('');
     speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); document.body.dataset.transitionStatus = 'stopped';
   } else if (event.type === 'settings') {
     settings = event.settings; elements.caption.hidden = !settings.subtitlesEnabled;
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
+    sfx.stop(); cancelAnimationFrame(subtitleFrame);
     speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); showCaption(''); elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
@@ -287,11 +305,23 @@ function handleEvent(event) {
 }
 
 function showCaption(text) {
+  cancelAnimationFrame(subtitleFrame);
   const normalized = String(text ?? '');
   elements.caption.textContent = normalized;
   elements.caption.dataset.length = normalized.length > 100 ? 'extra-long' : normalized.length > 64 ? 'long' : normalized.length > 32 ? 'medium' : 'short';
   elements.caption.hidden = !settings.subtitlesEnabled;
   document.body.dataset.captionEmpty = String(!normalized);
+}
+function revealCaption(text, durationMs) {
+  showCaption(text);
+  if (text.length <= 32 || settings.reducedMotion) return;
+  const started = performance.now(); const duration = Math.min(3500, Math.max(350, durationMs * .65));
+  const draw = () => {
+    const fraction = Math.min(1, (performance.now() - started) / duration);
+    elements.caption.textContent = text.slice(0, Math.max(1, Math.ceil(text.length * fraction)));
+    if (fraction < 1) subtitleFrame = requestAnimationFrame(draw);
+  };
+  draw();
 }
 function setMode(label, state) {
   elements['mode-label'].textContent = label; elements.orb.dataset.state = state;

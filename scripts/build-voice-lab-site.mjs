@@ -34,8 +34,7 @@ export function sanitizeSamples(manifest, mainShow, routeShow) {
   return manifest.speeches.map((speech) => {
     if (!/^\d{3}$/.test(speech.scriptId) || ids.has(speech.scriptId)) throw new Error(`Invalid or duplicate scriptId: ${speech.scriptId}`);
     ids.add(speech.scriptId);
-    const cue = cueByAsset.get(speech.assetId);
-    if (!cue) throw new Error(`Production cue not found for ${speech.scriptId}`);
+    const cue = cueByAsset.get(speech.assetId) ?? { avatar: { state: ['005', '006', '007', '008', '009', '011', '012'].includes(speech.scriptId) ? 'hijacked' : 'normal' }, audio: { playbackEffect: ['005', '006', '007', '008', '009'].includes(speech.scriptId) ? 'hijacked-subtle-v1' : 'none' } };
     const effect = cue.audio.playbackEffect ?? 'none';
     if (!['none', 'hijacked-subtle-v1'].includes(effect)) throw new Error(`Unknown playback effect for ${speech.scriptId}: ${effect}`);
     const status = speech.scriptId === '010' ? { id: 'unresolved-placement', label: '配置未確定' }

@@ -28,9 +28,8 @@ test('Production Scene metadataは最新台本のScene 1〜7を順番通り表�
     ['scene-4', 4, 't.e7k2svyhnomc'], ['scene-5', 5, 't.qexxsordbvdd'], ['scene-6', 6, 't.lquo4bdx2m2q'],
     ['scene-7', 7, 't.6gopn4tnzuo'],
   ]);
-  assert.notEqual(production.cues.find((cue) => cue.id === 'prod-010').enabled, false, '現行台本Scene 5の館内放送を通常Cueに含める');
-  assert.equal(production.cues.find((cue) => cue.id === 'prod-017').enabled, false, '現行台本にない調整済みWAVは保全したまま隔離する');
-  assert.match(production.metadata.sceneStructureSource.revisionId, /^AHj4eMQH/);
+  assert.equal(production.cues.some(cue => ['prod-010', 'prod-017'].includes(cue.id)), false);
+  assert.match(production.metadata.sceneStructureSource.revisionId, /^AHj4eMTF/);
 });
 
 test('Scene Startは稽古セッション外ではfail-closedする', async () => {
@@ -73,7 +72,7 @@ test('同一Scene反復とA→B→C→Aでstate driftが発生しない', async 
   store.startSceneRehearsal('scene-2'); const sceneA = projection(store.snapshot());
   for (let index = 0; index < 5; index += 1) { store.startSceneRehearsal('scene-2'); assert.deepEqual(projection(store.snapshot()), sceneA); }
   store.startSceneRehearsal('scene-6');
-  assert.equal(store.snapshot().nextCue.cueId, 'prod-011'); assert.equal(store.snapshot().currentPresetId, 'warning');
+  assert.equal(store.snapshot().nextCue.cueId, 'prod-011'); assert.equal(store.snapshot().currentPresetId, 'hijacked');
   store.startSceneRehearsal('scene-7');
   assert.equal(store.snapshot().nextCue.cueId, 'prod-v-recovery'); assert.equal(store.snapshot().currentPresetId, 'shutdown');
   store.startSceneRehearsal('scene-2'); assert.deepEqual(projection(store.snapshot()), sceneA);
@@ -86,9 +85,12 @@ test('reconstructionは通常Cue state progressionのScene境界projectionと一
   for (const cue of production.cues.filter((item) => item.enabled !== false && item.scene === 'scene-1')) reference.executeCue(cue.id);
   clock += 700_000; reference.settleTimedPresentation();
   const expected = projection(reference.snapshot());
+  expected.currentSubtitle = null; expected.currentVisual = structuredClone(reconstructedEmptyVisual());
   const reconstructed = await readyStore(); reconstructed.startSceneRehearsal('scene-2');
   assert.deepEqual(projection(reconstructed.snapshot()), expected);
 });
+
+function reconstructedEmptyVisual() { return { id: 'none', type: 'none', assetId: null, assetVersion: null, mode: 'default', visible: false, title: '', message: '', items: [] }; }
 
 test('Scene Start stateはDisplay reload相当snapshotとserver再起動後に副作用なく復元される', async () => {
   const storage = memory(); const store = await readyStore({ storage });

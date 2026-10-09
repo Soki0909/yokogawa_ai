@@ -6,7 +6,7 @@ export async function loadProductionAudioManifest(fetchImpl = globalThis.fetch) 
   if (!Array.isArray(payload?.assets)) throw new Error('Production audio manifest is invalid');
   const seen = new Set();
   for (const asset of payload.assets) {
-    if (typeof asset?.id !== 'string' || !/^prod-voice-\d{3}-[a-z0-9-]+$/.test(asset.id)) {
+    if (typeof asset?.id !== 'string' || !/^(prod-voice-\d{3}-[a-z0-9-]+|prod-sfx-[a-z0-9-]+)$/.test(asset.id)) {
       throw new Error('Production audio manifest contains an invalid asset ID');
     }
     if (asset.url !== `/api/assets/${encodeURIComponent(asset.id)}`) {
@@ -15,6 +15,7 @@ export async function loadProductionAudioManifest(fetchImpl = globalThis.fetch) 
     if (seen.has(asset.id)) throw new Error(`Production audio manifest contains a duplicate asset: ${asset.id}`);
     seen.add(asset.id);
   }
+  Object.defineProperty(payload.assets, 'expectedCount', { value: payload.expectedCount ?? payload.assets.length });
   return payload.assets;
 }
 
@@ -49,7 +50,7 @@ export async function preloadProductionAudioAssets(assets, {
 
 export async function prepareProductionAudio(options = {}) {
   const assets = options.assets ?? await loadProductionAudioManifest(options.fetchImpl);
-  const expectedCount = Number.isInteger(options.expectedCount) ? options.expectedCount : 18;
+  const expectedCount = Number.isInteger(options.expectedCount) ? options.expectedCount : assets.expectedCount ?? 18;
   if (assets.length !== expectedCount) {
     throw new Error(`Production WAV count mismatch: expected ${expectedCount}, got ${assets.length}`);
   }

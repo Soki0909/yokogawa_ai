@@ -158,6 +158,10 @@ function renderPreflight() {
 }
 
 function renderShowMode() {
+  elements['production-version'].textContent = `${state.metadata?.version ?? 'Custom Show'} · ${state.metadata?.sourceScript?.modifiedTime ?? '台本時刻未設定'} · ${state.playbackStatus.toUpperCase()}`;
+  elements['next-trigger'].textContent = state.nextCue?.triggerNote || '次のCueはありません';
+  elements['production-speech-volume'].value = state.settings.volume;
+  elements['production-sfx-volume'].value = state.settings.sfxVolume ?? .65;
   const scene = state.scenes.find((item) => item.sceneId === state.currentSceneId); elements['show-current-scene'].textContent = scene?.sceneName ?? '— 未選択';
   elements['show-current-cue'].textContent = cueTitle(state.currentCue, '— 待機中');
   elements['show-current-text'].textContent = state.sceneRehearsal?.ready && !state.nextCue
@@ -184,6 +188,8 @@ function renderShowMode() {
     ? 'Sceneを選び、明示的に開始してください。選択だけでは状態は変わりません。'
     : '安全のため、先に「リハーサル開始」を有効にしてください。';
   elements['show-alerts'].replaceChildren(); for (const warning of state.preflight.items.filter((item) => item.status !== 'ok').slice(0, 5)) { const item = document.createElement('div'); item.className = `show-alert ${warning.status}`; item.textContent = `${warning.label}: ${warning.detail}`; elements['show-alerts'].append(item); }
+  const missingPuzzles = state.assets.filter(asset => asset.id.startsWith('puzzle-') && asset.path.endsWith('puzzle-image-pending.svg'));
+  if (missingPuzzles.length) { const notice = document.createElement('div'); notice.className = 'show-alert warning'; notice.textContent = `問題画像 ${missingPuzzles.length}枠が未提供 — 編集ツールで設定してください`; elements['show-alerts'].append(notice); }
 }
 
 function renderMasterWarning() {
@@ -273,6 +279,9 @@ elements['cue-form'].addEventListener('submit', (event) => {
 });
 elements['group-form'].addEventListener('submit', (event) => { event.preventDefault(); socket.send({ type: 'target-group:save', group: { id: elements['group-id'].value || undefined, name: elements['group-name'].value, notes: elements['group-notes'].value, enabled: elements['group-enabled'].checked, displayIds: [...elements['group-display-options'].querySelectorAll('input:checked')].map((input) => input.value) } }); elements['group-dialog'].close(); });
 elements['reset-button'].addEventListener('click', () => { if (window.confirm('SHOW RESETを実行しますか？\nCue位置・字幕・発話キューを初期化します。Cue定義とDisplay登録は保持されます。')) socket.send({ type: 'show:reset' }); });
+elements['production-reset'].addEventListener('click', () => socket.send({ type: 'production:reset' }));
+elements['production-speech-volume'].addEventListener('change', event => socket.send({ type: 'settings:update', settings: { volume: Number(event.target.value) } }));
+elements['production-sfx-volume'].addEventListener('change', event => socket.send({ type: 'settings:update', settings: { sfxVolume: Number(event.target.value) } }));
 for (const id of ['voice-select', 'rate-input', 'pitch-input', 'volume-input', 'subtitle-input', 'shortcuts-input']) elements[id].addEventListener('change', updateSettings);
 elements['show-clear-button'].addEventListener('click', () => performAction('clear'));
 elements['show-blackout-button'].addEventListener('click', () => performAction('blackout'));

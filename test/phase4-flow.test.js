@@ -16,7 +16,7 @@ const close = (client) => new Promise((resolve) => { if (client.socket.readyStat
 
 test('Phase 4をAdmin 1 + Display 3で表示・音声Master・Blackout・再接続まで処理する', { timeout: 30_000 }, async (t) => {
   const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-phase4-'));
-  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') }, stdio: 'ignore' }); t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
+  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') }, stdio: 'ignore' }); t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
   const admin = await connect(port, 'admin'); const a = await connect(port, 'display', { displayId: 'a', displayName: 'A', audioEnabled: true }); const b = await connect(port, 'display', { displayId: 'b', displayName: 'B', audioEnabled: false }); const c = await connect(port, 'display', { displayId: 'c', displayName: 'C', audioEnabled: false });
   t.after(async () => Promise.all([admin, a, b, c].map(close))); await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3); a.send({ type: 'audio:ready' });
 

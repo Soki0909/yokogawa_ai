@@ -65,7 +65,7 @@ test('HTTP画面・双方向状態・キュー・停止・再接続を実通信�
   const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-server-'));
   const child = spawn(process.execPath, ['src/server.js'], {
     cwd: process.cwd(),
-    env: { ...process.env, PORT: String(port), STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
+    env: { ...process.env, SHOW_STARTUP_MODE: 'saved', PORT: String(port), STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs') },
     stdio: ['ignore', 'pipe', 'pipe'],
   });
   let output = '';

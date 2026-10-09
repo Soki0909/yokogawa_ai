@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { validateShowFile } from '../src/show-schema.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const manifest = JSON.parse(await fs.readFile(path.join(root, 'config/production-speech/yokogawa-ai-v1.json'), 'utf8'));
+const manifest = JSON.parse(await fs.readFile(path.join(root, 'config/production-speech/yokogawa-ai-v2.json'), 'utf8'));
 const demo = JSON.parse(await fs.readFile(path.join(root, 'shows/phase-a-demo.json'), 'utf8'));
 const byId = new Map(manifest.speeches.map((speech) => [speech.scriptId, speech]));
 
@@ -15,6 +15,8 @@ const assets = manifest.speeches.map((speech) => ({
   mimeType: 'audio/wav',
   ...(speech.sha256 ? { sha256: speech.sha256 } : {}),
 }));
+assets.push(...manifest.sfx);
+for (const slot of ['first', 'final', 'emergency']) assets.push({ id: `puzzle-${slot}`, name: `未提供: ${slot}問題画像`, path: 'assets/visual/puzzle-image-pending.svg', mimeType: 'image/svg+xml' });
 
 const common = {
   schemaVersion: 3,
@@ -24,7 +26,7 @@ const common = {
   assets,
   avatar: { ...demo.avatar, visible: false, state: 'normal', lipSyncMode: 'audio-reactive' },
   settings: {
-    rate: 1, pitch: 0.9, volume: 1, subtitlesEnabled: true,
+    rate: 1, pitch: 0.9, volume: 1, sfxVolume: .65, subtitlesEnabled: true,
     speechProvider: 'browser', freeSpeakMode: 'local-tts', shortcutsEnabled: true, reducedMotion: false,
   },
 };
@@ -33,7 +35,7 @@ const states = {
   '001': 'normal', '002': 'normal', '003': 'normal', '004': 'normal',
   '005': 'hijacked', '006': 'hijacked', '007': 'hijacked', '008': 'hijacked', '009': 'hijacked',
   '010': 'warning', '011': 'hijacked', '012': 'hijacked', '013': 'warning', '014': 'warning',
-  '015': 'hostile', '016': 'shutdown', '017': 'normal', '018': 'warning',
+  '015': 'hostile', '016': 'shutdown', '019': 'hijacked',
 };
 
 function speechCue(scriptId, order, overrides = {}) {
@@ -50,6 +52,7 @@ function speechCue(scriptId, order, overrides = {}) {
     kind: 'speech-display',
     speechText: speech.scriptText,
     displayText: speech.scriptText,
+    speech: { spokenText: speech.spokenText, segments: speech.segments },
     presentationPreset: state,
     target: { type: 'all' },
     avatar: { visible: true, state },
@@ -82,9 +85,9 @@ function visualCue(id, number, name, scene, state, order, fields = {}) {
 const mainCues = [
   speechCue('001', 10, {
     name: '横川AI起動応答', triggerNote: '横川教授「横川AIを起動してくれ」直後。STANDBYからGO。',
-    transition: { id: 'boot', durationMs: 1600, intensity: 1 },
-    overlay: { id: 'booting', visible: true, title: 'SYSTEM BOOT', message: 'INITIALIZING YOKOGAWA AI', progress: 42 },
-    timing: { autoClearOverlayMs: 2600 },
+    transition: { id: 'boot', mode: 'fade', durationMs: 2600, intensity: .65 },
+    timing: { speechDelayMs: 2600 },
+    sfx: [{ assetId: 'prod-sfx-boot', atMs: 400, volume: .5, durationMs: 1600 }],
     operatorNote: 'Production起動Cue。非表示STANDBYからAvatarをrevealし、WAV001終了後もNORMALを保持する。',
   }),
   speechCue('002', 20), speechCue('003', 30), speechCue('004', 40),
@@ -110,22 +113,15 @@ const mainCues = [
     audio: { speechMode: 'audio-file', assetId: byId.get(scriptId).assetId, lipSyncMode: 'audio-reactive', playbackEffect: 'hijacked-subtle-v1' },
     operatorNote: `現行台本 scene-1 / 7・201 / 発話${scriptId}。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。`,
   })),
+  speechCue('019', 95, { name: '記入用紙の案内', triggerNote: '横川教授が役割を指示し、助手たちの「はい」後にGO' }),
   speechCue('009', 100, {
     id: 'prod-v-riddle-enter', cueNumber: 'P-V02', name: '五つの謎・第1問開始＋台本009',
     transition: { id: 'riddle-enter', durationMs: 2300, intensity: 1 },
-    timing: { speechDelayMs: 2300 },
+    timing: { speechDelayMs: 0 },
     audio: { speechMode: 'audio-file', assetId: byId.get('009').assetId, lipSyncMode: 'audio-reactive', playbackEffect: 'hijacked-subtle-v1' },
-    visual: { id: 'riddle-five', type: 'riddle-status', visible: true, title: '五つの謎', message: '第一の謎 — 7・201', items: ['01 ACTIVE', '02', '03', '04', '05'] },
+    visual: { id: 'puzzle-first', type: 'image', assetId: 'puzzle-first', visible: true, title: '第一の謎', message: '本物の問題画像は未提供 / 表示枠の確認用' },
     operatorNote: '1 GOで画面変化→定着→2.3秒後に既存WAV009。問題本文は未提供のため表示しない。',
     triggerNote: 'WAV008終了後、画面変化の合図でGO',
-  }),
-  speechCue('010', 120, {
-    name: '五条件達成・201集合',
-    overlay: { id: 'all-conditions-met', visible: true, title: 'ALL CONDITIONS MET', message: 'PROCEED TO 201' },
-    timing: { autoClearOverlayMs: 7000 },
-    visual: { id: 'riddle-complete', type: 'riddle-status', visible: true, title: '5 / 5 COMPLETE', items: ['01 ✓', '02 ✓', '03 ✓', '04 ✓', '05 ✓'] },
-    operatorNote: '現行台本Scene 5の館内放送。五つ目の謎が解け、全条件達成後にGO。横シーン5専用018とは別routeのため同時実行しない。',
-    triggerNote: 'Scene 5「すべての条件が満たされました」の舞台進行でGO',
   }),
   speechCue('011', 130, {
     name: '五つ達成・統合・最終問題', transition: { id: 'final-challenge-enter', durationMs: 4800, intensity: 1 },
@@ -211,22 +207,35 @@ const mainCues = [
     ],
     operatorNote: '虎谷が執念を手放すScene 7のタイミングでGO。100%→UI消去→温かな光→NORMALまで1 Cue。',
   }),
-  speechCue('017', 240, {
-    name: '全五問正解・通常復帰', enabled: false, transition: { id: 'normalize', durationMs: 1400, intensity: 1 },
-    operatorNote: 'UNRESOLVED SCRIPT。Scene 6内包Scene 7と独立Scene 7でWAV017有無が競合するため、Asset/Cueを保持したまま無効化しmain NEXTから除外。脚本・舞台監督確認後に有効化して直接実行。',
-    triggerNote: '通常NEXT対象外。WAV017採用と接続位置の確認後、有効化して直接実行',
-  }),
 ];
+
+const sound = (name, atMs = 0, volume = .6) => ({ assetId: `prod-sfx-${name}`, atMs, volume, durationMs: manifest.sfx.find(s => s.id === `prod-sfx-${name}`).durationMs });
+const sounds = { 'prod-v-incident': ['glitch'], 'prod-v-riddle-enter': ['puzzle'], 'prod-011': ['integrate', 1800], 'prod-012': ['auth', Math.ceil(byId.get('012').durationSeconds * 1000)], 'prod-v-unlock': ['unlock'], 'prod-013': ['warning'], 'prod-014': ['warning', Math.ceil(byId.get('014').durationSeconds * 1000)], 'prod-v-hostile-enter': ['hostile'], 'prod-015': ['rumble', Math.ceil(byId.get('015').durationSeconds * 1000)], 'prod-v-stop-code': ['shutdown'], 'prod-v-recovery': ['recovery'] };
+for (const cue of mainCues) if (sounds[cue.id]) cue.sfx = [sound(...sounds[cue.id])];
+const first = mainCues.find(c => c.id === 'prod-v-riddle-enter');
+first.operatorNote = '台本更新: 「第一の謎は、こちらです」＋画面切替を1 Cue。問題画像未提供。原版009はアーカイブとして保持。';
+first.triggerNote = '扇「これか！」の後にGO';
+const firstSpeechMs = Math.ceil(byId.get('009').durationSeconds * 1000);
+first.visual = { id: 'none' };
+first.transition.durationMs = firstSpeechMs + 2300;
+first.sequence = [{ atMs: firstSpeechMs, visual: { id: 'puzzle-first', type: 'image', assetId: 'puzzle-first', visible: true, title: '第一の謎', message: '本物の問題画像は未提供 / 表示枠の確認用' } }];
+const final = mainCues.find(c => c.id === 'prod-011');
+final.triggerNote = '扇「答えは①から⑤まで全部揃った！ 横川AI、これで脱出できるんだろう！」後にGO';
+final.sequence[1].visual = { id: 'puzzle-final', type: 'image', assetId: 'puzzle-final', visible: true, title: '最終問題', message: '本物の問題画像は未提供 / 回答: ブレイクヨコガワ（オペレーターのみ）' };
+final.sequence[1].visual.message = '本物の問題画像は未提供 / 表示枠の確認用';
+const emergency = mainCues.find(c => c.id === 'prod-v-emergency-riddle');
+emergency.displayText = ''; emergency.kind = 'preset-only'; emergency.overlay = { id: 'none' };
+emergency.visual = { id: 'puzzle-emergency', type: 'image', assetId: 'puzzle-emergency', visible: true, title: '非常停止問題', message: '問題画像・ヒント・停止コード未提供' };
 
 const mainShow = {
   ...common,
   metadata: {
-    title: '横川AI Production — 本編', version: 'phase-c-candidate',
+    title: '横川AI Production — 本編', version: 'production-refresh-v2.0',
     description: '現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。',
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
     sceneStructureSource: {
       documentId: '16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo',
-      revisionId: 'AHj4eMQHSQoNSp9V1tmbaOGg_5sSZrsBzpsDqI2tvQm-qYGEG61B-pTVD-8fVzEXPgUKHGGxwLt_cO-qMsdW9_3RnHxxrZvaGn2hdiB8MkA',
+      revisionId: manifest.sourceScript.revisionId,
       tabCount: 14,
     },
   },
@@ -245,16 +254,12 @@ const mainShow = {
 const routeShow = {
   ...common,
   metadata: {
-    title: '横川AI Production — 横川ルートScene 5', version: 'phase-c-candidate',
+    title: '横川AI Production — 横川ルートScene 5', version: 'production-refresh-v2.0',
     description: '横シーン5専用。mainへ混在させず、舞台監督がルート確定後に適用する。接続位置はUNRESOLVED ROUTE MAPPING。',
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
   },
   scenes: [{ sceneId: 'yokogawa-scene-5', sceneName: '横シーン5 / 7・303', order: 5 }],
-  cues: [speechCue('018', 10, {
-    name: '横川ルート・201集合',
-    operatorNote: '横シーン5専用。横川ルートの謎回答後にGO。mainの010と同時実行しない。以降の接続位置は舞台監督確認待ち。',
-    triggerNote: '横シーン5「AIのアナウンス」指示でGO',
-  })],
+  cues: [],
 };
 
 for (const [filename, show] of [['production.json', mainShow], ['production-yokogawa-route.json', routeShow]]) {

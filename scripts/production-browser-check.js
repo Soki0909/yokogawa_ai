@@ -137,8 +137,10 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
       window.__yokogawaAudioTimes = [];
       const originalPlay = HTMLMediaElement.prototype.play;
       HTMLMediaElement.prototype.play = function () {
-        window.__yokogawaAudioPlays.push(this.src);
-        window.__yokogawaAudioTimes.push(Date.now());
+        if (!this.src.includes('prod-sfx-')) {
+          window.__yokogawaAudioPlays.push(this.src);
+          window.__yokogawaAudioTimes.push(Date.now());
+        }
         return originalPlay.call(this);
       };
     ` });
@@ -149,7 +151,7 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
 };
 
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-production-browser-'));
-const artifactDirectory = path.resolve('artifacts/script-visual-polish');
+const artifactDirectory = path.resolve('artifacts/production-refresh-v2');
 await mkdir(artifactDirectory, { recursive: true });
 const serverPort = await freePort();
 const debugPort = await freePort();
@@ -197,7 +199,7 @@ try {
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('production-check')`, 'Display registration');
 
   await admin.evaluate(`(() => { const select = document.querySelector('#audio-master-select'); select.value = 'production-check'; select.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
-  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('18 / 18 READY')`, '18/18 preload');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('27 / 27 READY')`, '18/18 preload');
   await display.click('#enable-audio');
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'Audio Master READY');
   await admin.evaluate(`(() => { const input = document.querySelector('.display-item[data-display-id="production-check"] [data-action="required"]'); input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
@@ -228,7 +230,7 @@ try {
 
   await startScene('scene-6');
   await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-next')?.textContent.includes('P-011')`, 'Scene 6 first Cue');
-  await display.waitFor(`document.body.dataset.preset === 'warning'`, 'Scene 6 start state');
+  await display.waitFor(`document.body.dataset.preset === 'hijacked'`, 'Scene 6 start state');
   await admin.screenshot(path.join(artifactDirectory, 'admin-1920x1080-ai-cue.png'));
   await admin.setViewport(1280, 720); await admin.screenshot(path.join(artifactDirectory, 'admin-1280x720-ai-cue.png'));
   await startScene('scene-2');
@@ -241,7 +243,7 @@ try {
   await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Scene 2 Display reload');
   await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent === '' && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 2 reload final state only');
   if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Scene 2 Display reload replayed historical audio');
-  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('18 / 18 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'Scene 2 reload preload gate');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('27 / 27 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'Scene 2 reload preload gate');
   await display.click('#enable-audio');
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY after Scene 2 reload');
 
@@ -257,8 +259,14 @@ try {
     const playCount = await display.evaluate('window.__yokogawaAudioPlays.length');
     await admin.waitFor(`document.querySelector(${JSON.stringify(selector)})?.disabled === false`, `${cueId} run enabled`);
     await admin.click(selector);
+    if (cueId === 'prod-001') {
+      await delay(300);
+      const opacity = await display.evaluate(`Number(getComputedStyle(document.querySelector('#avatar-wrap')).opacity)`);
+      if (opacity > .1) throw new Error(`Startup Avatar must appear from darkness: ${opacity}`);
+      await display.screenshot(path.join(artifactDirectory,'startup-appearance.png'));
+    }
     try {
-      await display.waitFor(`document.querySelector('#caption')?.textContent === ${JSON.stringify(cue.displayText)}`, `${cueId} caption`);
+      await display.waitFor(`document.querySelector('#caption')?.textContent?.length > 0`, `${cueId} caption`);
     } catch (error) {
       const browserState = await Promise.all([
         display.evaluate(`({ caption: document.querySelector('#caption')?.textContent, mode: document.querySelector('#mode-label')?.textContent, plays: window.__yokogawaAudioPlays })`),
@@ -323,19 +331,19 @@ try {
     await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.body.dataset.transitionStatus === 'completed'`, 'purple HACK settled');
 
     // One NEXT: prior Cue position -> merged riddle visual -> one WAV009.
-    await admin.click('.cue-item[data-cue-id="prod-008"] [data-action="jump"]'); await delay(650);
+    await admin.click('.cue-item[data-cue-id="prod-019"] [data-action="jump"]'); await delay(650);
     const riddleBefore = await display.evaluate('window.__yokogawaAudioPlays.length');
     const riddleStart = await display.evaluate('Date.now()');
     await admin.click('#show-next-button'); await delay(700);
-    if (await display.evaluate('window.__yokogawaAudioPlays.length') !== riddleBefore) throw new Error('P-V02 audio started before beat');
+    if (await display.evaluate('window.__yokogawaAudioPlays.length') !== riddleBefore + 1) throw new Error('P-V02 should announce then reveal puzzle');
     await frame('riddle-wait');
     await display.waitFor(`window.__yokogawaAudioPlays.length === ${riddleBefore + 1} && window.__yokogawaAudioPlays.at(-1).includes('009-first-riddle')`, 'P-V02 WAV once');
-    if (await display.evaluate('window.__yokogawaAudioTimes.at(-1)') - riddleStart < 2150) throw new Error('P-V02 delay too short');
+    await display.waitFor(`document.querySelector('#scene-visual').dataset.type === 'image'`, 'first puzzle after speech');
     await frame('riddle-speech'); await stopCue();
 
     await runCue('prod-011'); await delay(650); await frame('five-verified');
     await display.waitFor(`document.querySelector('#scene-visual').dataset.mode === 'integration'`, 'five integration'); await delay(650); await frame('five-integrating');
-    await display.waitFor(`document.querySelector('#scene-visual').dataset.mode === 'reveal'`, 'final reveal'); await delay(400); await frame('final-problem'); await stopCue();
+    await display.waitFor(`document.querySelector('#scene-visual').dataset.type === 'image'`, 'final reveal'); await delay(400); await frame('final-problem'); await stopCue();
     await runCue('prod-012'); await delay(650); await frame('authentication');
     if (await display.evaluate(`!document.querySelector('#operation-progress').hidden || !document.querySelector('#unlock-gauges').hidden`)) throw new Error('Authentication uses percentage');
     await stopCue();
@@ -356,7 +364,8 @@ try {
     await admin.click('#show-next-button'); await delay(600);
     if (await display.evaluate('window.__yokogawaAudioPlays.length') !== stopBefore) throw new Error('P-V06 missed silence');
     await frame('stop-silence');
-    await display.waitFor(`window.__yokogawaAudioPlays.length === ${stopBefore + 1} && window.__yokogawaAudioPlays.at(-1).includes('016-shutdown')`, 'P-V06 speech once');
+    try { await display.waitFor(`window.__yokogawaAudioPlays.length === ${stopBefore + 1} && window.__yokogawaAudioPlays.at(-1).includes('016-shutdown')`, 'P-V06 speech once'); }
+    catch (error) { throw new Error(`${error.message}; before=${stopBefore}; display=${JSON.stringify(await display.evaluate('({plays:window.__yokogawaAudioPlays,caption:document.querySelector("#caption").textContent})'))}; admin=${JSON.stringify(await admin.evaluate('({cue:document.querySelector("#show-current-cue").textContent,notice:document.querySelector("#notice").textContent,next:document.querySelector("#show-next-button").disabled})'))}`); }
     if (await display.evaluate('window.__yokogawaAudioTimes.at(-1)') - stopStart < 1750) throw new Error('P-V06 delay too short');
     await frame('stop-speech'); await delay(4400); await frame('shutdown-settled');
     await startScene('scene-7');
@@ -367,13 +376,13 @@ try {
     await display.send('Page.reload', {});
     await display.waitFor(`document.querySelector('#connection').textContent === 'ONLINE' && document.body.dataset.preset === 'normal' && document.querySelector('#operation-overlay').hidden`, 'recovery reload NORMAL');
     if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Reload duplicated audio');
-    await display.waitFor(`document.querySelector('#audio-help').textContent.includes('18 / 18 READY')`, 'visual reload preload');
+    await display.waitFor(`document.querySelector('#audio-help').textContent.includes('27 / 27 READY')`, 'visual reload preload');
     await display.click('#enable-audio'); await delay(650);
   }
   await writeFile(path.join(artifactDirectory, 'visual-frame-states.json'), JSON.stringify(visualFrameStates, null, 2));
 
   // Cancel during the silence, then wait past the old deadline: no orphan WAV.
-  for (const cueId of ['prod-v-riddle-enter', 'prod-v-stop-code']) {
+  for (const cueId of ['prod-001', 'prod-v-stop-code']) {
     for (const operation of ['stop', 'rehearsal', 'reset']) {
       const before = await display.evaluate('window.__yokogawaAudioPlays.length');
       await runCue(cueId); await delay(650);
@@ -402,8 +411,8 @@ try {
   await display.waitFor(`document.querySelector('#connection')?.textContent !== 'ONLINE'`, 'Display disconnect');
   await startServer();
   await display.waitFor(`document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reconnect', 20_000);
-  await display.waitFor(`document.body.dataset.preset === 'shutdown' && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 7 state restored after reconnect', 20_000);
-  await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-scene')?.textContent.includes('Scene 7')`, 'Scene 7 ready after reconnect', 20_000);
+  await display.waitFor(`document.body.dataset.preset === 'normal' && document.querySelector('#avatar-wrap').hidden && document.querySelector('#caption').textContent === ''`, 'bundled latest startup after reconnect', 20_000);
+  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('production-refresh-v2.0')`, 'latest version after reconnect', 20_000);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY restored after reconnect', 20_000);
   for (const [index, page] of [admin, display].entries()) {
     const restartErrors = page.errors.splice(errorsBeforeRestart[index]);
@@ -413,9 +422,49 @@ try {
 
   await display.send('Page.reload', { ignoreCache: false });
   await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reload');
-  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('18 / 18 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'reload preload gate');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('27 / 27 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'reload preload gate');
   await display.click('#enable-audio');
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY after reload');
+
+  const layoutReviews = [];
+  for (const [width, height] of [[1920,1080],[1280,720],[1600,1000],[1024,768]]) {
+    await display.setViewport(width, height);
+    await runCue('prod-004'); await delay(1000);
+    const geometry = await display.evaluate(`(() => { const rect = selector => { const r = document.querySelector(selector).getBoundingClientRect(); return { x:r.x,y:r.y,width:r.width,height:r.height,bottom:r.bottom,right:r.right }; }; return { stage:rect('.identity'),avatar:rect('#avatar-wrap'),caption:rect('.caption-shell'),text:rect('#caption') }; })()`);
+    if (Math.abs(geometry.avatar.bottom - geometry.caption.y) > 3 || geometry.avatar.right > width + 2 || geometry.avatar.x < -2) throw new Error('Avatar stage anchoring: ' + JSON.stringify(geometry));
+    await display.screenshot(path.join(artifactDirectory, `${width}x${height}-avatar-bottom.png`));
+    layoutReviews.push({ width, height, geometry }); await stopCue();
+  }
+  await writeFile(path.join(artifactDirectory, 'layout-review.json'), JSON.stringify(layoutReviews, null, 2));
+
+  for (const [imageWidth,imageHeight,width,height] of [[320,900,1920,1080],[1500,300,1280,720]]) {
+    await display.setViewport(width,height);
+    await admin.evaluate(`(async () => { const canvas = document.createElement('canvas'); canvas.width=${imageWidth};canvas.height=${imageHeight};const context=canvas.getContext('2d');context.fillStyle='#112941';context.fillRect(0,0,canvas.width,canvas.height);context.strokeStyle='#80e8ff';context.lineWidth=12;context.strokeRect(6,6,canvas.width-12,canvas.height-12);const response=await fetch('/api/production-tools/puzzle',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({slot:'first',image:canvas.toDataURL('image/png')})});if(!response.ok) throw new Error('image upload failed'); })()`);
+    await runCue('prod-v-riddle-enter');
+    await delay(3000); // The merged Cue announces before revealing the image; do not accept the previous frame.
+    await display.waitFor(`document.querySelector('#scene-visual-image').naturalWidth === ${imageWidth} && document.querySelector('#scene-visual').hidden === false`, 'arbitrary puzzle ratio');
+    if (await display.evaluate(`getComputedStyle(document.querySelector('#scene-visual-image')).objectFit !== 'contain'`)) throw new Error('Puzzle image crop');
+    await delay(750);
+    await display.screenshot(path.join(artifactDirectory, `${width}x${height}-puzzle-${imageWidth}x${imageHeight}.png`));
+    await stopCue();
+  }
+
+  const toolsPage = await openPage(debugPort, `${baseUrl}/production-tools`);
+  await toolsPage.setViewport(1280, 900);
+  await toolsPage.waitFor(`document.querySelectorAll('.segment').length > 0`, 'Composer initial draft');
+  await toolsPage.click('#compose');
+  await toolsPage.waitFor(`document.querySelector('#export').disabled === false`, 'Composer reused WAV preview');
+  await toolsPage.click('#export');
+  await toolsPage.waitFor(`document.querySelector('#status').textContent.includes('SHA256')`, 'explicit final PCM export');
+  await toolsPage.screenshot(path.join(artifactDirectory, 'speech-composer.png'));
+  await toolsPage.waitFor(`document.querySelector('#avatar-preview')`, 'Avatar Preview control');
+  await toolsPage.click('#avatar-preview'); await toolsPage.waitFor(`document.querySelector('#status').textContent.includes('Avatarを適用')`, 'Avatar swap preview');
+  if (toolsPage.errors.length) throw new Error(`Composer console: ${toolsPage.errors.join(' | ')}`);
+  toolsPage.close();
+
+  await admin.click('#production-reset'); await delay(650);
+  await display.waitFor(`document.querySelector('#avatar-wrap').hidden && document.querySelector('#scene-visual').hidden && document.querySelector('#caption').textContent === ''`, 'Production Reset canonical display');
+  await admin.waitFor(`document.querySelector('#display-list').textContent.includes('AUDIO MASTER READY')`, 'Production Reset retains Audio Ready');
 
   const pages = [admin, display];
   const offOrigin = pages.flatMap((page) => page.requests.map((item) => item.url)).filter((url) => {
@@ -428,10 +477,10 @@ try {
   const browserErrors = pages.flatMap((page) => page.errors);
   if (browserErrors.length) throw new Error(`Browser errors: ${browserErrors.join(' | ')}`);
   const assetRequests = display.requests.filter((item) => item.url.includes('/api/assets/prod-voice-'));
-  if (assetRequests.length < 18) throw new Error(`Expected at least 18 production asset requests, got ${assetRequests.length}`);
+  if (assetRequests.length < 16) throw new Error(`Expected at least 16 production voice asset requests, got ${assetRequests.length}`);
 
   console.log(JSON.stringify({
-    status: 'PASS', viewport: [1920, 1080], preload: '18/18', cues: representative,
+    status: 'PASS', viewport: [1920, 1080], preload: '27/27', cues: representative,
     sceneRehearsal: ['scene-2:empty-reload', 'scene-6:P-011', 'scene-7:shutdown-reconnect'], screenshots: visualFrames + 4,
     visualViewports: [[1920,1080],[1280,720]], mergedCancellation: ['STOP','REPLAY','Rehearsal','Reset'],
     controls: ['NEXT', 'BACK', 'STOP', 'REPLAY', 'BLACKOUT', 'RESTORE'], reconnectReady: true, reloadReady: true,

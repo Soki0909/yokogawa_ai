@@ -37,6 +37,8 @@
         <div><span class="label">CURRENT SCENE</span><strong id="show-current-scene">— 未選択</strong></div>
         <button id="show-preflight-badge" class="preflight-badge" type="button" data-state="not-ready">NOT READY</button>
       </div>
+      <p id="production-version" class="production-version">Productionを確認中…</p>
+      <p class="next-trigger"><span>NEXTの合図</span><strong id="next-trigger">—</strong></p>
       <section class="scene-rehearsal" aria-labelledby="scene-rehearsal-title">
         <div class="scene-rehearsal-copy">
           <span>SCENE REHEARSAL</span>
@@ -77,6 +79,7 @@
       <div class="phase-a-cue-detail"><div><span>CURRENT DETAIL</span><p id="show-current-detail">—</p></div><div><span>NEXT DETAIL</span><p id="show-next-detail">—</p></div></div>
       <p class="shortcut-list">SHORTCUTS — Space: NEXT / R: REPLAY / Esc: STOP / B: BACK / C: CLEAR</p>
       <div id="show-alerts" class="show-alerts" role="status" aria-live="polite"></div>
+      <div class="production-actions"><button id="production-reset" type="button">Production Reset — 最新版へ戻す</button><a href="/production-tools">音声・字幕・素材編集</a><label>Speech<input id="production-speech-volume" type="range" min="0" max="1" step=".05" value="1"></label><label>SFX<input id="production-sfx-volume" type="range" min="0" max="1" step=".05" value=".65"></label></div>
       <button id="open-advanced-button" class="show-details-button" type="button">詳細操作を開く</button>
     </section>
 

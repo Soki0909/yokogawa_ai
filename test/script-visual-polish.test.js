@@ -28,17 +28,17 @@ test('Scene 1/2/6/7 reconstruction clears live speech and persisted reload subti
   }
 });
 
-test('P-V02 and P-V06 are canonical single NEXT Cues using unchanged 009/016 assets', async () => {
+test('P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016', async () => {
   const { store, show } = await setup();
   assert.ok(!show.cues.some(c => ['prod-009', 'prod-016'].includes(c.id)));
   for (const [previous, merged, asset, following] of [
-    ['prod-008', 'prod-v-riddle-enter', 'prod-voice-009-first-riddle', 'prod-010'],
+    ['prod-019', 'prod-v-riddle-enter', 'prod-voice-009-first-riddle', 'prod-011'],
     ['prod-v-emergency-riddle', 'prod-v-stop-code', 'prod-voice-016-shutdown', 'prod-v-recovery'],
   ]) {
     store.jumpCue(previous); const result = store.nextCue();
     assert.equal(result.cue.cueId, merged); assert.equal(result.message.audio.assetId, asset);
-    assert.ok(result.cue.timing.speechDelayMs >= 1900);
-    assert.equal(result.action.currentSubtitle, null);
+    assert.equal(result.cue.timing.speechDelayMs, merged === 'prod-v-stop-code' ? 1900 : 0);
+    assert.equal(result.action.currentSubtitle, merged === 'prod-v-stop-code' ? null : '第一の謎は、こちらです');
     assert.equal(store.snapshot().nextCue.cueId, following);
     const replay = store.replayCue(); assert.equal(replay.cue.cueId, merged);
     assert.notEqual(replay.message.id, result.message.id);
@@ -57,7 +57,7 @@ test('Five solved modules integrate before final problem; STOP freezes phase', a
   assert.equal(store.state.currentVisual.mode, 'five-complete');
   assert.equal(store.state.currentVisual.items.length, 5);
   assert.equal(advance(2000).currentVisual.mode, 'integration');
-  assert.equal(advance(2200).currentVisual.type, 'final-challenge');
+  assert.equal(advance(2200).currentVisual.type, 'image');
   store.executeCue('prod-011'); advance(1000); store.stopPresentation();
   assert.equal(advance(5000).currentVisual.mode, 'five-complete');
 });
