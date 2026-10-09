@@ -121,6 +121,19 @@
     "phase-c-failure.json": "08ef184e5f885dbf2b2dff7aa53fc3f62f8249ea884597dfd61d183d437375c4",
     "phase-c-continuation-failure.json": "10b3a85c2c5e79f3a845df1bece621b3541b837b8202ab8acf7b2e03a5a77d50",
     "phase-c-endurance-result.json": "c3ce9f6d063309fbdd1539bc6687859210d7d2dfa101d05f7b3ed01f5941ab15",
-    "phase-c-smoke-result.json": "1fc053089ea107dcae2e33877bf40deb49255ca3e02cd923672f422373ffbfa1"
+    "phase-c-smoke-result.json": "a471e96d66264884435b88dc5880375c5368f3a818e17ec1fba55855b41511f4"
+  },
+  "masterVerification": {
+    "status": "PASS",
+    "runtimeCommit": "d9fb1d4913122282dd5f2671fd8d734224198a47",
+    "fingerprint": "eaa41154fdfbe95433a46ceedc3187cd39f5090800719cc3113f8edde5d03fe7",
+    "automatedTests": 160,
+    "productionBrowser": "PASS",
+    "nextGuard": "PASS",
+    "blackoutAndJsPauseRecovery": "PASS",
+    "wavProfile": "PASS",
+    "recording": "PASS",
+    "consoleUnexpected": 0,
+    "externalRequests": 0
   }
 }

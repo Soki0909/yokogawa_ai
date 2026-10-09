@@ -72,4 +72,4 @@ Server RSSは約65→75MB、heapは約14〜19MB。Chrome root RSSはwarmup後約
 
 実Windows sleep、物理minimize/fullscreen/HDMI切断・20m HDMI・会場音響/投影の復帰は未実測。headlessのhidden/focus喪失・resizeとJS/AudioContext/heartbeat/clockのproxyを用いた。未提供の謎画像3枠・停止コード○○・本人Avatar referenceの最終決定は従来どおり保留。新Voice Model採用も変更なし。
 
-Git: codex/yokokawa-runtime-hardening-v1でcommitし、masterへfast-forward統合。同一implementation fingerprintでmasterの160 tests/Production E2E/NEXT guard/障害proxy/WAV/Profile/録画verifyを再検証してpushする。最終SHAとorigin/master一致は作業完了時の報告に記載する。
+Git: runtime commit d9fb1d4913122282dd5f2671fd8d734224198a47をfeatureへpushし、masterへfast-forward統合。同一implementation fingerprintでmasterの160 tests/Production E2E/NEXT guard/BLACKOUT・障害proxy/WAV/Profile/録画verifyがすべてPASS。通常console異常・外部通信0。master検証記録を追加commitしてpushし、最終SHAとorigin/master一致は最終回答に記載する。
