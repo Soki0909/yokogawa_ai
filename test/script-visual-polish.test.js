@@ -7,7 +7,7 @@ import { CueScheduler } from '../src/cue-scheduler.js';
 async function setup() {
   let clock = Date.parse('2026-10-09T00:00:00Z');
   const storage = { value: null, async load() { return this.value; }, async save(v) { this.value = structuredClone(v); } };
-  const store = new StateStore({ storage, now: () => new Date(clock) });
+  const store = new StateStore({ storage, now: () => new Date(clock), monotonic: () => clock });
   const show = JSON.parse(await readFile('shows/production.json', 'utf8'));
   store.importShowFile(show, { apply: true }); store.registerDisplay({ displayId: 'stage' }); store.startRehearsal();
   return { store, storage, show, advance(ms) { clock += ms; return store.snapshot(); } };
@@ -29,7 +29,7 @@ test('Scene 1/2/6/7 reconstruction clears live speech and persisted reload subti
 });
 
 test('P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016', async () => {
-  const { store, show } = await setup();
+  const { store, show, advance } = await setup();
   assert.ok(!show.cues.some(c => ['prod-009', 'prod-016'].includes(c.id)));
   for (const [previous, merged, asset, following] of [
     ['prod-019', 'prod-v-riddle-enter', 'prod-voice-009-first-riddle', 'prod-011'],
@@ -42,12 +42,14 @@ test('P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016
     assert.equal(store.snapshot().nextCue.cueId, following);
     const replay = store.replayCue(); assert.equal(replay.cue.cueId, merged);
     assert.notEqual(replay.message.id, result.message.id);
+    advance(1200);
   }
 });
 
 test('Hijack transition removes old subtitle and settles in HACK', async () => {
   const { store, advance } = await setup(); store.executeCue('prod-004');
-  store.executeCue('prod-v-incident'); assert.equal(store.state.currentSubtitle, null);
+  const incidentAt = store.state.currentTransition.phases[0].atMs;
+  assert.equal(advance(incidentAt).currentSubtitle, null);
   assert.equal(advance(2400).currentPresetId, 'hijacked');
   assert.equal(store.state.currentTransition.status, 'completed');
 });
@@ -65,7 +67,8 @@ test('Five solved modules integrate before final problem; STOP freezes phase', a
 test('Authentication has no percentage; unlock completes then removes gauges for anomaly', async () => {
   const { store, advance } = await setup(); store.executeCue('prod-012');
   assert.equal(store.state.currentOverlay.progress, null); assert.equal(store.state.unlock.status, 'idle');
-  store.executeCue('prod-v-unlock'); assert.equal(advance(5000).unlock.progress, 100);
+  const unlockAt = store.state.currentTransition.phases.find(p => p.unlock).atMs;
+  advance(unlockAt); assert.equal(advance(5000).unlock.progress, 100);
   assert.equal(store.state.currentOverlay.variant, 'default');
   assert.equal(advance(900).currentOverlay.variant, 'collapse');
   assert.equal(advance(900).currentOverlay.variant, 'anomaly');
@@ -74,7 +77,7 @@ test('Authentication has no percentage; unlock completes then removes gauges for
 });
 
 test('Emergency and contact failure share P-014 grammar and clear unlock UI', async () => {
-  const { store } = await setup(); store.executeCue('prod-v-unlock'); store.executeCue('prod-013');
+  const { store, advance } = await setup(); store.executeCue('prod-012'); advance(store.state.currentTransition.phases.find(p => p.unlock).atMs); store.executeCue('prod-013');
   assert.equal(store.state.currentOverlay.id, 'connection-failed');
   assert.equal(store.state.unlock.status, 'aborted');
   store.executeCue('prod-014'); assert.equal(store.state.currentOverlay.id, 'connection-failed');

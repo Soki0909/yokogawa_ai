@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateShowFile } from '../src/show-schema.js';
@@ -227,10 +228,27 @@ const emergency = mainCues.find(c => c.id === 'prod-v-emergency-riddle');
 emergency.displayText = ''; emergency.kind = 'preset-only'; emergency.overlay = { id: 'none' };
 emergency.visual = { id: 'puzzle-emergency', type: 'image', assetId: 'puzzle-emergency', visible: true, title: '非常停止問題', message: '問題画像・ヒント・停止コード未提供' };
 
+// Audited deterministic boundaries only. Actor/audience/USB boundaries remain manual.
+const lecture = mainCues.find(c => c.id === 'prod-004');
+const incident = mainCues.find(c => c.id === 'prod-v-incident');
+const incidentAt = Math.ceil(byId.get('004').durationSeconds * 1000) + 200;
+Object.assign(lecture, { name: 'プリンキピア説明→映像乱れ', transition: { id: 'timeline', durationMs: incidentAt + 2400 },
+  sequence: [{ atMs: incidentAt, transition: incident.transition, presentationPreset: 'hijacked', clearSubtitle: true }],
+  sfx: incident.sfx.map(s => ({ ...s, atMs: incidentAt + s.atMs })), syncMarkers: incident.syncMarkers,
+  triggerNote: '横川「プリンキピアについて説明してくれ」後にGO', operatorNote: '説明WAV完了＋200ms後に映像乱れ。照明・施錠SEの連携markerも同じ境界。調査芝居を挟む次のP-005は手動。' });
+const auth = mainCues.find(c => c.id === 'prod-012'); const unlockCue = mainCues.find(c => c.id === 'prod-v-unlock');
+const unlockAt = Math.max(...auth.sfx.map(s => s.atMs + s.durationMs)) + 200;
+Object.assign(auth, { name: '認証成功→解錠進行→異常', transition: { id: 'timeline', durationMs: unlockAt + 7400 },
+  sequence: [{ atMs: 0, transition: { id: 'auth-success', durationMs: 1000 } }, { atMs: unlockAt, transition: unlockCue.transition, overlay: unlockCue.overlay, presentationPreset: 'warning', unlock: { durationMs: 5000 }, clearSubtitle: true }, ...unlockCue.sequence.map(p => ({ ...p, atMs: p.atMs + unlockAt }))],
+  sfx: [...auth.sfx, ...unlockCue.sfx.map(s => ({ ...s, atMs: s.atMs + unlockAt }))],
+  triggerNote: '扇「最後の答えはブレイクヨコガワだ！」後にGO', operatorNote: '認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。' });
+mainCues.splice(mainCues.indexOf(incident), 1); mainCues.splice(mainCues.indexOf(unlockCue), 1);
+const showHash = createHash('sha256').update(JSON.stringify(mainCues)).digest('hex');
+
 const mainShow = {
   ...common,
   metadata: {
-    title: '横川AI Production — 本編', version: 'production-refresh-v2.0',
+    title: '横川AI Production — 本編', version: 'runtime-hardening-v1.0', nextGuardMs: 1200, showHash,
     description: '現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。',
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
     sceneStructureSource: {

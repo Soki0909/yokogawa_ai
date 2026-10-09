@@ -18,5 +18,5 @@ test('演出またはLocal TTS生成中は音声がなくてもSTOPを有効に�
   assert.match(script, /currentTransition\?\.status === 'active'/);
   assert.match(script, /unlock\?\.status === 'running'/);
   assert.match(script, /localTts\?\.activity === 'synthesizing'/);
-  assert.match(script, /!localTtsActive/);
+  assert.match(script, /elements\[id\]\.disabled = !connected \|\| !hasDisplay/);
 });

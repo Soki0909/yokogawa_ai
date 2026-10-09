@@ -319,7 +319,9 @@
   },
   "metadata": {
     "title": "横川AI Production — 本編",
-    "version": "production-refresh-v2.0",
+    "version": "runtime-hardening-v1.0",
+    "nextGuardMs": 1200,
+    "showHash": "b889384639e5a0d8df33dd2f202d01da196a1796de74a24c1246e358141e8d9a",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
@@ -602,7 +604,7 @@
     {
       "id": "prod-004",
       "cueNumber": "P-004",
-      "name": "台本 004",
+      "name": "プリンキピア説明→映像乱れ",
       "route": "main",
       "scene": "scene-1",
       "location": "7・201",
@@ -648,43 +650,32 @@
         "lipSyncMode": "audio-reactive"
       },
       "transition": {
-        "id": "none",
-        "durationMs": 0,
-        "intensity": 1
+        "id": "timeline",
+        "durationMs": 18877
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話004。音声終了後も自動進行しない。",
-      "triggerNote": "舞台監督の合図でGO",
-      "order": 40
-    },
-    {
-      "id": "prod-v-incident",
-      "cueNumber": "P-V01",
-      "name": "映像乱れ・制御奪取",
-      "route": "main",
-      "scene": "scene-1",
-      "location": "7・201",
-      "kind": "preset-only",
-      "displayText": "",
-      "presentationPreset": "hijacked",
-      "target": {
-        "type": "all"
-      },
-      "avatar": {
-        "visible": true,
-        "state": "hijacked"
-      },
-      "audio": {
-        "speechMode": "none",
-        "lipSyncMode": "none"
-      },
-      "order": 50,
-      "operatorNote": "WAV004完了後、台本「突然、モニターの映像が乱れる」でGO。全画面の水平断裂から紫HACKへ定着。字幕なしで出演者の調査芝居を待つ。",
-      "triggerNote": "WAV004完了後、映像ノイズ開始の舞台監督合図でGO",
-      "transition": {
-        "id": "anomaly",
-        "durationMs": 2400,
-        "intensity": 1
-      },
+      "operatorNote": "説明WAV完了＋200ms後に映像乱れ。照明・施錠SEの連携markerも同じ境界。調査芝居を挟む次のP-005は手動。",
+      "triggerNote": "横川「プリンキピアについて説明してくれ」後にGO",
+      "order": 40,
+      "sequence": [
+        {
+          "atMs": 16477,
+          "transition": {
+            "id": "anomaly",
+            "durationMs": 2400,
+            "intensity": 1
+          },
+          "presentationPreset": "hijacked",
+          "clearSubtitle": true
+        }
+      ],
+      "sfx": [
+        {
+          "assetId": "prod-sfx-glitch",
+          "atMs": 16477,
+          "volume": 0.6,
+          "durationMs": 900
+        }
+      ],
       "syncMarkers": [
         {
           "department": "LX",
@@ -700,14 +691,6 @@
           "department": "ACT",
           "id": "ALIGN-ACT-INVESTIGATE",
           "note": "出演者が通信・扉・状況を調査する芝居区間。"
-        }
-      ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-glitch",
-          "atMs": 0,
-          "volume": 0.6,
-          "durationMs": 900
         }
       ]
     },
@@ -1169,7 +1152,7 @@
     {
       "id": "prod-012",
       "cueNumber": "P-012",
-      "name": "認証成功・開錠開始",
+      "name": "認証成功→解錠進行→異常",
       "route": "main",
       "scene": "scene-6",
       "location": "7・201",
@@ -1215,12 +1198,11 @@
         "lipSyncMode": "audio-reactive"
       },
       "transition": {
-        "id": "auth-success",
-        "durationMs": 1000,
-        "intensity": 1
+        "id": "timeline",
+        "durationMs": 11919
       },
-      "operatorNote": "WAV012認証成功。終了後に電子音SE、続いて開錠進行Cueを手動GO。ここではHIJACKED状態を保持する。",
-      "triggerNote": "舞台監督の合図でGO",
+      "operatorNote": "認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。",
+      "triggerNote": "扇「最後の答えはブレイクヨコガワだ！」後にGO",
       "order": 140,
       "overlay": {
         "id": "authentication-success",
@@ -1241,51 +1223,44 @@
           "atMs": 3669,
           "volume": 0.6,
           "durationMs": 650
+        },
+        {
+          "assetId": "prod-sfx-unlock",
+          "atMs": 4519,
+          "volume": 0.6,
+          "durationMs": 900
         }
-      ]
-    },
-    {
-      "id": "prod-v-unlock",
-      "cueNumber": "P-V03",
-      "name": "開錠進行",
-      "route": "main",
-      "scene": "scene-6",
-      "location": "7・201",
-      "kind": "preset-only",
-      "displayText": "",
-      "presentationPreset": "warning",
-      "target": {
-        "type": "all"
-      },
-      "avatar": {
-        "visible": true,
-        "state": "warning"
-      },
-      "audio": {
-        "speechMode": "none",
-        "lipSyncMode": "none"
-      },
-      "order": 150,
-      "operatorNote": "電子音SE後にGO。6系統→100%を0.9秒保持→ゲージ収束→不穏なstable状態。役者の芝居を待つ。",
-      "triggerNote": "WAV012終了後の電子音SEを確認してGO",
-      "transition": {
-        "id": "unlock-start",
-        "durationMs": 7400,
-        "intensity": 1
-      },
-      "overlay": {
-        "id": "unlocking",
-        "visible": true,
-        "title": "解錠処理",
-        "message": "SECURITY RELEASE",
-        "progress": 0
-      },
-      "timing": {
-        "unlockDurationMs": 5000
-      },
+      ],
       "sequence": [
         {
-          "atMs": 5900,
+          "atMs": 0,
+          "transition": {
+            "id": "auth-success",
+            "durationMs": 1000
+          }
+        },
+        {
+          "atMs": 4519,
+          "transition": {
+            "id": "unlock-start",
+            "durationMs": 7400,
+            "intensity": 1
+          },
+          "overlay": {
+            "id": "unlocking",
+            "visible": true,
+            "title": "解錠処理",
+            "message": "SECURITY RELEASE",
+            "progress": 0
+          },
+          "presentationPreset": "warning",
+          "unlock": {
+            "durationMs": 5000
+          },
+          "clearSubtitle": true
+        },
+        {
+          "atMs": 10419,
           "overlay": {
             "id": "unlocking",
             "variant": "collapse",
@@ -1295,7 +1270,7 @@
           }
         },
         {
-          "atMs": 6800,
+          "atMs": 11319,
           "overlay": {
             "id": "unlocking",
             "variant": "anomaly",
@@ -1304,14 +1279,6 @@
             "message": "RELEASE COMPLETE"
           },
           "clearSubtitle": true
-        }
-      ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-unlock",
-          "atMs": 0,
-          "volume": 0.6,
-          "durationMs": 900
         }
       ]
     },

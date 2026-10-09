@@ -66,6 +66,10 @@ function applySequencePhase(presentation, phase) {
   if (phase.presentationPreset) presentation.currentPresetId = phase.presentationPreset;
   if (phase.avatar) presentation.currentAvatar = structuredClone(phase.avatar);
   if (phase.clearSubtitle) presentation.currentSubtitle = null;
+  const root = presentation.currentTransition;
+  const startedAt = root.startedAt ? new Date(Date.parse(root.startedAt) + phase.atMs).toISOString() : null;
+  if (phase.transition) root.effect = { ...phase.transition, startedAt, status: startedAt ? 'active' : 'completed' };
+  if (phase.unlock) presentation.unlock = { progress: startedAt ? 0 : 100, status: startedAt ? 'running' : 'completed', startedAt, durationMs: phase.unlock.durationMs, completedAt: null };
 }
 
 export function applyCueStateEffects(presentation, cue, { settled = false, now = new Date() } = {}) {
@@ -113,9 +117,10 @@ export function applyCueStateEffects(presentation, cue, { settled = false, now =
 }
 
 export class StateStore {
-  constructor({ stateFile, storage, logger = console, now = () => new Date() } = {}) {
+  constructor({ stateFile, storage, logger = console, now = () => new Date(), monotonic = () => performance.now() } = {}) {
     this.logger = logger;
     this.now = now;
+    this.monotonic = monotonic; this.lastNextAt = -Infinity;
     this.storage = storage ?? new JsonFileStorage(stateFile, logger);
     this.state = {
       displayConnectionStatus: 'disconnected', displayAudioReady: false,
@@ -194,7 +199,7 @@ export class StateStore {
     const nextCue = atSceneBoundary
       ? cues.find((cue) => cue.cueId === this.state.sceneRehearsal.nextCueId) ?? null
       : cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
-    return structuredClone({ ...this.state, currentCue, nextCue, preflight: this.preflight() });
+    return structuredClone({ ...this.state, currentCue, nextCue, nextGuard: this.nextGuard(), preflight: this.preflight() });
   }
 
   displaySnapshot(displayId) {
@@ -462,14 +467,23 @@ export class StateStore {
     return { cue, action, message };
   }
 
-  nextCue() {
+  nextGuard() {
+    const intervalMs = Number(this.state.metadata.nextGuardMs) || 0;
+    return { intervalMs, remainingMs: Math.max(0, Math.ceil(intervalMs - (this.monotonic() - this.lastNextAt))) };
+  }
+
+  nextCue({ validate = () => true } = {}) {
+    if (this.nextGuard().remainingMs > 0) throw new Error('NEXT_GUARDED');
     if (this.state.sceneRehearsal?.ready) {
       if (!this.state.sceneRehearsal.nextCueId) throw new Error('NO_SCENE_CUE');
-      return this.executeCue(this.state.sceneRehearsal.nextCueId);
+      const cue = this.orderedCues().find(c => c.cueId === this.state.sceneRehearsal.nextCueId);
+      if (!validate(cue)) return null;
+      this.lastNextAt = this.monotonic(); return this.executeCue(cue.cueId);
     }
     const cue = this.orderedCues().slice(this.state.currentCueIndex + 1).find((item) => item.enabled);
     if (!cue) throw new Error('NO_NEXT_CUE');
-    return this.executeCue(cue.cueId);
+    if (!validate(cue)) return null;
+    this.lastNextAt = this.monotonic(); return this.executeCue(cue.cueId);
   }
 
   backCue() {
@@ -568,6 +582,7 @@ export class StateStore {
   }
 
   commitSceneRehearsal(plan) {
+    this.lastNextAt = -Infinity;
     if (!plan?.scene || !this.state.scenes.some((scene) => scene.sceneId === plan.scene.sceneId)) throw new Error('SCENE_NOT_FOUND');
     if (this.state.currentMessage) this.updateCurrent('stopped');
     for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
@@ -595,6 +610,7 @@ export class StateStore {
   }
 
   showReset() {
+    this.lastNextAt = -Infinity;
     if (this.state.currentMessage) this.updateCurrent('stopped');
     for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
     this.state.currentMessage = null; this.state.queue = []; this.state.playbackStatus = 'idle';
@@ -612,6 +628,7 @@ export class StateStore {
     const normalized = normalizeTransition(input);
     return { ...normalized, status: ['idle', 'active', 'completed', 'stopped'].includes(input?.status) ? input.status : 'idle',
       ...(input?.phases ? { phases: normalizeSequence(input.phases), phaseIndex: Number(input.phaseIndex) || 0 } : {}),
+      ...(input?.effect ? { effect: { ...normalizeTransition(input.effect), startedAt: input.effect.startedAt, status: input.effect.status } } : {}),
       startedAt: input?.startedAt ?? null, completedAt: input?.completedAt ?? null };
   }
 
@@ -636,6 +653,8 @@ export class StateStore {
       const end = Date.parse(presentation.currentTransition.startedAt) + presentation.currentTransition.durationMs;
       if (nowMs >= end) Object.assign(presentation.currentTransition, { status: 'completed', completedAt: new Date(end).toISOString() });
     }
+    const effect = presentation.currentTransition?.effect;
+    if (effect?.status === 'active' && nowMs >= Date.parse(effect.startedAt) + effect.durationMs) effect.status = 'completed';
     if (presentation.unlock?.status === 'running' && presentation.unlock.startedAt) {
       const elapsed = nowMs - Date.parse(presentation.unlock.startedAt);
       presentation.unlock.progress = Math.min(100, Math.max(0, elapsed / presentation.unlock.durationMs * 100));
@@ -648,6 +667,21 @@ export class StateStore {
   settleTimedPresentation() {
     this.settlePresentation(this.state);
     for (const display of this.state.displays) this.settlePresentation(display);
+  }
+
+  stabilizePresentation() {
+    for (const p of [this.state, ...this.state.displays]) {
+      const transition = p.currentTransition;
+      transition.startedAt = null;
+      while (transition.phases?.[transition.phaseIndex]) applySequencePhase(p, transition.phases[transition.phaseIndex++]);
+      transition.status = transition.id === 'none' ? 'idle' : 'completed';
+      if (transition.effect) { transition.effect.status = 'completed'; transition.effect.startedAt = null; }
+      if (p.unlock.status === 'running') Object.assign(p.unlock, { status: 'completed', progress: 100, startedAt: null });
+      if (p.currentOverlay.expiresAt) p.currentOverlay = structuredClone(EMPTY_OVERLAY);
+      if (p.currentVisual.expiresAt) p.currentVisual = structuredClone(EMPTY_VISUAL);
+      p.currentSubtitle = null;
+      if (p.previousVisualState) p.previousVisualState.currentSubtitle = null;
+    }
   }
 
   stopPresentation(target = { type: 'all' }, status = 'stopped') {

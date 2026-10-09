@@ -22,7 +22,7 @@
 4. PC本体画面で `http://localhost:3000/admin` を開く。
 5. セカンドモニター側で `http://localhost:3000/display` を全画面表示する。
    - ブラウザをセカンドモニターへ移動して `F11`。PC本体画面のAdminを全画面にしない。
-6. Production ShowをDry Run後に適用する。
+6. 起動時に同梱の最新Production Showが適用される。Show version/hashを確認する。
 7. DisplayをAudio Masterにする。
 8. Displayの「設定を保存して開始」を押す。
 9. 固定WAVが全件preloadされ、Audio Readyになることを確認する。
@@ -96,3 +96,15 @@ Windowsのセカンドモニター認識・HDMIケーブル・教卓入力を確
 
 ### AivisSpeech停止
 固定Production WAVには影響しない。Free Speak / Local TTSだけが使用不能になる。
+
+## Runtime Hardening v1.0
+
+本編は19 Cue。P-004は説明終了後の乗っ取り、P-012は認証後の解錠まで自動進行する。舞台側の照明・施錠SEのmarkerはCue内に残る。人の台詞・観客の解答・USB挿入は次の明示NEXTを待つ。
+
+NEXTはUIとserverで1200ms保護する。拒否した操作は保留されず、後から進まない。保護中もSTOP・BLACKOUTは操作できる。Audio Readyは音声/SFX全27件のpreload完了を確認する。
+
+長時間離席・復帰・切断時は過去の音声/SFX・字幕・遅延callbackを停止し、Cueのstable stateを復元する。ONLINE/Audio Readyを確認してから次のCueを明示NEXTで開始する。自動再生はしない。停止したCueを再演する必要があればoperatorがREPLAYを押す。
+
+Production Resetは同梱Showと初期NORMAL状態へ戻す。通常起動も同梱Showの初期状態。`SHOW_STARTUP_MODE=saved`を明示した場合のみ保存Cue位置のstable stateで起動する。
+
+通常gate: `npm run check`、`npm run test:production-browser`、`npm run test:runtime-guard`、WAV/Profile verify、全編録画verify。PASSの実装fingerprintを記録した後に`npm run test:runtime-smoke`、`npm run test:runtime-long`。長時間試験は35分の実時間idle、5公演、freeze/clock/reload/reconnect/Resetを実行する。Windows sleepそのものは代替proxyとは区別して報告する。

@@ -28,9 +28,9 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
   const main = await load('production.json');
   const ids = main.cues.map((cue) => cue.id);
   assert.deepEqual(ids, [
-    'prod-001', 'prod-002', 'prod-003', 'prod-004', 'prod-v-incident',
+    'prod-001', 'prod-002', 'prod-003', 'prod-004',
     'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-019', 'prod-v-riddle-enter',
-    'prod-011', 'prod-012', 'prod-v-unlock', 'prod-013', 'prod-014',
+    'prod-011', 'prod-012', 'prod-013', 'prod-014',
     'prod-v-hostile-enter', 'prod-015', 'prod-v-emergency-riddle', 'prod-v-stop-code',
     'prod-v-recovery',
   ]);

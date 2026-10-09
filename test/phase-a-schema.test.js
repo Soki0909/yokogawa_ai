@@ -23,7 +23,7 @@ test('Schema v2 Showを検証しoptional Phase Aフィールド付きv3 Cueへ�
 });
 
 test('Phase A ID集合・期間・同期マーカーを正規化し未知IDを拒否する', () => {
-  assert.equal(TRANSITION_IDS.length, 13); assert.equal(OVERLAY_IDS.length, 17);
+  assert.equal(TRANSITION_IDS.length, 14); assert.equal(OVERLAY_IDS.length, 17);
   assert.deepEqual(VISUAL_TYPES, ['none', 'text-card', 'image', 'final-challenge', 'riddle-status']);
   const cue = normalizeCue({ id: 'phase-a', transition: { id: 'unlock-start', durationMs: 1200, intensity: 4 }, overlay: { id: 'unlocking', visible: true, progress: 130 }, visual: { id: 'challenge', type: 'final-challenge', visible: true }, timing: { unlockDurationMs: 100 }, syncMarkers: [{ department: 'LX', id: 'LX-001', note: 'GO' }] });
   assert.equal(cue.transition.durationMs, 1200); assert.equal(cue.transition.intensity, 1);

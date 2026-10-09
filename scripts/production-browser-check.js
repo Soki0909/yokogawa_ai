@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, execFile } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import net from 'node:net';
@@ -36,12 +36,16 @@ const waitForHttp = async (url, timeout = 12_000) => {
   }
   throw new Error(`HTTP endpoint did not become ready: ${url} (${lastError ?? 'no response'})`);
 };
-const stopChild = (child) => new Promise((resolve) => {
-  if (!child || child.exitCode !== null || child.signalCode !== null) return resolve();
-  child.once('exit', resolve);
-  child.kill('SIGTERM');
-  setTimeout(resolve, 3000).unref();
-});
+const stopChild = async (child) => {
+  if (!child || child.exitCode !== null || child.signalCode !== null) return;
+  // Only terminate the process tree spawned by this test, never other browser sessions.
+  if (process.platform === 'win32') {
+    await new Promise((resolve, reject) => execFile('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true }, (error) => {
+      if (error && child.exitCode === null && child.signalCode === null) reject(error); else resolve();
+    }));
+  } else child.kill('SIGTERM');
+  await Promise.race([new Promise(resolve => child.exitCode !== null || child.signalCode !== null ? resolve() : child.once('exit', resolve)), delay(3000)]);
+};
 
 class DevToolsPage {
   constructor(socket, url) {
@@ -325,7 +329,7 @@ try {
       await writeFile(path.join(artifactDirectory, `${width}x${height}-${name}.jpg`), Buffer.from(capture.data, 'base64'));
       visualFrameStates.push({ width, height, name, ...state }); visualFrames++;
     };
-    await runCue('prod-v-incident'); await delay(400); await frame('hijack-tear-1');
+    await runCue('prod-004'); await display.waitFor(`document.body.dataset.transition === 'anomaly'`, 'lecture ends before incident', 25000); await delay(400); await frame('hijack-tear-1');
     if (await display.evaluate(`document.querySelector('#caption').textContent !== ''`)) throw new Error('Hijack has stale subtitle');
     await delay(700); await frame('hijack-tear-2'); await delay(1500); await frame('hijack-settled');
     await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.body.dataset.transitionStatus === 'completed'`, 'purple HACK settled');
@@ -347,7 +351,7 @@ try {
     await runCue('prod-012'); await delay(650); await frame('authentication');
     if (await display.evaluate(`!document.querySelector('#operation-progress').hidden || !document.querySelector('#unlock-gauges').hidden`)) throw new Error('Authentication uses percentage');
     await stopCue();
-    await runCue('prod-v-unlock'); await delay(1600); await frame('six-gauges-running');
+    await runCue('prod-012'); await display.waitFor(`document.body.dataset.transition === 'unlock-start'`, 'authentication ends before unlock'); await delay(1600); await frame('six-gauges-running');
     const count = await display.evaluate(`document.querySelector('#unlock-gauges').children.length`);
     if (count !== 6) throw new Error(`Expected six gauges: ${count}`);
     await display.waitFor(`[...document.querySelectorAll('#unlock-gauges i')].every(g => g.dataset.progress === '100%')`, 'all six at 100'); await frame('six-gauges-100');
@@ -412,7 +416,7 @@ try {
   await startServer();
   await display.waitFor(`document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reconnect', 20_000);
   await display.waitFor(`document.body.dataset.preset === 'normal' && document.querySelector('#avatar-wrap').hidden && document.querySelector('#caption').textContent === ''`, 'bundled latest startup after reconnect', 20_000);
-  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('production-refresh-v2.0')`, 'latest version after reconnect', 20_000);
+  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('runtime-hardening-v1.0')`, 'latest version after reconnect', 20_000);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY restored after reconnect', 20_000);
   for (const [index, page] of [admin, display].entries()) {
     const restartErrors = page.errors.splice(errorsBeforeRestart[index]);

@@ -1,4 +1,4 @@
-import { spawn } from 'node:child_process';
+import { spawn, execFile } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
 import net from 'node:net';
@@ -41,12 +41,16 @@ const waitForHttp = async (url, timeout = 12_000) => {
   }
   throw new Error(`HTTP endpoint did not become ready: ${url} (${lastError ?? 'no response'})`);
 };
-const stopChild = (child) => new Promise((resolve) => {
-  if (!child || child.exitCode !== null || child.signalCode !== null) return resolve();
-  child.once('exit', resolve);
-  child.kill('SIGTERM');
-  setTimeout(resolve, 3000).unref();
-});
+const stopChild = async (child) => {
+  if (!child || child.exitCode !== null || child.signalCode !== null) return;
+  // Only terminate the process tree spawned by this test, never other browser sessions.
+  if (process.platform === 'win32') {
+    await new Promise((resolve, reject) => execFile('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true }, (error) => {
+      if (error && child.exitCode === null && child.signalCode === null) reject(error); else resolve();
+    }));
+  } else child.kill('SIGTERM');
+  await Promise.race([new Promise(resolve => child.exitCode !== null || child.signalCode !== null ? resolve() : child.once('exit', resolve)), delay(3000)]);
+};
 
 class DevToolsPage {
   constructor(socket, url) {
@@ -300,5 +304,6 @@ try {
 } finally {
   admin?.close(); display?.close(); await stopChild(browser); await stopChild(server);
   // temporary is created by this invocation with mkdtemp, never a supplied directory.
-  await rm(temporary, { recursive:true, force:true });
+  if (!temporary.startsWith(path.join(os.tmpdir(), 'yokogawa-display-recording-'))) throw Error('Unexpected temporary path');
+  await rm(temporary, { recursive:true, force:true, maxRetries:10, retryDelay:500 });
 }

@@ -20,7 +20,7 @@ test('default startup replaces stale saved show; Production Reset retains regist
   for (let i = 0; i < 100; i++) { try { if ((await fetch(`${base}/health`)).ok) break; } catch {} await delay(50); }
   const admin = await connect(port, 'admin'); const display = await connect(port, 'display', { displayId: 'refresh-stage', displayName: 'Stage', audioEnabled: true });
   t.after(() => { admin.socket.close(); display.socket.close(); });
-  assert.equal(admin.initial.state.metadata.version, 'production-refresh-v2.0'); assert.equal(admin.initial.state.currentSubtitle, null); assert.equal(admin.initial.state.currentCueIndex, -1);
+  assert.equal(admin.initial.state.metadata.version, 'runtime-hardening-v1.0'); assert.equal(admin.initial.state.currentSubtitle, null); assert.equal(admin.initial.state.currentCueIndex, -1);
   display.send({ type: 'audio:ready' }); await admin.next(e => e.type === 'state' && e.state.displayAudioReady);
   admin.send({ type: 'cue:execute', cueId: 'prod-003' }); const speech = await display.next(e => e.type === 'speak');
   display.send({ type: 'playback', id: speech.message.id, status: 'speaking' });

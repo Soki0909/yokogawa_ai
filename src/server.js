@@ -32,6 +32,7 @@ const store = new StateStore({ stateFile: process.env.STATE_FILE ?? path.join(pr
 await store.load();
 const bundledProductionShow = JSON.parse(await fs.readFile(path.join(projectRoot, 'shows/production.json'), 'utf8'));
 if (process.env.SHOW_STARTUP_MODE !== 'saved') store.importShowFile(bundledProductionShow, { apply: true });
+else store.stabilizePresentation(); // Explicit recovery mode never resumes pending audio or transient timelines.
 const voiceProfile = await loadProductionVoiceProfile();
 const runtimeAudioCache = new RuntimeAudioCache();
 const localTtsService = new LocalTtsService({ client: new AivisSpeechClient(), profile: voiceProfile, cache: runtimeAudioCache });
@@ -126,6 +127,7 @@ const server = http.createServer(app);
 const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
 const clients = new Map();
 const cueScheduler = new CueScheduler();
+cueScheduler.onStall = () => cancelTransport('runtime-stall', true);
 const handledActionIds = new Map();
 installProductionTools(app, { root: projectRoot, client: new AivisSpeechClient(), profile: voiceProfile, store, broadcastState: () => { broadcastState(); forRole('display', (socket, client) => displayState(socket, client.displayId)); } });
 let sceneRehearsalInProgress = false;
@@ -206,6 +208,7 @@ function schedulePresentationSettlement(action) {
     action.overlay?.expiresAt ? Date.parse(action.overlay.expiresAt) - Date.now() : null,
     action.visual?.expiresAt ? Date.parse(action.visual.expiresAt) - Date.now() : null,
     ...(action.transition?.status === 'active' ? action.transition.phases ?? [] : []).filter((phase) => phase.atMs >= elapsed).map((phase) => phase.atMs - elapsed),
+    ...(action.transition?.phases ?? []).flatMap(phase => [phase.transition ? phase.atMs + phase.transition.durationMs - elapsed : null, phase.unlock ? phase.atMs + phase.unlock.durationMs - elapsed : null]),
   ].filter((value) => Number.isFinite(value) && value >= 0);
   for (const delay of new Set(delays)) {
     cueScheduler.schedule(Math.min(600_000, delay + 25), () => {
@@ -242,6 +245,7 @@ function errorResponse(socket, error) {
     INVALID_GROUP: '配信先セットのIDが不正です。',
     INVALID_MODE: '管理画面モードが不正です。',
     DUPLICATE_ACTION: '同じ操作の二重送信を防止しました。',
+    NEXT_GUARDED: 'NEXT保護中です。連打は破棄しました。次の合図で押してください。',
   };
   send(socket, 'error', { code: error.message, message: messages[error.message] ?? '操作を完了できませんでした。' });
 }
@@ -306,6 +310,7 @@ async function handleLocalTtsRequest(socket, text, { source = 'free', target = {
 function handleCueRequest(socket, factory, logLabel) {
   try {
     const prepared = factory();
+    if (!prepared) return;
     if (!validateTarget(socket, prepared.cue.target, Boolean(prepared.message))) return;
     cueScheduler.cancel();
     broadcast('display', 'sfx:stop');
@@ -337,13 +342,14 @@ function handleCueRequest(socket, factory, logLabel) {
   } catch (error) { errorResponse(socket, error); }
 }
 
-function cancelTransport(reason) {
+function cancelTransport(reason, recover = false) {
   cueScheduler.cancel(); localTtsService.cancelCurrent(reason);
-  if (store.state.currentMessage) store.updateCurrent('stopped');
-  for (const message of store.state.queue) store.updateHistory(message.id, { status: 'stopped' });
-  store.state.currentMessage = null; store.state.queue = []; store.state.playbackStatus = 'stopped';
+  if (store.state.currentMessage) store.updateCurrent(recover ? 'error' : 'stopped', recover ? `復帰のため再生を破棄: ${reason}` : null);
+  for (const message of store.state.queue) store.updateHistory(message.id, { status: recover ? 'error' : 'stopped', error: recover ? `Display復帰によりキューを解除: ${reason}` : null });
+  store.state.currentMessage = null; store.state.queue = []; store.state.playbackStatus = recover ? 'error' : 'stopped';
   store.stopPresentation(); store.state.currentSubtitle = null;
-  store.state.currentVisual = canonicalPresentationState(store.state.avatar).currentVisual;
+  if (recover) { store.stabilizePresentation(); store.state.runtimeRecovery = { reason, at: new Date().toISOString() }; }
+  else store.state.currentVisual = canonicalPresentationState(store.state.avatar).currentVisual;
   for (const display of store.state.displays) { display.currentSubtitle = null; display.currentVisual = structuredClone(store.state.currentVisual); }
   forRole('display', (socket, client) => { send(socket, 'stop'); displayState(socket, client.displayId); });
   void store.persist();
@@ -403,7 +409,7 @@ function handleAdmin(socket, event) {
       kind: original.kind, displayText: original.displayText, speechProvider: original.speechProvider, audio: original.audio }), '履歴再読み上げを受付');
     return;
   }
-  if (event.type === 'cue:next') handleCueRequest(socket, () => store.nextCue(), 'Cue NEXT');
+  if (event.type === 'cue:next') handleCueRequest(socket, () => store.nextCue({ validate: cue => validateTarget(socket, cue.target, ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none') }), 'Cue NEXT');
   else if (event.type === 'cue:execute') handleCueRequest(socket, () => store.executeCue(event.cueId), 'Cue直接実行');
   else if (event.type === 'cue:jump') {
     try { const cue = store.jumpCue(event.cueId); broadcastState(); send(socket, 'accepted', { id: `jump:${cue.cueId}`, queued: false }); logger.info('Cue位置移動', { cueId: cue.cueId }); } catch (error) { errorResponse(socket, error); }
@@ -494,6 +500,13 @@ function handleAdmin(socket, event) {
 }
 
 function handleDisplay(client, event) {
+  if (event.type === 'runtime:recover') {
+    if (client.displayId === store.state.audioMasterId) cancelTransport('display-resume', true);
+    const socket = [...clients].find(([, item]) => item === client)?.[0];
+    if (socket) { send(socket, 'runtime:recovered'); displayState(socket, client.displayId); }
+    broadcastState();
+    return;
+  }
   const display = store.getDisplay(client.displayId);
   if (!display) return;
   if (event.type === 'display:configure') {
@@ -506,7 +519,7 @@ function handleDisplay(client, event) {
   if (event.type === 'heartbeat') {
     const wasOffline = !display.online;
     store.heartbeat(client.displayId);
-    if (wasOffline) logger.info('Display Heartbeat復帰', { displayId: client.displayId });
+    if (wasOffline) { logger.info('Display Heartbeat復帰', { displayId: client.displayId }); const socket = [...clients].find(([, item]) => item === client)?.[0]; if (socket) displayState(socket, client.displayId); }
     broadcastState(); return;
   }
   if (event.type === 'audio:ready') {
@@ -548,6 +561,7 @@ websocketServer.on('connection', (socket) => {
       if (client.role === 'display') {
         const display = store.registerDisplay(event.display ?? {});
         client.displayId = display.displayId;
+        if (store.state.audioMasterId === display.displayId) cancelTransport('display-reconnected', true);
         for (const [otherSocket, other] of clients) {
           if (otherSocket !== socket && other.role === 'display' && other.displayId === display.displayId) otherSocket.close(4000, 'new connection');
         }
@@ -564,7 +578,7 @@ websocketServer.on('connection', (socket) => {
     }
     if (client.role === 'admin') {
       if (typeof event.actionId === 'string' && event.actionId.length <= 100) {
-        const now = Date.now();
+        const now = performance.now();
         for (const [id, handledAt] of handledActionIds) if (now - handledAt > 10_000) handledActionIds.delete(id);
         if (handledActionIds.has(event.actionId)) { errorResponse(socket, new Error('DUPLICATE_ACTION')); return; }
         handledActionIds.set(event.actionId, now);
@@ -578,7 +592,7 @@ websocketServer.on('connection', (socket) => {
     if (client.role === 'display') {
       const duplicateStillOpen = [...clients.values()].some((other) => other.role === 'display' && other.displayId === client.displayId);
       if (!duplicateStillOpen) {
-        if (store.state.audioMasterId === client.displayId) localTtsService.cancelCurrent('audio-master-disconnected');
+        if (store.state.audioMasterId === client.displayId) cancelTransport('audio-master-disconnected', true);
         store.disconnectDisplay(client.displayId);
         logger.info('Display切断', { displayId: client.displayId }); broadcastState();
       }
@@ -600,12 +614,23 @@ const offlineMonitor = setInterval(() => {
   for (const display of store.state.displays) {
     if (display.online && (!display.lastHeartbeat || Date.parse(display.lastHeartbeat) < cutoff)) {
       store.markOffline(display.displayId);
+      if (store.state.audioMasterId === display.displayId) cancelTransport('heartbeat-timeout', true);
       logger.info('Display Heartbeat timeout', { displayId: display.displayId });
       broadcastState();
     }
   }
 }, 1000);
 offlineMonitor.unref();
+
+let previousTick = performance.now(); let previousWall = Date.now();
+const runtimeWatch = setInterval(() => {
+  const tick = performance.now(); const wall = Date.now();
+  if (tick - previousTick > 5000 || Math.abs((wall - previousWall) - (tick - previousTick)) > 5000) { cancelTransport('runtime-clock-or-resume', true); broadcastState(); }
+  previousTick = tick; previousWall = wall;
+}, 500);
+runtimeWatch.unref();
+
+app.get('/api/runtime-status', (_request, response) => response.json({ memory: process.memoryUsage(), cpu: process.cpuUsage(), uptime: process.uptime(), sockets: clients.size, cueTimers: cueScheduler.timers.size, handles: process._getActiveHandles().length, nextGuard: store.nextGuard(), cueIndex: store.state.currentCueIndex }));
 
 const localTtsHealthMonitor = setInterval(() => { void refreshLocalTtsStatus(); }, 30_000);
 localTtsHealthMonitor.unref();

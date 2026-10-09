@@ -44,7 +44,8 @@ const socket = new ReconnectingSocket('display', handleEvent, (status) => {
   elements.connection.dataset.state = status;
   elements['enable-audio'].disabled = status !== 'connected';
   if (status !== 'connected') audioReadySent = false;
-  if (status === 'connected') setMode('SYSTEM READY', 'ready');
+  if (status === 'disconnected') stopLocalTransport();
+  if (status === 'connected') { recoveryPending = false; setMode('SYSTEM READY', 'ready'); }
   else setMode('接続を復旧しています', 'error');
 }, { helloData: () => ({ display: identity }), heartbeatMs: 2000 });
 
@@ -161,6 +162,7 @@ function applyPresentation(presentation = {}, preset = null) {
 }
 
 function renderTransition(transition = {}) {
+  transition = transition.effect ?? transition;
   clearTimeout(transitionTimer);
   document.body.dataset.transition = transition.id ?? 'none';
   document.body.dataset.transitionMode = transition.mode ?? 'fade';
@@ -247,6 +249,9 @@ function renderUnlock(unlock = {}) {
 }
 
 function handleEvent(event) {
+  detectResume();
+  if (event.type === 'runtime:recovered') recoveryPending = false;
+  if (recoveryPending && ['state', 'speak', 'sfx', 'subtitle', 'presentation'].includes(event.type)) return;
   if (event.type === 'state') {
     settings = event.state.settings;
     isAudioMaster = event.isAudioMaster === true;
@@ -312,6 +317,22 @@ function showCaption(text) {
   elements.caption.hidden = !settings.subtitlesEnabled;
   document.body.dataset.captionEmpty = String(!normalized);
 }
+
+let recoveryPending = false;
+let lastRuntimeTick = performance.now(); let lastRuntimeWall = Date.now();
+function detectResume() {
+  const tick = performance.now(); const wall = Date.now();
+  const resumed = tick - lastRuntimeTick > 5000 || Math.abs((wall - lastRuntimeWall) - (tick - lastRuntimeTick)) > 5000;
+  lastRuntimeTick = tick; lastRuntimeWall = wall;
+  if (resumed) { stopLocalTransport(); recoveryPending = socket.send({ type: 'runtime:recover' }); }
+  return resumed;
+}
+function stopLocalTransport() {
+  sfx.stop(); speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop();
+  cancelAnimationFrame(subtitleFrame); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer);
+  showCaption(''); document.body.dataset.transitionStatus = 'completed';
+}
+setInterval(detectResume, 500);
 function revealCaption(text, durationMs) {
   showCaption(text);
   if (text.length <= 32 || settings.reducedMotion) return;

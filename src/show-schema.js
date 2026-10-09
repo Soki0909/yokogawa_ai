@@ -4,7 +4,7 @@ export const SUPPORTED_SHOW_SCHEMA_VERSIONS = Object.freeze([2, 3]);
 export const TRANSITION_IDS = Object.freeze([
   'none', 'boot', 'anomaly', 'takeover', 'riddle-enter', 'final-challenge-enter',
   'auth-success', 'unlock-start', 'emergency-interrupt', 'hostile-enter',
-  'shutdown', 'recovery', 'normalize',
+  'shutdown', 'recovery', 'normalize', 'timeline',
 ]);
 
 export const OVERLAY_IDS = Object.freeze([
@@ -60,7 +60,7 @@ const finite = (value, fallback, min, max) => Number.isFinite(Number(value))
 export function normalizeTransition(input = {}) {
   return {
     mode: ['cut', 'fade', 'glitch'].includes(input?.mode) ? input.mode : (['anomaly', 'takeover', 'hostile-enter'].includes(input?.id) ? 'glitch' : input?.id === 'shutdown' ? 'cut' : 'fade'),
-    id: TRANSITION_IDS.includes(input?.id) ? input.id : 'none',
+    id: input?.id === 'timeline' || TRANSITION_IDS.includes(input?.id) ? input.id : 'none',
     durationMs: Math.round(finite(input?.durationMs, 900, 0, 30_000)),
     intensity: finite(input?.intensity, 1, 0, 1),
   };
@@ -106,6 +106,8 @@ export function normalizeSequence(input) {
     ...(phase.visual ? { visual: normalizeVisual(phase.visual) } : {}),
     ...(phase.presentationPreset ? { presentationPreset: id(phase.presentationPreset, 'normal') } : {}),
     ...(phase.avatar ? { avatar: normalizeAvatar(phase.avatar) } : {}),
+    ...(phase.transition ? { transition: normalizeTransition(phase.transition) } : {}),
+    ...(phase.unlock ? { unlock: { durationMs: Math.round(finite(phase.unlock.durationMs, 5000, 3000, 10000)) } } : {}),
     ...(phase.clearSubtitle === true ? { clearSubtitle: true } : {}),
   })).sort((a, b) => a.atMs - b.atMs);
 }

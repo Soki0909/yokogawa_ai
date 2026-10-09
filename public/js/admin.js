@@ -6,10 +6,11 @@ let state = null;
 let noticeTimer;
 let connected = false;
 let actionLocked = false;
+let nextDeadline = 0;
 let cueRenderSignature = '';
 let selectRenderSignature = '';
 let connectionRenderSignature = '';
-const transitionIds = ['none', 'boot', 'anomaly', 'takeover', 'riddle-enter', 'final-challenge-enter', 'auth-success', 'unlock-start', 'emergency-interrupt', 'hostile-enter', 'shutdown', 'recovery', 'normalize'];
+const transitionIds = ['none', 'boot', 'anomaly', 'takeover', 'riddle-enter', 'final-challenge-enter', 'auth-success', 'unlock-start', 'emergency-interrupt', 'hostile-enter', 'shutdown', 'recovery', 'normalize', 'timeline'];
 const overlayIds = ['none', 'booting', 'communication-locked', 'access-denied', 'authentication-failed', 'riddle-active', 'all-conditions-met', 'final-challenge', 'authenticating', 'authentication-success', 'unlocking', 'emergency-protection', 'unlock-aborted', 'connection-failed', 'forced-runaway', 'system-shutdown', 'restoring'];
 const visualTypes = ['none', 'text-card', 'image', 'final-challenge', 'riddle-status'];
 
@@ -21,7 +22,7 @@ const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
 });
 
 function handleEvent(event) {
-  if (event.type === 'state') { state = event.state; render(); }
+  if (event.type === 'state') { state = event.state; nextDeadline = performance.now() + (state.nextGuard?.remainingMs ?? 0); render(); }
   else if (event.type === 'error') showNotice(event.message, 'error');
   else if (event.type === 'accepted') showNotice(event.id?.startsWith('identify:') ? '対象Displayへ識別表示を送りました。'
     : event.id?.startsWith('scene-rehearsal:') ? 'Scene冒頭の状態へ復元しました。'
@@ -212,20 +213,29 @@ function showNotice(message, kind = 'info') { clearTimeout(noticeTimer); element
 function updateCount() { elements['character-count'].textContent = `${elements['speech-input'].value.length.toLocaleString('ja-JP')} / 5,000`; updateControls(); }
 function updateControls() {
   const hasDisplay = state?.displays.some((display) => display.online); const locked = !connected || actionLocked; elements['send-button'].disabled = !connected || !hasDisplay || !elements['speech-input'].value.trim();
-  for (const id of ['next-button', 'show-next-button']) elements[id].disabled = locked || !state?.nextCue || !hasDisplay;
+  const nextGuarded = performance.now() < nextDeadline;
+  for (const id of ['next-button', 'show-next-button']) { elements[id].disabled = !connected || nextGuarded || !state?.nextCue || !hasDisplay; elements[id].title = nextGuarded ? 'NEXT保護中（1.2秒）。連打は破棄されます。' : '次の合図でNEXT'; }
+  if (nextGuarded) elements['show-next-button-label'].textContent = 'NEXT受理・二重押し保護中…';
+  else if (state) elements['show-next-button-label'].textContent = state.nextCue ? `${state.nextCue.cueNumber} ${state.nextCue.cueName}` : '次のCueはありません';
   for (const id of ['back-button', 'show-back-button']) elements[id].disabled = locked || (state?.currentCueIndex ?? -1) < 0;
   for (const id of ['cue-replay-button', 'show-replay-button']) elements[id].disabled = locked || !state?.currentCue || !hasDisplay;
-  for (const id of ['show-clear-button', 'show-blackout-button', 'show-blackout-clear-button']) elements[id].disabled = locked || !hasDisplay;
+  for (const id of ['show-clear-button', 'show-blackout-button', 'show-blackout-clear-button']) elements[id].disabled = !connected || !hasDisplay;
   for (const button of elements['cue-list'].querySelectorAll('[data-action="run"], [data-action="jump"]')) button.disabled = locked || !hasDisplay;
   elements['scene-rehearsal-start'].disabled = locked || !state?.rehearsalSession?.active || !elements['rehearsal-scene-select'].value || !hasDisplay;
   elements['scene-rehearsal-session-toggle'].disabled = locked;
   const presentationActive = state?.currentTransition?.status === 'active' || state?.unlock?.status === 'running';
   const localTtsActive = state?.localTts?.activity === 'synthesizing';
-  for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = locked || (!state?.currentMessage && !presentationActive && !localTtsActive);
+  for (const id of ['stop-button', 'show-stop-button']) elements[id].disabled = !connected || !hasDisplay;
   const master = state?.displays.find((display) => display.displayId === state.audioMasterId); elements['audio-test-button'].disabled = !connected || !master?.online || !master?.audioReady;
   elements['local-tts-test-button'].disabled = !connected || !master?.online || !master?.audioReady || state?.localTts?.status !== 'ready';
 }
-function performAction(type, extra = {}) { if (actionLocked) return; actionLocked = true; updateControls(); socket.send({ type, actionId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, ...extra }); window.setTimeout(() => { actionLocked = false; updateControls(); }, 650); }
+function performAction(type, extra = {}) {
+  const emergency = ['stop', 'blackout', 'blackout:clear', 'clear'].includes(type);
+  if (type === 'cue:next') { if (performance.now() < nextDeadline) return; nextDeadline = performance.now() + (state?.nextGuard?.intervalMs || 1200); }
+  else if (!emergency) { if (actionLocked) return; actionLocked = true; window.setTimeout(() => { actionLocked = false; updateControls(); }, 650); }
+  updateControls(); socket.send({ type, actionId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, ...extra });
+}
+setInterval(updateControls, 100);
 function updateSettings() { socket.send({ type: 'settings:update', settings: { voiceURI: elements['voice-select'].value, rate: Number(elements['rate-input'].value), pitch: Number(elements['pitch-input'].value), volume: Number(elements['volume-input'].value), subtitlesEnabled: elements['subtitle-input'].checked, shortcutsEnabled: elements['shortcuts-input'].checked } }); }
 function openCue(cue = {}) {
   elements['cue-id'].value = cue.cueId ?? ''; elements['cue-number'].value = cue.cueNumber ?? String(state.cues.length + 1).padStart(3, '0'); elements['cue-name'].value = cue.cueName ?? '';
