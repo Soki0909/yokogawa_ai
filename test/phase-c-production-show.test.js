@@ -29,17 +29,17 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
   const ids = main.cues.map((cue) => cue.id);
   assert.deepEqual(ids, [
     'prod-001', 'prod-002', 'prod-003', 'prod-004', 'prod-v-incident',
-    'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-v-riddle-enter', 'prod-009',
+    'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-v-riddle-enter',
     'prod-010', 'prod-011', 'prod-012', 'prod-v-unlock', 'prod-013', 'prod-014',
     'prod-v-hostile-enter', 'prod-015', 'prod-v-emergency-riddle', 'prod-v-stop-code',
-    'prod-016', 'prod-v-recovery', 'prod-017',
+    'prod-v-recovery', 'prod-017',
   ]);
   assert.equal(main.avatar.visible, false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-001').transition.id, 'boot');
   assert.equal(main.cues.find((cue) => cue.id === 'prod-005').transition.id, 'takeover');
   assert.equal(ids.includes('prod-v-hijack'), false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-v-hostile-enter').order < main.cues.find((cue) => cue.id === 'prod-015').order, true);
-  assert.equal(main.cues.find((cue) => cue.id === 'prod-v-stop-code').order < main.cues.find((cue) => cue.id === 'prod-016').order, true);
+  assert.equal(main.cues.find((cue) => cue.id === 'prod-v-stop-code').audio.assetId, 'prod-voice-016-shutdown');
   assert.notEqual(main.cues.find((cue) => cue.id === 'prod-010').enabled, false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-017').enabled, false);
   assert.match(main.cues.find((cue) => cue.id === 'prod-v-emergency-riddle').visual.message, /NOT PROVIDED/);
@@ -49,6 +49,8 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
 test('HIJACKED voice effectはWAV005〜009だけへ適用しraw Assetを維持する', async () => {
   const main = await load('production.json');
   const speech = new Map(main.cues.filter((cue) => /^prod-\d{3}$/.test(cue.id)).map((cue) => [cue.id, cue]));
+  speech.set('prod-009', main.cues.find((cue) => cue.id === 'prod-v-riddle-enter'));
+  speech.set('prod-016', main.cues.find((cue) => cue.id === 'prod-v-stop-code'));
   for (const id of ['005', '006', '007', '008', '009']) {
     const cue = speech.get(`prod-${id}`);
     assert.equal(cue.audio.playbackEffect, 'hijacked-subtle-v1');
@@ -98,9 +100,9 @@ test('途中参加の新規Displayも現在字幕とPresentation stateを初回�
   const production = await load('production.json'); store.importShowFile(production, { apply: true });
   store.executeCue('prod-v-riddle-enter');
   const display = store.registerDisplay({ displayId: 'late-display', displayName: 'Late Display' });
-  assert.equal(display.currentSubtitle, 'FIVE RIDDLES — FIRST: 7・201');
+  assert.equal(display.currentSubtitle, null);
   assert.equal(display.currentPresetId, 'hijacked');
-  assert.equal(display.currentOverlay.id, 'riddle-active');
+  assert.equal(display.currentOverlay.id, 'none');
   assert.equal(display.currentVisual.id, 'riddle-five');
 });
 
@@ -110,8 +112,8 @@ test('server再起動後も現在字幕とCue位置を復元し途中参加Displ
   const production = await load('production.json'); first.importShowFile(production, { apply: true });
   first.executeCue('prod-v-riddle-enter'); await first.persist();
   const restored = new StateStore({ storage: persisted }); await restored.load();
-  assert.equal(restored.state.currentSubtitle, 'FIVE RIDDLES — FIRST: 7・201');
+  assert.equal(restored.state.currentSubtitle, null);
   assert.equal(restored.snapshot().currentCue.cueId, 'prod-v-riddle-enter');
   const display = restored.registerDisplay({ displayId: 'post-restart-display' });
-  assert.equal(display.currentSubtitle, 'FIVE RIDDLES — FIRST: 7・201');
+  assert.equal(display.currentSubtitle, null);
 });

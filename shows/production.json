@@ -229,7 +229,7 @@
     "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
     "sceneStructureSource": {
       "documentId": "16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo",
-      "revisionId": "ANLCKQn2B1C85Cdk8kqXy2V7gTeD4QxQWOP2Y1SdHtkg_xKHhgmvWV0V4zHe-LJn583X0Oli8hdJ4f8v3g4W8o3tVZpgXWeZAhOZbGdclKw",
+      "revisionId": "AHj4eMQHSQoNSp9V1tmbaOGg_5sSZrsBzpsDqI2tvQm-qYGEG61B-pTVD-8fVzEXPgUKHGGxwLt_cO-qMsdW9_3RnHxxrZvaGn2hdiB8MkA",
       "tabCount": 14
     }
   },
@@ -426,31 +426,31 @@
     {
       "id": "prod-v-incident",
       "cueNumber": "P-V01",
-      "name": "映像異常開始",
+      "name": "映像乱れ・制御奪取",
       "route": "main",
       "scene": "scene-1",
       "location": "7・201",
-      "kind": "display-only",
-      "displayText": "UNIDENTIFIED SIGNAL DETECTED",
-      "presentationPreset": "warning",
+      "kind": "preset-only",
+      "displayText": "",
+      "presentationPreset": "hijacked",
       "target": {
         "type": "all"
       },
       "avatar": {
         "visible": true,
-        "state": "warning"
+        "state": "hijacked"
       },
       "audio": {
         "speechMode": "none",
         "lipSyncMode": "none"
       },
       "order": 50,
-      "operatorNote": "WAV004完了後、台本「モニターの横川AIの映像に、不自然なノイズが走る」でGO。ここではFULL HIJACKEDへ進めない。出演者の調査芝居を待つ。",
+      "operatorNote": "WAV004完了後、台本「突然、モニターの映像が乱れる」でGO。全画面の水平断裂から紫HACKへ定着。字幕なしで出演者の調査芝居を待つ。",
       "triggerNote": "WAV004完了後、映像ノイズ開始の舞台監督合図でGO",
       "transition": {
         "id": "anomaly",
-        "durationMs": 1200,
-        "intensity": 0.8
+        "durationMs": 2400,
+        "intensity": 1
       },
       "syncMarkers": [
         {
@@ -618,57 +618,7 @@
     {
       "id": "prod-v-riddle-enter",
       "cueNumber": "P-V02",
-      "name": "五つの謎・第1問開始",
-      "route": "main",
-      "scene": "scene-1",
-      "location": "7・201",
-      "kind": "display-only",
-      "displayText": "FIVE RIDDLES — FIRST: 7・201",
-      "presentationPreset": "hijacked",
-      "target": {
-        "type": "all"
-      },
-      "avatar": {
-        "visible": true,
-        "state": "hijacked"
-      },
-      "audio": {
-        "speechMode": "none",
-        "lipSyncMode": "none"
-      },
-      "order": 100,
-      "operatorNote": "台本にある「五つの謎」「第一の謎」「7・201」だけを表示。問題本文は未提供のため表示しない。",
-      "triggerNote": "WAV008終了後、画面変化の合図でGO",
-      "transition": {
-        "id": "riddle-enter",
-        "durationMs": 1300,
-        "intensity": 1
-      },
-      "overlay": {
-        "id": "riddle-active",
-        "visible": true,
-        "title": "RIDDLE ACTIVE",
-        "message": "FIRST LOCATION — 7・201"
-      },
-      "visual": {
-        "id": "riddle-five",
-        "type": "riddle-status",
-        "visible": true,
-        "title": "5 QUESTIONS",
-        "message": "FIRST — 7・201",
-        "items": [
-          "01 ACTIVE",
-          "02",
-          "03",
-          "04",
-          "05"
-        ]
-      }
-    },
-    {
-      "id": "prod-009",
-      "cueNumber": "P-009",
-      "name": "台本 009",
+      "name": "五つの謎・第1問開始＋台本009",
       "route": "main",
       "scene": "scene-1",
       "location": "7・201",
@@ -690,13 +640,30 @@
         "playbackEffect": "hijacked-subtle-v1"
       },
       "transition": {
-        "id": "none",
-        "durationMs": 0,
+        "id": "riddle-enter",
+        "durationMs": 2300,
         "intensity": 1
       },
-      "operatorNote": "現行台本 scene-1 / 7・201 / 発話009。HIJACKED状態とsubtle voice effectを継続。",
-      "triggerNote": "舞台監督の合図でGO",
-      "order": 110
+      "operatorNote": "1 GOで画面変化→定着→2.3秒後に既存WAV009。問題本文は未提供のため表示しない。",
+      "triggerNote": "WAV008終了後、画面変化の合図でGO",
+      "order": 100,
+      "timing": {
+        "speechDelayMs": 2300
+      },
+      "visual": {
+        "id": "riddle-five",
+        "type": "riddle-status",
+        "visible": true,
+        "title": "五つの謎",
+        "message": "第一の謎 — 7・201",
+        "items": [
+          "01 ACTIVE",
+          "02",
+          "03",
+          "04",
+          "05"
+        ]
+      }
     },
     {
       "id": "prod-010",
@@ -733,8 +700,10 @@
         "id": "all-conditions-met",
         "visible": true,
         "title": "ALL CONDITIONS MET",
-        "message": "PROCEED TO 201",
-        "progress": 100
+        "message": "PROCEED TO 201"
+      },
+      "timing": {
+        "autoClearOverlayMs": 7000
       },
       "visual": {
         "id": "riddle-complete",
@@ -753,7 +722,7 @@
     {
       "id": "prod-011",
       "cueNumber": "P-011",
-      "name": "最終問題提示",
+      "name": "五つ達成・統合・最終問題",
       "route": "main",
       "scene": "scene-6",
       "location": "7・201",
@@ -775,32 +744,65 @@
       },
       "transition": {
         "id": "final-challenge-enter",
-        "durationMs": 1700,
+        "durationMs": 4800,
         "intensity": 1
       },
       "operatorNote": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 130,
-      "overlay": {
-        "id": "final-challenge",
-        "visible": true,
-        "title": "FINAL CHALLENGE",
-        "message": "ENTER THE FIVE ANSWERS"
-      },
       "visual": {
-        "id": "final-input",
-        "type": "final-challenge",
+        "id": "five-verified",
+        "type": "riddle-status",
+        "mode": "five-complete",
         "visible": true,
-        "title": "AUTHORIZATION SEQUENCE",
-        "message": "5 KEYS REQUIRED",
+        "title": "五つの解を確認",
+        "message": "5 / 5 VERIFIED",
         "items": [
-          "I",
-          "II",
-          "III",
-          "IV",
-          "V"
+          "01 ✓",
+          "02 ✓",
+          "03 ✓",
+          "04 ✓",
+          "05 ✓"
         ]
-      }
+      },
+      "sequence": [
+        {
+          "atMs": 2000,
+          "visual": {
+            "id": "five-integrating",
+            "type": "riddle-status",
+            "mode": "integration",
+            "visible": true,
+            "title": "五つの解を統合",
+            "message": "INTEGRATING",
+            "items": [
+              "01 ✓",
+              "02 ✓",
+              "03 ✓",
+              "04 ✓",
+              "05 ✓"
+            ]
+          }
+        },
+        {
+          "atMs": 4200,
+          "visual": {
+            "id": "final-input",
+            "type": "final-challenge",
+            "mode": "reveal",
+            "visible": true,
+            "title": "最終問題",
+            "message": "最終問題の回答を入力しなさい",
+            "items": [
+              "I",
+              "II",
+              "III",
+              "IV",
+              "V"
+            ]
+          }
+        }
+      ]
     },
     {
       "id": "prod-012",
@@ -836,9 +838,8 @@
       "overlay": {
         "id": "authentication-success",
         "visible": true,
-        "title": "AUTHENTICATION SUCCESS",
-        "message": "UNLOCK SEQUENCE READY",
-        "progress": 100
+        "title": "認証成功",
+        "message": "AUTHENTICATED — 解錠処理を許可"
       },
       "syncMarkers": [
         {
@@ -855,8 +856,8 @@
       "route": "main",
       "scene": "scene-6",
       "location": "7・201",
-      "kind": "display-only",
-      "displayText": "LOCK RELEASE IN PROGRESS",
+      "kind": "preset-only",
+      "displayText": "",
       "presentationPreset": "warning",
       "target": {
         "type": "all"
@@ -870,23 +871,46 @@
         "lipSyncMode": "none"
       },
       "order": 150,
-      "operatorNote": "電子音SE後に手動GO。複数ゲージを0→100%へ進め、到達後もEmergency Cueまで保持。自動進行しない。",
+      "operatorNote": "電子音SE後にGO。6系統→100%を0.9秒保持→ゲージ収束→不穏なstable状態。役者の芝居を待つ。",
       "triggerNote": "WAV012終了後の電子音SEを確認してGO",
       "transition": {
         "id": "unlock-start",
-        "durationMs": 1200,
+        "durationMs": 7400,
         "intensity": 1
       },
       "overlay": {
         "id": "unlocking",
         "visible": true,
-        "title": "UNLOCKING",
-        "message": "AUTH / CORE / GATE",
+        "title": "解錠処理",
+        "message": "SECURITY RELEASE",
         "progress": 0
       },
       "timing": {
         "unlockDurationMs": 5000
-      }
+      },
+      "sequence": [
+        {
+          "atMs": 5900,
+          "overlay": {
+            "id": "unlocking",
+            "variant": "collapse",
+            "visible": true,
+            "title": "解錠完了",
+            "message": "RELEASE COMPLETE"
+          }
+        },
+        {
+          "atMs": 6800,
+          "overlay": {
+            "id": "unlocking",
+            "variant": "anomaly",
+            "visible": true,
+            "title": "解錠完了",
+            "message": "RELEASE COMPLETE"
+          },
+          "clearSubtitle": true
+        }
+      ]
     },
     {
       "id": "prod-013",
@@ -920,10 +944,10 @@
       "triggerNote": "虎谷の端末操作→警告SE完了後にGO",
       "order": 160,
       "overlay": {
-        "id": "emergency-protection",
+        "id": "connection-failed",
         "visible": true,
-        "title": "EMERGENCY PROTECTION",
-        "message": "UNLOCK SEQUENCE INTERRUPTED"
+        "title": "ERROR — 緊急遮断",
+        "message": "解錠停止 / スタッフへの連絡失敗"
       },
       "syncMarkers": [
         {
@@ -1115,60 +1139,7 @@
     {
       "id": "prod-v-stop-code",
       "cueNumber": "P-V06",
-      "name": "停止コード・システム停止",
-      "route": "main",
-      "scene": "scene-6",
-      "location": "7・201",
-      "kind": "display-only",
-      "displayText": "STOP CODE ACCEPTED — SYSTEM SHUTDOWN",
-      "presentationPreset": "shutdown",
-      "target": {
-        "type": "all"
-      },
-      "avatar": {
-        "visible": true,
-        "state": "shutdown"
-      },
-      "audio": {
-        "speechMode": "none",
-        "lipSyncMode": "none"
-      },
-      "order": 210,
-      "operatorNote": "停止コード入力でGO。警報・照明明滅・HOSTILE motionを停止してSHUTDOWNへ移行し、その後WAV016を実行する。",
-      "triggerNote": "非常停止コード入力成立の瞬間にGO",
-      "transition": {
-        "id": "shutdown",
-        "durationMs": 1800,
-        "intensity": 1
-      },
-      "overlay": {
-        "id": "system-shutdown",
-        "visible": true,
-        "title": "SYSTEM SHUTDOWN",
-        "message": "ALL PROCESSES SUSPENDED"
-      },
-      "syncMarkers": [
-        {
-          "department": "SE",
-          "id": "ALIGN-SE-ALARM-STOP",
-          "note": "警報STOP。記述用markerであり正式音響Cue番号ではない。"
-        },
-        {
-          "department": "LX",
-          "id": "ALIGN-LX-FLICKER-STOP",
-          "note": "照明明滅STOP。記述用markerであり正式照明Cue番号ではない。"
-        },
-        {
-          "department": "ACT",
-          "id": "ALIGN-ACT-RUNAWAY-STOP",
-          "note": "機械設備の暴走芝居を停止。"
-        }
-      ]
-    },
-    {
-      "id": "prod-016",
-      "cueNumber": "P-016",
-      "name": "システム全停止",
+      "name": "停止コード・システム全停止＋台本016",
       "route": "main",
       "scene": "scene-6",
       "location": "7・201",
@@ -1189,29 +1160,47 @@
         "lipSyncMode": "audio-reactive"
       },
       "transition": {
-        "id": "none",
-        "durationMs": 0,
+        "id": "shutdown",
+        "durationMs": 1900,
         "intensity": 1
       },
-      "operatorNote": "停止コードCueのshutdown transition後にWAV016。終了後も長時間SHUTDOWNを保持し、RECOVERYへ自動進行しない。",
-      "triggerNote": "停止コードCueのtransition開始後にGO",
-      "order": 220,
+      "operatorNote": "1 GOで暴走を即停止→1.2秒のcut→0.7秒の静寂→既存WAV016を一度再生。終了後はSHUTDOWNを保持。",
+      "triggerNote": "非常停止コード入力成立の瞬間にGO",
+      "order": 210,
+      "timing": {
+        "speechDelayMs": 1900
+      },
       "overlay": {
         "id": "system-shutdown",
         "visible": true,
-        "title": "SYSTEM SHUTDOWN",
+        "title": "システム全停止",
         "message": "ALL PROCESSES SUSPENDED"
       },
       "syncMarkers": [
         {
           "department": "SE",
+          "id": "ALIGN-SE-ALARM-STOP",
+          "note": "警報STOP。記述用markerであり正式音響Cue番号ではない。"
+        },
+        {
+          "department": "LX",
+          "id": "ALIGN-LX-FLICKER-STOP",
+          "note": "照明明滅STOP。記述用markerであり正式照明Cue番号ではない。"
+        },
+        {
+          "department": "ACT",
+          "id": "ALIGN-ACT-RUNAWAY-STOP",
+          "note": "機械設備の暴走芝居を停止。"
+        },
+        {
+          "department": "SE",
           "id": "ALIGN-SE-DOOR-UNLOCK-AFTER-016",
-          "note": "WAV016終了後に扉解錠音。記述用markerであり正式音響Cue番号ではない。"
+          "note": "統合CueのWAV016終了後に扉解錠音。"
         },
         {
           "department": "ACT",
           "id": "ALIGN-ACT-CHECK-DOOR",
-          "note": "馬場・久保が扉を確認する芝居。"
+          "note": "馬場・窪が扉を確認する芝居。"
         }
       ]
     },
@@ -1222,8 +1211,8 @@
       "route": "main",
       "scene": "scene-7",
       "location": "7・201",
-      "kind": "display-only",
-      "displayText": "SYSTEM RESTORING",
+      "kind": "preset-only",
+      "displayText": "",
       "presentationPreset": "recovery",
       "target": {
         "type": "all"
@@ -1237,20 +1226,48 @@
         "lipSyncMode": "none"
       },
       "order": 230,
-      "operatorNote": "台本Scene 7、横川AI復旧の舞台進行に合わせてGO。",
+      "operatorNote": "虎谷が執念を手放すScene 7のタイミングでGO。100%→UI消去→温かな光→NORMALまで1 Cue。",
       "triggerNote": "舞台監督の合図でGO",
       "transition": {
         "id": "recovery",
-        "durationMs": 2200,
+        "durationMs": 6000,
         "intensity": 1
       },
       "overlay": {
         "id": "restoring",
         "visible": true,
-        "title": "RESTORING",
+        "title": "システム復旧",
         "message": "SYSTEM SYNCHRONIZATION",
-        "progress": 72
-      }
+        "progress": 0
+      },
+      "sequence": [
+        {
+          "atMs": 3800,
+          "overlay": {
+            "id": "restoring",
+            "visible": true,
+            "title": "復旧完了",
+            "message": "SYSTEM SYNCHRONIZED",
+            "progress": 100
+          }
+        },
+        {
+          "atMs": 4600,
+          "overlay": {
+            "id": "none"
+          },
+          "presentationPreset": "normal",
+          "avatar": {
+            "visible": true,
+            "state": "normal",
+            "lipSyncMode": "none",
+            "label": "YOKOGAWA AI",
+            "mode": "image-yokogawa-v1",
+            "assetSetId": "yokogawa-v1"
+          },
+          "clearSubtitle": true
+        }
+      ]
     },
     {
       "id": "prod-017",

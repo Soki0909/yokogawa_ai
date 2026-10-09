@@ -134,9 +134,11 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
     await page.send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
     await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `
       window.__yokogawaAudioPlays = [];
+      window.__yokogawaAudioTimes = [];
       const originalPlay = HTMLMediaElement.prototype.play;
       HTMLMediaElement.prototype.play = function () {
         window.__yokogawaAudioPlays.push(this.src);
+        window.__yokogawaAudioTimes.push(Date.now());
         return originalPlay.call(this);
       };
     ` });
@@ -147,7 +149,7 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
 };
 
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-production-browser-'));
-const artifactDirectory = path.resolve('artifacts/scene-rehearsal-start');
+const artifactDirectory = path.resolve('artifacts/script-visual-polish');
 await mkdir(artifactDirectory, { recursive: true });
 const serverPort = await freePort();
 const debugPort = await freePort();
@@ -183,7 +185,8 @@ try {
   if (!imported.ok) throw new Error(`Production Show import failed: ${imported.status}`);
 
   browser = spawn(browserPath, [
-    '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check', '--autoplay-policy=no-user-gesture-required',
+    '--headless=new', '--no-first-run', '--no-default-browser-check', '--autoplay-policy=no-user-gesture-required',
+    '--disable-background-timer-throttling', '--disable-renderer-backgrounding',
     `--remote-debugging-port=${debugPort}`, `--user-data-dir=${path.join(temporary, 'browser')}`, 'about:blank',
   ], { stdio: 'ignore', windowsHide: true });
   await waitForHttp(`http://127.0.0.1:${debugPort}/json/version`);
@@ -207,14 +210,18 @@ try {
     await selectScene(sceneId);
     await admin.waitFor(`document.querySelector('#scene-rehearsal-start')?.disabled === false`, `${sceneId} rehearsal start enabled`);
     await admin.click('#scene-rehearsal-start');
-    await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-scene')?.textContent.includes(${JSON.stringify(`Scene ${sceneId.split('-')[1]}`)})`, `${sceneId} ready`);
+    try {
+      await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-scene')?.textContent.includes(${JSON.stringify(`Scene ${sceneId.split('-')[1]}`)}) && !document.querySelector('#scene-rehearsal-ready').hidden`, `${sceneId} ready`);
+    } catch (error) {
+      throw new Error(`${error.message}; admin=${JSON.stringify(await admin.evaluate(`({ notice: document.querySelector('#notice').textContent, selection: document.querySelector('#rehearsal-scene-select').value, session: document.querySelector('#scene-rehearsal-session-toggle').textContent, ready: document.querySelector('#scene-rehearsal-ready-scene').textContent })`))}`);
+    }
   };
 
   const noCuePlayCount = await display.evaluate('window.__yokogawaAudioPlays.length');
   await startScene('scene-2');
   await admin.waitFor(`document.querySelector('#scene-rehearsal-ready-next')?.textContent.includes('このScene内に横川AI Cueはありません')`, 'no-AI-Cue ready message');
   await admin.waitFor(`document.querySelector('#show-next-button')?.disabled === true`, 'no-AI-Cue NEXT blocked');
-  await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent.includes('第一の謎')`, 'Scene 2 start state');
+  await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent === ''`, 'Scene 2 start state');
   if (await display.evaluate('window.__yokogawaAudioPlays.length') !== noCuePlayCount) throw new Error('Scene 2 start unexpectedly played audio');
   const scene2State = await display.evaluate(`({ preset: document.body.dataset.preset, caption: document.querySelector('#caption')?.textContent, overlay: document.body.dataset.overlay, visual: document.body.dataset.visual, transition: document.body.dataset.transitionStatus, unlock: document.body.dataset.unlockStatus })`);
   await admin.setViewport(1920, 1080); await admin.screenshot(path.join(artifactDirectory, 'admin-1920x1080-no-ai-cue.png'));
@@ -232,7 +239,7 @@ try {
 
   await display.send('Page.reload', { ignoreCache: false });
   await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Scene 2 Display reload');
-  await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent.includes('第一の謎') && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 2 reload final state only');
+  await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent === '' && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 2 reload final state only');
   if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Scene 2 Display reload replayed historical audio');
   await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('18 / 18 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'Scene 2 reload preload gate');
   await display.click('#enable-audio');
@@ -243,7 +250,7 @@ try {
   await display.waitFor(`window.__yokogawaAudioPlays.length > ${playsBeforeSceneNext} && window.__yokogawaAudioPlays.at(-1).includes('prod-voice-011-')`, 'Scene 6 NEXT uses tuned P-011');
   await admin.waitFor(`document.querySelector('#show-stop-button')?.disabled === false`, 'Scene 6 NEXT STOP'); await admin.click('#show-stop-button'); await delay(700);
 
-  const representative = ['prod-001', 'prod-004', 'prod-008', 'prod-013', 'prod-015', 'prod-016'];
+  const representative = ['prod-001', 'prod-004', 'prod-008', 'prod-013', 'prod-015', 'prod-v-stop-code'];
   for (const cueId of representative) {
     const cue = production.cues.find((item) => item.id === cueId);
     const selector = `.cue-item[data-cue-id="${cueId}"] [data-action="run"]`;
@@ -289,6 +296,105 @@ try {
   await admin.click('#show-blackout-clear-button');
   await display.waitFor(`document.querySelector('#blackout')?.hidden === true`, 'RESTORE');
 
+  const runCue = async (id) => {
+    const selector = `.cue-item[data-cue-id="${id}"] [data-action="run"]`;
+    await admin.waitFor(`document.querySelector(${JSON.stringify(selector)})?.disabled === false`, `${id} enabled`);
+    await admin.click(selector);
+  };
+  const stopCue = async () => {
+    await admin.waitFor(`document.querySelector('#show-stop-button')?.disabled === false`, 'STOP available');
+    await admin.click('#show-stop-button'); await delay(650);
+  };
+  // Real browser frames, at both auditorium output sizes; retain each phase for visual review.
+  let visualFrames = 0;
+  const visualFrameStates = [];
+  for (const [width, height] of [[1920, 1080], [1280, 720]]) {
+    await display.send('Page.bringToFront');
+    await display.setViewport(width, height);
+    const frame = async (name) => {
+      const state = await display.evaluate(`({ preset: document.body.dataset.preset, transition: document.body.dataset.transitionStatus, visual: document.querySelector('#scene-visual').dataset.mode, variant: document.body.dataset.operationVariant, caption: document.querySelector('#caption').textContent, at: Date.now() })`);
+      const capture = await display.send('Page.captureScreenshot', { format: 'jpeg', quality: 85, optimizeForSpeed: true, captureBeyondViewport: false });
+      await writeFile(path.join(artifactDirectory, `${width}x${height}-${name}.jpg`), Buffer.from(capture.data, 'base64'));
+      visualFrameStates.push({ width, height, name, ...state }); visualFrames++;
+    };
+    await runCue('prod-v-incident'); await delay(400); await frame('hijack-tear-1');
+    if (await display.evaluate(`document.querySelector('#caption').textContent !== ''`)) throw new Error('Hijack has stale subtitle');
+    await delay(700); await frame('hijack-tear-2'); await delay(1500); await frame('hijack-settled');
+    await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.body.dataset.transitionStatus === 'completed'`, 'purple HACK settled');
+
+    // One NEXT: prior Cue position -> merged riddle visual -> one WAV009.
+    await admin.click('.cue-item[data-cue-id="prod-008"] [data-action="jump"]'); await delay(650);
+    const riddleBefore = await display.evaluate('window.__yokogawaAudioPlays.length');
+    const riddleStart = await display.evaluate('Date.now()');
+    await admin.click('#show-next-button'); await delay(700);
+    if (await display.evaluate('window.__yokogawaAudioPlays.length') !== riddleBefore) throw new Error('P-V02 audio started before beat');
+    await frame('riddle-wait');
+    await display.waitFor(`window.__yokogawaAudioPlays.length === ${riddleBefore + 1} && window.__yokogawaAudioPlays.at(-1).includes('009-first-riddle')`, 'P-V02 WAV once');
+    if (await display.evaluate('window.__yokogawaAudioTimes.at(-1)') - riddleStart < 2150) throw new Error('P-V02 delay too short');
+    await frame('riddle-speech'); await stopCue();
+
+    await runCue('prod-011'); await delay(650); await frame('five-verified');
+    await display.waitFor(`document.querySelector('#scene-visual').dataset.mode === 'integration'`, 'five integration'); await delay(650); await frame('five-integrating');
+    await display.waitFor(`document.querySelector('#scene-visual').dataset.mode === 'reveal'`, 'final reveal'); await delay(400); await frame('final-problem'); await stopCue();
+    await runCue('prod-012'); await delay(650); await frame('authentication');
+    if (await display.evaluate(`!document.querySelector('#operation-progress').hidden || !document.querySelector('#unlock-gauges').hidden`)) throw new Error('Authentication uses percentage');
+    await stopCue();
+    await runCue('prod-v-unlock'); await delay(1600); await frame('six-gauges-running');
+    const count = await display.evaluate(`document.querySelector('#unlock-gauges').children.length`);
+    if (count !== 6) throw new Error(`Expected six gauges: ${count}`);
+    await display.waitFor(`[...document.querySelectorAll('#unlock-gauges i')].every(g => g.dataset.progress === '100%')`, 'all six at 100'); await frame('six-gauges-100');
+    await display.waitFor(`document.body.dataset.operationVariant === 'collapse'`, 'completion collapse'); await delay(300); await frame('unlock-collapse');
+    await display.waitFor(`document.body.dataset.operationVariant === 'anomaly'`, 'success anomaly'); await frame('unlock-anomaly');
+    if (await display.evaluate(`!document.querySelector('#unlock-gauges').hidden`)) throw new Error('100% gauges persisted');
+    await runCue('prod-013'); await delay(650); await frame('emergency-error'); await stopCue();
+    await runCue('prod-014'); await delay(650); await frame('contact-error'); await stopCue();
+
+    await runCue('prod-v-hostile-enter'); await delay(1400);
+    await admin.click('.cue-item[data-cue-id="prod-v-emergency-riddle"] [data-action="jump"]'); await delay(650);
+    const stopBefore = await display.evaluate('window.__yokogawaAudioPlays.length');
+    const stopStart = await display.evaluate('Date.now()');
+    await admin.click('#show-next-button'); await delay(600);
+    if (await display.evaluate('window.__yokogawaAudioPlays.length') !== stopBefore) throw new Error('P-V06 missed silence');
+    await frame('stop-silence');
+    await display.waitFor(`window.__yokogawaAudioPlays.length === ${stopBefore + 1} && window.__yokogawaAudioPlays.at(-1).includes('016-shutdown')`, 'P-V06 speech once');
+    if (await display.evaluate('window.__yokogawaAudioTimes.at(-1)') - stopStart < 1750) throw new Error('P-V06 delay too short');
+    await frame('stop-speech'); await delay(4400); await frame('shutdown-settled');
+    await startScene('scene-7');
+    if (await display.evaluate(`document.querySelector('#caption').textContent !== ''`)) throw new Error('Scene 7 stale subtitle');
+    await runCue('prod-v-recovery'); await delay(1800); await frame('recovery-progress');
+    await display.waitFor(`document.querySelector('#operation-progress-label').textContent === '100%'`, 'recovery 100'); await frame('recovery-100');
+    await display.waitFor(`document.body.dataset.preset === 'normal' && document.querySelector('#operation-overlay').hidden`, 'recovery NORMAL'); await delay(1600); await frame('recovery-normal');
+    await display.send('Page.reload', {});
+    await display.waitFor(`document.querySelector('#connection').textContent === 'ONLINE' && document.body.dataset.preset === 'normal' && document.querySelector('#operation-overlay').hidden`, 'recovery reload NORMAL');
+    if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Reload duplicated audio');
+    await display.waitFor(`document.querySelector('#audio-help').textContent.includes('18 / 18 READY')`, 'visual reload preload');
+    await display.click('#enable-audio'); await delay(650);
+  }
+  await writeFile(path.join(artifactDirectory, 'visual-frame-states.json'), JSON.stringify(visualFrameStates, null, 2));
+
+  // Cancel during the silence, then wait past the old deadline: no orphan WAV.
+  for (const cueId of ['prod-v-riddle-enter', 'prod-v-stop-code']) {
+    for (const operation of ['stop', 'rehearsal', 'reset']) {
+      const before = await display.evaluate('window.__yokogawaAudioPlays.length');
+      await runCue(cueId); await delay(650);
+      if (operation === 'stop') await stopCue();
+      if (operation === 'rehearsal') await startScene('scene-6');
+      if (operation === 'reset') {
+        await admin.evaluate(`(() => { window.confirm = () => true; document.querySelector('#reset-button').click(); })()`);
+      }
+      await delay(2400);
+      if (await display.evaluate('window.__yokogawaAudioPlays.length') !== before) throw new Error(`${cueId} stale WAV after ${operation}`);
+    }
+    await runCue(cueId); await delay(650);
+    const before = await display.evaluate('window.__yokogawaAudioPlays.length');
+    await admin.click('#show-replay-button');
+    await display.waitFor(`window.__yokogawaAudioPlays.length === ${before + 1}`, `${cueId} REPLAY once`);
+    await delay(800);
+    if (await display.evaluate('window.__yokogawaAudioPlays.length') !== before + 1) throw new Error(`${cueId} REPLAY double WAV`);
+    await stopCue();
+  }
+  await admin.click('#show-back-button'); await delay(650);
+
   await startScene('scene-7');
   await display.waitFor(`document.body.dataset.preset === 'shutdown' && document.body.dataset.transitionStatus !== 'active'`, 'Scene 7 settled state before restart');
   const errorsBeforeRestart = [admin.errors.length, display.errors.length];
@@ -326,8 +432,9 @@ try {
 
   console.log(JSON.stringify({
     status: 'PASS', viewport: [1920, 1080], preload: '18/18', cues: representative,
-    sceneRehearsal: ['scene-2:no-cue', 'scene-6:P-011', 'scene-7:reconnect'], screenshots: 4,
-    controls: ['NEXT', 'STOP', 'REPLAY', 'BLACKOUT', 'RESTORE'], reconnectReady: true, reloadReady: true,
+    sceneRehearsal: ['scene-2:empty-reload', 'scene-6:P-011', 'scene-7:shutdown-reconnect'], screenshots: visualFrames + 4,
+    visualViewports: [[1920,1080],[1280,720]], mergedCancellation: ['STOP','REPLAY','Rehearsal','Reset'],
+    controls: ['NEXT', 'BACK', 'STOP', 'REPLAY', 'BLACKOUT', 'RESTORE'], reconnectReady: true, reloadReady: true,
     productionAssetRequests: assetRequests.length, externalBrowserRequests: 0, browserErrors: 0,
   }));
 } finally {

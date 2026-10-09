@@ -87,10 +87,23 @@ export function normalizeVisual(input = {}) {
 
 export function normalizeTiming(input = {}) {
   return {
+    speechDelayMs: Math.round(finite(input?.speechDelayMs, 0, 0, 30_000)),
     autoClearOverlayMs: input?.autoClearOverlayMs == null ? null : Math.round(finite(input.autoClearOverlayMs, 0, 0, 600_000)),
     autoHideVisualMs: input?.autoHideVisualMs == null ? null : Math.round(finite(input.autoHideVisualMs, 0, 0, 600_000)),
     unlockDurationMs: Math.round(finite(input?.unlockDurationMs, 5000, 3000, 10_000)),
   };
+}
+
+// A Cue timeline contains presentation changes only; audio remains one existing asset.
+export function normalizeSequence(input) {
+  return (Array.isArray(input) ? input : []).slice(0, 20).map((phase) => ({
+    atMs: Math.round(finite(phase.atMs, 0, 0, 30_000)),
+    ...(phase.overlay ? { overlay: normalizeOverlay(phase.overlay) } : {}),
+    ...(phase.visual ? { visual: normalizeVisual(phase.visual) } : {}),
+    ...(phase.presentationPreset ? { presentationPreset: id(phase.presentationPreset, 'normal') } : {}),
+    ...(phase.avatar ? { avatar: normalizeAvatar(phase.avatar) } : {}),
+    ...(phase.clearSubtitle === true ? { clearSubtitle: true } : {}),
+  })).sort((a, b) => a.atMs - b.atMs);
 }
 
 export function normalizeSyncMarkers(input) {
@@ -169,7 +182,7 @@ export function normalizeCue(input = {}, order = 0) {
     avatar: { visible: input.avatar?.visible !== false, state: avatarState },
     audio: { speechMode, assetId: audioAsset, lipSyncMode, playbackEffect },
     transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
-    visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing),
+    visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing), sequence: normalizeSequence(input.sequence),
     syncMarkers: normalizeSyncMarkers(input.syncMarkers),
     order: Number.isFinite(Number(input.order)) ? Number(input.order) : order,
     cueId, cueNumber: text(input.cueNumber, 20) || String(order + 1).padStart(3, '0'), cueName,
@@ -195,6 +208,11 @@ export function validateShowFile(input) {
   const sceneIds = new Set((Array.isArray(input.scenes) ? input.scenes : []).map((item) => item.sceneId ?? item.id));
   const groupIds = new Set((Array.isArray(input.groups) ? input.groups : []).map((item) => item.id));
   for (const cue of cues) {
+    for (const phase of cue.sequence) {
+      if (cue.transition.id === 'none' || phase.atMs > cue.transition.durationMs) errors.push(`CUE_SEQUENCE_OUTSIDE_TRANSITION:${cue.id}`);
+      if (phase.presentationPreset && !presetIds.has(phase.presentationPreset)) errors.push(`CUE_SEQUENCE_PRESET_NOT_FOUND:${cue.id}`);
+      if (phase.visual?.type === 'image' && !isImageAsset(assets.find(asset => asset.id === phase.visual.assetId))) errors.push(`CUE_SEQUENCE_IMAGE_NOT_FOUND:${cue.id}`);
+    }
     if (cue.scene && !sceneIds.has(cue.scene)) errors.push(`CUE_SCENE_NOT_FOUND:${cue.id}`);
     if (!presetIds.has(cue.presentationPreset)) errors.push(`CUE_PRESET_NOT_FOUND:${cue.id}`);
     if (cue.target.type === 'group' && !groupIds.has(cue.target.id)) errors.push(`CUE_GROUP_NOT_FOUND:${cue.id}`);

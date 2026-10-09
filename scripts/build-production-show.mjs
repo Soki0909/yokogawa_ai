@@ -74,6 +74,7 @@ function visualCue(id, number, name, scene, state, order, fields = {}) {
     ...(fields.overlay ? { overlay: fields.overlay } : {}),
     ...(fields.visual ? { visual: fields.visual } : {}),
     ...(fields.timing ? { timing: fields.timing } : {}),
+    ...(fields.sequence ? { sequence: fields.sequence } : {}),
     ...(fields.syncMarkers ? { syncMarkers: fields.syncMarkers } : {}),
   };
 }
@@ -87,9 +88,9 @@ const mainCues = [
     operatorNote: 'Production起動Cue。非表示STANDBYからAvatarをrevealし、WAV001終了後もNORMALを保持する。',
   }),
   speechCue('002', 20), speechCue('003', 30), speechCue('004', 40),
-  visualCue('prod-v-incident', 'P-V01', '映像異常開始', 'scene-1', 'warning', 50, {
-    displayText: 'UNIDENTIFIED SIGNAL DETECTED', transition: { id: 'anomaly', durationMs: 1200, intensity: 0.8 },
-    operatorNote: 'WAV004完了後、台本「モニターの横川AIの映像に、不自然なノイズが走る」でGO。ここではFULL HIJACKEDへ進めない。出演者の調査芝居を待つ。',
+  visualCue('prod-v-incident', 'P-V01', '映像乱れ・制御奪取', 'scene-1', 'hijacked', 50, {
+    transition: { id: 'anomaly', durationMs: 2400, intensity: 1 },
+    operatorNote: 'WAV004完了後、台本「突然、モニターの映像が乱れる」でGO。全画面の水平断裂から紫HACKへ定着。字幕なしで出演者の調査芝居を待つ。',
     triggerNote: 'WAV004完了後、映像ノイズ開始の舞台監督合図でGO',
     syncMarkers: [
       { department: 'LX', id: 'ALIGN-LX-ANOMALY', note: '照明明滅。記述用markerであり正式照明Cue番号ではない。' },
@@ -109,44 +110,50 @@ const mainCues = [
     audio: { speechMode: 'audio-file', assetId: byId.get(scriptId).assetId, lipSyncMode: 'audio-reactive', playbackEffect: 'hijacked-subtle-v1' },
     operatorNote: `現行台本 scene-1 / 7・201 / 発話${scriptId}。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。`,
   })),
-  visualCue('prod-v-riddle-enter', 'P-V02', '五つの謎・第1問開始', 'scene-1', 'hijacked', 100, {
-    displayText: 'FIVE RIDDLES — FIRST: 7・201', transition: { id: 'riddle-enter', durationMs: 1300, intensity: 1 },
-    overlay: { id: 'riddle-active', visible: true, title: 'RIDDLE ACTIVE', message: 'FIRST LOCATION — 7・201' },
-    visual: { id: 'riddle-five', type: 'riddle-status', visible: true, title: '5 QUESTIONS', message: 'FIRST — 7・201', items: ['01 ACTIVE', '02', '03', '04', '05'] },
-    operatorNote: '台本にある「五つの謎」「第一の謎」「7・201」だけを表示。問題本文は未提供のため表示しない。',
-    triggerNote: 'WAV008終了後、画面変化の合図でGO',
-  }),
-  speechCue('009', 110, {
+  speechCue('009', 100, {
+    id: 'prod-v-riddle-enter', cueNumber: 'P-V02', name: '五つの謎・第1問開始＋台本009',
+    transition: { id: 'riddle-enter', durationMs: 2300, intensity: 1 },
+    timing: { speechDelayMs: 2300 },
     audio: { speechMode: 'audio-file', assetId: byId.get('009').assetId, lipSyncMode: 'audio-reactive', playbackEffect: 'hijacked-subtle-v1' },
-    operatorNote: '現行台本 scene-1 / 7・201 / 発話009。HIJACKED状態とsubtle voice effectを継続。',
+    visual: { id: 'riddle-five', type: 'riddle-status', visible: true, title: '五つの謎', message: '第一の謎 — 7・201', items: ['01 ACTIVE', '02', '03', '04', '05'] },
+    operatorNote: '1 GOで画面変化→定着→2.3秒後に既存WAV009。問題本文は未提供のため表示しない。',
+    triggerNote: 'WAV008終了後、画面変化の合図でGO',
   }),
   speechCue('010', 120, {
     name: '五条件達成・201集合',
-    overlay: { id: 'all-conditions-met', visible: true, title: 'ALL CONDITIONS MET', message: 'PROCEED TO 201', progress: 100 },
+    overlay: { id: 'all-conditions-met', visible: true, title: 'ALL CONDITIONS MET', message: 'PROCEED TO 201' },
+    timing: { autoClearOverlayMs: 7000 },
     visual: { id: 'riddle-complete', type: 'riddle-status', visible: true, title: '5 / 5 COMPLETE', items: ['01 ✓', '02 ✓', '03 ✓', '04 ✓', '05 ✓'] },
     operatorNote: '現行台本Scene 5の館内放送。五つ目の謎が解け、全条件達成後にGO。横シーン5専用018とは別routeのため同時実行しない。',
     triggerNote: 'Scene 5「すべての条件が満たされました」の舞台進行でGO',
   }),
   speechCue('011', 130, {
-    name: '最終問題提示', transition: { id: 'final-challenge-enter', durationMs: 1700, intensity: 1 },
-    overlay: { id: 'final-challenge', visible: true, title: 'FINAL CHALLENGE', message: 'ENTER THE FIVE ANSWERS' },
-    visual: { id: 'final-input', type: 'final-challenge', visible: true, title: 'AUTHORIZATION SEQUENCE', message: '5 KEYS REQUIRED', items: ['I', 'II', 'III', 'IV', 'V'] },
+    name: '五つ達成・統合・最終問題', transition: { id: 'final-challenge-enter', durationMs: 4800, intensity: 1 },
+    visual: { id: 'five-verified', type: 'riddle-status', mode: 'five-complete', visible: true, title: '五つの解を確認', message: '5 / 5 VERIFIED', items: ['01 ✓', '02 ✓', '03 ✓', '04 ✓', '05 ✓'] },
+    sequence: [
+      { atMs: 2000, visual: { id: 'five-integrating', type: 'riddle-status', mode: 'integration', visible: true, title: '五つの解を統合', message: 'INTEGRATING', items: ['01 ✓', '02 ✓', '03 ✓', '04 ✓', '05 ✓'] } },
+      { atMs: 4200, visual: { id: 'final-input', type: 'final-challenge', mode: 'reveal', visible: true, title: '最終問題', message: '最終問題の回答を入力しなさい', items: ['I', 'II', 'III', 'IV', 'V'] } },
+    ],
   }),
   speechCue('012', 140, {
     name: '認証成功・開錠開始', transition: { id: 'auth-success', durationMs: 1000, intensity: 1 },
-    overlay: { id: 'authentication-success', visible: true, title: 'AUTHENTICATION SUCCESS', message: 'UNLOCK SEQUENCE READY', progress: 100 },
+    overlay: { id: 'authentication-success', visible: true, title: '認証成功', message: 'AUTHENTICATED — 解錠処理を許可' },
     operatorNote: 'WAV012認証成功。終了後に電子音SE、続いて開錠進行Cueを手動GO。ここではHIJACKED状態を保持する。',
     syncMarkers: [{ department: 'SE', id: 'ALIGN-SE-AUTH-CHIME-AFTER', note: 'WAV012終了後に電子音。記述用markerであり正式音響Cue番号ではない。' }],
   }),
   visualCue('prod-v-unlock', 'P-V03', '開錠進行', 'scene-6', 'warning', 150, {
-    displayText: 'LOCK RELEASE IN PROGRESS', transition: { id: 'unlock-start', durationMs: 1200, intensity: 1 },
-    overlay: { id: 'unlocking', visible: true, title: 'UNLOCKING', message: 'AUTH / CORE / GATE', progress: 0 },
-    timing: { unlockDurationMs: 5000 }, operatorNote: '電子音SE後に手動GO。複数ゲージを0→100%へ進め、到達後もEmergency Cueまで保持。自動進行しない。',
+    transition: { id: 'unlock-start', durationMs: 7400, intensity: 1 },
+    overlay: { id: 'unlocking', visible: true, title: '解錠処理', message: 'SECURITY RELEASE', progress: 0 },
+    timing: { unlockDurationMs: 5000 }, operatorNote: '電子音SE後にGO。6系統→100%を0.9秒保持→ゲージ収束→不穏なstable状態。役者の芝居を待つ。',
+    sequence: [
+      { atMs: 5900, overlay: { id: 'unlocking', variant: 'collapse', visible: true, title: '解錠完了', message: 'RELEASE COMPLETE' } },
+      { atMs: 6800, overlay: { id: 'unlocking', variant: 'anomaly', visible: true, title: '解錠完了', message: 'RELEASE COMPLETE' }, clearSubtitle: true },
+    ],
     triggerNote: 'WAV012終了後の電子音SEを確認してGO',
   }),
   speechCue('013', 160, {
     name: '緊急遮断', transition: { id: 'emergency-interrupt', durationMs: 900, intensity: 1 },
-    overlay: { id: 'emergency-protection', visible: true, title: 'EMERGENCY PROTECTION', message: 'UNLOCK SEQUENCE INTERRUPTED' },
+    overlay: { id: 'connection-failed', visible: true, title: 'ERROR — 緊急遮断', message: '解錠停止 / スタッフへの連絡失敗' },
     operatorNote: '警告SE完了後にWAV013をGO。開錠100%表示から割り込ませる。',
     triggerNote: '虎谷の端末操作→警告SE完了後にGO',
     syncMarkers: [{ department: 'SE', id: 'ALIGN-SE-WARNING-BEFORE-013', note: 'WAV013より前に警告音。記述用markerであり正式音響Cue番号ではない。' }],
@@ -180,31 +187,29 @@ const mainCues = [
     operatorNote: '非常停止問題の表示container。台本で問題本文・ヒント内容が未確定のため創作しない。素材受領後に差し替える。',
     triggerNote: 'WAV015後、非常停止の謎を提示する舞台進行でGO',
   }),
-  visualCue('prod-v-stop-code', 'P-V06', '停止コード・システム停止', 'scene-6', 'shutdown', 210, {
-    displayText: 'STOP CODE ACCEPTED — SYSTEM SHUTDOWN', transition: { id: 'shutdown', durationMs: 1800, intensity: 1 },
-    overlay: { id: 'system-shutdown', visible: true, title: 'SYSTEM SHUTDOWN', message: 'ALL PROCESSES SUSPENDED' },
-    operatorNote: '停止コード入力でGO。警報・照明明滅・HOSTILE motionを停止してSHUTDOWNへ移行し、その後WAV016を実行する。',
+  speechCue('016', 210, {
+    id: 'prod-v-stop-code', cueNumber: 'P-V06', name: '停止コード・システム全停止＋台本016',
+    transition: { id: 'shutdown', durationMs: 1900, intensity: 1 },
+    timing: { speechDelayMs: 1900 },
+    overlay: { id: 'system-shutdown', visible: true, title: 'システム全停止', message: 'ALL PROCESSES SUSPENDED' },
+    operatorNote: '1 GOで暴走を即停止→1.2秒のcut→0.7秒の静寂→既存WAV016を一度再生。終了後はSHUTDOWNを保持。',
     triggerNote: '非常停止コード入力成立の瞬間にGO',
     syncMarkers: [
       { department: 'SE', id: 'ALIGN-SE-ALARM-STOP', note: '警報STOP。記述用markerであり正式音響Cue番号ではない。' },
       { department: 'LX', id: 'ALIGN-LX-FLICKER-STOP', note: '照明明滅STOP。記述用markerであり正式照明Cue番号ではない。' },
       { department: 'ACT', id: 'ALIGN-ACT-RUNAWAY-STOP', note: '機械設備の暴走芝居を停止。' },
-    ],
-  }),
-  speechCue('016', 220, {
-    name: 'システム全停止',
-    overlay: { id: 'system-shutdown', visible: true, title: 'SYSTEM SHUTDOWN', message: 'ALL PROCESSES SUSPENDED' },
-    operatorNote: '停止コードCueのshutdown transition後にWAV016。終了後も長時間SHUTDOWNを保持し、RECOVERYへ自動進行しない。',
-    triggerNote: '停止コードCueのtransition開始後にGO',
-    syncMarkers: [
-      { department: 'SE', id: 'ALIGN-SE-DOOR-UNLOCK-AFTER-016', note: 'WAV016終了後に扉解錠音。記述用markerであり正式音響Cue番号ではない。' },
-      { department: 'ACT', id: 'ALIGN-ACT-CHECK-DOOR', note: '馬場・久保が扉を確認する芝居。' },
+      { department: 'SE', id: 'ALIGN-SE-DOOR-UNLOCK-AFTER-016', note: '統合CueのWAV016終了後に扉解錠音。' },
+      { department: 'ACT', id: 'ALIGN-ACT-CHECK-DOOR', note: '馬場・窪が扉を確認する芝居。' },
     ],
   }),
   visualCue('prod-v-recovery', 'P-V07', '復旧開始', 'scene-7', 'recovery', 230, {
-    displayText: 'SYSTEM RESTORING', transition: { id: 'recovery', durationMs: 2200, intensity: 1 },
-    overlay: { id: 'restoring', visible: true, title: 'RESTORING', message: 'SYSTEM SYNCHRONIZATION', progress: 72 },
-    operatorNote: '台本Scene 7、横川AI復旧の舞台進行に合わせてGO。',
+    transition: { id: 'recovery', durationMs: 6000, intensity: 1 },
+    overlay: { id: 'restoring', visible: true, title: 'システム復旧', message: 'SYSTEM SYNCHRONIZATION', progress: 0 },
+    sequence: [
+      { atMs: 3800, overlay: { id: 'restoring', visible: true, title: '復旧完了', message: 'SYSTEM SYNCHRONIZED', progress: 100 } },
+      { atMs: 4600, overlay: { id: 'none' }, presentationPreset: 'normal', avatar: { ...demo.avatar, visible: true, state: 'normal', lipSyncMode: 'none' }, clearSubtitle: true },
+    ],
+    operatorNote: '虎谷が執念を手放すScene 7のタイミングでGO。100%→UI消去→温かな光→NORMALまで1 Cue。',
   }),
   speechCue('017', 240, {
     name: '全五問正解・通常復帰', enabled: false, transition: { id: 'normalize', durationMs: 1400, intensity: 1 },
@@ -221,7 +226,7 @@ const mainShow = {
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
     sceneStructureSource: {
       documentId: '16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo',
-      revisionId: 'ANLCKQn2B1C85Cdk8kqXy2V7gTeD4QxQWOP2Y1SdHtkg_xKHhgmvWV0V4zHe-LJn583X0Oli8hdJ4f8v3g4W8o3tVZpgXWeZAhOZbGdclKw',
+      revisionId: 'AHj4eMQHSQoNSp9V1tmbaOGg_5sSZrsBzpsDqI2tvQm-qYGEG61B-pTVD-8fVzEXPgUKHGGxwLt_cO-qMsdW9_3RnHxxrZvaGn2hdiB8MkA',
       tabCount: 14,
     },
   },

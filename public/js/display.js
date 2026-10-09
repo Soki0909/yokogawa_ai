@@ -122,7 +122,9 @@ function applyPresentation(presentation = {}, preset = null) {
       hostile: 'CONTAINMENT FAILED', shutdown: 'SYSTEM OFFLINE', recovery: 'SYNC RESTORING',
     })[preset.id] ?? 'CUSTOM PROFILE';
   }
-  if (presentation.kind === 'clear') showCaption(''); else if (presentation.displayText && presentation.kind !== 'speech-only') showCaption(presentation.displayText);
+  if ('currentSubtitle' in presentation) showCaption(presentation.currentSubtitle);
+  else if (presentation.kind === 'clear') showCaption('');
+  else if (presentation.displayText && presentation.kind !== 'speech-only') showCaption(presentation.displayText);
   if (presentation.avatar) {
     const visible = presentation.avatar.visible !== false;
     elements['avatar-wrap'].hidden = !visible;
@@ -135,6 +137,15 @@ function applyPresentation(presentation = {}, preset = null) {
   if (presentation.overlay) renderOverlay(presentation.overlay);
   if (presentation.visual) renderVisual(presentation.visual);
   if (presentation.unlock) renderUnlock(presentation.unlock);
+  if (presentation.overlay?.id === 'restoring' && presentation.transition?.status === 'active') {
+    const transition = presentation.transition;
+    const draw = () => {
+      const elapsed = Math.max(0, Date.now() - Date.parse(transition.startedAt));
+      updateProgress(Math.min(100, elapsed / 3800 * 100));
+      if (elapsed < 3800) unlockFrame = requestAnimationFrame(draw);
+    };
+    draw();
+  }
   const systemState = systemStates.has(document.body.dataset.preset) ? document.body.dataset.preset : elements['avatar-wrap'].dataset.state;
   elements['avatar-wrap'].dataset.systemState = systemState;
   blink.update({ visible: !elements['avatar-wrap'].hidden, state: systemState, blackout: presentation.blackout === true });
@@ -160,6 +171,8 @@ function renderOverlay(overlay = {}) {
   const visible = overlay.visible === true && overlay.id !== 'none';
   elements['operation-overlay'].hidden = !visible;
   elements['operation-overlay'].dataset.overlay = overlay.id ?? 'none';
+  elements['operation-overlay'].dataset.variant = overlay.variant ?? 'default';
+  document.body.dataset.operationVariant = overlay.variant ?? 'default';
   document.body.dataset.overlay = overlay.id ?? 'none';
   elements['operation-title'].textContent = overlay.title || String(overlay.id ?? '').replaceAll('-', ' ');
   elements['operation-message'].textContent = overlay.message ?? '';
@@ -175,6 +188,7 @@ function renderVisual(visual = {}) {
   const visible = visual.visible === true && visual.type !== 'none';
   elements['scene-visual'].hidden = !visible;
   elements['scene-visual'].dataset.type = visual.type ?? 'none';
+  elements['scene-visual'].dataset.mode = visual.mode ?? 'default';
   document.body.dataset.visual = visible ? visual.type : 'none';
   elements['scene-visual-label'].textContent = visual.mode && visual.mode !== 'default' ? visual.mode.toUpperCase() : 'SCENE VISUAL';
   elements['scene-visual-title'].textContent = visual.title || String(visual.id ?? '').replaceAll('-', ' ');
@@ -183,7 +197,11 @@ function renderVisual(visual = {}) {
   elements['scene-visual-image'].hidden = !showImage;
   if (showImage) { elements['scene-visual-image'].src = `/api/assets/${encodeURIComponent(visual.assetId)}`; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
   else elements['scene-visual-image'].removeAttribute('src');
-  elements['scene-visual-items'].replaceChildren(...(visual.items ?? []).map((value) => { const item = document.createElement('li'); item.textContent = value; return item; }));
+  const signature = JSON.stringify([visual.id, visual.items]);
+  if (elements['scene-visual-items'].dataset.signature !== signature) {
+    elements['scene-visual-items'].dataset.signature = signature;
+    elements['scene-visual-items'].replaceChildren(...(visual.items ?? []).map((value, index) => { const item = document.createElement('li'); item.textContent = value; item.style.setProperty('--node-index', index); return item; }));
+  }
   if (visible && visual.expiresAt) visualTimer = window.setTimeout(() => { elements['scene-visual'].hidden = true; document.body.dataset.visual = 'none'; }, Math.max(0, Date.parse(visual.expiresAt) - Date.now()));
 }
 
@@ -193,7 +211,7 @@ function updateProgress(progress) {
   elements['operation-progress-value'].style.width = `${value}%`;
   elements['operation-progress-label'].textContent = `${Math.round(value)}%`;
   for (const [index, gauge] of [...elements['unlock-gauges'].children].entries()) {
-    const gaugeValue = Math.min(100, Math.max(0, value * 1.12 - index * 6));
+    const gaugeValue = value >= 100 ? 100 : Math.min(100, Math.max(0, (value - index * 4) / (100 - index * 4) * 100));
     gauge.style.setProperty('--gauge-progress', String(gaugeValue));
     const meter = gauge.querySelector('i');
     if (meter) meter.dataset.progress = `${Math.round(gaugeValue)}%`;
@@ -202,7 +220,8 @@ function updateProgress(progress) {
 
 function renderUnlock(unlock = {}) {
   cancelAnimationFrame(unlockFrame);
-  const relevantOverlay = ['unlocking', 'emergency-protection', 'unlock-aborted'].includes(elements['operation-overlay'].dataset.overlay);
+  const relevantOverlay = ['unlocking', 'emergency-protection', 'unlock-aborted'].includes(elements['operation-overlay'].dataset.overlay)
+    && elements['operation-overlay'].dataset.variant === 'default';
   const relevant = relevantOverlay && unlock.status && unlock.status !== 'idle';
   elements['unlock-gauges'].hidden = !relevant;
   document.body.dataset.unlockStatus = relevant ? unlock.status : 'idle';
@@ -223,8 +242,8 @@ function handleEvent(event) {
     isAudioMaster = event.isAudioMaster === true;
     audioReadySent = event.self?.audioReady === true;
     const restoredText = event.self?.currentSubtitle;
-    if (restoredText) showCaption(restoredText);
-    applyPresentation({ displayText: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
+    showCaption(restoredText);
+    applyPresentation({ currentSubtitle: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
       transition: event.state.currentTransition, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
     document.body.dataset.reducedMotion = String(event.state.settings?.reducedMotion === true);
     elements['audio-help'].textContent = isAudioMaster
@@ -251,13 +270,13 @@ function handleEvent(event) {
   } else if (event.type === 'presentation') {
     applyPresentation(event.presentation, event.preset);
   } else if (event.type === 'stop') {
-    speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); document.body.dataset.transitionStatus = 'stopped';
+    speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); document.body.dataset.transitionStatus = 'stopped';
   } else if (event.type === 'settings') {
     settings = event.settings; elements.caption.hidden = !settings.subtitlesEnabled;
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); clearTimeout(overlayTimer); clearTimeout(visualTimer); elements.caption.textContent = '待機しています'; elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
+    speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); showCaption(''); elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
     elements['identify-name'].textContent = identity.displayName;
@@ -272,6 +291,7 @@ function showCaption(text) {
   elements.caption.textContent = normalized;
   elements.caption.dataset.length = normalized.length > 100 ? 'extra-long' : normalized.length > 64 ? 'long' : normalized.length > 32 ? 'medium' : 'short';
   elements.caption.hidden = !settings.subtitlesEnabled;
+  document.body.dataset.captionEmpty = String(!normalized);
 }
 function setMode(label, state) {
   elements['mode-label'].textContent = label; elements.orb.dataset.state = state;

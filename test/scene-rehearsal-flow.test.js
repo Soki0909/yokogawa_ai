@@ -14,6 +14,36 @@ function connect(port, role, display) {
 }
 const close = (client) => new Promise((resolve) => { if (client.socket.readyState === WebSocket.CLOSED) return resolve(); client.socket.once('close', resolve); client.socket.close(); });
 
+test('merged Cue server runtime cancels pending audio on STOP/Reset/Rehearsal and REPLAY dispatches once', { timeout: 30_000 }, async (t) => {
+  const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-merged-cue-'));
+  const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs'), AIVIS_ENGINE_URL: 'http://127.0.0.1:9' }, stdio: 'ignore' });
+  t.after(() => child.kill('SIGTERM')); await waitForHealth(port);
+  const production = JSON.parse(await readFile('shows/production.json', 'utf8'));
+  // Exercise the actual scheduler quickly; production timing values are tested separately.
+  for (const cue of production.cues.filter(c => ['prod-v-riddle-enter', 'prod-v-stop-code'].includes(c.id))) {
+    cue.timing.speechDelayMs = 200; cue.transition.durationMs = 200;
+  }
+  assert.ok((await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(production) })).ok);
+  const admin = await connect(port, 'admin'); const display = await connect(port, 'display', { displayId: 'stage', audioEnabled: true });
+  t.after(async () => Promise.all([admin, display].map(close)));
+  display.send({ type: 'audio:ready' }); await admin.next(e => e.type === 'state' && e.state.displayAudioReady);
+  admin.send({ type: 'rehearsal:start' }); await admin.next(e => e.type === 'state' && e.state.rehearsalSession?.active);
+  for (const cueId of ['prod-v-riddle-enter', 'prod-v-stop-code']) {
+    for (const operation of [{ type: 'stop' }, { type: 'show:reset' }, { type: 'scene:rehearsal-start', sceneId: 'scene-6' }]) {
+      admin.send({ type: 'cue:execute', cueId }); await display.next(e => e.type === 'presentation');
+      admin.send(operation);
+      await assert.rejects(display.next(e => e.type === 'speak' && e.message.cueId === cueId, 350), /timeout/);
+    }
+    admin.send({ type: 'cue:execute', cueId }); await display.next(e => e.type === 'presentation');
+    admin.send({ type: 'cue:replay' });
+    const speech = await display.next(e => e.type === 'speak' && e.message.cueId === cueId);
+    assert.equal(speech.shouldSpeak, true);
+    await assert.rejects(display.next(e => e.type === 'speak' && e.message.cueId === cueId, 350), /timeout/);
+    display.send({ type: 'playback', id: speech.message.id, status: 'completed' });
+    await admin.next(e => e.type === 'state' && e.state.playbackStatus === 'completed');
+  }
+});
+
 test('scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安全に接続する', { timeout: 30_000 }, async (t) => {
   const port = await freePort(); const directory = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-scene-rehearsal-'));
   const child = spawn(process.execPath, ['src/server.js'], { cwd: process.cwd(), env: { ...process.env, PORT: String(port), HOST: '127.0.0.1', STATE_FILE: path.join(directory, 'state.json'), LOG_DIRECTORY: path.join(directory, 'logs'), AIVIS_ENGINE_URL: 'http://127.0.0.1:9' }, stdio: 'ignore' });
@@ -30,7 +60,7 @@ test('scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安�
   admin.send({ type: 'scene:rehearsal-start', sceneId: 'scene-2', actionId: 'scene-2-once' });
   await display.next((event) => event.type === 'stop');
   const restored = await display.next((event) => event.type === 'state' && event.state.currentPresetId === 'hijacked');
-  assert.equal(restored.state.currentSubtitle, '第一の謎は、この201にあります');
+  assert.equal(restored.state.currentSubtitle, null);
   const ready = await admin.next((event) => event.type === 'state' && event.state.sceneRehearsal?.sceneId === 'scene-2');
   assert.equal(ready.state.currentCue, null); assert.equal(ready.state.nextCue, null);
   await assert.rejects(display.next((event) => ['presentation', 'speak'].includes(event.type), 250), /timeout/);
@@ -45,7 +75,7 @@ test('scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安�
   const scene6 = await admin.next((event) => event.type === 'state' && event.state.sceneRehearsal?.sceneId === 'scene-6');
   assert.equal(scene6.state.nextCue.cueId, 'prod-011');
   admin.send({ type: 'cue:next', actionId: 'scene-6-next' });
-  await display.next((event) => event.type === 'presentation' && event.presentation.displayText === production.cues.find((cue) => cue.id === 'prod-011').displayText);
+  await display.next((event) => event.type === 'presentation' && event.presentation.visual.id === 'five-verified');
   const speech = await display.next((event) => event.type === 'speak' && event.message.cueId === 'prod-011');
   assert.equal(speech.shouldSpeak, true); assert.equal(speech.message.audio.assetId, 'prod-voice-011-final-challenge');
 

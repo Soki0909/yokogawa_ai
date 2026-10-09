@@ -5,6 +5,7 @@ import express from 'express';
 import { WebSocketServer, WebSocket } from 'ws';
 import QRCode from 'qrcode';
 import { StateStore } from './state-store.js';
+import { CueScheduler } from './cue-scheduler.js';
 import { createLogger } from './logger.js';
 import { accessUrls, connectionInfo } from './network.js';
 import { createTestToneWav, productionAudioPreloadManifest, resolveLocalAsset } from './local-audio.js';
@@ -61,6 +62,7 @@ app.get('/api/show-file', (_request, response) => {
 });
 app.post('/api/show-file/validate', (request, response) => response.json(store.importShowFile(request.body, { apply: false })));
 app.post('/api/show-file/import', (request, response) => {
+  cueScheduler.cancel();
   const result = store.importShowFile(request.body, { apply: true });
   response.status(result.valid ? 200 : 422).json(result);
   if (result.valid) broadcastState();
@@ -118,6 +120,7 @@ app.get('/api/qr', async (request, response) => {
 const server = http.createServer(app);
 const websocketServer = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
 const clients = new Map();
+const cueScheduler = new CueScheduler();
 const handledActionIds = new Map();
 let sceneRehearsalInProgress = false;
 
@@ -189,18 +192,21 @@ function dispatchPresentation(action) {
 }
 
 function schedulePresentationSettlement(action) {
+  const elapsed = action.transition?.startedAt ? Math.max(0, Date.now() - Date.parse(action.transition.startedAt)) : 0;
+  const unlockElapsed = action.unlock?.startedAt ? Math.max(0, Date.now() - Date.parse(action.unlock.startedAt)) : 0;
   const delays = [
-    action.transition?.status === 'active' ? action.transition.durationMs : null,
-    action.unlock?.status === 'running' ? action.unlock.durationMs : null,
+    action.transition?.status === 'active' ? Math.max(0, action.transition.durationMs - elapsed) : null,
+    action.unlock?.status === 'running' ? Math.max(0, action.unlock.durationMs - unlockElapsed) : null,
     action.overlay?.expiresAt ? Date.parse(action.overlay.expiresAt) - Date.now() : null,
     action.visual?.expiresAt ? Date.parse(action.visual.expiresAt) - Date.now() : null,
+    ...(action.transition?.status === 'active' ? action.transition.phases ?? [] : []).filter((phase) => phase.atMs >= elapsed).map((phase) => phase.atMs - elapsed),
   ].filter((value) => Number.isFinite(value) && value >= 0);
   for (const delay of new Set(delays)) {
-    setTimeout(() => {
+    cueScheduler.schedule(Math.min(600_000, delay + 25), () => {
       store.settleTimedPresentation(); void store.persist();
       forRole('display', (socket, client) => displayState(socket, client.displayId));
       broadcastState();
-    }, Math.min(600_000, delay + 25)).unref();
+    });
   }
 }
 
@@ -295,8 +301,24 @@ function handleCueRequest(socket, factory, logLabel) {
   try {
     const prepared = factory();
     if (!validateTarget(socket, prepared.cue.target, Boolean(prepared.message))) return;
+    cueScheduler.cancel();
     dispatchPresentation(prepared.action);
-    if (prepared.message) enqueueAndDispatch(socket, prepared.message);
+    if (prepared.message && prepared.cue.timing.speechDelayMs > 0) {
+      const message = prepared.message;
+      store.updateHistory(message.id, { status: 'pending' });
+      cueScheduler.onCancel = () => store.updateHistory(message.id, { status: 'stopped', finishedAt: new Date().toISOString() });
+      cueScheduler.schedule(prepared.cue.timing.speechDelayMs, () => {
+        cueScheduler.onCancel = null;
+        const master = store.getDisplay(store.state.audioMasterId);
+        if (!master?.online || !master.audioReady || !master.audioEnabled || !targetDisplays(message.target).length) {
+          store.updateHistory(message.id, { status: 'error', error: 'Cue待機中にAudio Readyを失いました。REPLAYしてください。' });
+          void store.persist(); broadcastState(); return;
+        }
+        enqueueAndDispatch(socket, message);
+      });
+      send(socket, 'accepted', { id: message.id, queued: false }); broadcastState();
+    }
+    else if (prepared.message) enqueueAndDispatch(socket, prepared.message);
     else { send(socket, 'accepted', { id: `cue:${prepared.cue.cueId}`, queued: false }); broadcastState(); }
     store.logRehearsal(logLabel.toLowerCase().replaceAll(' ', '-'), logLabel, { cueId: prepared.cue.cueId, result: 'accepted' }); void store.persist();
     logger.info(logLabel, { cueId: prepared.cue.cueId, kind: prepared.cue.kind, target: prepared.cue.target });
@@ -324,9 +346,14 @@ function handleAdmin(socket, event) {
     return;
   }
   if (event.type === 'stop') {
+    cueScheduler.cancel();
     localTtsService.cancelCurrent('operator-stop');
     const id = store.state.currentMessage?.id ?? null;
     store.stopPresentation({ type: 'all' });
+    if (store.state.currentMessage) store.updateCurrent('stopped');
+    for (const queued of store.state.queue) store.updateHistory(queued.id, { status: 'stopped' });
+    store.state.currentMessage = null; store.state.queue = []; store.state.playbackStatus = 'stopped';
+    void store.persist();
     store.logRehearsal('stop', 'STOP', { messageId: id, result: 'accepted' });
     forRole('display', (displaySocket, client) => { send(displaySocket, 'stop', { id }); displayState(displaySocket, client.displayId); });
     send(socket, 'accepted', { id: id ?? 'presentation:stop', queued: false }); broadcastState();
@@ -345,7 +372,14 @@ function handleAdmin(socket, event) {
   else if (event.type === 'cue:jump') {
     try { const cue = store.jumpCue(event.cueId); broadcastState(); send(socket, 'accepted', { id: `jump:${cue.cueId}`, queued: false }); logger.info('Cue位置移動', { cueId: cue.cueId }); } catch (error) { errorResponse(socket, error); }
   }
-  else if (event.type === 'cue:replay') handleCueRequest(socket, () => store.replayCue(), 'Cue REPLAY');
+  else if (event.type === 'cue:replay') {
+    cueScheduler.cancel();
+    if (store.state.currentMessage) store.updateCurrent('stopped');
+    for (const queued of store.state.queue) store.updateHistory(queued.id, { status: 'stopped' });
+    store.state.currentMessage = null; store.state.queue = [];
+    forRole('display', (displaySocket) => send(displaySocket, 'stop'));
+    handleCueRequest(socket, () => store.replayCue(), 'Cue REPLAY');
+  }
   else if (event.type === 'cue:back') {
     const cue = store.backCue(); store.logRehearsal('back', 'BACK', { cueId: cue?.cueId ?? null, result: 'success' }); broadcastState(); logger.info('Cue BACK');
   } else if (event.type === 'cue:save') {
@@ -359,6 +393,7 @@ function handleAdmin(socket, event) {
     sceneRehearsalInProgress = true;
     try {
       const plan = store.prepareSceneRehearsal(event.sceneId);
+      cueScheduler.cancel();
       localTtsService.cancelCurrent('scene-rehearsal-start'); runtimeAudioCache.clear();
       const stoppedId = store.state.currentMessage?.id ?? null;
       forRole('display', (displaySocket) => send(displaySocket, 'stop', { id: stoppedId }));
@@ -393,9 +428,10 @@ function handleAdmin(socket, event) {
     const settings = store.setSettings(event.settings ?? {});
     broadcast('display', 'settings', { settings }); broadcastState(); logger.info('設定を更新');
   } else if (event.type === 'show:reset') {
+    cueScheduler.cancel();
     localTtsService.cancelCurrent('show-reset'); runtimeAudioCache.clear();
     forRole('display', (displaySocket) => send(displaySocket, 'show:reset'));
-    store.showReset(); broadcastState(); logger.info('Show Reset');
+    store.showReset(); forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId)); broadcastState(); logger.info('Show Reset');
   } else if (event.type === 'clear') {
     const target = event.target ?? { type: 'all' }; store.state.currentSubtitle = null;
     for (const display of store.state.displays) if (store.matchesTarget(display, target)) display.currentSubtitle = null;
@@ -536,6 +572,11 @@ void refreshLocalTtsStatus();
 
 server.on('error', (error) => { logger.error('サーバー起動エラー', error); process.exitCode = 1; });
 server.listen(port, host, () => {
+  // Resume only presentation deadlines after restart, never pending/historical audio.
+  for (const presentation of [store.state, ...store.state.displays]) schedulePresentationSettlement({
+    transition: presentation.currentTransition, unlock: presentation.unlock,
+    overlay: presentation.currentOverlay, visual: presentation.currentVisual,
+  });
   const urls = singlePcMode ? accessUrls(port, []) : accessUrls(port);
   logger.info('Yokogawa AI System started', { environment, host, port, lan: urls.lan });
   console.log('\nYokogawa AI System started.\n\nLocal:\n' + urls.local.join('\n') + (urls.lan.length ? '\n\nLAN:\n' + urls.lan.join('\n') : '\n\nLAN:\n利用可能なLAN IPv4アドレスが見つかりません。') + '\n');
@@ -545,6 +586,7 @@ function shutdown(signal) {
   logger.info(`${signal} を受信。サーバーを終了します。`);
   clearInterval(socketHeartbeat); clearInterval(offlineMonitor); clearInterval(localTtsHealthMonitor);
   localTtsService.cancelCurrent('server-shutdown'); runtimeAudioCache.clear();
+  cueScheduler.cancel();
   for (const socket of clients.keys()) socket.close(1001, 'server shutdown');
   server.close(() => process.exit(0)); setTimeout(() => process.exit(1), 3000).unref();
 }

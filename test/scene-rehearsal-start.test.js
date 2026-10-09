@@ -30,7 +30,7 @@ test('Production Scene metadataは最新台本のScene 1〜7を順番通り表�
   ]);
   assert.notEqual(production.cues.find((cue) => cue.id === 'prod-010').enabled, false, '現行台本Scene 5の館内放送を通常Cueに含める');
   assert.equal(production.cues.find((cue) => cue.id === 'prod-017').enabled, false, '現行台本にない調整済みWAVは保全したまま隔離する');
-  assert.match(production.metadata.sceneStructureSource.revisionId, /^ANLCKQn2/);
+  assert.match(production.metadata.sceneStructureSource.revisionId, /^AHj4eMQH/);
 });
 
 test('Scene Startは稽古セッション外ではfail-closedする', async () => {
@@ -62,7 +62,7 @@ test('AI CueなしSceneは同じ開始stateを復元し他Scene CueをNEXTへ漏
     store.startSceneRehearsal(sceneId); const snapshot = store.snapshot();
     baseline.push(projection(snapshot));
     assert.equal(snapshot.sceneRehearsal.sceneId, sceneId); assert.equal(snapshot.currentCue, null); assert.equal(snapshot.nextCue, null);
-    assert.equal(snapshot.currentPresetId, 'hijacked'); assert.equal(snapshot.currentSubtitle, '第一の謎は、この201にあります');
+    assert.equal(snapshot.currentPresetId, 'hijacked'); assert.equal(snapshot.currentSubtitle, null);
     assert.throws(() => store.nextCue(), /NO_SCENE_CUE/); assert.throws(() => store.replayCue(), /NO_CURRENT_CUE/);
   }
   assert.deepEqual(baseline[0], baseline[1]); assert.deepEqual(baseline[1], baseline[2]);

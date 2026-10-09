@@ -131,8 +131,8 @@ let startedAt = Date.now();
 let currentMaster = 'display-a';
 const productionCueIds = [
   'prod-001', 'prod-002', 'prod-003', 'prod-004', 'prod-005', 'prod-006',
-  'prod-007', 'prod-008', 'prod-009', 'prod-010', 'prod-011', 'prod-012',
-  'prod-013', 'prod-014', 'prod-015', 'prod-016', 'prod-017',
+  'prod-007', 'prod-008', 'prod-v-riddle-enter', 'prod-010', 'prod-011', 'prod-012',
+  'prod-013', 'prod-014', 'prod-015', 'prod-v-stop-code', 'prod-017',
 ];
 
 async function addDisplay(id, name) {

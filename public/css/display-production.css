@@ -1,0 +1,103 @@
+/* Production stage grammar: large forms carry the story at auditorium distance. */
+body[data-preset="hijacked"] { --preset-accent: #be72ff; --preset-accent-2: #dcadff; --phase-accent: #be72ff; }
+body[data-caption-empty="true"] .caption-shell { opacity: 0; }
+
+/* External control tears the whole monitor in a few broad slices, then settles. */
+body[data-transition="anomaly"][data-transition-status="active"] .identity,
+body[data-transition="anomaly"][data-transition-status="active"] .preset-environment,
+body[data-transition="anomaly"][data-transition-status="active"] .system-rail {
+  animation: production-displace var(--phase-a-transition-ms) steps(1, end) both;
+  animation-delay: var(--phaseb-transition-delay);
+}
+body[data-transition="anomaly"][data-transition-status="active"] .transition-flash { animation: none; opacity: 0; }
+body[data-transition="anomaly"] .transition-layer { background: none; }
+body[data-transition="anomaly"][data-transition-status="active"] .transition-fracture {
+  background: repeating-linear-gradient(0deg, transparent 0 13vh, #b767ff99 13vh 19vh, #32d9ff66 19vh 20vh, transparent 20vh 28vh);
+  animation: production-tear var(--phase-a-transition-ms) steps(1, end) both;
+  animation-delay: var(--phaseb-transition-delay);
+}
+@keyframes production-displace {
+  0% { transform: translateX(0); filter: none; }
+  8% { transform: translate(7vw, -2vh) skewX(9deg); filter: drop-shadow(-28px 0 #37dfff) drop-shadow(22px 0 #b356ff); }
+  28% { transform: translate(-5vw, 3vh) skewX(-7deg); clip-path: polygon(0 0,100% 0,100% 29%,88% 29%,88% 40%,100% 40%,100% 100%,0 100%); }
+  48% { transform: translate(3vw,-1vh); filter: drop-shadow(-18px 0 #d172ff); }
+  72% { transform: translate(-1vw,0); clip-path: inset(0); }
+  100% { transform: none; filter: none; clip-path: inset(0); }
+}
+@keyframes production-tear {
+  0% { opacity: 0; transform: translateX(0); }
+  8% { opacity: .9; transform: translateX(-9vw); }
+  28% { opacity: .8; transform: translateX(7vw) scaleY(.8); }
+  48% { opacity: .65; transform: translate(-4vw,8vh); }
+  72% { opacity: .4; transform: translate(2vw,-3vh); }
+  100% { opacity: 0; transform: none; }
+}
+
+/* Five solved modules unlock in order, converge, then expose the final input. */
+.scene-visual[data-mode="five-complete"], .scene-visual[data-mode="integration"] { padding-bottom: 25vh; }
+.scene-visual[data-mode="five-complete"] h2, .scene-visual[data-mode="integration"] h2 { font-size: clamp(36px, 4.8vw, 86px); }
+.scene-visual[data-mode="five-complete"] li, .scene-visual[data-mode="integration"] li {
+  display: grid; place-items: center; width: 10vw; height: 12vh; padding: 0;
+  border: 3px solid #69ffcf; font-size: clamp(27px, 3vw, 56px); color: #caffeb;
+}
+.scene-visual[data-mode="five-complete"] li { animation: production-verify .8s ease-out both; animation-delay: calc(var(--node-index) * .22s); }
+.scene-visual[data-mode="five-complete"] li::before, .scene-visual[data-mode="integration"] li::before { display: none; }
+body[data-transition="final-challenge-enter"] .transition-core { animation: none !important; }
+.scene-visual[data-mode="integration"] li { animation: production-integrate 2.2s ease-in both; --node-travel: calc((2 - var(--node-index)) * 11vw); }
+.scene-visual[data-mode="reveal"] { animation: production-reveal .6s ease-out both; }
+@keyframes production-verify { from { opacity: .2; transform: scale(.7); } to { opacity: 1; transform: scale(1); } }
+@keyframes production-integrate { 0%, 10% { opacity: 1; transform: none; } 80%, 100% { transform: translateX(var(--node-travel)) scale(.2); opacity: 0; } }
+@keyframes production-reveal { from { opacity: 0; transform: scale(.88); } to { opacity: 1; transform: none; } }
+
+/* Authentication is a seal; the subsequent six gauges alone own percentages. */
+body[data-overlay="authentication-success"] .operation-overlay-frame { width: 64vw; padding: 5vh 4vw; border: 4px solid #65ffd0; }
+body[data-overlay="authentication-success"] .operation-overlay-frame::before {
+  position: relative; display: block; right: auto; top: auto; translate: none;
+  width: 13vh; height: 13vh; margin: 0 auto 2vh; border: 5px solid #65ffd0; border-radius: 50%;
+  font-size: 11vh; line-height: 1; color: #65ffd0;
+}
+body[data-overlay="authentication-success"] h2 { font-size: clamp(40px,5vw,90px); }
+
+body[data-overlay="unlocking"] .operation-overlay { padding: 0; background: none; }
+body[data-overlay="unlocking"] .operation-overlay-frame {
+  position: absolute; inset: 0; width: 100%; padding: 0; border: 0; clip-path: none;
+  background: none; box-shadow: none; overflow: visible;
+}
+body[data-overlay="unlocking"] .operation-overlay-frame::before,
+body[data-overlay="unlocking"] .operation-kicker,
+body[data-overlay="unlocking"] .operation-progress { display: none; }
+body[data-overlay="unlocking"] h2 { position: absolute; top: 59vh; left: 32vw; right: 32vw; padding: .7vh 1vw; background: #030b12e8; border-block: 2px solid var(--phase-accent); font-size: 5vh; }
+body[data-overlay="unlocking"] #operation-message { position: absolute; top: 69vh; left: 32vw; right: 32vw; padding: .5vh; background: #030b12e8; font-size: 2.5vh; }
+body[data-overlay="unlocking"] .unlock-gauges { position: absolute; inset: 0; display: block; max-width: none; margin: 0; }
+body[data-overlay="unlocking"] .unlock-gauges[hidden] { display: none; }
+body[data-overlay="unlocking"] .unlock-gauges div { position: absolute; width: 13vw; }
+body[data-overlay="unlocking"] .unlock-gauges div:nth-child(1) { left: 19vw; top: 8vh; }
+body[data-overlay="unlocking"] .unlock-gauges div:nth-child(2) { right: 19vw; top: 8vh; }
+body[data-overlay="unlocking"] .unlock-gauges div:nth-child(3) { left: 13vw; top: 28vh; }
+body[data-overlay="unlocking"] .unlock-gauges div:nth-child(4) { right: 13vw; top: 28vh; }
+body[data-overlay="unlocking"] .unlock-gauges div:nth-child(5) { left: 19vw; top: 48vh; }
+body[data-overlay="unlocking"] .unlock-gauges div:nth-child(6) { right: 19vw; top: 48vh; }
+body[data-overlay="unlocking"] .unlock-gauges i { width: 13vh; height: 13vh; box-shadow: 0 0 2rem #62d9ff66, inset 0 0 0 10px #050a0e; }
+body[data-overlay="unlocking"] .unlock-gauges i::after { font-size: 3.4vh; }
+body[data-overlay="unlocking"] .unlock-gauges div > span { font-size: 2vh; }
+body[data-operation-variant="collapse"] .operation-overlay-frame { animation: production-collapse .85s ease-in both; }
+body[data-operation-variant="anomaly"] .operation-overlay-frame { opacity: .64; }
+body[data-operation-variant="anomaly"] .preset-environment { transform: translateX(2vw) skewX(-3deg); filter: hue-rotate(65deg); }
+body[data-operation-variant="anomaly"] .avatar-wrap { filter: drop-shadow(-22px 0 #be72ff99); }
+body[data-operation-variant="anomaly"] #operation-message { letter-spacing: .28em; color: #be72ff; }
+@keyframes production-collapse { to { opacity: 0; transform: scale(.4); } }
+
+/* Both emergency protection and failed contact share the existing P-014 ERROR. */
+body[data-overlay="connection-failed"] h2 { font-size: clamp(38px, 4.8vw, 86px); }
+body[data-overlay="connection-failed"] .operation-overlay-frame::before { color: #ff4a58; opacity: .7; }
+
+/* Stop hostile motion immediately: one cut, silence, then the tuned WAV. */
+body[data-transition="shutdown"][data-transition-status="active"] .transition-flash { animation: none; opacity: 0; }
+body[data-transition="shutdown"][data-transition-status="active"] .transition-fracture { animation: production-stop-cut 1200ms ease-out both; }
+@keyframes production-stop-cut { 0%, 15% { opacity: 1; transform: scaleY(1); } 70% { opacity: 1; transform: scaleY(.015); } 100% { opacity: 0; transform: scaleY(0); } }
+body[data-overlay="system-shutdown"] .operation-overlay-frame { border-color: #69727d; --phase-accent: #69727d; background: #030508b8; box-shadow: none; }
+body[data-transition="recovery"][data-transition-status="active"] .transition-core { animation: none; }
+body[data-transition="recovery"][data-transition-status="active"] .transition-sweep { animation: production-warmth 6000ms ease-out both; animation-delay: var(--phaseb-transition-delay); background: radial-gradient(ellipse, #ffe4a255, transparent 60%); }
+@keyframes production-warmth { 0% { opacity: 0; transform: scale(.1); } 75% { opacity: .7; } 100% { opacity: 0; transform: scale(1.5); } }
+
+@media (prefers-reduced-motion: reduce) { body[data-transition="anomaly"] .identity, body[data-transition="anomaly"] .preset-environment, body[data-transition="anomaly"] .system-rail { animation: none !important; } }
