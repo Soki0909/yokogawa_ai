@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "fingerprint": "905ca4b22d8c52e4e0c39a3ded2017534ee27c885f827d963c1aebbd303c5fe5",
+  "elapsedMs": 2100287.4567,
+  "samples": 70,
+  "cueIndex": 9,
+  "plays": 13,
+  "readyWhileBackground": false,
+  "foregroundRecoveryGate": "Requires continuation and targeted recovery PASS"
+}

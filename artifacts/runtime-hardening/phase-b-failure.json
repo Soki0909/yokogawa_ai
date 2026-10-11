@@ -1,0 +1,25 @@
+{
+  "error": "Error: Timeout: enter accepted\n    at wait (file:///C:/Users/kumes/Documents/yokokawa_ai/scripts/runtime-hardening-check.js:26:216)\n    at async burst (file:///C:/Users/kumes/Documents/yokokawa_ai/scripts/runtime-hardening-check.js:70:3)\n    at async file:///C:/Users/kumes/Documents/yokokawa_ai/scripts/runtime-hardening-check.js:96:94",
+  "scenarios": [
+    {
+      "name": "double",
+      "status": "PASS"
+    },
+    {
+      "name": "triple",
+      "status": "PASS"
+    },
+    {
+      "name": "five",
+      "status": "PASS"
+    },
+    {
+      "name": "space-repeat",
+      "status": "PASS"
+    }
+  ],
+  "performances": 0,
+  "resetCount": 5,
+  "longestIdleMs": 0,
+  "samples": []
+}

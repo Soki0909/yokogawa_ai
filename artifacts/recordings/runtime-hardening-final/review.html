@@ -1,0 +1,24 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>横川AI Display録画</title>
+<style>body{margin:24px;background:#111;color:#eee;font-family:system-ui}video{width:100%;max-height:78vh;background:#000}nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}button{padding:10px;background:#243747;color:white;border:1px solid #567;border-radius:5px;cursor:pointer}a{color:#8df}</style>
+<h1>横川AI Production — 1920×1080</h1><video controls src="production-display-1920x1080.mp4"></video>
+<p>有効な全19 Cue。音声・演出の完了後2秒待機。ボタンでCueの先頭へ移動できます。 <a href="cue-timeline.json">時刻一覧</a></p>
+<nav><button data-time="0.585716064453125">P-001 横川AI起動応答</button>
+<button data-time="9.763716064453124">P-002 台本 002</button>
+<button data-time="17.849716064453126">P-003 台本 003</button>
+<button data-time="36.837716064453126">P-004 プリンキピア説明→映像乱れ</button>
+<button data-time="57.813716064453125">P-005 制御奪取・台本005</button>
+<button data-time="62.68971606445312">P-006 台本 006</button>
+<button data-time="66.48071606445312">P-007 台本 007</button>
+<button data-time="70.21971606445312">P-008 台本 008</button>
+<button data-time="77.54671606445312">P-019 記入用紙の案内</button>
+<button data-time="86.16471606445313">P-V02 五つの謎・第1問開始＋台本009</button>
+<button data-time="92.83371606445313">P-011 五つ達成・統合・最終問題</button>
+<button data-time="103.03771606445312">P-012 認証成功→解錠進行→異常</button>
+<button data-time="117.03671606445313">P-013 緊急遮断</button>
+<button data-time="127.37471606445312">P-014 連絡失敗</button>
+<button data-time="133.8217160644531">P-V04 危険状態・警報開始</button>
+<button data-time="137.43371606445314">P-015 強制暴走</button>
+<button data-time="145.14371606445312">P-V05 非常停止問題</button>
+<button data-time="148.75471606445313">P-V06 停止コード・システム全停止＋台本016</button>
+<button data-time="156.9527160644531">P-V07 復旧開始</button></nav>
+<script>const video=document.querySelector('video');document.querySelector('nav').addEventListener('click',event=>{const button=event.target.closest('button');if(button){video.currentTime=Number(button.dataset.time);video.play();}});</script></html>

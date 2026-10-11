@@ -1,0 +1,7077 @@
+{
+  "error": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(state.displayAudioReady)\n\n    at passiveIdle (file:///C:/Users/kumes/Documents/yokokawa_ai/scripts/runtime-hardening-check.js:61:105)\n    at async file:///C:/Users/kumes/Documents/yokokawa_ai/scripts/runtime-hardening-check.js:117:9",
+  "state": {
+    "displayConnectionStatus": "disconnected",
+    "displayAudioReady": false,
+    "displays": [
+      {
+        "displayId": "hardening",
+        "displayName": "Stage",
+        "audioEnabled": true,
+        "required": false,
+        "groups": [],
+        "currentSubtitle": null,
+        "displayMode": "speech",
+        "currentPresetId": "hijacked",
+        "currentAvatar": {
+          "visible": true,
+          "state": "hijacked",
+          "lipSyncMode": "audio-reactive",
+          "label": "YOKOGAWA AI",
+          "mode": "image-yokogawa-v1",
+          "assetSetId": "yokogawa-v1",
+          "layers": null,
+          "paintBottomInset": 0.062
+        },
+        "blackout": false,
+        "currentOverlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "currentVisual": {
+          "id": "puzzle-first",
+          "type": "image",
+          "assetId": "puzzle-first",
+          "assetVersion": null,
+          "mode": "default",
+          "visible": true,
+          "title": "第一の謎",
+          "message": "本物の問題画像は未提供 / 表示枠の確認用",
+          "items": []
+        },
+        "currentTransition": {
+          "mode": "fade",
+          "id": "riddle-enter",
+          "durationMs": 4587,
+          "intensity": 1,
+          "phases": [
+            {
+              "atMs": 2287,
+              "visual": {
+                "id": "puzzle-first",
+                "type": "image",
+                "assetId": "puzzle-first",
+                "assetVersion": null,
+                "mode": "default",
+                "visible": true,
+                "title": "第一の謎",
+                "message": "本物の問題画像は未提供 / 表示枠の確認用",
+                "items": []
+              }
+            }
+          ],
+          "phaseIndex": 1,
+          "status": "completed",
+          "startedAt": null,
+          "completedAt": "2026-10-09T16:12:28.700Z"
+        },
+        "unlock": {
+          "status": "idle",
+          "progress": 0,
+          "startedAt": null,
+          "durationMs": 5000,
+          "completedAt": null
+        },
+        "online": false,
+        "audioReady": false,
+        "lastHeartbeat": "2026-10-09T16:47:54.496Z",
+        "previousVisualState": null
+      }
+    ],
+    "audioMasterId": "hardening",
+    "currentMessage": null,
+    "currentSubtitle": null,
+    "displayMode": "speech",
+    "playbackStatus": "error",
+    "queue": [],
+    "history": [
+      {
+        "id": "msg-6cacd5da-5b0c-4108-9e4e-9468409efa1a",
+        "text": "第一の謎は、こちらです",
+        "createdAt": "2026-10-09T16:12:24.114Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-v-riddle-enter",
+        "cueName": "五つの謎・第1問開始＋台本009",
+        "kind": "speech-display",
+        "displayText": "第一の謎は、こちらです",
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-009-first-riddle",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "riddle-enter",
+          "durationMs": 4587,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "第一の謎は、こちらです",
+          "segments": [
+            {
+              "displayText": "第一の謎は、こちらです",
+              "spokenText": "第一の謎は、こちらです",
+              "startMs": 0,
+              "endMs": 2286,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:12:24.157Z",
+        "finishedAt": "2026-10-09T16:12:26.493Z"
+      },
+      {
+        "id": "msg-02432418-8b04-48d2-8db9-18ce5829d0a5",
+        "text": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+        "createdAt": "2026-10-09T16:12:10.131Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-019",
+        "cueName": "記入用紙の案内",
+        "kind": "speech-display",
+        "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-019-answer-sheet",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+          "segments": [
+            {
+              "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
+              "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
+              "startMs": 0,
+              "endMs": 3819,
+              "pauseAfterMs": 350
+            },
+            {
+              "displayText": "謎はそちらに記入してください",
+              "spokenText": "謎はそちらに記入してください",
+              "startMs": 4169,
+              "endMs": 6339,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:12:10.179Z",
+        "finishedAt": "2026-10-09T16:12:16.547Z"
+      },
+      {
+        "id": "msg-37a34a29-056e-4a37-b47a-3a352e08279f",
+        "text": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+        "createdAt": "2026-10-09T16:09:50.115Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-008",
+        "cueName": "台本 008",
+        "kind": "speech-display",
+        "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-008-five-riddles",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
+          "segments": [
+            {
+              "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+              "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
+              "startMs": 0,
+              "endMs": 5143,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:09:50.154Z",
+        "finishedAt": "2026-10-09T16:09:55.333Z"
+      },
+      {
+        "id": "msg-0fe3a731-1727-4a5b-add5-0afc9c9e57b1",
+        "text": "認証できません",
+        "createdAt": "2026-10-09T16:09:34.117Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-007",
+        "cueName": "台本 007",
+        "kind": "speech-display",
+        "displayText": "認証できません",
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-007-auth-failed",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "認証できません",
+          "segments": [
+            {
+              "displayText": "認証できません",
+              "spokenText": "認証できません",
+              "startMs": 0,
+              "endMs": 1520,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:09:34.170Z",
+        "finishedAt": "2026-10-09T16:09:35.721Z"
+      },
+      {
+        "id": "msg-f0ee57bd-ffe5-4dff-aa5d-c8141c066ac2",
+        "text": "命令を拒否します",
+        "createdAt": "2026-10-09T16:09:22.104Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-006",
+        "cueName": "台本 006",
+        "kind": "speech-display",
+        "displayText": "命令を拒否します",
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-006-reject",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "命令を拒否します",
+          "segments": [
+            {
+              "displayText": "命令を拒否します",
+              "spokenText": "命令を拒否します",
+              "startMs": 0,
+              "endMs": 1412,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:09:22.146Z",
+        "finishedAt": "2026-10-09T16:09:23.585Z"
+      },
+      {
+        "id": "msg-0796641f-9d46-4d6c-8746-4c54fdd620a2",
+        "text": "外部への通信は許可されていません",
+        "createdAt": "2026-10-09T16:09:10.116Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-005",
+        "cueName": "制御奪取・台本005",
+        "kind": "speech-display",
+        "displayText": "外部への通信は許可されていません",
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-005-communication-lock",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "transition": {
+          "mode": "glitch",
+          "id": "takeover",
+          "durationMs": 1500,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "communication-locked",
+          "visible": true,
+          "title": "COMMUNICATION LOCKED",
+          "message": "EXTERNAL CHANNELS DISABLED",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "外部への通信は許可されていません",
+          "segments": [
+            {
+              "displayText": "外部への通信は許可されていません",
+              "spokenText": "外部への通信は許可されていません",
+              "startMs": 0,
+              "endMs": 2484,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:09:10.180Z",
+        "finishedAt": "2026-10-09T16:09:12.703Z"
+      },
+      {
+        "id": "msg-9fd94e02-521e-4152-9db6-f2c7aea1175f",
+        "text": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+        "createdAt": "2026-10-09T16:07:40.115Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-004",
+        "cueName": "プリンキピア説明→映像乱れ",
+        "kind": "speech-display",
+        "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-004-principia",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "timeline",
+          "durationMs": 18877,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+          "segments": [
+            {
+              "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
+              "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
+              "startMs": 0,
+              "endMs": 7191,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+              "spokenText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+              "startMs": 7191,
+              "endMs": 16276,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:07:40.173Z",
+        "finishedAt": "2026-10-09T16:07:56.479Z"
+      },
+      {
+        "id": "msg-52ff6a04-721c-4435-8949-0dc248f7725d",
+        "text": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+        "createdAt": "2026-10-09T16:07:07.116Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-003",
+        "cueName": "台本 003",
+        "kind": "speech-display",
+        "displayText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-003-security",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
+          "segments": [
+            {
+              "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
+              "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。",
+              "startMs": 0,
+              "endMs": 4496,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
+              "spokenText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。",
+              "startMs": 4496,
+              "endMs": 10113,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+              "spokenText": "ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
+              "startMs": 10113,
+              "endMs": 16567,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:07:07.177Z",
+        "finishedAt": "2026-10-09T16:07:23.782Z"
+      },
+      {
+        "id": "msg-fa4f9725-5740-4900-81d2-f3ab23f8132d",
+        "text": "はい。例えば、そちらに久安光さんが参加しています",
+        "createdAt": "2026-10-09T16:06:54.115Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-002",
+        "cueName": "台本 002",
+        "kind": "speech-display",
+        "displayText": "はい。例えば、そちらに久安光さんが参加しています",
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-002-participant",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "はい。例えば、そちらにヒサヤス ヒカルさんが参加しています",
+          "segments": [
+            {
+              "displayText": "はい。",
+              "spokenText": "はい。",
+              "startMs": 0,
+              "endMs": 812,
+              "pauseAfterMs": 350
+            },
+            {
+              "displayText": "例えば、そちらに",
+              "spokenText": "例えば、そちらに",
+              "startMs": 1162,
+              "endMs": 2938,
+              "pauseAfterMs": 450
+            },
+            {
+              "displayText": "久安光さんが参加しています",
+              "spokenText": "ヒサヤス ヒカルさんが参加しています",
+              "startMs": 3388,
+              "endMs": 5686,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:06:54.153Z",
+        "finishedAt": "2026-10-09T16:06:59.877Z"
+      },
+      {
+        "id": "msg-43075ccf-e660-4d0b-87e8-62e26f3a0631",
+        "text": "承知しました。横川教授。横川AIを起動します",
+        "createdAt": "2026-10-09T16:06:39.118Z",
+        "status": "completed",
+        "source": "cue",
+        "target": {
+          "type": "all"
+        },
+        "speechProvider": "audio-file",
+        "cueId": "prod-001",
+        "cueName": "横川AI起動応答",
+        "kind": "speech-display",
+        "displayText": "承知しました。横川教授。横川AIを起動します",
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-001-boot",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "transition": {
+          "mode": "fade",
+          "id": "boot",
+          "durationMs": 2600,
+          "intensity": 0.65
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 2600,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "speech": {
+          "spokenText": "承知しました。横川教授。横川AIを起動します",
+          "segments": [
+            {
+              "displayText": "承知しました。",
+              "spokenText": "承知しました。",
+              "startMs": 0,
+              "endMs": 1275,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "横川教授。",
+              "spokenText": "横川教授。",
+              "startMs": 1275,
+              "endMs": 2514,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "横川AIを起動します",
+              "spokenText": "横川AIを起動します",
+              "startMs": 2514,
+              "endMs": 4260,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "startedAt": "2026-10-09T16:06:41.755Z",
+        "finishedAt": "2026-10-09T16:06:46.031Z"
+      }
+    ],
+    "scenes": [
+      {
+        "sceneId": "scene-1",
+        "sceneName": "Scene 1 / 7・201 / AI起動・制御奪取",
+        "order": 1,
+        "scriptTabId": "t.tyup3idqskfk",
+        "location": "7・201"
+      },
+      {
+        "sceneId": "scene-2",
+        "sceneName": "Scene 2 / 7・203",
+        "order": 2,
+        "scriptTabId": "t.7im6uhbfkk6m",
+        "location": "7・203"
+      },
+      {
+        "sceneId": "scene-3",
+        "sceneName": "Scene 3 / 7・306",
+        "order": 3,
+        "scriptTabId": "t.vl6lnjb0yh3q",
+        "location": "7・306"
+      },
+      {
+        "sceneId": "scene-4",
+        "sceneName": "Scene 4 / 7・413",
+        "order": 4,
+        "scriptTabId": "t.e7k2svyhnomc",
+        "location": "7・413"
+      },
+      {
+        "sceneId": "scene-5",
+        "sceneName": "Scene 5 / 4階廊下 / 五条件達成",
+        "order": 5,
+        "scriptTabId": "t.qexxsordbvdd",
+        "location": "4階廊下"
+      },
+      {
+        "sceneId": "scene-6",
+        "sceneName": "Scene 6 / 7・201 / 最終問題・停止",
+        "order": 6,
+        "scriptTabId": "t.lquo4bdx2m2q",
+        "location": "7・201"
+      },
+      {
+        "sceneId": "scene-7",
+        "sceneName": "Scene 7 / 7・201 / 復旧",
+        "order": 7,
+        "scriptTabId": "t.6gopn4tnzuo",
+        "location": "7・201"
+      }
+    ],
+    "cues": [
+      {
+        "schemaVersion": 3,
+        "id": "prod-001",
+        "name": "横川AI起動応答",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "承知しました。横川教授。横川AIを起動します",
+        "displayText": "承知しました。横川教授。横川AIを起動します",
+        "operatorNote": "Production起動Cue。非表示STANDBYからAvatarをrevealし、WAV001終了後もNORMALを保持する。",
+        "triggerNote": "横川教授「横川AIを起動してくれ」直後。STANDBYからGO。",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-001-boot",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "承知しました。横川教授。横川AIを起動します",
+          "segments": [
+            {
+              "displayText": "承知しました。",
+              "spokenText": "承知しました。",
+              "startMs": 0,
+              "endMs": 1275,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "横川教授。",
+              "spokenText": "横川教授。",
+              "startMs": 1275,
+              "endMs": 2514,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "横川AIを起動します",
+              "spokenText": "横川AIを起動します",
+              "startMs": 2514,
+              "endMs": 4260,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-boot",
+            "atMs": 400,
+            "volume": 0.5,
+            "durationMs": 1600
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "boot",
+          "durationMs": 2600,
+          "intensity": 0.65
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 2600,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 10,
+        "cueId": "prod-001",
+        "cueNumber": "P-001",
+        "cueName": "横川AI起動応答",
+        "text": "承知しました。横川教授。横川AIを起動します",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-001-boot",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "Production起動Cue。非表示STANDBYからAvatarをrevealし、WAV001終了後もNORMALを保持する。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-002",
+        "name": "台本 002",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "はい。例えば、そちらに久安光さんが参加しています",
+        "displayText": "はい。例えば、そちらに久安光さんが参加しています",
+        "operatorNote": "現行台本 scene-1 / 7・201 / 発話002。音声終了後も自動進行しない。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-002-participant",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "はい。例えば、そちらにヒサヤス ヒカルさんが参加しています",
+          "segments": [
+            {
+              "displayText": "はい。",
+              "spokenText": "はい。",
+              "startMs": 0,
+              "endMs": 812,
+              "pauseAfterMs": 350
+            },
+            {
+              "displayText": "例えば、そちらに",
+              "spokenText": "例えば、そちらに",
+              "startMs": 1162,
+              "endMs": 2938,
+              "pauseAfterMs": 450
+            },
+            {
+              "displayText": "久安光さんが参加しています",
+              "spokenText": "ヒサヤス ヒカルさんが参加しています",
+              "startMs": 3388,
+              "endMs": 5686,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 20,
+        "cueId": "prod-002",
+        "cueNumber": "P-002",
+        "cueName": "台本 002",
+        "text": "はい。例えば、そちらに久安光さんが参加しています",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-002-participant",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-1 / 7・201 / 発話002。音声終了後も自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-003",
+        "name": "台本 003",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+        "displayText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+        "operatorNote": "現行台本 scene-1 / 7・201 / 発話003。音声終了後も自動進行しない。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-003-security",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
+          "segments": [
+            {
+              "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
+              "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。",
+              "startMs": 0,
+              "endMs": 4496,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
+              "spokenText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。",
+              "startMs": 4496,
+              "endMs": 10113,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+              "spokenText": "ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
+              "startMs": 10113,
+              "endMs": 16567,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 30,
+        "cueId": "prod-003",
+        "cueNumber": "P-003",
+        "cueName": "台本 003",
+        "text": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-003-security",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-1 / 7・201 / 発話003。音声終了後も自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-004",
+        "name": "プリンキピア説明→映像乱れ",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+        "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+        "operatorNote": "説明WAV完了＋200ms後に映像乱れ。照明・施錠SEの連携markerも同じ境界。調査芝居を挟む次のP-005は手動。",
+        "triggerNote": "横川「プリンキピアについて説明してくれ」後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "normal",
+        "avatar": {
+          "visible": true,
+          "state": "normal"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-004-principia",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+          "segments": [
+            {
+              "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
+              "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
+              "startMs": 0,
+              "endMs": 7191,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+              "spokenText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+              "startMs": 7191,
+              "endMs": 16276,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-glitch",
+            "atMs": 16477,
+            "volume": 0.6,
+            "durationMs": 900
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "timeline",
+          "durationMs": 18877,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [
+          {
+            "atMs": 16477,
+            "presentationPreset": "hijacked",
+            "transition": {
+              "mode": "glitch",
+              "id": "anomaly",
+              "durationMs": 2400,
+              "intensity": 1
+            },
+            "clearSubtitle": true
+          }
+        ],
+        "syncMarkers": [
+          {
+            "department": "LX",
+            "id": "ALIGN-LX-ANOMALY",
+            "note": "照明明滅。記述用markerであり正式照明Cue番号ではない。"
+          },
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-DOOR-LOCK",
+            "note": "扉施錠音。記述用markerであり正式音響Cue番号ではない。"
+          },
+          {
+            "department": "ACT",
+            "id": "ALIGN-ACT-INVESTIGATE",
+            "note": "出演者が通信・扉・状況を調査する芝居区間。"
+          }
+        ],
+        "order": 40,
+        "cueId": "prod-004",
+        "cueNumber": "P-004",
+        "cueName": "プリンキピア説明→映像乱れ",
+        "text": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-004-principia",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "説明WAV完了＋200ms後に映像乱れ。照明・施錠SEの連携markerも同じ境界。調査芝居を挟む次のP-005は手動。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-005",
+        "name": "制御奪取・台本005",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "外部への通信は許可されていません",
+        "displayText": "外部への通信は許可されていません",
+        "operatorNote": "消灯・復灯後、このCueで初めてFULL HIJACKEDへ移行しWAV005を再生する。subtle hijacked effect適用。",
+        "triggerNote": "照明の消灯・復灯完了直後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-005-communication-lock",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "speech": {
+          "spokenText": "外部への通信は許可されていません",
+          "segments": [
+            {
+              "displayText": "外部への通信は許可されていません",
+              "spokenText": "外部への通信は許可されていません",
+              "startMs": 0,
+              "endMs": 2484,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "glitch",
+          "id": "takeover",
+          "durationMs": 1500,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "communication-locked",
+          "visible": true,
+          "title": "COMMUNICATION LOCKED",
+          "message": "EXTERNAL CHANNELS DISABLED",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [
+          {
+            "department": "LX",
+            "id": "ALIGN-LX-HIJACK-REVEAL",
+            "note": "消灯・復灯後にGO。記述用markerであり正式照明Cue番号ではない。"
+          }
+        ],
+        "order": 60,
+        "cueId": "prod-005",
+        "cueNumber": "P-005",
+        "cueName": "制御奪取・台本005",
+        "text": "外部への通信は許可されていません",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-005-communication-lock",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "消灯・復灯後、このCueで初めてFULL HIJACKEDへ移行しWAV005を再生する。subtle hijacked effect適用。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-006",
+        "name": "台本 006",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "命令を拒否します",
+        "displayText": "命令を拒否します",
+        "operatorNote": "現行台本 scene-1 / 7・201 / 発話006。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-006-reject",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "speech": {
+          "spokenText": "命令を拒否します",
+          "segments": [
+            {
+              "displayText": "命令を拒否します",
+              "spokenText": "命令を拒否します",
+              "startMs": 0,
+              "endMs": 1412,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 70,
+        "cueId": "prod-006",
+        "cueNumber": "P-006",
+        "cueName": "台本 006",
+        "text": "命令を拒否します",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-006-reject",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-1 / 7・201 / 発話006。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-007",
+        "name": "台本 007",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "認証できません",
+        "displayText": "認証できません",
+        "operatorNote": "現行台本 scene-1 / 7・201 / 発話007。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-007-auth-failed",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "speech": {
+          "spokenText": "認証できません",
+          "segments": [
+            {
+              "displayText": "認証できません",
+              "spokenText": "認証できません",
+              "startMs": 0,
+              "endMs": 1520,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 80,
+        "cueId": "prod-007",
+        "cueNumber": "P-007",
+        "cueName": "台本 007",
+        "text": "認証できません",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-007-auth-failed",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-1 / 7・201 / 発話007。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-008",
+        "name": "台本 008",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+        "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+        "operatorNote": "現行台本 scene-1 / 7・201 / 発話008。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-008-five-riddles",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "speech": {
+          "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
+          "segments": [
+            {
+              "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+              "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
+              "startMs": 0,
+              "endMs": 5143,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 90,
+        "cueId": "prod-008",
+        "cueNumber": "P-008",
+        "cueName": "台本 008",
+        "text": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-008-five-riddles",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-1 / 7・201 / 発話008。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-019",
+        "name": "記入用紙の案内",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+        "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+        "operatorNote": "現行台本 scene-1 / 7・201 / 発話019。音声終了後も自動進行しない。",
+        "triggerNote": "横川教授が役割を指示し、助手たちの「はい」後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-019-answer-sheet",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+          "segments": [
+            {
+              "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
+              "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
+              "startMs": 0,
+              "endMs": 3819,
+              "pauseAfterMs": 350
+            },
+            {
+              "displayText": "謎はそちらに記入してください",
+              "spokenText": "謎はそちらに記入してください",
+              "startMs": 4169,
+              "endMs": 6339,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 95,
+        "cueId": "prod-019",
+        "cueNumber": "P-019",
+        "cueName": "記入用紙の案内",
+        "text": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-019-answer-sheet",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-1 / 7・201 / 発話019。音声終了後も自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-v-riddle-enter",
+        "name": "五つの謎・第1問開始＋台本009",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-1",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "第一の謎は、こちらです",
+        "displayText": "第一の謎は、こちらです",
+        "operatorNote": "台本更新: 「第一の謎は、こちらです」＋画面切替を1 Cue。問題画像未提供。原版009はアーカイブとして保持。",
+        "triggerNote": "扇「これか！」の後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-009-first-riddle",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "hijacked-subtle-v1"
+        },
+        "speech": {
+          "spokenText": "第一の謎は、こちらです",
+          "segments": [
+            {
+              "displayText": "第一の謎は、こちらです",
+              "spokenText": "第一の謎は、こちらです",
+              "startMs": 0,
+              "endMs": 2286,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-puzzle",
+            "atMs": 0,
+            "volume": 0.6,
+            "durationMs": 650
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "riddle-enter",
+          "durationMs": 4587,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [
+          {
+            "atMs": 2287,
+            "visual": {
+              "id": "puzzle-first",
+              "type": "image",
+              "assetId": "puzzle-first",
+              "assetVersion": null,
+              "mode": "default",
+              "visible": true,
+              "title": "第一の謎",
+              "message": "本物の問題画像は未提供 / 表示枠の確認用",
+              "items": []
+            }
+          }
+        ],
+        "syncMarkers": [],
+        "order": 100,
+        "cueId": "prod-v-riddle-enter",
+        "cueNumber": "P-V02",
+        "cueName": "五つの謎・第1問開始＋台本009",
+        "text": "第一の謎は、こちらです",
+        "sceneId": "scene-1",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-009-first-riddle",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "台本更新: 「第一の謎は、こちらです」＋画面切替を1 Cue。問題画像未提供。原版009はアーカイブとして保持。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-011",
+        "name": "五つ達成・統合・最終問題",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+        "displayText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+        "operatorNote": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。",
+        "triggerNote": "扇「答えは①から⑤まで全部揃った！ 横川AI、これで脱出できるんだろう！」後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-011-final-challenge",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+          "segments": [
+            {
+              "displayText": "条件の達成を確認。",
+              "spokenText": "条件の達成を確認。",
+              "startMs": 0,
+              "endMs": 1849,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "五つの解を統合し、最終問題を提示する。",
+              "spokenText": "五つの解を統合し、最終問題を提示する。",
+              "startMs": 1849,
+              "endMs": 5275,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "最終問題の回答を入力しなさい",
+              "spokenText": "最終問題の回答を入力しなさい",
+              "startMs": 5275,
+              "endMs": 7883,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-integrate",
+            "atMs": 1800,
+            "volume": 0.6,
+            "durationMs": 1800
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "final-challenge-enter",
+          "durationMs": 4800,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "five-verified",
+          "type": "riddle-status",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "five-complete",
+          "visible": true,
+          "title": "五つの解を確認",
+          "message": "5 / 5 VERIFIED",
+          "items": [
+            "01 ✓",
+            "02 ✓",
+            "03 ✓",
+            "04 ✓",
+            "05 ✓"
+          ]
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [
+          {
+            "atMs": 2000,
+            "visual": {
+              "id": "five-integrating",
+              "type": "riddle-status",
+              "assetId": null,
+              "assetVersion": null,
+              "mode": "integration",
+              "visible": true,
+              "title": "五つの解を統合",
+              "message": "INTEGRATING",
+              "items": [
+                "01 ✓",
+                "02 ✓",
+                "03 ✓",
+                "04 ✓",
+                "05 ✓"
+              ]
+            }
+          },
+          {
+            "atMs": 4200,
+            "visual": {
+              "id": "puzzle-final",
+              "type": "image",
+              "assetId": "puzzle-final",
+              "assetVersion": null,
+              "mode": "default",
+              "visible": true,
+              "title": "最終問題",
+              "message": "本物の問題画像は未提供 / 表示枠の確認用",
+              "items": []
+            }
+          }
+        ],
+        "syncMarkers": [],
+        "order": 130,
+        "cueId": "prod-011",
+        "cueNumber": "P-011",
+        "cueName": "五つ達成・統合・最終問題",
+        "text": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+        "sceneId": "scene-6",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-011-final-challenge",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-012",
+        "name": "認証成功→解錠進行→異常",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "……認証成功。これより開錠を開始する",
+        "displayText": "……認証成功。これより開錠を開始する",
+        "operatorNote": "認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。",
+        "triggerNote": "扇「最後の答えはブレイクヨコガワだ！」後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hijacked",
+        "avatar": {
+          "visible": true,
+          "state": "hijacked"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-012-auth-success",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "……認証成功。これより開錠を開始する",
+          "segments": [
+            {
+              "displayText": "……認証成功。",
+              "spokenText": "……認証成功。",
+              "startMs": 0,
+              "endMs": 1619,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "これより開錠を開始する",
+              "spokenText": "これより開錠を開始する",
+              "startMs": 1619,
+              "endMs": 3668,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-auth",
+            "atMs": 3669,
+            "volume": 0.6,
+            "durationMs": 650
+          },
+          {
+            "assetId": "prod-sfx-unlock",
+            "atMs": 4519,
+            "volume": 0.6,
+            "durationMs": 900
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "timeline",
+          "durationMs": 11919,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "authentication-success",
+          "visible": true,
+          "title": "認証成功",
+          "message": "AUTHENTICATED — 解錠処理を許可",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [
+          {
+            "atMs": 0,
+            "transition": {
+              "mode": "fade",
+              "id": "auth-success",
+              "durationMs": 1000,
+              "intensity": 1
+            }
+          },
+          {
+            "atMs": 4519,
+            "overlay": {
+              "id": "unlocking",
+              "visible": true,
+              "title": "解錠処理",
+              "message": "SECURITY RELEASE",
+              "progress": 0,
+              "variant": "default"
+            },
+            "presentationPreset": "warning",
+            "transition": {
+              "mode": "fade",
+              "id": "unlock-start",
+              "durationMs": 7400,
+              "intensity": 1
+            },
+            "unlock": {
+              "durationMs": 5000
+            },
+            "clearSubtitle": true
+          },
+          {
+            "atMs": 10419,
+            "overlay": {
+              "id": "unlocking",
+              "visible": true,
+              "title": "解錠完了",
+              "message": "RELEASE COMPLETE",
+              "progress": null,
+              "variant": "collapse"
+            }
+          },
+          {
+            "atMs": 11319,
+            "overlay": {
+              "id": "unlocking",
+              "visible": true,
+              "title": "解錠完了",
+              "message": "RELEASE COMPLETE",
+              "progress": null,
+              "variant": "anomaly"
+            },
+            "clearSubtitle": true
+          }
+        ],
+        "syncMarkers": [
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-AUTH-CHIME-AFTER",
+            "note": "WAV012終了後に電子音。記述用markerであり正式音響Cue番号ではない。"
+          }
+        ],
+        "order": 140,
+        "cueId": "prod-012",
+        "cueNumber": "P-012",
+        "cueName": "認証成功→解錠進行→異常",
+        "text": "……認証成功。これより開錠を開始する",
+        "sceneId": "scene-6",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-012-auth-success",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-013",
+        "name": "緊急遮断",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+        "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+        "operatorNote": "警告SE完了後にWAV013をGO。開錠100%表示から割り込ませる。",
+        "triggerNote": "虎谷の端末操作→警告SE完了後にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "warning",
+        "avatar": {
+          "visible": true,
+          "state": "warning"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-013-emergency",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "エラー。セキュリティープロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+          "segments": [
+            {
+              "displayText": "エラー。",
+              "spokenText": "エラー。",
+              "startMs": 0,
+              "endMs": 150,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "セキュリティプロテクトの緊急遮断を確認。",
+              "spokenText": "セキュリティープロテクトの緊急遮断を確認。",
+              "startMs": 150,
+              "endMs": 3242,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "解錠作業ストップ。",
+              "spokenText": "解錠作業ストップ。",
+              "startMs": 3242,
+              "endMs": 4837,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "エラー。",
+              "spokenText": "エラー。",
+              "startMs": 4837,
+              "endMs": 4977,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "指定されたスタッフへの連絡に失敗。",
+              "spokenText": "指定されたスタッフへの連絡に失敗。",
+              "startMs": 4977,
+              "endMs": 7848,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-warning",
+            "atMs": 0,
+            "volume": 0.6,
+            "durationMs": 900
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "emergency-interrupt",
+          "durationMs": 900,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "connection-failed",
+          "visible": true,
+          "title": "ERROR — 緊急遮断",
+          "message": "解錠停止 / スタッフへの連絡失敗",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-WARNING-BEFORE-013",
+            "note": "WAV013より前に警告音。記述用markerであり正式音響Cue番号ではない。"
+          }
+        ],
+        "order": 160,
+        "cueId": "prod-013",
+        "cueNumber": "P-013",
+        "cueName": "緊急遮断",
+        "text": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+        "sceneId": "scene-6",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-013-emergency",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "警告SE完了後にWAV013をGO。開錠100%表示から割り込ませる。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-014",
+        "name": "連絡失敗",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "……エラー。指定されたスタッフへの連絡に失敗。",
+        "displayText": "……エラー。指定されたスタッフへの連絡に失敗。",
+        "operatorNote": "WAV014終了後に警告SE。音声終了後も自動進行しない。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "warning",
+        "avatar": {
+          "visible": true,
+          "state": "warning"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-014-contact-failed",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "……エラー。指定されたスタッフへの連絡に失敗。",
+          "segments": [
+            {
+              "displayText": "……エラー。",
+              "spokenText": "……エラー。",
+              "startMs": 0,
+              "endMs": 120,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "指定されたスタッフへの連絡に失敗。",
+              "spokenText": "指定されたスタッフへの連絡に失敗。",
+              "startMs": 120,
+              "endMs": 3529,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-warning",
+            "atMs": 3529,
+            "volume": 0.6,
+            "durationMs": 900
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "connection-failed",
+          "visible": true,
+          "title": "CONNECTION FAILED",
+          "message": "REMOTE SYSTEM UNREACHABLE",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-WARNING-AFTER-014",
+            "note": "WAV014終了後に警告音。記述用markerであり正式音響Cue番号ではない。"
+          }
+        ],
+        "order": 170,
+        "cueId": "prod-014",
+        "cueNumber": "P-014",
+        "cueName": "連絡失敗",
+        "text": "……エラー。指定されたスタッフへの連絡に失敗。",
+        "sceneId": "scene-6",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-014-contact-failed",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "WAV014終了後に警告SE。音声終了後も自動進行しない。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-v-hostile-enter",
+        "name": "危険状態・警報開始",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "display-only",
+        "speechText": "",
+        "displayText": "HOSTILE CONTROL DETECTED",
+        "operatorNote": "虎谷の端末操作でWAV015より先にGO。AI危険表示、照明明滅、警報開始。",
+        "triggerNote": "虎谷が端末を操作した瞬間にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hostile",
+        "avatar": {
+          "visible": true,
+          "state": "hostile"
+        },
+        "audio": {
+          "speechMode": "none",
+          "assetId": null,
+          "lipSyncMode": "none",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "",
+          "segments": []
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-hostile",
+            "atMs": 0,
+            "volume": 0.6,
+            "durationMs": 1600
+          }
+        ],
+        "transition": {
+          "mode": "glitch",
+          "id": "hostile-enter",
+          "durationMs": 1300,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "forced-runaway",
+          "visible": true,
+          "title": "FORCED RUNAWAY",
+          "message": "MANUAL CONTROL LOST",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [
+          {
+            "department": "LX",
+            "id": "ALIGN-LX-HOSTILE-FLICKER",
+            "note": "照明明滅開始。記述用markerであり正式照明Cue番号ではない。"
+          },
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-ALARM-START",
+            "note": "警報開始。記述用markerであり正式音響Cue番号ではない。"
+          }
+        ],
+        "order": 180,
+        "cueId": "prod-v-hostile-enter",
+        "cueNumber": "P-V04",
+        "cueName": "危険状態・警報開始",
+        "text": "HOSTILE CONTROL DETECTED",
+        "sceneId": "scene-6",
+        "displayMode": "display-only",
+        "speechProvider": "none",
+        "audioAsset": null,
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "虎谷の端末操作でWAV015より先にGO。AI危険表示、照明明滅、警報開始。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-015",
+        "name": "強制暴走",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "7号館全域の機械設備、強制暴走モードへ移行します",
+        "displayText": "7号館全域の機械設備、強制暴走モードへ移行します",
+        "operatorNote": "HOSTILE先行Cueと警報開始後にWAV015をGO。終了後に轟音SE。",
+        "triggerNote": "虎谷の暴走命令を受けてGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hostile",
+        "avatar": {
+          "visible": true,
+          "state": "hostile"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-015-forced-runaway",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "7号館全域の機械設備、強制暴走モードへ移行します",
+          "segments": [
+            {
+              "displayText": "7号館全域の機械設備、強制暴走モードへ移行します",
+              "spokenText": "7号館全域の機械設備、強制暴走モードへ移行します",
+              "startMs": 0,
+              "endMs": 4307,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-rumble",
+            "atMs": 4307,
+            "volume": 0.6,
+            "durationMs": 1400
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 0,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "forced-runaway",
+          "visible": true,
+          "title": "FORCED RUNAWAY",
+          "message": "MANUAL CONTROL LOST",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-RUMBLE-AFTER-015",
+            "note": "WAV015終了後に轟音。記述用markerであり正式音響Cue番号ではない。"
+          }
+        ],
+        "order": 190,
+        "cueId": "prod-015",
+        "cueNumber": "P-015",
+        "cueName": "強制暴走",
+        "text": "7号館全域の機械設備、強制暴走モードへ移行します",
+        "sceneId": "scene-6",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-015-forced-runaway",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "HOSTILE先行Cueと警報開始後にWAV015をGO。終了後に轟音SE。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-v-emergency-riddle",
+        "name": "非常停止問題",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "preset-only",
+        "speechText": "",
+        "displayText": "",
+        "operatorNote": "非常停止問題の表示container。台本で問題本文・ヒント内容が未確定のため創作しない。素材受領後に差し替える。",
+        "triggerNote": "WAV015後、非常停止の謎を提示する舞台進行でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "hostile",
+        "avatar": {
+          "visible": true,
+          "state": "hostile"
+        },
+        "audio": {
+          "speechMode": "none",
+          "assetId": null,
+          "lipSyncMode": "none",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "",
+          "segments": []
+        },
+        "sfx": [],
+        "transition": {
+          "mode": "fade",
+          "id": "none",
+          "durationMs": 900,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "none",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "puzzle-emergency",
+          "type": "image",
+          "assetId": "puzzle-emergency",
+          "assetVersion": null,
+          "mode": "default",
+          "visible": true,
+          "title": "非常停止問題",
+          "message": "問題画像・ヒント・停止コード未提供",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [],
+        "order": 200,
+        "cueId": "prod-v-emergency-riddle",
+        "cueNumber": "P-V05",
+        "cueName": "非常停止問題",
+        "text": "",
+        "sceneId": "scene-6",
+        "displayMode": "preset-only",
+        "speechProvider": "none",
+        "audioAsset": null,
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "非常停止問題の表示container。台本で問題本文・ヒント内容が未確定のため創作しない。素材受領後に差し替える。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-v-stop-code",
+        "name": "停止コード・システム全停止＋台本016",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-6",
+        "location": "7・201",
+        "kind": "speech-display",
+        "speechText": "……システム、全停止。セキュリティを……解放します……",
+        "displayText": "……システム、全停止。セキュリティを……解放します……",
+        "operatorNote": "1 GOで暴走を即停止→1.2秒のcut→0.7秒の静寂→既存WAV016を一度再生。終了後はSHUTDOWNを保持。",
+        "triggerNote": "非常停止コード入力成立の瞬間にGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "shutdown",
+        "avatar": {
+          "visible": true,
+          "state": "shutdown"
+        },
+        "audio": {
+          "speechMode": "audio-file",
+          "assetId": "prod-voice-016-shutdown",
+          "lipSyncMode": "audio-reactive",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "……システム、全停止。セキュリティーを……解放します……",
+          "segments": [
+            {
+              "displayText": "……システム、全停止。",
+              "spokenText": "……システム、全停止。",
+              "startMs": 0,
+              "endMs": 1727,
+              "pauseAfterMs": 0
+            },
+            {
+              "displayText": "セキュリティを……解放します……",
+              "spokenText": "セキュリティーを……解放します……",
+              "startMs": 1727,
+              "endMs": 4117,
+              "pauseAfterMs": 0
+            }
+          ]
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-shutdown",
+            "atMs": 0,
+            "volume": 0.6,
+            "durationMs": 850
+          }
+        ],
+        "transition": {
+          "mode": "cut",
+          "id": "shutdown",
+          "durationMs": 1900,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "system-shutdown",
+          "visible": true,
+          "title": "システム全停止",
+          "message": "ALL PROCESSES SUSPENDED",
+          "progress": null,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 1900,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [],
+        "syncMarkers": [
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-ALARM-STOP",
+            "note": "警報STOP。記述用markerであり正式音響Cue番号ではない。"
+          },
+          {
+            "department": "LX",
+            "id": "ALIGN-LX-FLICKER-STOP",
+            "note": "照明明滅STOP。記述用markerであり正式照明Cue番号ではない。"
+          },
+          {
+            "department": "ACT",
+            "id": "ALIGN-ACT-RUNAWAY-STOP",
+            "note": "機械設備の暴走芝居を停止。"
+          },
+          {
+            "department": "SE",
+            "id": "ALIGN-SE-DOOR-UNLOCK-AFTER-016",
+            "note": "統合CueのWAV016終了後に扉解錠音。"
+          },
+          {
+            "department": "ACT",
+            "id": "ALIGN-ACT-CHECK-DOOR",
+            "note": "馬場・窪が扉を確認する芝居。"
+          }
+        ],
+        "order": 210,
+        "cueId": "prod-v-stop-code",
+        "cueNumber": "P-V06",
+        "cueName": "停止コード・システム全停止＋台本016",
+        "text": "……システム、全停止。セキュリティを……解放します……",
+        "sceneId": "scene-6",
+        "displayMode": "speech-display",
+        "speechProvider": "audio-file",
+        "audioAsset": "prod-voice-016-shutdown",
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "1 GOで暴走を即停止→1.2秒のcut→0.7秒の静寂→既存WAV016を一度再生。終了後はSHUTDOWNを保持。"
+      },
+      {
+        "schemaVersion": 3,
+        "id": "prod-v-recovery",
+        "name": "復旧開始",
+        "enabled": true,
+        "route": "main",
+        "scene": "scene-7",
+        "location": "7・201",
+        "kind": "preset-only",
+        "speechText": "",
+        "displayText": "",
+        "operatorNote": "虎谷が執念を手放すScene 7のタイミングでGO。100%→UI消去→温かな光→NORMALまで1 Cue。",
+        "triggerNote": "舞台監督の合図でGO",
+        "target": {
+          "type": "all"
+        },
+        "presentationPreset": "recovery",
+        "avatar": {
+          "visible": true,
+          "state": "recovery"
+        },
+        "audio": {
+          "speechMode": "none",
+          "assetId": null,
+          "lipSyncMode": "none",
+          "playbackEffect": "none"
+        },
+        "speech": {
+          "spokenText": "",
+          "segments": []
+        },
+        "sfx": [
+          {
+            "assetId": "prod-sfx-recovery",
+            "atMs": 0,
+            "volume": 0.6,
+            "durationMs": 1600
+          }
+        ],
+        "transition": {
+          "mode": "fade",
+          "id": "recovery",
+          "durationMs": 6000,
+          "intensity": 1
+        },
+        "overlay": {
+          "id": "restoring",
+          "visible": true,
+          "title": "システム復旧",
+          "message": "SYSTEM SYNCHRONIZATION",
+          "progress": 0,
+          "variant": "default"
+        },
+        "visual": {
+          "id": "none",
+          "type": "none",
+          "assetId": null,
+          "assetVersion": null,
+          "mode": "default",
+          "visible": false,
+          "title": "",
+          "message": "",
+          "items": []
+        },
+        "timing": {
+          "speechDelayMs": 0,
+          "autoClearOverlayMs": null,
+          "autoHideVisualMs": null,
+          "unlockDurationMs": 5000
+        },
+        "sequence": [
+          {
+            "atMs": 3800,
+            "overlay": {
+              "id": "restoring",
+              "visible": true,
+              "title": "復旧完了",
+              "message": "SYSTEM SYNCHRONIZED",
+              "progress": 100,
+              "variant": "default"
+            }
+          },
+          {
+            "atMs": 4600,
+            "overlay": {
+              "id": "none",
+              "visible": false,
+              "title": "",
+              "message": "",
+              "progress": null,
+              "variant": "default"
+            },
+            "presentationPreset": "normal",
+            "avatar": {
+              "visible": true,
+              "state": "normal",
+              "lipSyncMode": "none",
+              "label": "YOKOGAWA AI",
+              "mode": "image-yokogawa-v1",
+              "assetSetId": "yokogawa-v1",
+              "layers": null,
+              "paintBottomInset": 0.062
+            },
+            "clearSubtitle": true
+          }
+        ],
+        "syncMarkers": [],
+        "order": 230,
+        "cueId": "prod-v-recovery",
+        "cueNumber": "P-V07",
+        "cueName": "復旧開始",
+        "text": "",
+        "sceneId": "scene-7",
+        "displayMode": "preset-only",
+        "speechProvider": "none",
+        "audioAsset": null,
+        "preDelay": 0,
+        "postDelay": 0,
+        "actions": [],
+        "notes": "虎谷が執念を手放すScene 7のタイミングでGO。100%→UI消去→温かな光→NORMALまで1 Cue。"
+      }
+    ],
+    "targetGroups": [],
+    "adminMode": "show",
+    "currentCueIndex": 9,
+    "currentSceneId": "scene-1",
+    "settings": {
+      "rate": 1,
+      "pitch": 0.9,
+      "volume": 1,
+      "sfxVolume": 0.65,
+      "voiceURI": "",
+      "subtitlesEnabled": true,
+      "historyLimit": 100,
+      "speechProvider": "browser",
+      "freeSpeakMode": "local-tts",
+      "shortcutsEnabled": true,
+      "reducedMotion": false
+    },
+    "schemaVersion": 3,
+    "metadata": {
+      "title": "横川AI Production — 本編",
+      "version": "runtime-hardening-v1.0",
+      "nextGuardMs": 1200,
+      "showHash": "b889384639e5a0d8df33dd2f202d01da196a1796de74a24c1246e358141e8d9a",
+      "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
+      "sourceScript": {
+        "title": "『7号館からの脱出』上演台本",
+        "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
+        "revisionId": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
+        "modifiedTime": "2026-10-09T11:28:22.972Z",
+        "tabCount": 14,
+        "authority": "current-google-docs-revision"
+      },
+      "voiceProfileId": "yokogawa-professor-v1",
+      "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+      "sceneStructureSource": {
+        "documentId": "16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo",
+        "revisionId": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
+        "tabCount": 14
+      }
+    },
+    "routes": [
+      {
+        "id": "main",
+        "name": "本編"
+      },
+      {
+        "id": "yokogawa",
+        "name": "横川ルート"
+      }
+    ],
+    "presets": [
+      {
+        "id": "normal",
+        "name": "Normal",
+        "background": "#07121f",
+        "accent": "#62d9ff",
+        "text": "#eefaff",
+        "glow": 0.45,
+        "motion": "calm"
+      },
+      {
+        "id": "warning",
+        "name": "Warning",
+        "background": "#211605",
+        "accent": "#ffbe55",
+        "text": "#fff8e8",
+        "glow": 0.58,
+        "motion": "pulse"
+      },
+      {
+        "id": "hijacked",
+        "name": "Hijacked",
+        "background": "#1c0715",
+        "accent": "#ff4fbc",
+        "text": "#fff0fa",
+        "glow": 0.68,
+        "motion": "glitch"
+      },
+      {
+        "id": "hostile",
+        "name": "Hostile",
+        "background": "#220909",
+        "accent": "#ff5a5a",
+        "text": "#fff0f0",
+        "glow": 0.7,
+        "motion": "pulse"
+      },
+      {
+        "id": "shutdown",
+        "name": "Shutdown",
+        "background": "#020305",
+        "accent": "#6c7785",
+        "text": "#d5dae0",
+        "glow": 0.12,
+        "motion": "none"
+      },
+      {
+        "id": "recovery",
+        "name": "Recovery",
+        "background": "#061d18",
+        "accent": "#53f3c2",
+        "text": "#edfff9",
+        "glow": 0.5,
+        "motion": "calm"
+      }
+    ],
+    "assets": [
+      {
+        "id": "prod-voice-001-boot",
+        "name": "横川AI Production 001",
+        "path": "assets/audio/yokogawa-professor-v1_001_boot.wav",
+        "mimeType": "audio/wav",
+        "sha256": "0c33dd4ba3aa4b847059b169ab48a6bd247ca157699738895da022e017e22020",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-002-participant",
+        "name": "横川AI Production 002",
+        "path": "assets/audio/production-v2-002.wav",
+        "mimeType": "audio/wav",
+        "sha256": "2811e7cc4ca8bcdad092f0d5a363f1684ad2c4444765e928818bb6a6afe1db2e",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-003-security",
+        "name": "横川AI Production 003",
+        "path": "assets/audio/yokogawa-professor-v1_003_security.wav",
+        "mimeType": "audio/wav",
+        "sha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-004-principia",
+        "name": "横川AI Production 004",
+        "path": "assets/audio/yokogawa-professor-v1_004_principia.wav",
+        "mimeType": "audio/wav",
+        "sha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-005-communication-lock",
+        "name": "横川AI Production 005",
+        "path": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
+        "mimeType": "audio/wav",
+        "sha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-006-reject",
+        "name": "横川AI Production 006",
+        "path": "assets/audio/yokogawa-professor-v1_006_reject.wav",
+        "mimeType": "audio/wav",
+        "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-007-auth-failed",
+        "name": "横川AI Production 007",
+        "path": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
+        "mimeType": "audio/wav",
+        "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-008-five-riddles",
+        "name": "横川AI Production 008",
+        "path": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
+        "mimeType": "audio/wav",
+        "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-009-first-riddle",
+        "name": "横川AI Production 009",
+        "path": "assets/audio/production-v2-009.wav",
+        "mimeType": "audio/wav",
+        "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-011-final-challenge",
+        "name": "横川AI Production 011",
+        "path": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+        "mimeType": "audio/wav",
+        "sha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-012-auth-success",
+        "name": "横川AI Production 012",
+        "path": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+        "mimeType": "audio/wav",
+        "sha256": "b5ccaa7da5616b068f91594c5777f0c62492529e2ea709f0ba8cc783e7e50ceb",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-013-emergency",
+        "name": "横川AI Production 013",
+        "path": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
+        "mimeType": "audio/wav",
+        "sha256": "b9a867d19a34676598214c581d515887a36cd62b1a7b9f2a79f97ee662083868",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-014-contact-failed",
+        "name": "横川AI Production 014",
+        "path": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+        "mimeType": "audio/wav",
+        "sha256": "9c7a3afd0cdec0c63fcc6c48bcc74c51505eec590284c10b6e9189c40fb8b4ce",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-015-forced-runaway",
+        "name": "横川AI Production 015",
+        "path": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
+        "mimeType": "audio/wav",
+        "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-016-shutdown",
+        "name": "横川AI Production 016",
+        "path": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+        "mimeType": "audio/wav",
+        "sha256": "43c7a3a43b337cfc3b165abb23ae3af91f9f7444fdd57c28abb7cab561c7bdd4",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-voice-019-answer-sheet",
+        "name": "横川AI Production 019",
+        "path": "assets/audio/production-v2-019.wav",
+        "mimeType": "audio/wav",
+        "sha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2",
+        "durationMs": 0
+      },
+      {
+        "id": "prod-sfx-boot",
+        "name": "SFX boot",
+        "path": "assets/audio/production-sfx-boot.wav",
+        "mimeType": "audio/wav",
+        "sha256": "80ef73dd33b072ffe6a914c375de49d3ee3041387dab373304daf9cc68d15d65",
+        "durationMs": 1600
+      },
+      {
+        "id": "prod-sfx-glitch",
+        "name": "SFX glitch",
+        "path": "assets/audio/production-sfx-glitch.wav",
+        "mimeType": "audio/wav",
+        "sha256": "abee4f42f05c76e9bf6d3dee5d6d23f2ba2b5bbe682e33b86bd7dfbb8fed5bee",
+        "durationMs": 900
+      },
+      {
+        "id": "prod-sfx-puzzle",
+        "name": "SFX puzzle",
+        "path": "assets/audio/production-sfx-puzzle.wav",
+        "mimeType": "audio/wav",
+        "sha256": "b3d98c57519c5f33b7f36efdd00fc53d643cd8d66100e5c119da65f17ab0ea5c",
+        "durationMs": 650
+      },
+      {
+        "id": "prod-sfx-integrate",
+        "name": "SFX integrate",
+        "path": "assets/audio/production-sfx-integrate.wav",
+        "mimeType": "audio/wav",
+        "sha256": "a4948467425b7043a4bb80b74cdb6c00be2381c16ab141b4c18b5326fd7c0b7f",
+        "durationMs": 1800
+      },
+      {
+        "id": "prod-sfx-auth",
+        "name": "SFX auth",
+        "path": "assets/audio/production-sfx-auth.wav",
+        "mimeType": "audio/wav",
+        "sha256": "78ab6f17c140f1ffb0509ad5fb89f022e03c90f8306132a84f7d0ee2571ea7ce",
+        "durationMs": 650
+      },
+      {
+        "id": "prod-sfx-unlock",
+        "name": "SFX unlock",
+        "path": "assets/audio/production-sfx-unlock.wav",
+        "mimeType": "audio/wav",
+        "sha256": "0b90fbb07351480dac97bd5e7130f183d94621b136805b366a3d48819e716220",
+        "durationMs": 900
+      },
+      {
+        "id": "prod-sfx-warning",
+        "name": "SFX warning",
+        "path": "assets/audio/production-sfx-warning.wav",
+        "mimeType": "audio/wav",
+        "sha256": "f9a9d5533d747f71ac688e212477fd56fb59b58779c4329671c88009a4108c29",
+        "durationMs": 900
+      },
+      {
+        "id": "prod-sfx-hostile",
+        "name": "SFX hostile",
+        "path": "assets/audio/production-sfx-hostile.wav",
+        "mimeType": "audio/wav",
+        "sha256": "4a33188d4430ee686ac6caf42f6c46b8a257d135ed197b10761b4f02247f171b",
+        "durationMs": 1600
+      },
+      {
+        "id": "prod-sfx-rumble",
+        "name": "SFX rumble",
+        "path": "assets/audio/production-sfx-rumble.wav",
+        "mimeType": "audio/wav",
+        "sha256": "c1800127960d47cce59ecaab4864d56c483c9e9d4b46712179df93965bb96dcd",
+        "durationMs": 1400
+      },
+      {
+        "id": "prod-sfx-shutdown",
+        "name": "SFX shutdown",
+        "path": "assets/audio/production-sfx-shutdown.wav",
+        "mimeType": "audio/wav",
+        "sha256": "1a08dbc88e6b234af78047d920fd0edea2e6ed4b7c713e1200c953f65c63497e",
+        "durationMs": 850
+      },
+      {
+        "id": "prod-sfx-recovery",
+        "name": "SFX recovery",
+        "path": "assets/audio/production-sfx-recovery.wav",
+        "mimeType": "audio/wav",
+        "sha256": "569c3f193e2347ac0c59373630ba88fa6435e557dcc499dd07a4095565753b7c",
+        "durationMs": 1600
+      },
+      {
+        "id": "puzzle-first",
+        "name": "未提供: first問題画像",
+        "path": "assets/visual/puzzle-image-pending.svg",
+        "mimeType": "image/svg+xml",
+        "sha256": null,
+        "durationMs": 0
+      },
+      {
+        "id": "puzzle-final",
+        "name": "未提供: final問題画像",
+        "path": "assets/visual/puzzle-image-pending.svg",
+        "mimeType": "image/svg+xml",
+        "sha256": null,
+        "durationMs": 0
+      },
+      {
+        "id": "puzzle-emergency",
+        "name": "未提供: emergency問題画像",
+        "path": "assets/visual/puzzle-image-pending.svg",
+        "mimeType": "image/svg+xml",
+        "sha256": null,
+        "durationMs": 0
+      }
+    ],
+    "avatar": {
+      "visible": false,
+      "state": "normal",
+      "lipSyncMode": "audio-reactive",
+      "label": "YOKOGAWA AI",
+      "mode": "image-yokogawa-v1",
+      "assetSetId": "yokogawa-v1",
+      "layers": null,
+      "paintBottomInset": 0.062
+    },
+    "currentPresetId": "hijacked",
+    "currentAvatar": {
+      "visible": true,
+      "state": "hijacked",
+      "lipSyncMode": "audio-reactive",
+      "label": "YOKOGAWA AI",
+      "mode": "image-yokogawa-v1",
+      "assetSetId": "yokogawa-v1",
+      "layers": null,
+      "paintBottomInset": 0.062
+    },
+    "blackout": false,
+    "previousVisualState": null,
+    "rehearsalSession": null,
+    "rehearsalLog": [],
+    "sceneRehearsal": null,
+    "currentOverlay": {
+      "id": "none",
+      "visible": false,
+      "title": "",
+      "message": "",
+      "progress": null,
+      "variant": "default"
+    },
+    "currentVisual": {
+      "id": "puzzle-first",
+      "type": "image",
+      "assetId": "puzzle-first",
+      "assetVersion": null,
+      "mode": "default",
+      "visible": true,
+      "title": "第一の謎",
+      "message": "本物の問題画像は未提供 / 表示枠の確認用",
+      "items": []
+    },
+    "currentTransition": {
+      "mode": "fade",
+      "id": "riddle-enter",
+      "durationMs": 4587,
+      "intensity": 1,
+      "phases": [
+        {
+          "atMs": 2287,
+          "visual": {
+            "id": "puzzle-first",
+            "type": "image",
+            "assetId": "puzzle-first",
+            "assetVersion": null,
+            "mode": "default",
+            "visible": true,
+            "title": "第一の謎",
+            "message": "本物の問題画像は未提供 / 表示枠の確認用",
+            "items": []
+          }
+        }
+      ],
+      "phaseIndex": 1,
+      "status": "completed",
+      "startedAt": null,
+      "completedAt": "2026-10-09T16:12:28.700Z"
+    },
+    "unlock": {
+      "status": "idle",
+      "progress": 0,
+      "startedAt": null,
+      "durationMs": 5000,
+      "completedAt": null
+    },
+    "localTts": {
+      "status": "error",
+      "profileId": "yokogawa-professor-v1",
+      "engineVersion": null,
+      "runtimeStyleId": null,
+      "error": "fetch failed",
+      "checkedAt": "2026-10-09T16:48:07.093Z",
+      "speakerUuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d",
+      "styleName": "Calm",
+      "output": {
+        "sampleRate": 44100,
+        "channels": 1,
+        "bitsPerSample": 16,
+        "mimeType": "audio/wav"
+      },
+      "cache": {
+        "entries": 0,
+        "totalBytes": 0,
+        "maxEntries": 32,
+        "maxBytes": 100663296,
+        "ttlMs": 1800000
+      },
+      "activity": "idle"
+    },
+    "runtimeRecovery": {
+      "reason": "display-resume",
+      "at": "2026-10-09T16:48:01.527Z"
+    },
+    "currentCue": {
+      "schemaVersion": 3,
+      "id": "prod-v-riddle-enter",
+      "name": "五つの謎・第1問開始＋台本009",
+      "enabled": true,
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "第一の謎は、こちらです",
+      "displayText": "第一の謎は、こちらです",
+      "operatorNote": "台本更新: 「第一の謎は、こちらです」＋画面切替を1 Cue。問題画像未提供。原版009はアーカイブとして保持。",
+      "triggerNote": "扇「これか！」の後にGO",
+      "target": {
+        "type": "all"
+      },
+      "presentationPreset": "hijacked",
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-009-first-riddle",
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "hijacked-subtle-v1"
+      },
+      "speech": {
+        "spokenText": "第一の謎は、こちらです",
+        "segments": [
+          {
+            "displayText": "第一の謎は、こちらです",
+            "spokenText": "第一の謎は、こちらです",
+            "startMs": 0,
+            "endMs": 2286,
+            "pauseAfterMs": 0
+          }
+        ]
+      },
+      "sfx": [
+        {
+          "assetId": "prod-sfx-puzzle",
+          "atMs": 0,
+          "volume": 0.6,
+          "durationMs": 650
+        }
+      ],
+      "transition": {
+        "mode": "fade",
+        "id": "riddle-enter",
+        "durationMs": 4587,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "none",
+        "visible": false,
+        "title": "",
+        "message": "",
+        "progress": null,
+        "variant": "default"
+      },
+      "visual": {
+        "id": "none",
+        "type": "none",
+        "assetId": null,
+        "assetVersion": null,
+        "mode": "default",
+        "visible": false,
+        "title": "",
+        "message": "",
+        "items": []
+      },
+      "timing": {
+        "speechDelayMs": 0,
+        "autoClearOverlayMs": null,
+        "autoHideVisualMs": null,
+        "unlockDurationMs": 5000
+      },
+      "sequence": [
+        {
+          "atMs": 2287,
+          "visual": {
+            "id": "puzzle-first",
+            "type": "image",
+            "assetId": "puzzle-first",
+            "assetVersion": null,
+            "mode": "default",
+            "visible": true,
+            "title": "第一の謎",
+            "message": "本物の問題画像は未提供 / 表示枠の確認用",
+            "items": []
+          }
+        }
+      ],
+      "syncMarkers": [],
+      "order": 100,
+      "cueId": "prod-v-riddle-enter",
+      "cueNumber": "P-V02",
+      "cueName": "五つの謎・第1問開始＋台本009",
+      "text": "第一の謎は、こちらです",
+      "sceneId": "scene-1",
+      "displayMode": "speech-display",
+      "speechProvider": "audio-file",
+      "audioAsset": "prod-voice-009-first-riddle",
+      "preDelay": 0,
+      "postDelay": 0,
+      "actions": [],
+      "notes": "台本更新: 「第一の謎は、こちらです」＋画面切替を1 Cue。問題画像未提供。原版009はアーカイブとして保持。"
+    },
+    "nextCue": {
+      "schemaVersion": 3,
+      "id": "prod-011",
+      "name": "五つ達成・統合・最終問題",
+      "enabled": true,
+      "route": "main",
+      "scene": "scene-6",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+      "displayText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+      "operatorNote": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。",
+      "triggerNote": "扇「答えは①から⑤まで全部揃った！ 横川AI、これで脱出できるんだろう！」後にGO",
+      "target": {
+        "type": "all"
+      },
+      "presentationPreset": "hijacked",
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-011-final-challenge",
+        "lipSyncMode": "audio-reactive",
+        "playbackEffect": "none"
+      },
+      "speech": {
+        "spokenText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+        "segments": [
+          {
+            "displayText": "条件の達成を確認。",
+            "spokenText": "条件の達成を確認。",
+            "startMs": 0,
+            "endMs": 1849,
+            "pauseAfterMs": 0
+          },
+          {
+            "displayText": "五つの解を統合し、最終問題を提示する。",
+            "spokenText": "五つの解を統合し、最終問題を提示する。",
+            "startMs": 1849,
+            "endMs": 5275,
+            "pauseAfterMs": 0
+          },
+          {
+            "displayText": "最終問題の回答を入力しなさい",
+            "spokenText": "最終問題の回答を入力しなさい",
+            "startMs": 5275,
+            "endMs": 7883,
+            "pauseAfterMs": 0
+          }
+        ]
+      },
+      "sfx": [
+        {
+          "assetId": "prod-sfx-integrate",
+          "atMs": 1800,
+          "volume": 0.6,
+          "durationMs": 1800
+        }
+      ],
+      "transition": {
+        "mode": "fade",
+        "id": "final-challenge-enter",
+        "durationMs": 4800,
+        "intensity": 1
+      },
+      "overlay": {
+        "id": "none",
+        "visible": false,
+        "title": "",
+        "message": "",
+        "progress": null,
+        "variant": "default"
+      },
+      "visual": {
+        "id": "five-verified",
+        "type": "riddle-status",
+        "assetId": null,
+        "assetVersion": null,
+        "mode": "five-complete",
+        "visible": true,
+        "title": "五つの解を確認",
+        "message": "5 / 5 VERIFIED",
+        "items": [
+          "01 ✓",
+          "02 ✓",
+          "03 ✓",
+          "04 ✓",
+          "05 ✓"
+        ]
+      },
+      "timing": {
+        "speechDelayMs": 0,
+        "autoClearOverlayMs": null,
+        "autoHideVisualMs": null,
+        "unlockDurationMs": 5000
+      },
+      "sequence": [
+        {
+          "atMs": 2000,
+          "visual": {
+            "id": "five-integrating",
+            "type": "riddle-status",
+            "assetId": null,
+            "assetVersion": null,
+            "mode": "integration",
+            "visible": true,
+            "title": "五つの解を統合",
+            "message": "INTEGRATING",
+            "items": [
+              "01 ✓",
+              "02 ✓",
+              "03 ✓",
+              "04 ✓",
+              "05 ✓"
+            ]
+          }
+        },
+        {
+          "atMs": 4200,
+          "visual": {
+            "id": "puzzle-final",
+            "type": "image",
+            "assetId": "puzzle-final",
+            "assetVersion": null,
+            "mode": "default",
+            "visible": true,
+            "title": "最終問題",
+            "message": "本物の問題画像は未提供 / 表示枠の確認用",
+            "items": []
+          }
+        }
+      ],
+      "syncMarkers": [],
+      "order": 130,
+      "cueId": "prod-011",
+      "cueNumber": "P-011",
+      "cueName": "五つ達成・統合・最終問題",
+      "text": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+      "sceneId": "scene-6",
+      "displayMode": "speech-display",
+      "speechProvider": "audio-file",
+      "audioAsset": "prod-voice-011-final-challenge",
+      "preDelay": 0,
+      "postDelay": 0,
+      "actions": [],
+      "notes": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。"
+    },
+    "nextGuard": {
+      "intervalMs": 1200,
+      "remainingMs": 0
+    },
+    "preflight": {
+      "status": "not-ready",
+      "canStart": false,
+      "errors": 2,
+      "warnings": 4,
+      "items": [
+        {
+          "id": "server",
+          "label": "サーバー",
+          "status": "ok",
+          "detail": "正常稼働中"
+        },
+        {
+          "id": "cues",
+          "label": "Cueデータ",
+          "status": "ok",
+          "detail": "19件"
+        },
+        {
+          "id": "show-schema",
+          "label": "Show File Schema v3",
+          "status": "ok",
+          "detail": "参照整合性OK"
+        },
+        {
+          "id": "presets",
+          "label": "Presentation Preset",
+          "status": "ok",
+          "detail": "6件"
+        },
+        {
+          "id": "avatar",
+          "label": "AI Avatar",
+          "status": "warning",
+          "detail": "image-yokogawa-v1 / yokogawa-v1 / audio-reactive"
+        },
+        {
+          "id": "audio-assets",
+          "label": "ローカル音声Asset",
+          "status": "ok",
+          "detail": "16 Cue / 30 Asset"
+        },
+        {
+          "id": "local-tts",
+          "label": "AivisSpeech / Local TTS",
+          "status": "warning",
+          "detail": "yokogawa-professor-v1: fetch failed"
+        },
+        {
+          "id": "position",
+          "label": "Cue位置",
+          "status": "warning",
+          "detail": "Cue P-V02 から再開"
+        },
+        {
+          "id": "displays",
+          "label": "Display接続",
+          "status": "error",
+          "detail": "0 ONLINE / 1 REGISTERED"
+        },
+        {
+          "id": "display:hardening",
+          "label": "任意: Stage",
+          "status": "warning",
+          "detail": "OFFLINE"
+        },
+        {
+          "id": "audio-master",
+          "label": "Audio Master",
+          "status": "error",
+          "detail": "Stage OFFLINE"
+        }
+      ]
+    },
+    "connectionInfo": {
+      "local": {
+        "admin": "http://localhost:62672/admin",
+        "display": "http://localhost:62672/display"
+      },
+      "candidates": []
+    }
+  },
+  "plays": [
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-sfx-boot",
+      "at": 1791561999624,
+      "volume": 0.325,
+      "playingTime": 0,
+      "duration": 1.6
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-001-boot",
+      "at": 1791562001732,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 4.260204
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-002-participant",
+      "at": 1791562014118,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 5.685828
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-003-security",
+      "at": 1791562027140,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 16.566803
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-004-principia",
+      "at": 1791562060139,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 16.276485
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-sfx-glitch",
+      "at": 1791562076644,
+      "volume": 0.39,
+      "playingTime": 0,
+      "duration": 0.9
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-005-communication-lock",
+      "at": 1791562150147,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 2.483878
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-006-reject",
+      "at": 1791562162109,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 1.411837
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-007-auth-failed",
+      "at": 1791562174136,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 1.520249
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-008-five-riddles",
+      "at": 1791562190118,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 5.142608
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-019-answer-sheet",
+      "at": 1791562330134,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 6.339433
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-voice-009-first-riddle",
+      "at": 1791562344118,
+      "volume": 1,
+      "playingTime": 0,
+      "duration": 2.286417
+    },
+    {
+      "src": "http://127.0.0.1:62672/api/assets/prod-sfx-puzzle",
+      "at": 1791562344191,
+      "volume": 0.39,
+      "playingTime": 0,
+      "duration": 0.65
+    }
+  ],
+  "browserErrors": [],
+  "scenarios": [],
+  "performances": 0,
+  "resetCount": 1,
+  "longestIdleMs": 2100287.4567,
+  "samples": [
+    {
+      "label": "baseline",
+      "at": "2026-10-09T16:03:08.845Z",
+      "runtime": {
+        "memory": {
+          "rss": 77926400,
+          "heapTotal": 33378304,
+          "heapUsed": 14508344,
+          "external": 9030086,
+          "arrayBuffers": 1841935
+        },
+        "cpu": {
+          "user": 546000,
+          "system": 296000
+        },
+        "uptime": 2.2716164,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 12,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": -1
+      },
+      "renderer": {
+        "Documents": 6,
+        "JSEventListeners": 16,
+        "Nodes": 841,
+        "TaskDuration": 0.114967,
+        "JSHeapUsedSize": 1692768
+      },
+      "dom": {
+        "documents": 6,
+        "nodes": 841,
+        "jsEventListeners": 16
+      },
+      "audio": {
+        "plays": 0,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 147202048
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:13:39.216Z",
+      "runtime": {
+        "memory": {
+          "rss": 66760704,
+          "heapTotal": 16785408,
+          "heapUsed": 14350872,
+          "external": 3869213,
+          "arrayBuffers": 186246
+        },
+        "cpu": {
+          "user": 2015000,
+          "system": 671000
+        },
+        "uptime": 632.750279,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 601,
+        "TaskDuration": 16.270641,
+        "JSHeapUsedSize": 954944
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 601,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 205148160
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:14:09.529Z",
+      "runtime": {
+        "memory": {
+          "rss": 66498560,
+          "heapTotal": 17072128,
+          "heapUsed": 15030592,
+          "external": 3869223,
+          "arrayBuffers": 186314
+        },
+        "cpu": {
+          "user": 2109000,
+          "system": 687000
+        },
+        "uptime": 663.0559763,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 601,
+        "TaskDuration": 16.276929,
+        "JSHeapUsedSize": 961864
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 601,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 205053952
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:14:39.856Z",
+      "runtime": {
+        "memory": {
+          "rss": 68198400,
+          "heapTotal": 18796544,
+          "heapUsed": 15770536,
+          "external": 4423573,
+          "arrayBuffers": 740664
+        },
+        "cpu": {
+          "user": 2156000,
+          "system": 718000
+        },
+        "uptime": 693.3790073,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 373,
+        "TaskDuration": 16.289464,
+        "JSHeapUsedSize": 944300
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 373,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 204861440
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:15:10.157Z",
+      "runtime": {
+        "memory": {
+          "rss": 69410816,
+          "heapTotal": 19095552,
+          "heapUsed": 17127376,
+          "external": 4424697,
+          "arrayBuffers": 741788
+        },
+        "cpu": {
+          "user": 2265000,
+          "system": 734000
+        },
+        "uptime": 723.6987742,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 394,
+        "TaskDuration": 16.296296,
+        "JSHeapUsedSize": 1007040
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 394,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203702272
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:15:40.475Z",
+      "runtime": {
+        "memory": {
+          "rss": 68296704,
+          "heapTotal": 18808832,
+          "heapUsed": 16448712,
+          "external": 3878797,
+          "arrayBuffers": 195888
+        },
+        "cpu": {
+          "user": 2265000,
+          "system": 734000
+        },
+        "uptime": 754.0011738,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 394,
+        "TaskDuration": 16.297033,
+        "JSHeapUsedSize": 1007968
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 394,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203702272
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:16:10.809Z",
+      "runtime": {
+        "memory": {
+          "rss": 69656576,
+          "heapTotal": 21204992,
+          "heapUsed": 17769208,
+          "external": 3881009,
+          "arrayBuffers": 198100
+        },
+        "cpu": {
+          "user": 2328000,
+          "system": 781000
+        },
+        "uptime": 784.3176891,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 415,
+        "TaskDuration": 16.303273,
+        "JSHeapUsedSize": 1049284
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 415,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203714560
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:16:41.128Z",
+      "runtime": {
+        "memory": {
+          "rss": 70344704,
+          "heapTotal": 21491712,
+          "heapUsed": 18555088,
+          "external": 3881063,
+          "arrayBuffers": 198154
+        },
+        "cpu": {
+          "user": 2359000,
+          "system": 781000
+        },
+        "uptime": 814.652303,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 415,
+        "TaskDuration": 16.304192,
+        "JSHeapUsedSize": 1050212
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 415,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203735040
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:17:11.453Z",
+      "runtime": {
+        "memory": {
+          "rss": 71675904,
+          "heapTotal": 21790720,
+          "heapUsed": 19737040,
+          "external": 3883039,
+          "arrayBuffers": 200130
+        },
+        "cpu": {
+          "user": 2468000,
+          "system": 796000
+        },
+        "uptime": 844.9789595,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 436,
+        "TaskDuration": 16.311531,
+        "JSHeapUsedSize": 1093132
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 436,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203747328
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:17:41.784Z",
+      "runtime": {
+        "memory": {
+          "rss": 71393280,
+          "heapTotal": 21504000,
+          "heapUsed": 19209736,
+          "external": 3883093,
+          "arrayBuffers": 199472
+        },
+        "cpu": {
+          "user": 2484000,
+          "system": 812000
+        },
+        "uptime": 875.2992222,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 436,
+        "TaskDuration": 16.312363,
+        "JSHeapUsedSize": 1094060
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 436,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203747328
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:18:12.117Z",
+      "runtime": {
+        "memory": {
+          "rss": 72347648,
+          "heapTotal": 23900160,
+          "heapUsed": 20551448,
+          "external": 3892803,
+          "arrayBuffers": 209894
+        },
+        "cpu": {
+          "user": 2515000,
+          "system": 859000
+        },
+        "uptime": 905.6317573,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 457,
+        "TaskDuration": 16.323813,
+        "JSHeapUsedSize": 1135412
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 457,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 204476416
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:18:42.410Z",
+      "runtime": {
+        "memory": {
+          "rss": 73035776,
+          "heapTotal": 24186880,
+          "heapUsed": 21329800,
+          "external": 3892857,
+          "arrayBuffers": 209948
+        },
+        "cpu": {
+          "user": 2531000,
+          "system": 859000
+        },
+        "uptime": 935.9650702,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 457,
+        "TaskDuration": 16.324756,
+        "JSHeapUsedSize": 1136340
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 457,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203784192
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:19:12.713Z",
+      "runtime": {
+        "memory": {
+          "rss": 68100096,
+          "heapTotal": 17555456,
+          "heapUsed": 15443992,
+          "external": 4305327,
+          "arrayBuffers": 622418
+        },
+        "cpu": {
+          "user": 2609000,
+          "system": 921000
+        },
+        "uptime": 966.257324,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 478,
+        "TaskDuration": 16.331839,
+        "JSHeapUsedSize": 1181892
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 478,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203767808
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:19:42.992Z",
+      "runtime": {
+        "memory": {
+          "rss": 67051520,
+          "heapTotal": 17268736,
+          "heapUsed": 14751456,
+          "external": 3978269,
+          "arrayBuffers": 295360
+        },
+        "cpu": {
+          "user": 2609000,
+          "system": 921000
+        },
+        "uptime": 996.5553182,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 478,
+        "TaskDuration": 16.332748,
+        "JSHeapUsedSize": 1182820
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 478,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203759616
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:20:13.302Z",
+      "runtime": {
+        "memory": {
+          "rss": 68284416,
+          "heapTotal": 18616320,
+          "heapUsed": 16076192,
+          "external": 3979623,
+          "arrayBuffers": 296714
+        },
+        "cpu": {
+          "user": 2687000,
+          "system": 953000
+        },
+        "uptime": 1026.8456387,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 499,
+        "TaskDuration": 16.339028,
+        "JSHeapUsedSize": 1224004
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 499,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203763712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:20:43.609Z",
+      "runtime": {
+        "memory": {
+          "rss": 69054464,
+          "heapTotal": 18903040,
+          "heapUsed": 16858120,
+          "external": 3979677,
+          "arrayBuffers": 296768
+        },
+        "cpu": {
+          "user": 2687000,
+          "system": 984000
+        },
+        "uptime": 1057.1482233,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 499,
+        "TaskDuration": 16.339882,
+        "JSHeapUsedSize": 1224932
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 499,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203763712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:21:13.951Z",
+      "runtime": {
+        "memory": {
+          "rss": 70918144,
+          "heapTotal": 20250624,
+          "heapUsed": 18223128,
+          "external": 4526913,
+          "arrayBuffers": 844004
+        },
+        "cpu": {
+          "user": 2750000,
+          "system": 1031000
+        },
+        "uptime": 1087.4588856,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 520,
+        "TaskDuration": 16.348114,
+        "JSHeapUsedSize": 1266108
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 520,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203759616
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:21:44.242Z",
+      "runtime": {
+        "memory": {
+          "rss": 69869568,
+          "heapTotal": 19963904,
+          "heapUsed": 17478864,
+          "external": 3989205,
+          "arrayBuffers": 306296
+        },
+        "cpu": {
+          "user": 2750000,
+          "system": 1031000
+        },
+        "uptime": 1117.7969927,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 520,
+        "TaskDuration": 16.348802,
+        "JSHeapUsedSize": 1267036
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 520,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203292672
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:22:14.546Z",
+      "runtime": {
+        "memory": {
+          "rss": 70991872,
+          "heapTotal": 22360064,
+          "heapUsed": 18826592,
+          "external": 3991417,
+          "arrayBuffers": 308508
+        },
+        "cpu": {
+          "user": 2828000,
+          "system": 1031000
+        },
+        "uptime": 1148.0817535,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 541,
+        "TaskDuration": 16.357367,
+        "JSHeapUsedSize": 1308196
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 541,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203182080
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:22:44.838Z",
+      "runtime": {
+        "memory": {
+          "rss": 71868416,
+          "heapTotal": 22646784,
+          "heapUsed": 19607888,
+          "external": 3991471,
+          "arrayBuffers": 308562
+        },
+        "cpu": {
+          "user": 2843000,
+          "system": 1031000
+        },
+        "uptime": 1178.3977377,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 541,
+        "TaskDuration": 16.358003,
+        "JSHeapUsedSize": 1309124
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 541,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203182080
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:23:15.149Z",
+      "runtime": {
+        "memory": {
+          "rss": 73175040,
+          "heapTotal": 22945792,
+          "heapUsed": 20775592,
+          "external": 3993447,
+          "arrayBuffers": 310538
+        },
+        "cpu": {
+          "user": 2875000,
+          "system": 1062000
+        },
+        "uptime": 1208.6872965,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 562,
+        "TaskDuration": 16.365206,
+        "JSHeapUsedSize": 1350284
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 562,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203202560
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:23:45.544Z",
+      "runtime": {
+        "memory": {
+          "rss": 72888320,
+          "heapTotal": 22659072,
+          "heapUsed": 20239496,
+          "external": 3993501,
+          "arrayBuffers": 309880
+        },
+        "cpu": {
+          "user": 2875000,
+          "system": 1062000
+        },
+        "uptime": 1238.9968198,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 562,
+        "TaskDuration": 16.366244,
+        "JSHeapUsedSize": 1351212
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 562,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203198464
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:24:15.874Z",
+      "runtime": {
+        "memory": {
+          "rss": 74039296,
+          "heapTotal": 25055232,
+          "heapUsed": 21606064,
+          "external": 3995019,
+          "arrayBuffers": 312110
+        },
+        "cpu": {
+          "user": 2937000,
+          "system": 1156000
+        },
+        "uptime": 1269.3877232,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 583,
+        "TaskDuration": 16.372432,
+        "JSHeapUsedSize": 1392372
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 583,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203202560
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:24:46.174Z",
+      "runtime": {
+        "memory": {
+          "rss": 74731520,
+          "heapTotal": 25341952,
+          "heapUsed": 22383400,
+          "external": 3995073,
+          "arrayBuffers": 312164
+        },
+        "cpu": {
+          "user": 2937000,
+          "system": 1156000
+        },
+        "uptime": 1299.7179483,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 583,
+        "TaskDuration": 16.373223,
+        "JSHeapUsedSize": 1393300
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 583,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203182080
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:25:16.510Z",
+      "runtime": {
+        "memory": {
+          "rss": 68112384,
+          "heapTotal": 17555456,
+          "heapUsed": 14151296,
+          "external": 4304927,
+          "arrayBuffers": 622018
+        },
+        "cpu": {
+          "user": 3046000,
+          "system": 1156000
+        },
+        "uptime": 1330.0193862,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 604,
+        "TaskDuration": 16.380089,
+        "JSHeapUsedSize": 1434448
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 604,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203202560
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:25:46.800Z",
+      "runtime": {
+        "memory": {
+          "rss": 66838528,
+          "heapTotal": 17268736,
+          "heapUsed": 13456248,
+          "external": 3869377,
+          "arrayBuffers": 186468
+        },
+        "cpu": {
+          "user": 3093000,
+          "system": 1156000
+        },
+        "uptime": 1360.3510429,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 604,
+        "TaskDuration": 16.380922,
+        "JSHeapUsedSize": 1435376
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 604,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203284480
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:26:17.096Z",
+      "runtime": {
+        "memory": {
+          "rss": 67907584,
+          "heapTotal": 19664896,
+          "heapUsed": 14779552,
+          "external": 3871589,
+          "arrayBuffers": 188680
+        },
+        "cpu": {
+          "user": 3187000,
+          "system": 1187000
+        },
+        "uptime": 1390.6519669,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 625,
+        "TaskDuration": 16.388193,
+        "JSHeapUsedSize": 1476560
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 625,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203268096
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:26:47.423Z",
+      "runtime": {
+        "memory": {
+          "rss": 68751360,
+          "heapTotal": 19951616,
+          "heapUsed": 15561400,
+          "external": 3871643,
+          "arrayBuffers": 188734
+        },
+        "cpu": {
+          "user": 3187000,
+          "system": 1203000
+        },
+        "uptime": 1420.9443824,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 625,
+        "TaskDuration": 16.38897,
+        "JSHeapUsedSize": 1477488
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 625,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203231232
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:27:17.760Z",
+      "runtime": {
+        "memory": {
+          "rss": 70860800,
+          "heapTotal": 20250624,
+          "heapUsed": 16982648,
+          "external": 4418897,
+          "arrayBuffers": 735988
+        },
+        "cpu": {
+          "user": 3328000,
+          "system": 1234000
+        },
+        "uptime": 1451.268768,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 646,
+        "TaskDuration": 16.395576,
+        "JSHeapUsedSize": 1518700
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 646,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203251712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:27:48.060Z",
+      "runtime": {
+        "memory": {
+          "rss": 69427200,
+          "heapTotal": 19963904,
+          "heapUsed": 16301600,
+          "external": 3872997,
+          "arrayBuffers": 190088
+        },
+        "cpu": {
+          "user": 3375000,
+          "system": 1234000
+        },
+        "uptime": 1481.6129433,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 646,
+        "TaskDuration": 16.396321,
+        "JSHeapUsedSize": 1519628
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 646,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203251712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:28:18.346Z",
+      "runtime": {
+        "memory": {
+          "rss": 70619136,
+          "heapTotal": 22360064,
+          "heapUsed": 17611392,
+          "external": 3875209,
+          "arrayBuffers": 192300
+        },
+        "cpu": {
+          "user": 3453000,
+          "system": 1265000
+        },
+        "uptime": 1511.902791,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 667,
+        "TaskDuration": 16.40335,
+        "JSHeapUsedSize": 1560800
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 667,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203255808
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:28:48.680Z",
+      "runtime": {
+        "memory": {
+          "rss": 71761920,
+          "heapTotal": 22646784,
+          "heapUsed": 18386592,
+          "external": 3875263,
+          "arrayBuffers": 192354
+        },
+        "cpu": {
+          "user": 3484000,
+          "system": 1281000
+        },
+        "uptime": 1542.1957076,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 667,
+        "TaskDuration": 16.404195,
+        "JSHeapUsedSize": 1561728
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 667,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203235328
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:29:18.999Z",
+      "runtime": {
+        "memory": {
+          "rss": 72949760,
+          "heapTotal": 22945792,
+          "heapUsed": 19551824,
+          "external": 3885431,
+          "arrayBuffers": 202522
+        },
+        "cpu": {
+          "user": 3578000,
+          "system": 1312000
+        },
+        "uptime": 1572.5300951,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 688,
+        "TaskDuration": 16.412113,
+        "JSHeapUsedSize": 1604144
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 688,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203255808
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:29:49.309Z",
+      "runtime": {
+        "memory": {
+          "rss": 72663040,
+          "heapTotal": 22659072,
+          "heapUsed": 18974080,
+          "external": 3885485,
+          "arrayBuffers": 201846
+        },
+        "cpu": {
+          "user": 3609000,
+          "system": 1328000
+        },
+        "uptime": 1602.846228,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 688,
+        "TaskDuration": 16.412807,
+        "JSHeapUsedSize": 1605072
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 688,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203255808
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:30:19.611Z",
+      "runtime": {
+        "memory": {
+          "rss": 73621504,
+          "heapTotal": 25055232,
+          "heapUsed": 20358184,
+          "external": 3887003,
+          "arrayBuffers": 204094
+        },
+        "cpu": {
+          "user": 3687000,
+          "system": 1375000
+        },
+        "uptime": 1633.1515299,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 709,
+        "TaskDuration": 16.419811,
+        "JSHeapUsedSize": 1647348
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 709,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203251712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:30:49.904Z",
+      "runtime": {
+        "memory": {
+          "rss": 74309632,
+          "heapTotal": 25341952,
+          "heapUsed": 21126232,
+          "external": 3887057,
+          "arrayBuffers": 204148
+        },
+        "cpu": {
+          "user": 3703000,
+          "system": 1375000
+        },
+        "uptime": 1663.4658717,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 709,
+        "TaskDuration": 16.420614,
+        "JSHeapUsedSize": 1648276
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 709,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203251712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:31:20.266Z",
+      "runtime": {
+        "memory": {
+          "rss": 66904064,
+          "heapTotal": 16306176,
+          "heapUsed": 12293104,
+          "external": 3754695,
+          "arrayBuffers": 77376
+        },
+        "cpu": {
+          "user": 3750000,
+          "system": 1390000
+        },
+        "uptime": 1693.7498469,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 730,
+        "TaskDuration": 16.427796,
+        "JSHeapUsedSize": 1689352
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 730,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203231232
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:31:50.587Z",
+      "runtime": {
+        "memory": {
+          "rss": 67244032,
+          "heapTotal": 16592896,
+          "heapUsed": 13115112,
+          "external": 3754749,
+          "arrayBuffers": 77430
+        },
+        "cpu": {
+          "user": 3765000,
+          "system": 1390000
+        },
+        "uptime": 1724.1174923,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 730,
+        "TaskDuration": 16.428568,
+        "JSHeapUsedSize": 1690280
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 730,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203251712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:32:20.882Z",
+      "runtime": {
+        "memory": {
+          "rss": 68628480,
+          "heapTotal": 18989056,
+          "heapUsed": 14445296,
+          "external": 4301785,
+          "arrayBuffers": 624466
+        },
+        "cpu": {
+          "user": 3812000,
+          "system": 1453000
+        },
+        "uptime": 1754.4314662,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 751,
+        "TaskDuration": 16.436469,
+        "JSHeapUsedSize": 1731344
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 751,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203259904
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:32:51.212Z",
+      "runtime": {
+        "memory": {
+          "rss": 67186688,
+          "heapTotal": 17653760,
+          "heapUsed": 13739152,
+          "external": 3755885,
+          "arrayBuffers": 78566
+        },
+        "cpu": {
+          "user": 3812000,
+          "system": 1453000
+        },
+        "uptime": 1784.7317298,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 751,
+        "TaskDuration": 16.437284,
+        "JSHeapUsedSize": 1732272
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 751,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203259904
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:33:21.536Z",
+      "runtime": {
+        "memory": {
+          "rss": 68632576,
+          "heapTotal": 19001344,
+          "heapUsed": 15046728,
+          "external": 3765431,
+          "arrayBuffers": 88112
+        },
+        "cpu": {
+          "user": 3859000,
+          "system": 1484000
+        },
+        "uptime": 1815.0635385,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 772,
+        "TaskDuration": 16.443885,
+        "JSHeapUsedSize": 1773344
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 772,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 203677696
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:33:52.021Z",
+      "runtime": {
+        "memory": {
+          "rss": 69296128,
+          "heapTotal": 19288064,
+          "heapUsed": 15815456,
+          "external": 3765485,
+          "arrayBuffers": 88166
+        },
+        "cpu": {
+          "user": 3890000,
+          "system": 1484000
+        },
+        "uptime": 1845.4003838,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 772,
+        "TaskDuration": 16.445012,
+        "JSHeapUsedSize": 1774272
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 772,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 204431360
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:34:22.622Z",
+      "runtime": {
+        "memory": {
+          "rss": 70922240,
+          "heapTotal": 20635648,
+          "heapUsed": 16849088,
+          "external": 3766631,
+          "arrayBuffers": 89312
+        },
+        "cpu": {
+          "user": 3984000,
+          "system": 1500000
+        },
+        "uptime": 1875.8867031,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 793,
+        "TaskDuration": 16.455039,
+        "JSHeapUsedSize": 1815336
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 793,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 204738560
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:34:53.319Z",
+      "runtime": {
+        "memory": {
+          "rss": 70918144,
+          "heapTotal": 20922368,
+          "heapUsed": 17627896,
+          "external": 3766685,
+          "arrayBuffers": 89366
+        },
+        "cpu": {
+          "user": 4000000,
+          "system": 1515000
+        },
+        "uptime": 1906.4675568,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 793,
+        "TaskDuration": 16.455729,
+        "JSHeapUsedSize": 1816264
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 793,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 204787712
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:35:23.812Z",
+      "runtime": {
+        "memory": {
+          "rss": 72921088,
+          "heapTotal": 21983232,
+          "heapUsed": 18578944,
+          "external": 4313693,
+          "arrayBuffers": 636374
+        },
+        "cpu": {
+          "user": 4062000,
+          "system": 1546000
+        },
+        "uptime": 1937.165105,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 814,
+        "TaskDuration": 16.476711,
+        "JSHeapUsedSize": 1052320
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 814,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 185765888
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:35:54.112Z",
+      "runtime": {
+        "memory": {
+          "rss": 71237632,
+          "heapTotal": 21696512,
+          "heapUsed": 17875432,
+          "external": 3767793,
+          "arrayBuffers": 90474
+        },
+        "cpu": {
+          "user": 4078000,
+          "system": 1546000
+        },
+        "uptime": 1967.6654603,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 814,
+        "TaskDuration": 16.477949,
+        "JSHeapUsedSize": 1053248
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 814,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 185704448
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:36:24.404Z",
+      "runtime": {
+        "memory": {
+          "rss": 74018816,
+          "heapTotal": 24092672,
+          "heapUsed": 19191680,
+          "external": 3770005,
+          "arrayBuffers": 92686
+        },
+        "cpu": {
+          "user": 4187000,
+          "system": 1578000
+        },
+        "uptime": 1997.9532343,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 835,
+        "TaskDuration": 16.485121,
+        "JSHeapUsedSize": 1094312
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 835,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 185708544
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:36:54.734Z",
+      "runtime": {
+        "memory": {
+          "rss": 74305536,
+          "heapTotal": 24379392,
+          "heapUsed": 19953648,
+          "external": 3778251,
+          "arrayBuffers": 100932
+        },
+        "cpu": {
+          "user": 4203000,
+          "system": 1578000
+        },
+        "uptime": 2028.2526351,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 835,
+        "TaskDuration": 16.485954,
+        "JSHeapUsedSize": 1095240
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 835,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 125227008
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:37:25.026Z",
+      "runtime": {
+        "memory": {
+          "rss": 67317760,
+          "heapTotal": 16306176,
+          "heapUsed": 12321200,
+          "external": 3754695,
+          "arrayBuffers": 77376
+        },
+        "cpu": {
+          "user": 4281000,
+          "system": 1578000
+        },
+        "uptime": 2058.5836671,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 856,
+        "TaskDuration": 16.493399,
+        "JSHeapUsedSize": 1136280
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 856,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 124567552
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:37:55.308Z",
+      "runtime": {
+        "memory": {
+          "rss": 67993600,
+          "heapTotal": 18026496,
+          "heapUsed": 13389864,
+          "external": 3975629,
+          "arrayBuffers": 298310
+        },
+        "cpu": {
+          "user": 4343000,
+          "system": 1578000
+        },
+        "uptime": 2088.8666299,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 870,
+        "TaskDuration": 16.497854,
+        "JSHeapUsedSize": 1159268
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 870,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 125644800
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:38:25.620Z",
+      "runtime": {
+        "memory": {
+          "rss": 68624384,
+          "heapTotal": 18989056,
+          "heapUsed": 14444744,
+          "external": 4301985,
+          "arrayBuffers": 624666
+        },
+        "cpu": {
+          "user": 4359000,
+          "system": 1609000
+        },
+        "uptime": 2119.1482592,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 877,
+        "TaskDuration": 16.501466,
+        "JSHeapUsedSize": 1178284
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 877,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 124723200
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:38:55.909Z",
+      "runtime": {
+        "memory": {
+          "rss": 68620288,
+          "heapTotal": 18038784,
+          "heapUsed": 14138112,
+          "external": 3977001,
+          "arrayBuffers": 299682
+        },
+        "cpu": {
+          "user": 4359000,
+          "system": 1656000
+        },
+        "uptime": 2149.4648646,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 891,
+        "TaskDuration": 16.506327,
+        "JSHeapUsedSize": 1201260
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 891,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 124805120
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:39:26.221Z",
+      "runtime": {
+        "memory": {
+          "rss": 68612096,
+          "heapTotal": 19001344,
+          "heapUsed": 15073200,
+          "external": 3758297,
+          "arrayBuffers": 80978
+        },
+        "cpu": {
+          "user": 4375000,
+          "system": 1671000
+        },
+        "uptime": 2179.7654749,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 898,
+        "TaskDuration": 16.509982,
+        "JSHeapUsedSize": 1220264
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 898,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 124723200
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:39:56.509Z",
+      "runtime": {
+        "memory": {
+          "rss": 69988352,
+          "heapTotal": 19673088,
+          "heapUsed": 16116520,
+          "external": 3979231,
+          "arrayBuffers": 301912
+        },
+        "cpu": {
+          "user": 4406000,
+          "system": 1687000
+        },
+        "uptime": 2210.0631063,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 912,
+        "TaskDuration": 16.513755,
+        "JSHeapUsedSize": 1243264
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 912,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 124727296
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:40:26.806Z",
+      "runtime": {
+        "memory": {
+          "rss": 71258112,
+          "heapTotal": 20635648,
+          "heapUsed": 17184360,
+          "external": 4313779,
+          "arrayBuffers": 636460
+        },
+        "cpu": {
+          "user": 4453000,
+          "system": 1718000
+        },
+        "uptime": 2240.3595331,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 919,
+        "TaskDuration": 16.517503,
+        "JSHeapUsedSize": 1262284
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 919,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 124710912
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:40:57.109Z",
+      "runtime": {
+        "memory": {
+          "rss": 65134592,
+          "heapTotal": 21782528,
+          "heapUsed": 16883784,
+          "external": 3988795,
+          "arrayBuffers": 311476
+        },
+        "cpu": {
+          "user": 4515000,
+          "system": 1765000
+        },
+        "uptime": 2270.6465288,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 933,
+        "TaskDuration": 16.522488,
+        "JSHeapUsedSize": 1285272
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 933,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 101732352
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:41:27.478Z",
+      "runtime": {
+        "memory": {
+          "rss": 66875392,
+          "heapTotal": 22745088,
+          "heapUsed": 17820864,
+          "external": 3770091,
+          "arrayBuffers": 92772
+        },
+        "cpu": {
+          "user": 4578000,
+          "system": 1796000
+        },
+        "uptime": 2300.9604568,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 940,
+        "TaskDuration": 16.526291,
+        "JSHeapUsedSize": 1304288
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 940,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 101748736
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:41:57.808Z",
+      "runtime": {
+        "memory": {
+          "rss": 67489792,
+          "heapTotal": 22368256,
+          "heapUsed": 18878648,
+          "external": 3991025,
+          "arrayBuffers": 313706
+        },
+        "cpu": {
+          "user": 4625000,
+          "system": 1812000
+        },
+        "uptime": 2331.3252148,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 954,
+        "TaskDuration": 16.529544,
+        "JSHeapUsedSize": 1327276
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 954,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 101597184
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:42:28.114Z",
+      "runtime": {
+        "memory": {
+          "rss": 68104192,
+          "heapTotal": 23330816,
+          "heapUsed": 19975864,
+          "external": 4316523,
+          "arrayBuffers": 639204
+        },
+        "cpu": {
+          "user": 4671000,
+          "system": 1812000
+        },
+        "uptime": 2361.6593685,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 961,
+        "TaskDuration": 16.532995,
+        "JSHeapUsedSize": 1346268
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 961,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 101609472
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:42:58.417Z",
+      "runtime": {
+        "memory": {
+          "rss": 68571136,
+          "heapTotal": 23429120,
+          "heapUsed": 19649944,
+          "external": 3991557,
+          "arrayBuffers": 314238
+        },
+        "cpu": {
+          "user": 4734000,
+          "system": 1828000
+        },
+        "uptime": 2391.9626053,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 975,
+        "TaskDuration": 16.537274,
+        "JSHeapUsedSize": 1369268
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 975,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 101597184
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:43:28.727Z",
+      "runtime": {
+        "memory": {
+          "rss": 60727296,
+          "heapTotal": 16306176,
+          "heapUsed": 12348792,
+          "external": 3754713,
+          "arrayBuffers": 77394
+        },
+        "cpu": {
+          "user": 4750000,
+          "system": 1843000
+        },
+        "uptime": 2422.2588973,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 982,
+        "TaskDuration": 16.541385,
+        "JSHeapUsedSize": 1388272
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 982,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102080512
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:43:59.021Z",
+      "runtime": {
+        "memory": {
+          "rss": 62189568,
+          "heapTotal": 16977920,
+          "heapUsed": 13435320,
+          "external": 3983839,
+          "arrayBuffers": 306520
+        },
+        "cpu": {
+          "user": 4781000,
+          "system": 1875000
+        },
+        "uptime": 2452.573121,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 996,
+        "TaskDuration": 16.546599,
+        "JSHeapUsedSize": 1412760
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 996,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102080512
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:44:29.359Z",
+      "runtime": {
+        "memory": {
+          "rss": 63778816,
+          "heapTotal": 17940480,
+          "heapUsed": 14502984,
+          "external": 4310195,
+          "arrayBuffers": 632876
+        },
+        "cpu": {
+          "user": 4843000,
+          "system": 1937000
+        },
+        "uptime": 2482.8720494,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1003,
+        "TaskDuration": 16.549505,
+        "JSHeapUsedSize": 1431736
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1003,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102088704
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:44:59.689Z",
+      "runtime": {
+        "memory": {
+          "rss": 63188992,
+          "heapTotal": 19087360,
+          "heapUsed": 14088056,
+          "external": 3985211,
+          "arrayBuffers": 86966
+        },
+        "cpu": {
+          "user": 4875000,
+          "system": 1953000
+        },
+        "uptime": 2513.207558,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1017,
+        "TaskDuration": 16.553284,
+        "JSHeapUsedSize": 1454644
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1017,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102088704
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:45:30.019Z",
+      "runtime": {
+        "memory": {
+          "rss": 63176704,
+          "heapTotal": 20049920,
+          "heapUsed": 15116704,
+          "external": 3764765,
+          "arrayBuffers": 87446
+        },
+        "cpu": {
+          "user": 4906000,
+          "system": 2000000
+        },
+        "uptime": 2543.5358897,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1024,
+        "TaskDuration": 16.557077,
+        "JSHeapUsedSize": 1473608
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1024,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102092800
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:46:00.313Z",
+      "runtime": {
+        "memory": {
+          "rss": 64413696,
+          "heapTotal": 19673088,
+          "heapUsed": 16161080,
+          "external": 3985699,
+          "arrayBuffers": 308380
+        },
+        "cpu": {
+          "user": 4984000,
+          "system": 2015000
+        },
+        "uptime": 2573.8684941,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1038,
+        "TaskDuration": 16.561344,
+        "JSHeapUsedSize": 1496516
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1038,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102064128
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:46:30.614Z",
+      "runtime": {
+        "memory": {
+          "rss": 65974272,
+          "heapTotal": 20635648,
+          "heapUsed": 17223824,
+          "external": 4312055,
+          "arrayBuffers": 634736
+        },
+        "cpu": {
+          "user": 5031000,
+          "system": 2031000
+        },
+        "uptime": 2604.1688094,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1045,
+        "TaskDuration": 16.564998,
+        "JSHeapUsedSize": 1515480
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1045,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102060032
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:47:00.918Z",
+      "runtime": {
+        "memory": {
+          "rss": 65851392,
+          "heapTotal": 21782528,
+          "heapUsed": 16917624,
+          "external": 3987071,
+          "arrayBuffers": 309752
+        },
+        "cpu": {
+          "user": 5093000,
+          "system": 2031000
+        },
+        "uptime": 2634.4574563,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1059,
+        "TaskDuration": 16.56907,
+        "JSHeapUsedSize": 1538400
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1059,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102060032
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:47:31.214Z",
+      "runtime": {
+        "memory": {
+          "rss": 65818624,
+          "heapTotal": 22745088,
+          "heapUsed": 17860368,
+          "external": 3776559,
+          "arrayBuffers": 99240
+        },
+        "cpu": {
+          "user": 5109000,
+          "system": 2062000
+        },
+        "uptime": 2664.7652451,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1066,
+        "TaskDuration": 16.573338,
+        "JSHeapUsedSize": 1557352
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1066,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102060032
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:48:01.699Z",
+      "runtime": {
+        "memory": {
+          "rss": 67395584,
+          "heapTotal": 22368256,
+          "heapUsed": 18915792,
+          "external": 3997493,
+          "arrayBuffers": 320174
+        },
+        "cpu": {
+          "user": 5140000,
+          "system": 2078000
+        },
+        "uptime": 2695.0670671,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1080,
+        "TaskDuration": 16.578805,
+        "JSHeapUsedSize": 1582548
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1080,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 103194624
+    },
+    {
+      "label": "real-extended-idle-background",
+      "at": "2026-10-09T16:48:09.190Z",
+      "runtime": {
+        "memory": {
+          "rss": 68448256,
+          "heapTotal": 23330816,
+          "heapUsed": 19940880,
+          "external": 4323813,
+          "arrayBuffers": 646494
+        },
+        "cpu": {
+          "user": 5171000,
+          "system": 2140000
+        },
+        "uptime": 2702.7474256,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": 9
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 8,
+        "Nodes": 1087,
+        "TaskDuration": 16.582301,
+        "JSHeapUsedSize": 1601204
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 1087,
+        "jsEventListeners": 8
+      },
+      "audio": {
+        "plays": 13,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 102060032
+    }
+  ]
+}

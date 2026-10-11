@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "mode": "phase-c-smoke",
+  "fingerprint": "eaa41154fdfbe95433a46ceedc3187cd39f5090800719cc3113f8edde5d03fe7",
+  "scenarios": [
+    {
+      "name": "JS-pause-with-live-socket-and-delayed-speech",
+      "pauseMs": 12000,
+      "status": "PASS"
+    },
+    {
+      "name": "BLACKOUT-with-suspended-speech",
+      "pauseMs": 12000,
+      "enforcedJsPause": true,
+      "heartbeatLost": true,
+      "clockJumpMs": 7200000,
+      "status": "PASS"
+    },
+    {
+      "name": "stable-freeze-reconnect-clock",
+      "pauseMs": 12000,
+      "enforcedJsPause": true,
+      "heartbeatLost": true,
+      "clockJumpMs": 7200000,
+      "status": "PASS"
+    },
+    {
+      "name": "pending-freeze-reconnect-clock",
+      "pauseMs": 12000,
+      "enforcedJsPause": true,
+      "heartbeatLost": true,
+      "clockJumpMs": 7200000,
+      "status": "PASS"
+    }
+  ],
+  "performances": 0,
+  "resetCount": 7,
+  "longestIdleMs": 0,
+  "scene6Audio": [],
+  "physicalWindowsSleep": false,
+  "proxy": "Debugger JS pause 12s + hidden Display + AudioContext suspend + verified heartbeat loss + 2h wall-clock jump; normal background throttling flags retained",
+  "samples": [
+    {
+      "label": "smoke-end",
+      "at": "2026-10-09T17:44:15.404Z",
+      "runtime": {
+        "memory": {
+          "rss": 65609728,
+          "heapTotal": 21233664,
+          "heapUsed": 16274792,
+          "external": 4048800,
+          "arrayBuffers": 365891
+        },
+        "cpu": {
+          "user": 1765000,
+          "system": 796000
+        },
+        "uptime": 80.6339618,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 0
+        },
+        "cueIndex": -1
+      },
+      "renderer": {
+        "Documents": 2,
+        "JSEventListeners": 11,
+        "Nodes": 710,
+        "TaskDuration": 50.637197,
+        "JSHeapUsedSize": 1094532
+      },
+      "dom": {
+        "documents": 2,
+        "nodes": 710,
+        "jsEventListeners": 11
+      },
+      "audio": {
+        "plays": 6,
+        "contexts": 0,
+        "visibility": "visible",
+        "focus": true
+      },
+      "chromeRootRss": 183459840
+    }
+  ],
+  "browserErrors": 0,
+  "expectedFaultDiagnostics": [],
+  "externalRequests": 0
+}

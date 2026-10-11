@@ -1,0 +1,201 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "gapSeconds": 2,
+  "durationSeconds": 168.31225708007813,
+  "frames": 5627,
+  "audioClips": 28,
+  "cues": [
+    {
+      "cueId": "prod-001",
+      "cueNumber": "P-001",
+      "name": "横川AI起動応答",
+      "startedSeconds": 0.521257080078125,
+      "audioEndedSeconds": 7.573257080078125,
+      "completedSeconds": 7.575257080078125,
+      "nextSeconds": 9.577257080078125
+    },
+    {
+      "cueId": "prod-002",
+      "cueNumber": "P-002",
+      "name": "台本 002",
+      "startedSeconds": 9.577257080078125,
+      "audioEndedSeconds": 15.442257080078125,
+      "completedSeconds": 15.458257080078125,
+      "nextSeconds": 17.461257080078123
+    },
+    {
+      "cueId": "prod-003",
+      "cueNumber": "P-003",
+      "name": "台本 003",
+      "startedSeconds": 17.461257080078123,
+      "audioEndedSeconds": 34.39325708007812,
+      "completedSeconds": 34.395257080078125,
+      "nextSeconds": 36.401257080078125
+    },
+    {
+      "cueId": "prod-004",
+      "cueNumber": "P-004",
+      "name": "台本 004",
+      "startedSeconds": 36.401257080078125,
+      "audioEndedSeconds": 52.855257080078125,
+      "completedSeconds": 52.85625708007812,
+      "nextSeconds": 54.855257080078125
+    },
+    {
+      "cueId": "prod-v-incident",
+      "cueNumber": "P-V01",
+      "name": "映像乱れ・制御奪取",
+      "startedSeconds": 54.85625708007812,
+      "audioEndedSeconds": 54.85625708007812,
+      "completedSeconds": 57.34225708007813,
+      "nextSeconds": 59.35025708007812
+    },
+    {
+      "cueId": "prod-005",
+      "cueNumber": "P-005",
+      "name": "制御奪取・台本005",
+      "startedSeconds": 59.35025708007812,
+      "audioEndedSeconds": 62.12525708007813,
+      "completedSeconds": 62.126257080078126,
+      "nextSeconds": 64.13225708007812
+    },
+    {
+      "cueId": "prod-006",
+      "cueNumber": "P-006",
+      "name": "台本 006",
+      "startedSeconds": 64.13225708007812,
+      "audioEndedSeconds": 65.94925708007813,
+      "completedSeconds": 65.95025708007813,
+      "nextSeconds": 67.95225708007813
+    },
+    {
+      "cueId": "prod-007",
+      "cueNumber": "P-007",
+      "name": "台本 007",
+      "startedSeconds": 67.95225708007813,
+      "audioEndedSeconds": 69.74825708007812,
+      "completedSeconds": 69.76425708007812,
+      "nextSeconds": 71.76925708007812
+    },
+    {
+      "cueId": "prod-008",
+      "cueNumber": "P-008",
+      "name": "台本 008",
+      "startedSeconds": 71.76925708007812,
+      "audioEndedSeconds": 77.24425708007813,
+      "completedSeconds": 77.24625708007812,
+      "nextSeconds": 79.25725708007812
+    },
+    {
+      "cueId": "prod-019",
+      "cueNumber": "P-019",
+      "name": "記入用紙の案内",
+      "startedSeconds": 79.25725708007812,
+      "audioEndedSeconds": 85.92525708007813,
+      "completedSeconds": 85.92525708007813,
+      "nextSeconds": 87.92825708007813
+    },
+    {
+      "cueId": "prod-v-riddle-enter",
+      "cueNumber": "P-V02",
+      "name": "五つの謎・第1問開始＋台本009",
+      "startedSeconds": 87.92825708007813,
+      "audioEndedSeconds": 90.53425708007812,
+      "completedSeconds": 92.61425708007812,
+      "nextSeconds": 94.61525708007812
+    },
+    {
+      "cueId": "prod-011",
+      "cueNumber": "P-011",
+      "name": "五つ達成・統合・最終問題",
+      "startedSeconds": 94.61525708007812,
+      "audioEndedSeconds": 102.76325708007812,
+      "completedSeconds": 102.76325708007812,
+      "nextSeconds": 104.77025708007812
+    },
+    {
+      "cueId": "prod-012",
+      "cueNumber": "P-012",
+      "name": "認証成功・開錠開始",
+      "startedSeconds": 104.77025708007812,
+      "audioEndedSeconds": 108.58725708007813,
+      "completedSeconds": 109.09425708007812,
+      "nextSeconds": 111.09525708007813
+    },
+    {
+      "cueId": "prod-v-unlock",
+      "cueNumber": "P-V03",
+      "name": "開錠進行",
+      "startedSeconds": 111.09525708007813,
+      "audioEndedSeconds": 111.09525708007813,
+      "completedSeconds": 118.57525708007813,
+      "nextSeconds": 120.57925708007812
+    },
+    {
+      "cueId": "prod-013",
+      "cueNumber": "P-013",
+      "name": "緊急遮断",
+      "startedSeconds": 120.57925708007812,
+      "audioEndedSeconds": 128.70925708007812,
+      "completedSeconds": 128.72325708007813,
+      "nextSeconds": 130.72325708007813
+    },
+    {
+      "cueId": "prod-014",
+      "cueNumber": "P-014",
+      "name": "連絡失敗",
+      "startedSeconds": 130.72325708007813,
+      "audioEndedSeconds": 134.59325708007813,
+      "completedSeconds": 135.15225708007813,
+      "nextSeconds": 137.15225708007813
+    },
+    {
+      "cueId": "prod-v-hostile-enter",
+      "cueNumber": "P-V04",
+      "name": "危険状態・警報開始",
+      "startedSeconds": 137.15225708007813,
+      "audioEndedSeconds": 137.15225708007813,
+      "completedSeconds": 138.75825708007812,
+      "nextSeconds": 140.75825708007812
+    },
+    {
+      "cueId": "prod-015",
+      "cueNumber": "P-015",
+      "name": "強制暴走",
+      "startedSeconds": 140.75825708007812,
+      "audioEndedSeconds": 145.41225708007812,
+      "completedSeconds": 146.46625708007812,
+      "nextSeconds": 148.46625708007812
+    },
+    {
+      "cueId": "prod-v-emergency-riddle",
+      "cueNumber": "P-V05",
+      "name": "非常停止問題",
+      "startedSeconds": 148.46625708007812,
+      "audioEndedSeconds": 148.46625708007812,
+      "completedSeconds": 150.06625708007812,
+      "nextSeconds": 152.06625708007812
+    },
+    {
+      "cueId": "prod-v-stop-code",
+      "cueNumber": "P-V06",
+      "name": "停止コード・システム全停止＋台本016",
+      "startedSeconds": 152.06625708007812,
+      "audioEndedSeconds": 158.18625708007812,
+      "completedSeconds": 158.20025708007813,
+      "nextSeconds": 160.20625708007813
+    },
+    {
+      "cueId": "prod-v-recovery",
+      "cueNumber": "P-V07",
+      "name": "復旧開始",
+      "startedSeconds": 160.20625708007813,
+      "audioEndedSeconds": 160.20625708007813,
+      "completedSeconds": 166.31225708007813,
+      "nextSeconds": 168.31225708007813
+    }
+  ],
+  "excludedCues": []
+}

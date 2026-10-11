@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "head": "83539ba1043ea0f47480431a346bff38dc7e1cb3",
+  "fingerprint": "eaa41154fdfbe95433a46ceedc3187cd39f5090800719cc3113f8edde5d03fe7",
+  "tests": 160,
+  "browser": "PASS",
+  "nextGuard": "PASS",
+  "recovery": "PASS",
+  "voiceIntegrity": "PASS",
+  "recording": "PASS",
+  "originMasterSynced": true,
+  "archive": "artifacts\\runtime-hardening\\evidence-83539ba"
+}

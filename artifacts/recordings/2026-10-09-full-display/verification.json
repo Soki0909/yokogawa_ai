@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "enabledCues": 21,
+  "audioClips": 16,
+  "gapMinimumMilliseconds": 1999,
+  "gapMaximumMilliseconds": 2014,
+  "timelineEndDifferenceSeconds": 0,
+  "firstCueSeconds": 0.56148095703125
+}

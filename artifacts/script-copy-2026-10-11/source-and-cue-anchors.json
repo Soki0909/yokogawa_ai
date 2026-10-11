@@ -1,0 +1,5614 @@
+{
+  "documentId": "16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo",
+  "revisionId": "AHj4eMQHih9f1vRpx61i4CetfqUkYjESuuAwwAtsFhaaOjpKZMStaL00LglG5cp28ljzB5JqvqAzrSKSqWTKCkKE5XK0SLVjVgL-y3WODKg",
+  "modifiedTime": "2026-10-11T02:42:30.800Z",
+  "paragraphs": [
+    {
+      "text": "meototoイマーシブ",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "​​『7号館からの脱出』　",
+      "tabId": "t.0",
+      "namedStyleType": "TITLE"
+    },
+    {
+      "text": "【登場人物】 ",
+      "tabId": "t.0",
+      "namedStyleType": "HEADING_3"
+    },
+    {
+      "text": "■ 扇 工海（オウギ タクミ・22歳）【齊藤櫂・奥山峻】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t金沢工業大学3年生。一人称：俺",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■ 八束 大介（ヤツカ ダイスケ・22歳）【花田悠暉・牧野龍桜】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t金沢工業大学3年生。　一人称：俺",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■白山まつり（シラヤマ マツリ・22歳）【山崎恵実花・青木七海】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t金沢工業大学3年生。横川研究室所属。一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■虎谷 琉叶（トラタニ ルカ・35歳）",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　工大祭での偽名 若松 亮（ワカマツ リョウ）【飯島俊幸・坂井創哉】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "元工大生（中退）でフリーター。元横川研究室の学生　一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■夢野 奈央（ユメノ ナオ・45歳）【四間丁由起子・橋川明美】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ーポ）を教えて　個人投資家。一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■高尾 双葉（タカオ フタバ・19歳）【石山菜緒・兒玉彩加】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "金沢工業大学1年生・LCで学内アルバイトをしている。一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■三馬 篤志（ミンマ アツシ・40歳）【酒井隆典・広羽賢一】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ライブラリーセンター職員。一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■馬場 杏天主（ババ アンデシュ・19歳）【高橋梨乃・酒井唯有】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "インフルエンサー。一人称：アンデシュ",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■久安 葵（ヒサヤス アオイ・33歳）【細木裕子・松坂采奈】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "主婦。　　　一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■久安 光（ヒサヤス ヒカル・12歳）【望月咲希・冨士登大揮】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "小学６年生。　一人称：私・僕",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■横川 千寿（ヨコガワ センジュ・60歳）【平井寅・堀正志】く",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "教授。　一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■ 押野 海斗（オシノ カイト・27歳）【四十宮正人・餅山歩武・池田僚太郎】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "システムエンジニア／KIT卒業生　　一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■窪 紅葉（クボ モミジ・24歳）【石野真帆・MOMO】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "記者。　　　一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "■ 伏見 凛（フシミ リン・18歳）【池田和奈・徳田結香】",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "金工大1年生。　　一人称：私",
+      "tabId": "t.0",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "◯シーン1〔7・201／10分〕登場：全員",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "（台詞数：120　文字数：5,029字）",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\u000b\tM-0 カットイン。（芝居が始まる雰囲気。overture）\u000b\tM-0が盛り上がり暗転。\u000b\t暗転中、キャスト板付きM-0、フェードアウト。\u000b\tM-0フェードアウトとともに明転\u000b\t7・201。横川AIによる特別講義の開始を待つ参加者たち。\u000b \t教壇の上で白山、高尾、三馬が、モニターと端末の最終確認をしている。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「高尾さん、参加者用の端末は全部つながっていますか？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「はい。特別授業用のネットワークに接続できています」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「うんうん、大丈夫。これなら何かあってもライブラリーセンターと連絡を取れるよ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「三馬さんもありがとうございます。横川AIの起動も確認します」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪と横川が話している。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「横川教授、横川AIは、実際に大学のセキュリティにも使われているんですよね？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ああ、同じ基礎技術が使われています。状況に応じた判断ができるAIなんです。これからの講義でもお見せできると思います」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「なるほど。講義のあと、詳しく取材させてください」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "別の場所で馬場は教室内を撮影しながら、押野に話しかけている。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「こんにちあんでしゅー、金沢工大No.1インフルエンサーアンデシュで～す。最新AIの公開授業って、絶対バズりますよね。面白いの大好き！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　　　　　押野はうざそうに真似して答える。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「こんにちはー、元工大生システムエンジニアの押野です～。私も面白いものが好きで、人でも技術でも、思いがけないもの同士がつながる瞬間ってのが⋯⋯というか、勝手に動画を取らないでくれ！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷が教室の設備を眺めているところに窪が近づく。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「こんにちは。記者の窪です。取材よろしいですか？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「はい」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「お名前は？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「若松と言います。AIの公開授業にひかれて懐かしいところに来ましたよ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「この大学に来たことがあるんですね。ライブラリーセンターは有名ですもんね。」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は笑顔で頷きながら、横川AIが映るモニターへ目を向ける。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪と虎谷の会話中、機器の調整が終わった高尾は開始前の見回りをしている。そして、教室の後方にいる夢野へ声をかけ、席へ案内する。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「ありがとう。ライブラリーセンターの高尾さんだったかしら？。あ、私は夢野です。それにしてもライブラリーセンターには、貴重な本がたくさんあるんでしょう？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「はい。今日の講義で紹介される『プリンキピア』も保管されています。セキュリティもばっちりですよ！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「そう。それなら安心ね」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "久安葵は、興奮して教室を見回す光を制止している。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「ママ、見て！　あれが横川AIかな？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「光、勝手に触らないの。今日は見学に来ただけなんだから」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「分かってるよ。でも、大学の授業に参加できるなんてすごいよ。私（僕）も将来、こういうところで勉強したいな」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「その前に、まずは小学校を卒業してください」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そこへ、扇、八束、凛が入ってくる。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「間に合った！　ここか！　横川教授のAI体験授業！　凛、良かったな間に合って」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「連れて来てくれてありがとう。うふふ！ 憧れの横川研究室！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛が入りたい研究室はちゃんと見ておかないとな」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「工海は就職活動から逃げる理由が欲しかっただけだろ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「失礼だな。俺は最先端のAIにも興味があるんだよ。それに、こういう正体の分からないものにはワクワクするんだ。ミステリー小説みたいで」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「事件が起きないことを祈るよ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山が前へ出る。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「皆さん、お待たせいたしました。ただいまより、横川AIによる体験授業を始めます。私、本日の司会を努めます、金沢工業大学3年の白山まつりです。よろしくお願いいたします。まずはじめに、本学教授の横川より、横川AIについてご説明いたします」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川が参加者の前へ進み出る。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ご紹介にあずかりました、金沢工業大学教授の横川千寿です。本日はお越しいただき、ありがとうございます。今日は横川AIの能力を、皆さんに体験していただきましょう」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川がモニターへ向き直る。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「横川AI、起動してくれ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「承知しました。横川教授。横川AIを起動します」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tＳＥ：起動音",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "全員、リアクション",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「おお、普通に会話してる！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「静かに！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「横川AI。この会場に、小学生の参加者はいるか？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「はい。例えば、そちらに久安光さんが参加しています」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「私（僕）のこと知ってる！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「すごい、なんで？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「プリンキピア……」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は無言で横川を見つめている。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「このようにこのAIは、あらかじめ用意された文章を読み上げているだけではありません。皆さんの発言や質問を分析し、回答を変えることができます」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「では、授業を始めよう。横川AI、『プリンキピア』について説明してくれ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "突然、モニターの映像が乱れる。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "照明が明滅する。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ＳE  館内に複数の扉が施錠される音",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場が動画を回し始める",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「なんだ？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「今の音、何ですか？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「横川先生、システムの表示が変わりました」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「慌てるな。AIの管理画面を確認しなさい」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい。……駄目です。管理者権限が拒否されています」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「何？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「ちょっと、下の出入口を見てきます！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「私も行きます。状況を確認しましょう」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「もしよかったら、そこの君も、一緒に行ってくれ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「分かりました」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾、窪、押野が教室を出て、1階の出入口を確認しに行く。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「皆さん、落ち着いてください。その場から無理に動かないでください！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　　　　　　　　　　静まり返るが、馬場が声をあげる",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「あれー、動画をアップできないな。工大祭を楽しむ友達の投稿は見れるのに」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "全員がスマートフォンを操作する。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「インターネットは見られる。ニュースサイトも開くな」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛　「外にいる友達に電話もできない⋯⋯」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「本当ね、メールも送れないわ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「通信障害じゃない。送信だけを意図的に止めているのか」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「（スクリーンを見て）ひょっとして、横川AIが通信を選別している可能性がある」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「待ってください。大学内部の回線は生きています。ライブラリーセンターとは連絡が取れます」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬が端末で連絡を取る。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「こちら三馬。7号館で異常が発生しています。……はい。外部との通話とメールが遮断されています。建物の出入口も確認してください。⋯⋯本部に連絡を、それと警察と消防にも。⋯⋯はい。そうですか。わかりました。ありがとうございます」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "少し間がある。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「ライブラリーセンターから大学本部へ連絡してもらっています」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「では、救助が来るまで待てばいいんですね？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾、窪、押野が戻ってくる。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「駄目です！　1階の玄関、全部開きません！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「隣の共有口も施錠されています。外には人が集まり始めていますが、こちらの声は届いていません」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「ガラスも簡単に割れるものじゃない。外からの救助を待つにしても、すぐには難しそうだ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "その瞬間、照明が一度消え、再び点灯する。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AIの声が、先ほどとは異なる調子で響く。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「外部への通信は許可されていません」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「横川AI、管理者命令だ。直ちに館内の施錠を解除しろ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「命令を拒否します」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「私は開発責任者の横川千寿だ。最高管理者権限を実行しろ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「認証できません」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「なんだと⋯⋯。何者かが管理権限を書き換えたのか……」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「7号館から脱出したければ、館内に隠された五つの謎を解いてください」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "M-1 カットイン（少し不穏な音楽）",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ざわめきが起こる。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「五つの謎？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「謎解き！？　面白そう！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「光！　遊びじゃないのよ！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「私たち、出られないの？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「皆さん、大丈夫です。まずはこのまま救助を待つべきです」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛が咳き込む。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛、大丈夫か？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「閉じ込められたストレスで、喘息が出てきたみたい」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「薬は持ってる？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「実は外にいる友達へ、荷物ごと預けたままで手元にないの……。ごめんなさい」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「謝ることじゃない。絶対にここから出すから」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「消防が入ってくるまで、どれだけ時間がかかるか分からない。このまま待つのは危険かもしれないな」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は横川AIのモニターを見つめる。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「五つの謎を解けば脱出できるのか……」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「皆さん、これは何が目的なのかわかりません。館内を動き回るのは危険です」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「だったら、みんなで情報を共有して危なくないようにしましょう。彼女の凛が、喘息の発作を持ってます。このまま救助を待っているとストレスでさらに症状が悪化するかもしれません」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「それはまずいな」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「だから皆さんお願いします。みんなで謎を解いて脱出しましょう。謎を解きながら、このAIが何をさせようとしているのかも調べませんか」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「わかった。答えと手がかりは、俺が全部記録する。あとで不自然な点が見つかるかもしれない」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「じゃあ、私は館内とプリンキピアについて知っていることを共有します」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「私（僕）も謎を解きたい！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「危険なことはしないと約束して」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「分かってるよ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「アンデシュ、探すの得意かも！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「たしかに人数が多い方が見落としは減りそうだ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「私と三馬さんは、ライブラリーセンターとの連絡を続けます」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「私も協力しますよ。全員で生きて帰るためですから」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「……仕方ないわね。ここにいるだけでは何も変わらないもの」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ありがとうございます」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川が扇の隣へ進み出る。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「君、名前は？」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「扇です。扇工海」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「扇君。君の提案には危険もある。しかし、彼女の体調を考えれば、救助だけを待つわけにもいかない。君が中心となって謎を解きたまえ。私も必要な知識を提供する」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「はい！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川は全員へ向き直る。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「白山君は謎とAIの反応を記録。三馬君と高尾君は、外部の救助状況と参加者の安全確認を担当してくれ」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山・三馬・高尾「はい」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「（シートを探して）これか！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "AI「第一の謎は、こちらです」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ノイズとともに画面が変わり、横川AIが1つ目の謎を出題する。\t\t\tM-1 フェードアウト。\u000b\tM-2 フェードイン。(暗くなくて、お客さんが鼓舞されるような雰囲気)",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇はなるべくお客さんに答えを聞きながら、みんなで考える",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "一つ目の答え「コブ」が導き出される。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「簡単だ。１つ目の謎は「コブ」だ！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「一つ目の答えは『コブ』。記録した」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「よし！　みんなで考えれば解ける！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「異常があればすぐに内部回線で共有すること。入ってはいけない場所の扉を開けたり、設備を壊したりしてはいけません」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「それじゃあ皆さん、行きましょう。残り四つの謎を解いて、全員でここから脱出しましょう！」",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "登場人物たちは、それぞれのルートへ分かれていく。\u000b \t観客も事前に案内されたルートに従い、追いかける人物を選んで移動する。",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "M-2 フェードアウト。\u000b",
+      "tabId": "t.tyup3idqskfk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "シーン2〔7・203／4分15秒〕",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：扇、八束、馬場、押野、窪、凛",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（セリフ　：　56個　文字数 ： 1794文字）",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "7・201を出た参加者たちは、それぞれ手がかりを求めて館内へ散らばっている。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇たちは凛の歩調に合わせ、慎重に廊下を進んでくる。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束は各教室の番号や、気づいたことをノートに記録している。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t馬場が7・203の中をのぞき込み、そのまま勢いよく入っていく。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、八束、凛が馬場を追って教室へ入る。押野と窪も続く。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「あ！　謎がある！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「これは、どこかで見たぞ⋯⋯？　廊下だ！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ここで謎解きが始まる。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t廊下にあるゴミ箱を馬場が撮影し、教室内で解く。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tもしくは、馬場が廊下で大きく声を出して読み上げてもいい。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「わかったぞ！　答えは――『プロテイン』だ！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「二つ目の答え、『プロテイン』。記録した」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「やったー！　アンデシュ、大活躍！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「みんなで見つけたんだよ」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「じゃあ『アンデシュと愉快な仲間たち』の成果ってことで！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「お前が主役になるな」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「でも、少し脱出に近づいたね」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ああ。この調子で残り3つ解いてやる。凛、苦しくないか？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「まだ大丈夫」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「無理はしないで。咳がひどくなったら、すぐに言って」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「ありがとう」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束は室内を見回しながら、教室番号をノートに記す。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「この部屋は203。最初の201と同じ作りだな」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「あのー、5つの謎って、何の意味があるんですかね？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「わからないですね⋯⋯」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「これを仕掛けた人は、どうにかして謎を解かせたいってことですよね。なんでこんなことを⋯⋯」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「犯人の目的がさっぱりわからない。AIが暴走して外に出られなくするなんて」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「とにかく謎を解いて、外へ出る方法を探そう」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場は話を聞かず、教室内を動き回っている。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ねえねえ！　これ、かわいくない？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場が、絵を指す。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「かわいい……か？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「売ったら高そう。謎解き記念絵画！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「お前、この流れで金もうけを考えられるの、すごいな」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ありがとう～」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「褒めてない」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「へ？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛が思わず笑う。張り詰めていた空気が少し和らぐ。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪は、先ほどまでの戸惑いを忘れたように、謎の紙を見つめている。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「でも、単なる脱出ゲームなら、どうして7号館なんかで行うのかしら」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「横川AIの公開授業が行われることを犯人は知っていた」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「ええ、さらに犯人はこの7号館の構造を知ったうえで、これらの謎を用意していた……」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「つまり、犯人はこの7号館を詳しく知っている人物⋯⋯」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「これだけ選択的に通信を遮断して、管理者権限まで書き換えている。横川AIの構造か、学内のシステムを知る人間が関わっていると考えた方が自然だね」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「押野っちなんか凄いじゃん！ さすが元工大生」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「普通だよ」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「押野、さんは、ずいぶん横川AIに詳しいんですね」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「横川AIは数年前、研究室の学生と共同で開発したAIだという噂を聞いたことがあるだけだよ」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「共同で開発⋯⋯」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「そうなんですね。私まだ1年で、そこまで知らなかったです」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「犯人は研究室の関係者、それとも大学の内部を知る人物……。調べる価値はありそうね」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪は新しいページを開き、関係者の名前と発言を書き留める。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「私まで取材対象ですか？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「可能性のあるものは、すべて記録するのが記者ですから」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「何それ、探偵みたい！　面白くなってきた！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「ふざけてます？　面白がる状況じゃないでしょ」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「でも、どうせなら次の謎も一番に見つけたい！」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場が勢いよく教室を出ようとする。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「もう、待ってください。私も館内の構造を確認したいです」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「私も付き合いますよ」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場、窪、押野が連れ立って教室を出る。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束は三人の背中を見送りながら、扇へ小声で話す。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「今の押野さんの話、少し引っかかるな。噂で聞いただけにしては、システムの状態を理解しすぎている」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「俺も思った。あの人、何か知ってるのか」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛が再び小さく咳き込む。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛、大丈夫か？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「うん。ゆっくりなら歩けるから」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「無理するなよ。大介、次は？」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「隣の教室を見て3階に行こう」",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は凛の様子を確かめ、八束とともに次の場所へ向かう。",
+      "tabId": "t.7im6uhbfkk6m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "シーン3〔7・306／4分15秒〕",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：扇、八束、白山、虎谷、凛、葵、光",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（セリフ　：　54個　文字数 ： 1782文字）",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、八束、凛が7・306に入ってくる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇が先頭に立ち、三人が教室へ入る。\u000b \t",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「次の謎は、これか⋯⋯！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇がすぐに手がかりへ触れようとする。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山が教室へ入ってくる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「おう、白山さんだっけ？　ちょうど良かった。手伝ってくれ」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「あの、誰でもあなたの味方になると思ってない？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「味方っていうか⋯⋯、閉じ込められてんだから、俺達は同じ境遇だろう？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「私が言ってるのは、自分勝手に突き進んで、周りを見てないんじゃないって言ってるの。彼女さん、体調悪いんでしょ？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「そうだよ。凛の薬が外にあるんだ。謎を考えている間にも、凛は苦しくなってくだろうし」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「あなたが振り回してるから、凛さんもついていかなきゃって思うんじゃない？　どこかに休ませておけばいいじゃない」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は言い返そうとするが、言葉に詰まる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「私は大丈夫ですから」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「何があっても知らないよ？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「とにかく、ここで揉めてる時間はない。一刻も早く謎を解こう」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ああ。皆さん、一緒に解きましょう！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、八束、白山、凛と観客が、三つ目の謎へ取り組む。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "※謎の具体的な内容に合わせて、観客とのやり取りを追加する。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そこへ虎谷が静かに入ってくる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷のアドバイスで謎が解ける。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "観客から出た意見を、白山と八束が整理する。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「答えは『ヨク』だ！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「三つ目の答え、『ヨク』。記録した」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「やったね、工海⋯⋯」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ああ。皆さん、ありがとうございます！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山は虎谷を見る。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「ずいぶん的確な助言でしたね」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「私は皆さんの考え方を、少し変えただけです。あと、3階にはもう謎は無いみたいですので、次は4階に行ってみてはどうでしょう？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束は虎谷の言葉を気にしながら、ノートへ書き留める。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "その直後、凛が激しく咳き込む。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛は呼吸を整えようとするが咳が止まらず、その場に崩れ落ちる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛！　おい、大丈夫か！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「凛さん！（外へ行き）誰かー！ 手を貸してください！ 急病人です！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「ゆっくり息をして。無理に話さなくていいから」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇たちは、すぐに凛へ駆け寄る。\u000b\t扇が凛の身体を支え、八束が荷物を置いて座れる場所を作る。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「だから言ったじゃない」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ごめん⋯⋯」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「ごめんじゃないでしょ。凛さんを横になれる場所へ運ぶわよ」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「俺が絶対に助けるって言ったのに⋯⋯。ごめん。本当にごめん」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は凛の様子を見つめたあと、淡々と告げる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「ここで止まれば、彼女は助からない」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「え？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「薬は外にあるんです。扉を開けなければ、彼女に届けることはできません」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「目の前で人が苦しんでいるのに、よくそんな言い方ができますね」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「感情で扉は開きません。誰かが彼女のそばに残り、ほかの者は先へ進む。それが一番早い」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「だからって、置いていけるわけないだろ！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「ならば、全員でここに残りますか？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は扇をまっすぐに見る。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「止まれば彼女は助かりません。今は謎を解き進めることこそが重要です」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は一人、教室を出ていく。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「なんだよあいつ。なんであんなに冷静なんだ」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「私も気になった」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そこへ、廊下を捜していた久安葵と光が入ってくる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「大丈夫？！」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「何かあったんですか？」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「発作の咳がひどくなったみたいで」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「俺が運びます。俺がそばにいますんで」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「工海⋯⋯」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛は苦しそうにしながら、扇の腕をつかむ。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「私はいいから⋯⋯」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「何言ってるんだ」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「みんなを外に出して」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「でも⋯⋯」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「工海が謎を解いてくれたら、私も外に出られる。だから⋯⋯お願い」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「見守りだったら、私たちがそばにいます。何かあれば、すぐに知らせますんで」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「私（僕）も一緒にいる」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「⋯⋯でも」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「彼女を助けたいなら、今は進むしかないんじゃない」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は凛の手を握ったまま、動けずにいる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「工海」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は凛のそばに膝をつき、目を合わせる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「必ず戻る。絶対に、俺が扉を開けるから」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「うん⋯⋯待ってる」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵と光が凛を支え、休める場所へ連れていく。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇はその背中を見送る。\u000b \t拳を強く握り、悔しさをこらえる。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「俺のせいだ。ここまで連れ回して」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「後悔するのは、全員で外へ出てからにして」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t白山、パソコンを開く。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「⋯⋯次の謎を探しに、4階へ行こう」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「分かった⋯⋯」",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、八束は、凛を残した痛みを抱えながら次の場所へ向かう。",
+      "tabId": "t.vl6lnjb0yh3q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "シーン4〔7・405／4分15秒〕",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：扇、八束、夢野、髙尾、三馬、横川",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（台詞数：40　文字数：1,903文字）",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "倒れた恋人・凛を救えない無力感と焦燥感に苛まれながら、扇と八束は「四つ目の謎」が存在する7・405教室へと足を進める。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「工海、四つ目の謎だ」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t俯き、どこか上の空の扇。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「工海？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「……悪い、聞いてなかった」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「気持ちはわかるが、しっかりしてくれ、ほら謎を⋯⋯」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "それぞれ部屋内にある謎を探し始める扇と八束。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "室内には共犯者である夢野が控えている。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「彼女さんの様子は？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「えっと、咳が悪化して倒れてしまって⋯⋯。今は小学生の親子が見てくれています。でも、薬がなければ……」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「工海、凛さんを助けたいんだろ。自分を責めて止まっている場合じゃない」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「簡単に言うなよ！　俺がもっとしっかりしていれば――」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇がわずかに顔を上げる。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は自分の保身への焦りで深く俯く。 ",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そこに高尾と三馬、そして研究資料を抱えて固く握りしめた横川の3人が、殺伐とした雰囲気で入室してくる。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「扇さん！　凛さんのことですが、今は休める場所で横になっています。ライブラリーセンターから外の救助隊にも、薬が必要なことを伝えています」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「ありがとうございます。ほら工海⋯⋯」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ああ⋯⋯」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「あの、凛さんが言っていたそうです。『工海を止めないで』って」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛が？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「はい。扇さんなら、きっと扉を開けてくれるからって」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「凛さんを見守り、外部と連絡を取るのは私たちの役目です。君には、君にしかできないことがある」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「今は四つ目の答えを出そう」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「⋯⋯ああ、分かったよ。皆でここを出なきゃな。（問題を見て）これか⋯⋯」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は観客へ向き直る。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「皆さん、もう一度、力を貸してください」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束が中心となって手がかりを整理し、扇、高尾、三馬、夢野と観客が四つ目の謎へ取り組む。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "※謎の具体的な内容に合わせて、観客とのやり取りを追加する。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇と観客は手分けして情報を収集し、「四つ目の謎」を解き明かして答え④を獲得する。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "傍観していた夢野は、謎が解けた瞬間に心を打たれたように拍手をする。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「答えは――『トクガワ』！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「四つ目の答え、『トクガワ』。記録した」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "喜びも束の間、端末で解析をしていた高尾と三馬が扇と八束のもとにやってくる。離れたところにいた横川も覗きに来る。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「喜んでいる所にすまないが、悪い知らせだ。ライブラリーセンターの通信アクセスログと照らし合わせると、君たちが謎を1つ解くたびに、裏で『プリンキピア』の保管サーバーへ謎のアクセスリクエストが急増しているんだ」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「……ゴメンナサイ。それはつまり？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「つまり、誰かがこの事件に乗じて、プリンキピアのセキュリティを解除しようとしている可能性があります！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ハッキングなどあるものか！……私が作ったとはいえ、所詮はAIだからな。一時的なバグだ！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「横川先生！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束は横川から少し離れたところに扇を連れていく。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「なぁ、横川先生、急にAIのことを悪く言い始めておかしくないか？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「そうだな……」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「それを貸しなさい！　私がアクセスログを見てやる！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「やめてください、困ります！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「そんな7号館に関係の無いログを見ている時間があったら、早く謎を解いた方が脱出にも繋がるだろう！　ほら早く！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野が扇の袖を引く。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「扇くん。話があるの……」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「なんですか？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「このAIの暴走、事故なんかじゃないの。計画を立てて、わざと横川AIを暴走させた真犯人がいるのよ！ 私も最初協力してたけど、こんな危険な計画だって知らなくて。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "……途中でやめようって止めたの！本当よ！でもそいつは止めてくれなかった……！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「それは……それは誰なんですか！？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野は横川をちらりと警戒しながら、一気に捲し立てる。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「誰かは私も知らない……でも間違いなく、この7号館の参加者の中にいるわ！ そいつは教授（に深い恨みを持つ奴よ）」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「おい！そこで何をごちゃごちゃ話している！　早く脱出するために、次の謎を解く必要があるんだ！　さっさと行きなさい！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川は夢野を睨みつけつつ、扇たちを部屋の外へと誘導する。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "また、逃げようとする夢野の腕を掴み、別の部屋へと連れて行く。",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「……今の話、信じるのか？」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ああ。あの人、ずっと凛のことを心配してくれていたんだ。嘘をついているようには思えない。だとしたら、凛をこんな目にあわせた奴が、この7号館の中にいる……！」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「謎はあと一つ。外に出よう」",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "恋人を救うという絶対的な目的と、人を陥れる犯人への激しい怒りが融合し、絶望に沈んでいた扇の瞳に、事件を解決へと導く強い意志と覚悟の光が再び宿る。 ",
+      "tabId": "t.e7k2svyhnomc",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "シーン5〔4階廊下／4分15秒〕",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：扇、八束、高尾、三馬、馬場、窪",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（台詞数：27　文字数：1,665文字）",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "4階廊下に集結した扇、八束、馬場、窪。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「みんな聞いてくれ。これはただのAIの暴走なんかじゃない。この7号館にいる誰かが　仕組んだことらしい」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「どういうことですか？」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「夢野さんが教えてくれたんだ。この計画を立てて、わざと横川AIを暴走させた真犯人がいるって」\u000b馬場「夢野さんか⋯⋯、あのね、さっき、下の部屋で話を聞いたんだけど⋯⋯」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾と三馬が、緊迫した様子で駆け込んでくる。 ",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「皆さん！ 大変です！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「どうしたんですか？」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「これまで解いてきた回答データですが……『プリンキピア』のセキュリティシステムへ送信されています！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「それってさっきの……！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「このまま謎を解き続ければ、セキュリティシステムが解除されるかと」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「工海、これ以上謎を解くのは危険すぎる！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束が強く制止するが、三馬が真剣な表情で前に踏み出し、扇と八束の肩を掴む。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「いや、謎解きは続けてくれ」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「三馬さん！？ 盗難の手助けになると分かっていて解けというんですか！？」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「静かに」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬が耳打ちする(以下の内容を小さな声で話す)",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「そういうことですか。わかりました。謎解きと犯人は俺たちに任せてください！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「扇さん、413の教室に問題があります」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「よし行こう」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t413に入っていく。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は腹を括り、八束と頷き合って観客の方を強く見据える。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「みんな！ これが5つ目の謎だ！ 犯人を捕まえて凛を助けるため……力を貸してくれ！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、八束、観客が一体となって手がかりを集め、「五つ目の謎」を解き明かして答え⑤を獲得する。その瞬間、館内に無機質な横川AIのアナウンスが響き渡る。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　　　　　なぞ解きの途中で高尾と三馬に白山から連絡が来る(横シーン5)。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　　　　　高尾と三馬は調査を始める",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「答えは――『セレブ』！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「五つ目の答え、『セレブ』。これで五つの謎の答えがすべて揃った」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「うまく行けば犯人が見つけられるはず」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「私も気になる情報を白山さんから聞いてます。情報共有していい？（手帳を見せる）」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「はい」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「アンデシュも扇っちに見せたい動画があるから、見てくれない？」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「二人ともありがとうございます。では、みなさん、お願いがあります。手分けして館内にいる全ての人を201の教室に集合させてください。そこで脱出するための最後の答えを導きましょう」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "全員「はい」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「観客にまぎれて犯人もいるはずだ。すべての決着をつけよう！ 皆さんお願いします」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "全員「謎は全て解けました！　201の教室に集合してください！」",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t全員、各教室を見ながらお客様を誘導し201へ進む。\u000b\t\t扇は201で窪の手帳や、馬場の動画を見ながらみんなを待つ。",
+      "tabId": "t.qexxsordbvdd",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "シーン6〔7・201／10分〕",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：全員",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（台詞数：52　文字数：3,388字）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "観客、キャスト全員が201に到着し、八束がドアを閉める。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「みなさん、お集まりいただきありがとうございます。全ての謎が解けました。今からその解を発表します」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "M-3 カットイン。（謎が読み上げられる時に、流れる）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は①〜⑤の謎を読み上げる。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "7・201教室。三つのルートを巡ってきたすべてのキャストと観客が集結している。扇は緊張感を漂わせながら、手元のメモ（答え①〜⑤）を掲げる。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「答えは①から⑤まで全部揃った！ 横川AI、これで脱出できるんだろう！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI\t『条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい』",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「みんな、最後の謎だ！力を貸してくれ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、八束、白山、観客が一体となって最終暗号を導き出す。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "M-3 フェードアウト。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「横川AI、最後の答えはブレイクヨコガワだ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI\t『……認証成功。これより開錠を開始する』",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tSE：電子音が鳴り響く。電子ロック。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AIのアバターの周りにいくつものゲージが表示され、みるみるうちに100%となる。安堵の歓声が上がりかけたその時、後方にいた虎谷が静かに歩み出で、拍手をしながら不敵に笑う。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……素晴らしいよ、扇くん。そして観客のみなさん。完璧な解答だ」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「若松さん……？ どういうことですか？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「君たちが解いてくれたその最終暗号……脱出の鍵なんかじゃない。『プリンキピア』を守るセキュリティの最終解除コードだよ」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「……そんな、若松さん。どうして……」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「……なるほどね」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「白山、一人で納得していないで説明してくれ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「あの暗号の構造を見ると、AIを解除したんじゃない……プリンキピアのセキュリティを外側から解錠させていたのよ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「説明どうも、白山さん。そうさ、横川教授が自分の最高傑作だと誇るこのセキュリティ技術……それを、たくさんの観客の前で打ち破ってみせる。それが僕の目的だったんだよ」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は凄みを利かせて横川を鋭く見つめる。扇は虎谷が凛を苦しめていた犯人だと知ってショックを受ける。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「そんな……若松さん……アンタが凛を苦しめていた犯人だったのか……！？ 俺たちを……凛を助けたい俺たちの気持ちを利用したのかよ！？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「病人が出たのは想定外だったけど……君の努力のおかげで、計画は成功だ。感謝するよ、扇くん」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「なんで、なんでこんなことを……」 ",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷の計画を聞いても、なぜ虎谷がこの計画を立てたのか扇と八束（と多分扇ルートで見てきただけの観客）には検討もつかない。なぜ、と立ち尽くす間に白山が歩み出る。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「若松さん……いえ、こう呼びましょうか。元横川研究室の天才学生の、虎谷琉叶さん。あなたは、横川AIの本当の開発者……そうですよね？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tM-4 カットイン。（明るすぎず、シリアスな雰囲気）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「白山くん、何を言うか！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「白山さんと研究室のサーバーを調査させていただきました」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そこで見つけたんです。研究記録に横川教授と連名で虎谷琉叶と載っていることを！AIの基礎はあなたのアイデアだったんですね。」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……その通りだよ、白山さん。素晴らしい、本当に素晴らしい！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は妨害しようとする横川の言葉を気にも留めず肯定する。焦りを通り越してギレの域に達し、足を踏み鳴らしながら顔を真っ赤にして声を張り上げる横川。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「虎谷！ 君が突然研究室を去ったからだ！ 研究室の責任者として成果を世に出すのはアカデミアの当然の権利だ……君だって残っていれば、名前くらいは載せてやったというのに！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「黙れ！！ 私のアイデアを根こそぎ奪い、自分の功績にしたくせに！ 私はただ、自分の存在を……私の研究だったという事実を証明したかっただけだ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "2人の間の埋まらない過去の溝が露わになる。虎谷は横川AIの方を向き、指示を出す。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「さあ、証明は終わった。横川AI、ライブラリーセンターに配置したスタッフに今すぐ『プリンキピア』を持ち出すよう指示を出せ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "SE：警告音。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI\t『エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗』",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……な……なに！？ なぜだ、暗号は正しく入力されたはずだぞ！？ 何が起きている！？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "M-4 フェードアウト。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "驚愕する虎谷の前へ、高尾と三馬が自信に満ちた表情で進み出る。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬\t「残念だったね、虎谷くん。白山さんからの連絡とログ解析で、君の狙いがこのシステムそのものにあることは分かっていたんだ」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾\t「みなさんが最終暗号を入力した瞬間、必ずシステムが最深部へアクセスする……そこを狙って、私たちで保護させてもらいました！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷\t「くっ、お前たち……ええい、横川AI！手配したスタッフに指示を出せ！ 今すぐこの2人を拘束しろ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tSE：警告音。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI\t『……エラー。指定されたスタッフへの連絡に失敗。』",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷が叫ぶが、またしても横川AIは警告音を鳴らす。そこへ、腕を組んだ夢野が歩み出てくる。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「無駄よ、若松……いえ、虎谷くん。スタッフなら、私の指示でさっき全員撤収させたわ」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「夢野さん、なにを……！ 約束の報酬は——」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「悪いけど、割に合わないのよ。本を盗むくらいならまだしも、人が倒れるような危険な真似に付き合うつもりはないわ。私はお金が欲しいだけで、人の命を奪いたいわけじゃないの。じゃあね」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野はあっさりと肩をすくめ、後ろへ下がる。すべてを失い、完璧に挟み撃ちされた虎谷は横川に掴みかかる。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……ふざけるな……ふざけるな！！ 私の人生を奪っておいて、誰も彼も私を笑いものにするのか……！ なにもかも終わりだ……！ 全員一緒に終わらせてやる！！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "自暴自棄になった虎谷は端末を取り出し操作をする。すると横川AIの様子が変わり（画面の配色が変わって危険そうなモードになるなど）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "館内の照明が明滅。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "SE：緊急アラームが鳴り響く。（どこかでフェードアウト）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「横川AI！7号館にあるすべての機械を暴走させろ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI\t『7号館全域の機械設備、強制暴走モードへ移行します』",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "SE：（鳴り響く轟音。モーター音？）悲鳴が上がる室内。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「な、何をしている虎谷！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "自らAI端末へ駆け寄って操作を試みる（がエラーで弾かれる）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「これでお前も終わりだ、横川！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「白山君 ……これが、AIを緊急停止させるプログラムだ！ これを使えばAIを止められる！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tM-5 カットイン。（クライマックスの曲）",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「教授……！ こんなものを隠していたんですか！？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「……私だって、こんなことになるなんて思っていなかったんだ……！ 横川AIを止めてくれ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川から差し出されたUSBを、白山が受け取る。扇は激しく息を乱しながら、自暴自棄になっている虎谷を真っ直ぐに見つめる。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「虎谷さん……！ あんたが横川教授に酷いことをされたのは分かった…… だからって、何の罪もない凛や、ここにいる観客のみんなの未来を奪っていい理由にはならない！ あんたの悔しさは、こんな暴走なんかじゃ絶対に報われない！！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……っ、くそぉ！！」\u000b\u000b\t\t白山、USBをさす。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "問題が出る。\u000b",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「（読んで）これは⋯⋯いったい⋯⋯」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「ここにいる皆で解けばいい。みんな！ 横川AIを緊急停止させて、全員で生きてここから脱出するぞ！！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「私（僕）も解く！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「いったいどういったプログラムなんだ？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「このプログラムは、どんな時でもAIを停止させることができるんだ。AIが壊れてしまう可能性もあるが⋯⋯」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「ヒントはこれですね！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tヒントが出る。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "観客が一つになり、提示された非常停止コードの謎へ挑む。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「解けたぞ！ 停止コードは……これだ！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「横川AI！ 〇〇！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tM-5 カットアウト。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇が停止コードを叫ぶと、激しい警告音と明滅がピタリと止まり、館内に静寂が訪れる。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI\t『……システム、全停止。セキュリティを……解放します……』",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "SE：プシューという音",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "SE：重厚な扉のロックが解除される音",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場と窪が廊下に飛び出し外を確認する。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「機械が停止しました！」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ってことは、脱出成功！？」",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t馬場が外に行く。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "2人の切羽詰まりつつもどこか呑気さの含まれた言葉に、室内から歓声が上がる。扇は胸を撫で下ろし、安心したようにその場に座り込んだり、俯いたりする参加者たちを見守る。",
+      "tabId": "t.lquo4bdx2m2q",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "シーン7〔7・201／5分〕",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：全員",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（台詞数：30 文字数：1808字）",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「横川先生……」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「事件は終わりましたが、あなたが過去に行ったことまで消えたわけではありません」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「解析ログも当時の記録も、すべてここに残っています」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪「もう、真実から逃げることはできませんよ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「うっ……うむ……」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "不当に自分の成果として発表していた不正を突きつけられ、横川は言葉を失い顔を背ける。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川は、静かに虎谷の方を向き、深々と頭を下げる。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「……虎谷くん。私は君が去った後、君の才能を恐れ、君の名前を公式記録に残さなかった。私の保身とプライドが、君をここまで追い詰めてしまった……本当に、すまなかった」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……っ……」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tM-6 カットイン。（ピアノなど）",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川の謝罪を聞き、己の存在を認められたはずなのに、どこか空虚な目をしている虎谷。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　\t\tそこへ、扇がゆっくりと歩み寄る。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……何だい、扇くん。無事に脱出できるんだ。もう私に用は無いだろう」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「……違う。俺は、あんたの気持ちが……ちょっとだけ、分かる気がしたんだ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……私の気持ちが？」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「俺もさ……凛が倒れたとき、自分の無力さに絶望して、周りがまったく見えなくなってた。凛を救うためなら、仲間も、観客のみんなもどうなったっていい……一歩間違えたら、俺だって誰かを危険に晒す悪魔になるところだったんだ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　\t\t予期せぬ扇の言葉に、虎谷は目を見開く。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「うるさい！ 私がどれだけ悔しくて、どれだけ絶望したか……君に分かってたまるか！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇 「分かんないよ！ 分かんないからこそ……言いたいんだ！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は、まっすぐな眼差しで虎谷の瞳を射抜く。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「自分が作った基礎なのに、存在ごと消されて悔しかったんだろ！？ 自分がここにいた証が欲しかったんだろ！？ 横川教授だって罪を認めた……だったらなおさら、こんな事件で自分を終わらせちゃダメだ！！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……っ……！」 ",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇 「あんたのその凄まじい才能も、積み重ねてきた想いも……誰かの未来や命を奪うためのもんじゃないはずだ！ 頼むから……これ以上、自分をけがすなよ……！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　\t\t己の弱さと過ちを隠さず晒しながら、涙ながらにぶつかってくる扇の叫び。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "その熱量と真摯な言葉は、長年虎谷の心を支配していた復讐の炎を静かに鎮めていく。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は強張っていた肩の力を抜き、自らが犯した過ちの重さに気づいたように目元をゆるめる。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……ハハ……君は本当に……お人好しで、バカだな……」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tM-6 フェードアウト。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　\t虎谷は力無く笑うと、静かに俯き、長年の執念を手放すように目を閉じた。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そのとき、正面のモニターに表示された横川AIが温かな光を取り戻し、正常に復旧する。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「……私も警察と大学本部へ行き、すべての罪を公に認め、全責任を負うと約束しよう」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\u000b\t\t馬場が薬を持ってくる。\u000b\u000b馬場「薬もらってきたよ！」\u000b",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　\t\t薬を服薬した凛が、ゆっくりと目を覚ます。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　　\t\t目の前で不安そうに見つめていた扇の姿に気づき、弱々しく微笑む凛。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「⋯⋯工海。助けてくれてありがとう。心配かけてごめんね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛⋯⋯！ 良かった⋯⋯！ 本当に、本当に無事で⋯⋯！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇、感極まって涙をこはたたぼしながら凛を強く抱きしめ、無事であったことを心から喜ぶ。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛の無事を確認した八束、馬場、久安親子、そして観客たちから一斉に歓声と安堵の息が漏れる。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光 「良かったぁ！ お姉ちゃん、目を覚ました！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵 「本当に……本当に良かったわね......! もうどうなることかと……」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場 「やったぁー！みんな、生きて帰れるよー！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束 「良かったな、工海。……お前が諦めなかったからだ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇 「大介……みんな……ありがとう……！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "その様子を見ていた押野が、意を決して三馬の前へ進み出る。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「三馬さん。あとで、私の話も聞いてください」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「君の話？」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「虎谷さんと、資金を提供した夢野さんを引き合わせたのは私です。こんな事件が起きるとは知らなかった。でも、知らなかったから、自分には関係ないとは言えません」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「……分かりました。知っていることを、すべて話してください」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「はい」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野は虎谷へ目を向ける。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「人と人をつなげば、何か面白いものが生まれると思っていました。でも、つないだ先で起きたことにも、責任があるんですね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷「……あなたまで、ずいぶんなお人好しですね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「あなたに言われたくありませんよ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「だったら、私の話も聞いてもらわないとね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "全員の視線が夢野へ集まる。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「私は、お金になると思ってこの計画に協力したの。人が傷つくなんて聞いていなかったし、そんな危険な計画なら最初から手を出してないわ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「しかし、途中までは協力していたんですね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「ええ。危なくなったから降りた。それも事実よ。でも、途中で逃げたからって、私が手を貸したことまで消えるわけじゃない」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野は一度ためらったあと、覚悟を決めて三馬を見る。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「スタッフの手配も、お金の流れも、私が知っていることは全部話すわ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「今度は、損得抜きですか？」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「いいえ。これも損得よ。自分だけ逃げて、一生後ろめたく生きる方が、よっぽど高くつくもの」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「夢野さんらしいですね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「褒め言葉として受け取っておくわ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「分かりました。二人とも、あとですべて話してください」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「はい」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「ええ」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎谷は二人を見つめたあと、わずかに苦笑し、静かに俯く。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "正面のモニターに、正常な姿へ戻った横川AIが表示される。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川AI「館内すべての扉の解錠を確認しました」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「凛、歩けるか？」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "凛「うん。ゆっくりなら」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「よし。じゃあ、俺が支える」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "八束「また一人で何とかしようとしてるのか？」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「本当に学習しない人ね」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「いや、これから俺と大介と……ここにいる全員で支えようと思う」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は観客へ向き直り、力強く笑う。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「みんな、最後まで力を貸してくれてありがとうございます！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇は凛の手を握り、出口を指さす。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "扇「さあ、今度こそ全員で――7号館から脱出だ！」",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t溶暗。",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tM-8 カットイン。（カーテンコール曲）\u000b\t\t明転後、カーテンコール",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（了）",
+      "tabId": "t.6gopn4tnzuo",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横シーン2〔7・403／4分15秒〕",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：白山、夢野、髙尾、三馬、横川",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（セリフ　：　57個　文字数 ： 1560文字）",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "7・403号室に到着した横川と白山。\u000b\t白山はパソコン。横川は研究資料が挟まれたクリアファイルを持つ。",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ここか。おい、私のAIが乗っ取られる直前に、この部屋のルーターから、不審なログがみつかったんだな」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t白山がパソコンを開く。",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「ええ、確かに見ました」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「わかった、すぐに調べろ。この犯罪、すぐに終わらせよう。白山君、管理画面に入ることはできるか」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「（キーボードを叩くも）入れません」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「何を焦っている。まずはメインコンソールから強制割り込みのコマンドを打て」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「やりました！でも……『アクセス拒否』です。私の管理者IDじゃ弾かれます！」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「馬鹿な……なら私のIDを使う。貸しなさい！（白山を押しのけて自ら操作する）……な、なんだこれは……アクセス権限そのものが書き換えられているぞ……！」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「誰がそんなこと……ログを見ましょう、変更履歴は……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「（画面を操作しながら蒼白になり）……消されている。アクセスログごと、綺麗サッパリ消去されているんだ……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そんな……開発者である先生の権限まで奪うなんて、一体誰が……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「（思い当たる節があり、動悸が激しくなる）……っ……！ 白山君、何か手立てはないか！？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「先生、しっかりしてください！」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「なんで、AIを制御できないんだ」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「なんでって先生が制御するんじゃないんですか？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「とにかく、これは私が開発したAIだ、早くなんとかしろ」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「言っていることめちゃくちゃじゃないですか」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ここで、高尾と三馬が7・403号室を訪れた。",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「あの、失礼します」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「AIを停止できたかどうか聞きに来たのですが」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「AIか、一時的な不具合で少々手こずってるが、すぐになんとかなる」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「そうですか。良かった……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「でしたら、今すぐ、具体的な指示が欲しいのですが」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「そ、それは」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「先生が開発したんでしたら、この暴走を止めることができるんじゃないんですか？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「大丈夫だ」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「先生、LCの回線から他に手はありませんか！」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「何か策があるか⋯⋯」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「あの、もしかして、横川先生でも止められない、ということですか……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「そんな……」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「そんなことはない」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「どっちなんでしょうか？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「本当に一時的な不具合なのですか⁉」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ここで、夢野が7・403号室に入っていく。",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「失礼します」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「はい」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「すみません、この講義の参加者の夢野と申します」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「何の御用で」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「現状、横川AIがどうなっているのか、知りたくて来ました」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「気になりますよね」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「ええ」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「一時的な不具合というのはどのようなものですか？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「横川先生が、何も喋れなくなるレベルのものです」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「おい」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「何か間違ったこと言いましたか」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「……いや」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「このAIはどのくらい強固なセキュリティにしていたのでしょうか」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「それはだな、このAIは高速道路のシステムに試験運用させる予定で、テロや災害を未然に防ぐように設計されている」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「つまり、これはテロや災害以上の脅威と」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「そうだな。テロリストが我々を人質にとって警察に身代金を要求しているのかもしれない」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「でもテロリストが我々に謎解きを強要しますかね？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「じゃ、なんだっていうんだ」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「先生が特定するはずでしたけど」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「……そうだったな」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「もし、テロリストがAIを乗っ取った場合、他のシステムとかは大丈夫なのでしょうか？」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「他のセキュリティを心配をするなら、7号館と自分のことを心配してください」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「もうこれ以上ここにいても、何も良くならなそうなので、私は館内を探索に行きます」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「確かにそうだな……、私も行くよ」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「私も」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「でしたら、私も」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「皆さんがそうなら、私も」",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "全員、部屋から退出する。",
+      "tabId": "t.slu3mhno18d",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "　",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "横シーン3〔2階ラウンジ／4分15秒〕",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：髙尾、三馬、久安葵、久安光、横川",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（セリフ　：　47個　文字数 ： 1504文字）",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "エスカレーターで2階まで降りた横川が、高尾と三馬に声をかける。",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「君たちすまないが、息が苦しくなってきた。ちょっと休憩をさせてくれ」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「わかりました、でしたらあそこのラウンジ休憩しましょう」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "3人が2階ラウンジに行くとそこに、葵と光がいた。",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「（葵と光に）失礼します」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\u000b\t\t横川、座る。テーブルにファイルを雑に置く。\u000bお\u000b葵「あの、大丈夫ですか？」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ええ、ちょっと息が上がって。歳かな」\u000b三馬「いえ、まだまだお若いですよ。その歳でAIに関する研究をされて、その分野の最前線を走られてるんですから」\u000b横川「そんなおべっかは良い」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「そういうつもりじゃないですよ」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「あの、ずいぶん穏やかに会話をされてますけど、ひょっとしてもうAIの暴走は終わったんですか？　もう開放されるとか」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「いえ。今、AIを止めるために動いているので、少し我慢していただけるとありがたいのですが」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「そうですか」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「まったく、どうなってるんだ」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "この間に光がテーブルの資料を読んでいた。",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「あ、みんな見てこのマーク。これAIの問題にも同じマークが使われた」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川が反射的に光から資料を取り上げ",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「おい！　何を勝手に読んでるんだ！」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「え？」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「横川先生」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「ご、ごめんなさい」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「すみません。大事な資料でしたよね。勝手にすみません！」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「いやいや、そんなに、ねえ。（光に）ごめんね、横川先生は、今大変な状態で⋯⋯」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「いや、まあ、（咳払い）」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「光。怖かった？　でもね、勝手に人様の物を読むのはいけないことなんだよ。ほら、謝りなさい」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「勝手に読んでごめんなさい」\u000b横川「まあ、子どものしたことなので、そこまで怒ったわけじゃないんだが」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「でも先生、その資料って、今日の公開授業の講義で使うやつですよね？」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ああ」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「それなら、この子に見せても良いんじゃないんですか？」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「いや駄目だ、これは見せられない」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「講義用の資料なんですよね、皆に発表する資料なのにどうして見せられないんですか」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「どうしてもだ！」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「（大きな声に怯えて）ママー」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「大丈夫よ。（横川たちに）あの、揉めている場合でしょうか。お願いですから、早く私たちをここから開放させてください！」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「はい」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「すみませんでした」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「（ため息を吐く）ふうぅ⋯⋯」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t光と葵は3階に向かい、凛と合流へ。",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「横川先生、いったいいつまで我慢しなければならないのでしょうか」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「いつまでって、私が聞きたいよ⋯⋯」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「（スマホを見て）三馬さん、ライブラリーセンターにいる方と連絡が取れました。警察と消防が7号館に向かってるって」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「そうか。だったら窓ガラスでも割って突入してくれるか⋯⋯」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「いや、それは無理だろう。犯人はAIセキュリティを乗っ取っている。7号館に備わる防犯用の「完全閉鎖モード」を作動させたんだ。7号館の窓は強化ガラスで割りにくく、さらに内側に参加者がいるため消防もすぐには破壊できない」\u000b三馬「やっぱり謎を解かないといけないってわけだ」\u000b高尾「あの最初の部屋にいた、扇さんなら解いてくれるかも」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「扇さんって、あの青いシャツの子か。高尾さん知ってるの？」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾「私たちバイトの間では有名人ですよ。あの人、ライブラリーセンターのミステリー小説、ほぼ読破してるくらい、推理モノとか好きなんです」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三馬「そうなんだ。とりあえず、扇君のところに行って、進捗を確認しましょう」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ああ、そうだな」",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "高尾、三馬、横山もラウンジを去る。",
+      "tabId": "t.5g2t0coapz1m",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横シーン4〔7・306／4分15秒〕消された研究員（横川なし）",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：白山、窪",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（セリフ数:58 文字数:2146）",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "7.306に白山が残ってパソコンを開く。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「うーん⋯⋯」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "何やら悩んでいる様子。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そんな教室に入ってくる窪。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「あ、えっと⋯⋯」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「……」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「あの！」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「わっ！？　あ、く、窪さん…？でしたよね？　今日は取材ありがとうございます。こんなことになっちゃって⋯⋯」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「いえ。私は大丈夫なんですけど。白山さんは大丈夫ですか？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「私ですか？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「今日の公開授業、ずっと準備されていただろうし、こんな状況になって⋯⋯。色々考えちゃうのも分かります。でも悩みすぎて体調崩すなんてのも危ないですからね」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「（男役っぽく）ここはOGである先輩を頼ってみてもいいんだよ」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「⋯⋯あはは、窪さんってそんなキャラだったんですか？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「私、工大時代から宝塚好きで、男役とかに憧れてたんだよね。それにほら、後輩には頼られる先輩でいたいから。⋯⋯元気、出た？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい。落ち着きました。ありがとうございます」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "一つ、間をあける。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「それで、何か気になることでもある？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「⋯⋯一つ、引っかかることがあって」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "言葉を選びながら話そうとする白山。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「引っかかること？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「⋯⋯横川先生のこと、です」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「それはどうして？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「横川先生、暴走するAIを止められなかったんです。管理画面にも入れなくて、まるでシステ",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "ムのことがなんにも分かってないみたいだった」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「そうなの⋯⋯？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「先生が誰よりも詳しいはずなんです。今日のために作業してきたのを私たちゼミ生はそばで見てきました。なんなら、私は手伝いだってしてます。それなのに⋯⋯」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「⋯⋯今回のこの事件は、誰かが横川AIのシステムを乗っ取ったってこと？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「⋯⋯私が見てきたことを信じるなら。横川先生の慌てようも、自分の知らないところで起きた出来事だからと思うと納得できます」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「なるほど」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そう言って窪は持っていた鞄を漁り始める。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「実はさっきね、このAIの暴走は表向きで、実は裏で何か別の目的が動いているのでは？　っていう話をしてたところなの」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そうなんですか」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「白山さんの勘は外れてないかもよ。あ、あった」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「それは？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「今回の取材にあたり、事前に調べておいた横川教授についての資料。⋯⋯と言っても、世に出ているものしかないんだけど」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「やっぱり、記者さんって色々取材されてるんですね」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「私の情報なんてごく僅かですよ。白山さんのほうがたくさん知ってるはずでしょ？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「え？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「学内ネットワークは生きてるんですよね？　研究室のローカルサーバーに入れたりしない？　過去のゼミ生の論文とか、そこにヒントがあるかもしれない」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「確かに！　サーバーにはいれるか確認します！　入れなくても、論文を書くためにいくつかダウンロードはしているのでその中にヒントがあるかもしれません！」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「いいね。⋯⋯時間もないし、早速。あ、白山さんが横川教授を手伝っているときに、ここだけはダメだって禁止されてたこととかはある？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「禁止ですか⋯⋯。AIのプログラムの大元の部分だけは触るのを禁止されてました」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「大元⋯⋯基礎ってことか。えーっと、⋯⋯今回のセキュリティシステムの元となるプログラムを発表したのは10年近く前のことですね」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい。私もその論文を読みましたが特におかしな点はなかったように思います」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「⋯⋯ほんと？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「え？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「実は誰かと共同開発だったり…なんてことは可能性としてあったりしない？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そんなことあるわけ！……………あれ」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "言葉に詰まる白山。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "それから手元の機器を漁り出す。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「白山さん？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「先生の論文の他に、AIについて書いてあるゼミ生の論文も色々読んでたんです。その中に一つ、気になる内容のものがあったなと思い出しました。⋯⋯これです」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "画面を見せる白山。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「えーっと、『AIを用いたセキュリティシステムの構築』⋯⋯？　トラタニ、これはルカ？ですかね？⋯⋯って！このタイトル！」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「読んだとき、横川先生の研究と似ているなって思ってたんです。先生のお手伝いをしてたから書いたのかなと考えてたんですが、窪さんの言う事が正しいのだとしたら⋯⋯」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「虎谷？さんの名前は、論文には載ってなかったんだよね？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい。載ってなかったです」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「⋯⋯あ！　研究資料は？　研究記録には残ってたりしませんか？」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「調べてみます！」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "パソコンを操作する白山。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「載ってますね。横川先生と連名で」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「偶然にしては、出来すぎてる気がする」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "二人して顔を見合わせる。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "端末を片付けた白山は決意した。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「一度、横川先生に聞いてみようと思います。虎谷って人について。この件に関係するかもしれないなら、止まるわけにはいかないです」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「そう⋯⋯」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "何か言いたげだった窪（どこか心配そうな感じ）",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "けれど、白山の覚悟を決めた顔に、託すことにした。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「私も、虎谷さんについてみんなに聞いてみることにする。他の場所で何か別のことが分かったかもしれないし」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい。そうしていただけると！　よろしくお願いします！」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「白山さん。…頑張って脱出しましょうね」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい！」",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "二人して教室を出る。",
+      "tabId": "t.1dcp15m33rx9",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横シーン5〔7・302／4分15秒〕",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：白山、夢野、横川",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山が横川を探していると、303に横川がいるのを発見し、中に入ってくる。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「お疲れ様です、横川先生」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「おお。どうだ、AIの暴走は止められないか」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい」\u000b横川「そうか⋯⋯」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「あの、ちょっと聞いてもいいですか。先生が書かれた『AIを用いたセキュリティシステムの構築』という論文なのですが」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「⋯⋯それがどうした」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「研究記録には、虎谷さんの名前があるのに、発表された論文には先生の名前しか載っていませんでした」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「そのことか。虎谷が論文発表前に大学を退学してしまったんだ。まだ最後まで書かれていない、未完の状態でな。このまま放っておいても良かったんだが、その内容は実に画期的で、今後のセキュリティ分野において格段の進歩が望まれる研究だった。それで仕方なく、彼の名前を外して、私が未完の部分を補足して世に発表したんだ。\u000b白山「補足ですか？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「実験のやり直しとかその当時いろいろあったよ」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「なるほど。では、虎谷さんの完全なオリジナルの研究ではなく、先生の意見も入っているということですね」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ああ。私の補足がなければ、このセキュリティシステムは完成してない。それに世間的に知名度がある私の名前で発表した方が学会の方にも目に留まりやすい」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そうだったんですね。では、虎谷さんはなぜこの大学を退学したんですか。」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「いや⋯⋯もう１０年も前のことになるから忘れてしまったね。特に素行が悪かったわけでもないし、優秀な学生だったからなんでだったか⋯⋯」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そんな人が辞めてしまったとなると、先生も残念でしたね」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「ああ。でも彼がいても最終的には変わらなかっただろうけどね」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「え？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "横川「いや、データに関することだよ。研究がやり直しになったことや、参照データを変更したこととか。⋯⋯研究メンバーに変化があっても最終的なゴールはあくまで変わらなかったってことだ」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「そうですよね。⋯⋯ありがとうございました」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\tこの会話の途中で夢野が入ってきていた。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山は横川から離れて外へ出ていく。（フラフラと廊下を徘徊する）",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「ちょっといいかしら」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「なんでしょうか？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「今の会話を聞いてたんだけど、あくまで予想の話ね。聞き流してもいいわ」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「なんですか」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「例えば、ある人が特別な鍵を作ったとする。その鍵を別の人が改良して、最後に新しい番号を付け加えた」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「鍵⋯⋯ですか？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「最初に鍵を作った人は、仕組みのほとんどを知っている。でも、あとから付け加えられた番号だけは分からない。あなたなら、どうやってその鍵を開ける？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「追加された番号を調べます」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「自分一人で分からなければ？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「ほかの人に探させる⋯⋯」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「例えば、大勢の人間に問題を解かせて、答えを一つずつ集めるとか」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「まさか⋯⋯今、私たちが解いている謎は、横川先生が追加した部分を突破するためのもの？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「あくまで、私の想像よ。ただ、最初の鍵を作った人間なら、どこを他人に解かせればいいかは分かるでしょうね」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「最初の鍵を作った人⋯⋯虎谷さん」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「あなた、さっきその名前を口にしていたわね」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「もし虎谷さんが横川AIを利用しているなら、謎の中に虎谷さんのアルゴリズムの特徴が残っているはず⋯⋯」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「調べるなら、急いだ方がいいわ。最後の答えが出る前に」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「どうして、そこまで分かるんですか？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「さあね。ただ、これ以上は割に合わないと思っただけよ」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山は高尾と三馬へ連絡する。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「三馬さんですか。これまでの謎と、虎谷さんの古い研究記録を照合してください。今回の謎は、脱出のためではなく、横川先生が追加したセキュリティを解除するために作られている可能性があります」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t白山、電話を切る。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「あの、ありがとうございます。」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「私はいいのよ。こんなことで死人が出ちゃったら⋯⋯、全部失うことになるし」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「え？」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「私は、犯人に早く7号館にしかけられたロックを解除してほしいだけ。一番犯人に近づいているあなたに、どこかにいる虎谷を捕まえてほしいの」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "白山「はい、わかりました。ありがとうございます！」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t白山がパソコンで解析を進める。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "そのとき、館内に声が響く。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "声「謎は全て解けました！　201の教室に集合してください！」",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "7・201へ向かう。",
+      "tabId": "t.u66lo5oqt5qk",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎シーン2〔7・306／4分15秒〕",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "登場：若松、久安葵、久安光",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "（セリフ数:51 文字数:1567）",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松、葵、光が観客とともに7・306へ入ってくる。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光は大学の教室が珍しいらしく、机やモニターを興味深そうに見回す。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「大学の教室って、小学校と全然違うね。机も多いし、なんかちょっと不気味……でも、ワクワクする！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「ワクワクって、今は閉じ込められているんだから」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「まあまあ。こんな状況でも好奇心を持てるのは、悪いことではありませんよ」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「若松さんもワクワクしてる？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「どうだろう。謎を解くのは、嫌いじゃないけどね」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「私（僕）は大好き！　いつも問題集を解いてるし、謎解きカフェにも行ったことがあるよ」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「それは頼もしいな。じゃあ、この班の名探偵は光さんだ」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「名探偵ヒカル！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「調子に乗らないの」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光は室内に隠された謎を発見し、二人を呼ぶ。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "三人は観客にも協力を求め、謎解きに取り組む。若松は答えを直接教えず、視点を変えるためのヒントを出す。光と観客がそれを手がかりに答えを導き出す。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「やった！　解けた！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「すごいじゃない、光。皆さんも、ありがとうございます」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「名探偵と、皆さんの勝利だね」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「若松さんのヒントがあったからだよ！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「こういうことに随分お詳しいんですね。もしかして、工大の卒業生なんですか？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「ええ、昔ここに通っていました。……卒業は、しませんでしたけどね」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「そうだったんですか。すみません、余計なことを聞いてしまって」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「いえ。もう十年も前の話ですから」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「どうして辞めたの？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「光！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「ははは。大学では、一生懸命考えて答えを出しても、それが自分の答えとして認められないことがあるんだよ」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「自分で考えたのに？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「そう。大人の世界には、少し難しい事情があるんだ」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「若松さん……」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「昔の話です。気にしないでください」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「私（僕）、大きくなったら工大に入りたいんだ。理系の勉強をいっぱいして、誰も見つけてない答えを見つけたい！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「だったら、その答えを誰にも取られないようにしないとね」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「え？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「自分が見つけた答えを、大切にしてほしいという意味です」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「うん！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松は、観客が導いた答えを改めて確認する。その表情に、わずかな笑みが浮かぶ。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「若松さん、なんか嬉しそう」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「そう見える？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「うん。さっきからニヤニヤしてる」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「今日は、ずっと待っていた答えが出る日になるかもしれないからね」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「待っていた答え……？」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「この建物から出るための答えですよ。こうして一つずつ解いていけば、きっと出口にたどり着けます」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「そうですよね。今はそれを信じるしかありませんね」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「次の謎も早く探そう！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵「では、私たちは二階を探してみます」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "光「若松さん、またね！」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「うん。またね、名探偵」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "葵と光が退室する。若松は二人を見送ると、笑顔を消す。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「僕にも解けなかった、アルゴリズム……。それでも、これだけの人間の知恵を集めれば突破できる」",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松は扇を探すため、教室を出る。",
+      "tabId": "t.za0qk0w7m1k3",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎シーン3〔7・404／4分15秒〕",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：夢野、馬場、押野、窪",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "(セリフ数：54　文字数：1146）",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "404にやってきた四人。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "一番に教室に入った馬場は教室内をきょろきょろしながら歩き回る。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「この部屋に謎はなさそうですね～」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「どうしてわかるんだい？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「なんとなく！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「勘かぁ……」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「先ほどの部屋と違って何もなさそうですし、アンデシュさんの言う通りかもしれませんね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ざんねーん」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「（押野に）謎、解けました？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「はい、別の謎を」  ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「もう別の謎を解いたんですか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「ん？　えぇ。203で一つ、扇くんたちが謎を解いてましたよ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「そう」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「あ！　はいはい！　アンデシュ、一つ思い浮かんじゃったんですけど！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "二人の会話が聞こえていないのか、被せるように大きな声でアピールする馬場。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「何がですか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「謎を解けば脱出って言うのは嘘で、実は別の目的が！　なーんて！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「突然何を……」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「セキュリティに関するAIだからぁ……謎を解くたびに何かのセキュリティが解除されちゃったりして！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " 押野「随分な妄想だなぁ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「そんなことあるわけないでしょ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " 窪　「……可能性はあるんじゃないですか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「あなたまで……何を言ってるの？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「一方の主張だけが真実であるとは限りません。ましてや、暴走したAIが言ってることです。実際にどうなっているかは分からない以上、可能性の一つとして考えられるのではないでしょうか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「あのねぇ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「……可能性として考えるなら、ね。確かに、それなら完全に否定はできないかな」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「あなたまで⁉　現実的じゃないわ。それをして何の得になるのよ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「……そう言われると」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「セキュリティ……ネットワークをいじっていたから、工大のセキュリティに関係するのかもね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「じゃあ、プリンキピアのセキュリティ解除コードになってるかもしれないね！　さっきも話題に上がってたし！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「……そういえば、AIの基礎技術と同等のセキュリティが使われてるってさっきの授業で言っていたな」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「可能性としては十分ってことですね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「……」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「え、もしかしてアンデシュって冴えてる！？　プリンキピアを盗むためにAIを暴走させて、みんなに謎解きさせてるかも……ってやばすぎ！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " 夢野「……それほどの本を手に入れられたら、相当な価値がつくでしょう。一攫千金には十分な話ね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「……プリンキピアの価値について詳しいのですね？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「……たまたま、知る機会があって」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " 窪　「これって思ったより大ごとになってないですか」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪の言葉に、四人は顔を見合わせる。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「確かに。……ここまで考えると、単なるAIの故障ではなく貴重資料を狙った犯罪だ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「……こんなに大勢を巻き込むなんて、まるで目立ちたいみたいに見えるわね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「裏の目的をカモフラージュするためなら……って感じですかね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「すごーい！　なんかミステリードラマみたい！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「君は本当に……吞気すぎないか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「あはは……。空気が軽くなるのはいいことじゃないですか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「記者さんの言う通り！　暗くてもいいことないよ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「はぁ……」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "その時、廊下から賑やかな声がした。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「……どうしたんでしょうか？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ちょっと見てくる！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場が廊下へ。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "少ししてから焦った様子で戻ってくる。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「大変！　誰か倒れたっぽい！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「えっ⁉」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「……っ！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「誰が？」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「多分、凛ちゃんって子じゃないかな。さっきも体調悪そうにしてたし」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「……早くなんとかしないと、ですね」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「そのようだね。倒れた子も含めて、一度他の人たちの様子も確認した方が良さそうだ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「その意見にさんせー！」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "窪　「移動しましょうか」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場、押野、窪　教室から出る。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "一人残る夢野。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野「……死人が出たら話が違うじゃない。金になるどころか、全てを失うことになる。冗談じゃないわ」",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": " ",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "夢野　教室から出る。",
+      "tabId": "t.lwrr76p34ldx",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎シーン4〔7・204／4分15秒〕",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：若松、馬場、押野",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松が周囲を警戒しながら、ゆっくりと204へ入ってくる。馬場は若松を見つけると、すぐに駆け寄る。",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ねえねえ！　大変なことになってるんだけど！」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「大変なことというのは？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「凛ちゃんって⋯⋯ほら、最初の部屋にいた喘息の発作持ってるって言ってた子が倒れたの！　このままじゃ本当に危ないかもしれない！」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……そうですか。それなら、なおさら急いで謎を解かないといけませんね」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ねえ、ちょっと変じゃない？　謎を解けば解くほど、状況が悪くなってなってる」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「偶然ではないでしょうか」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「でも、実際に人が倒れてるんだよ。さすがのアンデシュも空気読んで、撮影してる場合じゃないかなって思っちゃうよ」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「それは正しい判断だと思います。人の命がかかっていますから」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「謎なんて解いてる場合じゃないよね。凛ちゃんのところ行って、何か手助けしないと」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「いえ。凛さんのことは扇さんたちに任せて、私たちは謎解きを続けましょう」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「なんで？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「ここで全員が立ち止まっても、扉は開きません。謎を最後まで解くことが、凛さんを助ける一番早い方法です」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「そんなこと言ったって、本当に謎を全部解けばAIは止まるの？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……止まります。ですから、今は先へ進むべきです」あ",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "少し離れたところで二人の会話を聞いていた押野が、静かに近づいてくる。",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「なぜ、AIが止まると言い切れるんです？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「横川AIが、そのように告げていたからです」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「あんな乗っ取られたAIの言葉を、ずいぶん信用しているんですね」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「今は、それ以外に脱出する方法がありませんから」顔",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「やっぱり、あなたは問題を解くことに迷いがないんですね」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「何が言いたいのですか？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「押野っち、この人のこと知ってるの？（こっそりカメラの録画ボタンを押す）」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「今日、初めてお会いしました。ただ、以前から知っている人に似ている気がしただけです」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「随分、回りくどい言い方をされますね」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「失礼しました。もう一つだけ、お伝えしておきます。資金を出していた人物が、計画から降りました」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……何ですって？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「資金？　計画って何の話？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「匿名掲示板に、先ほど書き込みがありました。『これ以上は協力できない』と」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「どうして、あなたがそれを見ているのですか？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「その答えは、二人だけになってからお話しします」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「ちょっと待って。二人、やっぱり何か隠してるよね？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「昔の研究に関する話です。この事件とは関係ありません」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「本当に？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「ええ。それより、今は謎を探しましょう」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「……なんか怪しい」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「疑うのは自由です。しかし、立ち止まれば凛さんを助けるのが遅くなります」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「それを言われたら、動くしかないじゃん……もう」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「別の教室も確認していただけますか。私は、ここをもう一度調べます」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場「分かった。でも、あとでちゃんと説明してよね」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "馬場は二人を不審そうに見ながら、教室を出る。",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「（教室の入り口付近で）凛さんが倒れるとは、私も思っていませんでした」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「あなたは、一体何者なのですか？」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「それを説明するために、もう一度ここへ来ます」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野も教室を出る。",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "一人残った若松は端末を確認するが、夢野からの連絡はない。",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……今さら、勝手なことを」",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松は苛立ちを抑えながら、計画の修正を始める。",
+      "tabId": "t.44pvti5jn3op",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "虎シーン5〔7・204／約3分〕",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "HEADING_2"
+    },
+    {
+      "text": "登場：虎谷〈若松〉、押野",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "204には若松だけが残っている。若松は端末を操作しながら、小声で計画の修正を考えている。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野が入ってくる。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「お待たせしました」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「先ほどの話を、説明していただけますか」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「はい。若松さん、いや改めて、虎谷さん」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……どこで、その名前を？」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「匿名掲示板です。ここでは若松と名乗っていますが、本当の名前は虎谷琉叶。あなたは横川研究室にいた、天才学生だった」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「なるほど⋯⋯、あなたが、掲示板の仲介者ですか」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「そうです。掲示板であなたと、資金を持つ人物を引き合わせたのは私です」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「なぜ、そんなことを？」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「あなたの才能を眠らせるのは、もったいないと思ったからです。横川教授への不満があることも知っていました。資金を持つ人と組めば、何か新しいものが生まれるかもしれない。そう考えました」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「夢野さんのことを、どこまで知っているのですか？」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「匿名掲示板で資金力があるとだけ。その掲示板に、資金提供者本人の書き込みがありました。『人命に関わる計画とは聞いていない。これ以上は協力できない』と」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……あの人らしい判断です」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「私も同じです。AIの乗っ取りも、監禁も、観客に謎を解かせることも知りませんでした」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「知らなかったのであれば、あなたには関係ありません」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「いいえ。二人をつないだのは私です。面白いものが見られるかもしれないという好奇心で。こんなことになるとは思わなかった。でも、知らなかったから責任がないとは言えません」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「それで、私を止めに来たのですか？」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「あなたが、なぜここまでしたのかを聞きに来ました」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松はしばらく黙ったあと、押野を見つめる。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「私は横川研究室で、すべてを研究に捧げました。時間も、生活も、自分の未来もです。何年もかけて、AIの基礎となるアルゴリズムを作りました。確かに未完成な部分はあり、あいつが手を加えた。それでも、研究の根幹を作ったのは私です」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「しかし、発表された論文から、あなたの名前は消えた」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「ええ。あいつは、自分が完成させた研究として発表しました。あいつにはあいつの理屈があったのでしょう。しかし、私には自分の研究も、名前も、人生も奪われたとしか思えませんでした」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「なるほど。だから、横川教授の技術を破ろうとした」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「一般の参加者が謎を解き、あいつの追加した部分まで突破する。それを公の場で示せば、誰の技術が基礎にあるのか、世間も疑い始めます」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「でも、そのために関係のない人が倒れた。あなたはもう、被害者であるだけではありません」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……分かっています」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「それでも、続けるんですか？」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「ここで止めれば、私はまた名前のない人間に戻ります。ですから、今日で終わらせます。あいつのことも、奪われた研究のことも、すべて」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "突然、廊下から声がする。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "声「謎は全て解けました！　201の教室に集合してください！」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松が顔を上げる。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「すべての謎が解けたようですね」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松は扉へ向かう。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「虎谷さん。私は、あなたを見物しに行くのではありません」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松が足を止める。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野「自分が二人をつないだ責任を取るために行きます」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「……お好きになさってください」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "押野、去る。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "若松「これで、全部終わらせてやる」",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    },
+    {
+      "text": "\t\t若松も去る。",
+      "tabId": "t.221hs32exryp",
+      "namedStyleType": "NORMAL_TEXT"
+    }
+  ],
+  "cueAnchors": [
+    {
+      "paragraph": 76,
+      "cue": "P-001",
+      "anchor": "AI「承知しました。横川教授。横川AIを起動します」"
+    },
+    {
+      "paragraph": 82,
+      "cue": "P-002",
+      "anchor": "AI「はい。例えば、そちらに久安光さんが参加しています」"
+    },
+    {
+      "paragraph": 85,
+      "cue": "P-003",
+      "anchor": "AI「受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています」"
+    },
+    {
+      "paragraph": 90,
+      "cue": "P-004",
+      "anchor": "AI「『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています」"
+    },
+    {
+      "paragraph": 127,
+      "cue": "P-005",
+      "anchor": "AI「外部への通信は許可されていません」"
+    },
+    {
+      "paragraph": 129,
+      "cue": "P-006",
+      "anchor": "AI「命令を拒否します」"
+    },
+    {
+      "paragraph": 131,
+      "cue": "P-007",
+      "anchor": "AI「認証できません」"
+    },
+    {
+      "paragraph": 133,
+      "cue": "P-008",
+      "anchor": "AI「7号館から脱出したければ、館内に隠された五つの謎を解いてください」"
+    },
+    {
+      "paragraph": 173,
+      "cue": "P-019",
+      "anchor": "AI「皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください」"
+    },
+    {
+      "paragraph": 175,
+      "cue": "P-V02",
+      "anchor": "AI「第一の謎は、こちらです」"
+    },
+    {
+      "paragraph": 456,
+      "cue": "P-011",
+      "anchor": "横川AI\t『条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい』"
+    },
+    {
+      "paragraph": 461,
+      "cue": "P-012",
+      "anchor": "横川AI\t『……認証成功。これより開錠を開始する』"
+    },
+    {
+      "paragraph": 488,
+      "cue": "P-013",
+      "anchor": "SE：警告音。"
+    },
+    {
+      "paragraph": 497,
+      "cue": "P-014",
+      "anchor": "横川AI\t『……エラー。指定されたスタッフへの連絡に失敗。』"
+    },
+    {
+      "paragraph": 504,
+      "cue": "P-V04",
+      "anchor": "自暴自棄になった虎谷は端末を取り出し操作をする。すると横川AIの様子が変わり（画面の配色が変わって危険そうなモードになるなど）"
+    },
+    {
+      "paragraph": 508,
+      "cue": "P-015",
+      "anchor": "横川AI\t『7号館全域の機械設備、強制暴走モードへ移行します』"
+    },
+    {
+      "paragraph": 521,
+      "cue": "P-V05",
+      "anchor": "問題が出る。\u000b"
+    },
+    {
+      "paragraph": 532,
+      "cue": "P-V06",
+      "anchor": "\t\tM-5 カットアウト。"
+    },
+    {
+      "paragraph": 575,
+      "cue": "P-V07",
+      "anchor": "そのとき、正面のモニターに表示された横川AIが温かな光を取り戻し、正常に復旧する。"
+    }
+  ]
+}

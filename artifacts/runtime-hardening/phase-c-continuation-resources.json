@@ -1,0 +1,3692 @@
+[
+  {
+    "label": "baseline",
+    "at": "2026-10-09T16:03:08.845Z",
+    "runtime": {
+      "memory": {
+        "rss": 77926400,
+        "heapTotal": 33378304,
+        "heapUsed": 14508344,
+        "external": 9030086,
+        "arrayBuffers": 1841935
+      },
+      "cpu": {
+        "user": 546000,
+        "system": 296000
+      },
+      "uptime": 2.2716164,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 12,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 6,
+      "JSEventListeners": 16,
+      "Nodes": 841,
+      "TaskDuration": 0.114967,
+      "JSHeapUsedSize": 1692768
+    },
+    "dom": {
+      "documents": 6,
+      "nodes": 841,
+      "jsEventListeners": 16
+    },
+    "audio": {
+      "plays": 0,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 147202048
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:13:39.216Z",
+    "runtime": {
+      "memory": {
+        "rss": 66760704,
+        "heapTotal": 16785408,
+        "heapUsed": 14350872,
+        "external": 3869213,
+        "arrayBuffers": 186246
+      },
+      "cpu": {
+        "user": 2015000,
+        "system": 671000
+      },
+      "uptime": 632.750279,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 601,
+      "TaskDuration": 16.270641,
+      "JSHeapUsedSize": 954944
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 601,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 205148160
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:14:09.529Z",
+    "runtime": {
+      "memory": {
+        "rss": 66498560,
+        "heapTotal": 17072128,
+        "heapUsed": 15030592,
+        "external": 3869223,
+        "arrayBuffers": 186314
+      },
+      "cpu": {
+        "user": 2109000,
+        "system": 687000
+      },
+      "uptime": 663.0559763,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 601,
+      "TaskDuration": 16.276929,
+      "JSHeapUsedSize": 961864
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 601,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 205053952
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:14:39.856Z",
+    "runtime": {
+      "memory": {
+        "rss": 68198400,
+        "heapTotal": 18796544,
+        "heapUsed": 15770536,
+        "external": 4423573,
+        "arrayBuffers": 740664
+      },
+      "cpu": {
+        "user": 2156000,
+        "system": 718000
+      },
+      "uptime": 693.3790073,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 373,
+      "TaskDuration": 16.289464,
+      "JSHeapUsedSize": 944300
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 373,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 204861440
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:15:10.157Z",
+    "runtime": {
+      "memory": {
+        "rss": 69410816,
+        "heapTotal": 19095552,
+        "heapUsed": 17127376,
+        "external": 4424697,
+        "arrayBuffers": 741788
+      },
+      "cpu": {
+        "user": 2265000,
+        "system": 734000
+      },
+      "uptime": 723.6987742,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 394,
+      "TaskDuration": 16.296296,
+      "JSHeapUsedSize": 1007040
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 394,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203702272
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:15:40.475Z",
+    "runtime": {
+      "memory": {
+        "rss": 68296704,
+        "heapTotal": 18808832,
+        "heapUsed": 16448712,
+        "external": 3878797,
+        "arrayBuffers": 195888
+      },
+      "cpu": {
+        "user": 2265000,
+        "system": 734000
+      },
+      "uptime": 754.0011738,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 394,
+      "TaskDuration": 16.297033,
+      "JSHeapUsedSize": 1007968
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 394,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203702272
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:16:10.809Z",
+    "runtime": {
+      "memory": {
+        "rss": 69656576,
+        "heapTotal": 21204992,
+        "heapUsed": 17769208,
+        "external": 3881009,
+        "arrayBuffers": 198100
+      },
+      "cpu": {
+        "user": 2328000,
+        "system": 781000
+      },
+      "uptime": 784.3176891,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 415,
+      "TaskDuration": 16.303273,
+      "JSHeapUsedSize": 1049284
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 415,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203714560
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:16:41.128Z",
+    "runtime": {
+      "memory": {
+        "rss": 70344704,
+        "heapTotal": 21491712,
+        "heapUsed": 18555088,
+        "external": 3881063,
+        "arrayBuffers": 198154
+      },
+      "cpu": {
+        "user": 2359000,
+        "system": 781000
+      },
+      "uptime": 814.652303,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 415,
+      "TaskDuration": 16.304192,
+      "JSHeapUsedSize": 1050212
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 415,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203735040
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:17:11.453Z",
+    "runtime": {
+      "memory": {
+        "rss": 71675904,
+        "heapTotal": 21790720,
+        "heapUsed": 19737040,
+        "external": 3883039,
+        "arrayBuffers": 200130
+      },
+      "cpu": {
+        "user": 2468000,
+        "system": 796000
+      },
+      "uptime": 844.9789595,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 436,
+      "TaskDuration": 16.311531,
+      "JSHeapUsedSize": 1093132
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 436,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203747328
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:17:41.784Z",
+    "runtime": {
+      "memory": {
+        "rss": 71393280,
+        "heapTotal": 21504000,
+        "heapUsed": 19209736,
+        "external": 3883093,
+        "arrayBuffers": 199472
+      },
+      "cpu": {
+        "user": 2484000,
+        "system": 812000
+      },
+      "uptime": 875.2992222,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 436,
+      "TaskDuration": 16.312363,
+      "JSHeapUsedSize": 1094060
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 436,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203747328
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:18:12.117Z",
+    "runtime": {
+      "memory": {
+        "rss": 72347648,
+        "heapTotal": 23900160,
+        "heapUsed": 20551448,
+        "external": 3892803,
+        "arrayBuffers": 209894
+      },
+      "cpu": {
+        "user": 2515000,
+        "system": 859000
+      },
+      "uptime": 905.6317573,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 457,
+      "TaskDuration": 16.323813,
+      "JSHeapUsedSize": 1135412
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 457,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 204476416
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:18:42.410Z",
+    "runtime": {
+      "memory": {
+        "rss": 73035776,
+        "heapTotal": 24186880,
+        "heapUsed": 21329800,
+        "external": 3892857,
+        "arrayBuffers": 209948
+      },
+      "cpu": {
+        "user": 2531000,
+        "system": 859000
+      },
+      "uptime": 935.9650702,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 457,
+      "TaskDuration": 16.324756,
+      "JSHeapUsedSize": 1136340
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 457,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203784192
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:19:12.713Z",
+    "runtime": {
+      "memory": {
+        "rss": 68100096,
+        "heapTotal": 17555456,
+        "heapUsed": 15443992,
+        "external": 4305327,
+        "arrayBuffers": 622418
+      },
+      "cpu": {
+        "user": 2609000,
+        "system": 921000
+      },
+      "uptime": 966.257324,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 478,
+      "TaskDuration": 16.331839,
+      "JSHeapUsedSize": 1181892
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 478,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203767808
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:19:42.992Z",
+    "runtime": {
+      "memory": {
+        "rss": 67051520,
+        "heapTotal": 17268736,
+        "heapUsed": 14751456,
+        "external": 3978269,
+        "arrayBuffers": 295360
+      },
+      "cpu": {
+        "user": 2609000,
+        "system": 921000
+      },
+      "uptime": 996.5553182,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 478,
+      "TaskDuration": 16.332748,
+      "JSHeapUsedSize": 1182820
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 478,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203759616
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:20:13.302Z",
+    "runtime": {
+      "memory": {
+        "rss": 68284416,
+        "heapTotal": 18616320,
+        "heapUsed": 16076192,
+        "external": 3979623,
+        "arrayBuffers": 296714
+      },
+      "cpu": {
+        "user": 2687000,
+        "system": 953000
+      },
+      "uptime": 1026.8456387,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 499,
+      "TaskDuration": 16.339028,
+      "JSHeapUsedSize": 1224004
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 499,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203763712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:20:43.609Z",
+    "runtime": {
+      "memory": {
+        "rss": 69054464,
+        "heapTotal": 18903040,
+        "heapUsed": 16858120,
+        "external": 3979677,
+        "arrayBuffers": 296768
+      },
+      "cpu": {
+        "user": 2687000,
+        "system": 984000
+      },
+      "uptime": 1057.1482233,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 499,
+      "TaskDuration": 16.339882,
+      "JSHeapUsedSize": 1224932
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 499,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203763712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:21:13.951Z",
+    "runtime": {
+      "memory": {
+        "rss": 70918144,
+        "heapTotal": 20250624,
+        "heapUsed": 18223128,
+        "external": 4526913,
+        "arrayBuffers": 844004
+      },
+      "cpu": {
+        "user": 2750000,
+        "system": 1031000
+      },
+      "uptime": 1087.4588856,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 520,
+      "TaskDuration": 16.348114,
+      "JSHeapUsedSize": 1266108
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 520,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203759616
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:21:44.242Z",
+    "runtime": {
+      "memory": {
+        "rss": 69869568,
+        "heapTotal": 19963904,
+        "heapUsed": 17478864,
+        "external": 3989205,
+        "arrayBuffers": 306296
+      },
+      "cpu": {
+        "user": 2750000,
+        "system": 1031000
+      },
+      "uptime": 1117.7969927,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 520,
+      "TaskDuration": 16.348802,
+      "JSHeapUsedSize": 1267036
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 520,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203292672
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:22:14.546Z",
+    "runtime": {
+      "memory": {
+        "rss": 70991872,
+        "heapTotal": 22360064,
+        "heapUsed": 18826592,
+        "external": 3991417,
+        "arrayBuffers": 308508
+      },
+      "cpu": {
+        "user": 2828000,
+        "system": 1031000
+      },
+      "uptime": 1148.0817535,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 541,
+      "TaskDuration": 16.357367,
+      "JSHeapUsedSize": 1308196
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 541,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203182080
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:22:44.838Z",
+    "runtime": {
+      "memory": {
+        "rss": 71868416,
+        "heapTotal": 22646784,
+        "heapUsed": 19607888,
+        "external": 3991471,
+        "arrayBuffers": 308562
+      },
+      "cpu": {
+        "user": 2843000,
+        "system": 1031000
+      },
+      "uptime": 1178.3977377,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 541,
+      "TaskDuration": 16.358003,
+      "JSHeapUsedSize": 1309124
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 541,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203182080
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:23:15.149Z",
+    "runtime": {
+      "memory": {
+        "rss": 73175040,
+        "heapTotal": 22945792,
+        "heapUsed": 20775592,
+        "external": 3993447,
+        "arrayBuffers": 310538
+      },
+      "cpu": {
+        "user": 2875000,
+        "system": 1062000
+      },
+      "uptime": 1208.6872965,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 562,
+      "TaskDuration": 16.365206,
+      "JSHeapUsedSize": 1350284
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 562,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203202560
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:23:45.544Z",
+    "runtime": {
+      "memory": {
+        "rss": 72888320,
+        "heapTotal": 22659072,
+        "heapUsed": 20239496,
+        "external": 3993501,
+        "arrayBuffers": 309880
+      },
+      "cpu": {
+        "user": 2875000,
+        "system": 1062000
+      },
+      "uptime": 1238.9968198,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 562,
+      "TaskDuration": 16.366244,
+      "JSHeapUsedSize": 1351212
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 562,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203198464
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:24:15.874Z",
+    "runtime": {
+      "memory": {
+        "rss": 74039296,
+        "heapTotal": 25055232,
+        "heapUsed": 21606064,
+        "external": 3995019,
+        "arrayBuffers": 312110
+      },
+      "cpu": {
+        "user": 2937000,
+        "system": 1156000
+      },
+      "uptime": 1269.3877232,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 583,
+      "TaskDuration": 16.372432,
+      "JSHeapUsedSize": 1392372
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 583,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203202560
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:24:46.174Z",
+    "runtime": {
+      "memory": {
+        "rss": 74731520,
+        "heapTotal": 25341952,
+        "heapUsed": 22383400,
+        "external": 3995073,
+        "arrayBuffers": 312164
+      },
+      "cpu": {
+        "user": 2937000,
+        "system": 1156000
+      },
+      "uptime": 1299.7179483,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 583,
+      "TaskDuration": 16.373223,
+      "JSHeapUsedSize": 1393300
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 583,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203182080
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:25:16.510Z",
+    "runtime": {
+      "memory": {
+        "rss": 68112384,
+        "heapTotal": 17555456,
+        "heapUsed": 14151296,
+        "external": 4304927,
+        "arrayBuffers": 622018
+      },
+      "cpu": {
+        "user": 3046000,
+        "system": 1156000
+      },
+      "uptime": 1330.0193862,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 604,
+      "TaskDuration": 16.380089,
+      "JSHeapUsedSize": 1434448
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 604,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203202560
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:25:46.800Z",
+    "runtime": {
+      "memory": {
+        "rss": 66838528,
+        "heapTotal": 17268736,
+        "heapUsed": 13456248,
+        "external": 3869377,
+        "arrayBuffers": 186468
+      },
+      "cpu": {
+        "user": 3093000,
+        "system": 1156000
+      },
+      "uptime": 1360.3510429,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 604,
+      "TaskDuration": 16.380922,
+      "JSHeapUsedSize": 1435376
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 604,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203284480
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:26:17.096Z",
+    "runtime": {
+      "memory": {
+        "rss": 67907584,
+        "heapTotal": 19664896,
+        "heapUsed": 14779552,
+        "external": 3871589,
+        "arrayBuffers": 188680
+      },
+      "cpu": {
+        "user": 3187000,
+        "system": 1187000
+      },
+      "uptime": 1390.6519669,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 625,
+      "TaskDuration": 16.388193,
+      "JSHeapUsedSize": 1476560
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 625,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203268096
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:26:47.423Z",
+    "runtime": {
+      "memory": {
+        "rss": 68751360,
+        "heapTotal": 19951616,
+        "heapUsed": 15561400,
+        "external": 3871643,
+        "arrayBuffers": 188734
+      },
+      "cpu": {
+        "user": 3187000,
+        "system": 1203000
+      },
+      "uptime": 1420.9443824,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 625,
+      "TaskDuration": 16.38897,
+      "JSHeapUsedSize": 1477488
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 625,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203231232
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:27:17.760Z",
+    "runtime": {
+      "memory": {
+        "rss": 70860800,
+        "heapTotal": 20250624,
+        "heapUsed": 16982648,
+        "external": 4418897,
+        "arrayBuffers": 735988
+      },
+      "cpu": {
+        "user": 3328000,
+        "system": 1234000
+      },
+      "uptime": 1451.268768,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 646,
+      "TaskDuration": 16.395576,
+      "JSHeapUsedSize": 1518700
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 646,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203251712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:27:48.060Z",
+    "runtime": {
+      "memory": {
+        "rss": 69427200,
+        "heapTotal": 19963904,
+        "heapUsed": 16301600,
+        "external": 3872997,
+        "arrayBuffers": 190088
+      },
+      "cpu": {
+        "user": 3375000,
+        "system": 1234000
+      },
+      "uptime": 1481.6129433,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 646,
+      "TaskDuration": 16.396321,
+      "JSHeapUsedSize": 1519628
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 646,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203251712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:28:18.346Z",
+    "runtime": {
+      "memory": {
+        "rss": 70619136,
+        "heapTotal": 22360064,
+        "heapUsed": 17611392,
+        "external": 3875209,
+        "arrayBuffers": 192300
+      },
+      "cpu": {
+        "user": 3453000,
+        "system": 1265000
+      },
+      "uptime": 1511.902791,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 667,
+      "TaskDuration": 16.40335,
+      "JSHeapUsedSize": 1560800
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 667,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203255808
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:28:48.680Z",
+    "runtime": {
+      "memory": {
+        "rss": 71761920,
+        "heapTotal": 22646784,
+        "heapUsed": 18386592,
+        "external": 3875263,
+        "arrayBuffers": 192354
+      },
+      "cpu": {
+        "user": 3484000,
+        "system": 1281000
+      },
+      "uptime": 1542.1957076,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 667,
+      "TaskDuration": 16.404195,
+      "JSHeapUsedSize": 1561728
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 667,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203235328
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:29:18.999Z",
+    "runtime": {
+      "memory": {
+        "rss": 72949760,
+        "heapTotal": 22945792,
+        "heapUsed": 19551824,
+        "external": 3885431,
+        "arrayBuffers": 202522
+      },
+      "cpu": {
+        "user": 3578000,
+        "system": 1312000
+      },
+      "uptime": 1572.5300951,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 688,
+      "TaskDuration": 16.412113,
+      "JSHeapUsedSize": 1604144
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 688,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203255808
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:29:49.309Z",
+    "runtime": {
+      "memory": {
+        "rss": 72663040,
+        "heapTotal": 22659072,
+        "heapUsed": 18974080,
+        "external": 3885485,
+        "arrayBuffers": 201846
+      },
+      "cpu": {
+        "user": 3609000,
+        "system": 1328000
+      },
+      "uptime": 1602.846228,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 688,
+      "TaskDuration": 16.412807,
+      "JSHeapUsedSize": 1605072
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 688,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203255808
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:30:19.611Z",
+    "runtime": {
+      "memory": {
+        "rss": 73621504,
+        "heapTotal": 25055232,
+        "heapUsed": 20358184,
+        "external": 3887003,
+        "arrayBuffers": 204094
+      },
+      "cpu": {
+        "user": 3687000,
+        "system": 1375000
+      },
+      "uptime": 1633.1515299,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 709,
+      "TaskDuration": 16.419811,
+      "JSHeapUsedSize": 1647348
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 709,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203251712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:30:49.904Z",
+    "runtime": {
+      "memory": {
+        "rss": 74309632,
+        "heapTotal": 25341952,
+        "heapUsed": 21126232,
+        "external": 3887057,
+        "arrayBuffers": 204148
+      },
+      "cpu": {
+        "user": 3703000,
+        "system": 1375000
+      },
+      "uptime": 1663.4658717,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 709,
+      "TaskDuration": 16.420614,
+      "JSHeapUsedSize": 1648276
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 709,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203251712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:31:20.266Z",
+    "runtime": {
+      "memory": {
+        "rss": 66904064,
+        "heapTotal": 16306176,
+        "heapUsed": 12293104,
+        "external": 3754695,
+        "arrayBuffers": 77376
+      },
+      "cpu": {
+        "user": 3750000,
+        "system": 1390000
+      },
+      "uptime": 1693.7498469,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 730,
+      "TaskDuration": 16.427796,
+      "JSHeapUsedSize": 1689352
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 730,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203231232
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:31:50.587Z",
+    "runtime": {
+      "memory": {
+        "rss": 67244032,
+        "heapTotal": 16592896,
+        "heapUsed": 13115112,
+        "external": 3754749,
+        "arrayBuffers": 77430
+      },
+      "cpu": {
+        "user": 3765000,
+        "system": 1390000
+      },
+      "uptime": 1724.1174923,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 730,
+      "TaskDuration": 16.428568,
+      "JSHeapUsedSize": 1690280
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 730,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203251712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:32:20.882Z",
+    "runtime": {
+      "memory": {
+        "rss": 68628480,
+        "heapTotal": 18989056,
+        "heapUsed": 14445296,
+        "external": 4301785,
+        "arrayBuffers": 624466
+      },
+      "cpu": {
+        "user": 3812000,
+        "system": 1453000
+      },
+      "uptime": 1754.4314662,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 751,
+      "TaskDuration": 16.436469,
+      "JSHeapUsedSize": 1731344
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 751,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203259904
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:32:51.212Z",
+    "runtime": {
+      "memory": {
+        "rss": 67186688,
+        "heapTotal": 17653760,
+        "heapUsed": 13739152,
+        "external": 3755885,
+        "arrayBuffers": 78566
+      },
+      "cpu": {
+        "user": 3812000,
+        "system": 1453000
+      },
+      "uptime": 1784.7317298,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 751,
+      "TaskDuration": 16.437284,
+      "JSHeapUsedSize": 1732272
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 751,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203259904
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:33:21.536Z",
+    "runtime": {
+      "memory": {
+        "rss": 68632576,
+        "heapTotal": 19001344,
+        "heapUsed": 15046728,
+        "external": 3765431,
+        "arrayBuffers": 88112
+      },
+      "cpu": {
+        "user": 3859000,
+        "system": 1484000
+      },
+      "uptime": 1815.0635385,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 772,
+      "TaskDuration": 16.443885,
+      "JSHeapUsedSize": 1773344
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 772,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 203677696
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:33:52.021Z",
+    "runtime": {
+      "memory": {
+        "rss": 69296128,
+        "heapTotal": 19288064,
+        "heapUsed": 15815456,
+        "external": 3765485,
+        "arrayBuffers": 88166
+      },
+      "cpu": {
+        "user": 3890000,
+        "system": 1484000
+      },
+      "uptime": 1845.4003838,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 772,
+      "TaskDuration": 16.445012,
+      "JSHeapUsedSize": 1774272
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 772,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 204431360
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:34:22.622Z",
+    "runtime": {
+      "memory": {
+        "rss": 70922240,
+        "heapTotal": 20635648,
+        "heapUsed": 16849088,
+        "external": 3766631,
+        "arrayBuffers": 89312
+      },
+      "cpu": {
+        "user": 3984000,
+        "system": 1500000
+      },
+      "uptime": 1875.8867031,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 793,
+      "TaskDuration": 16.455039,
+      "JSHeapUsedSize": 1815336
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 793,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 204738560
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:34:53.319Z",
+    "runtime": {
+      "memory": {
+        "rss": 70918144,
+        "heapTotal": 20922368,
+        "heapUsed": 17627896,
+        "external": 3766685,
+        "arrayBuffers": 89366
+      },
+      "cpu": {
+        "user": 4000000,
+        "system": 1515000
+      },
+      "uptime": 1906.4675568,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 793,
+      "TaskDuration": 16.455729,
+      "JSHeapUsedSize": 1816264
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 793,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 204787712
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:35:23.812Z",
+    "runtime": {
+      "memory": {
+        "rss": 72921088,
+        "heapTotal": 21983232,
+        "heapUsed": 18578944,
+        "external": 4313693,
+        "arrayBuffers": 636374
+      },
+      "cpu": {
+        "user": 4062000,
+        "system": 1546000
+      },
+      "uptime": 1937.165105,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 814,
+      "TaskDuration": 16.476711,
+      "JSHeapUsedSize": 1052320
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 814,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 185765888
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:35:54.112Z",
+    "runtime": {
+      "memory": {
+        "rss": 71237632,
+        "heapTotal": 21696512,
+        "heapUsed": 17875432,
+        "external": 3767793,
+        "arrayBuffers": 90474
+      },
+      "cpu": {
+        "user": 4078000,
+        "system": 1546000
+      },
+      "uptime": 1967.6654603,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 814,
+      "TaskDuration": 16.477949,
+      "JSHeapUsedSize": 1053248
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 814,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 185704448
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:36:24.404Z",
+    "runtime": {
+      "memory": {
+        "rss": 74018816,
+        "heapTotal": 24092672,
+        "heapUsed": 19191680,
+        "external": 3770005,
+        "arrayBuffers": 92686
+      },
+      "cpu": {
+        "user": 4187000,
+        "system": 1578000
+      },
+      "uptime": 1997.9532343,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 835,
+      "TaskDuration": 16.485121,
+      "JSHeapUsedSize": 1094312
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 835,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 185708544
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:36:54.734Z",
+    "runtime": {
+      "memory": {
+        "rss": 74305536,
+        "heapTotal": 24379392,
+        "heapUsed": 19953648,
+        "external": 3778251,
+        "arrayBuffers": 100932
+      },
+      "cpu": {
+        "user": 4203000,
+        "system": 1578000
+      },
+      "uptime": 2028.2526351,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 835,
+      "TaskDuration": 16.485954,
+      "JSHeapUsedSize": 1095240
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 835,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 125227008
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:37:25.026Z",
+    "runtime": {
+      "memory": {
+        "rss": 67317760,
+        "heapTotal": 16306176,
+        "heapUsed": 12321200,
+        "external": 3754695,
+        "arrayBuffers": 77376
+      },
+      "cpu": {
+        "user": 4281000,
+        "system": 1578000
+      },
+      "uptime": 2058.5836671,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 856,
+      "TaskDuration": 16.493399,
+      "JSHeapUsedSize": 1136280
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 856,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 124567552
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:37:55.308Z",
+    "runtime": {
+      "memory": {
+        "rss": 67993600,
+        "heapTotal": 18026496,
+        "heapUsed": 13389864,
+        "external": 3975629,
+        "arrayBuffers": 298310
+      },
+      "cpu": {
+        "user": 4343000,
+        "system": 1578000
+      },
+      "uptime": 2088.8666299,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 870,
+      "TaskDuration": 16.497854,
+      "JSHeapUsedSize": 1159268
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 870,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 125644800
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:38:25.620Z",
+    "runtime": {
+      "memory": {
+        "rss": 68624384,
+        "heapTotal": 18989056,
+        "heapUsed": 14444744,
+        "external": 4301985,
+        "arrayBuffers": 624666
+      },
+      "cpu": {
+        "user": 4359000,
+        "system": 1609000
+      },
+      "uptime": 2119.1482592,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 877,
+      "TaskDuration": 16.501466,
+      "JSHeapUsedSize": 1178284
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 877,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 124723200
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:38:55.909Z",
+    "runtime": {
+      "memory": {
+        "rss": 68620288,
+        "heapTotal": 18038784,
+        "heapUsed": 14138112,
+        "external": 3977001,
+        "arrayBuffers": 299682
+      },
+      "cpu": {
+        "user": 4359000,
+        "system": 1656000
+      },
+      "uptime": 2149.4648646,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 891,
+      "TaskDuration": 16.506327,
+      "JSHeapUsedSize": 1201260
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 891,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 124805120
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:39:26.221Z",
+    "runtime": {
+      "memory": {
+        "rss": 68612096,
+        "heapTotal": 19001344,
+        "heapUsed": 15073200,
+        "external": 3758297,
+        "arrayBuffers": 80978
+      },
+      "cpu": {
+        "user": 4375000,
+        "system": 1671000
+      },
+      "uptime": 2179.7654749,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 898,
+      "TaskDuration": 16.509982,
+      "JSHeapUsedSize": 1220264
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 898,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 124723200
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:39:56.509Z",
+    "runtime": {
+      "memory": {
+        "rss": 69988352,
+        "heapTotal": 19673088,
+        "heapUsed": 16116520,
+        "external": 3979231,
+        "arrayBuffers": 301912
+      },
+      "cpu": {
+        "user": 4406000,
+        "system": 1687000
+      },
+      "uptime": 2210.0631063,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 912,
+      "TaskDuration": 16.513755,
+      "JSHeapUsedSize": 1243264
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 912,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 124727296
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:40:26.806Z",
+    "runtime": {
+      "memory": {
+        "rss": 71258112,
+        "heapTotal": 20635648,
+        "heapUsed": 17184360,
+        "external": 4313779,
+        "arrayBuffers": 636460
+      },
+      "cpu": {
+        "user": 4453000,
+        "system": 1718000
+      },
+      "uptime": 2240.3595331,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 919,
+      "TaskDuration": 16.517503,
+      "JSHeapUsedSize": 1262284
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 919,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 124710912
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:40:57.109Z",
+    "runtime": {
+      "memory": {
+        "rss": 65134592,
+        "heapTotal": 21782528,
+        "heapUsed": 16883784,
+        "external": 3988795,
+        "arrayBuffers": 311476
+      },
+      "cpu": {
+        "user": 4515000,
+        "system": 1765000
+      },
+      "uptime": 2270.6465288,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 933,
+      "TaskDuration": 16.522488,
+      "JSHeapUsedSize": 1285272
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 933,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 101732352
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:41:27.478Z",
+    "runtime": {
+      "memory": {
+        "rss": 66875392,
+        "heapTotal": 22745088,
+        "heapUsed": 17820864,
+        "external": 3770091,
+        "arrayBuffers": 92772
+      },
+      "cpu": {
+        "user": 4578000,
+        "system": 1796000
+      },
+      "uptime": 2300.9604568,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 940,
+      "TaskDuration": 16.526291,
+      "JSHeapUsedSize": 1304288
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 940,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 101748736
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:41:57.808Z",
+    "runtime": {
+      "memory": {
+        "rss": 67489792,
+        "heapTotal": 22368256,
+        "heapUsed": 18878648,
+        "external": 3991025,
+        "arrayBuffers": 313706
+      },
+      "cpu": {
+        "user": 4625000,
+        "system": 1812000
+      },
+      "uptime": 2331.3252148,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 954,
+      "TaskDuration": 16.529544,
+      "JSHeapUsedSize": 1327276
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 954,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 101597184
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:42:28.114Z",
+    "runtime": {
+      "memory": {
+        "rss": 68104192,
+        "heapTotal": 23330816,
+        "heapUsed": 19975864,
+        "external": 4316523,
+        "arrayBuffers": 639204
+      },
+      "cpu": {
+        "user": 4671000,
+        "system": 1812000
+      },
+      "uptime": 2361.6593685,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 961,
+      "TaskDuration": 16.532995,
+      "JSHeapUsedSize": 1346268
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 961,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 101609472
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:42:58.417Z",
+    "runtime": {
+      "memory": {
+        "rss": 68571136,
+        "heapTotal": 23429120,
+        "heapUsed": 19649944,
+        "external": 3991557,
+        "arrayBuffers": 314238
+      },
+      "cpu": {
+        "user": 4734000,
+        "system": 1828000
+      },
+      "uptime": 2391.9626053,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 975,
+      "TaskDuration": 16.537274,
+      "JSHeapUsedSize": 1369268
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 975,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 101597184
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:43:28.727Z",
+    "runtime": {
+      "memory": {
+        "rss": 60727296,
+        "heapTotal": 16306176,
+        "heapUsed": 12348792,
+        "external": 3754713,
+        "arrayBuffers": 77394
+      },
+      "cpu": {
+        "user": 4750000,
+        "system": 1843000
+      },
+      "uptime": 2422.2588973,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 982,
+      "TaskDuration": 16.541385,
+      "JSHeapUsedSize": 1388272
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 982,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102080512
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:43:59.021Z",
+    "runtime": {
+      "memory": {
+        "rss": 62189568,
+        "heapTotal": 16977920,
+        "heapUsed": 13435320,
+        "external": 3983839,
+        "arrayBuffers": 306520
+      },
+      "cpu": {
+        "user": 4781000,
+        "system": 1875000
+      },
+      "uptime": 2452.573121,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 996,
+      "TaskDuration": 16.546599,
+      "JSHeapUsedSize": 1412760
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 996,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102080512
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:44:29.359Z",
+    "runtime": {
+      "memory": {
+        "rss": 63778816,
+        "heapTotal": 17940480,
+        "heapUsed": 14502984,
+        "external": 4310195,
+        "arrayBuffers": 632876
+      },
+      "cpu": {
+        "user": 4843000,
+        "system": 1937000
+      },
+      "uptime": 2482.8720494,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1003,
+      "TaskDuration": 16.549505,
+      "JSHeapUsedSize": 1431736
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1003,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102088704
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:44:59.689Z",
+    "runtime": {
+      "memory": {
+        "rss": 63188992,
+        "heapTotal": 19087360,
+        "heapUsed": 14088056,
+        "external": 3985211,
+        "arrayBuffers": 86966
+      },
+      "cpu": {
+        "user": 4875000,
+        "system": 1953000
+      },
+      "uptime": 2513.207558,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1017,
+      "TaskDuration": 16.553284,
+      "JSHeapUsedSize": 1454644
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1017,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102088704
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:45:30.019Z",
+    "runtime": {
+      "memory": {
+        "rss": 63176704,
+        "heapTotal": 20049920,
+        "heapUsed": 15116704,
+        "external": 3764765,
+        "arrayBuffers": 87446
+      },
+      "cpu": {
+        "user": 4906000,
+        "system": 2000000
+      },
+      "uptime": 2543.5358897,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1024,
+      "TaskDuration": 16.557077,
+      "JSHeapUsedSize": 1473608
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1024,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102092800
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:46:00.313Z",
+    "runtime": {
+      "memory": {
+        "rss": 64413696,
+        "heapTotal": 19673088,
+        "heapUsed": 16161080,
+        "external": 3985699,
+        "arrayBuffers": 308380
+      },
+      "cpu": {
+        "user": 4984000,
+        "system": 2015000
+      },
+      "uptime": 2573.8684941,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1038,
+      "TaskDuration": 16.561344,
+      "JSHeapUsedSize": 1496516
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1038,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102064128
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:46:30.614Z",
+    "runtime": {
+      "memory": {
+        "rss": 65974272,
+        "heapTotal": 20635648,
+        "heapUsed": 17223824,
+        "external": 4312055,
+        "arrayBuffers": 634736
+      },
+      "cpu": {
+        "user": 5031000,
+        "system": 2031000
+      },
+      "uptime": 2604.1688094,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1045,
+      "TaskDuration": 16.564998,
+      "JSHeapUsedSize": 1515480
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1045,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102060032
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:47:00.918Z",
+    "runtime": {
+      "memory": {
+        "rss": 65851392,
+        "heapTotal": 21782528,
+        "heapUsed": 16917624,
+        "external": 3987071,
+        "arrayBuffers": 309752
+      },
+      "cpu": {
+        "user": 5093000,
+        "system": 2031000
+      },
+      "uptime": 2634.4574563,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1059,
+      "TaskDuration": 16.56907,
+      "JSHeapUsedSize": 1538400
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1059,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102060032
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:47:31.214Z",
+    "runtime": {
+      "memory": {
+        "rss": 65818624,
+        "heapTotal": 22745088,
+        "heapUsed": 17860368,
+        "external": 3776559,
+        "arrayBuffers": 99240
+      },
+      "cpu": {
+        "user": 5109000,
+        "system": 2062000
+      },
+      "uptime": 2664.7652451,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1066,
+      "TaskDuration": 16.573338,
+      "JSHeapUsedSize": 1557352
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1066,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102060032
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:48:01.699Z",
+    "runtime": {
+      "memory": {
+        "rss": 67395584,
+        "heapTotal": 22368256,
+        "heapUsed": 18915792,
+        "external": 3997493,
+        "arrayBuffers": 320174
+      },
+      "cpu": {
+        "user": 5140000,
+        "system": 2078000
+      },
+      "uptime": 2695.0670671,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1080,
+      "TaskDuration": 16.578805,
+      "JSHeapUsedSize": 1582548
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1080,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 103194624
+  },
+  {
+    "label": "real-extended-idle-background",
+    "at": "2026-10-09T16:48:09.190Z",
+    "runtime": {
+      "memory": {
+        "rss": 68448256,
+        "heapTotal": 23330816,
+        "heapUsed": 19940880,
+        "external": 4323813,
+        "arrayBuffers": 646494
+      },
+      "cpu": {
+        "user": 5171000,
+        "system": 2140000
+      },
+      "uptime": 2702.7474256,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1087,
+      "TaskDuration": 16.582301,
+      "JSHeapUsedSize": 1601204
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1087,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 13,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 102060032
+  },
+  {
+    "label": "checkpoint-restart-baseline",
+    "at": "2026-10-09T16:53:03.161Z",
+    "runtime": {
+      "memory": {
+        "rss": 74874880,
+        "heapTotal": 34050048,
+        "heapUsed": 20229416,
+        "external": 4108293,
+        "arrayBuffers": 425384
+      },
+      "cpu": {
+        "user": 687000,
+        "system": 296000
+      },
+      "uptime": 2.5243132,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 9,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 8,
+      "JSEventListeners": 16,
+      "Nodes": 878,
+      "TaskDuration": 0.19615,
+      "JSHeapUsedSize": 1666828
+    },
+    "dom": {
+      "documents": 8,
+      "nodes": 878,
+      "jsEventListeners": 16
+    },
+    "audio": {
+      "plays": 0,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 147025920
+  },
+  {
+    "label": "cycle-1-targeted-idle",
+    "at": "2026-10-09T16:53:18.528Z",
+    "runtime": {
+      "memory": {
+        "rss": 61145088,
+        "heapTotal": 18165760,
+        "heapUsed": 13437440,
+        "external": 3759675,
+        "arrayBuffers": 76766
+      },
+      "cpu": {
+        "user": 828000,
+        "system": 328000
+      },
+      "uptime": 18.1163323,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 8,
+      "JSEventListeners": 16,
+      "Nodes": 880,
+      "TaskDuration": 0.330939,
+      "JSHeapUsedSize": 1675788
+    },
+    "dom": {
+      "documents": 8,
+      "nodes": 880,
+      "jsEventListeners": 16
+    },
+    "audio": {
+      "plays": 0,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 182472704
+  },
+  {
+    "label": "performance-1-reset",
+    "at": "2026-10-09T16:54:41.560Z",
+    "runtime": {
+      "memory": {
+        "rss": 68448256,
+        "heapTotal": 19656704,
+        "heapUsed": 16177400,
+        "external": 4016987,
+        "arrayBuffers": 334078
+      },
+      "cpu": {
+        "user": 2421000,
+        "system": 843000
+      },
+      "uptime": 100.7556631,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 1,
+      "JSEventListeners": 8,
+      "Nodes": 362,
+      "TaskDuration": 11.878688,
+      "JSHeapUsedSize": 1021756
+    },
+    "dom": {
+      "documents": 1,
+      "nodes": 362,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 15,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 186228736
+  },
+  {
+    "label": "cycle-2-targeted-idle",
+    "at": "2026-10-09T16:56:20.514Z",
+    "runtime": {
+      "memory": {
+        "rss": 72888320,
+        "heapTotal": 20520960,
+        "heapUsed": 18812352,
+        "external": 4051046,
+        "arrayBuffers": 368137
+      },
+      "cpu": {
+        "user": 3437000,
+        "system": 1234000
+      },
+      "uptime": 200.0135565,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1159,
+      "TaskDuration": 18.90751,
+      "JSHeapUsedSize": 1051428
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1159,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 28,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 215674880
+  },
+  {
+    "label": "performance-2-reset",
+    "at": "2026-10-09T16:57:42.769Z",
+    "runtime": {
+      "memory": {
+        "rss": 73277440,
+        "heapTotal": 19771392,
+        "heapUsed": 15083520,
+        "external": 4247093,
+        "arrayBuffers": 569774
+      },
+      "cpu": {
+        "user": 4546000,
+        "system": 1593000
+      },
+      "uptime": 282.3296866,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 1,
+      "JSEventListeners": 8,
+      "Nodes": 362,
+      "TaskDuration": 7.578782,
+      "JSHeapUsedSize": 1023488
+    },
+    "dom": {
+      "documents": 1,
+      "nodes": 362,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 15,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 205844480
+  },
+  {
+    "label": "cycle-3-targeted-idle",
+    "at": "2026-10-09T16:59:21.493Z",
+    "runtime": {
+      "memory": {
+        "rss": 76107776,
+        "heapTotal": 21241856,
+        "heapUsed": 17589336,
+        "external": 3942207,
+        "arrayBuffers": 264888
+      },
+      "cpu": {
+        "user": 5406000,
+        "system": 1953000
+      },
+      "uptime": 381.0255375,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 864,
+      "TaskDuration": 14.242645,
+      "JSHeapUsedSize": 1048672
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 864,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 28,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 206839808
+  },
+  {
+    "label": "performance-3-reset",
+    "at": "2026-10-09T17:00:43.663Z",
+    "runtime": {
+      "memory": {
+        "rss": 74317824,
+        "heapTotal": 20062208,
+        "heapUsed": 15625120,
+        "external": 4376702,
+        "arrayBuffers": 699383
+      },
+      "cpu": {
+        "user": 6390000,
+        "system": 2375000
+      },
+      "uptime": 463.2259591,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 1,
+      "JSEventListeners": 8,
+      "Nodes": 362,
+      "TaskDuration": 7.764073,
+      "JSHeapUsedSize": 1023476
+    },
+    "dom": {
+      "documents": 1,
+      "nodes": 362,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 15,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 207220736
+  },
+  {
+    "label": "cycle-4-targeted-idle",
+    "at": "2026-10-09T17:02:22.390Z",
+    "runtime": {
+      "memory": {
+        "rss": 74854400,
+        "heapTotal": 20230144,
+        "heapUsed": 17787168,
+        "external": 3762750,
+        "arrayBuffers": 85431
+      },
+      "cpu": {
+        "user": 7343000,
+        "system": 2734000
+      },
+      "uptime": 561.9398415,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 780,
+      "TaskDuration": 14.347957,
+      "JSHeapUsedSize": 1048140
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 780,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 28,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 207323136
+  },
+  {
+    "label": "performance-4-reset",
+    "at": "2026-10-09T17:03:44.421Z",
+    "runtime": {
+      "memory": {
+        "rss": 75341824,
+        "heapTotal": 20373504,
+        "heapUsed": 16359320,
+        "external": 4252117,
+        "arrayBuffers": 574798
+      },
+      "cpu": {
+        "user": 8453000,
+        "system": 3187000
+      },
+      "uptime": 643.956499,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 1,
+      "JSEventListeners": 8,
+      "Nodes": 362,
+      "TaskDuration": 7.431902,
+      "JSHeapUsedSize": 1023476
+    },
+    "dom": {
+      "documents": 1,
+      "nodes": 362,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 15,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 207966208
+  },
+  {
+    "label": "cycle-5-targeted-idle",
+    "at": "2026-10-09T17:05:23.077Z",
+    "runtime": {
+      "memory": {
+        "rss": 75603968,
+        "heapTotal": 19722240,
+        "heapUsed": 16751976,
+        "external": 4022512,
+        "arrayBuffers": 345161
+      },
+      "cpu": {
+        "user": 9453000,
+        "system": 3562000
+      },
+      "uptime": 742.6337769,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": 9
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 8,
+      "Nodes": 1153,
+      "TaskDuration": 13.758116,
+      "JSHeapUsedSize": 1050220
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 1153,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 28,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 205475840
+  },
+  {
+    "label": "performance-5-reset",
+    "at": "2026-10-09T17:06:45.392Z",
+    "runtime": {
+      "memory": {
+        "rss": 78946304,
+        "heapTotal": 26144768,
+        "heapUsed": 19652592,
+        "external": 4335387,
+        "arrayBuffers": 658068
+      },
+      "cpu": {
+        "user": 10703000,
+        "system": 3937000
+      },
+      "uptime": 824.9042498,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 1,
+      "JSEventListeners": 8,
+      "Nodes": 362,
+      "TaskDuration": 7.540471,
+      "JSHeapUsedSize": 1023460
+    },
+    "dom": {
+      "documents": 1,
+      "nodes": 362,
+      "jsEventListeners": 8
+    },
+    "audio": {
+      "plays": 15,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 207843328
+  }
+]

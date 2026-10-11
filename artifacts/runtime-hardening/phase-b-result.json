@@ -1,0 +1,95 @@
+{
+  "status": "PASS",
+  "mode": "phase-b",
+  "fingerprint": "eaa41154fdfbe95433a46ceedc3187cd39f5090800719cc3113f8edde5d03fe7",
+  "scenarios": [
+    {
+      "name": "double",
+      "status": "PASS"
+    },
+    {
+      "name": "triple",
+      "status": "PASS"
+    },
+    {
+      "name": "five",
+      "status": "PASS"
+    },
+    {
+      "name": "space-repeat",
+      "status": "PASS"
+    },
+    {
+      "name": "enter",
+      "status": "PASS"
+    },
+    {
+      "name": "mixed",
+      "status": "PASS"
+    },
+    {
+      "name": "raw-server",
+      "status": "PASS"
+    },
+    {
+      "name": "reconnect-burst-and-immediate-stop",
+      "status": "PASS"
+    }
+  ],
+  "performances": 0,
+  "resetCount": 8,
+  "longestIdleMs": 0,
+  "scene6Audio": [],
+  "physicalWindowsSleep": false,
+  "proxy": "Debugger JS pause 12s + hidden Display + AudioContext suspend + verified heartbeat loss + 2h wall-clock jump; normal background throttling flags retained",
+  "samples": [
+    {
+      "label": "phase-b-end",
+      "at": "2026-10-09T17:43:19.733Z",
+      "runtime": {
+        "memory": {
+          "rss": 67805184,
+          "heapTotal": 23420928,
+          "heapUsed": 14327712,
+          "external": 3883584,
+          "arrayBuffers": 200675
+        },
+        "cpu": {
+          "user": 1343000,
+          "system": 906000
+        },
+        "uptime": 26.1730414,
+        "sockets": 3,
+        "cueTimers": 0,
+        "handles": 5,
+        "nextGuard": {
+          "intervalMs": 1200,
+          "remainingMs": 552
+        },
+        "cueIndex": 0
+      },
+      "renderer": {
+        "Documents": 6,
+        "JSEventListeners": 65,
+        "Nodes": 1137,
+        "TaskDuration": 3.937832,
+        "JSHeapUsedSize": 2133376
+      },
+      "dom": {
+        "documents": 6,
+        "nodes": 1137,
+        "jsEventListeners": 65
+      },
+      "audio": {
+        "plays": 14,
+        "contexts": 0,
+        "visibility": "hidden",
+        "focus": false
+      },
+      "chromeRootRss": 180703232
+    }
+  ],
+  "browserErrors": 0,
+  "expectedFaultDiagnostics": [],
+  "externalRequests": 0
+}
