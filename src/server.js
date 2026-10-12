@@ -15,6 +15,8 @@ import { AivisSpeechClient } from './tts/aivis-speech-client.js';
 import { RuntimeAudioCache } from './tts/runtime-audio-cache.js';
 import { LocalTtsService } from './tts/local-tts-service.js';
 import { installProductionTools } from './audio/production-tools.js';
+import { subtitleUnits } from '../public/js/subtitle-units.js';
+import { resolveProductionSlots, applyProductionSlots } from './production-asset-slots.js';
 
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(moduleDirectory, '..');
@@ -33,6 +35,8 @@ await store.load();
 const bundledProductionShow = JSON.parse(await fs.readFile(path.join(projectRoot, 'shows/production.json'), 'utf8'));
 if (process.env.SHOW_STARTUP_MODE !== 'saved') store.importShowFile(bundledProductionShow, { apply: true });
 else store.stabilizePresentation(); // Explicit recovery mode never resumes pending audio or transient timelines.
+let productionSlots = await resolveProductionSlots(publicDirectory);
+applyProductionSlots(store, productionSlots);
 const voiceProfile = await loadProductionVoiceProfile();
 const runtimeAudioCache = new RuntimeAudioCache();
 const localTtsService = new LocalTtsService({ client: new AivisSpeechClient(), profile: voiceProfile, cache: runtimeAudioCache });
@@ -70,6 +74,7 @@ app.post('/api/show-file/import', (request, response) => {
   cueScheduler.cancel();
   const result = store.importShowFile(request.body, { apply: true });
   response.status(result.valid ? 200 : 422).json(result);
+  if (result.valid) applyProductionSlots(store, productionSlots);
   if (result.valid) broadcastState();
 });
 app.get('/api/rehearsal.json', (_request, response) => {
@@ -86,10 +91,16 @@ app.get('/api/audio-assets', (_request, response) => {
   const assets = productionAudioPreloadManifest(store.state.assets);
   return response.json({ assets, expectedCount: assets.length });
 });
+app.get('/api/production-slots', async (_request, response) => {
+  productionSlots = await resolveProductionSlots(publicDirectory);
+  applyProductionSlots(store, productionSlots);
+  response.setHeader('Cache-Control', 'no-store'); response.json({ slots: productionSlots });
+  broadcastState(); forRole('display', (socket, client) => displayState(socket, client.displayId));
+});
 app.get('/api/assets/:assetId', (request, response) => {
   const asset = store.state.assets.find((item) => item.id === request.params.assetId);
   if (!asset) return response.status(404).json({ error: 'ASSET_NOT_FOUND' });
-  response.setHeader('Cache-Control', 'public, max-age=3600'); response.type(asset.mimeType);
+  response.setHeader('Cache-Control', asset.slot ? 'no-store' : 'public, max-age=3600'); response.type(asset.mimeType);
   if (asset.id === 'test-tone') return response.send(createTestToneWav());
   try { return response.sendFile(resolveLocalAsset(publicDirectory, asset)); }
   catch { return response.status(400).json({ error: 'UNSAFE_ASSET_PATH' }); }
@@ -169,7 +180,9 @@ function audioMasterReadyFor(target) {
   return !master || !master.online || !store.matchesTarget(master, target) || (master.audioEnabled && master.audioReady);
 }
 
+let subtitleMessageId = null;
 function dispatch(message) {
+  subtitleMessageId = message.id;
   if (message.kind === 'speech-display' || !message.kind) store.applyDisplayState(message);
   const recipients = targetDisplays(message.target);
   let audioReceiver = false;
@@ -185,6 +198,7 @@ function dispatch(message) {
   });
   broadcastState();
   if (!audioReceiver) {
+    scheduleSubtitles(message, true);
     const result = store.reportPlayback(message.id, 'completed');
     broadcastState();
     if (result.next) queueMicrotask(() => dispatch(result.next));
@@ -355,13 +369,13 @@ function cancelTransport(reason, recover = false) {
   void store.persist();
 }
 
-function scheduleSubtitles(message) {
-  for (const segment of message?.speech?.segments ?? []) cueScheduler.schedule(Math.max(0, segment.startMs - 150), () => {
-    if (store.state.currentMessage?.id !== message.id) return;
+function scheduleSubtitles(message, subtitleOnly = false) {
+  for (const segment of subtitleUnits(message?.speech, message?.displayText ?? message?.text)) cueScheduler.schedule(segment.startMs, () => {
+    if (subtitleMessageId !== message.id || (!subtitleOnly && store.state.currentMessage?.id !== message.id)) return;
     store.state.currentSubtitle = segment.displayText;
     for (const [socket, client] of targetDisplays(message.target)) {
       store.getDisplay(client.displayId).currentSubtitle = segment.displayText;
-      send(socket, 'subtitle', { text: segment.displayText, durationMs: Math.max(300, segment.endMs - segment.startMs) });
+      send(socket, 'subtitle', { text: segment.displayText, mode: 'typewriter', durationMs: Math.max(1, segment.endMs - segment.startMs) });
     }
     void store.persist(); broadcastState();
   });
@@ -475,7 +489,7 @@ function handleAdmin(socket, event) {
     cueScheduler.cancel();
     localTtsService.cancelCurrent('show-reset'); runtimeAudioCache.clear();
     forRole('display', (displaySocket) => send(displaySocket, 'show:reset'));
-    if (event.type === 'production:reset') store.importShowFile(bundledProductionShow, { apply: true });
+    if (event.type === 'production:reset') { store.importShowFile(bundledProductionShow, { apply: true }); applyProductionSlots(store, productionSlots); }
     else store.showReset();
     forRole('display', (displaySocket, client) => displayState(displaySocket, client.displayId)); broadcastState(); logger.info(event.type);
   } else if (event.type === 'clear') {

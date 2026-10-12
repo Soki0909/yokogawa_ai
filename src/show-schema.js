@@ -1,3 +1,5 @@
+import { sentenceTexts } from '../public/js/subtitle-units.js';
+
 export const SHOW_SCHEMA_VERSION = 3;
 export const SUPPORTED_SHOW_SCHEMA_VERSIONS = Object.freeze([2, 3]);
 
@@ -159,6 +161,7 @@ export function normalizeAsset(input = {}, index = 0) {
     path: text(input.path, 300), mimeType: mimeTypes.includes(input.mimeType) ? input.mimeType : 'audio/wav',
     sha256: /^[a-f0-9]{64}$/.test(input.sha256 ?? '') ? input.sha256 : null,
     durationMs: Math.round(finite(input.durationMs, 0, 0, 180000)),
+    ...(typeof input.slot === 'string' ? { slot: id(input.slot) } : {}),
   };
 }
 
@@ -191,7 +194,7 @@ export function normalizeCue(input = {}, order = 0) {
     target: normalizeTarget(input.target), presentationPreset: id(input.presentationPreset, '') || 'normal',
     avatar: { visible: input.avatar?.visible !== false, state: avatarState },
     audio: { speechMode, assetId: audioAsset, lipSyncMode, playbackEffect },
-    speech: { spokenText: text(input.speech?.spokenText ?? speechText), segments: (Array.isArray(input.speech?.segments) ? input.speech.segments : []).slice(0, 100).map(segment => ({ displayText: text(segment?.displayText), spokenText: text(segment?.spokenText), startMs: Math.round(finite(segment?.startMs, 0, 0, 180000)), endMs: Math.round(finite(segment?.endMs, 0, 0, 180000)), pauseAfterMs: Math.round(finite(segment?.pauseAfterMs, 0, 0, 10000)) })) },
+    speech: { subtitleMode: 'typewriter', ...(Array.isArray(input.speech?.subtitleUnits) ? { subtitleUnits: input.speech.subtitleUnits.slice(0,100).map(unit => ({ displayText: text(unit?.displayText), startMs: Math.round(finite(unit?.startMs,0,0,180000)), endMs: Math.round(finite(unit?.endMs,0,0,180000)) })) } : {}), spokenText: text(input.speech?.spokenText ?? speechText), segments: (Array.isArray(input.speech?.segments) ? input.speech.segments : []).slice(0, 100).map(segment => ({ displayText: text(segment?.displayText), spokenText: text(segment?.spokenText), startMs: Math.round(finite(segment?.startMs, 0, 0, 180000)), endMs: Math.round(finite(segment?.endMs, 0, 0, 180000)), pauseAfterMs: Math.round(finite(segment?.pauseAfterMs, 0, 0, 10000)) })) },
     sfx: (Array.isArray(input.sfx) ? input.sfx : []).slice(0, 20).map(effect => ({ assetId: id(effect.assetId), atMs: Math.round(finite(effect.atMs, 0, 0, 180000)), volume: finite(effect.volume, 1, 0, 1), durationMs: Math.round(finite(effect.durationMs, 0, 0, 180000)) })),
     transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
     visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing), sequence: normalizeSequence(input.sequence),
@@ -224,6 +227,14 @@ export function validateShowFile(input) {
     for (const segment of cue.speech.segments) {
       if (!segment.displayText || segment.endMs <= segment.startMs || segment.startMs < previousEnd) errors.push(`CUE_SPEECH_TIMELINE_INVALID:${cue.id}`);
       previousEnd = segment.endMs;
+    }
+    if (cue.speech.subtitleUnits?.length) {
+      if (JSON.stringify(cue.speech.subtitleUnits.map(unit => unit.displayText)) !== JSON.stringify(sentenceTexts(cue.displayText))) errors.push(`CUE_SUBTITLE_SENTENCES_INVALID:${cue.id}`);
+      let end = 0;
+      for (const unit of cue.speech.subtitleUnits) {
+        if (unit.endMs <= unit.startMs || unit.startMs < end) errors.push(`CUE_SUBTITLE_TIMELINE_INVALID:${cue.id}`);
+        end = unit.endMs;
+      }
     }
     for (const effect of cue.sfx) if (!assets.some(asset => asset.id === effect.assetId && asset.mimeType.startsWith('audio/'))) errors.push(`CUE_SFX_NOT_FOUND:${cue.id}`);
     for (const phase of cue.sequence) {

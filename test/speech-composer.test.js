@@ -20,7 +20,7 @@ test('final PCM export inserts exact silence and subtitle offsets deterministica
 });
 test('latest Production speech, archives and original SFX pass format/hash checks', async () => {
   const manifest = JSON.parse(await fs.readFile('config/production-speech/yokogawa-ai-v2.json', 'utf8'));
-  assert.equal(manifest.speeches.length, 16); assert.equal(manifest.sfx.length, 11);
+  assert.equal(manifest.speeches.length, 17); assert.equal(manifest.sfx.length, 11);
   for (const asset of [...manifest.speeches, ...manifest.sfx]) {
     const verification = verifyProductionWav(await fs.readFile(`public/${asset.path}`));
     assert.equal(verification.pass, true, asset.path); assert.equal(verification.wav.sha256, asset.sha256);

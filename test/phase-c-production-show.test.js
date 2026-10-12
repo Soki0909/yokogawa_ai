@@ -6,18 +6,18 @@ import { StateStore } from '../src/state-store.js';
 
 const load = async (name) => JSON.parse(await readFile(`shows/${name}`, 'utf8'));
 
-test('Production Showは最新16 speech・11 SFX・3 puzzle slotsを登録する', async () => {
+test('Production Showは最新17 speech・11 SFX・3 puzzle slotsを登録する', async () => {
   const [main, route, manifest] = await Promise.all([
     load('production.json'), load('production-yokogawa-route.json'),
     readFile('config/production-speech/yokogawa-ai-v2.json', 'utf8').then(JSON.parse),
   ]);
   assert.equal(validateShowFile(main).valid, true);
   assert.equal(validateShowFile(route).valid, true);
-  assert.equal(main.assets.length, 30);
-  assert.equal(route.assets.length, 30);
+  assert.equal(main.assets.length, 31);
+  assert.equal(route.assets.length, 31);
   const speech = [...main.cues, ...route.cues].filter((cue) => cue.kind.startsWith('speech'));
-  assert.equal(speech.length, 16);
-  assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 16);
+  assert.equal(speech.length, 17);
+  assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 17);
   assert.equal(speech.filter((cue) => cue.audio.speechMode === 'browser').length, 0);
   assert.deepEqual(speech.map((cue) => cue.displayText).sort(), manifest.speeches.map((item) => item.scriptText).sort());
   assert.equal(main.settings.freeSpeakMode, 'local-tts');
@@ -32,7 +32,7 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
     'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-019', 'prod-v-riddle-enter',
     'prod-011', 'prod-012', 'prod-013', 'prod-014',
     'prod-v-hostile-enter', 'prod-015', 'prod-v-emergency-riddle', 'prod-v-stop-code',
-    'prod-v-recovery',
+    'prod-v-recovery', 'prod-020',
   ]);
   assert.equal(main.avatar.visible, false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-001').transition.id, 'boot');

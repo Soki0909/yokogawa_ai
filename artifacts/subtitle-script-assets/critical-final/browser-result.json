@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "speechCues": 6,
+  "allSpeechMatrix": false,
+  "viewports": [
+    [
+      1920,
+      1080
+    ],
+    [
+      1280,
+      720
+    ]
+  ],
+  "scenarios": [
+    "6 missing slots safe/preflight",
+    "stop cancels typewriter",
+    "cue:back cancels typewriter",
+    "production:reset cancels typewriter",
+    "show:reset cancels typewriter",
+    "scene:rehearsal-start cancels typewriter",
+    "BLACKOUT immediate cancel",
+    "REPLAY restarts empty",
+    "hidden tab cancels letters; foreground no old burst/replay",
+    "reload/reconnect no old speech or letters",
+    "all 6 fixed-path assets READY and Reset/contain",
+    "assets removed safely return MISSING"
+  ],
+  "consoleErrors": [],
+  "externalRequests": []
+}

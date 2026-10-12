@@ -19,6 +19,7 @@ const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
   elements['system-status'].textContent = connected ? 'ONLINE' : status === 'connecting' ? '接続中' : '再接続中';
   elements['system-card'].dataset.state = connected ? 'connected' : 'error';
   updateControls();
+  if (connected) void fetch('/api/production-slots', { cache: 'no-store' }).catch(() => {});
 });
 
 function handleEvent(event) {

@@ -46,7 +46,7 @@ const stopChild = async (child) => {
   // Only terminate the process tree spawned by this test, never other browser sessions.
   if (process.platform === 'win32') {
     await new Promise((resolve, reject) => execFile('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true }, (error) => {
-      if (error && child.exitCode === null && child.signalCode === null) reject(error); else resolve();
+      if (error) setTimeout(() => { if (child.exitCode === null && child.signalCode === null) reject(error); else resolve(); }, 250); else resolve();
     }));
   } else child.kill('SIGTERM');
   await Promise.race([new Promise(resolve => child.exitCode !== null || child.signalCode !== null ? resolve() : child.once('exit', resolve)), delay(3000)]);
@@ -218,7 +218,7 @@ try {
   await waitForHttp(`${baseUrl}/health`);
   const response = await fetch(`${baseUrl}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(production) });
   if (!response.ok) throw new Error(`Show import: ${response.status}`);
-  browser = spawn(browserPath, ['--headless=new', '--no-first-run', '--no-default-browser-check',
+  browser = spawn(browserPath, ['--headless=new', '--no-proxy-server', '--no-first-run', '--no-default-browser-check',
     '--autoplay-policy=no-user-gesture-required', '--disable-background-timer-throttling', '--disable-renderer-backgrounding',
     `--remote-debugging-port=${debugPort}`, `--user-data-dir=${path.join(temporary, 'browser')}`, 'about:blank'], { stdio: 'ignore', windowsHide: true });
   await waitForHttp(`http://127.0.0.1:${debugPort}/json/version`);

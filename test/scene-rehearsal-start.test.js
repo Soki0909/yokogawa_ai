@@ -29,7 +29,7 @@ test('Production Scene metadataは最新台本のScene 1〜7を順番通り表�
     ['scene-7', 7, 't.6gopn4tnzuo'],
   ]);
   assert.equal(production.cues.some(cue => ['prod-010', 'prod-017'].includes(cue.id)), false);
-  assert.match(production.metadata.sceneStructureSource.revisionId, /^AHj4eMTF/);
+  assert.equal(production.metadata.sceneStructureSource.revisionId, production.metadata.sourceScript.revisionId);
 });
 
 test('Scene Startは稽古セッション外ではfail-closedする', async () => {

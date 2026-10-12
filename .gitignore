@@ -22,3 +22,13 @@ test-results/
 *.log
 /.tmp-*/
 /.tmp/
+
+# Scratch captures from superseded subtitle/asset test runs; accepted evidence stays tracked.
+/artifacts/recordings/subtitle-script-assets-final/
+/artifacts/subtitle-script-assets/*.png
+/artifacts/subtitle-script-assets/browser-failure.json
+/artifacts/subtitle-script-assets/query-*.json
+/artifacts/subtitle-script-assets/visual-final/
+/artifacts/subtitle-script-assets/visual-pass/
+/artifacts/subtitle-script-assets/visual-accepted/
+/artifacts/subtitle-script-assets/browser/

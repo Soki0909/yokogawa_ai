@@ -357,6 +357,7 @@ export class StateStore {
     const items = [];
     const add = (id, label, status, detail) => items.push({ id, label, status, detail });
     add('server', 'サーバー', 'ok', '正常稼働中');
+    for (const slot of this.productionAssetSlots ?? []) if (this.state.assets.some(asset => asset.id === slot.assetId && asset.slot === slot.id)) add(`asset-slot:${slot.id}`, slot.label, slot.status === 'READY' ? 'ok' : 'warning', `${slot.status} — ${slot.path} / ${slot.detail}`);
     add('cues', 'Cueデータ', this.state.cues.length ? 'ok' : 'error', `${this.state.cues.length}件`);
     const showValidation = validateShowFile(this.exportShowFile());
     add('show-schema', `Show File Schema v${SHOW_SCHEMA_VERSION}`, showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));
@@ -687,6 +688,8 @@ export class StateStore {
   stopPresentation(target = { type: 'all' }, status = 'stopped') {
     this.settleTimedPresentation();
     const stop = (presentation) => {
+      presentation.currentSubtitle = null;
+      if (presentation.previousVisualState) presentation.previousVisualState.currentSubtitle = null;
       if (presentation.currentTransition?.status === 'active') presentation.currentTransition.status = 'stopped';
       if (presentation.unlock?.status === 'running') presentation.unlock.status = status === 'aborted' ? 'aborted' : 'stopped';
     };

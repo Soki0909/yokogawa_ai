@@ -4,6 +4,7 @@ import { LipSyncController } from './lip-sync.js';
 import { BlinkController } from './blink-controller.js';
 import { prepareProductionAudio } from './audio-preload.js';
 import { CueSfxPlayer } from './cue-sfx.js';
+import { TypewriterCaption } from './subtitle-units.js';
 
 const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((element) => [element.id, element]));
 const storageKey = 'yokogawa-display-v2';
@@ -33,7 +34,14 @@ let transitionTimer;
 let unlockFrame;
 let overlayTimer;
 let visualTimer;
-let subtitleFrame;
+const captionWriter = new TypewriterCaption((text, fullText) => {
+  elements.caption.textContent = text;
+  elements.caption.dataset.mode = 'typewriter';
+  elements.caption.dataset.sentence = fullText;
+  elements.caption.dataset.length = fullText.length > 100 ? 'extra-long' : fullText.length > 64 ? 'long' : fullText.length > 32 ? 'medium' : 'short';
+  elements.caption.hidden = !settings.subtitlesEnabled;
+  document.body.dataset.captionEmpty = String(!text);
+});
 const sfx = new CueSfxPlayer();
 const lipSync = new LipSyncController(elements['avatar-wrap']);
 const blink = new BlinkController(elements['avatar-wrap']);
@@ -126,7 +134,8 @@ function applyPresentation(presentation = {}, preset = null) {
       hostile: 'CONTAINMENT FAILED', shutdown: 'SYSTEM OFFLINE', recovery: 'SYNC RESTORING',
     })[preset.id] ?? 'CUSTOM PROFILE';
   }
-  if ('currentSubtitle' in presentation) showCaption(presentation.currentSubtitle);
+  if (presentation.blackout === true || presentation.kind === 'speech-display') showCaption('');
+  else if ('currentSubtitle' in presentation) showCaption(presentation.currentSubtitle);
   else if (presentation.kind === 'clear') showCaption('');
   else if (presentation.displayText && presentation.kind !== 'speech-only') showCaption(presentation.displayText);
   if (presentation.avatar) {
@@ -261,7 +270,8 @@ function handleEvent(event) {
     applyPresentation({ currentSubtitle: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
       transition: event.state.currentTransition, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
     document.body.dataset.reducedMotion = String(event.state.settings?.reducedMotion === true);
-    elements['audio-help'].textContent = isAudioMaster
+    if (audioPreloadResult?.ready === audioPreloadResult?.total && audioPreloadResult?.total > 0) setAudioPreloadHelp(`固定WAV ${audioPreloadResult.ready} / ${audioPreloadResult.total} READY。設定を保存して開始してください。`);
+    else if (!audioPreloadPromise) elements['audio-help'].textContent = isAudioMaster
       ? 'この端末はAudio Masterです。固定WAVを事前準備してから音声出力を開始します。'
       : '字幕Displayとして接続します。Audio Masterに指定されるまで音声は再生しません。';
     if (isAudioMaster && identity.audioEnabled && !audioUnlocked) void ensureProductionAudioPreloaded().catch(() => {});
@@ -270,7 +280,7 @@ function handleEvent(event) {
     publishVoices();
   } else if (event.type === 'speak') {
     settings = event.settings;
-    if (event.message.kind !== 'speech-only') showCaption(event.message.speech?.segments?.[0]?.displayText ?? event.message.displayText ?? event.message.text);
+    if (event.message.kind !== 'speech-only') showCaption('');
     if (!event.shouldSpeak) {
       setMode('SUBTITLE OUTPUT', 'ready');
       return;
@@ -289,16 +299,16 @@ function handleEvent(event) {
   } else if (event.type === 'sfx') {
     if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume).catch(error => socket.send({ type: 'playback', id: 'sfx', status: 'error', error: error.message }));
   } else if (event.type === 'sfx:stop') {
-    sfx.stop(); cancelAnimationFrame(subtitleFrame);
+    sfx.stop(); captionWriter.stop(); showCaption('');
   } else if (event.type === 'stop') {
-    sfx.stop(); cancelAnimationFrame(subtitleFrame); showCaption('');
+    sfx.stop(); captionWriter.stop(); showCaption('');
     speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); document.body.dataset.transitionStatus = 'stopped';
   } else if (event.type === 'settings') {
     settings = event.settings; elements.caption.hidden = !settings.subtitlesEnabled;
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
-    sfx.stop(); cancelAnimationFrame(subtitleFrame);
+    sfx.stop(); captionWriter.stop();
     speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); showCaption(''); elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
     clearTimeout(identifyTimer);
@@ -310,12 +320,7 @@ function handleEvent(event) {
 }
 
 function showCaption(text) {
-  cancelAnimationFrame(subtitleFrame);
-  const normalized = String(text ?? '');
-  elements.caption.textContent = normalized;
-  elements.caption.dataset.length = normalized.length > 100 ? 'extra-long' : normalized.length > 64 ? 'long' : normalized.length > 32 ? 'medium' : 'short';
-  elements.caption.hidden = !settings.subtitlesEnabled;
-  document.body.dataset.captionEmpty = String(!normalized);
+  captionWriter.stable(String(text ?? ''));
 }
 
 let recoveryPending = false;
@@ -329,20 +334,13 @@ function detectResume() {
 }
 function stopLocalTransport() {
   sfx.stop(); speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop();
-  cancelAnimationFrame(subtitleFrame); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer);
+  captionWriter.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer);
   showCaption(''); document.body.dataset.transitionStatus = 'completed';
 }
 setInterval(detectResume, 500);
 function revealCaption(text, durationMs) {
-  showCaption(text);
-  if (text.length <= 32 || settings.reducedMotion) return;
-  const started = performance.now(); const duration = Math.min(3500, Math.max(350, durationMs * .65));
-  const draw = () => {
-    const fraction = Math.min(1, (performance.now() - started) / duration);
-    elements.caption.textContent = text.slice(0, Math.max(1, Math.ceil(text.length * fraction)));
-    if (fraction < 1) subtitleFrame = requestAnimationFrame(draw);
-  };
-  draw();
+  if (document.hidden) { captionWriter.stop(); showCaption(''); return; }
+  captionWriter.reveal(text, durationMs);
 }
 function setMode(label, state) {
   elements['mode-label'].textContent = label; elements.orb.dataset.state = state;
@@ -360,6 +358,7 @@ function openSetup() {
 
 window.speechSynthesis?.addEventListener('voiceschanged', publishVoices);
 document.addEventListener('visibilitychange', () => {
+  if (document.hidden) { captionWriter.stop(); showCaption(''); }
   if (!document.hidden) window.speechSynthesis?.resume();
 });
 elements['open-setup'].addEventListener('click', openSetup);

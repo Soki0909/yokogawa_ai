@@ -181,13 +181,21 @@
       "sha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2"
     },
     {
+      "id": "prod-voice-020-unlock-confirmed",
+      "name": "横川AI Production 020",
+      "path": "assets/audio/production-v2-020.wav",
+      "mimeType": "audio/wav",
+      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+    },
+    {
       "id": "prod-sfx-boot",
       "name": "SFX boot",
       "path": "assets/audio/production-sfx-boot.wav",
       "mimeType": "audio/wav",
       "durationMs": 1600,
       "sha256": "80ef73dd33b072ffe6a914c375de49d3ee3041387dab373304daf9cc68d15d65",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
+      "attribution": "Original procedural audio; project authors; no third-party sample",
+      "slot": "startup"
     },
     {
       "id": "prod-sfx-glitch",
@@ -196,7 +204,8 @@
       "mimeType": "audio/wav",
       "durationMs": 900,
       "sha256": "abee4f42f05c76e9bf6d3dee5d6d23f2ba2b5bbe682e33b86bd7dfbb8fed5bee",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
+      "attribution": "Original procedural audio; project authors; no third-party sample",
+      "slot": "hack-noise"
     },
     {
       "id": "prod-sfx-puzzle",
@@ -241,7 +250,8 @@
       "mimeType": "audio/wav",
       "durationMs": 900,
       "sha256": "f9a9d5533d747f71ac688e212477fd56fb59b58779c4329671c88009a4108c29",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
+      "attribution": "Original procedural audio; project authors; no third-party sample",
+      "slot": "warning"
     },
     {
       "id": "prod-sfx-hostile",
@@ -283,19 +293,22 @@
       "id": "puzzle-first",
       "name": "未提供: first問題画像",
       "path": "assets/visual/puzzle-image-pending.svg",
-      "mimeType": "image/svg+xml"
+      "mimeType": "image/svg+xml",
+      "slot": "puzzle-01"
     },
     {
       "id": "puzzle-final",
       "name": "未提供: final問題画像",
       "path": "assets/visual/puzzle-image-pending.svg",
-      "mimeType": "image/svg+xml"
+      "mimeType": "image/svg+xml",
+      "slot": "puzzle-06"
     },
     {
       "id": "puzzle-emergency",
       "name": "未提供: emergency問題画像",
       "path": "assets/visual/puzzle-image-pending.svg",
-      "mimeType": "image/svg+xml"
+      "mimeType": "image/svg+xml",
+      "slot": "puzzle-07"
     }
   ],
   "avatar": {
@@ -319,24 +332,24 @@
   },
   "metadata": {
     "title": "横川AI Production — 本編",
-    "version": "runtime-hardening-v1.0",
+    "version": "subtitle-script-assets-v1.1",
     "nextGuardMs": 1200,
-    "showHash": "b889384639e5a0d8df33dd2f202d01da196a1796de74a24c1246e358141e8d9a",
+    "showHash": "438fdd24a97c000a49d6b00d0dbb7f7904be2152d6d0515b2159e782d011f4f9",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
       "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
-      "revisionId": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
-      "modifiedTime": "2026-10-09T11:28:22.972Z",
-      "tabCount": 14,
+      "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
+      "modifiedTime": "2026-10-12T11:36:41.372Z",
+      "tabCount": 16,
       "authority": "current-google-docs-revision"
     },
     "voiceProfileId": "yokogawa-professor-v1",
     "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
     "sceneStructureSource": {
       "documentId": "16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo",
-      "revisionId": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
-      "tabCount": 14
+      "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
+      "tabCount": 16
     }
   },
   "scenes": [
@@ -434,7 +447,8 @@
             "path": "assets/audio/segments/001-3.wav",
             "sha256": "e347f83e5c8138eb591a175864ff71e63aa890e31165229a7f0d38bf28d7c1f0"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "normal",
       "target": {
@@ -510,7 +524,8 @@
             "endMs": 5686,
             "sha256": "37ad0b4ef26c92de0dc09c5a91ce7be54bb51fff530e2e5cab76633581823ea9"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "normal",
       "target": {
@@ -532,7 +547,8 @@
       },
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話002。音声終了後も自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 20
+      "order": 20,
+      "sfx": []
     },
     {
       "id": "prod-003",
@@ -577,7 +593,8 @@
             "path": "assets/audio/segments/003-3.wav",
             "sha256": "104b598d9b808129bddee17688be4fd09a8515b6439bedb92d3a50e62259a7e5"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "normal",
       "target": {
@@ -599,7 +616,8 @@
       },
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話003。音声終了後も自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 30
+      "order": 30,
+      "sfx": []
     },
     {
       "id": "prod-004",
@@ -634,7 +652,8 @@
             "path": "assets/audio/segments/004-2.wav",
             "sha256": "682ac2089f882ec645fa667f39a81124b084a2ceb67faa0dc65ad71017981ca6"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "normal",
       "target": {
@@ -717,7 +736,8 @@
             "path": "assets/audio/segments/005-1.wav",
             "sha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -753,7 +773,8 @@
           "id": "ALIGN-LX-HIJACK-REVEAL",
           "note": "消灯・復灯後にGO。記述用markerであり正式照明Cue番号ではない。"
         }
-      ]
+      ],
+      "sfx": []
     },
     {
       "id": "prod-006",
@@ -778,7 +799,8 @@
             "path": "assets/audio/segments/006-1.wav",
             "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -801,7 +823,8 @@
       },
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話006。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 70
+      "order": 70,
+      "sfx": []
     },
     {
       "id": "prod-007",
@@ -826,7 +849,8 @@
             "path": "assets/audio/segments/007-1.wav",
             "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -849,7 +873,8 @@
       },
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話007。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 80
+      "order": 80,
+      "sfx": []
     },
     {
       "id": "prod-008",
@@ -874,7 +899,8 @@
             "path": "assets/audio/segments/008-1.wav",
             "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -897,7 +923,8 @@
       },
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話008。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
-      "order": 90
+      "order": 90,
+      "sfx": []
     },
     {
       "id": "prod-019",
@@ -930,7 +957,8 @@
             "endMs": 6339,
             "sha256": "a0c051da5a093c0875ab1d5e1f534068da8515af9e1a6890cccb8c297e8cb167"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -952,7 +980,8 @@
       },
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話019。音声終了後も自動進行しない。",
       "triggerNote": "横川教授が役割を指示し、助手たちの「はい」後にGO",
-      "order": 95
+      "order": 95,
+      "sfx": []
     },
     {
       "id": "prod-v-riddle-enter",
@@ -976,7 +1005,8 @@
             "endMs": 2286,
             "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -1071,7 +1101,8 @@
             "path": "assets/audio/segments/011-3.wav",
             "sha256": "3d29fd94ebf24b3ff65f0b4be996cff5043367eb3db46a1c28aef82d0127b6d0"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -1182,7 +1213,8 @@
             "path": "assets/audio/segments/012-2.wav",
             "sha256": "d87e62a48aff35e9505af04d1677ce55e76f398a0767516eec567fd1875be8f9"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hijacked",
       "target": {
@@ -1217,20 +1249,7 @@
           "note": "WAV012終了後に電子音。記述用markerであり正式音響Cue番号ではない。"
         }
       ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-auth",
-          "atMs": 3669,
-          "volume": 0.6,
-          "durationMs": 650
-        },
-        {
-          "assetId": "prod-sfx-unlock",
-          "atMs": 4519,
-          "volume": 0.6,
-          "durationMs": 900
-        }
-      ],
+      "sfx": [],
       "sequence": [
         {
           "atMs": 0,
@@ -1290,8 +1309,8 @@
       "scene": "scene-6",
       "location": "7・201",
       "kind": "speech-display",
-      "speechText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
-      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+      "speechText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗",
+      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗",
       "speech": {
         "spokenText": "エラー。セキュリティープロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
         "segments": [
@@ -1336,7 +1355,7 @@
             "sha256": "4dc0a2d8560d30f139c99bd42afc4433591c4c437d023fa073da32a33b1054bf"
           },
           {
-            "displayText": "指定されたスタッフへの連絡に失敗。",
+            "displayText": "指定されたスタッフへの連絡に失敗",
             "spokenText": "指定されたスタッフへの連絡に失敗。",
             "pauseAfterMs": 0,
             "startMs": 4977,
@@ -1344,6 +1363,39 @@
             "alignment": "approved-take-quiet-boundary",
             "path": "assets/audio/segments/013-5.wav",
             "sha256": "9cd62e2cada1451379ed9818fcbee4edda064f775b9811eb1c4596d833097fef"
+          }
+        ],
+        "subtitleMode": "typewriter",
+        "subtitleUnits": [
+          {
+            "displayText": "エラー。",
+            "startMs": 0,
+            "endMs": 620,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+          },
+          {
+            "displayText": "セキュリティプロテクトの緊急遮断を確認。",
+            "startMs": 620,
+            "endMs": 3500,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+          },
+          {
+            "displayText": "解錠作業ストップ。",
+            "startMs": 3500,
+            "endMs": 4600,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+          },
+          {
+            "displayText": "エラー。",
+            "startMs": 4600,
+            "endMs": 5080,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+          },
+          {
+            "displayText": "指定されたスタッフへの連絡に失敗",
+            "startMs": 5080,
+            "endMs": 7848,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
           }
         ]
       },
@@ -1365,8 +1417,8 @@
         "durationMs": 900,
         "intensity": 1
       },
-      "operatorNote": "警告SE完了後にWAV013をGO。開錠100%表示から割り込ませる。",
-      "triggerNote": "虎谷の端末操作→警告SE完了後にGO",
+      "operatorNote": "1 GOでERROR表示→共有warning slot→WAV013。警告音長を検証してCue内delayへ反映。WAV末尾句点は表示のみ最新版へ同期。",
+      "triggerNote": "虎谷「今すぐプリンキピアを持ち出すよう指示を出せ！」の後にGO。内部警告slot終了後に発話を自動開始",
       "order": 160,
       "overlay": {
         "id": "connection-failed",
@@ -1388,7 +1440,10 @@
           "volume": 0.6,
           "durationMs": 900
         }
-      ]
+      ],
+      "timing": {
+        "speechDelayMs": 900
+      }
     },
     {
       "id": "prod-014",
@@ -1423,6 +1478,21 @@
             "path": "assets/audio/segments/014-2.wav",
             "sha256": "4fb6886c30336de3aa5ce516d359895b1b64a192d34cbc2c2536fa81e26dcf96"
           }
+        ],
+        "subtitleMode": "typewriter",
+        "subtitleUnits": [
+          {
+            "displayText": "……エラー。",
+            "startMs": 0,
+            "endMs": 620,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+          },
+          {
+            "displayText": "指定されたスタッフへの連絡に失敗。",
+            "startMs": 620,
+            "endMs": 3529,
+            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+          }
         ]
       },
       "presentationPreset": "warning",
@@ -1444,7 +1514,7 @@
         "intensity": 1
       },
       "operatorNote": "WAV014終了後に警告SE。音声終了後も自動進行しない。",
-      "triggerNote": "舞台監督の合図でGO",
+      "triggerNote": "虎谷「今すぐこの2人を拘束しろ！」の後にGO。台詞末尾＋共有warning slot",
       "order": 170,
       "overlay": {
         "id": "connection-failed",
@@ -1515,14 +1585,7 @@
           "note": "警報開始。記述用markerであり正式音響Cue番号ではない。"
         }
       ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-hostile",
-          "atMs": 0,
-          "volume": 0.6,
-          "durationMs": 1600
-        }
-      ]
+      "sfx": []
     },
     {
       "id": "prod-015",
@@ -1547,7 +1610,8 @@
             "path": "assets/audio/segments/015-1.wav",
             "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "hostile",
       "target": {
@@ -1583,14 +1647,7 @@
           "note": "WAV015終了後に轟音。記述用markerであり正式音響Cue番号ではない。"
         }
       ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-rumble",
-          "atMs": 4307,
-          "volume": 0.6,
-          "durationMs": 1400
-        }
-      ]
+      "sfx": []
     },
     {
       "id": "prod-v-emergency-riddle",
@@ -1614,8 +1671,8 @@
         "lipSyncMode": "none"
       },
       "order": 200,
-      "operatorNote": "非常停止問題の表示container。台本で問題本文・ヒント内容が未確定のため創作しない。素材受領後に差し替える。",
-      "triggerNote": "WAV015後、非常停止の謎を提示する舞台進行でGO",
+      "operatorNote": "最新参照：扇「ここにいる皆で解けばいい」／光「私（僕）も解く！」／白山「ヒントはこれですね！」。USB挿入を待つ。ヒント内容・表示担当は未確定なので創作・自動提示しない。",
+      "triggerNote": "白山がUSBをさす→「問題が出る」でGO（白山「これは⋯⋯いったい⋯⋯」の前）",
       "overlay": {
         "id": "none"
       },
@@ -1626,7 +1683,8 @@
         "visible": true,
         "title": "非常停止問題",
         "message": "問題画像・ヒント・停止コード未提供"
-      }
+      },
+      "sfx": []
     },
     {
       "id": "prod-v-stop-code",
@@ -1661,7 +1719,8 @@
             "path": "assets/audio/segments/016-2.wav",
             "sha256": "1984048a55cf1977ff63581db9e519806a93a5024ca5ceda28346ad83e44070e"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "shutdown",
       "target": {
@@ -1801,6 +1860,59 @@
           "durationMs": 1600
         }
       ]
+    },
+    {
+      "id": "prod-020",
+      "cueNumber": "P-020",
+      "name": "館内すべての扉・解錠確認",
+      "route": "main",
+      "scene": "scene-7",
+      "location": "7・201",
+      "kind": "speech-display",
+      "speechText": "館内すべての扉の解錠を確認しました",
+      "displayText": "館内すべての扉の解錠を確認しました",
+      "speech": {
+        "spokenText": "館内すべての扉の解錠を確認しました",
+        "segments": [
+          {
+            "displayText": "館内すべての扉の解錠を確認しました",
+            "spokenText": "館内すべての扉の解錠を確認しました",
+            "startMs": 0,
+            "endMs": 3007,
+            "pauseAfterMs": 0,
+            "path": "assets/audio/production-v2-020.wav",
+            "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+          }
+        ],
+        "subtitleMode": "typewriter"
+      },
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-020-unlock-confirmed",
+        "lipSyncMode": "audio-reactive"
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0,
+        "intensity": 1
+      },
+      "operatorNote": "P-V07復旧の後の多数の人間台詞を待つ独立Cue。NORMALを維持し解錠確認のWAV020を再生。新たな復旧演出・SFXなし。",
+      "triggerNote": "夢野・押野・三馬の責任に関する会話後、虎谷が二人を見つめ、わずかに苦笑して静かに俯く→正常なAI表示でGO",
+      "order": 240,
+      "visual": {
+        "id": "none"
+      },
+      "overlay": {
+        "id": "none"
+      }
     }
   ]
 }

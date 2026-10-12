@@ -38,6 +38,6 @@ test('長いproduction字幕を文字数別に縮小して固定枠のclipping�
     load('public/js/display.js'),
     load('public/css/display-phase42.css'),
   ]);
-  assert.match(script, /dataset\.length = normalized\.length > 100 \? 'extra-long'/);
+  assert.match(script, /dataset\.length = fullText\.length > 100 \? 'extra-long'/);
   for (const size of ['medium', 'long', 'extra-long']) assert.match(css, new RegExp(`caption\\[data-length="${size}"\\]`));
 });

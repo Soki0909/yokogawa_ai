@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateShowFile } from '../src/show-schema.js';
+import { PRODUCTION_SLOTS } from '../src/production-asset-slots.js';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(await fs.readFile(path.join(root, 'config/production-speech/yokogawa-ai-v2.json'), 'utf8'));
@@ -18,6 +19,7 @@ const assets = manifest.speeches.map((speech) => ({
 }));
 assets.push(...manifest.sfx);
 for (const slot of ['first', 'final', 'emergency']) assets.push({ id: `puzzle-${slot}`, name: `未提供: ${slot}問題画像`, path: 'assets/visual/puzzle-image-pending.svg', mimeType: 'image/svg+xml' });
+for (const slot of PRODUCTION_SLOTS) assets.find(a => a.id === slot.assetId).slot = slot.id;
 
 const common = {
   schemaVersion: 3,
@@ -36,7 +38,7 @@ const states = {
   '001': 'normal', '002': 'normal', '003': 'normal', '004': 'normal',
   '005': 'hijacked', '006': 'hijacked', '007': 'hijacked', '008': 'hijacked', '009': 'hijacked',
   '010': 'warning', '011': 'hijacked', '012': 'hijacked', '013': 'warning', '014': 'warning',
-  '015': 'hostile', '016': 'shutdown', '019': 'hijacked',
+  '015': 'hostile', '016': 'shutdown', '019': 'hijacked', '020': 'normal',
 };
 
 function speechCue(scriptId, order, overrides = {}) {
@@ -53,7 +55,7 @@ function speechCue(scriptId, order, overrides = {}) {
     kind: 'speech-display',
     speechText: speech.scriptText,
     displayText: speech.scriptText,
-    speech: { spokenText: speech.spokenText, segments: speech.segments },
+    speech: { spokenText: speech.spokenText, segments: speech.segments, subtitleMode: 'typewriter', ...(speech.subtitleUnits ? { subtitleUnits: speech.subtitleUnits } : {}) },
     presentationPreset: state,
     target: { type: 'all' },
     avatar: { visible: true, state },
@@ -225,6 +227,8 @@ final.triggerNote = '扇「答えは①から⑤まで全部揃った！ 横川A
 final.sequence[1].visual = { id: 'puzzle-final', type: 'image', assetId: 'puzzle-final', visible: true, title: '最終問題', message: '本物の問題画像は未提供 / 回答: ブレイクヨコガワ（オペレーターのみ）' };
 final.sequence[1].visual.message = '本物の問題画像は未提供 / 表示枠の確認用';
 const emergency = mainCues.find(c => c.id === 'prod-v-emergency-riddle');
+emergency.triggerNote = '白山がUSBをさす→「問題が出る」でGO（白山「これは⋯⋯いったい⋯⋯」の前）';
+emergency.operatorNote = '最新参照：扇「ここにいる皆で解けばいい」／光「私（僕）も解く！」／白山「ヒントはこれですね！」。USB挿入を待つ。ヒント内容・表示担当は未確定なので創作・自動提示しない。';
 emergency.displayText = ''; emergency.kind = 'preset-only'; emergency.overlay = { id: 'none' };
 emergency.visual = { id: 'puzzle-emergency', type: 'image', assetId: 'puzzle-emergency', visible: true, title: '非常停止問題', message: '問題画像・ヒント・停止コード未提供' };
 
@@ -243,18 +247,27 @@ Object.assign(auth, { name: '認証成功→解錠進行→異常', transition: 
   sfx: [...auth.sfx, ...unlockCue.sfx.map(s => ({ ...s, atMs: s.atMs + unlockAt }))],
   triggerNote: '扇「最後の答えはブレイクヨコガワだ！」後にGO', operatorNote: '認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。' });
 mainCues.splice(mainCues.indexOf(incident), 1); mainCues.splice(mainCues.indexOf(unlockCue), 1);
+// PA owns electronic locks, doors and the long HOSTILE alarm. Keep their markers.
+for (const cue of mainCues) cue.sfx = (cue.sfx ?? []).filter(s => !['prod-sfx-auth', 'prod-sfx-unlock', 'prod-sfx-hostile', 'prod-sfx-rumble'].includes(s.assetId));
+Object.assign(mainCues.find(c => c.id === 'prod-013'), {
+  timing: { speechDelayMs: 900 },
+  triggerNote: '虎谷「今すぐプリンキピアを持ち出すよう指示を出せ！」の後にGO。内部警告slot終了後に発話を自動開始',
+  operatorNote: '1 GOでERROR表示→共有warning slot→WAV013。警告音長を検証してCue内delayへ反映。WAV末尾句点は表示のみ最新版へ同期。',
+});
+mainCues.find(c => c.id === 'prod-014').triggerNote = '虎谷「今すぐこの2人を拘束しろ！」の後にGO。台詞末尾＋共有warning slot';
+mainCues.push(speechCue('020', 240, { name: '館内すべての扉・解錠確認', triggerNote: '夢野・押野・三馬の責任に関する会話後、虎谷が二人を見つめ、わずかに苦笑して静かに俯く→正常なAI表示でGO', operatorNote: 'P-V07復旧の後の多数の人間台詞を待つ独立Cue。NORMALを維持し解錠確認のWAV020を再生。新たな復旧演出・SFXなし。', visual: { id: 'none' }, overlay: { id: 'none' } }));
 const showHash = createHash('sha256').update(JSON.stringify(mainCues)).digest('hex');
 
 const mainShow = {
   ...common,
   metadata: {
-    title: '横川AI Production — 本編', version: 'runtime-hardening-v1.0', nextGuardMs: 1200, showHash,
+    title: '横川AI Production — 本編', version: 'subtitle-script-assets-v1.1', nextGuardMs: 1200, showHash,
     description: '現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。',
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
     sceneStructureSource: {
       documentId: '16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo',
       revisionId: manifest.sourceScript.revisionId,
-      tabCount: 14,
+      tabCount: manifest.sourceScript.tabCount,
     },
   },
   scenes: [

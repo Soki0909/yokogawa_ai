@@ -181,13 +181,21 @@
       "sha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2"
     },
     {
+      "id": "prod-voice-020-unlock-confirmed",
+      "name": "横川AI Production 020",
+      "path": "assets/audio/production-v2-020.wav",
+      "mimeType": "audio/wav",
+      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+    },
+    {
       "id": "prod-sfx-boot",
       "name": "SFX boot",
       "path": "assets/audio/production-sfx-boot.wav",
       "mimeType": "audio/wav",
       "durationMs": 1600,
       "sha256": "80ef73dd33b072ffe6a914c375de49d3ee3041387dab373304daf9cc68d15d65",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
+      "attribution": "Original procedural audio; project authors; no third-party sample",
+      "slot": "startup"
     },
     {
       "id": "prod-sfx-glitch",
@@ -196,7 +204,8 @@
       "mimeType": "audio/wav",
       "durationMs": 900,
       "sha256": "abee4f42f05c76e9bf6d3dee5d6d23f2ba2b5bbe682e33b86bd7dfbb8fed5bee",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
+      "attribution": "Original procedural audio; project authors; no third-party sample",
+      "slot": "hack-noise"
     },
     {
       "id": "prod-sfx-puzzle",
@@ -241,7 +250,8 @@
       "mimeType": "audio/wav",
       "durationMs": 900,
       "sha256": "f9a9d5533d747f71ac688e212477fd56fb59b58779c4329671c88009a4108c29",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
+      "attribution": "Original procedural audio; project authors; no third-party sample",
+      "slot": "warning"
     },
     {
       "id": "prod-sfx-hostile",
@@ -283,19 +293,22 @@
       "id": "puzzle-first",
       "name": "未提供: first問題画像",
       "path": "assets/visual/puzzle-image-pending.svg",
-      "mimeType": "image/svg+xml"
+      "mimeType": "image/svg+xml",
+      "slot": "puzzle-01"
     },
     {
       "id": "puzzle-final",
       "name": "未提供: final問題画像",
       "path": "assets/visual/puzzle-image-pending.svg",
-      "mimeType": "image/svg+xml"
+      "mimeType": "image/svg+xml",
+      "slot": "puzzle-06"
     },
     {
       "id": "puzzle-emergency",
       "name": "未提供: emergency問題画像",
       "path": "assets/visual/puzzle-image-pending.svg",
-      "mimeType": "image/svg+xml"
+      "mimeType": "image/svg+xml",
+      "slot": "puzzle-07"
     }
   ],
   "avatar": {
@@ -324,9 +337,9 @@
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
       "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
-      "revisionId": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
-      "modifiedTime": "2026-10-09T11:28:22.972Z",
-      "tabCount": 14,
+      "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
+      "modifiedTime": "2026-10-12T11:36:41.372Z",
+      "tabCount": 16,
       "authority": "current-google-docs-revision"
     },
     "voiceProfileId": "yokogawa-professor-v1",

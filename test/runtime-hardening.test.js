@@ -23,7 +23,7 @@ test('scheduler suppresses a suspended process catch-up burst', () => {
 });
 test('merged current Cue can restore stable final state after freeze without live speech', async () => {
   const store=new StateStore({storage:{async save(){}}}); const show=JSON.parse(await readFile('shows/production.json'));
-  store.importShowFile(show,{apply:true}); assert.equal(show.cues.length,19);
+  store.importShowFile(show,{apply:true}); assert.equal(show.cues.length,20);
   assert.ok(!show.cues.some(c=>['prod-v-incident','prod-v-unlock'].includes(c.id)));
   store.executeCue('prod-012'); store.stabilizePresentation();
   assert.equal(store.state.currentOverlay.variant,'anomaly'); assert.equal(store.state.unlock.status,'completed');

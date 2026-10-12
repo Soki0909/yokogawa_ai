@@ -11,9 +11,9 @@ const mode = process.argv[2] ?? 'phase-b';
 const continuation = mode === 'phase-c-continuation';
 const endurance = mode === 'phase-c-endurance';
 assert.ok(['phase-b','phase-c-smoke','phase-c','phase-c-continuation','phase-c-endurance'].includes(mode),'Unknown test mode');
-const directory = path.resolve('artifacts/runtime-hardening'); await mkdir(directory,{recursive:true});
+const directory = path.resolve(process.env.RUNTIME_HARDENING_ARTIFACTS ?? 'artifacts/runtime-hardening'); await mkdir(directory,{recursive:true});
 const show = JSON.parse(await readFile('shows/production.json','utf8'));
-const fingerprintFiles = ['src/server.js','src/state-store.js','src/cue-scheduler.js','src/show-schema.js','public/js/admin.js','public/js/display.js','public/js/cue-sfx.js','public/js/socket-client.js','shows/production.json'];
+const fingerprintFiles = ['src/server.js','src/state-store.js','src/cue-scheduler.js','src/show-schema.js','public/js/admin.js','public/js/display.js','public/js/cue-sfx.js','public/js/socket-client.js','shows/production.json','public/js/subtitle-units.js','src/production-asset-slots.js'];
 export async function fingerprint() { const hash=createHash('sha256'); for(const file of fingerprintFiles) hash.update(await readFile(file));return hash.digest('hex'); }
 async function idleEvidenceBridge(evidence) {
   const baseline=await readFile(path.join(directory,'idle-state-store.js'),'utf8');
@@ -75,7 +75,7 @@ const send=event=>observer.send(JSON.stringify(event));
 async function wait(predicate,label,timeout=30000) {const end=performance.now()+timeout;while(performance.now()<end){if(errors.length)throw Error(JSON.stringify(errors));if(predicate())return;await delay(50);}throw Error(`Timeout: ${label}`);}
 const plays=()=>display.evaluate('window.__runtimePlays.length');
 async function ready() {
-  await display.waitFor(`document.querySelector('#audio-help').textContent.includes('27 / 27 READY') || document.querySelector('#audio-gate').hidden`, 'preload',30000);
+  await display.waitFor(`document.querySelector('#audio-help').textContent.includes('28 / 28 READY') || document.querySelector('#audio-gate').hidden`, 'preload',30000);
   if(await display.evaluate(`!document.querySelector('#audio-gate').hidden`)) await display.click('#enable-audio');
   await wait(()=>state?.displayAudioReady,'Audio Ready');
 }
@@ -159,7 +159,7 @@ async function pausedSocketProxy() {
 try {
   server=startServer();await waitForHttp(`${base}/health`);
   if(!continuation&&!endurance) {const imported=await fetch(`${base}/api/show-file/import`,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(show)});assert.ok(imported.ok);}
-  browser=spawn(browserPath,['--headless=new','--no-first-run','--no-default-browser-check','--autoplay-policy=no-user-gesture-required',`--remote-debugging-port=${debugPort}`,`--user-data-dir=${path.join(temporary,'browser')}`,'about:blank'],{windowsHide:true,stdio:'ignore'});
+  browser=spawn(browserPath,['--headless=new', '--no-proxy-server','--no-first-run','--no-default-browser-check','--autoplay-policy=no-user-gesture-required',`--remote-debugging-port=${debugPort}`,`--user-data-dir=${path.join(temporary,'browser')}`,'about:blank'],{windowsHide:true,stdio:'ignore'});
   await waitForHttp(`http://127.0.0.1:${debugPort}/json/version`);
   display=await openPage(debugPort,`${base}/display?id=hardening&name=Stage`,{display:true});
   await display.send('Page.addScriptToEvaluateOnNewDocument',{source:`window.__runtimePlays=[];window.__runtimeContexts=[];const oldPlay=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){const clip={src:this.src,at:Date.now(),volume:this.volume};window.__runtimePlays.push(clip);this.addEventListener('playing',()=>{clip.playingTime=this.currentTime;clip.duration=this.duration},{once:true});return oldPlay.call(this)};const AC=window.AudioContext;window.AudioContext=class extends AC{constructor(...args){super(...args);window.__runtimeContexts.push(this)}}`});
@@ -223,5 +223,6 @@ try {
   const external=[...display.requests,...admin.requests].filter(r=>/^https?:/.test(r.url)&&new URL(r.url).origin!==base);assert.equal(external.length,0);
   const result={status:'PASS',mode,fingerprint:await fingerprint(),scenarios,performances,resetCount,longestIdleMs,scene6Audio,physicalWindowsSleep:false,proxy:'Debugger JS pause 12s + hidden Display + AudioContext suspend + verified heartbeat loss + 2h wall-clock jump; normal background throttling flags retained',samples,browserErrors:0,expectedFaultDiagnostics,externalRequests:0};
   await writeFile(path.join(directory,`${mode}-result.json`),JSON.stringify(result,null,2));console.log(JSON.stringify({...result,samples: samples.length}));
+  if (mode === 'phase-b') await writeFile(path.join(directory,'phase-b-pass.json'),JSON.stringify({status:'PASS',fingerprint:result.fingerprint},null,2));
 } catch(error) {await writeFile(path.join(directory,`${mode}-failure.json`),JSON.stringify({error:error.stack,state,plays:display?await display.evaluate('window.__runtimePlays'):null,browserErrors:display?.errors,scenarios,performances,resetCount,longestIdleMs,scene6Audio,fingerprint:await fingerprint(),samples},null,2));throw error;}
 finally {observer?.close();display?.close();admin?.close();await stopChild(browser);await stopChild(server);if(temporary.startsWith(path.join(os.tmpdir(),'yokogawa-hardening-')))await rm(temporary,{recursive:true,force:true,maxRetries:10,retryDelay:250});}

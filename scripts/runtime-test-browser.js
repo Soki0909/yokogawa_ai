@@ -41,7 +41,7 @@ const stopChild = async (child) => {
   // Only terminate the process tree spawned by this test, never other browser sessions.
   if (process.platform === 'win32') {
     await new Promise((resolve, reject) => execFile('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true }, (error) => {
-      if (error && child.exitCode === null && child.signalCode === null) reject(error); else resolve();
+      if (error) setTimeout(() => { if (child.exitCode === null && child.signalCode === null) reject(error); else resolve(); }, 250); else resolve();
     }));
   } else child.kill('SIGTERM');
   await Promise.race([new Promise(resolve => child.exitCode !== null || child.signalCode !== null ? resolve() : child.once('exit', resolve)), delay(3000)]);
@@ -119,7 +119,10 @@ class DevToolsPage {
 
   async screenshot(file) {
     const result = await this.send('Page.captureScreenshot', { format: 'png', captureBeyondViewport: false });
-    await writeFile(file, Buffer.from(result.data, 'base64'));
+    for (let attempt = 0; ; attempt++) {
+      try { await writeFile(file, Buffer.from(result.data, 'base64')); break; }
+      catch (error) { if (attempt >= 3 || !['UNKNOWN', 'EBUSY', 'EPERM'].includes(error.code)) throw error; await delay(200); }
+    }
   }
 
   close() { this.socket.close(); }
@@ -152,7 +155,8 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
       };
     ` });
   }
-  await page.send('Page.navigate', { url });
+  try { await page.send('Page.navigate', { url }); }
+  catch (error) { throw new Error(`${error.message}; errors=${JSON.stringify(page.errors)} requests=${JSON.stringify(page.requests.map(r=>r.url).slice(-8))}`); }
   await page.waitFor(`location.href === ${JSON.stringify(url)} && document.readyState === 'complete'`, `${url} navigation`);
   return page;
 };

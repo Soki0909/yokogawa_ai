@@ -4,9 +4,9 @@
   "sourceScript": {
     "title": "『7号館からの脱出』上演台本",
     "url": "https://docs.google.com/document/d/16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo/edit",
-    "revisionId": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
-    "modifiedTime": "2026-10-09T11:28:22.972Z",
-    "tabCount": 14,
+    "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
+    "modifiedTime": "2026-10-12T11:36:41.372Z",
+    "tabCount": 16,
     "authority": "current-google-docs-revision"
   },
   "voiceProfileId": "yokogawa-professor-v1",
@@ -772,7 +772,7 @@
       "location": "7・201",
       "route": "main",
       "tabId": "t.lquo4bdx2m2q",
-      "scriptText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+      "scriptText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗",
       "synthesisText": "エラー。…セキュリティープロテクトの緊急遮断を確認。…解錠作業ストップ。…エラー。…指定されたスタッフへの連絡に失敗。",
       "voiceProfileId": "yokogawa-professor-v1",
       "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
@@ -809,7 +809,7 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
+      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗",
       "spokenText": "エラー。セキュリティープロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
       "reusedApprovedTake": true,
       "segments": [
@@ -854,7 +854,7 @@
           "sha256": "4dc0a2d8560d30f139c99bd42afc4433591c4c437d023fa073da32a33b1054bf"
         },
         {
-          "displayText": "指定されたスタッフへの連絡に失敗。",
+          "displayText": "指定されたスタッフへの連絡に失敗",
           "spokenText": "指定されたスタッフへの連絡に失敗。",
           "pauseAfterMs": 0,
           "startMs": 4977,
@@ -862,6 +862,38 @@
           "alignment": "approved-take-quiet-boundary",
           "path": "assets/audio/segments/013-5.wav",
           "sha256": "9cd62e2cada1451379ed9818fcbee4edda064f775b9811eb1c4596d833097fef"
+        }
+      ],
+      "subtitleUnits": [
+        {
+          "displayText": "エラー。",
+          "startMs": 0,
+          "endMs": 620,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+        },
+        {
+          "displayText": "セキュリティプロテクトの緊急遮断を確認。",
+          "startMs": 620,
+          "endMs": 3500,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+        },
+        {
+          "displayText": "解錠作業ストップ。",
+          "startMs": 3500,
+          "endMs": 4600,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+        },
+        {
+          "displayText": "エラー。",
+          "startMs": 4600,
+          "endMs": 5080,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+        },
+        {
+          "displayText": "指定されたスタッフへの連絡に失敗",
+          "startMs": 5080,
+          "endMs": 7848,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
         }
       ]
     },
@@ -933,6 +965,20 @@
           "alignment": "approved-take-quiet-boundary",
           "path": "assets/audio/segments/014-2.wav",
           "sha256": "4fb6886c30336de3aa5ce516d359895b1b64a192d34cbc2c2536fa81e26dcf96"
+        }
+      ],
+      "subtitleUnits": [
+        {
+          "displayText": "……エラー。",
+          "startMs": 0,
+          "endMs": 620,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+        },
+        {
+          "displayText": "指定されたスタッフへの連絡に失敗。",
+          "startMs": 620,
+          "endMs": 3529,
+          "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
         }
       ]
     },
@@ -1118,6 +1164,63 @@
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16
+    },
+    {
+      "scriptId": "020",
+      "assetId": "prod-voice-020-unlock-confirmed",
+      "path": "assets/audio/production-v2-020.wav",
+      "scene": "scene-7",
+      "route": "main",
+      "location": "7・201",
+      "tabId": "t.6gopn4tnzuo",
+      "scriptText": "館内すべての扉の解錠を確認しました",
+      "displayText": "館内すべての扉の解錠を確認しました",
+      "spokenText": "館内すべての扉の解錠を確認しました",
+      "synthesisText": "館内すべての扉の解錠を確認しました",
+      "voiceProfileId": "yokogawa-professor-v1",
+      "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+      "engineVersion": "1.1.0-dev",
+      "runtimeStyleId": 1310138977,
+      "effectiveParameters": {
+        "speedScale": 1.08,
+        "pitchScale": 0,
+        "intonationScale": 0.25,
+        "tempoDynamicsScale": 0.08,
+        "volumeScale": 0.95,
+        "prePhonemeLength": 0.1,
+        "postPhonemeLength": 0.1,
+        "pauseLength": null,
+        "pauseLengthScale": 1.35,
+        "outputSamplingRate": 44100,
+        "outputStereo": false
+      },
+      "generatedAt": "2026-10-12T10:49:31.548Z",
+      "sourceScriptRevision": "AHj4eMQMO-_AfN9vu3q21Wl-McLQ31APmMrzWRIveijkD_9ZFI5hYvGBA1qMHSSjVX7N1jgNU2gr8W2RRl_OtJDdiio9254oP9ZVaS0T7TY",
+      "sampleRate": 44100,
+      "channels": 1,
+      "bitsPerSample": 16,
+      "durationSeconds": 3.006281179138322,
+      "bytes": 265198,
+      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df",
+      "technicalChecks": {
+        "sampleRate": true,
+        "channels": true,
+        "bitDepth": true,
+        "duration": true,
+        "nonSilent": true,
+        "noFullScaleClipping": true
+      },
+      "segments": [
+        {
+          "displayText": "館内すべての扉の解錠を確認しました",
+          "spokenText": "館内すべての扉の解錠を確認しました",
+          "startMs": 0,
+          "endMs": 3007,
+          "pauseAfterMs": 0,
+          "path": "assets/audio/production-v2-020.wav",
+          "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+        }
+      ]
     }
   ],
   "sfx": [
