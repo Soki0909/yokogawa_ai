@@ -1,0 +1,47 @@
+[
+  {
+    "label": "smoke-end",
+    "at": "2026-10-12T14:45:28.978Z",
+    "runtime": {
+      "memory": {
+        "rss": 66686976,
+        "heapTotal": 19070976,
+        "heapUsed": 15772256,
+        "external": 4167873,
+        "arrayBuffers": 484964
+      },
+      "cpu": {
+        "user": 1703000,
+        "system": 921000
+      },
+      "uptime": 81.8306984,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 0
+      },
+      "cueIndex": -1
+    },
+    "renderer": {
+      "Documents": 2,
+      "JSEventListeners": 11,
+      "Nodes": 714,
+      "TaskDuration": 51.696229,
+      "JSHeapUsedSize": 1175944
+    },
+    "dom": {
+      "documents": 2,
+      "nodes": 714,
+      "jsEventListeners": 11
+    },
+    "audio": {
+      "plays": 6,
+      "contexts": 0,
+      "visibility": "visible",
+      "focus": true
+    },
+    "chromeRootRss": 186544128
+  }
+]

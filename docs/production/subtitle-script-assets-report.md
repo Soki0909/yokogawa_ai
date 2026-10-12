@@ -51,3 +51,7 @@ featureの全mandatory gate PASS：165/165 tests、Production E2E（46枚、28/2
 runtime scheduler／reconnect architectureは維持し、35分idle・5公演は今回再実行せず、NEXT burst・freeze/reconnect/clock/BLACKOUTのtargeted regressionを用いる。
 
 残る人間提供物は本番SE3本・謎PNG3枚・非常停止ヒント／コード。未提供でも起動・speech・Cue・録画を壊さない。新Voice Model／Profile／Avatarの採用変更なし。新規production dependencyなし。
+
+## master統合と再検証
+
+feature commit `a420b7e68a5bea09dcd8461950e85846891bef5b`をpushし、masterへfast-forward統合した。統合後の実ファイルで165/165 tests、Production E2E（46枚、28/28 preload、browser異常・外部通信0）、NEXT guard 8ケース、復帰4ケース、WAV/Profile、録画デコードを再検証して全PASS。feature/masterのimplementation fingerprintは同じ `7dfed2b67bf0d57a55d3e20d3512727d997531de0e77c487f2a0f01e64d1db59`。統合後の証跡は `master-e2e`／`master-hardening`、機械可読master結果はverification JSONへ収録。最終検証記録commitとorigin/master一致のSHAは最終回答に記載する。

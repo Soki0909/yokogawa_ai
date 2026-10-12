@@ -1,0 +1,47 @@
+[
+  {
+    "label": "phase-b-end",
+    "at": "2026-10-12T14:44:02.046Z",
+    "runtime": {
+      "memory": {
+        "rss": 71643136,
+        "heapTotal": 26034176,
+        "heapUsed": 17776224,
+        "external": 4510379,
+        "arrayBuffers": 827470
+      },
+      "cpu": {
+        "user": 1937000,
+        "system": 1093000
+      },
+      "uptime": 26.5445022,
+      "sockets": 3,
+      "cueTimers": 0,
+      "handles": 5,
+      "nextGuard": {
+        "intervalMs": 1200,
+        "remainingMs": 548
+      },
+      "cueIndex": 0
+    },
+    "renderer": {
+      "Documents": 6,
+      "JSEventListeners": 65,
+      "Nodes": 1112,
+      "TaskDuration": 2.363812,
+      "JSHeapUsedSize": 2152016
+    },
+    "dom": {
+      "documents": 6,
+      "nodes": 1112,
+      "jsEventListeners": 65
+    },
+    "audio": {
+      "plays": 14,
+      "contexts": 0,
+      "visibility": "hidden",
+      "focus": false
+    },
+    "chromeRootRss": 183611392
+  }
+]

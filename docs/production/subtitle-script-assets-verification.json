@@ -225,5 +225,157 @@
     "Puzzle 7 PNG",
     "emergency hint/code"
   ],
-  "masterVerification": "pending"
+  "masterVerification": {
+    "status": "PASS",
+    "testedCommit": "a420b7e68a5bea09dcd8461950e85846891bef5b",
+    "implementationFingerprint": "7dfed2b67bf0d57a55d3e20d3512727d997531de0e77c487f2a0f01e64d1db59",
+    "tests": {
+      "pass": 165,
+      "fail": 0
+    },
+    "e2e": {
+      "status": "PASS",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "preload": "28/28",
+      "cues": [
+        "prod-001",
+        "prod-004",
+        "prod-008",
+        "prod-013",
+        "prod-015",
+        "prod-v-stop-code",
+        "prod-020"
+      ],
+      "sceneRehearsal": [
+        "scene-2:empty-reload",
+        "scene-6:P-011",
+        "scene-7:shutdown-reconnect"
+      ],
+      "screenshots": 46,
+      "visualViewports": [
+        [
+          1920,
+          1080
+        ],
+        [
+          1280,
+          720
+        ]
+      ],
+      "mergedCancellation": [
+        "STOP",
+        "REPLAY",
+        "Rehearsal",
+        "Reset"
+      ],
+      "controls": [
+        "NEXT",
+        "BACK",
+        "STOP",
+        "REPLAY",
+        "BLACKOUT",
+        "RESTORE"
+      ],
+      "reconnectReady": true,
+      "reloadReady": true,
+      "productionAssetRequests": 110,
+      "externalBrowserRequests": 0,
+      "browserErrors": 0
+    },
+    "guard": [
+      {
+        "name": "double",
+        "status": "PASS"
+      },
+      {
+        "name": "triple",
+        "status": "PASS"
+      },
+      {
+        "name": "five",
+        "status": "PASS"
+      },
+      {
+        "name": "space-repeat",
+        "status": "PASS"
+      },
+      {
+        "name": "enter",
+        "status": "PASS"
+      },
+      {
+        "name": "mixed",
+        "status": "PASS"
+      },
+      {
+        "name": "raw-server",
+        "status": "PASS"
+      },
+      {
+        "name": "reconnect-burst-and-immediate-stop",
+        "status": "PASS"
+      }
+    ],
+    "recovery": [
+      {
+        "name": "JS-pause-with-live-socket-and-delayed-speech",
+        "pauseMs": 12000,
+        "status": "PASS"
+      },
+      {
+        "name": "BLACKOUT-with-suspended-speech",
+        "pauseMs": 12000,
+        "enforcedJsPause": true,
+        "heartbeatLost": true,
+        "clockJumpMs": 7200000,
+        "status": "PASS"
+      },
+      {
+        "name": "stable-freeze-reconnect-clock",
+        "pauseMs": 12000,
+        "enforcedJsPause": true,
+        "heartbeatLost": true,
+        "clockJumpMs": 7200000,
+        "status": "PASS"
+      },
+      {
+        "name": "pending-freeze-reconnect-clock",
+        "pauseMs": 12000,
+        "enforcedJsPause": true,
+        "heartbeatLost": true,
+        "clockJumpMs": 7200000,
+        "status": "PASS"
+      }
+    ],
+    "recording": {
+      "status": "PASS",
+      "video": [
+        1920,
+        1080,
+        "30/1"
+      ],
+      "durationSeconds": 170.366667,
+      "cues": 20,
+      "speechClips": 17,
+      "sfxClips": 8,
+      "minimumGap": 2,
+      "fullDecode": true
+    },
+    "integrity": {
+      "status": "PASS",
+      "archiveWavsUnchanged": 18,
+      "priorActiveWavsUnchanged": 16,
+      "newWavs": 1,
+      "canonicalArchivePlusNew": 19,
+      "activeShowWavs": 17,
+      "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+      "profileFileSha256": "b1c3fccee24ea52c0d2713fdaa51ec66b6e32edf96ffecb44a1b0dce7d740e34",
+      "cueCount": 20,
+      "sourceParagraphs": 1104,
+      "modifiedTime": "2026-10-12T11:36:41.372Z"
+    }
+  }
 }
