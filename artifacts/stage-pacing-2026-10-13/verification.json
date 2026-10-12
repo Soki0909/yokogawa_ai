@@ -55,7 +55,9 @@
     "reloadReady": true,
     "productionAssetRequests": 108,
     "externalBrowserRequests": 0,
-    "browserErrors": 0
+    "browserErrors": 0,
+    "savedScreenshotFiles": 54,
+    "evidenceDirectory": "artifacts/stage-pacing-2026-10-13/e2e-accepted"
   },
   "targeted": {
     "status": "PASS",
