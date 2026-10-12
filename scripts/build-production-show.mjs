@@ -29,7 +29,7 @@ const common = {
   assets,
   avatar: { ...demo.avatar, visible: false, state: 'normal', lipSyncMode: 'audio-reactive' },
   settings: {
-    rate: 1, pitch: 0.9, volume: 1, sfxVolume: .65, subtitlesEnabled: true,
+    rate: 1, pitch: 0.9, volume: 1, sfxVolume: 1, subtitlesEnabled: true,
     speechProvider: 'browser', freeSpeakMode: 'local-tts', shortcutsEnabled: true, reducedMotion: false,
   },
 };
@@ -90,7 +90,7 @@ const mainCues = [
     name: '横川AI起動応答', triggerNote: '横川教授「横川AIを起動してくれ」直後。STANDBYからGO。',
     transition: { id: 'boot', mode: 'fade', durationMs: 2600, intensity: .65 },
     timing: { speechDelayMs: 2600 },
-    sfx: [{ assetId: 'prod-sfx-boot', atMs: 400, volume: .5, durationMs: 1600 }],
+    sfx: [{ assetId: 'prod-sfx-boot', atMs: 400, volume: .8, durationMs: 1600 }],
     operatorNote: 'Production起動Cue。非表示STANDBYからAvatarをrevealし、WAV001終了後もNORMALを保持する。',
   }),
   speechCue('002', 20), speechCue('003', 30), speechCue('004', 40),
@@ -212,7 +212,9 @@ const mainCues = [
   }),
 ];
 
-const sound = (name, atMs = 0, volume = .6) => ({ assetId: `prod-sfx-${name}`, atMs, volume, durationMs: manifest.sfx.find(s => s.id === `prod-sfx-${name}`).durationMs });
+// Per-source balance: HACK is already much louder than startup/warning.
+// Keep source WAVs untouched; global SFX remains an operator master control.
+const sound = (name, atMs = 0, volume = { glitch: .55, warning: 1 }[name]) => ({ assetId: `prod-sfx-${name}`, atMs, volume, durationMs: manifest.sfx.find(s => s.id === `prod-sfx-${name}`).durationMs });
 const sounds = { 'prod-v-incident': ['glitch'], 'prod-013': ['warning'], 'prod-014': ['warning'] };
 for (const cue of mainCues) if (sounds[cue.id]) cue.sfx = [sound(...sounds[cue.id])];
 const first = mainCues.find(c => c.id === 'prod-v-riddle-enter');

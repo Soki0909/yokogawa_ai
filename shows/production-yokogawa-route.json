@@ -251,7 +251,7 @@
     "rate": 1,
     "pitch": 0.9,
     "volume": 1,
-    "sfxVolume": 0.65,
+    "sfxVolume": 1,
     "subtitlesEnabled": true,
     "speechProvider": "browser",
     "freeSpeakMode": "local-tts",

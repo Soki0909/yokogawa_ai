@@ -251,7 +251,7 @@
     "rate": 1,
     "pitch": 0.9,
     "volume": 1,
-    "sfxVolume": 0.65,
+    "sfxVolume": 1,
     "subtitlesEnabled": true,
     "speechProvider": "browser",
     "freeSpeakMode": "local-tts",
@@ -262,7 +262,7 @@
     "title": "横川AI Production — 本編",
     "version": "subtitle-script-assets-v1.1",
     "nextGuardMs": 1200,
-    "showHash": "67d29e3f1cd9cf30823ed84afd2b0dad397c24e5de6364147db580973bc7486a",
+    "showHash": "6bd31f262277e952a04cf7721ba4f69a11bd4efad859ee0b8b709c95bdc9ce28",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
@@ -407,7 +407,7 @@
         {
           "assetId": "prod-sfx-boot",
           "atMs": 400,
-          "volume": 0.5,
+          "volume": 0.8,
           "durationMs": 1600
         }
       ],
@@ -625,7 +625,7 @@
         {
           "assetId": "prod-sfx-glitch",
           "atMs": 17127,
-          "volume": 0.6,
+          "volume": 0.55,
           "durationMs": 900
         }
       ],
@@ -1322,7 +1322,7 @@
         {
           "assetId": "prod-sfx-warning",
           "atMs": 0,
-          "volume": 0.6,
+          "volume": 1,
           "durationMs": 900
         }
       ],
@@ -1404,7 +1404,7 @@
         {
           "assetId": "prod-sfx-warning",
           "atMs": 0,
-          "volume": 0.6,
+          "volume": 1,
           "durationMs": 900
         }
       ],
