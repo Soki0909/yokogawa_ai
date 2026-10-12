@@ -50,8 +50,22 @@ export function alignExistingSpeech(wav, segments) {
   return segments.map((segment, index) => ({ ...segment, startMs: Math.round(boundaries[index] / 44.1), endMs: Math.round(boundaries[index + 1] / 44.1), pauseAfterMs: 0, alignment: 'approved-take-quiet-boundary', wav: encodePcm(pcm.subarray(boundaries[index] * 2, boundaries[index + 1] * 2)) }));
 }
 
-export function composeSpeech(segments, buffers) {
+// Trim only near-silent boundary padding, keeping 20ms beside each voiced edge.
+// Initial lead-in and final release remain untouched; pronunciation is never synthesized here.
+export function normalizeSentenceBuffers(buffers) {
+  return buffers.map((wav, index) => {
+    const pcm = pcmData(wav); const frames = pcm.length / 2;
+    let start = 0, end = frames;
+    const quiet = at => Math.abs(pcm.readInt16LE(at * 2)) <= 32;
+    if (index > 0) { while (start < frames && quiet(start)) start++; start = Math.max(0, start - 882); }
+    if (index < buffers.length - 1) { while (end > start && quiet(end - 1)) end--; end = Math.min(frames, end + 882); }
+    return encodePcm(pcm.subarray(start * 2, end * 2));
+  });
+}
+
+export function composeSpeech(segments, buffers, { normalizeBoundarySilence = false } = {}) {
   if (!segments.length || segments.length !== buffers.length) throw new Error('COMPOSER_SEGMENT_COUNT');
+  if (normalizeBoundarySilence) buffers = normalizeSentenceBuffers(buffers);
   let samples = 0; const parts = []; const timeline = [];
   for (let index = 0; index < segments.length; index++) {
     const segment = segments[index]; const pcm = pcmData(buffers[index]);

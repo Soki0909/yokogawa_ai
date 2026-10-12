@@ -71,30 +71,30 @@
     {
       "id": "prod-voice-001-boot",
       "name": "横川AI Production 001",
-      "path": "assets/audio/yokogawa-professor-v1_001_boot.wav",
+      "path": "assets/audio/production-paced-001.wav",
       "mimeType": "audio/wav",
-      "sha256": "0c33dd4ba3aa4b847059b169ab48a6bd247ca157699738895da022e017e22020"
+      "sha256": "5905c9f0f03be4c3724e551d24b517ce510dfd043415da77aa7fd148347df2ac"
     },
     {
       "id": "prod-voice-002-participant",
       "name": "横川AI Production 002",
-      "path": "assets/audio/production-v2-002.wav",
+      "path": "assets/audio/production-paced-002.wav",
       "mimeType": "audio/wav",
-      "sha256": "2811e7cc4ca8bcdad092f0d5a363f1684ad2c4444765e928818bb6a6afe1db2e"
+      "sha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5"
     },
     {
       "id": "prod-voice-003-security",
       "name": "横川AI Production 003",
-      "path": "assets/audio/yokogawa-professor-v1_003_security.wav",
+      "path": "assets/audio/production-paced-003.wav",
       "mimeType": "audio/wav",
-      "sha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3"
+      "sha256": "f26458aa98fad64a6a1d1328ec338356b1d7f8f071958de8c5bf72b233037d5c"
     },
     {
       "id": "prod-voice-004-principia",
       "name": "横川AI Production 004",
-      "path": "assets/audio/yokogawa-professor-v1_004_principia.wav",
+      "path": "assets/audio/production-paced-004.wav",
       "mimeType": "audio/wav",
-      "sha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c"
+      "sha256": "6cfa980e53f46aaafdfc4c1241b0f2a38a94d22f1ab07641eb453432204b24a5"
     },
     {
       "id": "prod-voice-005-communication-lock",
@@ -134,30 +134,30 @@
     {
       "id": "prod-voice-011-final-challenge",
       "name": "横川AI Production 011",
-      "path": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+      "path": "assets/audio/production-paced-011.wav",
       "mimeType": "audio/wav",
-      "sha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216"
+      "sha256": "a425ca6d6e87ef3ec895249949ef00cb68110c20f6ae35a96840306472edee0e"
     },
     {
       "id": "prod-voice-012-auth-success",
       "name": "横川AI Production 012",
-      "path": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+      "path": "assets/audio/production-paced-012.wav",
       "mimeType": "audio/wav",
-      "sha256": "b5ccaa7da5616b068f91594c5777f0c62492529e2ea709f0ba8cc783e7e50ceb"
+      "sha256": "7549ae1c6d82d2d0a0f7f7ed1efc5765f7a533bbf06ef6ed86f83a7f87b9ae26"
     },
     {
       "id": "prod-voice-013-emergency",
       "name": "横川AI Production 013",
-      "path": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
+      "path": "assets/audio/production-paced-013.wav",
       "mimeType": "audio/wav",
-      "sha256": "b9a867d19a34676598214c581d515887a36cd62b1a7b9f2a79f97ee662083868"
+      "sha256": "f70f8094ca9ec5ea473681dfec147b1438f97a7d39bd19deacd5c20d64fbbff3"
     },
     {
       "id": "prod-voice-014-contact-failed",
       "name": "横川AI Production 014",
-      "path": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+      "path": "assets/audio/production-paced-014.wav",
       "mimeType": "audio/wav",
-      "sha256": "9c7a3afd0cdec0c63fcc6c48bcc74c51505eec590284c10b6e9189c40fb8b4ce"
+      "sha256": "8faa61c05029eafc843a1c8581476cf3749c6f82f97745a0df1615225dcf9b90"
     },
     {
       "id": "prod-voice-015-forced-runaway",
@@ -169,16 +169,16 @@
     {
       "id": "prod-voice-016-shutdown",
       "name": "横川AI Production 016",
-      "path": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+      "path": "assets/audio/production-paced-016.wav",
       "mimeType": "audio/wav",
-      "sha256": "43c7a3a43b337cfc3b165abb23ae3af91f9f7444fdd57c28abb7cab561c7bdd4"
+      "sha256": "ba04348b8ef2085eb41a3442a43ed9a17cbbf78024b53e42a97a2f1f26194424"
     },
     {
       "id": "prod-voice-019-answer-sheet",
       "name": "横川AI Production 019",
-      "path": "assets/audio/production-v2-019.wav",
+      "path": "assets/audio/production-paced-019.wav",
       "mimeType": "audio/wav",
-      "sha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2"
+      "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
     },
     {
       "id": "prod-voice-020-unlock-confirmed",
@@ -208,42 +208,6 @@
       "slot": "hack-noise"
     },
     {
-      "id": "prod-sfx-puzzle",
-      "name": "SFX puzzle",
-      "path": "assets/audio/production-sfx-puzzle.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 650,
-      "sha256": "b3d98c57519c5f33b7f36efdd00fc53d643cd8d66100e5c119da65f17ab0ea5c",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-integrate",
-      "name": "SFX integrate",
-      "path": "assets/audio/production-sfx-integrate.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1800,
-      "sha256": "a4948467425b7043a4bb80b74cdb6c00be2381c16ab141b4c18b5326fd7c0b7f",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-auth",
-      "name": "SFX auth",
-      "path": "assets/audio/production-sfx-auth.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 650,
-      "sha256": "78ab6f17c140f1ffb0509ad5fb89f022e03c90f8306132a84f7d0ee2571ea7ce",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-unlock",
-      "name": "SFX unlock",
-      "path": "assets/audio/production-sfx-unlock.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 900,
-      "sha256": "0b90fbb07351480dac97bd5e7130f183d94621b136805b366a3d48819e716220",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
       "id": "prod-sfx-warning",
       "name": "SFX warning",
       "path": "assets/audio/production-sfx-warning.wav",
@@ -252,42 +216,6 @@
       "sha256": "f9a9d5533d747f71ac688e212477fd56fb59b58779c4329671c88009a4108c29",
       "attribution": "Original procedural audio; project authors; no third-party sample",
       "slot": "warning"
-    },
-    {
-      "id": "prod-sfx-hostile",
-      "name": "SFX hostile",
-      "path": "assets/audio/production-sfx-hostile.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1600,
-      "sha256": "4a33188d4430ee686ac6caf42f6c46b8a257d135ed197b10761b4f02247f171b",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-rumble",
-      "name": "SFX rumble",
-      "path": "assets/audio/production-sfx-rumble.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1400,
-      "sha256": "c1800127960d47cce59ecaab4864d56c483c9e9d4b46712179df93965bb96dcd",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-shutdown",
-      "name": "SFX shutdown",
-      "path": "assets/audio/production-sfx-shutdown.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 850,
-      "sha256": "1a08dbc88e6b234af78047d920fd0edea2e6ed4b7c713e1200c953f65c63497e",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-recovery",
-      "name": "SFX recovery",
-      "path": "assets/audio/production-sfx-recovery.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1600,
-      "sha256": "569c3f193e2347ac0c59373630ba88fa6435e557dcc499dd07a4095565753b7c",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
     },
     {
       "id": "puzzle-first",
@@ -334,7 +262,7 @@
     "title": "横川AI Production — 本編",
     "version": "subtitle-script-assets-v1.1",
     "nextGuardMs": 1200,
-    "showHash": "438fdd24a97c000a49d6b00d0dbb7f7904be2152d6d0515b2159e782d011f4f9",
+    "showHash": "67d29e3f1cd9cf30823ed84afd2b0dad397c24e5de6364147db580973bc7486a",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
@@ -420,32 +348,32 @@
           {
             "displayText": "承知しました。",
             "spokenText": "承知しました。",
-            "pauseAfterMs": 0,
+            "pauseAfterMs": 250,
             "startMs": 0,
             "endMs": 1275,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/001-1.wav",
-            "sha256": "b10053c0423a6c1453d9b7c68dce2a9492f1d9d7049c801b04d8653a39a4a31d"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-001-1.wav",
+            "sha256": "eab1cc6d0c5d05e412d0c87472d00756222921f6f9c569fd436313af6619d08f"
           },
           {
             "displayText": "横川教授。",
             "spokenText": "横川教授。",
-            "pauseAfterMs": 0,
-            "startMs": 1275,
-            "endMs": 2514,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/001-2.wav",
-            "sha256": "9e19beaf00da0564225d1ab24eea84e27a416025aa36390b2c6d397217a848f4"
+            "pauseAfterMs": 350,
+            "startMs": 1525,
+            "endMs": 2764,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-001-2.wav",
+            "sha256": "3200edd110bee28c41851963e1d442928276b8b4b92fea4bd932b66ec29c71a4"
           },
           {
             "displayText": "横川AIを起動します",
             "spokenText": "横川AIを起動します",
             "pauseAfterMs": 0,
-            "startMs": 2514,
-            "endMs": 4260,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/001-3.wav",
-            "sha256": "e347f83e5c8138eb591a175864ff71e63aa890e31165229a7f0d38bf28d7c1f0"
+            "startMs": 3114,
+            "endMs": 4860,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-001-3.wav",
+            "sha256": "9d26ea05fd3b291dcc73c9a1d8995c9087dd75588e8470659f6fe78c0bed5e7b"
           }
         ],
         "subtitleMode": "typewriter"
@@ -482,7 +410,8 @@
           "volume": 0.5,
           "durationMs": 1600
         }
-      ]
+      ],
+      "syncMarkers": []
     },
     {
       "id": "prod-002",
@@ -500,29 +429,32 @@
           {
             "displayText": "はい。",
             "spokenText": "はい。",
-            "pauseAfterMs": 350,
-            "path": "assets/audio/segments/002-composed-1.wav",
+            "pauseAfterMs": 300,
+            "path": "assets/audio/segments/paced-002-1.wav",
             "startMs": 0,
-            "endMs": 812,
-            "sha256": "5801b460d40350b89f7dc0f91a65434f4286e0690402f0d8ff25b4ef823dad48"
+            "endMs": 739,
+            "sha256": "fb52a5f476aee9f45851a8a3fa77e571c213a4f79503fc9284f604e7eb75578c",
+            "alignment": "approved-voice-boundary; stage pacing"
           },
           {
             "displayText": "例えば、そちらに",
             "spokenText": "例えば、そちらに",
             "pauseAfterMs": 450,
-            "path": "assets/audio/segments/002-composed-2.wav",
-            "startMs": 1162,
-            "endMs": 2938,
-            "sha256": "933b35056dcfd1108b76a9ba034faf615d9f4c3fb6073f03a893e58835577e86"
+            "path": "assets/audio/segments/paced-002-2.wav",
+            "startMs": 1039,
+            "endMs": 2670,
+            "sha256": "627b4ffd420c500623aabb8ce54c0b3e64ee1fb9b75c186d96efbe8a8dcb0efc",
+            "alignment": "approved-voice-boundary; stage pacing"
           },
           {
             "displayText": "久安光さんが参加しています",
             "spokenText": "ヒサヤス ヒカルさんが参加しています",
             "pauseAfterMs": 0,
-            "path": "assets/audio/segments/002-composed-3.wav",
-            "startMs": 3388,
-            "endMs": 5686,
-            "sha256": "37ad0b4ef26c92de0dc09c5a91ce7be54bb51fff530e2e5cab76633581823ea9"
+            "path": "assets/audio/segments/paced-002-3.wav",
+            "startMs": 3120,
+            "endMs": 5345,
+            "sha256": "5ede96a96a02679040e7dc6a83fec9a129d2c19f094024697ff5ffc75f538400",
+            "alignment": "approved-voice-boundary; stage pacing"
           }
         ],
         "subtitleMode": "typewriter"
@@ -548,7 +480,8 @@
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話002。音声終了後も自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 20,
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-003",
@@ -566,32 +499,32 @@
           {
             "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
             "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。",
-            "pauseAfterMs": 0,
+            "pauseAfterMs": 550,
             "startMs": 0,
             "endMs": 4496,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/003-1.wav",
-            "sha256": "9d4d35012c54802cc3e06967d8009c03b7b225b1b2e23424ab07003f0088ac8c"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-003-1.wav",
+            "sha256": "c9223d1ca69df865478b3aad2afb8680ae5205ececb59befe75a0cce96134c7a"
           },
           {
             "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
             "spokenText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。",
-            "pauseAfterMs": 0,
-            "startMs": 4496,
-            "endMs": 10113,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/003-2.wav",
-            "sha256": "abb5e3c34881199d89657380c8d13008b47a5ff8bc5a5f38a8a583a33fdb2f7f"
+            "pauseAfterMs": 650,
+            "startMs": 5046,
+            "endMs": 10663,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-003-2.wav",
+            "sha256": "3be102bb605e7a6b4df2cce0e2dffeae814a86564bd6b926cd0f1e296e895167"
           },
           {
             "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
             "spokenText": "ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
             "pauseAfterMs": 0,
-            "startMs": 10113,
-            "endMs": 16567,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/003-3.wav",
-            "sha256": "104b598d9b808129bddee17688be4fd09a8515b6439bedb92d3a50e62259a7e5"
+            "startMs": 11313,
+            "endMs": 17767,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-003-3.wav",
+            "sha256": "8a8ebb2f8e139b8f2b182f08cd059617e67ee5e519044e3655f5bc5ebc21b0a2"
           }
         ],
         "subtitleMode": "typewriter"
@@ -617,7 +550,8 @@
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話003。音声終了後も自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 30,
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-004",
@@ -635,22 +569,22 @@
           {
             "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
             "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
-            "pauseAfterMs": 0,
+            "pauseAfterMs": 650,
             "startMs": 0,
             "endMs": 7191,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/004-1.wav",
-            "sha256": "934d5506f6959ba84ef372c995912af4303b36ce7baefa609a0feb2409e1f615"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-004-1.wav",
+            "sha256": "34dddd9d6a23ecac0f2462e1032f8ea12142cf2c39ef4881a7568ce6e59d643b"
           },
           {
             "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
             "spokenText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
             "pauseAfterMs": 0,
-            "startMs": 7191,
-            "endMs": 16276,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/004-2.wav",
-            "sha256": "682ac2089f882ec645fa667f39a81124b084a2ceb67faa0dc65ad71017981ca6"
+            "startMs": 7841,
+            "endMs": 16926,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-004-2.wav",
+            "sha256": "eb262fed00acb390d94d546cb634df6273ff50e68d7d07e0c1573ed4ecfb4a9a"
           }
         ],
         "subtitleMode": "typewriter"
@@ -670,14 +604,14 @@
       },
       "transition": {
         "id": "timeline",
-        "durationMs": 18877
+        "durationMs": 19527
       },
       "operatorNote": "説明WAV完了＋200ms後に映像乱れ。照明・施錠SEの連携markerも同じ境界。調査芝居を挟む次のP-005は手動。",
       "triggerNote": "横川「プリンキピアについて説明してくれ」後にGO",
       "order": 40,
       "sequence": [
         {
-          "atMs": 16477,
+          "atMs": 17127,
           "transition": {
             "id": "anomaly",
             "durationMs": 2400,
@@ -690,7 +624,7 @@
       "sfx": [
         {
           "assetId": "prod-sfx-glitch",
-          "atMs": 16477,
+          "atMs": 17127,
           "volume": 0.6,
           "durationMs": 900
         }
@@ -700,11 +634,6 @@
           "department": "LX",
           "id": "ALIGN-LX-ANOMALY",
           "note": "照明明滅。記述用markerであり正式照明Cue番号ではない。"
-        },
-        {
-          "department": "SE",
-          "id": "ALIGN-SE-DOOR-LOCK",
-          "note": "扉施錠音。記述用markerであり正式音響Cue番号ではない。"
         },
         {
           "department": "ACT",
@@ -824,7 +753,8 @@
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話006。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 70,
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-007",
@@ -874,7 +804,8 @@
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話007。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 80,
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-008",
@@ -924,7 +855,8 @@
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話008。HIJACKED状態とsubtle voice effectを継続し、自動進行しない。",
       "triggerNote": "舞台監督の合図でGO",
       "order": 90,
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-019",
@@ -942,20 +874,22 @@
           {
             "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
             "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
-            "pauseAfterMs": 350,
-            "path": "assets/audio/segments/019-1.wav",
+            "pauseAfterMs": 450,
+            "path": "assets/audio/segments/paced-019-1.wav",
             "startMs": 0,
-            "endMs": 3819,
-            "sha256": "9e3d9b602fa7da2b56fd862b2485b69fc23e3ef37260fe1feb3afa8eec69b0fd"
+            "endMs": 3746,
+            "sha256": "ffb75509b740880212bd317adfbd4b37da4291c586a62839c22f6132491eda34",
+            "alignment": "approved-voice-boundary; stage pacing"
           },
           {
             "displayText": "謎はそちらに記入してください",
             "spokenText": "謎はそちらに記入してください",
             "pauseAfterMs": 0,
-            "path": "assets/audio/segments/019-2.wav",
-            "startMs": 4169,
-            "endMs": 6339,
-            "sha256": "a0c051da5a093c0875ab1d5e1f534068da8515af9e1a6890cccb8c297e8cb167"
+            "path": "assets/audio/segments/paced-019-2.wav",
+            "startMs": 4196,
+            "endMs": 6293,
+            "sha256": "1d701d670a0d7c43203a6fc5df843d8777f16687c6c51f764bad64ce2e752ca2",
+            "alignment": "approved-voice-boundary; stage pacing"
           }
         ],
         "subtitleMode": "typewriter"
@@ -981,7 +915,8 @@
       "operatorNote": "現行台本 scene-1 / 7・201 / 発話019。音声終了後も自動進行しない。",
       "triggerNote": "横川教授が役割を指示し、助手たちの「はい」後にGO",
       "order": 95,
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-v-riddle-enter",
@@ -1036,14 +971,6 @@
       "visual": {
         "id": "none"
       },
-      "sfx": [
-        {
-          "assetId": "prod-sfx-puzzle",
-          "atMs": 0,
-          "volume": 0.6,
-          "durationMs": 650
-        }
-      ],
       "sequence": [
         {
           "atMs": 2287,
@@ -1056,7 +983,9 @@
             "message": "本物の問題画像は未提供 / 表示枠の確認用"
           }
         }
-      ]
+      ],
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-011",
@@ -1074,31 +1003,31 @@
           {
             "displayText": "条件の達成を確認。",
             "spokenText": "条件の達成を確認。",
-            "pauseAfterMs": 0,
+            "pauseAfterMs": 650,
             "startMs": 0,
             "endMs": 1849,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/011-1.wav",
-            "sha256": "87f366456f43e19fe9c4bc2d1ad2dd9a538752c2cc282d5568a786c3277a46be"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-011-1.wav",
+            "sha256": "04e13568a7c205207773e8815cc0980df4654be0bfd3d765d9e10e936a9f0fe3"
           },
           {
             "displayText": "五つの解を統合し、最終問題を提示する。",
             "spokenText": "五つの解を統合し、最終問題を提示する。",
-            "pauseAfterMs": 0,
-            "startMs": 1849,
-            "endMs": 5275,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/011-2.wav",
-            "sha256": "ca9b0070e352ffc8e7d89395f2db267b2267c0e74bfb4c34ea07c41bc0886f78"
+            "pauseAfterMs": 850,
+            "startMs": 2499,
+            "endMs": 5925,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-011-2.wav",
+            "sha256": "4cd5c4756e2add00dd6fa8551868eaaf04728cf8a6fb2a1e2a904a6fb57d2eff"
           },
           {
             "displayText": "最終問題の回答を入力しなさい",
             "spokenText": "最終問題の回答を入力しなさい",
             "pauseAfterMs": 0,
-            "startMs": 5275,
-            "endMs": 7883,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/011-3.wav",
+            "startMs": 6775,
+            "endMs": 9383,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-011-3.wav",
             "sha256": "3d29fd94ebf24b3ff65f0b4be996cff5043367eb3db46a1c28aef82d0127b6d0"
           }
         ],
@@ -1119,7 +1048,7 @@
       },
       "transition": {
         "id": "final-challenge-enter",
-        "durationMs": 4800,
+        "durationMs": 9383,
         "intensity": 1
       },
       "operatorNote": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。",
@@ -1142,7 +1071,7 @@
       },
       "sequence": [
         {
-          "atMs": 2000,
+          "atMs": 2499,
           "visual": {
             "id": "five-integrating",
             "type": "riddle-status",
@@ -1160,7 +1089,7 @@
           }
         },
         {
-          "atMs": 4200,
+          "atMs": 6775,
           "visual": {
             "id": "puzzle-final",
             "type": "image",
@@ -1171,14 +1100,8 @@
           }
         }
       ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-integrate",
-          "atMs": 1800,
-          "volume": 0.6,
-          "durationMs": 1800
-        }
-      ]
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-012",
@@ -1188,30 +1111,30 @@
       "scene": "scene-6",
       "location": "7・201",
       "kind": "speech-display",
-      "speechText": "……認証成功。これより開錠を開始する",
-      "displayText": "……認証成功。これより開錠を開始する",
+      "speechText": "……認証成功。これより解錠を開始する",
+      "displayText": "……認証成功。これより解錠を開始する",
       "speech": {
-        "spokenText": "……認証成功。これより開錠を開始する",
+        "spokenText": "……認証成功。これより解錠を開始する",
         "segments": [
           {
             "displayText": "……認証成功。",
             "spokenText": "……認証成功。",
-            "pauseAfterMs": 0,
+            "pauseAfterMs": 650,
             "startMs": 0,
             "endMs": 1619,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/012-1.wav",
-            "sha256": "c4cda50aed6f951f1054fc3583302d1c31de448971754dc6f2940da3248af340"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-012-1.wav",
+            "sha256": "0c3c75c5da384f40eeccf7c872e415d78ac0fafb06cb7020c3ee587f66b312a5"
           },
           {
-            "displayText": "これより開錠を開始する",
-            "spokenText": "これより開錠を開始する",
+            "displayText": "これより解錠を開始する",
+            "spokenText": "これより解錠を開始する",
             "pauseAfterMs": 0,
-            "startMs": 1619,
-            "endMs": 3668,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/012-2.wav",
-            "sha256": "d87e62a48aff35e9505af04d1677ce55e76f398a0767516eec567fd1875be8f9"
+            "startMs": 2269,
+            "endMs": 4318,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-012-2.wav",
+            "sha256": "4a1a5d9a68f3524efb3be9d8470c6a1e93c6d555b494e4f1c47292e4c9116d0a"
           }
         ],
         "subtitleMode": "typewriter"
@@ -1233,7 +1156,7 @@
         "id": "timeline",
         "durationMs": 11919
       },
-      "operatorNote": "認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。",
+      "operatorNote": "認証WAV→200ms→6系統解錠→100%→異常を1 GO。追加電子音なし。虎谷の告白・外部への指示を待ってP-013を手動。",
       "triggerNote": "扇「最後の答えはブレイクヨコガワだ！」後にGO",
       "order": 140,
       "overlay": {
@@ -1242,14 +1165,7 @@
         "title": "認証成功",
         "message": "AUTHENTICATED — 解錠処理を許可"
       },
-      "syncMarkers": [
-        {
-          "department": "SE",
-          "id": "ALIGN-SE-AUTH-CHIME-AFTER",
-          "note": "WAV012終了後に電子音。記述用markerであり正式音響Cue番号ではない。"
-        }
-      ],
-      "sfx": [],
+      "syncMarkers": [],
       "sequence": [
         {
           "atMs": 0,
@@ -1299,7 +1215,8 @@
           },
           "clearSubtitle": true
         }
-      ]
+      ],
+      "sfx": []
     },
     {
       "id": "prod-013",
@@ -1316,88 +1233,56 @@
         "segments": [
           {
             "displayText": "エラー。",
-            "spokenText": "エラー。",
-            "pauseAfterMs": 0,
             "startMs": 0,
-            "endMs": 150,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/013-1.wav",
-            "sha256": "c144a98ac558225f3c2fbbdec0e7239347e598de475401410b06c0875022915d"
+            "endMs": 832,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "spokenText": "エラー。",
+            "pauseAfterMs": 300,
+            "path": "assets/audio/segments/paced-013-1.wav",
+            "sha256": "5b2f209b31de05dcb70a6547e19b69e807265b10b479f73ab5ef1ae499b32328"
           },
           {
             "displayText": "セキュリティプロテクトの緊急遮断を確認。",
+            "startMs": 1132,
+            "endMs": 3947,
+            "alignment": "approved-voice-boundary; stage pacing",
             "spokenText": "セキュリティープロテクトの緊急遮断を確認。",
-            "pauseAfterMs": 0,
-            "startMs": 150,
-            "endMs": 3242,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/013-2.wav",
-            "sha256": "dc4484f5d28efdd1736f8281d5d909b139372c783943292f898318d519c67e5d"
+            "pauseAfterMs": 450,
+            "path": "assets/audio/segments/paced-013-2.wav",
+            "sha256": "6df15e97cdca4421e301eccf75457d771f80109b28260696bc5d51130ffba8d9"
           },
           {
             "displayText": "解錠作業ストップ。",
+            "startMs": 4397,
+            "endMs": 5876,
+            "alignment": "approved-voice-boundary; stage pacing",
             "spokenText": "解錠作業ストップ。",
-            "pauseAfterMs": 0,
-            "startMs": 3242,
-            "endMs": 4837,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/013-3.wav",
-            "sha256": "f4dc7da04db74b3ae0f3b4592a318f8688e61940e82e0b788249f3a2141565d3"
+            "pauseAfterMs": 450,
+            "path": "assets/audio/segments/paced-013-3.wav",
+            "sha256": "75e539b7216759865cc8f047707b523c5603daf4e1877eca32bc10eb2b6c1c3e"
           },
           {
             "displayText": "エラー。",
+            "startMs": 6326,
+            "endMs": 7086,
+            "alignment": "approved-voice-boundary; stage pacing",
             "spokenText": "エラー。",
-            "pauseAfterMs": 0,
-            "startMs": 4837,
-            "endMs": 4977,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/013-4.wav",
-            "sha256": "4dc0a2d8560d30f139c99bd42afc4433591c4c437d023fa073da32a33b1054bf"
+            "pauseAfterMs": 300,
+            "path": "assets/audio/segments/paced-013-4.wav",
+            "sha256": "3174e9f33f835f3336a1aa09f6763f67a89d11846aab7d73762a55877bed54e6"
           },
           {
             "displayText": "指定されたスタッフへの連絡に失敗",
+            "startMs": 7386,
+            "endMs": 9890,
+            "alignment": "approved-voice-boundary; stage pacing",
             "spokenText": "指定されたスタッフへの連絡に失敗。",
             "pauseAfterMs": 0,
-            "startMs": 4977,
-            "endMs": 7848,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/013-5.wav",
-            "sha256": "9cd62e2cada1451379ed9818fcbee4edda064f775b9811eb1c4596d833097fef"
+            "path": "assets/audio/segments/paced-013-5.wav",
+            "sha256": "9117029d34b5cee462654ba9eaf6e8eef7016c3f9f370940b945925f65401259"
           }
         ],
-        "subtitleMode": "typewriter",
-        "subtitleUnits": [
-          {
-            "displayText": "エラー。",
-            "startMs": 0,
-            "endMs": 620,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
-          },
-          {
-            "displayText": "セキュリティプロテクトの緊急遮断を確認。",
-            "startMs": 620,
-            "endMs": 3500,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
-          },
-          {
-            "displayText": "解錠作業ストップ。",
-            "startMs": 3500,
-            "endMs": 4600,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
-          },
-          {
-            "displayText": "エラー。",
-            "startMs": 4600,
-            "endMs": 5080,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
-          },
-          {
-            "displayText": "指定されたスタッフへの連絡に失敗",
-            "startMs": 5080,
-            "endMs": 7848,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
-          }
-        ]
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "warning",
       "target": {
@@ -1460,40 +1345,26 @@
         "segments": [
           {
             "displayText": "……エラー。",
-            "spokenText": "……エラー。",
-            "pauseAfterMs": 0,
-            "startMs": 0,
-            "endMs": 120,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/014-1.wav",
-            "sha256": "5a481c985b419c1486978205e0502bbf56253e8b5e05047b4e80b195c404cd94"
-          },
-          {
-            "displayText": "指定されたスタッフへの連絡に失敗。",
-            "spokenText": "指定されたスタッフへの連絡に失敗。",
-            "pauseAfterMs": 0,
-            "startMs": 120,
-            "endMs": 3529,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/014-2.wav",
-            "sha256": "4fb6886c30336de3aa5ce516d359895b1b64a192d34cbc2c2536fa81e26dcf96"
-          }
-        ],
-        "subtitleMode": "typewriter",
-        "subtitleUnits": [
-          {
-            "displayText": "……エラー。",
             "startMs": 0,
             "endMs": 620,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "spokenText": "……エラー。",
+            "pauseAfterMs": 350,
+            "path": "assets/audio/segments/paced-014-1.wav",
+            "sha256": "66cfc3fa6312dcaa093d35d810ecb02dbabcacd916858592595132ac01137ab0"
           },
           {
             "displayText": "指定されたスタッフへの連絡に失敗。",
-            "startMs": 620,
-            "endMs": 3529,
-            "alignment": "reviewed-waveform-boundary; approved WAV unchanged"
+            "startMs": 970,
+            "endMs": 3879,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "spokenText": "指定されたスタッフへの連絡に失敗。",
+            "pauseAfterMs": 0,
+            "path": "assets/audio/segments/paced-014-2.wav",
+            "sha256": "e784d01834ddc8cfc050d7e15762b48ca7498a7aed564fe22487e25cbbaa951e"
           }
-        ]
+        ],
+        "subtitleMode": "typewriter"
       },
       "presentationPreset": "warning",
       "target": {
@@ -1513,8 +1384,8 @@
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "WAV014終了後に警告SE。音声終了後も自動進行しない。",
-      "triggerNote": "虎谷「今すぐこの2人を拘束しろ！」の後にGO。台詞末尾＋共有warning slot",
+      "operatorNote": "1 GOでERROR表示→警告音→WAV014。警告音の実際の長さをspeech delayへ反映。",
+      "triggerNote": "虎谷「今すぐこの2人を拘束しろ！」の後にGO。共有warning slot→セリフ",
       "order": 170,
       "overlay": {
         "id": "connection-failed",
@@ -1525,18 +1396,21 @@
       "syncMarkers": [
         {
           "department": "SE",
-          "id": "ALIGN-SE-WARNING-AFTER-014",
-          "note": "WAV014終了後に警告音。記述用markerであり正式音響Cue番号ではない。"
+          "id": "ALIGN-SE-WARNING-BEFORE-014",
+          "note": "WAV014の前に警告音。"
         }
       ],
       "sfx": [
         {
           "assetId": "prod-sfx-warning",
-          "atMs": 3529,
+          "atMs": 0,
           "volume": 0.6,
           "durationMs": 900
         }
-      ]
+      ],
+      "timing": {
+        "speechDelayMs": 900
+      }
     },
     {
       "id": "prod-v-hostile-enter",
@@ -1578,11 +1452,6 @@
           "department": "LX",
           "id": "ALIGN-LX-HOSTILE-FLICKER",
           "note": "照明明滅開始。記述用markerであり正式照明Cue番号ではない。"
-        },
-        {
-          "department": "SE",
-          "id": "ALIGN-SE-ALARM-START",
-          "note": "警報開始。記述用markerであり正式音響Cue番号ではない。"
         }
       ],
       "sfx": []
@@ -1631,7 +1500,7 @@
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "HOSTILE先行Cueと警報開始後にWAV015をGO。終了後に轟音SE。",
+      "operatorNote": "HOSTILE先行Cueの後に暴走宣言。追加の轟音は再生しない。",
       "triggerNote": "虎谷の暴走命令を受けてGO",
       "order": 190,
       "overlay": {
@@ -1640,13 +1509,7 @@
         "title": "FORCED RUNAWAY",
         "message": "MANUAL CONTROL LOST"
       },
-      "syncMarkers": [
-        {
-          "department": "SE",
-          "id": "ALIGN-SE-RUMBLE-AFTER-015",
-          "note": "WAV015終了後に轟音。記述用markerであり正式音響Cue番号ではない。"
-        }
-      ],
+      "syncMarkers": [],
       "sfx": []
     },
     {
@@ -1684,7 +1547,8 @@
         "title": "非常停止問題",
         "message": "問題画像・ヒント・停止コード未提供"
       },
-      "sfx": []
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-v-stop-code",
@@ -1702,22 +1566,22 @@
           {
             "displayText": "……システム、全停止。",
             "spokenText": "……システム、全停止。",
-            "pauseAfterMs": 0,
+            "pauseAfterMs": 850,
             "startMs": 0,
             "endMs": 1727,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/016-1.wav",
-            "sha256": "3d2f5146e865fada1bba2bc31c2a72279cd417a345074616ecc5a7d3263a6a17"
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-016-1.wav",
+            "sha256": "bbdbfb239902a95623d9cdfb64f23ec907fe95b51369bdad95fcd4292ad15b00"
           },
           {
             "displayText": "セキュリティを……解放します……",
             "spokenText": "セキュリティーを……解放します……",
             "pauseAfterMs": 0,
-            "startMs": 1727,
-            "endMs": 4117,
-            "alignment": "approved-take-quiet-boundary",
-            "path": "assets/audio/segments/016-2.wav",
-            "sha256": "1984048a55cf1977ff63581db9e519806a93a5024ca5ceda28346ad83e44070e"
+            "startMs": 2577,
+            "endMs": 4967,
+            "alignment": "approved-voice-boundary; stage pacing",
+            "path": "assets/audio/segments/paced-016-2.wav",
+            "sha256": "133805016adf50f4650b9e33709fa11ec4bebeb10fc02dc4424f00a91ff3fcc0"
           }
         ],
         "subtitleMode": "typewriter"
@@ -1754,11 +1618,6 @@
       },
       "syncMarkers": [
         {
-          "department": "SE",
-          "id": "ALIGN-SE-ALARM-STOP",
-          "note": "警報STOP。記述用markerであり正式音響Cue番号ではない。"
-        },
-        {
           "department": "LX",
           "id": "ALIGN-LX-FLICKER-STOP",
           "note": "照明明滅STOP。記述用markerであり正式照明Cue番号ではない。"
@@ -1769,24 +1628,12 @@
           "note": "機械設備の暴走芝居を停止。"
         },
         {
-          "department": "SE",
-          "id": "ALIGN-SE-DOOR-UNLOCK-AFTER-016",
-          "note": "統合CueのWAV016終了後に扉解錠音。"
-        },
-        {
           "department": "ACT",
           "id": "ALIGN-ACT-CHECK-DOOR",
           "note": "馬場・窪が扉を確認する芝居。"
         }
       ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-shutdown",
-          "atMs": 0,
-          "volume": 0.6,
-          "durationMs": 850
-        }
-      ]
+      "sfx": []
     },
     {
       "id": "prod-v-recovery",
@@ -1852,14 +1699,8 @@
           "clearSubtitle": true
         }
       ],
-      "sfx": [
-        {
-          "assetId": "prod-sfx-recovery",
-          "atMs": 0,
-          "volume": 0.6,
-          "durationMs": 1600
-        }
-      ]
+      "sfx": [],
+      "syncMarkers": []
     },
     {
       "id": "prod-020",

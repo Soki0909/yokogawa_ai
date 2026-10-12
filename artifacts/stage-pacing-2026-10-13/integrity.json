@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "archiveWavsUnchanged": 18,
+  "priorActiveSourceWavsUnchanged": 16,
+  "pacedWavs": 10,
+  "voicedPcmUnchangedExcept": [
+    "013"
+  ],
+  "resynthesizedWithApprovedProfile": [
+    "013"
+  ],
+  "activeShowWavs": 17,
+  "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+  "profileFileSha256": "b1c3fccee24ea52c0d2713fdaa51ec66b6e32edf96ffecb44a1b0dce7d740e34",
+  "cueCount": 20,
+  "sourceParagraphs": 1104,
+  "modifiedTime": "2026-10-12T11:36:41.372Z"
+}

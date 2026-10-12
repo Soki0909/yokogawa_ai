@@ -1,5 +1,9 @@
 # Display確認用録画
 
+録画は今後も常に左上へ「Cue ID｜短い名称」を表示する。録画専用の注釈で、本番DisplayやAIセリフ字幕には追加しない。次のCueまでの2秒待機中も現在のCue名を保持する。
+
+配置済みProduction素材slotと実際のSFX長を使用する。SEのcanonical pathはWAVのため、MP3で受け取った素材は元ファイルを残して16-bit PCM WAVへ変換して配置する。
+
 ```powershell
 npm run record:production
 # 保存先を指定する場合

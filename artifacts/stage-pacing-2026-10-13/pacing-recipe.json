@@ -1,0 +1,224 @@
+{
+  "profileUnchanged": true,
+  "reusedApprovedVoiceExcept": [
+    "013"
+  ],
+  "speeches": [
+    {
+      "scriptId": "001",
+      "version": 1,
+      "direction": "落ち着いた応答。了承→教授への呼びかけ→起動宣言を分ける。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_001_boot.wav",
+      "sourceSha256": "0c33dd4ba3aa4b847059b169ab48a6bd247ca157699738895da022e017e22020",
+      "pauseAfterMs": [
+        250,
+        350
+      ],
+      "path": "assets/audio/production-paced-001.wav",
+      "durationSeconds": 4.86,
+      "sha256": "5905c9f0f03be4c3724e551d24b517ce510dfd043415da77aa7fd148347df2ac"
+    },
+    {
+      "scriptId": "002",
+      "version": 1,
+      "direction": "即答後に説明。そちらに→名前の前の450msは指示対象を見る間として維持。",
+      "sourcePath": "assets/audio/production-v2-002.wav",
+      "sourceSha256": "2811e7cc4ca8bcdad092f0d5a363f1684ad2c4444765e928818bb6a6afe1db2e",
+      "pauseAfterMs": [
+        300,
+        450
+      ],
+      "path": "assets/audio/production-paced-002.wav",
+      "durationSeconds": 5.34530612244898,
+      "sha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5"
+    },
+    {
+      "scriptId": "003",
+      "version": 1,
+      "direction": "情報照合→セキュリティ応用→プリンキピアへ話題を渡す。観客が説明を受け取る間。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_003_security.wav",
+      "sourceSha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3",
+      "pauseAfterMs": [
+        550,
+        650
+      ],
+      "path": "assets/audio/production-paced-003.wav",
+      "durationSeconds": 17.766802721088435,
+      "sha256": "f26458aa98fad64a6a1d1328ec338356b1d7f8f071958de8c5bf72b233037d5c"
+    },
+    {
+      "scriptId": "004",
+      "version": 1,
+      "direction": "歴史的価値を落ち着いて説明。初版本と所蔵情報へ切り替える。説明後の画面乱れは別の時間軸。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_004_principia.wav",
+      "sourceSha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c",
+      "pauseAfterMs": [
+        650
+      ],
+      "path": "assets/audio/production-paced-004.wav",
+      "durationSeconds": 16.926009070294786,
+      "sha256": "6cfa980e53f46aaafdfc4c1241b0f2a38a94d22f1ab07641eb453432204b24a5"
+    },
+    {
+      "scriptId": "005",
+      "version": 1,
+      "direction": "冷たい制限通知。次の人間の台詞を待つ。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
+      "sourceSha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc",
+      "pauseAfterMs": [],
+      "path": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
+      "durationSeconds": 2.483877551020408,
+      "sha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc"
+    },
+    {
+      "scriptId": "006",
+      "version": 1,
+      "direction": "短く断定。感情的にためない。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_006_reject.wav",
+      "sourceSha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f",
+      "pauseAfterMs": [],
+      "path": "assets/audio/yokogawa-professor-v1_006_reject.wav",
+      "durationSeconds": 1.4118367346938776,
+      "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
+    },
+    {
+      "scriptId": "007",
+      "version": 1,
+      "direction": "認証拒否を即断。Cue末尾の芝居はoperatorが待つ。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
+      "sourceSha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1",
+      "pauseAfterMs": [],
+      "path": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
+      "durationSeconds": 1.520249433106576,
+      "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
+    },
+    {
+      "scriptId": "008",
+      "version": 1,
+      "direction": "脱出条件を一続きで通告。文途中を表示分割しない。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
+      "sourceSha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b",
+      "pauseAfterMs": [],
+      "path": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
+      "durationSeconds": 5.142607709750567,
+      "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
+    },
+    {
+      "scriptId": "009",
+      "version": 1,
+      "direction": "提示の一文。完了後に画像へ移る。",
+      "sourcePath": "assets/audio/production-v2-009.wav",
+      "sourceSha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9",
+      "pauseAfterMs": [],
+      "path": "assets/audio/production-v2-009.wav",
+      "durationSeconds": 2.2864172335600905,
+      "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9"
+    },
+    {
+      "scriptId": "011",
+      "version": 1,
+      "direction": "達成確認を受け止める650ms。統合を見せたあと850ms置き、最終問題の入力命令へ。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+      "sourceSha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216",
+      "pauseAfterMs": [
+        650,
+        850
+      ],
+      "path": "assets/audio/production-paced-011.wav",
+      "durationSeconds": 9.382517006802722,
+      "sha256": "a425ca6d6e87ef3ec895249949ef00cb68110c20f6ae35a96840306472edee0e"
+    },
+    {
+      "scriptId": "012",
+      "version": 1,
+      "direction": "認証成功を聞いて一瞬安堵できる650ms。その後に解錠開始を宣言。読みは同じため再合成しない。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+      "sourceSha256": "b5ccaa7da5616b068f91594c5777f0c62492529e2ea709f0ba8cc783e7e50ceb",
+      "pauseAfterMs": [
+        650
+      ],
+      "path": "assets/audio/production-paced-012.wav",
+      "durationSeconds": 4.318004535147392,
+      "sha256": "7549ae1c6d82d2d0a0f7f7ed1efc5765f7a533bbf06ef6ed86f83a7f87b9ae26"
+    },
+    {
+      "scriptId": "013",
+      "version": 1,
+      "direction": "警告音後、ERROR→緊急遮断→停止→ERROR→連絡失敗を機械的に区切る。緊急性を失う長い芝居の間は入れない。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
+      "sourceSha256": "b9a867d19a34676598214c581d515887a36cd62b1a7b9f2a79f97ee662083868",
+      "pauseAfterMs": [
+        300,
+        450,
+        450,
+        300
+      ],
+      "regeneratedSentences": true,
+      "reason": "旧takeの文境界が有声部分を切るため、同じ承認Profileで文単位に再合成",
+      "path": "assets/audio/production-paced-013.wav",
+      "durationSeconds": 9.889909297052155,
+      "sha256": "f70f8094ca9ec5ea473681dfec147b1438f97a7d39bd19deacd5c20d64fbbff3"
+    },
+    {
+      "scriptId": "014",
+      "version": 1,
+      "direction": "警告音を先行。エラーを短く示し、350ms後に連絡失敗を断定。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+      "sourceSha256": "9c7a3afd0cdec0c63fcc6c48bcc74c51505eec590284c10b6e9189c40fb8b4ce",
+      "pauseAfterMs": [
+        350
+      ],
+      "path": "assets/audio/production-paced-014.wav",
+      "durationSeconds": 3.8788208616780047,
+      "sha256": "8faa61c05029eafc843a1c8581476cf3749c6f82f97745a0df1615225dcf9b90"
+    },
+    {
+      "scriptId": "015",
+      "version": 1,
+      "direction": "暴走宣言は一続き。途中で余分な間を増やさない。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
+      "sourceSha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3",
+      "pauseAfterMs": [],
+      "path": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
+      "durationSeconds": 4.306666666666667,
+      "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
+    },
+    {
+      "scriptId": "016",
+      "version": 1,
+      "direction": "全停止の事実を置いて850msの静寂。弱った声で解放へ。文中の既存「……」の演技は保持。",
+      "sourcePath": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+      "sourceSha256": "43c7a3a43b337cfc3b165abb23ae3af91f9f7444fdd57c28abb7cab561c7bdd4",
+      "pauseAfterMs": [
+        850
+      ],
+      "path": "assets/audio/production-paced-016.wav",
+      "durationSeconds": 4.967006802721088,
+      "sha256": "ba04348b8ef2085eb41a3442a43ed9a17cbbf78024b53e42a97a2f1f26194424"
+    },
+    {
+      "scriptId": "019",
+      "version": 1,
+      "direction": "袋の用紙を確認できる450msの間を置いて記入指示。実際に探す人間芝居は次の手動Cueまで待つ。",
+      "sourcePath": "assets/audio/production-v2-019.wav",
+      "sourceSha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2",
+      "pauseAfterMs": [
+        450
+      ],
+      "path": "assets/audio/production-paced-019.wav",
+      "durationSeconds": 6.293378684807256,
+      "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
+    },
+    {
+      "scriptId": "020",
+      "version": 1,
+      "direction": "正常な確認通知を静かに一文で返す。復旧の達成感を重ねて誇張しない。",
+      "sourcePath": "assets/audio/production-v2-020.wav",
+      "sourceSha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df",
+      "pauseAfterMs": [],
+      "path": "assets/audio/production-v2-020.wav",
+      "durationSeconds": 3.006281179138322,
+      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+    }
+  ]
+}

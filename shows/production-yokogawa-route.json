@@ -71,30 +71,30 @@
     {
       "id": "prod-voice-001-boot",
       "name": "横川AI Production 001",
-      "path": "assets/audio/yokogawa-professor-v1_001_boot.wav",
+      "path": "assets/audio/production-paced-001.wav",
       "mimeType": "audio/wav",
-      "sha256": "0c33dd4ba3aa4b847059b169ab48a6bd247ca157699738895da022e017e22020"
+      "sha256": "5905c9f0f03be4c3724e551d24b517ce510dfd043415da77aa7fd148347df2ac"
     },
     {
       "id": "prod-voice-002-participant",
       "name": "横川AI Production 002",
-      "path": "assets/audio/production-v2-002.wav",
+      "path": "assets/audio/production-paced-002.wav",
       "mimeType": "audio/wav",
-      "sha256": "2811e7cc4ca8bcdad092f0d5a363f1684ad2c4444765e928818bb6a6afe1db2e"
+      "sha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5"
     },
     {
       "id": "prod-voice-003-security",
       "name": "横川AI Production 003",
-      "path": "assets/audio/yokogawa-professor-v1_003_security.wav",
+      "path": "assets/audio/production-paced-003.wav",
       "mimeType": "audio/wav",
-      "sha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3"
+      "sha256": "f26458aa98fad64a6a1d1328ec338356b1d7f8f071958de8c5bf72b233037d5c"
     },
     {
       "id": "prod-voice-004-principia",
       "name": "横川AI Production 004",
-      "path": "assets/audio/yokogawa-professor-v1_004_principia.wav",
+      "path": "assets/audio/production-paced-004.wav",
       "mimeType": "audio/wav",
-      "sha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c"
+      "sha256": "6cfa980e53f46aaafdfc4c1241b0f2a38a94d22f1ab07641eb453432204b24a5"
     },
     {
       "id": "prod-voice-005-communication-lock",
@@ -134,30 +134,30 @@
     {
       "id": "prod-voice-011-final-challenge",
       "name": "横川AI Production 011",
-      "path": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+      "path": "assets/audio/production-paced-011.wav",
       "mimeType": "audio/wav",
-      "sha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216"
+      "sha256": "a425ca6d6e87ef3ec895249949ef00cb68110c20f6ae35a96840306472edee0e"
     },
     {
       "id": "prod-voice-012-auth-success",
       "name": "横川AI Production 012",
-      "path": "assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+      "path": "assets/audio/production-paced-012.wav",
       "mimeType": "audio/wav",
-      "sha256": "b5ccaa7da5616b068f91594c5777f0c62492529e2ea709f0ba8cc783e7e50ceb"
+      "sha256": "7549ae1c6d82d2d0a0f7f7ed1efc5765f7a533bbf06ef6ed86f83a7f87b9ae26"
     },
     {
       "id": "prod-voice-013-emergency",
       "name": "横川AI Production 013",
-      "path": "assets/audio/yokogawa-professor-v1_013_emergency.wav",
+      "path": "assets/audio/production-paced-013.wav",
       "mimeType": "audio/wav",
-      "sha256": "b9a867d19a34676598214c581d515887a36cd62b1a7b9f2a79f97ee662083868"
+      "sha256": "f70f8094ca9ec5ea473681dfec147b1438f97a7d39bd19deacd5c20d64fbbff3"
     },
     {
       "id": "prod-voice-014-contact-failed",
       "name": "横川AI Production 014",
-      "path": "assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+      "path": "assets/audio/production-paced-014.wav",
       "mimeType": "audio/wav",
-      "sha256": "9c7a3afd0cdec0c63fcc6c48bcc74c51505eec590284c10b6e9189c40fb8b4ce"
+      "sha256": "8faa61c05029eafc843a1c8581476cf3749c6f82f97745a0df1615225dcf9b90"
     },
     {
       "id": "prod-voice-015-forced-runaway",
@@ -169,16 +169,16 @@
     {
       "id": "prod-voice-016-shutdown",
       "name": "横川AI Production 016",
-      "path": "assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+      "path": "assets/audio/production-paced-016.wav",
       "mimeType": "audio/wav",
-      "sha256": "43c7a3a43b337cfc3b165abb23ae3af91f9f7444fdd57c28abb7cab561c7bdd4"
+      "sha256": "ba04348b8ef2085eb41a3442a43ed9a17cbbf78024b53e42a97a2f1f26194424"
     },
     {
       "id": "prod-voice-019-answer-sheet",
       "name": "横川AI Production 019",
-      "path": "assets/audio/production-v2-019.wav",
+      "path": "assets/audio/production-paced-019.wav",
       "mimeType": "audio/wav",
-      "sha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2"
+      "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
     },
     {
       "id": "prod-voice-020-unlock-confirmed",
@@ -208,42 +208,6 @@
       "slot": "hack-noise"
     },
     {
-      "id": "prod-sfx-puzzle",
-      "name": "SFX puzzle",
-      "path": "assets/audio/production-sfx-puzzle.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 650,
-      "sha256": "b3d98c57519c5f33b7f36efdd00fc53d643cd8d66100e5c119da65f17ab0ea5c",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-integrate",
-      "name": "SFX integrate",
-      "path": "assets/audio/production-sfx-integrate.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1800,
-      "sha256": "a4948467425b7043a4bb80b74cdb6c00be2381c16ab141b4c18b5326fd7c0b7f",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-auth",
-      "name": "SFX auth",
-      "path": "assets/audio/production-sfx-auth.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 650,
-      "sha256": "78ab6f17c140f1ffb0509ad5fb89f022e03c90f8306132a84f7d0ee2571ea7ce",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-unlock",
-      "name": "SFX unlock",
-      "path": "assets/audio/production-sfx-unlock.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 900,
-      "sha256": "0b90fbb07351480dac97bd5e7130f183d94621b136805b366a3d48819e716220",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
       "id": "prod-sfx-warning",
       "name": "SFX warning",
       "path": "assets/audio/production-sfx-warning.wav",
@@ -252,42 +216,6 @@
       "sha256": "f9a9d5533d747f71ac688e212477fd56fb59b58779c4329671c88009a4108c29",
       "attribution": "Original procedural audio; project authors; no third-party sample",
       "slot": "warning"
-    },
-    {
-      "id": "prod-sfx-hostile",
-      "name": "SFX hostile",
-      "path": "assets/audio/production-sfx-hostile.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1600,
-      "sha256": "4a33188d4430ee686ac6caf42f6c46b8a257d135ed197b10761b4f02247f171b",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-rumble",
-      "name": "SFX rumble",
-      "path": "assets/audio/production-sfx-rumble.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1400,
-      "sha256": "c1800127960d47cce59ecaab4864d56c483c9e9d4b46712179df93965bb96dcd",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-shutdown",
-      "name": "SFX shutdown",
-      "path": "assets/audio/production-sfx-shutdown.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 850,
-      "sha256": "1a08dbc88e6b234af78047d920fd0edea2e6ed4b7c713e1200c953f65c63497e",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
-    },
-    {
-      "id": "prod-sfx-recovery",
-      "name": "SFX recovery",
-      "path": "assets/audio/production-sfx-recovery.wav",
-      "mimeType": "audio/wav",
-      "durationMs": 1600,
-      "sha256": "569c3f193e2347ac0c59373630ba88fa6435e557dcc499dd07a4095565753b7c",
-      "attribution": "Original procedural audio; project authors; no third-party sample"
     },
     {
       "id": "puzzle-first",

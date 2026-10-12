@@ -27,7 +27,7 @@ test('all Production speech uses typewriter and one grammatical sentence per dis
   const cue = show.cues.find(c => c.id === 'prod-002'); const units = subtitleUnits(cue.speech,cue.displayText);
   assert.equal(cue.speech.segments.length,3); assert.equal(units.length,2);
   assert.equal(units[1].displayText,'例えば、そちらに久安光さんが参加しています');
-  assert.equal(units[1].startMs,1162); assert.equal(units[1].endMs,5686);
+  assert.equal(units[1].startMs,cue.speech.segments[1].startMs); assert.equal(units[1].endMs,cue.speech.segments[2].endMs);
   assert.match(cue.speech.spokenText,/ヒサヤス ヒカル/);
   assert.equal(sentenceTexts('……待機。数字1.2、AIの"ready"です！？次です').length,3);
   assert.equal(subtitleUnits({segments:[{displayText:'長'.repeat(200),startMs:0,endMs:10000}]},'長'.repeat(200)).length,1);

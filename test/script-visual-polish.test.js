@@ -58,8 +58,9 @@ test('Five solved modules integrate before final problem; STOP freezes phase', a
   const { store, advance } = await setup(); store.executeCue('prod-011');
   assert.equal(store.state.currentVisual.mode, 'five-complete');
   assert.equal(store.state.currentVisual.items.length, 5);
-  assert.equal(advance(2000).currentVisual.mode, 'integration');
-  assert.equal(advance(2200).currentVisual.type, 'image');
+  const phases = store.state.currentTransition.phases;
+  assert.equal(advance(phases[0].atMs).currentVisual.mode, 'integration');
+  assert.equal(advance(phases[1].atMs - phases[0].atMs).currentVisual.type, 'image');
   store.executeCue('prod-011'); advance(1000); store.stopPresentation();
   assert.equal(advance(5000).currentVisual.mode, 'five-complete');
 });

@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "name": "prod-013 warning-before-speech",
+      "warningDuration": 1942,
+      "plays": [
+        {
+          "src": "http://127.0.0.1:62593/api/assets/prod-sfx-warning",
+          "at": 958.1000000238419,
+          "duration": null,
+          "endedAt": 3215.7000000476837
+        },
+        {
+          "src": "http://127.0.0.1:62593/api/assets/prod-voice-013-emergency",
+          "at": 3215.600000023842,
+          "duration": null,
+          "warningEndedBeforeCall": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "prod-014 warning-before-speech",
+      "warningDuration": 1942,
+      "plays": [
+        {
+          "src": "http://127.0.0.1:62593/api/assets/prod-sfx-warning",
+          "at": 3922,
+          "duration": null,
+          "endedAt": 5880.200000047684,
+          "warningEndedBeforeCall": true
+        },
+        {
+          "src": "http://127.0.0.1:62593/api/assets/prod-voice-014-contact-failed",
+          "at": 5880.100000023842,
+          "duration": null,
+          "warningEndedBeforeCall": true
+        }
+      ],
+      "status": "PASS"
+    },
+    {
+      "name": "STOP during warning discards delayed voice",
+      "status": "PASS"
+    },
+    {
+      "name": "STOP while client awaits late warning completion",
+      "status": "PASS"
+    },
+    {
+      "name": "unlock text remains in place",
+      "processing": {
+        "top": 648.375,
+        "left": 614.390625,
+        "width": 691.21875
+      },
+      "completed": {
+        "top": 648.375,
+        "left": 614.390625,
+        "width": 691.21875,
+        "animation": "none",
+        "opacity": "1",
+        "title": "解錠完了"
+      },
+      "status": "PASS"
+    },
+    {
+      "name": "per-Cue pause edit / preview / save / reload / Show export",
+      "status": "PASS"
+    }
+  ],
+  "browserErrors": 0
+}

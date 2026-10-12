@@ -80,12 +80,12 @@ body[data-overlay="unlocking"] .unlock-gauges div:nth-child(6) { right: 19vw; to
 body[data-overlay="unlocking"] .unlock-gauges i { width: 13vh; height: 13vh; box-shadow: 0 0 2rem #62d9ff66, inset 0 0 0 10px #050a0e; }
 body[data-overlay="unlocking"] .unlock-gauges i::after { font-size: 3.4vh; }
 body[data-overlay="unlocking"] .unlock-gauges div > span { font-size: 2vh; }
-body[data-operation-variant="collapse"] .operation-overlay-frame { animation: production-collapse .85s ease-in both; }
+/* Keep the status text in place: completed must not shrink away and pop back. */
+body[data-operation-variant="collapse"] .operation-overlay-frame { animation: none; opacity: 1; transform: none; }
 body[data-operation-variant="anomaly"] .operation-overlay-frame { opacity: .64; }
 body[data-operation-variant="anomaly"] .preset-environment { transform: translateX(2vw) skewX(-3deg); filter: hue-rotate(65deg); }
 body[data-operation-variant="anomaly"] .avatar-wrap { filter: drop-shadow(-22px 0 #be72ff99); }
 body[data-operation-variant="anomaly"] #operation-message { letter-spacing: .28em; color: #be72ff; }
-@keyframes production-collapse { to { opacity: 0; transform: scale(.4); } }
 
 /* Both emergency protection and failed contact share the existing P-014 ERROR. */
 body[data-overlay="connection-failed"] h2 { font-size: clamp(38px, 4.8vw, 86px); }

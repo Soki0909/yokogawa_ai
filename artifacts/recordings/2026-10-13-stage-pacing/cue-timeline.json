@@ -1,0 +1,300 @@
+{
+  "width": 1920,
+  "height": 1080,
+  "fps": 30,
+  "gapSeconds": 2,
+  "durationSeconds": 178.506201171875,
+  "frames": 7319,
+  "audioClips": 21,
+  "cueCaption": {
+    "enabled": true,
+    "position": "top-left",
+    "scope": "recording-only"
+  },
+  "assetSlots": [
+    {
+      "id": "startup",
+      "assetId": "prod-sfx-boot",
+      "label": "startup",
+      "path": "assets/audio/production-startup.wav",
+      "fallback": "assets/audio/production-sfx-boot.wav",
+      "mimeType": "audio/wav",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 2120,
+      "sha256": "3263c72148eeb1dd5fa8ee4afe065784729971522d28f1d7aaabe86a80afeb60",
+      "resolvedPath": "assets/audio/production-startup.wav",
+      "resolvedMimeType": "audio/wav"
+    },
+    {
+      "id": "hack-noise",
+      "assetId": "prod-sfx-glitch",
+      "label": "hack-noise",
+      "path": "assets/audio/production-hack-noise.wav",
+      "fallback": "assets/audio/production-sfx-glitch.wav",
+      "mimeType": "audio/wav",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 3187,
+      "sha256": "1ebd3bf3891072047b9891591d95209406ca2718d69aed7dbcdcd2327467df21",
+      "resolvedPath": "assets/audio/production-hack-noise.wav",
+      "resolvedMimeType": "audio/wav"
+    },
+    {
+      "id": "warning",
+      "assetId": "prod-sfx-warning",
+      "label": "warning",
+      "path": "assets/audio/production-warning.wav",
+      "fallback": "assets/audio/production-sfx-warning.wav",
+      "mimeType": "audio/wav",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 1942,
+      "sha256": "94568a1bcbf25ebbb87d232511109ac2d8d08de6d1a75771cf3d91869f00c638",
+      "resolvedPath": "assets/audio/production-warning.wav",
+      "resolvedMimeType": "audio/wav"
+    },
+    {
+      "id": "puzzle-01",
+      "assetId": "puzzle-first",
+      "label": "Puzzle 1",
+      "path": "assets/visual/production-puzzle-01.png",
+      "fallback": "assets/visual/puzzle-image-pending.svg",
+      "mimeType": "image/png",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "sha256": "b620c80d6744e52e41aa1a828e56d0f518d845b9c6d7449af841b5ba1ac63959",
+      "resolvedPath": "assets/visual/production-puzzle-01.png",
+      "resolvedMimeType": "image/png"
+    },
+    {
+      "id": "puzzle-06",
+      "assetId": "puzzle-final",
+      "label": "Puzzle 6",
+      "path": "assets/visual/production-puzzle-06.png",
+      "fallback": "assets/visual/puzzle-image-pending.svg",
+      "mimeType": "image/png",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "sha256": "16629fd15e47506a5a759c28e8ac00dca1ae2e1d2679722efd7afe3484f40cbb",
+      "resolvedPath": "assets/visual/production-puzzle-06.png",
+      "resolvedMimeType": "image/png"
+    },
+    {
+      "id": "puzzle-07",
+      "assetId": "puzzle-emergency",
+      "label": "Puzzle 7",
+      "path": "assets/visual/production-puzzle-07.png",
+      "fallback": "assets/visual/puzzle-image-pending.svg",
+      "mimeType": "image/png",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "sha256": "179853e31c696be80088d199555588fa34ab70ff4acab86247540c4d8b3e9351",
+      "resolvedPath": "assets/visual/production-puzzle-07.png",
+      "resolvedMimeType": "image/png"
+    }
+  ],
+  "cues": [
+    {
+      "cueId": "prod-001",
+      "cueNumber": "P-001",
+      "name": "横川AI起動応答",
+      "recordingCaption": "P-001｜横川AI 起動",
+      "startedSeconds": 0.567201171875,
+      "audioEndedSeconds": 8.152201171875,
+      "completedSeconds": 8.154201171875,
+      "nextSeconds": 10.157201171875
+    },
+    {
+      "cueId": "prod-002",
+      "cueNumber": "P-002",
+      "name": "台本 002",
+      "recordingCaption": "P-002｜参加者の照会",
+      "startedSeconds": 10.157201171875,
+      "audioEndedSeconds": 15.785201171875,
+      "completedSeconds": 15.792201171875,
+      "nextSeconds": 17.800201171875
+    },
+    {
+      "cueId": "prod-003",
+      "cueNumber": "P-003",
+      "name": "台本 003",
+      "recordingCaption": "P-003｜情報照合・セキュリティ説明",
+      "startedSeconds": 17.800201171875,
+      "audioEndedSeconds": 35.868201171875,
+      "completedSeconds": 35.870201171875,
+      "nextSeconds": 37.878201171875
+    },
+    {
+      "cueId": "prod-004",
+      "cueNumber": "P-004",
+      "name": "プリンキピア説明→映像乱れ",
+      "recordingCaption": "P-004｜プリンキピア説明 → HACK",
+      "startedSeconds": 37.878201171875,
+      "audioEndedSeconds": 55.182201171875,
+      "completedSeconds": 58.202201171875,
+      "nextSeconds": 60.204201171875
+    },
+    {
+      "cueId": "prod-005",
+      "cueNumber": "P-005",
+      "name": "制御奪取・台本005",
+      "recordingCaption": "P-005｜外部通信を拒否",
+      "startedSeconds": 60.204201171875,
+      "audioEndedSeconds": 63.001201171875,
+      "completedSeconds": 63.010201171875,
+      "nextSeconds": 65.011201171875
+    },
+    {
+      "cueId": "prod-006",
+      "cueNumber": "P-006",
+      "name": "台本 006",
+      "recordingCaption": "P-006｜命令を拒否",
+      "startedSeconds": 65.011201171875,
+      "audioEndedSeconds": 66.574201171875,
+      "completedSeconds": 66.574201171875,
+      "nextSeconds": 68.575201171875
+    },
+    {
+      "cueId": "prod-007",
+      "cueNumber": "P-007",
+      "name": "台本 007",
+      "recordingCaption": "P-007｜認証を拒否",
+      "startedSeconds": 68.575201171875,
+      "audioEndedSeconds": 70.301201171875,
+      "completedSeconds": 70.305201171875,
+      "nextSeconds": 72.305201171875
+    },
+    {
+      "cueId": "prod-008",
+      "cueNumber": "P-008",
+      "name": "台本 008",
+      "recordingCaption": "P-008｜五つの謎・脱出条件",
+      "startedSeconds": 72.305201171875,
+      "audioEndedSeconds": 77.608201171875,
+      "completedSeconds": 77.612201171875,
+      "nextSeconds": 79.612201171875
+    },
+    {
+      "cueId": "prod-019",
+      "cueNumber": "P-019",
+      "name": "記入用紙の案内",
+      "recordingCaption": "P-019｜記入用紙の案内",
+      "startedSeconds": 79.612201171875,
+      "audioEndedSeconds": 86.139201171875,
+      "completedSeconds": 86.146201171875,
+      "nextSeconds": 88.146201171875
+    },
+    {
+      "cueId": "prod-v-riddle-enter",
+      "cueNumber": "P-V02",
+      "name": "五つの謎・第1問開始＋台本009",
+      "recordingCaption": "P-V02｜第一の謎を提示",
+      "startedSeconds": 88.146201171875,
+      "audioEndedSeconds": 90.651201171875,
+      "completedSeconds": 92.823201171875,
+      "nextSeconds": 94.828201171875
+    },
+    {
+      "cueId": "prod-011",
+      "cueNumber": "P-011",
+      "name": "五つ達成・統合・最終問題",
+      "recordingCaption": "P-011｜五つ達成 → 統合 → 最終問題",
+      "startedSeconds": 94.828201171875,
+      "audioEndedSeconds": 104.466201171875,
+      "completedSeconds": 104.481201171875,
+      "nextSeconds": 106.484201171875
+    },
+    {
+      "cueId": "prod-012",
+      "cueNumber": "P-012",
+      "name": "認証成功→解錠進行→異常",
+      "recordingCaption": "P-012｜認証成功 → 解錠 → 異常",
+      "startedSeconds": 106.484201171875,
+      "audioEndedSeconds": 111.070201171875,
+      "completedSeconds": 118.508201171875,
+      "nextSeconds": 120.518201171875
+    },
+    {
+      "cueId": "prod-013",
+      "cueNumber": "P-013",
+      "name": "緊急遮断",
+      "recordingCaption": "P-013｜緊急遮断・連絡失敗",
+      "startedSeconds": 120.518201171875,
+      "audioEndedSeconds": 132.683201171875,
+      "completedSeconds": 132.690201171875,
+      "nextSeconds": 134.699201171875
+    },
+    {
+      "cueId": "prod-014",
+      "cueNumber": "P-014",
+      "name": "連絡失敗",
+      "recordingCaption": "P-014｜スタッフへの連絡失敗",
+      "startedSeconds": 134.699201171875,
+      "audioEndedSeconds": 140.769201171875,
+      "completedSeconds": 140.770201171875,
+      "nextSeconds": 142.772201171875
+    },
+    {
+      "cueId": "prod-v-hostile-enter",
+      "cueNumber": "P-V04",
+      "name": "危険状態・警報開始",
+      "recordingCaption": "P-V04｜危険状態・警報",
+      "startedSeconds": 142.772201171875,
+      "audioEndedSeconds": 142.772201171875,
+      "completedSeconds": 144.165201171875,
+      "nextSeconds": 146.170201171875
+    },
+    {
+      "cueId": "prod-015",
+      "cueNumber": "P-015",
+      "name": "強制暴走",
+      "recordingCaption": "P-015｜機械設備の強制暴走",
+      "startedSeconds": 146.170201171875,
+      "audioEndedSeconds": 150.666201171875,
+      "completedSeconds": 150.667201171875,
+      "nextSeconds": 152.667201171875
+    },
+    {
+      "cueId": "prod-v-emergency-riddle",
+      "cueNumber": "P-V05",
+      "name": "非常停止問題",
+      "recordingCaption": "P-V05｜非常停止問題を提示",
+      "startedSeconds": 152.667201171875,
+      "audioEndedSeconds": 152.667201171875,
+      "completedSeconds": 154.268201171875,
+      "nextSeconds": 156.269201171875
+    },
+    {
+      "cueId": "prod-v-stop-code",
+      "cueNumber": "P-V06",
+      "name": "停止コード・システム全停止＋台本016",
+      "recordingCaption": "P-V06｜停止コード → 全停止・解放",
+      "startedSeconds": 156.269201171875,
+      "audioEndedSeconds": 163.267201171875,
+      "completedSeconds": 163.268201171875,
+      "nextSeconds": 165.269201171875
+    },
+    {
+      "cueId": "prod-v-recovery",
+      "cueNumber": "P-V07",
+      "name": "復旧開始",
+      "recordingCaption": "P-V07｜復旧 → NORMAL",
+      "startedSeconds": 165.269201171875,
+      "audioEndedSeconds": 165.269201171875,
+      "completedSeconds": 171.333201171875,
+      "nextSeconds": 173.334201171875
+    },
+    {
+      "cueId": "prod-020",
+      "cueNumber": "P-020",
+      "name": "館内すべての扉・解錠確認",
+      "recordingCaption": "P-020｜全館の扉・解錠確認",
+      "startedSeconds": 173.334201171875,
+      "audioEndedSeconds": 176.500201171875,
+      "completedSeconds": 176.506201171875,
+      "nextSeconds": 178.506201171875
+    }
+  ],
+  "excludedCues": []
+}

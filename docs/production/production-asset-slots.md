@@ -15,4 +15,4 @@
 
 Preflightに各slotのREADY／MISSING／INVALIDとパスが表示されます。未配置・形式不正はWARNINGとして明示し、同梱の代替音・代替画像でspeech／Cue進行を維持します。`GET /api/production-slots`でも検証と再読込ができます。素材を差し替える操作は演出中を避け、STANDBYで実施しAudio Ready・画像を再確認してください。
 
-P-013は警告音終了後にspeech。P-014はspeech末尾の3.529秒で同じ警告slot。電子ロック音・扉音・長いHOSTILE警報はPAが担当し、横川AIから自動送出しません。元の同期markerは残します。謎本文・ヒント・停止コードは素材担当から受領してください。
+P-013／P-014はいずれも警告音終了後にspeech。同じwarning slotを使い、実際のendedもDisplayで確認します。指定外の音はProduction Cueから除外しています。謎本文・ヒント・停止コードは素材担当から受領してください。

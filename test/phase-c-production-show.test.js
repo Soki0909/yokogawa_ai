@@ -6,15 +6,15 @@ import { StateStore } from '../src/state-store.js';
 
 const load = async (name) => JSON.parse(await readFile(`shows/${name}`, 'utf8'));
 
-test('Production Showは最新17 speech・11 SFX・3 puzzle slotsを登録する', async () => {
+test('Production Showは最新17 speech・3 SFX・3 puzzle slotsを登録する', async () => {
   const [main, route, manifest] = await Promise.all([
     load('production.json'), load('production-yokogawa-route.json'),
     readFile('config/production-speech/yokogawa-ai-v2.json', 'utf8').then(JSON.parse),
   ]);
   assert.equal(validateShowFile(main).valid, true);
   assert.equal(validateShowFile(route).valid, true);
-  assert.equal(main.assets.length, 31);
-  assert.equal(route.assets.length, 31);
+  assert.equal(main.assets.length, 23);
+  assert.equal(route.assets.length, 23);
   const speech = [...main.cues, ...route.cues].filter((cue) => cue.kind.startsWith('speech'));
   assert.equal(speech.length, 17);
   assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 17);

@@ -32,3 +32,11 @@ test-results/
 /artifacts/subtitle-script-assets/visual-pass/
 /artifacts/subtitle-script-assets/visual-accepted/
 /artifacts/subtitle-script-assets/browser/
+
+# Superseded captures from October 13; final review and verification stay tracked.
+/artifacts/puzzle-layout-2026-10-13/
+/artifacts/recordings/2026-10-13-assets-cue-caption/
+/artifacts/stage-pacing-2026-10-13/e2e/
+/artifacts/stage-pacing-2026-10-13/e2e-final/
+/artifacts/stage-pacing-2026-10-13/targeted/
+/artifacts/stage-pacing-2026-10-13/targeted-final/

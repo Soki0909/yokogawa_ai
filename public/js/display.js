@@ -43,6 +43,7 @@ const captionWriter = new TypewriterCaption((text, fullText) => {
   document.body.dataset.captionEmpty = String(!text);
 });
 const sfx = new CueSfxPlayer();
+let playbackGeneration = 0;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
 const blink = new BlinkController(elements['avatar-wrap']);
 const systemStates = new Set(['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']);
@@ -286,12 +287,19 @@ function handleEvent(event) {
       return;
     }
     socket.send({ type: 'playback', id: event.message.id, status: 'received' });
-    try {
-      const provider = event.message.audio?.speechMode === 'audio-file' ? localAudio
-        : event.message.audio?.speechMode === 'local-tts' ? localTts : speech;
-      provider.speak(event.message, settings);
-    }
-    catch (error) { socket.send({ type: 'playback', id: event.message.id, status: 'error', error: error.message }); }
+    const generation = playbackGeneration;
+    void (async () => {
+      try {
+        if (['prod-013', 'prod-014'].includes(event.message.cueId)) {
+          const completed = await sfx.whenIdle('prod-sfx-warning');
+          if (generation !== playbackGeneration || !isAudioMaster || !audioUnlocked || recoveryPending) return;
+          if (!completed) throw new Error('警告音が完了していません。REPLAYしてください。');
+        }
+        const provider = event.message.audio?.speechMode === 'audio-file' ? localAudio
+          : event.message.audio?.speechMode === 'local-tts' ? localTts : speech;
+        provider.speak(event.message, settings);
+      } catch (error) { if (generation === playbackGeneration) socket.send({ type: 'playback', id: event.message.id, status: 'error', error: error.message }); }
+    })();
   } else if (event.type === 'presentation') {
     applyPresentation(event.presentation, event.preset);
   } else if (event.type === 'subtitle') {
@@ -299,8 +307,10 @@ function handleEvent(event) {
   } else if (event.type === 'sfx') {
     if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume).catch(error => socket.send({ type: 'playback', id: 'sfx', status: 'error', error: error.message }));
   } else if (event.type === 'sfx:stop') {
+    playbackGeneration++;
     sfx.stop(); captionWriter.stop(); showCaption('');
   } else if (event.type === 'stop') {
+    playbackGeneration++;
     sfx.stop(); captionWriter.stop(); showCaption('');
     speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); document.body.dataset.transitionStatus = 'stopped';
   } else if (event.type === 'settings') {
@@ -308,6 +318,7 @@ function handleEvent(event) {
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
+    playbackGeneration++;
     sfx.stop(); captionWriter.stop();
     speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); showCaption(''); elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
   } else if (event.type === 'identify') {
@@ -333,6 +344,7 @@ function detectResume() {
   return resumed;
 }
 function stopLocalTransport() {
+  playbackGeneration++;
   sfx.stop(); speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop();
   captionWriter.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer);
   showCaption(''); document.body.dataset.transitionStatus = 'completed';

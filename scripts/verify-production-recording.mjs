@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { recordingCueCaption } from './recording-cue-caption.js';
 const directory = path.resolve(process.argv[2] ?? 'artifacts/recordings/production-refresh-v2');
 const timeline = JSON.parse(await fs.readFile(path.join(directory, 'cue-timeline.json'), 'utf8'));
 const show = JSON.parse(await fs.readFile('shows/production.json', 'utf8'));
@@ -9,6 +10,8 @@ const probe = JSON.parse(execFileSync(process.env.FFPROBE_PATH ?? 'ffprobe', ['-
 const video = probe.streams.find(s => s.codec_type === 'video'); const audio = probe.streams.find(s => s.codec_type === 'audio');
 assert.equal(video.width, 1920); assert.equal(video.height, 1080); assert.equal(video.r_frame_rate, '30/1'); assert.equal(video.codec_name, 'h264'); assert.equal(audio.codec_name, 'aac');
 assert.equal(timeline.cues.length, show.cues.filter(c => c.enabled !== false && c.route === 'main').length);
+assert.equal(timeline.cueCaption?.enabled, true);
+assert.ok(timeline.cues.every(c => c.recordingCaption === recordingCueCaption(c)));
 assert.ok(timeline.cues.every(c => c.nextSeconds - c.completedSeconds >= 1.99 && c.nextSeconds - c.completedSeconds < 2.25));
 const activeCues = show.cues.filter(c => c.enabled !== false && c.route === 'main');
 const speechClips = activeCues.filter(c => c.audio.speechMode === 'audio-file').length;

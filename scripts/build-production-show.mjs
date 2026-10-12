@@ -213,7 +213,7 @@ const mainCues = [
 ];
 
 const sound = (name, atMs = 0, volume = .6) => ({ assetId: `prod-sfx-${name}`, atMs, volume, durationMs: manifest.sfx.find(s => s.id === `prod-sfx-${name}`).durationMs });
-const sounds = { 'prod-v-incident': ['glitch'], 'prod-v-riddle-enter': ['puzzle'], 'prod-011': ['integrate', 1800], 'prod-012': ['auth', Math.ceil(byId.get('012').durationSeconds * 1000)], 'prod-v-unlock': ['unlock'], 'prod-013': ['warning'], 'prod-014': ['warning', Math.ceil(byId.get('014').durationSeconds * 1000)], 'prod-v-hostile-enter': ['hostile'], 'prod-015': ['rumble', Math.ceil(byId.get('015').durationSeconds * 1000)], 'prod-v-stop-code': ['shutdown'], 'prod-v-recovery': ['recovery'] };
+const sounds = { 'prod-v-incident': ['glitch'], 'prod-013': ['warning'], 'prod-014': ['warning'] };
 for (const cue of mainCues) if (sounds[cue.id]) cue.sfx = [sound(...sounds[cue.id])];
 const first = mainCues.find(c => c.id === 'prod-v-riddle-enter');
 first.operatorNote = '台本更新: 「第一の謎は、こちらです」＋画面切替を1 Cue。問題画像未提供。原版009はアーカイブとして保持。';
@@ -241,11 +241,11 @@ Object.assign(lecture, { name: 'プリンキピア説明→映像乱れ', transi
   sfx: incident.sfx.map(s => ({ ...s, atMs: incidentAt + s.atMs })), syncMarkers: incident.syncMarkers,
   triggerNote: '横川「プリンキピアについて説明してくれ」後にGO', operatorNote: '説明WAV完了＋200ms後に映像乱れ。照明・施錠SEの連携markerも同じ境界。調査芝居を挟む次のP-005は手動。' });
 const auth = mainCues.find(c => c.id === 'prod-012'); const unlockCue = mainCues.find(c => c.id === 'prod-v-unlock');
-const unlockAt = Math.max(...auth.sfx.map(s => s.atMs + s.durationMs)) + 200;
+const unlockAt = Math.ceil(byId.get('012').durationSeconds * 1000) + 200;
 Object.assign(auth, { name: '認証成功→解錠進行→異常', transition: { id: 'timeline', durationMs: unlockAt + 7400 },
   sequence: [{ atMs: 0, transition: { id: 'auth-success', durationMs: 1000 } }, { atMs: unlockAt, transition: unlockCue.transition, overlay: unlockCue.overlay, presentationPreset: 'warning', unlock: { durationMs: 5000 }, clearSubtitle: true }, ...unlockCue.sequence.map(p => ({ ...p, atMs: p.atMs + unlockAt }))],
-  sfx: [...auth.sfx, ...unlockCue.sfx.map(s => ({ ...s, atMs: s.atMs + unlockAt }))],
-  triggerNote: '扇「最後の答えはブレイクヨコガワだ！」後にGO', operatorNote: '認証WAV→電子音→200ms→6系統解錠→100%→異常を1 GO。虎谷の告白・外部への指示を待ってP-013を手動。' });
+  sfx: [],
+  triggerNote: '扇「最後の答えはブレイクヨコガワだ！」後にGO', operatorNote: '認証WAV→200ms→6系統解錠→100%→異常を1 GO。追加電子音なし。虎谷の告白・外部への指示を待ってP-013を手動。' });
 mainCues.splice(mainCues.indexOf(incident), 1); mainCues.splice(mainCues.indexOf(unlockCue), 1);
 // PA owns electronic locks, doors and the long HOSTILE alarm. Keep their markers.
 for (const cue of mainCues) cue.sfx = (cue.sfx ?? []).filter(s => !['prod-sfx-auth', 'prod-sfx-unlock', 'prod-sfx-hostile', 'prod-sfx-rumble'].includes(s.assetId));
@@ -254,7 +254,18 @@ Object.assign(mainCues.find(c => c.id === 'prod-013'), {
   triggerNote: '虎谷「今すぐプリンキピアを持ち出すよう指示を出せ！」の後にGO。内部警告slot終了後に発話を自動開始',
   operatorNote: '1 GOでERROR表示→共有warning slot→WAV013。警告音長を検証してCue内delayへ反映。WAV末尾句点は表示のみ最新版へ同期。',
 });
-mainCues.find(c => c.id === 'prod-014').triggerNote = '虎谷「今すぐこの2人を拘束しろ！」の後にGO。台詞末尾＋共有warning slot';
+Object.assign(mainCues.find(c => c.id === 'prod-014'), {
+  timing: { speechDelayMs: 900 },
+  triggerNote: '虎谷「今すぐこの2人を拘束しろ！」の後にGO。共有warning slot→セリフ',
+  operatorNote: '1 GOでERROR表示→警告音→WAV014。警告音の実際の長さをspeech delayへ反映。',
+  syncMarkers: [{ department: 'SE', id: 'ALIGN-SE-WARNING-BEFORE-014', note: 'WAV014の前に警告音。' }],
+});
+// Sentence pacing and the integration reveal share one timeline.
+final.sequence[0].atMs = byId.get('011').segments[1].startMs;
+final.sequence[1].atMs = byId.get('011').segments[2].startMs;
+final.transition.durationMs = Math.max(Math.ceil(byId.get('011').durationSeconds * 1000), final.sequence[1].atMs + 600);
+mainCues.find(c => c.id === 'prod-015').operatorNote = 'HOSTILE先行Cueの後に暴走宣言。追加の轟音は再生しない。';
+for (const cue of mainCues) cue.syncMarkers = (cue.syncMarkers ?? []).filter(marker => marker.department !== 'SE' || /WARNING/.test(marker.id));
 mainCues.push(speechCue('020', 240, { name: '館内すべての扉・解錠確認', triggerNote: '夢野・押野・三馬の責任に関する会話後、虎谷が二人を見つめ、わずかに苦笑して静かに俯く→正常なAI表示でGO', operatorNote: 'P-V07復旧の後の多数の人間台詞を待つ独立Cue。NORMALを維持し解錠確認のWAV020を再生。新たな復旧演出・SFXなし。', visual: { id: 'none' }, overlay: { id: 'none' } }));
 const showHash = createHash('sha256').update(JSON.stringify(mainCues)).digest('hex');
 

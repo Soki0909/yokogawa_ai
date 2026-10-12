@@ -1,0 +1,25 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>横川AI Display録画</title>
+<style>body{margin:24px;background:#111;color:#eee;font-family:system-ui}video{width:100%;max-height:78vh;background:#000}nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}button{padding:10px;background:#243747;color:white;border:1px solid #567;border-radius:5px;cursor:pointer}a{color:#8df}</style>
+<h1>横川AI Production — 1920×1080</h1><video controls src="production-display-1920x1080.mp4"></video>
+<p>有効な全20 Cue。音声・演出の完了後2秒待機。ボタンでCueの先頭へ移動できます。 <a href="cue-timeline.json">時刻一覧</a></p>
+<nav><button data-time="0.567201171875">P-001｜横川AI 起動</button>
+<button data-time="10.157201171875">P-002｜参加者の照会</button>
+<button data-time="17.800201171875">P-003｜情報照合・セキュリティ説明</button>
+<button data-time="37.878201171875">P-004｜プリンキピア説明 → HACK</button>
+<button data-time="60.204201171875">P-005｜外部通信を拒否</button>
+<button data-time="65.011201171875">P-006｜命令を拒否</button>
+<button data-time="68.575201171875">P-007｜認証を拒否</button>
+<button data-time="72.305201171875">P-008｜五つの謎・脱出条件</button>
+<button data-time="79.612201171875">P-019｜記入用紙の案内</button>
+<button data-time="88.146201171875">P-V02｜第一の謎を提示</button>
+<button data-time="94.828201171875">P-011｜五つ達成 → 統合 → 最終問題</button>
+<button data-time="106.484201171875">P-012｜認証成功 → 解錠 → 異常</button>
+<button data-time="120.518201171875">P-013｜緊急遮断・連絡失敗</button>
+<button data-time="134.699201171875">P-014｜スタッフへの連絡失敗</button>
+<button data-time="142.772201171875">P-V04｜危険状態・警報</button>
+<button data-time="146.170201171875">P-015｜機械設備の強制暴走</button>
+<button data-time="152.667201171875">P-V05｜非常停止問題を提示</button>
+<button data-time="156.269201171875">P-V06｜停止コード → 全停止・解放</button>
+<button data-time="165.269201171875">P-V07｜復旧 → NORMAL</button>
+<button data-time="173.334201171875">P-020｜全館の扉・解錠確認</button></nav>
+<script>const video=document.querySelector('video');document.querySelector('nav').addEventListener('click',event=>{const button=event.target.closest('button');if(button){video.currentTime=Number(button.dataset.time);video.play();}});</script></html>

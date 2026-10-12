@@ -204,7 +204,7 @@ try {
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('production-check')`, 'Display registration');
 
   await admin.evaluate(`(() => { const select = document.querySelector('#audio-master-select'); select.value = 'production-check'; select.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
-  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('28 / 28 READY')`, '18/18 preload');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('20 / 20 READY')`, 'Production preload');
   await display.click('#enable-audio');
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'Audio Master READY');
   await admin.evaluate(`(() => { const input = document.querySelector('.display-item[data-display-id="production-check"] [data-action="required"]'); input.checked = true; input.dispatchEvent(new Event('change', { bubbles: true })); return true; })()`);
@@ -248,7 +248,7 @@ try {
   await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Scene 2 Display reload');
   await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent === '' && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 2 reload final state only');
   if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Scene 2 Display reload replayed historical audio');
-  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('28 / 28 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'Scene 2 reload preload gate');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('20 / 20 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'Scene 2 reload preload gate');
   await display.click('#enable-audio');
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY after Scene 2 reload');
 
@@ -383,7 +383,7 @@ try {
     await display.send('Page.reload', {});
     await display.waitFor(`document.querySelector('#connection').textContent === 'ONLINE' && document.body.dataset.preset === 'normal' && document.querySelector('#operation-overlay').hidden`, 'recovery reload NORMAL');
     if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Reload duplicated audio');
-    await display.waitFor(`document.querySelector('#audio-help').textContent.includes('28 / 28 READY')`, 'visual reload preload');
+    await display.waitFor(`document.querySelector('#audio-help').textContent.includes('20 / 20 READY')`, 'visual reload preload');
     await display.click('#enable-audio'); await delay(650);
   }
   await writeFile(path.join(artifactDirectory, 'visual-frame-states.json'), JSON.stringify(visualFrameStates, null, 2));
@@ -429,7 +429,7 @@ try {
 
   await display.send('Page.reload', { ignoreCache: false });
   await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reload');
-  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('28 / 28 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'reload preload gate');
+  await display.waitFor(`document.querySelector('#audio-help')?.textContent.includes('20 / 20 READY') && document.querySelector('#audio-gate')?.hidden === false`, 'reload preload gate');
   await display.click('#enable-audio');
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY after reload');
 
@@ -460,7 +460,7 @@ try {
   await toolsPage.setViewport(1280, 900);
   await toolsPage.waitFor(`document.querySelectorAll('.segment').length > 0`, 'Composer initial draft');
   await toolsPage.click('#compose');
-  await toolsPage.waitFor(`document.querySelector('#export').disabled === false`, 'Composer reused WAV preview');
+  await toolsPage.waitFor(`document.querySelector('#export').disabled === false && !document.querySelector('main').inert`, 'Composer reused WAV preview');
   await toolsPage.click('#export');
   await toolsPage.waitFor(`document.querySelector('#status').textContent.includes('SHA256')`, 'explicit final PCM export');
   await toolsPage.screenshot(path.join(artifactDirectory, 'speech-composer.png'));
@@ -487,7 +487,7 @@ try {
   if (assetRequests.length < 16) throw new Error(`Expected at least 16 production voice asset requests, got ${assetRequests.length}`);
 
   console.log(JSON.stringify({
-    status: 'PASS', viewport: [1920, 1080], preload: '28/28', cues: representative,
+    status: 'PASS', viewport: [1920, 1080], preload: '20/20', cues: representative,
     sceneRehearsal: ['scene-2:empty-reload', 'scene-6:P-011', 'scene-7:shutdown-reconnect'], screenshots: visualFrames + 4,
     visualViewports: [[1920,1080],[1280,720]], mergedCancellation: ['STOP','REPLAY','Rehearsal','Reset'],
     controls: ['NEXT', 'BACK', 'STOP', 'REPLAY', 'BLACKOUT', 'RESTORE'], reconnectReady: true, reloadReady: true,

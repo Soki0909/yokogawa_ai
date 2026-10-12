@@ -6,6 +6,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { WebSocket } from 'ws';
 import { renderRecordingReview } from './recording-review.js';
+import { recordingCueCaption, recordingCueCaptionScript } from './recording-cue-caption.js';
 
 // Isolated review recording: never opens or overwrites the operator's persisted Show.
 const outputDirectory = path.resolve(process.argv[2] ?? `artifacts/recordings/${new Date().toISOString().replaceAll(':', '-')}`);
@@ -163,8 +164,9 @@ const framesDirectory = path.join(temporary, 'frames');
 await mkdir(framesDirectory);
 const serverPort = await freePort(); const debugPort = await freePort();
 const baseUrl = `http://127.0.0.1:${serverPort}`;
-const production = JSON.parse(await readFile('shows/production.json', 'utf8'));
-const cues = production.cues.filter(cue => cue.enabled !== false && cue.route === 'main').sort((a, b) => a.order - b.order);
+let production = JSON.parse(await readFile('shows/production.json', 'utf8'));
+let cues;
+let assetSlots;
 let server; let browser; let display; let admin; let state; let failure;
 const frames = []; const audioClips = []; const timeline = [];
 let writes = Promise.resolve(); let recording = false; let videoStart;
@@ -218,6 +220,10 @@ try {
   await waitForHttp(`${baseUrl}/health`);
   const response = await fetch(`${baseUrl}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(production) });
   if (!response.ok) throw new Error(`Show import: ${response.status}`);
+  // Record installed slots and their real durations, rather than fallback timings.
+  assetSlots = (await (await fetch(`${baseUrl}/api/production-slots`)).json()).slots;
+  production = await (await fetch(`${baseUrl}/api/show-file`)).json();
+  cues = production.cues.filter(cue => cue.enabled !== false && cue.route === 'main').sort((a, b) => a.order - b.order);
   browser = spawn(browserPath, ['--headless=new', '--no-proxy-server', '--no-first-run', '--no-default-browser-check',
     '--autoplay-policy=no-user-gesture-required', '--disable-background-timer-throttling', '--disable-renderer-backgrounding',
     `--remote-debugging-port=${debugPort}`, `--user-data-dir=${path.join(temporary, 'browser')}`, 'about:blank'], { stdio: 'ignore', windowsHide: true });
@@ -254,6 +260,7 @@ try {
   await display.send('Page.bringToFront');
   // Suppress only review chrome, preserving all actual Production effects/captions.
   await display.evaluate(`document.querySelector('#open-setup').style.visibility = 'hidden'`);
+  await display.evaluate(recordingCueCaptionScript({ cueNumber: '確認用録画', name: '横川AI Production' }));
   recording = true; videoStart = Date.now();
   await display.send('Page.startScreencast', { format: 'jpeg', quality: 85, maxWidth: 1920, maxHeight: 1080, everyNthFrame: 1 });
   await waitState(() => frames.length > 0, 'first recorded frame');
@@ -262,6 +269,7 @@ try {
   for (const cue of cues) {
     const started = Date.now();
     console.log(`Recording ${cue.cueNumber}: ${cue.name}`);
+    await display.evaluate(recordingCueCaptionScript(cue));
     send({ type: 'cue:execute', cueId: cue.id });
     await waitState(s => s?.currentCue?.cueId === cue.id, `${cue.id} accepted`);
     const message = cue.audio?.speechMode === 'audio-file'
@@ -275,7 +283,7 @@ try {
     await delay(Math.max(0, minimumVisualEnd - Date.now()));
     const completed = Date.now();
     await delay(2000);
-    timeline.push({ cueId: cue.id, cueNumber: cue.cueNumber, name: cue.name, startedSeconds: (started-videoStart)/1000,
+    timeline.push({ cueId: cue.id, cueNumber: cue.cueNumber, name: cue.name, recordingCaption: recordingCueCaption(cue), startedSeconds: (started-videoStart)/1000,
       audioEndedSeconds: (audioEnded-videoStart)/1000, completedSeconds: (completed-videoStart)/1000, nextSeconds: (Date.now()-videoStart)/1000 });
   }
   const videoEnd = Date.now(); recording = false;
@@ -298,7 +306,8 @@ try {
     '-c:v','libx264','-preset','fast','-crf','19','-pix_fmt','yuv420p','-c:a','aac','-b:a','192k','-movflags','+faststart',
     path.join(outputDirectory,'production-display-1920x1080.mp4')]);
   await writeFile(path.join(outputDirectory,'cue-timeline.json'), JSON.stringify({ width:1920,height:1080, fps:30, gapSeconds:2,
-    durationSeconds:duration, frames:frames.length, audioClips:audioClips.length, cues:timeline, excludedCues:production.cues.filter(c=>c.enabled===false).map(c=>c.id) }, null, 2));
+    durationSeconds:duration, frames:frames.length, audioClips:audioClips.length, cueCaption: { enabled: true, position: 'top-left', scope: 'recording-only' }, assetSlots,
+    cues:timeline, excludedCues:production.cues.filter(c=>c.enabled===false).map(c=>c.id) }, null, 2));
   await writeFile(path.join(outputDirectory,'review.html'), renderRecordingReview({ cues: timeline }));
   console.log(`PASS: ${path.join(outputDirectory,'production-display-1920x1080.mp4')}`);
 } finally {

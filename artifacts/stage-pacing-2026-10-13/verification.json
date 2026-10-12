@@ -1,0 +1,167 @@
+{
+  "status": "PASS",
+  "tests": {
+    "total": 171,
+    "passed": 171,
+    "failed": 0
+  },
+  "e2e": {
+    "status": "PASS",
+    "viewport": [
+      1920,
+      1080
+    ],
+    "preload": "20/20",
+    "cues": [
+      "prod-001",
+      "prod-004",
+      "prod-008",
+      "prod-013",
+      "prod-015",
+      "prod-v-stop-code",
+      "prod-020"
+    ],
+    "sceneRehearsal": [
+      "scene-2:empty-reload",
+      "scene-6:P-011",
+      "scene-7:shutdown-reconnect"
+    ],
+    "screenshots": 46,
+    "visualViewports": [
+      [
+        1920,
+        1080
+      ],
+      [
+        1280,
+        720
+      ]
+    ],
+    "mergedCancellation": [
+      "STOP",
+      "REPLAY",
+      "Rehearsal",
+      "Reset"
+    ],
+    "controls": [
+      "NEXT",
+      "BACK",
+      "STOP",
+      "REPLAY",
+      "BLACKOUT",
+      "RESTORE"
+    ],
+    "reconnectReady": true,
+    "reloadReady": true,
+    "productionAssetRequests": 108,
+    "externalBrowserRequests": 0,
+    "browserErrors": 0
+  },
+  "targeted": {
+    "status": "PASS",
+    "results": [
+      {
+        "name": "prod-013 warning-before-speech",
+        "warningDuration": 1942,
+        "plays": [
+          {
+            "src": "http://127.0.0.1:60510/api/assets/prod-sfx-warning",
+            "at": 1060.1999999284744,
+            "duration": null,
+            "endedAt": 3270
+          },
+          {
+            "src": "http://127.0.0.1:60510/api/assets/prod-voice-013-emergency",
+            "at": 3269.7999999523163,
+            "duration": null,
+            "warningEndedBeforeCall": true
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "prod-014 warning-before-speech",
+        "warningDuration": 1942,
+        "plays": [
+          {
+            "src": "http://127.0.0.1:60510/api/assets/prod-sfx-warning",
+            "at": 3970.899999976158,
+            "duration": null,
+            "endedAt": 5925.299999952316,
+            "warningEndedBeforeCall": true
+          },
+          {
+            "src": "http://127.0.0.1:60510/api/assets/prod-voice-014-contact-failed",
+            "at": 5925.199999928474,
+            "duration": null,
+            "warningEndedBeforeCall": true
+          }
+        ],
+        "status": "PASS"
+      },
+      {
+        "name": "STOP during warning discards delayed voice",
+        "status": "PASS"
+      },
+      {
+        "name": "STOP while client awaits late warning completion",
+        "status": "PASS"
+      },
+      {
+        "name": "unlock text remains in place",
+        "processing": {
+          "top": 648.375,
+          "left": 614.390625,
+          "width": 691.21875
+        },
+        "completed": {
+          "top": 648.375,
+          "left": 614.390625,
+          "width": 691.21875,
+          "animation": "none",
+          "opacity": "1",
+          "title": "解錠完了"
+        },
+        "status": "PASS"
+      },
+      {
+        "name": "per-Cue pause edit / preview / save / reload / Show export",
+        "status": "PASS"
+      }
+    ],
+    "browserErrors": 0
+  },
+  "recording": {
+    "status": "PASS",
+    "video": [
+      1920,
+      1080,
+      "30/1"
+    ],
+    "durationSeconds": 178.533333,
+    "cues": 20,
+    "speechClips": 17,
+    "sfxClips": 4,
+    "minimumGap": 2,
+    "fullDecode": true
+  },
+  "integrity": {
+    "status": "PASS",
+    "archiveWavsUnchanged": 18,
+    "priorActiveSourceWavsUnchanged": 16,
+    "pacedWavs": 10,
+    "voicedPcmUnchangedExcept": [
+      "013"
+    ],
+    "resynthesizedWithApprovedProfile": [
+      "013"
+    ],
+    "activeShowWavs": 17,
+    "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+    "profileFileSha256": "b1c3fccee24ea52c0d2713fdaa51ec66b6e32edf96ffecb44a1b0dce7d740e34",
+    "cueCount": 20,
+    "sourceParagraphs": 1104,
+    "modifiedTime": "2026-10-12T11:36:41.372Z"
+  },
+  "implementationFingerprint": "6af39713e5597889f782b785bfe6d4c90f95c3d54b24ef93b6bfbfedabeb090e"
+}

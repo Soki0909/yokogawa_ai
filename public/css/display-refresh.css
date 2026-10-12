@@ -9,17 +9,19 @@
 .stage .caption-shell .caption { width: 100%; margin: 0; max-width: 100%; font-size: clamp(28px, 2.8vw, 54px); line-height: 1.5; max-height: 100%; }
 .stage .caption-shell .caption[data-length="long"], .stage .caption-shell .caption[data-length="extra-long"] { font-size: clamp(25px, 2.3vw, 44px); }
 .caption-rule { margin-bottom: 12px; }
-.scene-visual[data-type="image"] { position: absolute; inset: 5% 8% 24%; width: auto; height: auto; max-width: none; display: grid; grid-template-rows: auto auto minmax(0, 1fr); padding: 22px; background: #04101ef2; border: 2px solid var(--phase-accent); z-index: 8; box-sizing: border-box; }
+.scene-visual[data-type="image"] { position: absolute; inset: 2% 2% 23%; width: auto; height: auto; max-width: none; display: flex; flex-direction: column; padding: clamp(8px, .75vw, 14px); background: #04101ef2; border: 2px solid var(--phase-accent); z-index: 8; box-sizing: border-box; }
 .scene-visual[data-type="image"][hidden] { display: none; }
 .scene-visual[data-type="image"] #scene-visual-label, .scene-visual[data-type="image"] #scene-visual-items { display: none; }
-.scene-visual[data-type="image"] h2 { font-size: clamp(26px, 2.7vw, 52px); margin: 0; }
+.scene-visual[data-type="image"] h2 { display: none; }
 .scene-visual[data-type="image"] p { font-size: clamp(16px, 1.6vw, 30px); margin: 8px 0; }
-.scene-visual[data-type="image"] img { display: block; position: static; width: 100%; height: 100%; min-height: 0; max-height: 100%; object-fit: contain; background: #030811; }
+.scene-visual[data-type="image"] p:empty { display: none; }
+.scene-visual[data-type="image"] img { display: block; position: static; flex: 1; width: 100%; height: 0; min-height: 0; max-width: none; max-height: 100%; margin: 0; object-fit: contain; object-position: center; background: #030811; }
 body[data-transition="boot"][data-transition-status="active"] .preset-environment { animation: refresh-boot-light 2600ms ease-out both; }
 body[data-transition="boot"][data-transition-status="active"] .avatar-wrap { animation: refresh-boot-avatar 2600ms ease-out both !important; }
 body[data-transition="boot"] .transition-core, body[data-transition="boot"] .transition-sweep, body[data-transition="boot"] .transition-flash { animation: none; opacity: 0; }
 @keyframes refresh-boot-light { 0% { opacity: 0; } 45% { opacity: .25; } 100% { opacity: 1; } }
 @keyframes refresh-boot-avatar { 0%, 25% { opacity: 0; transform: translateY(35px); } 85%, 100% { opacity: 1; transform: translateY(0); } }
 @media (max-height: 800px) { .stage { grid-template-rows: minmax(0, 1fr) minmax(120px, 24%); } .caption-shell { padding-block: 10px; } .caption-rule { margin-bottom: 6px; } }
+@media (max-height: 800px) { .scene-visual[data-type="image"] { bottom: 25%; } }
 body[data-reduced-motion="true"][data-transition="boot"][data-transition-status="active"] .avatar-wrap { animation: none !important; }
 @media (prefers-reduced-motion: reduce) { body[data-transition="boot"][data-transition-status="active"] .avatar-wrap, body[data-transition="boot"][data-transition-status="active"] .preset-environment { animation: none !important; } }

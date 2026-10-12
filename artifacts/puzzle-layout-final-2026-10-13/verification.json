@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "results": [
+    {
+      "viewportWidth": 1920,
+      "viewportHeight": 1080,
+      "cueId": "prod-v-riddle-enter",
+      "titleDisplay": "none",
+      "fit": "contain",
+      "width": 1811.21875,
+      "height": 778.015625,
+      "projectedWidth": 1383.138888888889,
+      "projectedHeight": 778.015625,
+      "top": 37.59375,
+      "bottom": 815.609375,
+      "captionTop": 842.40625
+    },
+    {
+      "viewportWidth": 1920,
+      "viewportHeight": 1080,
+      "cueId": "prod-011",
+      "titleDisplay": "none",
+      "fit": "contain",
+      "width": 1811.21875,
+      "height": 778.015625,
+      "projectedWidth": 1383.138888888889,
+      "projectedHeight": 778.015625,
+      "top": 37.59375,
+      "bottom": 815.609375,
+      "captionTop": 842.40625
+    },
+    {
+      "viewportWidth": 1920,
+      "viewportHeight": 1080,
+      "cueId": "prod-v-emergency-riddle",
+      "titleDisplay": "none",
+      "fit": "contain",
+      "width": 1811.21875,
+      "height": 778.015625,
+      "projectedWidth": 1383.138888888889,
+      "projectedHeight": 778.015625,
+      "top": 37.59375,
+      "bottom": 815.609375,
+      "captionTop": 842.40625
+    },
+    {
+      "viewportWidth": 1280,
+      "viewportHeight": 720,
+      "cueId": "prod-v-riddle-enter",
+      "titleDisplay": "none",
+      "fit": "contain",
+      "width": 1205.625,
+      "height": 502.421875,
+      "projectedWidth": 893.1944444444445,
+      "projectedHeight": 502.421875,
+      "top": 25.984375,
+      "bottom": 528.40625,
+      "captionTop": 547.203125
+    },
+    {
+      "viewportWidth": 1280,
+      "viewportHeight": 720,
+      "cueId": "prod-011",
+      "titleDisplay": "none",
+      "fit": "contain",
+      "width": 1205.625,
+      "height": 502.421875,
+      "projectedWidth": 893.1944444444445,
+      "projectedHeight": 502.421875,
+      "top": 25.984375,
+      "bottom": 528.40625,
+      "captionTop": 547.203125
+    },
+    {
+      "viewportWidth": 1280,
+      "viewportHeight": 720,
+      "cueId": "prod-v-emergency-riddle",
+      "titleDisplay": "none",
+      "fit": "contain",
+      "width": 1205.625,
+      "height": 502.421875,
+      "projectedWidth": 893.1944444444445,
+      "projectedHeight": 502.421875,
+      "top": 25.984375,
+      "bottom": 528.40625,
+      "captionTop": 547.203125
+    }
+  ],
+  "browserErrors": []
+}

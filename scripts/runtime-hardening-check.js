@@ -75,7 +75,7 @@ const send=event=>observer.send(JSON.stringify(event));
 async function wait(predicate,label,timeout=30000) {const end=performance.now()+timeout;while(performance.now()<end){if(errors.length)throw Error(JSON.stringify(errors));if(predicate())return;await delay(50);}throw Error(`Timeout: ${label}`);}
 const plays=()=>display.evaluate('window.__runtimePlays.length');
 async function ready() {
-  await display.waitFor(`document.querySelector('#audio-help').textContent.includes('28 / 28 READY') || document.querySelector('#audio-gate').hidden`, 'preload',30000);
+  await display.waitFor(`document.querySelector('#audio-help').textContent.includes('20 / 20 READY') || document.querySelector('#audio-gate').hidden`, 'preload',30000);
   if(await display.evaluate(`!document.querySelector('#audio-gate').hidden`)) await display.click('#enable-audio');
   await wait(()=>state?.displayAudioReady,'Audio Ready');
 }

@@ -4,6 +4,7 @@ import { randomUUID, createHash } from 'node:crypto';
 import { segmentSpeech, composeSpeech, pcmData, encodePcm } from './speech-composer.js';
 import { analysePcmWav } from './wav-analysis.js';
 import { normalizeAvatar } from '../show-schema.js';
+import { retimeCueSpeech } from './production-cue-timing.js';
 
 export function installProductionTools(app, { root, client, profile, store, broadcastState }) {
   const drafts = new Map();
@@ -35,14 +36,14 @@ export function installProductionTools(app, { root, client, profile, store, broa
   app.post('/api/production-tools/compose', wrap(async (req, res) => {
     const draft = drafts.get(req.body.id); if (!draft) throw new Error('DRAFT_NOT_FOUND');
     const segments = req.body.segments;
-    if (!Array.isArray(segments) || !segments.length || segments.length > 100 || segments.some(s => typeof s.displayText !== 'string' || typeof s.spokenText !== 'string' || !s.spokenText.trim() || s.spokenText.length > 5000)) throw new Error('INVALID_SEGMENTS');
+    if (!Array.isArray(segments) || !segments.length || segments.length > 100 || segments.some(s => typeof s.displayText !== 'string' || typeof s.spokenText !== 'string' || !s.spokenText.trim() || s.spokenText.length > 5000 || !Number.isFinite(s.pauseAfterMs) || s.pauseAfterMs < 0 || s.pauseAfterMs > 10000)) throw new Error('INVALID_SEGMENTS');
     const buffers = [];
     for (const [i, segment] of segments.entries()) {
       if (draft.generatedText[i] === segment.spokenText && draft.buffers[i]) buffers.push(draft.buffers[i]);
       else buffers.push((await client.synthesize(segment.spokenText, profile)).wav);
       await fs.writeFile(path.join(draft.directory, `${i}.wav`), buffers[i]);
     }
-    const result = composeSpeech(segments, buffers);
+    const result = composeSpeech(segments, buffers, { normalizeBoundarySilence: true });
     Object.assign(draft, { segments, buffers, generatedText: segments.map(s => s.spokenText), result });
     await fs.writeFile(path.join(draft.directory, 'full.wav'), result.wav);
     await fs.writeFile(path.join(draft.directory, 'recipe.json'), JSON.stringify({ segments: result.timeline, profileId: profile.profileId, sha256: result.verification.wav.sha256 }, null, 2));
@@ -67,11 +68,16 @@ export function installProductionTools(app, { root, client, profile, store, broa
     if (!safeId(req.body.cueId) || !safeId(req.body.id)) throw new Error('INVALID_ID');
     const draft = drafts.get(req.body.id); const cue = store.state.cues.find(c => c.cueId === req.body.cueId);
     if (!draft?.result || !cue) throw new Error('DRAFT_OR_CUE_NOT_FOUND');
+    if (!cue.audio.assetId?.startsWith(`prod-voice-${draft.speech.scriptId}-`)) throw new Error('DRAFT_CUE_MISMATCH');
+    if (store.snapshot().currentCue?.cueId === cue.cueId && (store.state.currentMessage || store.state.currentTransition?.status === 'active' || store.state.history.some(h=>h.cueId===cue.cueId && h.status==='pending'))) throw new Error('再生中のCueです。STOPしてから保存してください。');
     const sha = draft.result.verification.wav.sha256; const filename = `production-edit-${draft.speech.scriptId}-${sha.slice(0, 16)}.wav`;
     await fs.access(path.join(publicAudio, filename)); // Explicit export is mandatory before applying.
     const asset = { id: `prod-voice-${draft.speech.scriptId}-edit-${sha.slice(0, 16)}`, name: `Edited ${draft.speech.scriptId}`, path: `assets/audio/${filename}`, mimeType: 'audio/wav', sha256: sha };
     store.state.assets = store.state.assets.filter(a => a.id !== asset.id).concat(asset);
-    store.saveCue({ ...cue, speechText: draft.segments.map(s => s.spokenText).join(''), displayText: draft.segments.map(s => s.displayText).join(''), audio: { ...cue.audio, assetId: asset.id }, speech: { spokenText: draft.segments.map(s => s.spokenText).join(''), segments: draft.result.timeline } });
+    const previousAsset = store.state.assets.find(a => a.id === cue.audio.assetId);
+    const previousDurationMs = Math.round(analysePcmWav(await fs.readFile(path.join(root, 'public', previousAsset.path))).durationSeconds * 1000);
+    const updated = retimeCueSpeech(structuredClone(cue), previousDurationMs, Math.round(draft.result.verification.wav.durationSeconds * 1000), draft.result.timeline);
+    store.saveCue({ ...updated, speechText: draft.segments.map(s => s.spokenText).join(''), displayText: draft.segments.map(s => s.displayText).join(''), audio: { ...cue.audio, assetId: asset.id }, speech: { spokenText: draft.segments.map(s => s.spokenText).join(''), segments: draft.result.timeline, subtitleMode: 'typewriter' } });
     await store.persist(); broadcastState(); res.json({ applied: true, cueId: cue.cueId });
   }));
   app.post('/api/production-tools/puzzle', wrap(async (req, res) => {

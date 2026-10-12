@@ -9,7 +9,7 @@ const portFor = () => new Promise(resolve => { const s = net.createServer(); s.l
 function connect(port, role, display) {
   const socket = new WebSocket(`ws://127.0.0.1:${port}/ws`); const events = [];
   socket.on('message', raw => events.push(JSON.parse(raw)));
-  const next = async predicate => { const end = Date.now() + 5000; while (Date.now() < end) { const index = events.findIndex(predicate); if (index >= 0) return events.splice(index, 1)[0]; await delay(10); } throw new Error('REFRESH_EVENT_TIMEOUT'); };
+  const next = async predicate => { const end = Date.now() + 10000; while (Date.now() < end) { const index = events.findIndex(predicate); if (index >= 0) return events.splice(index, 1)[0]; await delay(10); } throw new Error('REFRESH_EVENT_TIMEOUT'); };
   return new Promise(resolve => socket.once('open', async () => { socket.send(JSON.stringify({ type: 'hello', role, display })); const initial = await next(e => e.type === 'state'); resolve({ socket, events, initial, next, send: e => socket.send(JSON.stringify(e)) }); }));
 }
 test('default startup replaces stale saved show; Production Reset retains registration and Ready', async t => {
@@ -29,7 +29,7 @@ test('default startup replaces stale saved show; Production Reset retains regist
   const reset = await admin.next(e => e.type === 'state' && e.state.currentCueIndex === -1 && e.state.displayAudioReady);
   assert.equal(reset.state.currentVisual.visible, false); assert.equal(reset.state.currentSubtitle, null); assert.equal(reset.state.currentAvatar.visible, false); assert.equal(reset.state.blackout, false);
   assert.equal(reset.state.audioMasterId, 'refresh-stage'); assert.equal(reset.state.displays[0].displayName, 'Stage');
-  const manifest = await fetch(`${base}/api/audio-assets`).then(r => r.json()); assert.equal(manifest.expectedCount, 28);
+  const manifest = await fetch(`${base}/api/audio-assets`).then(r => r.json()); assert.equal(manifest.expectedCount, 20);
   // Pending SFX must never fire after BACK or Production Reset.
   admin.send({ type: 'cue:execute', cueId: 'prod-001' }); await display.next(e => e.type === 'presentation');
   admin.send({ type: 'cue:back' }); await display.next(e => e.type === 'stop'); await delay(600);
@@ -40,6 +40,12 @@ test('default startup replaces stale saved show; Production Reset retains regist
   const exported = await (await post('/export', { id: draft.id })).json(); assert.match(exported.asset.sha256, /^[a-f0-9]{64}$/);
   assert.equal((await post('/apply', { id: draft.id, cueId: 'prod-001' })).status, 200);
   const reopened = await (await post('/draft', { scriptId: '001' })).json(); assert.deepEqual(reopened.segments.map(s => s.displayText), draft.segments.map(s => s.displayText));
+  const warningDraft = await (await post('/draft', { scriptId: '014' })).json();
+  await post('/compose', { id: warningDraft.id, segments: warningDraft.segments }); await post('/export', { id: warningDraft.id });
+  admin.send({ type: 'cue:execute', cueId: 'prod-014' }); await admin.next(e => e.type==='state' && e.state.currentCue?.cueId==='prod-014');
+  assert.equal((await post('/apply', { id: warningDraft.id, cueId: 'prod-014' })).status,422,'cannot replace a pending delayed Cue');
+  admin.send({ type:'stop' }); await admin.next(e => e.type==='state' && e.state.playbackStatus==='stopped');
+  assert.equal((await post('/apply', { id: warningDraft.id, cueId:'prod-014' })).status,200);
   assert.equal((await post('/avatar', { layers: { base: '../../secret' } })).status, 422);
   assert.equal((await post('/puzzle', { slot: 'final', image: 'data:image/png;base64,AAAA' })).status, 422);
   // Preserve subtitle-only operation when no Audio Master can receive the WAV.

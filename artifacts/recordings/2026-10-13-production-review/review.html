@@ -1,0 +1,25 @@
+<!doctype html><html lang="ja"><meta charset="utf-8"><title>横川AI Display録画</title>
+<style>body{margin:24px;background:#111;color:#eee;font-family:system-ui}video{width:100%;max-height:78vh;background:#000}nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}button{padding:10px;background:#243747;color:white;border:1px solid #567;border-radius:5px;cursor:pointer}a{color:#8df}</style>
+<h1>横川AI Production — 1920×1080</h1><video controls src="production-display-1920x1080.mp4"></video>
+<p>有効な全20 Cue。音声・演出の完了後2秒待機。ボタンでCueの先頭へ移動できます。 <a href="cue-timeline.json">時刻一覧</a></p>
+<nav><button data-time="0.660883056640625">P-001｜横川AI 起動</button>
+<button data-time="10.141883056640625">P-002｜参加者の照会</button>
+<button data-time="18.415883056640624">P-003｜情報照合・セキュリティ説明</button>
+<button data-time="37.69088305664062">P-004｜プリンキピア説明 → HACK</button>
+<button data-time="59.36488305664062">P-005｜外部通信を拒否</button>
+<button data-time="64.61588305664063">P-006｜命令を拒否</button>
+<button data-time="68.24788305664063">P-007｜認証を拒否</button>
+<button data-time="72.36188305664062">P-008｜五つの謎・脱出条件</button>
+<button data-time="79.70988305664062">P-019｜記入用紙の案内</button>
+<button data-time="88.37088305664062">P-V02｜第一の謎を提示</button>
+<button data-time="95.06188305664062">P-011｜五つ達成 → 統合 → 最終問題</button>
+<button data-time="105.09988305664062">P-012｜認証成功 → 解錠 → 異常</button>
+<button data-time="119.12188305664063">P-013｜緊急遮断・連絡失敗</button>
+<button data-time="135.55088305664063">P-014｜スタッフへの連絡失敗</button>
+<button data-time="147.48088305664064">P-V04｜危険状態・警報</button>
+<button data-time="150.8688830566406">P-015｜機械設備の強制暴走</button>
+<button data-time="157.35888305664062">P-V05｜非常停止問題を提示</button>
+<button data-time="160.9638830566406">P-V06｜停止コード → 全停止・解放</button>
+<button data-time="169.06388305664063">P-V07｜復旧 → NORMAL</button>
+<button data-time="177.14488305664062">P-020｜全館の扉・解錠確認</button></nav>
+<script>const video=document.querySelector('video');document.querySelector('nav').addEventListener('click',event=>{const button=event.target.closest('button');if(button){video.currentTime=Number(button.dataset.time);video.play();}});</script></html>
