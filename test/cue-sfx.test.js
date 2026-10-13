@@ -18,3 +18,11 @@ test('SFX STOP while AudioContext resumes cannot start a stale clip', async () =
     assert.equal(plays, 0); assert.equal(player.active.size, 0);
   } finally { globalThis.Audio = originalAudio; globalThis.AudioContext = originalContext; }
 });
+
+test('SFX detaches its own source without closing the prepared shared output', async () => {
+  let disconnected=0,closed=0,played=0;
+  const output={state:'running',createMediaElementSource(){return {connect(){},disconnect(){disconnected++;}};},async resume(){},async close(){closed++;}};
+  const player=new CueSfxPlayer({contextFactory:()=>output,AudioClass:class{addEventListener(){}pause(){}async play(){played++;}},AudioContextClass:class{constructor(){throw Error('must reuse prepared output');}}});
+  await player.play({assetId:'prod-sfx-warning',volume:1});player.stop();player.stop();
+  assert.equal(played,1);assert.equal(disconnected,1);assert.equal(closed,0);assert.equal(await player.whenIdle('prod-sfx-warning'),false);
+});

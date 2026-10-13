@@ -20,6 +20,7 @@ test-results/
 /deno.lock
 .env
 *.log
+/artifacts/projection-performance/
 /.tmp-*/
 /.tmp/
 

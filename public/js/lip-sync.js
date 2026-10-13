@@ -1,4 +1,5 @@
 import { connectPlaybackEffect } from './audio-playback-effects.js';
+import { warmAudioOutput } from './display-preparation.js';
 
 export class LipSyncStateMachine {
   constructor({ holdMs = 100, openHigh = .18, openLow = .12, halfHigh = .06, halfLow = .035 } = {}) {
@@ -17,14 +18,35 @@ export class LipSyncStateMachine {
 }
 
 export class LipSyncController {
-  constructor(element) { this.element = element; this.machine = new LipSyncStateMachine(); this.timer = null; this.frame = null; this.context = null; }
-  set(state) { if (this.element) this.element.dataset.mouth = state; }
-  stop() { clearInterval(this.timer); cancelAnimationFrame(this.frame); this.context?.close?.(); this.timer = null; this.frame = null; this.context = null; this.set(this.machine.reset()); }
+  constructor(element) { this.element = element; this.machine = new LipSyncStateMachine(); this.timer = null; this.frame = null; this.context = null; this.nodes = []; this.generation = 0; this.preparing = null; }
+  set(state) { if (this.element && this.element.dataset.mouth !== state) this.element.dataset.mouth = state; }
+  finish() {
+    this.generation++; clearInterval(this.timer); cancelAnimationFrame(this.frame);
+    for (const node of this.nodes) node.disconnect();
+    this.nodes = []; this.timer = null; this.frame = null; this.set(this.machine.reset());
+  }
+  stop() {
+    this.finish(); const context = this.context; this.context = null;
+    const closed = context?.close?.(); void closed?.catch?.(() => {});
+  }
+  async prepare() {
+    if (this.context && this.context.state !== 'closed') return;
+    const generation = this.generation;
+    if (this.preparing) {
+      await this.preparing;
+      if (generation !== this.generation || (this.context && this.context.state !== 'closed')) return;
+    }
+    this.preparing = warmAudioOutput({ retain: true }).then(async context => {
+      if (generation !== this.generation) { await context?.close(); return; }
+      this.context = context ?? null;
+    }).finally(() => { this.preparing = null; });
+    return this.preparing;
+  }
   simulate() { this.stop(); const sequence = ['half', 'open', 'half', 'closed']; let index = 0; this.timer = setInterval(() => this.set(sequence[index++ % sequence.length]), 190); }
   analyse(audio, playbackEffect = 'none') {
-    this.stop(); const Context = globalThis.AudioContext || globalThis.webkitAudioContext; if (!Context) { this.simulate(); return; }
-    const context = new Context(); this.context = context; const source = context.createMediaElementSource(audio); const analyser = context.createAnalyser(); analyser.fftSize = 512;
-    connectPlaybackEffect(context, source, analyser, playbackEffect);
+    this.finish(); const Context = globalThis.AudioContext || globalThis.webkitAudioContext; if (!Context) { this.simulate(); return; }
+    const context = this.context?.state !== 'closed' && this.context ? this.context : new Context(); this.context = context; const source = context.createMediaElementSource(audio); const analyser = context.createAnalyser(); analyser.fftSize = 512;
+    this.nodes = [source, analyser, ...connectPlaybackEffect(context, source, analyser, playbackEffect)];
     analyser.connect(context.destination);
     const data = new Uint8Array(analyser.fftSize); const tick = () => { analyser.getByteTimeDomainData(data); let sum = 0; for (const value of data) { const normalized = (value - 128) / 128; sum += normalized * normalized; } this.set(this.machine.update(Math.sqrt(sum / data.length))); this.frame = requestAnimationFrame(tick); }; tick();
   }

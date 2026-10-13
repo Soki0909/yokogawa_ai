@@ -41,7 +41,8 @@
     "test:subtitle-assets": "node scripts/subtitle-assets-browser-check.js",
     "production:verify": "node scripts/verify-subtitle-production.mjs",
     "voice:production:pacing": "node scripts/prepare-production-pacing.mjs && node scripts/build-production-show.mjs",
-    "test:stage-pacing": "node scripts/stage-pacing-browser-check.js"
+    "test:stage-pacing": "node scripts/stage-pacing-browser-check.js",
+    "test:projection": "node scripts/projection-performance-check.js"
   },
   "dependencies": {
     "express": "5.1.0",

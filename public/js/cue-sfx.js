@@ -1,15 +1,18 @@
 export class CueSfxPlayer {
-  constructor({ AudioClass = globalThis.Audio, AudioContextClass = globalThis.AudioContext } = {}) { this.active = new Set(); this.completions = new Map(); this.AudioClass = AudioClass; this.AudioContextClass = AudioContextClass; }
+  constructor({ AudioClass = globalThis.Audio, AudioContextClass = globalThis.AudioContext, contextFactory = null } = {}) { this.active = new Set(); this.completions = new Map(); this.AudioClass = AudioClass; this.AudioContextClass = AudioContextClass; this.contextFactory = contextFactory; }
   async play(effect, volume = .65) {
     const audio = new this.AudioClass(`/api/assets/${encodeURIComponent(effect.assetId)}`);
     audio.volume = Math.min(1, Math.max(0, volume * effect.volume));
-    const context = new this.AudioContextClass(); const source = context.createMediaElementSource(audio);
+    const prepared = this.contextFactory?.();
+    const borrowed = prepared && prepared.state !== 'closed';
+    const context = borrowed ? prepared : new this.AudioContextClass(); const source = context.createMediaElementSource(audio);
     source.connect(context.destination);
     let settle;
     const done = new Promise(resolve => { settle = resolve; });
     this.completions.set(effect.assetId,done);
     const item = { audio, context, done }; this.active.add(item);
-    const cleanup = (completed = false) => { this.active.delete(item); settle(completed); audio.pause(); void context.close().catch(() => {}); };
+    let cleaned = false;
+    const cleanup = (completed = false) => { if (cleaned) return; cleaned = true; this.active.delete(item); settle(completed); audio.pause(); source.disconnect?.(); if (!borrowed) void context.close().catch(() => {}); };
     item.cleanup = cleanup;
     audio.addEventListener('ended', () => cleanup(true), { once: true }); audio.addEventListener('error', () => cleanup(false), { once: true });
     try {

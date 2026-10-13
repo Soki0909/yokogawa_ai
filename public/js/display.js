@@ -5,6 +5,7 @@ import { BlinkController } from './blink-controller.js';
 import { prepareProductionAudio } from './audio-preload.js';
 import { CueSfxPlayer } from './cue-sfx.js';
 import { TypewriterCaption } from './subtitle-units.js';
+import { PresentationRenderCache, prepareDisplayImages } from './display-preparation.js';
 
 const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((element) => [element.id, element]));
 const storageKey = 'yokogawa-display-v2';
@@ -29,6 +30,15 @@ let audioUnlocked = false;
 let audioReadySent = false;
 let audioPreloadPromise = null;
 let audioPreloadResult = null;
+let stageImageUrls = [];
+let stageImages = [];
+let stageImageSignature = '';
+let stageImagePromise = null;
+let stageManifestPromise = null;
+let audioOutputPrepared = false;
+let automaticOutputPreparation = true;
+let audioOutputPromise = null;
+const presentationCache = new PresentationRenderCache();
 let identifyTimer;
 let transitionTimer;
 let unlockFrame;
@@ -36,16 +46,18 @@ let overlayTimer;
 let visualTimer;
 const captionWriter = new TypewriterCaption((text, fullText) => {
   elements.caption.textContent = text;
-  elements.caption.dataset.mode = 'typewriter';
-  elements.caption.dataset.sentence = fullText;
-  elements.caption.dataset.length = fullText.length > 100 ? 'extra-long' : fullText.length > 64 ? 'long' : fullText.length > 32 ? 'medium' : 'short';
+  if (elements.caption.dataset.mode !== 'typewriter') elements.caption.dataset.mode = 'typewriter';
+  if (elements.caption.dataset.sentence !== fullText) elements.caption.dataset.sentence = fullText;
+  const length = fullText.length > 100 ? 'extra-long' : fullText.length > 64 ? 'long' : fullText.length > 32 ? 'medium' : 'short';
+  if (elements.caption.dataset.length !== length) elements.caption.dataset.length = length;
   elements.caption.hidden = !settings.subtitlesEnabled;
-  document.body.dataset.captionEmpty = String(!text);
+  if (document.body.dataset.captionEmpty !== String(!text)) document.body.dataset.captionEmpty = String(!text);
 });
-const sfx = new CueSfxPlayer();
 let playbackGeneration = 0;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
+const sfx = new CueSfxPlayer({ contextFactory: () => lipSync.context });
 const blink = new BlinkController(elements['avatar-wrap']);
+const unlockMeters = [...elements['unlock-gauges'].children].map(gauge => ({ gauge, meter: gauge.querySelector('i') }));
 const systemStates = new Set(['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']);
 
 const socket = new ReconnectingSocket('display', handleEvent, (status) => {
@@ -66,13 +78,13 @@ const speech = createSpeechProvider('browser', {
 });
 const localAudio = createSpeechProvider('audio-file', {
   onStart: (id, audio, message) => { lipSync.analyse(audio, message.audio?.playbackEffect); setMode('LOCAL AUDIO', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking' }); },
-  onEnd: (id) => { lipSync.stop(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
+  onEnd: (id) => { lipSync.finish(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
   onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'error', error }); },
 });
 const localTts = createSpeechProvider('local-tts', {
   onStart: (id, audio) => { lipSync.analyse(audio); setMode('LOCAL TTS', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking' }); },
-  onEnd: (id) => { lipSync.stop(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
+  onEnd: (id) => { lipSync.finish(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
   onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); setMode('LOCAL TTS ERROR — 字幕は継続中', 'error'); socket.send({ type: 'playback', id, status: 'error', error }); },
 });
@@ -109,9 +121,14 @@ async function ensureProductionAudioPreloaded() {
 }
 
 async function syncAudioReady() {
-  if (!isAudioMaster || !identity.audioEnabled || !audioUnlocked || audioReadySent) return;
+  if (!isAudioMaster || !identity.audioEnabled || !audioUnlocked) return;
+  if (audioReadySent && (!automaticOutputPreparation || audioOutputPrepared)) return;
+  const generation = playbackGeneration;
   try {
     await ensureProductionAudioPreloaded();
+    await ensureStageImagesPrepared();
+    await ensureAudioOutputPrepared();
+    if (generation !== playbackGeneration || recoveryPending) return;
     if (isAudioMaster && identity.audioEnabled && !audioReadySent) {
       audioReadySent = socket.send({ type: 'audio:ready' });
     }
@@ -121,8 +138,32 @@ async function syncAudioReady() {
   }
 }
 
+async function ensureStageImagesPrepared() {
+  // Display snapshots intentionally omit the full Show/asset catalogue.
+  // Fetch once during preparation, not on the Cue or animation path.
+  if (!stageManifestPromise) stageManifestPromise = fetch('/api/show-file', { cache: 'no-store' }).then(async response => {
+    if (!response.ok) throw new Error('表示素材一覧を取得できません');
+    const show = await response.json();
+    return show.assets.filter(asset => asset.id.startsWith('puzzle-') && asset.mimeType.startsWith('image/')).map(asset => `/api/assets/${encodeURIComponent(asset.id)}${asset.sha256 ? `?v=${asset.sha256}` : ''}`);
+  }).catch(error => { stageManifestPromise = null; throw error; });
+  const urls = [...stageImageUrls, ...await stageManifestPromise];
+  const signature = JSON.stringify(urls);
+  if (stageImageSignature === signature && stageImagePromise) return stageImagePromise;
+  stageImageSignature = signature;
+  stageImagePromise = prepareDisplayImages(urls).then(images => { stageImages = images; return images; }).catch(error => {
+    stageImageSignature = ''; stageImagePromise = null; throw error;
+  });
+  return stageImagePromise;
+}
+
+function ensureAudioOutputPrepared() {
+  if (audioOutputPrepared) return Promise.resolve();
+  if (!audioOutputPromise) audioOutputPromise = lipSync.prepare().then(() => { audioOutputPrepared = true; }).finally(() => { audioOutputPromise = null; });
+  return audioOutputPromise;
+}
+
 function applyPresentation(presentation = {}, preset = null) {
-  if (preset) {
+  if (preset && presentationCache.changed('preset', preset)) {
     document.documentElement.style.setProperty('--phase-bg', preset.background);
     document.documentElement.style.setProperty('--phase-accent', preset.accent);
     document.documentElement.style.setProperty('--phase-text', preset.text);
@@ -150,14 +191,16 @@ function applyPresentation(presentation = {}, preset = null) {
       const image = elements['avatar-wrap'].querySelector(selector); const url = `/${avatarLayers[key]}`;
       if (new URL(image.src).pathname !== url) image.src = url;
     }
-    if (!visible) lipSync.stop();
+    if (!visible && (lipSync.nodes.length || lipSync.timer || lipSync.frame)) lipSync.finish();
   }
   elements.blackout.hidden = presentation.blackout !== true;
   if (presentation.transition) renderTransition(presentation.transition);
   if (presentation.overlay) renderOverlay(presentation.overlay);
   if (presentation.visual) renderVisual(presentation.visual);
   if (presentation.unlock) renderUnlock(presentation.unlock);
-  if (presentation.overlay?.id === 'restoring' && presentation.transition?.status === 'active') {
+  const recoveryProgress = presentation.overlay?.id === 'restoring' && presentation.transition?.status === 'active' ? presentation.transition : null;
+  if (presentationCache.changed('recovery-progress', recoveryProgress) && recoveryProgress) {
+    cancelAnimationFrame(unlockFrame);
     const transition = presentation.transition;
     const draw = () => {
       const elapsed = Math.max(0, Date.now() - Date.parse(transition.startedAt));
@@ -173,6 +216,7 @@ function applyPresentation(presentation = {}, preset = null) {
 
 function renderTransition(transition = {}) {
   transition = transition.effect ?? transition;
+  if (!presentationCache.changed('transition', transition)) return;
   clearTimeout(transitionTimer);
   document.body.dataset.transition = transition.id ?? 'none';
   document.body.dataset.transitionMode = transition.mode ?? 'fade';
@@ -189,6 +233,7 @@ function renderTransition(transition = {}) {
 }
 
 function renderOverlay(overlay = {}) {
+  if (!presentationCache.changed('overlay', overlay)) return;
   clearTimeout(overlayTimer);
   const visible = overlay.visible === true && overlay.id !== 'none';
   elements['operation-overlay'].hidden = !visible;
@@ -206,6 +251,7 @@ function renderOverlay(overlay = {}) {
 }
 
 function renderVisual(visual = {}) {
+  if (!presentationCache.changed('visual', visual)) return;
   clearTimeout(visualTimer);
   const visible = visual.visible === true && visual.type !== 'none';
   elements['scene-visual'].hidden = !visible;
@@ -217,7 +263,7 @@ function renderVisual(visual = {}) {
   elements['scene-visual-message'].textContent = visual.message ?? '';
   const showImage = visible && visual.type === 'image' && visual.assetId;
   elements['scene-visual-image'].hidden = !showImage;
-  if (showImage) { elements['scene-visual-image'].src = `/api/assets/${encodeURIComponent(visual.assetId)}${visual.assetVersion ? `?v=${visual.assetVersion}` : ''}`; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
+  if (showImage) { const url = `/api/assets/${encodeURIComponent(visual.assetId)}${visual.assetVersion ? `?v=${visual.assetVersion}` : ''}`; if (new URL(elements['scene-visual-image'].src || location.href).pathname + new URL(elements['scene-visual-image'].src || location.href).search !== url) elements['scene-visual-image'].src = url; elements['scene-visual-image'].alt = visual.title || 'Scene visual'; }
   else elements['scene-visual-image'].removeAttribute('src');
   const signature = JSON.stringify([visual.id, visual.items]);
   if (elements['scene-visual-items'].dataset.signature !== signature) {
@@ -231,16 +277,19 @@ function updateProgress(progress) {
   const value = Math.min(100, Math.max(0, progress));
   elements['operation-progress'].hidden = false;
   elements['operation-progress-value'].style.width = `${value}%`;
-  elements['operation-progress-label'].textContent = `${Math.round(value)}%`;
-  for (const [index, gauge] of [...elements['unlock-gauges'].children].entries()) {
+  const label = `${Math.round(value)}%`;
+  if (elements['operation-progress-label'].textContent !== label) elements['operation-progress-label'].textContent = label;
+  for (const [index, { gauge, meter }] of unlockMeters.entries()) {
     const gaugeValue = value >= 100 ? 100 : Math.min(100, Math.max(0, (value - index * 4) / (100 - index * 4) * 100));
     gauge.style.setProperty('--gauge-progress', String(gaugeValue));
-    const meter = gauge.querySelector('i');
-    if (meter) meter.dataset.progress = `${Math.round(gaugeValue)}%`;
+    const progressLabel = `${Math.round(gaugeValue)}%`;
+    if (meter && meter.dataset.progress !== progressLabel) meter.dataset.progress = progressLabel;
   }
 }
 
 function renderUnlock(unlock = {}) {
+  // Overlay identity matters even when canonical unlock values did not change.
+  if (!presentationCache.changed('unlock', [unlock, elements['operation-overlay'].dataset.overlay, elements['operation-overlay'].dataset.variant])) return;
   cancelAnimationFrame(unlockFrame);
   const relevantOverlay = ['unlocking', 'emergency-protection', 'unlock-aborted'].includes(elements['operation-overlay'].dataset.overlay)
     && elements['operation-overlay'].dataset.variant === 'default';
@@ -264,6 +313,12 @@ function handleEvent(event) {
   if (recoveryPending && ['state', 'speak', 'sfx', 'subtitle', 'presentation'].includes(event.type)) return;
   if (event.type === 'state') {
     settings = event.state.settings;
+    stageImageUrls = [
+      ...(event.state.assets ?? []).filter(asset => asset.id.startsWith('puzzle-') && asset.mimeType.startsWith('image/')).map(asset => `/api/assets/${encodeURIComponent(asset.id)}${asset.sha256 ? `?v=${asset.sha256}` : ''}`),
+      ...(event.state.currentAvatar?.mode === 'svg-fallback' ? [] : event.state.currentAvatar?.layers
+        ? Object.values(event.state.currentAvatar.layers).map(url => `/${url}`)
+        : [...elements['avatar-wrap'].querySelectorAll('.avatar-image')].map(image => new URL(image.src).pathname)),
+    ];
     isAudioMaster = event.isAudioMaster === true;
     audioReadySent = event.self?.audioReady === true;
     const restoredText = event.self?.currentSubtitle;
@@ -310,6 +365,9 @@ function handleEvent(event) {
     playbackGeneration++;
     sfx.stop(); captionWriter.stop(); showCaption('');
   } else if (event.type === 'stop') {
+    presentationCache.clear();
+    audioOutputPrepared = false;
+    automaticOutputPreparation = false;
     playbackGeneration++;
     sfx.stop(); captionWriter.stop(); showCaption('');
     speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); document.body.dataset.transitionStatus = 'stopped';
@@ -318,6 +376,11 @@ function handleEvent(event) {
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
+    presentationCache.clear();
+    audioOutputPrepared = false;
+    automaticOutputPreparation = true;
+    stageManifestPromise = null;
+    stageImageSignature = '';
     playbackGeneration++;
     sfx.stop(); captionWriter.stop();
     speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); showCaption(''); elements.blackout.hidden = true; setMode('SYSTEM READY', 'ready');
@@ -344,6 +407,9 @@ function detectResume() {
   return resumed;
 }
 function stopLocalTransport() {
+  presentationCache.clear();
+  audioOutputPrepared = false;
+  automaticOutputPreparation = true;
   playbackGeneration++;
   sfx.stop(); speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop();
   captionWriter.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer);
@@ -386,9 +452,14 @@ elements['enable-audio'].addEventListener('click', async () => {
   window.speechSynthesis?.cancel(); publishVoices();
 
   if (identity.audioEnabled && isAudioMaster) {
+    automaticOutputPreparation = true;
+    const generation = playbackGeneration;
     elements['enable-audio'].disabled = true;
     try {
       await ensureProductionAudioPreloaded();
+      await ensureStageImagesPrepared();
+      await ensureAudioOutputPrepared();
+      if (generation !== playbackGeneration || recoveryPending) { elements['enable-audio'].disabled = false; return; }
       if (isAudioMaster && identity.audioEnabled) {
         audioUnlocked = true;
         audioReadySent = socket.send({ type: 'audio:ready' });

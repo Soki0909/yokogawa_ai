@@ -76,10 +76,10 @@ export class LocalAudioProvider {
       }
     }
     this.stop(false); const audio = new this.AudioClass(url); this.active = { id: message.id, audio };
-    audio.onplay = () => this.callbacks.onStart?.(message.id, audio, message);
+    audio.onplay = () => { if (this.active?.audio === audio) this.callbacks.onStart?.(message.id, audio, message); };
     audio.onended = () => { if (this.active?.audio !== audio) return; this.active = null; this.callbacks.onEnd?.(message.id); };
     audio.onerror = () => { if (this.active?.audio !== audio) return; this.active = null; this.callbacks.onError?.(message.id, '音声ファイルの再生に失敗しました'); };
-    const result = audio.play(); result?.catch?.((error) => this.callbacks.onError?.(message.id, error.message)); return audio;
+    const result = audio.play(); result?.catch?.((error) => { if (this.active?.audio === audio) this.callbacks.onError?.(message.id, error.message); }); return audio;
   }
   stop(notify = true) { if (!this.active) return; const { id, audio } = this.active; this.active = null; audio.pause(); audio.currentTime = 0; if (notify) this.callbacks.onStop?.(id); }
 }

@@ -41,7 +41,7 @@ const stopChild = async (child) => {
   // Only terminate the process tree spawned by this test, never other browser sessions.
   if (process.platform === 'win32') {
     await new Promise((resolve, reject) => execFile('taskkill', ['/PID', String(child.pid), '/T', '/F'], { windowsHide: true }, (error) => {
-      if (error) setTimeout(() => { if (child.exitCode === null && child.signalCode === null) reject(error); else resolve(); }, 250); else resolve();
+      if (error) setTimeout(() => { if (child.exitCode === null && child.signalCode === null) reject(error); else resolve(); }, 3000); else resolve();
     }));
   } else child.kill('SIGTERM');
   await Promise.race([new Promise(resolve => child.exitCode !== null || child.signalCode !== null ? resolve() : child.once('exit', resolve)), delay(3000)]);

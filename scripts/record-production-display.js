@@ -173,6 +173,16 @@ let writes = Promise.resolve(); let recording = false; let videoStart;
 const audioHook = `
   window.__recordAudioCount = 0;
   const nativeConnect = AudioNode.prototype.connect;
+  const nativeDisconnect = AudioNode.prototype.disconnect;
+  AudioNode.prototype.disconnect = function(...args) {
+    const result = nativeDisconnect.call(this, ...args);
+    const capture = this.context.__recording;
+    if (capture?.node === this) {
+      this.context.__recording = null;
+      if (capture.recorder.state !== 'inactive') capture.recorder.stop();
+    }
+    return result;
+  };
   AudioNode.prototype.connect = function(destination, ...args) {
     const result = nativeConnect.call(this, destination, ...args);
     if (destination instanceof AudioDestinationNode) {
@@ -187,9 +197,16 @@ const audioHook = `
           let binary = ''; for(let i=0; i<bytes.length; i+=32768) binary += String.fromCharCode(...bytes.subarray(i,i+32768));
           window.recordAudio(JSON.stringify({ index, at, data: btoa(binary) })); resolve();
         });
-        context.__recording = { stream, recorder, done }; recorder.start();
-        const close = context.close.bind(context);
-        context.close = async () => { recorder.stop(); await done; return close(); };
+        context.__recording = { stream, recorder, done, node: this }; recorder.start();
+        if (!context.__recordingCloseInstalled) {
+          context.__recordingCloseInstalled = true;
+          const close = context.close.bind(context);
+          context.close = async () => {
+            const capture = context.__recording; context.__recording = null;
+            if (capture) { if (capture.recorder.state !== 'inactive') capture.recorder.stop(); await capture.done; }
+            return close();
+          };
+        }
       }
       nativeConnect.call(this, context.__recording.stream);
     }
