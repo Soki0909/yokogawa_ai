@@ -1,0 +1,213 @@
+{
+  "generatedAt": "2026-10-14T15:48:00.344Z",
+  "scope": "Candidate software results; not production acoustic acceptance",
+  "implementationCommits": [
+    "a450435",
+    "5eca13b6a3798e26addcf3c4a6e44abf55ca6f28"
+  ],
+  "formalScript": {
+    "modifiedTime": "2026-10-14T12:52:52.896Z",
+    "mode": "read-only",
+    "p020Override": "User rehearsal revision: 館内すべての安全を確認しました。",
+    "sourceP020": "館内すべての扉の解錠を確認しました"
+  },
+  "tests": {
+    "automated": 193,
+    "e2eScreenshots": 46,
+    "targetedCases": 12,
+    "softwareFaultsPassed": 14,
+    "unverifiedFaults": [
+      {
+        "name": "window minimize/restore attempt",
+        "status": "UNVERIFIED",
+        "bounds": {
+          "bounds": {
+            "left": 10,
+            "top": 10,
+            "width": 1340,
+            "height": 900,
+            "windowState": "minimized"
+          }
+        },
+        "documentHidden": false,
+        "foregroundRestored": true,
+        "note": "CDP window bounds and actual visibility did not agree. Native visibility remains unverified."
+      },
+      {
+        "name": "tab focus/background 6s",
+        "status": "UNVERIFIED",
+        "documentHidden": true,
+        "foregroundRestored": false
+      }
+    ],
+    "browserErrors": [],
+    "sourceFingerprint": "7f0bd346e167e314de21d895d055196da18a5c828a8458de38bd586be6c79258"
+  },
+  "finalShows": {
+    "passes": 3,
+    "cues": 60,
+    "digitalSamples": 63,
+    "status": "DIGITAL RENDER CHECK PASS",
+    "worstEnergyCosine": 0.9734681916189334,
+    "maxUnexpectedLowEnergyMs": 10,
+    "resources": [
+      {
+        "pass": 1,
+        "heapBytes": 1545804,
+        "dom": {
+          "documents": 1,
+          "nodes": 874,
+          "jsEventListeners": 19
+        },
+        "decodedBytes": 22439704,
+        "active": 0
+      },
+      {
+        "pass": 2,
+        "heapBytes": 1706348,
+        "dom": {
+          "documents": 1,
+          "nodes": 861,
+          "jsEventListeners": 20
+        },
+        "decodedBytes": 22439704,
+        "active": 0
+      },
+      {
+        "pass": 3,
+        "heapBytes": 1697280,
+        "dom": {
+          "documents": 1,
+          "nodes": 643,
+          "jsEventListeners": 18
+        },
+        "decodedBytes": 22439704,
+        "active": 0
+      }
+    ]
+  },
+  "priorIdle": {
+    "commit": "a450435",
+    "elapsedMs": 2105041.7583999997,
+    "automaticAudio": 0,
+    "rendererFailures": [],
+    "rendererSamples": 210,
+    "firstP011StartDelayMs": 1022.6,
+    "scope": "Show idle only; concurrent diagnostic apps produced OS audio earlier; not 35min acoustic cold silence",
+    "repeatedAfter5eca13b": false
+  },
+  "clockFix": {
+    "proxy": "16ms timer clamped to 1000ms, not actual native visibility",
+    "beforeMs": [
+      1011.2,
+      1001.9,
+      1006.8
+    ],
+    "afterMs": [
+      17.1,
+      5.6,
+      12.3
+    ],
+    "canonicalGoProxyMs": 14,
+    "stop": {
+      "name": "frozen clock read PROXY: STOP interrupts task probe, closes it, no late Cue",
+      "status": "PASS",
+      "stopMs": 33.66700000001583,
+      "rendererStopMs": 4.800048828125
+    }
+  },
+  "recording": {
+    "status": "PASS",
+    "video": [
+      1920,
+      1080,
+      "30/1"
+    ],
+    "durationSeconds": 177.1,
+    "cues": 20,
+    "speechClips": 17,
+    "sfxClips": 4,
+    "minimumGap": 1.9989999999999952,
+    "fullDecode": true
+  },
+  "newP020": {
+    "scriptId": "020",
+    "assetId": "prod-voice-020-unlock-confirmed",
+    "path": "assets/audio/production-rehearsal-020-safety.wav",
+    "scene": "scene-7",
+    "route": "main",
+    "location": "7・201",
+    "tabId": "t.6gopn4tnzuo",
+    "scriptText": "館内すべての安全を確認しました",
+    "displayText": "館内すべての安全を確認しました。",
+    "spokenText": "館内すべての安全を確認しました",
+    "synthesisText": "館内すべての安全を確認しました",
+    "voiceProfileId": "yokogawa-professor-v1",
+    "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+    "engineVersion": "1.1.0-dev",
+    "runtimeStyleId": 1310138977,
+    "effectiveParameters": {
+      "speedScale": 1.08,
+      "pitchScale": 0,
+      "intonationScale": 0.25,
+      "tempoDynamicsScale": 0.08,
+      "volumeScale": 0.95,
+      "prePhonemeLength": 0.1,
+      "postPhonemeLength": 0.1,
+      "pauseLength": null,
+      "pauseLengthScale": 1.35,
+      "outputSamplingRate": 44100,
+      "outputStereo": false
+    },
+    "generatedAt": "2026-10-14T13:52:55.755Z",
+    "sourceScriptRevision": "AHj4eMQMO-_AfN9vu3q21Wl-McLQ31APmMrzWRIveijkD_9ZFI5hYvGBA1qMHSSjVX7N1jgNU2gr8W2RRl_OtJDdiio9254oP9ZVaS0T7TY",
+    "sampleRate": 44100,
+    "channels": 1,
+    "bitsPerSample": 16,
+    "durationSeconds": 2.5999319727891157,
+    "bytes": 229358,
+    "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66",
+    "technicalChecks": {
+      "sampleRate": true,
+      "channels": true,
+      "bitDepth": true,
+      "duration": true,
+      "nonSilent": true,
+      "noFullScaleClipping": true
+    },
+    "segments": [
+      {
+        "displayText": "館内すべての安全を確認しました。",
+        "spokenText": "館内すべての安全を確認しました",
+        "startMs": 0,
+        "endMs": 2600,
+        "pauseAfterMs": 0,
+        "path": "assets/audio/production-rehearsal-020-safety.wav",
+        "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
+      }
+    ],
+    "pacing": {
+      "version": 1,
+      "direction": "正常な確認通知を静かに一文で返す。復旧の達成感を重ねて誇張しない。",
+      "sourcePath": "assets/audio/production-rehearsal-020-safety.wav",
+      "sourceSha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66",
+      "pauseAfterMs": []
+    },
+    "subtitleUnits": [
+      {
+        "displayText": "館内すべての安全を確認しました。",
+        "startMs": 0,
+        "endMs": 2600
+      }
+    ],
+    "reusedApprovedTake": false,
+    "rehearsalRevision": {
+      "baseline": "b0440618438bbb6398ef7831d48d112af6c0d923",
+      "oldPath": "assets/audio/production-v2-020.wav",
+      "reason": "User confirmed safety announcement; source Google Doc remains read-only"
+    }
+  },
+  "physicalHdmi": "NOT VERIFIED",
+  "productionAdoption": "ON HOLD",
+  "masterMerge": false
+}

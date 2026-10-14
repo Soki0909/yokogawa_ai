@@ -24,10 +24,10 @@ for (const s of manifest.speeches.filter(s=>/^assets\/audio\/production-(paced|r
 }
 const profile=await fs.readFile('config/voice-profiles/yokogawa-professor-v1.json');
 assert.equal(sha(profile),sha(execFileSync('git',['show','1cdc810:config/voice-profiles/yokogawa-professor-v1.json'],{windowsHide:true})));
-const show=await load('shows/production.json');assert.equal(show.cues.length,20);assert.equal(show.metadata.nextGuardMs,1200);
+const show=await load('shows/production.json');assert.equal(show.cues.length,20);assert.equal(show.metadata.nextGuardMs,1500);
 const source=await load('docs/production/latest-script-2026-10-12.json');
 const md=await fs.readFile('docs/production/上演台本_AI-Cue入り_2026-10-12.md','utf8');let at=0;
 for(const p of source.paragraphs){const text=p.text.replace(/\u000b/g,'\n').replace(/\t/g,'　').split('\n').join('  \n');const index=md.indexOf(text,at);assert.ok(index>=0,'Source paragraph omitted');at=index+text.length;}
 assert.deepEqual([...md.matchAll(/^\*\*ＡＩ：(P-[A-Z0-9]+) GO。/gm)].map(m=>m[1]),show.cues.map(c=>c.cueNumber));
-const report={status:'PASS',archiveWavsUnchanged:18,priorActiveSourceWavsUnchanged:16,pacedWavs:10,voicedPcmUnchangedExcept:['013'],resynthesizedWithApprovedProfile:['013'],activeShowWavs:17,profileHash:manifest.profileHash,profileFileSha256:sha(profile),cueCount:20,sourceParagraphs:source.paragraphs.length,modifiedTime:source.modifiedTime};
-await fs.mkdir('artifacts/stage-pacing-2026-10-13',{recursive:true});await fs.writeFile('artifacts/stage-pacing-2026-10-13/integrity.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+const report={status:'PASS',historicalPacingScope:'The 013 synthesis fields describe the 2026-10-13 baseline, not a regeneration in this revision',archiveWavsUnchanged:18,priorActiveSourceWavsUnchanged:16,pacedWavs:10,voicedPcmUnchangedExcept:['013'],resynthesizedWithApprovedProfile:['013'],activeShowWavs:17,profileHash:manifest.profileHash,profileFileSha256:sha(profile),cueCount:20,sourceParagraphs:source.paragraphs.length,modifiedTime:source.modifiedTime,rehearsalRevision:{newVoice:['020'],latestScriptReview:manifest.sourceScript.latestReview,verification:'Run verify-production-reliability.mjs for current active WAV hashes against b044061'}};
+await fs.mkdir('artifacts/audio-reliability-20261014/rehearsal-revision',{recursive:true});await fs.writeFile('artifacts/audio-reliability-20261014/rehearsal-revision/subtitle-integrity.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));

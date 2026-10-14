@@ -1,5 +1,7 @@
 # 本番安定化候補の運用と採用条件
 
+> **以下はb044061の旧手順。現在の運用には使わない。** 稽古改訂後のNEXT・緊急移動・P-020・音声出力確認は [現行運用](./rehearsal-revision-operation-20261014.md) を参照。終了通知を待つNEXTと1200ms保護は撤廃済み。
+
 この改修は `codex/production-reliability-20261014` の候補。HDMI環境を今回用意できないため、ソフトウェア検証のPASSだけで本番採用・main/master統合を行わない。基準版は a90176c1e8297f49ac660d851511ad2dda723656。
 
 ユーザーの追加指示により、35分実試験を仮完了の条件から除外した。全189 automated tests、Production E2E、録画、idleなしの同一Chrome3公演・障害回帰を根拠に候補を仮完了とする。35分試行はブラウザのRuntime.evaluate timeoutで未達、PASSではない。原因未特定のブラウザ無応答とHDMI・客席確認を残して、本番合格とは区別する。詳細は [production-reliability-result-20261014.md](./production-reliability-result-20261014.md)。

@@ -1,5 +1,7 @@
 # 横川AI Phase C Candidate — Script-aligned Production Audio
 
+`codex/production-reliability-20261014` の現行候補は、[10/14稽古改訂の運用](docs/production/rehearsal-revision-operation-20261014.md) と [検証・残存課題](docs/production/rehearsal-revision-result-20261014.md) を参照してください。NEXTは終了通知待ちを撤廃し1500ms保護、緊急Cue移動とP-020安全確認の新WAVを追加しています。物理音響の本番採用は保留で、main/masterへ統合していません。
+
 演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0の承認済みVisualを維持し、Phase C候補では現在の台本に準拠した固定WAVとServer-side Local TTSを追加しました。Phase Cは`USER REVIEW REQUIRED`で、正式tagやmaster mergeはまだ行いません。
 
 ```text
