@@ -3,16 +3,16 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { StateStore } from '../src/state-store.js';
 import { CueScheduler } from '../src/cue-scheduler.js';
-test('canonical NEXT accepts once per 1200ms burst; failed validation and clock jumps cannot advance', async () => {
+test('canonical NEXT accepts once per 1500ms burst; failed validation and clock jumps cannot advance', async () => {
   let tick = 0;
   const store = new StateStore({ storage: { async save() {} }, monotonic: () => tick });
   store.importShowFile(JSON.parse(await readFile('shows/production.json')), { apply: true });
-  store.state.metadata.reliableAudio=false; // Isolate the 1200ms guard; completion barrier has its own integration tests.
+  store.state.metadata.reliableAudio=false; // Isolate the 1500ms guard; completion barrier has its own integration tests.
   assert.equal(store.nextCue({ validate: () => false }), null); assert.equal(store.state.currentCueIndex, -1);
   store.nextCue();
   for (let i=0;i<5;i++) assert.throws(() => store.nextCue(), /NEXT_GUARDED/);
-  tick = 1199; assert.throws(() => store.nextCue(), /NEXT_GUARDED/);
-  assert.equal(store.state.currentCueIndex, 0); tick=1200; assert.equal(store.nextCue().cue.cueId, 'prod-002');
+  tick = 1499; assert.throws(() => store.nextCue(), /NEXT_GUARDED/);
+  assert.equal(store.state.currentCueIndex, 0); tick=1500; assert.equal(store.nextCue().cue.cueId, 'prod-002');
   store.showReset(); assert.equal(store.nextCue().cue.cueId, 'prod-001');
 });
 test('scheduler suppresses a suspended process catch-up burst', () => {

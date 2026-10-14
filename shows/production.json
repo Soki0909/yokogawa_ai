@@ -183,9 +183,9 @@
     {
       "id": "prod-voice-020-unlock-confirmed",
       "name": "横川AI Production 020",
-      "path": "assets/audio/production-v2-020.wav",
+      "path": "assets/audio/production-rehearsal-020-safety.wav",
       "mimeType": "audio/wav",
-      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+      "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
     },
     {
       "id": "prod-sfx-boot",
@@ -260,10 +260,10 @@
   },
   "metadata": {
     "title": "横川AI Production — 本編",
-    "version": "production-reliability-20261014",
+    "version": "rehearsal-revision-20261014",
     "reliableAudio": true,
-    "nextGuardMs": 1200,
-    "showHash": "b84e9323704628a7739c035d32d0a02907098597cf5622031796f1f4fb2d5680",
+    "nextGuardMs": 1500,
+    "showHash": "22d456be53423ee08a242b45e9599058d316688fb8e3ab94efe009830cfe58cf",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
@@ -271,7 +271,13 @@
       "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
       "modifiedTime": "2026-10-12T11:36:41.372Z",
       "tabCount": 16,
-      "authority": "current-google-docs-revision"
+      "authority": "current-google-docs-revision",
+      "latestReview": {
+        "modifiedTime": "2026-10-14T12:52:52.896Z",
+        "mode": "read-only",
+        "p020Override": "User rehearsal revision: 館内すべての安全を確認しました。",
+        "sourceP020": "館内すべての扉の解錠を確認しました"
+      }
     },
     "voiceProfileId": "yokogawa-professor-v1",
     "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
@@ -1897,32 +1903,32 @@
     {
       "id": "prod-020",
       "cueNumber": "P-020",
-      "name": "館内すべての扉・解錠確認",
+      "name": "館内すべての安全確認",
       "route": "main",
       "scene": "scene-7",
       "location": "7・201",
       "kind": "speech-display",
-      "speechText": "館内すべての扉の解錠を確認しました",
-      "displayText": "館内すべての扉の解錠を確認しました。",
+      "speechText": "館内すべての安全を確認しました",
+      "displayText": "館内すべての安全を確認しました。",
       "speech": {
-        "spokenText": "館内すべての扉の解錠を確認しました",
+        "spokenText": "館内すべての安全を確認しました",
         "segments": [
           {
-            "displayText": "館内すべての扉の解錠を確認しました。",
-            "spokenText": "館内すべての扉の解錠を確認しました",
+            "displayText": "館内すべての安全を確認しました。",
+            "spokenText": "館内すべての安全を確認しました",
             "startMs": 0,
-            "endMs": 3007,
+            "endMs": 2600,
             "pauseAfterMs": 0,
-            "path": "assets/audio/production-v2-020.wav",
-            "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+            "path": "assets/audio/production-rehearsal-020-safety.wav",
+            "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
           }
         ],
         "subtitleMode": "typewriter",
         "subtitleUnits": [
           {
-            "displayText": "館内すべての扉の解錠を確認しました。",
+            "displayText": "館内すべての安全を確認しました。",
             "startMs": 0,
-            "endMs": 3007
+            "endMs": 2600
           }
         ]
       },
@@ -1944,7 +1950,7 @@
         "durationMs": 0,
         "intensity": 1
       },
-      "operatorNote": "P-V07復旧の後の多数の人間台詞を待つ独立Cue。NORMALを維持し解錠確認のWAV020を再生。新たな復旧演出・SFXなし。",
+      "operatorNote": "P-V07復旧の後の多数の人間台詞を待つ独立Cue。NORMALを維持し安全確認の新規WAV020を再生。新たな復旧演出・SFXなし。",
       "triggerNote": "夢野・押野・三馬の責任に関する会話後、虎谷が二人を見つめ、わずかに苦笑して静かに俯く→正常なAI表示でGO",
       "order": 240,
       "visual": {

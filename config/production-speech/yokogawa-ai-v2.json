@@ -7,7 +7,13 @@
     "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
     "modifiedTime": "2026-10-12T11:36:41.372Z",
     "tabCount": 16,
-    "authority": "current-google-docs-revision"
+    "authority": "current-google-docs-revision",
+    "latestReview": {
+      "modifiedTime": "2026-10-14T12:52:52.896Z",
+      "mode": "read-only",
+      "p020Override": "User rehearsal revision: 館内すべての安全を確認しました。",
+      "sourceP020": "館内すべての扉の解錠を確認しました"
+    }
   },
   "voiceProfileId": "yokogawa-professor-v1",
   "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
@@ -1456,15 +1462,15 @@
     {
       "scriptId": "020",
       "assetId": "prod-voice-020-unlock-confirmed",
-      "path": "assets/audio/production-v2-020.wav",
+      "path": "assets/audio/production-rehearsal-020-safety.wav",
       "scene": "scene-7",
       "route": "main",
       "location": "7・201",
       "tabId": "t.6gopn4tnzuo",
-      "scriptText": "館内すべての扉の解錠を確認しました",
-      "displayText": "館内すべての扉の解錠を確認しました。",
-      "spokenText": "館内すべての扉の解錠を確認しました",
-      "synthesisText": "館内すべての扉の解錠を確認しました",
+      "scriptText": "館内すべての安全を確認しました",
+      "displayText": "館内すべての安全を確認しました。",
+      "spokenText": "館内すべての安全を確認しました",
+      "synthesisText": "館内すべての安全を確認しました",
       "voiceProfileId": "yokogawa-professor-v1",
       "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
       "engineVersion": "1.1.0-dev",
@@ -1482,14 +1488,14 @@
         "outputSamplingRate": 44100,
         "outputStereo": false
       },
-      "generatedAt": "2026-10-12T10:49:31.548Z",
+      "generatedAt": "2026-10-14T13:52:55.755Z",
       "sourceScriptRevision": "AHj4eMQMO-_AfN9vu3q21Wl-McLQ31APmMrzWRIveijkD_9ZFI5hYvGBA1qMHSSjVX7N1jgNU2gr8W2RRl_OtJDdiio9254oP9ZVaS0T7TY",
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "durationSeconds": 3.006281179138322,
-      "bytes": 265198,
-      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df",
+      "durationSeconds": 2.5999319727891157,
+      "bytes": 229358,
+      "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -1500,29 +1506,35 @@
       },
       "segments": [
         {
-          "displayText": "館内すべての扉の解錠を確認しました。",
-          "spokenText": "館内すべての扉の解錠を確認しました",
+          "displayText": "館内すべての安全を確認しました。",
+          "spokenText": "館内すべての安全を確認しました",
           "startMs": 0,
-          "endMs": 3007,
+          "endMs": 2600,
           "pauseAfterMs": 0,
-          "path": "assets/audio/production-v2-020.wav",
-          "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+          "path": "assets/audio/production-rehearsal-020-safety.wav",
+          "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
         }
       ],
       "pacing": {
         "version": 1,
         "direction": "正常な確認通知を静かに一文で返す。復旧の達成感を重ねて誇張しない。",
-        "sourcePath": "assets/audio/production-v2-020.wav",
-        "sourceSha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df",
+        "sourcePath": "assets/audio/production-rehearsal-020-safety.wav",
+        "sourceSha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66",
         "pauseAfterMs": []
       },
       "subtitleUnits": [
         {
-          "displayText": "館内すべての扉の解錠を確認しました。",
+          "displayText": "館内すべての安全を確認しました。",
           "startMs": 0,
-          "endMs": 3007
+          "endMs": 2600
         }
-      ]
+      ],
+      "reusedApprovedTake": false,
+      "rehearsalRevision": {
+        "baseline": "b0440618438bbb6398ef7831d48d112af6c0d923",
+        "oldPath": "assets/audio/production-v2-020.wav",
+        "reason": "User confirmed safety announcement; source Google Doc remains read-only"
+      }
     }
   ],
   "sfx": [

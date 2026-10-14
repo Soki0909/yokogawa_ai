@@ -303,7 +303,7 @@ try {
     // CSS entrance animations have a short tail even when transition.id is none.
     const minimumVisualEnd = started + Math.max(cue.transition?.durationMs ?? 0, cue.visual?.visible ? 1600 : 0, ...(cue.sfx ?? []).map(effect => effect.atMs + effect.durationMs));
     await delay(Math.max(0, minimumVisualEnd - Date.now()));
-    await waitState(s=>!s.nextBlock,`${cue.id} actual complete barrier`);
+    await waitState(s=>!s.nextBlock && !s.cueProgress?.blocked,`${cue.id} recording-only complete wait`);
     const completed = Date.now();
     await delay(2000);
     timeline.push({ cueId: cue.id, cueNumber: cue.cueNumber, name: cue.name, recordingCaption: recordingCueCaption(cue), startedSeconds: (started-videoStart)/1000,

@@ -163,7 +163,7 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
 };
 
 const temporary = await mkdtemp(path.join(os.tmpdir(), 'yokogawa-production-browser-'));
-const artifactDirectory = path.resolve(process.env.PRODUCTION_BROWSER_ARTIFACTS ?? 'artifacts/subtitle-script-assets/browser');
+const artifactDirectory = path.resolve(process.argv[2] ?? process.env.PRODUCTION_BROWSER_ARTIFACTS ?? 'artifacts/subtitle-script-assets/browser');
 await mkdir(artifactDirectory, { recursive: true });
 const serverPort = await freePort();
 const debugPort = await freePort();
@@ -429,7 +429,7 @@ try {
   await startServer();
   await display.waitFor(`document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reconnect', 20_000);
   await display.waitFor(`document.body.dataset.preset === 'normal' && document.querySelector('#avatar-wrap').hidden && document.querySelector('#caption').textContent === ''`, 'bundled latest startup after reconnect', 20_000);
-  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('production-reliability-20261014')`, 'latest version after reconnect', 20_000);
+  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('rehearsal-revision-20261014')`, 'latest version after reconnect', 20_000);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY restored after reconnect', 20_000);
   for (const [index, page] of [admin, display].entries()) {
     const restartErrors = page.errors.splice(errorsBeforeRestart[index]);

@@ -401,6 +401,7 @@ function handleEvent(event) {
     if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume,event.runId).catch(error => audioEngine.fail(error.message));
   } else if (event.type === 'sfx:stop') {
     playbackGeneration++;
+    presentationCache.clear();clearTimeout(transitionTimer);clearTimeout(overlayTimer);clearTimeout(visualTimer);cancelAnimationFrame(unlockFrame);
     localAudio.stop(false);localTts.stop(false);speech.stop(false);lipSync.finish();
     sfx.stop(); captionWriter.stop(); showCaption('');
   } else if (event.type === 'stop') {

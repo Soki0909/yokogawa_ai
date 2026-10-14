@@ -44,7 +44,7 @@ test('P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016
     assert.equal(store.snapshot().nextCue.cueId, following);
     const replay = store.replayCue(); assert.equal(replay.cue.cueId, merged);
     assert.notEqual(replay.message.id, result.message.id);
-    advance(1200);
+    advance(1500);
   }
 });
 

@@ -7,7 +7,7 @@ const descriptions = {
   'P-012': '認証成功 → 解錠 → 異常', 'P-013': '緊急遮断・連絡失敗',
   'P-014': 'スタッフへの連絡失敗', 'P-V04': '危険状態・警報', 'P-015': '機械設備の強制暴走',
   'P-V05': '非常停止問題を提示', 'P-V06': '停止コード → 全停止・解放',
-  'P-V07': '復旧 → NORMAL', 'P-020': '全館の扉・解錠確認',
+  'P-V07': '復旧 → NORMAL', 'P-020': '館内すべての安全確認',
 };
 export const recordingCueCaption = cue => `${cue.cueNumber}｜${descriptions[cue.cueNumber] ?? cue.name}`;
 

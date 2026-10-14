@@ -7,6 +7,7 @@ let noticeTimer;
 let connected = false;
 let actionLocked = false;
 let nextDeadline = 0;
+let pendingRescue = null;
 let cueRenderSignature = '';
 let selectRenderSignature = '';
 let connectionRenderSignature = '';
@@ -16,6 +17,7 @@ const visualTypes = ['none', 'text-card', 'image', 'final-challenge', 'riddle-st
 
 const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
   connected = status === 'connected';
+  if(!connected){pendingRescue=null;elements['cue-rescue-apply'].hidden=true;}
   elements['system-status'].textContent = connected ? 'ONLINE' : status === 'connecting' ? '接続中' : '再接続中';
   elements['system-card'].dataset.state = connected ? 'connected' : 'error';
   updateControls();
@@ -23,7 +25,7 @@ const socket = new ReconnectingSocket('admin', handleEvent, (status) => {
 });
 
 function handleEvent(event) {
-  if (event.type === 'state') { state = event.state; nextDeadline = performance.now() + (state.nextGuard?.remainingMs ?? 0); render(); }
+  if (event.type === 'state') { state = event.state; nextDeadline = Math.max(nextDeadline,performance.now() + (state.nextGuard?.remainingMs ?? 0)); render(); }
   else if (event.type === 'error') showNotice(event.message, 'error');
   else if (event.type === 'accepted') showNotice(event.id?.startsWith('identify:') ? '対象Displayへ識別表示を送りました。'
     : event.id?.startsWith('scene-rehearsal:') ? 'Scene冒頭の状態へ復元しました。'
@@ -160,12 +162,19 @@ function renderPreflight() {
 }
 
 function renderShowMode() {
-  elements['production-version'].textContent = `${state.metadata?.version ?? 'Custom Show'} · ${state.metadata?.sourceScript?.modifiedTime ?? '台本時刻未設定'} · ${state.playbackStatus.toUpperCase()}`;
+  const rescueSelect=elements['cue-rescue-target'];
+  const rescueSignature=JSON.stringify(state.cues.map(c=>[c.cueId,c.cueNumber,c.cueName,c.enabled]));
+  if(rescueSelect.dataset.signature!==rescueSignature){replaceOptions(rescueSelect,state.cues.filter(c=>c.enabled).sort((a,b)=>a.order-b.order).map(c=>option(c.cueId,`${c.cueNumber} ${c.cueName}`)),rescueSelect.value||state.nextCue?.cueId);rescueSelect.dataset.signature=rescueSignature;}
+  if(pendingRescue && pendingRescue.expectedIndex!==state.currentCueIndex){pendingRescue=null;elements['cue-rescue-apply'].hidden=true;elements['cue-rescue-preview'].textContent='位置が変わりました。移動先を再確認してください。';}
+  elements['next-acceptance'].textContent=`最後に受理したNEXT: ${state.nextGuard?.lastAcceptedAt?new Date(state.nextGuard.lastAcceptedAt).toLocaleTimeString('ja-JP'):'—'} / 1.5秒連打保護`;
+  elements['cue-rescue-history'].textContent=state.cueMove?`移動${state.cueMove.ready?'待機':'履歴'}: 次GO ${state.cueMove.target} / 飛ばした位置 ${state.cueMove.skipped.join('、')||'なし'}`:'';
+  elements['production-version'].textContent = `${state.metadata?.version ?? 'Custom Show'} · 台本確認 ${state.metadata?.sourceScript?.latestReview?.modifiedTime ?? state.metadata?.sourceScript?.modifiedTime ?? '時刻未設定'} · ${state.playbackStatus.toUpperCase()}`;
   elements['next-trigger'].textContent = state.nextCue?.triggerNote || '次のCueはありません';
   elements['production-speech-volume'].value = state.settings.volume;
   elements['production-sfx-volume'].value = state.settings.sfxVolume ?? .65;
   const scene = state.scenes.find((item) => item.sceneId === state.currentSceneId); elements['show-current-scene'].textContent = scene?.sceneName ?? '— 未選択';
   elements['show-current-cue'].textContent = cueTitle(state.currentCue, '— 待機中');
+  if(state.cueMove?.ready)elements['show-current-cue'].textContent='停止／位置移動待機（再生なし）';
   elements['show-current-text'].textContent = state.sceneRehearsal?.ready && !state.nextCue
     ? 'このScene内に横川AI Cueはありません。'
     : state.currentCue?.text ?? 'NEXTを押すと最初のCueを実行します。';
@@ -214,8 +223,9 @@ function showNotice(message, kind = 'info') { clearTimeout(noticeTimer); element
 function updateCount() { elements['character-count'].textContent = `${elements['speech-input'].value.length.toLocaleString('ja-JP')} / 5,000`; updateControls(); }
 function updateControls() {
   const hasDisplay = state?.displays.some((display) => display.online); const locked = !connected || actionLocked; elements['send-button'].disabled = !connected || !hasDisplay || !elements['speech-input'].value.trim();
+  for(const id of ['cue-rescue-next','cue-rescue-confirm','cue-rescue-apply'])elements[id].disabled=!connected||!hasDisplay;
   const nextGuarded = performance.now() < nextDeadline;
-  for (const id of ['next-button', 'show-next-button']) { elements[id].disabled = !connected || nextGuarded || Boolean(state?.nextBlock) || !state?.nextCue || !hasDisplay; elements[id].title = state?.nextBlock || (nextGuarded ? 'NEXT保護中（1.2秒）。連打は破棄されます。' : '次の合図でNEXT'); }
+  for (const id of ['next-button', 'show-next-button']) { elements[id].disabled = !connected || nextGuarded || Boolean(state?.nextBlock) || !state?.nextCue || !hasDisplay; elements[id].title = state?.nextBlock || (nextGuarded ? 'NEXT保護中（1.5秒）。連打は破棄されます。' : '次の合図でNEXT（前Cueを中断します）'); }
   if (nextGuarded) elements['show-next-button-label'].textContent = 'NEXT受理・二重押し保護中…';
   else if (state) elements['show-next-button-label'].textContent = state.nextBlock || (state.nextCue ? `${state.nextCue.cueNumber} ${state.nextCue.cueName}` : '次のCueはありません');
   for (const id of ['back-button', 'show-back-button']) elements[id].disabled = locked || (state?.currentCueIndex ?? -1) < 0;
@@ -232,11 +242,16 @@ function updateControls() {
 }
 function performAction(type, extra = {}) {
   const emergency = ['stop', 'blackout', 'blackout:clear', 'clear'].includes(type);
-  if (type === 'cue:next') { if (performance.now() < nextDeadline || state?.nextBlock) return; nextDeadline = performance.now() + (state?.nextGuard?.intervalMs || 1200); }
+  if (type === 'cue:next') { if (performance.now() < nextDeadline || state?.nextBlock) return; nextDeadline = performance.now() + 1500; }
   else if (!emergency) { if (actionLocked) return; actionLocked = true; window.setTimeout(() => { actionLocked = false; updateControls(); }, 650); }
   updateControls(); socket.send({ type, actionId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, ...extra });
 }
 setInterval(updateControls, 100);
+function confirmRescue(cueId){const target=state?.cues.find(c=>c.cueId===cueId&&c.enabled);if(!target)return;pendingRescue={cueId,expectedIndex:state.currentCueIndex};elements['cue-rescue-preview'].textContent=`現在 ${state.currentCue?.cueNumber||'待機'} を停止 → ${target.cueNumber} ${target.cueName} を次のNEXTで開始。ここでは再生しません。`;elements['cue-rescue-apply'].hidden=false;}
+elements['cue-rescue-next'].addEventListener('click',()=>confirmRescue(state?.nextCue?.cueId));
+elements['cue-rescue-confirm'].addEventListener('click',()=>confirmRescue(elements['cue-rescue-target'].value));
+elements['cue-rescue-target'].addEventListener('change',()=>{pendingRescue=null;elements['cue-rescue-apply'].hidden=true;});
+elements['cue-rescue-apply'].addEventListener('click',()=>{if(!pendingRescue||pendingRescue.expectedIndex!==state.currentCueIndex)return;const move=pendingRescue;pendingRescue=null;elements['cue-rescue-apply'].hidden=true;performAction('cue:ready',move);});
 function updateSettings() { socket.send({ type: 'settings:update', settings: { voiceURI: elements['voice-select'].value, rate: Number(elements['rate-input'].value), pitch: Number(elements['pitch-input'].value), volume: Number(elements['volume-input'].value), subtitlesEnabled: elements['subtitle-input'].checked, shortcutsEnabled: elements['shortcuts-input'].checked } }); }
 function openCue(cue = {}) {
   elements['cue-id'].value = cue.cueId ?? ''; elements['cue-number'].value = cue.cueNumber ?? String(state.cues.length + 1).padStart(3, '0'); elements['cue-name'].value = cue.cueName ?? '';

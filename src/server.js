@@ -213,6 +213,13 @@ function dispatchPresentation(action) {
   broadcastState(); return recipients.length > 0;
 }
 
+function clearFinishedPuzzleSubtitle(){
+  if(store.state.playbackStatus!=='completed')return;
+  for(const p of [store.state,...store.state.displays])if(p.currentVisual?.type==='image'&&p.currentVisual.visible){
+    const hadSubtitle=p.currentSubtitle!==null;p.currentSubtitle=null;
+    if(hadSubtitle&&p.displayId)forRole('display',(socket,client)=>{if(client.displayId===p.displayId)send(socket,'subtitle',{text:'',mode:'typewriter',durationMs:1,presentationDelayMs:store.presentationDelayMs||0});});
+  }
+}
 function schedulePresentationSettlement(action) {
   const elapsed = action.transition?.startedAt ? Math.max(0, Date.now() - Date.parse(action.transition.startedAt)) : 0;
   const unlockElapsed = action.unlock?.startedAt ? Math.max(0, Date.now() - Date.parse(action.unlock.startedAt)) : 0;
@@ -226,7 +233,7 @@ function schedulePresentationSettlement(action) {
   ].filter((value) => Number.isFinite(value) && value >= 0);
   for (const delay of new Set(delays)) {
     cueScheduler.schedule(Math.min(600_000, delay + 25), () => {
-      store.settleTimedPresentation(); void store.persist();
+      store.settleTimedPresentation();clearFinishedPuzzleSubtitle(); void store.persist();
       forRole('display', (socket, client) => displayState(socket, client.displayId));
       broadcastState();
     });
@@ -261,6 +268,8 @@ function errorResponse(socket, error) {
     DUPLICATE_ACTION: '同じ操作の二重送信を防止しました。',
     NEXT_GUARDED: 'NEXT保護中です。連打は破棄しました。次の合図で押してください。',
     CUE_NOT_COMPLETE: 'NEXTを拒否しました: '+(store.nextBlock() || 'Cue進行確認中。完了後に手動でNEXTしてください。'),
+    AUDIO_PREPARE_PENDING:'音声の開始前確認中です。確認失敗時は再準備して明示NEXTしてください。',
+    CUE_MOVE_STALE:'Cue位置が変わりました。移動先を再確認してください。',
     AUDIO_PREPARE_FAILED: '音声の開始前確認に失敗しました。映像・音声は開始していません。Audio設定で再準備後、明示的に再試行してください。',
     AUDIO_NOT_READY:'Audio NOT READY。Display設定を開いて音声を再準備し、READYを確認してから明示的に再試行してください。',
   };
@@ -330,6 +339,11 @@ function handleCueRequest(socket, factory, logLabel) {
     if (!prepared) return;
     if (!validateTarget(socket, prepared.cue.target, Boolean(prepared.message))) return;
     cueScheduler.cancel();
+    // Operator NEXT replaces the prior run, even if its ended receipt was lost.
+    localTtsService.cancelCurrent('cue-replaced');subtitleMessageId=null;
+    if(store.state.currentMessage)store.updateCurrent('stopped');
+    for(const queued of store.state.queue)store.updateHistory(queued.id,{status:'stopped'});
+    store.state.currentMessage=null;store.state.queue=[];
     broadcast('display', 'sfx:stop');
     dispatchPresentation(prepared.action);
     if(store.cueRun){const runId=store.cueRun.id;cueScheduler.schedule(Math.max(0,store.cueRun.finiteUntil-store.monotonic())+25,()=>{if(store.cueRun?.id===runId)broadcastState();});}
@@ -395,7 +409,8 @@ cueScheduler.onInvalidate=cancelPendingCue;
 function requestPreparedCue(socket,factory,label,cue,{next=false}={}) {
   if(!store.state.metadata.reliableAudio)return handleCueRequest(socket,factory,label);
   if(!cue)return errorResponse(socket,new Error('NO_NEXT_CUE'));
-  if(pendingCue || (next && (store.nextBlock() || store.nextGuard().remainingMs>0)))return errorResponse(socket,new Error(store.nextGuard().remainingMs>0?'NEXT_GUARDED':'CUE_NOT_COMPLETE'));
+  if(next && store.nextGuard().remainingMs>0)return errorResponse(socket,new Error('NEXT_GUARDED'));
+  if(pendingCue)return errorResponse(socket,new Error('AUDIO_PREPARE_PENDING'));
   const master=store.getDisplay(store.state.audioMasterId);
   if(!master?.online || !master.audioReady || master.audioProtocol!=='decoded-v1')return errorResponse(socket,new Error('AUDIO_NOT_READY'));
   if(!validateTarget(socket,cue.target,true))return;
@@ -458,6 +473,15 @@ function handleAdmin(socket, event) {
   else if (event.type === 'cue:execute') requestPreparedCue(socket, () => store.executeCue(event.cueId), 'Cue直接実行',store.orderedCues().find(c=>c.cueId===event.cueId));
   else if (event.type === 'cue:jump') {
     try { const cue = store.jumpCue(event.cueId); broadcastState(); send(socket, 'accepted', { id: `jump:${cue.cueId}`, queued: false }); logger.info('Cue位置移動', { cueId: cue.cueId }); } catch (error) { errorResponse(socket, error); }
+  }
+  else if(event.type==='cue:ready') {
+    try {
+      if(!store.orderedCues().some(c=>c.cueId===event.cueId&&c.enabled))throw Error('CUE_NOT_FOUND');
+      if(event.expectedIndex!==store.state.currentCueIndex)throw Error('CUE_MOVE_STALE');
+      cancelTransport('operator-cue-ready');const cue=store.readyCue(event.cueId);
+      broadcastState();send(socket,'accepted',{id:`cue-ready:${cue.cueId}`,queued:false});
+      logger.info('緊急Cue待機位置',{...store.state.cueMove});
+    }catch(error){errorResponse(socket,error);}
   }
   else if (event.type === 'cue:replay') {
     cueScheduler.cancel();
@@ -612,6 +636,7 @@ function handleDisplay(client, event) {
       }
       const result = store.reportPlayback(event.id, event.status, event.error);
       if (!result.accepted) return;
+      if(event.status==='completed')clearFinishedPuzzleSubtitle();
       if (event.status === 'speaking') scheduleSubtitles(store.state.currentMessage);
       const playbackLabels = { received: 'TTS受信', speaking: 'TTS開始', completed: 'TTS終了', stopped: 'TTS停止', error: 'TTSエラー' };
       logger.info(playbackLabels[event.status] ?? `TTS状態: ${event.status}`, { id: event.id, displayId: client.displayId, error: event.error });

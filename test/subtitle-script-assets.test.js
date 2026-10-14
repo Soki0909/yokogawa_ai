@@ -47,11 +47,11 @@ test('typewriter starts empty, short/long reveal progressively; state echo and c
 
 test('latest script diffs preserve recovery and add separate Scene7 confirmation; no AI gathering cue', () => {
   const invalid=structuredClone(show);invalid.cues[0].speech.subtitleUnits=[null];assert.equal(validateShowFile(invalid).valid,false);
-  assert.equal(show.cues.length,20);assert.equal(show.metadata.nextGuardMs,1200);
+  assert.equal(show.cues.length,20);assert.equal(show.metadata.nextGuardMs,1500);
   assert.ok(!show.cues.some(c=>c.scene==='scene-5'));
   const recovery=show.cues.find(c=>c.id==='prod-v-recovery'); const confirmation=show.cues.at(-1);
   assert.equal(recovery.sequence.at(-1).presentationPreset,'normal');assert.equal(recovery.audio.speechMode,'none');
-  assert.equal(confirmation.id,'prod-020');assert.equal(confirmation.scene,'scene-7');assert.equal(confirmation.displayText,'館内すべての扉の解錠を確認しました。');assert.equal(confirmation.presentationPreset,'normal');
+  assert.equal(confirmation.id,'prod-020');assert.equal(confirmation.scene,'scene-7');assert.equal(confirmation.displayText,'館内すべての安全を確認しました。');assert.equal(confirmation.presentationPreset,'normal');
   assert.match(confirmation.triggerNote,/夢野・押野・三馬/);assert.match(show.cues.find(c=>c.id==='prod-v-emergency-riddle').triggerNote,/USB/);
   assert.ok(show.cues.find(c=>c.id==='prod-013').displayText.endsWith('。'));
   const first=show.cues.find(c=>c.id==='prod-013'), second=show.cues.find(c=>c.id==='prod-014');assert.equal(first.sfx[0].assetId,second.sfx[0].assetId);

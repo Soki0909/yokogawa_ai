@@ -183,9 +183,9 @@
     {
       "id": "prod-voice-020-unlock-confirmed",
       "name": "横川AI Production 020",
-      "path": "assets/audio/production-v2-020.wav",
+      "path": "assets/audio/production-rehearsal-020-safety.wav",
       "mimeType": "audio/wav",
-      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+      "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
     },
     {
       "id": "prod-sfx-boot",
@@ -268,7 +268,13 @@
       "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
       "modifiedTime": "2026-10-12T11:36:41.372Z",
       "tabCount": 16,
-      "authority": "current-google-docs-revision"
+      "authority": "current-google-docs-revision",
+      "latestReview": {
+        "modifiedTime": "2026-10-14T12:52:52.896Z",
+        "mode": "read-only",
+        "p020Override": "User rehearsal revision: 館内すべての安全を確認しました。",
+        "sourceP020": "館内すべての扉の解錠を確認しました"
+      }
     },
     "voiceProfileId": "yokogawa-professor-v1",
     "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3"

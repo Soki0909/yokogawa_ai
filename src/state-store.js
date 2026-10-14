@@ -465,6 +465,7 @@ export class StateStore {
     const cue = cues[index];
     if (!cue.enabled) throw new Error('CUE_DISABLED');
     this.state.sceneRehearsal = null;
+    if(this.state.cueMove)this.state.cueMove.ready=false;
     this.state.currentCueIndex = index; this.state.currentSceneId = cue.sceneId ?? null;
     const action = this.applyCue(cue);
     const needsSpeech = ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none';
@@ -476,29 +477,28 @@ export class StateStore {
   nextBlock() {
     if(!this.state.metadata.reliableAudio)return '';
     if(this.pendingCueRequest)return '音声準備確認中';
-    if(this.cueRun?.error)return this.cueRun.reason(this.monotonic());
     if(!this.state.displayAudioReady)return '音声未準備';
-    return this.cueRun?.reason(this.monotonic()) || '';
+    return ''; // Completion receipts are diagnostics, never an operator lock.
   }
 
   nextGuard() {
-    const intervalMs = Number(this.state.metadata.nextGuardMs) || 0;
-    return { intervalMs, remainingMs: Math.max(0, Math.ceil(intervalMs - (this.monotonic() - this.lastNextAt))) };
+    const intervalMs = this.state.metadata.reliableAudio ? 1500 : Number(this.state.metadata.nextGuardMs) || 0;
+    return { intervalMs, remainingMs: Math.max(0, Math.ceil(intervalMs - (this.monotonic() - this.lastNextAt))), lastAcceptedAt: this.lastAcceptedNext ?? null };
   }
 
   nextCue({ validate = () => true } = {}) {
     if (this.nextGuard().remainingMs > 0) throw new Error('NEXT_GUARDED');
-    if(this.nextBlock())throw new Error('CUE_NOT_COMPLETE');
+    if(this.nextBlock())throw new Error('AUDIO_NOT_READY');
     if (this.state.sceneRehearsal?.ready) {
       if (!this.state.sceneRehearsal.nextCueId) throw new Error('NO_SCENE_CUE');
       const cue = this.orderedCues().find(c => c.cueId === this.state.sceneRehearsal.nextCueId);
       if (!validate(cue)) return null;
-      this.lastNextAt = this.monotonic(); return this.executeCue(cue.cueId);
+      this.lastNextAt = this.monotonic(); this.lastAcceptedNext=this.now().toISOString(); return this.executeCue(cue.cueId);
     }
     const cue = this.orderedCues().slice(this.state.currentCueIndex + 1).find((item) => item.enabled);
     if (!cue) throw new Error('NO_NEXT_CUE');
     if (!validate(cue)) return null;
-    this.lastNextAt = this.monotonic(); return this.executeCue(cue.cueId);
+    this.lastNextAt = this.monotonic(); this.lastAcceptedNext=this.now().toISOString(); return this.executeCue(cue.cueId);
   }
 
   backCue() {
@@ -568,6 +568,19 @@ export class StateStore {
     return cues[index];
   }
 
+  readyCue(cueId) {
+    const cues=this.orderedCues(),index=cues.findIndex(c=>c.cueId===cueId&&c.enabled);
+    if(index<0)throw new Error('CUE_NOT_FOUND');
+    const previousIndex=this.state.currentCueIndex;
+    this.cueRun=null;this.pendingCueRequest=false;this.lastNextAt=-Infinity;
+    this.state.sceneRehearsal=null;this.state.currentCueIndex=index-1;
+    this.state.currentSceneId=cues[index].sceneId??null;
+    const skipped=cues.slice(Math.max(0,previousIndex),index).map(c=>c.cueNumber);
+    this.state.cueMove={at:this.now().toISOString(),targetCueId:cueId,target:cues[index].cueNumber,skipped,ready:true};
+    this.logRehearsal('cue-ready','指定Cueを次にGO',{cueId,skipped,executed:false});
+    void this.persist();return cues[index];
+  }
+
   prepareSceneRehearsal(sceneId) {
     if (!this.state.rehearsalSession?.active) throw new Error('REHEARSAL_NOT_ACTIVE');
     const scenes = [...this.state.scenes].sort((a, b) => a.order - b.order);
@@ -628,6 +641,7 @@ export class StateStore {
   }
 
   showReset() {
+    this.state.cueMove=null;this.lastAcceptedNext=null;
     this.cueRun=null;this.pendingCueRequest=false;
     this.presentationDelayMs=0;
     this.lastNextAt = -Infinity;

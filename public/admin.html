@@ -73,6 +73,17 @@
         <button id="show-replay-button" type="button">↻ REPLAY</button>
         <button id="show-stop-button" class="show-stop" type="button">■ STOP</button>
       </div>
+      <p id="next-acceptance" role="status">最後に受理したNEXT — / 1.5秒連打保護</p>
+      <details id="cue-rescue" class="cue-rescue">
+        <summary>緊急：Cueを飛ばす／移動</summary>
+        <p>今の音声・SE・字幕・動きを停止します。移動だけでは再生しません。指定Cueは次のNEXTで開始します。</p>
+        <button id="cue-rescue-next" type="button">現在Cueを中断し、次のCueを待機</button>
+        <label>次にGOするCue<select id="cue-rescue-target"></select></label>
+        <button id="cue-rescue-confirm" type="button">移動内容を確認</button>
+        <p id="cue-rescue-preview" role="status"></p>
+        <button id="cue-rescue-apply" type="button" hidden>確定：停止してこのCueを次にGO</button>
+      </details>
+      <p id="cue-rescue-history" role="status"></p>
       <div class="emergency-controls"><button id="show-clear-button" type="button">CLEAR</button><button id="show-blackout-button" type="button">BLACKOUT</button><button id="show-blackout-clear-button" type="button">RESTORE</button></div>
       <div class="cue-notes"><p><span>OPERATOR</span> <strong id="show-operator-note">—</strong></p><p><span>TRIGGER</span> <strong id="show-trigger-note">—</strong></p></div>
       <p id="show-current-meta" class="show-current-meta">ROUTE main · PRESET normal · AVATAR normal · AUDIO browser</p>

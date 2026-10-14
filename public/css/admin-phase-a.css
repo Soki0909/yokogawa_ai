@@ -31,3 +31,9 @@
   .next-trigger strong { font-size: 20px; }
   .show-next-button { min-height: 82px; }
 }
+.cue-rescue { margin:12px 0;padding:12px;border:1px solid #e8aa49;border-radius:8px;background:#19170f; }
+.cue-rescue summary { cursor:pointer;font-weight:700;color:#ffce78; }
+.cue-rescue label { display:grid;gap:6px;margin:12px 0; }
+.cue-rescue select { width:100%;max-width:100%; }
+.cue-rescue button { margin:6px 6px 6px 0;white-space:normal; }
+.show-console > #cue-rescue { order:1; margin:0; }
