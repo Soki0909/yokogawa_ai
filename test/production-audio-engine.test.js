@@ -53,3 +53,19 @@ test('browser output lead is explicit; excessive output latency fails READY inst
  const f=fixture();await f.engine.load(f.assets);f.engine.context.outputLatency=.5;
  await assert.rejects(f.engine.verify(),/300ms/);assert.equal(f.engine.ready,false);assert.throws(()=>f.engine.play('voice'),/NOT READY/);await f.engine.close();
 });
+
+test('clock preparation advances without relying on a 16ms timer that hidden Chrome may throttle',async()=>{
+ const f=fixture();await f.engine.load(f.assets);let clock=0;
+ Object.defineProperty(f.engine.context,'currentTime',{get:()=>clock});
+ const nativeTimeout=globalThis.setTimeout;
+ globalThis.setTimeout=(fn,ms,...args)=>{if(ms===16)throw Error('16ms timer unavailable');return nativeTimeout(fn,ms,...args);};
+ try{const pending=f.engine.verify();setImmediate(()=>{clock=.02;});await pending;assert.equal(f.engine.ready,true);assert.equal(f.engine.active.size,0);assert.ok(!f.calls.includes('start:buffer'));}
+ finally{globalThis.setTimeout=nativeTimeout;await f.engine.close();}
+});
+
+test('STOP cancels a stalled task-based clock probe without READY downgrade or a late source',async()=>{
+ const f=fixture();await f.engine.load(f.assets);await f.engine.verify();
+ Object.defineProperty(f.engine.context,'currentTime',{get:()=>0});
+ const pending=f.engine.verify();setImmediate(()=>f.engine.stopAll());
+ await assert.rejects(pending,/失いました/);assert.equal(f.engine.ready,true);assert.equal(f.engine.active.size,0);await f.engine.close();
+});

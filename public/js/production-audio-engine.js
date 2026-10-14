@@ -61,6 +61,7 @@ export class ProductionAudioEngine {
     if (this.resuming) await this.resuming;
     const generation = this.generation;
     const context = this.getContext();
+    const preparationStarted = performance.now();
     if (!ids.length || ids.some(id => !this.buffers.has(id))) throw Error('必要な音声が未デコードです');
     this.resuming = (async () => {
       let timer;
@@ -78,17 +79,21 @@ export class ProductionAudioEngine {
           this.clockGain.__silentPreparation = true;
           this.clock.connect(this.clockGain); this.clockGain.connect(context.destination); this.clock.start(); this.clockContext = context;
         }
-        const start = context.currentTime;
+        const start = context.currentTime,clockProbeStarted=performance.now();
         await new Promise((resolve,reject) => {
           const deadline = performance.now()+1000;
+          // Hidden/silent Chrome can batch a 16ms timer at one-second intervals.
+          // Yield tasks only for this bounded render-clock probe; never schedule a Cue here.
+          const channel = new MessageChannel();
+          const finish = (callback,value) => { channel.port1.close();channel.port2.close();callback(value); };
           const poll = () => {
-            if (generation !== this.generation || context.state !== 'running') return reject(Error('準備中に音声出力を失いました'));
-            if (context.currentTime > start) return resolve();
-            if (performance.now() > deadline) return reject(Error('音声レンダー時計が停止しています'));
-            setTimeout(poll, 16);
-          }; poll();
+            if (generation !== this.generation || context.state !== 'running') return finish(reject,Error('準備中に音声出力を失いました'));
+            if (context.currentTime > start) return finish(resolve);
+            if (performance.now() > deadline) return finish(reject,Error('音声レンダー時計が停止しています'));
+            channel.port2.postMessage(null);
+          };channel.port1.onmessage=poll;poll();
         });
-        this.unlocked = true; this.status(true); this.log('verified', { outputTimestamp: context.getOutputTimestamp?.() });
+        this.unlocked = true; this.status(true); this.log('verified', { outputTimestamp: context.getOutputTimestamp?.(),preparationMs:performance.now()-preparationStarted,clockProbeMs:performance.now()-clockProbeStarted });
       } finally { clearTimeout(timer); }
     })().catch(error => {
       // STOP/Reset may invalidate this in-flight probe. Its cancellation is not
