@@ -85,16 +85,16 @@
     {
       "id": "prod-voice-003-security",
       "name": "横川AI Production 003",
-      "path": "assets/audio/production-paced-003.wav",
+      "path": "assets/audio/production-reliable-003.wav",
       "mimeType": "audio/wav",
-      "sha256": "f26458aa98fad64a6a1d1328ec338356b1d7f8f071958de8c5bf72b233037d5c"
+      "sha256": "db9549c232327f19d9a862993ce3c925a4893e87d8f63c7ee5043c46a8954023"
     },
     {
       "id": "prod-voice-004-principia",
       "name": "横川AI Production 004",
-      "path": "assets/audio/production-paced-004.wav",
+      "path": "assets/audio/production-reliable-004.wav",
       "mimeType": "audio/wav",
-      "sha256": "6cfa980e53f46aaafdfc4c1241b0f2a38a94d22f1ab07641eb453432204b24a5"
+      "sha256": "5f0ccb14dac8974fbd839b6cd72e01baca2cb9ea2a29850d8e0f3c2038df87fd"
     },
     {
       "id": "prod-voice-005-communication-lock",
@@ -134,9 +134,9 @@
     {
       "id": "prod-voice-011-final-challenge",
       "name": "横川AI Production 011",
-      "path": "assets/audio/production-paced-011.wav",
+      "path": "assets/audio/production-reliable-011.wav",
       "mimeType": "audio/wav",
-      "sha256": "a425ca6d6e87ef3ec895249949ef00cb68110c20f6ae35a96840306472edee0e"
+      "sha256": "25db9a560c0bc20ca18d05bdcc6a0e1a7737e4c296d77498eaea019c3033316a"
     },
     {
       "id": "prod-voice-012-auth-success",

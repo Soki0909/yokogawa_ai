@@ -18,6 +18,7 @@ export class CueScheduler {
     timer?.unref?.(); this.timers.add(timer);
   }
   cancel() {
+    this.onInvalidate?.();
     this.generation++;
     for (const timer of this.timers) this.clearTimer(timer);
     this.timers.clear();

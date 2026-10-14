@@ -40,9 +40,11 @@
     "test:runtime-long": "node scripts/runtime-hardening-check.js phase-c",
     "test:subtitle-assets": "node scripts/subtitle-assets-browser-check.js",
     "production:verify": "node scripts/verify-subtitle-production.mjs",
-    "voice:production:pacing": "node scripts/prepare-production-pacing.mjs && node scripts/build-production-show.mjs",
+    "voice:production:pacing": "node scripts/prepare-production-pacing.mjs && node scripts/prepare-production-reliability.mjs && node scripts/build-production-show.mjs",
     "test:stage-pacing": "node scripts/stage-pacing-browser-check.js",
-    "test:projection": "node scripts/projection-performance-check.js"
+    "test:projection": "node scripts/production-reliability-browser-check.js",
+    "test:reliability": "node scripts/production-reliability-browser-check.js",
+    "production:reliability:verify": "node scripts/verify-production-reliability.mjs"
   },
   "dependencies": {
     "express": "5.1.0",

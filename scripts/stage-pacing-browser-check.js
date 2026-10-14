@@ -22,7 +22,7 @@ try {
   browser=spawn(browserPath,['--headless=new','--no-proxy-server','--no-first-run','--autoplay-policy=no-user-gesture-required','--disable-background-timer-throttling','--disable-renderer-backgrounding',`--remote-debugging-port=${debug}`,`--user-data-dir=${path.join(temp,'browser')}`,'about:blank'],{windowsHide:true,stdio:'ignore'});
   await waitForHttp(`http://127.0.0.1:${debug}/json/version`);
   display=await openPage(debug,`${base}/display?id=pacing`,{display:true});
-  await display.evaluate(`window.__pacingPlays=[];const play=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){const warning=window.__pacingPlays.findLast(p=>p.src.includes('prod-sfx-warning'));const entry={src:this.src,at:performance.now(),duration:this.duration,audio:this,warningEndedBeforeCall:warning?.audio.ended};window.__pacingPlays.push(entry);this.addEventListener('ended',()=>{entry.endedAt=performance.now();},{once:true});return play.call(this);};`);
+  await display.evaluate(`window.__pacingPlays=[];const start=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){if(window.__pacingSlowWarning&&this.__yokogawaAssetId==='prod-sfx-warning')this.playbackRate.value=.5;const warning=window.__pacingPlays.findLast(p=>p.src.includes('prod-sfx-warning'));const entry={src:'/api/assets/'+this.__yokogawaAssetId,at:performance.now(),duration:this.buffer.duration,audio:{ended:false,paused:false},warningEndedBeforeCall:warning?.audio.ended};window.__pacingPlays.push(entry);this.addEventListener('ended',()=>{entry.endedAt=performance.now();entry.audio.ended=true;entry.audio.paused=true;},{once:true});return start.call(this,...args);};`);
   await display.evaluate(`window.__pacingReceived=[];const nativeSend=WebSocket.prototype.send;WebSocket.prototype.send=function(raw){try{const e=JSON.parse(raw);if(e.type==='playback'&&e.status==='received')window.__pacingReceived.push(e.id);}catch{}return nativeSend.call(this,raw);};`);
   observer=new WebSocket(`ws://127.0.0.1:${port}/ws`);observer.on('message',raw=>{const e=JSON.parse(raw);if(e.type==='state')state=e.state;});
   await new Promise((resolve,reject)=>{observer.once('open',resolve);observer.once('error',reject);});
@@ -43,15 +43,17 @@ try {
   await reset();const beforeStop=await display.evaluate('window.__pacingPlays.length');send({type:'cue:execute',cueId:'prod-014'});await delay(500);send({type:'stop'});await delay(warningDuration+500);
   assert.equal(await display.evaluate(`window.__pacingPlays.slice(${beforeStop}).filter(p=>p.src.includes('prod-voice-')).length`),0);
   assert.ok(await display.evaluate(`window.__pacingPlays.slice(${beforeStop}).every(p=>p.audio.paused)`));results.push({name:'STOP during warning discards delayed voice',status:'PASS'});
-  await reset();await display.send('Network.setCacheDisabled',{cacheDisabled:true});await display.send('Network.emulateNetworkConditions',{offline:false,latency:600,downloadThroughput:10_000_000,uploadThroughput:10_000_000});
+  // PCM is already decoded: HTTP latency no longer delays warning playback.
+  // Slow ONLY this test source to exercise the real ended-receipt wait reliably.
+  await reset();await display.evaluate('window.__pacingSlowWarning=true');
   const receivedBefore=await display.evaluate('window.__pacingReceived.length');
   const waitingBefore=await display.evaluate('window.__pacingPlays.length');send({type:'cue:execute',cueId:'prod-014'});
   await display.waitFor(`window.__pacingReceived.length>${receivedBefore}`,'voice received while warning still playing');
   assert.ok(await display.evaluate(`window.__pacingPlays.slice(${waitingBefore}).some(p=>p.src.includes('prod-sfx-warning')&&!p.audio.paused)`));
   send({type:'stop'});await delay(warningDuration+1000);
   assert.equal(await display.evaluate(`window.__pacingPlays.slice(${waitingBefore}).filter(p=>p.src.includes('prod-voice-')).length`),0);
-  await display.send('Network.emulateNetworkConditions',{offline:false,latency:0,downloadThroughput:-1,uploadThroughput:-1});
-  results.push({name:'STOP while client awaits late warning completion',status:'PASS'});
+  await display.evaluate('window.__pacingSlowWarning=false');
+  results.push({name:'STOP while client awaits late warning completion (test-only half-rate source)',status:'PASS'});
   // Observe the processing/completed text in the same place, without a shrink/fade animation.
   await reset();send({type:'cue:execute',cueId:'prod-012'});
   await display.waitFor(`document.querySelector('#operation-title').textContent==='解錠処理'`,'processing');

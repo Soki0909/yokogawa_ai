@@ -260,6 +260,9 @@ function errorResponse(socket, error) {
     INVALID_MODE: '管理画面モードが不正です。',
     DUPLICATE_ACTION: '同じ操作の二重送信を防止しました。',
     NEXT_GUARDED: 'NEXT保護中です。連打は破棄しました。次の合図で押してください。',
+    CUE_NOT_COMPLETE: 'NEXTを拒否しました: '+(store.nextBlock() || 'Cue進行確認中。完了後に手動でNEXTしてください。'),
+    AUDIO_PREPARE_FAILED: '音声の開始前確認に失敗しました。映像・音声は開始していません。Audio設定で再準備後、明示的に再試行してください。',
+    AUDIO_NOT_READY:'Audio NOT READY。Display設定を開いて音声を再準備し、READYを確認してから明示的に再試行してください。',
   };
   send(socket, 'error', { code: error.message, message: messages[error.message] ?? '操作を完了できませんでした。' });
 }
@@ -329,9 +332,10 @@ function handleCueRequest(socket, factory, logLabel) {
     cueScheduler.cancel();
     broadcast('display', 'sfx:stop');
     dispatchPresentation(prepared.action);
-    for (const effect of prepared.cue.sfx ?? []) cueScheduler.schedule(effect.atMs, () => {
+    if(store.cueRun){const runId=store.cueRun.id;cueScheduler.schedule(Math.max(0,store.cueRun.finiteUntil-store.monotonic())+25,()=>{if(store.cueRun?.id===runId)broadcastState();});}
+    for (const [index,effect] of (prepared.cue.sfx ?? []).entries()) cueScheduler.schedule(effect.atMs, () => {
       for (const [displaySocket, client] of targetDisplays(prepared.cue.target)) {
-        if (client.displayId === store.state.audioMasterId) send(displaySocket, 'sfx', { effect, volume: store.state.settings.sfxVolume });
+        if (client.displayId === store.state.audioMasterId) send(displaySocket, 'sfx', { effect:{...effect,index},runId:store.cueRun?.id, volume: store.state.settings.sfxVolume });
       }
     });
     if (prepared.message && prepared.cue.timing.speechDelayMs > 0) {
@@ -357,6 +361,7 @@ function handleCueRequest(socket, factory, logLabel) {
 }
 
 function cancelTransport(reason, recover = false) {
+  if(store.cueRun)store.cueRun.error=`${reason}。STOPまたはREPLAYで明示復帰してください。`;
   cueScheduler.cancel(); localTtsService.cancelCurrent(reason);
   if (store.state.currentMessage) store.updateCurrent(recover ? 'error' : 'stopped', recover ? `復帰のため再生を破棄: ${reason}` : null);
   for (const message of store.state.queue) store.updateHistory(message.id, { status: recover ? 'error' : 'stopped', error: recover ? `Display復帰によりキューを解除: ${reason}` : null });
@@ -375,10 +380,35 @@ function scheduleSubtitles(message, subtitleOnly = false) {
     store.state.currentSubtitle = segment.displayText;
     for (const [socket, client] of targetDisplays(message.target)) {
       store.getDisplay(client.displayId).currentSubtitle = segment.displayText;
-      send(socket, 'subtitle', { text: segment.displayText, mode: 'typewriter', durationMs: Math.max(1, segment.endMs - segment.startMs) });
+      send(socket, 'subtitle', { text: segment.displayText,presentationDelayMs:message.source==='cue'?store.presentationDelayMs||0:0, mode: 'typewriter', durationMs: Math.max(1, segment.endMs - segment.startMs) });
     }
     void store.persist(); broadcastState();
   });
+}
+
+let pendingCue = null;
+function cancelPendingCue() {
+  if(pendingCue)clearTimeout(pendingCue.timeout);
+  pendingCue=null;store.pendingCueRequest=false;
+}
+cueScheduler.onInvalidate=cancelPendingCue;
+function requestPreparedCue(socket,factory,label,cue,{next=false}={}) {
+  if(!store.state.metadata.reliableAudio)return handleCueRequest(socket,factory,label);
+  if(!cue)return errorResponse(socket,new Error('NO_NEXT_CUE'));
+  if(pendingCue || (next && (store.nextBlock() || store.nextGuard().remainingMs>0)))return errorResponse(socket,new Error(store.nextGuard().remainingMs>0?'NEXT_GUARDED':'CUE_NOT_COMPLETE'));
+  const master=store.getDisplay(store.state.audioMasterId);
+  if(!master?.online || !master.audioReady || master.audioProtocol!=='decoded-v1')return errorResponse(socket,new Error('AUDIO_NOT_READY'));
+  if(!validateTarget(socket,cue.target,true))return;
+  const token=crypto.randomUUID();
+  pendingCue={token,socket,factory,label,index:store.state.currentCueIndex,master:master.displayId,next,cueId:cue.cueId,cueVersion:JSON.stringify(cue),assetsVersion:JSON.stringify(productionAudioPreloadManifest(store.state.assets))};store.pendingCueRequest=true;
+  pendingCue.timeout=setTimeout(()=>{
+    if(pendingCue?.token!==token)return;cancelPendingCue();store.setDisplayAudioReady(master.displayId,false);
+    errorResponse(socket,new Error('AUDIO_PREPARE_FAILED'));broadcastState();
+  },3500);
+  const assets=[cue.audio?.assetId,...(cue.sfx||[]).map(s=>s.assetId)].filter(Boolean);
+  // Visual-only Cues also require a live output/render clock before GO.
+  for(const [displaySocket,client] of targetDisplays(cue.target))if(client.displayId===master.displayId)send(displaySocket,'cue:prepare',{token,audioAssets:productionAudioPreloadManifest(store.state.assets),assets:assets.length?assets:productionAudioPreloadManifest(store.state.assets).map(a=>a.id)});
+  broadcastState();
 }
 
 function handleAdmin(socket, event) {
@@ -402,6 +432,7 @@ function handleAdmin(socket, event) {
     return;
   }
   if (event.type === 'stop') {
+    store.cueRun=null;
     cueScheduler.cancel();
     localTtsService.cancelCurrent('operator-stop');
     const id = store.state.currentMessage?.id ?? null;
@@ -423,8 +454,8 @@ function handleAdmin(socket, event) {
       kind: original.kind, displayText: original.displayText, speechProvider: original.speechProvider, audio: original.audio }), '履歴再読み上げを受付');
     return;
   }
-  if (event.type === 'cue:next') handleCueRequest(socket, () => store.nextCue({ validate: cue => validateTarget(socket, cue.target, ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none') }), 'Cue NEXT');
-  else if (event.type === 'cue:execute') handleCueRequest(socket, () => store.executeCue(event.cueId), 'Cue直接実行');
+  if (event.type === 'cue:next') requestPreparedCue(socket, () => store.nextCue({ validate: cue => validateTarget(socket, cue.target, ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none') }), 'Cue NEXT',store.snapshot().nextCue,{next:true});
+  else if (event.type === 'cue:execute') requestPreparedCue(socket, () => store.executeCue(event.cueId), 'Cue直接実行',store.orderedCues().find(c=>c.cueId===event.cueId));
   else if (event.type === 'cue:jump') {
     try { const cue = store.jumpCue(event.cueId); broadcastState(); send(socket, 'accepted', { id: `jump:${cue.cueId}`, queued: false }); logger.info('Cue位置移動', { cueId: cue.cueId }); } catch (error) { errorResponse(socket, error); }
   }
@@ -434,7 +465,7 @@ function handleAdmin(socket, event) {
     for (const queued of store.state.queue) store.updateHistory(queued.id, { status: 'stopped' });
     store.state.currentMessage = null; store.state.queue = [];
     forRole('display', (displaySocket) => send(displaySocket, 'stop'));
-    handleCueRequest(socket, () => store.replayCue(), 'Cue REPLAY');
+    requestPreparedCue(socket, () => store.replayCue(), 'Cue REPLAY',store.snapshot().currentCue);
   }
   else if (event.type === 'cue:back') {
     cancelTransport('back');
@@ -497,6 +528,7 @@ function handleAdmin(socket, event) {
     for (const display of store.state.displays) if (store.matchesTarget(display, target)) display.currentSubtitle = null;
     store.logRehearsal('clear', 'CLEAR'); void store.persist(); dispatchPresentation({ kind: 'clear', target, displayText: '', presentationPreset: store.state.currentPresetId, avatar: store.state.currentAvatar }); send(socket, 'accepted', { id: 'clear', queued: false });
   } else if (event.type === 'blackout') {
+    cancelPendingCue(); // Preserve existing visual-only BLACKOUT for an already running Cue.
     const action = { kind: 'blackout', target: { type: 'all' }, blackout: true, presentationPreset: 'shutdown', avatar: { visible: false, state: 'shutdown' }, displayText: '' };
     if (!store.state.blackout) store.state.previousVisualState = { currentSubtitle: store.state.currentSubtitle, currentPresetId: store.state.currentPresetId, currentAvatar: store.state.currentAvatar };
     store.state.blackout = true; for (const display of store.state.displays) display.blackout = true; store.logRehearsal('blackout', 'BLACKOUT'); void store.persist(); dispatchPresentation(action);
@@ -523,6 +555,29 @@ function handleDisplay(client, event) {
   }
   const display = store.getDisplay(client.displayId);
   if (!display) return;
+  if(event.type==='cue:prepared') {
+    const pending=pendingCue;
+    if(!pending || pending.token!==event.token || pending.master!==client.displayId)return;
+    cancelPendingCue();
+    const currentCandidate=pending.next?store.snapshot().nextCue:store.orderedCues().find(c=>c.cueId===pending.cueId);
+    if(event.ready!==true || pending.index!==store.state.currentCueIndex || JSON.stringify(currentCandidate)!==pending.cueVersion || JSON.stringify(productionAudioPreloadManifest(store.state.assets))!==pending.assetsVersion){
+      store.setDisplayAudioReady(client.displayId,false);errorResponse(pending.socket,new Error('AUDIO_PREPARE_FAILED'));broadcastState();return;
+    }
+    store.presentationDelayMs=Math.max(0,Math.min(300,Number(event.presentationDelayMs)||0));
+    handleCueRequest(pending.socket,pending.factory,pending.label);return;
+  }
+  if(event.type==='cue:sfx') {
+    if(client.displayId!==store.state.audioMasterId||event.runId!==store.cueRun?.id||!store.cueRun.sfx.has(event.index))return;
+    store.cueRun.receipt('sfx',event.index,event.status,event.error);broadcastState();return;
+  }
+  if(event.type==='audio:not-ready') {
+    if(client.displayId!==store.state.audioMasterId)return;
+    const wasReady=display.audioReady;
+    store.setDisplayAudioReady(client.displayId,false);display.audioError=String(event.reason||'Audio NOT READY').slice(0,300);
+    if(wasReady || pendingCue || store.state.currentMessage)cancelTransport('audio-not-ready',true);
+    if(store.cueRun)store.cueRun.error=display.audioError;
+    broadcastState();return;
+  }
   if (event.type === 'display:configure') {
     store.registerDisplay({ displayId: client.displayId, ...event.display });
     logger.info('Display設定更新', { displayId: client.displayId });
@@ -541,6 +596,8 @@ function handleDisplay(client, event) {
       logger.info('Audio Master以外の準備完了通知を無視', { displayId: client.displayId });
       return;
     }
+    if(store.state.metadata.reliableAudio && event.protocol!=='decoded-v1')return;
+    display.audioProtocol=event.protocol;display.audioError=null;display.audioDecoded=event.decoded;
     store.setDisplayAudioReady(client.displayId, true);
     logger.info('Display TTS準備完了', { displayId: client.displayId }); broadcastState(); return;
   }
@@ -549,6 +606,10 @@ function handleDisplay(client, event) {
       logger.info('非Audio Masterの再生通知を無視', { displayId: client.displayId, id: event.id }); return;
     }
     try {
+      if(store.cueRun?.messageId===event.id && store.state.currentMessage?.id===event.id){
+        if(event.status==='speaking')store.cueRun.speechStarted(store.state.currentMessage,store.monotonic());
+        store.cueRun.receipt('speech',event.id,event.status,event.error);
+      }
       const result = store.reportPlayback(event.id, event.status, event.error);
       if (!result.accepted) return;
       if (event.status === 'speaking') scheduleSubtitles(store.state.currentMessage);

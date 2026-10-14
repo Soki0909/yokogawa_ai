@@ -68,7 +68,7 @@ if (endurance) {
 const startServer=()=>spawn(process.execPath,['src/server.js'],{windowsHide:true,stdio:'ignore',env:{...process.env,HOST:'127.0.0.1',PORT:String(port),STATE_FILE:path.join(temporary,'state.json'),LOG_DIRECTORY:path.join(temporary,'logs'),AIVIS_ENGINE_URL:'http://127.0.0.1:9',SHOW_STARTUP_MODE:'saved'}});
 async function observe() {
   observer=new WebSocket(`ws://127.0.0.1:${port}/ws`);
-  observer.on('message',raw=>{const event=JSON.parse(raw);if(event.type==='state')state=event.state;if(event.type==='error'&&event.code!=='NEXT_GUARDED') errors.push(event);});
+  observer.on('message',raw=>{const event=JSON.parse(raw);if(event.type==='state')state=event.state;if(event.type==='error'&&!['NEXT_GUARDED','CUE_NOT_COMPLETE'].includes(event.code)) errors.push(event);});
   await new Promise((resolve,reject)=>{observer.once('open',resolve);observer.once('error',reject);});observer.send(JSON.stringify({type:'hello',role:'admin'}));
 }
 const send=event=>observer.send(JSON.stringify(event));
@@ -162,7 +162,7 @@ try {
   browser=spawn(browserPath,['--headless=new', '--no-proxy-server','--no-first-run','--no-default-browser-check','--autoplay-policy=no-user-gesture-required',`--remote-debugging-port=${debugPort}`,`--user-data-dir=${path.join(temporary,'browser')}`,'about:blank'],{windowsHide:true,stdio:'ignore'});
   await waitForHttp(`http://127.0.0.1:${debugPort}/json/version`);
   display=await openPage(debugPort,`${base}/display?id=hardening&name=Stage`,{display:true});
-  await display.send('Page.addScriptToEvaluateOnNewDocument',{source:`window.__runtimePlays=[];window.__runtimeContexts=[];const oldPlay=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){const clip={src:this.src,at:Date.now(),volume:this.volume};window.__runtimePlays.push(clip);this.addEventListener('playing',()=>{clip.playingTime=this.currentTime;clip.duration=this.duration},{once:true});return oldPlay.call(this)};const AC=window.AudioContext;window.AudioContext=class extends AC{constructor(...args){super(...args);window.__runtimeContexts.push(this)}}`});
+  await display.send('Page.addScriptToEvaluateOnNewDocument',{source:`window.__runtimePlays=[];window.__runtimeContexts=[];const bufferStart=AudioBufferSourceNode.prototype.start;AudioBufferSourceNode.prototype.start=function(...args){const clip={src:"/api/assets/"+this.__yokogawaAssetId,at:Date.now(),volume:this.__yokogawaVolume,playingTime:args[1]||0,duration:this.buffer.duration};window.__runtimePlays.push(clip);this.addEventListener("ended",()=>clip.endedAt=Date.now(),{once:true});return bufferStart.call(this,...args);};const oldPlay=HTMLMediaElement.prototype.play;HTMLMediaElement.prototype.play=function(){const clip={src:this.src,at:Date.now(),volume:this.volume};window.__runtimePlays.push(clip);this.addEventListener('playing',()=>{clip.playingTime=this.currentTime;clip.duration=this.duration},{once:true});return oldPlay.call(this)};const AC=window.AudioContext;window.AudioContext=class extends AC{constructor(...args){super(...args);window.__runtimeContexts.push(this)}}`});
   await display.send('Page.reload');await display.waitFor('window.__runtimePlays','hooks');await display.send('Performance.enable');
   admin=await openPage(debugPort,`${base}/admin`);await observe();await wait(()=>state?.displays.length,'registered');send({type:'audio-master:set',displayId:'hardening'});await ready();
   if(mode==='phase-b') {

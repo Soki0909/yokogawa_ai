@@ -1,4 +1,6 @@
-# 実機HDMI計測
+# 実機HDMI計測（旧MediaElement実装の記録）
+
+2026-10-14の候補以降、`npm run test:projection` は `scripts/production-reliability-browser-check.js` を実行する。以下は旧実装の手順であり、新AudioBuffer実装の本番合格判定に使用しない。現行の手順・計測の限界・採用条件は [production-reliability-operation-20261014.md](./production-reliability-operation-20261014.md) を参照。旧play/playing値と新BufferSource値を直接比較しない。
 
 演出・台詞・音源・Cueの予定時刻を変えずに、実画面上のChromeで測る。通常の本番サーバとは別のlocalhostサーバ、保存状態、Chrome profileを作る。終了時はこの検証が起動したprocess treeだけを終了する。普段のChromeやProduction保存状態は操作しない。
 

@@ -83,7 +83,7 @@ test('Phase 3 group・preflight・音声テスト・接続支援をAdmin 1 + Dis
   const c = await connect(port, 'display', { displayId: 'display-c', displayName: 'Location C', audioEnabled: false });
   t.after(async () => { await Promise.all([a, b, c, admin].map(close)); });
   await admin.next((event) => event.type === 'state' && event.state.displays.filter((display) => display.online).length === 3);
-  a.send({ type: 'audio:ready' });
+  a.send({ type: 'audio:ready', protocol:'decoded-v1' });
   admin.send({ type: 'display:required', displayId: 'display-a', required: true });
   await admin.next((event) => event.type === 'state' && event.state.preflight.status === 'ready' && event.state.displays.find((display) => display.displayId === 'display-a')?.required);
 

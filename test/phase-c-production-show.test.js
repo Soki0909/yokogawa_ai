@@ -19,7 +19,7 @@ test('Production Showは最新17 speech・3 SFX・3 puzzle slotsを登録する'
   assert.equal(speech.length, 17);
   assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 17);
   assert.equal(speech.filter((cue) => cue.audio.speechMode === 'browser').length, 0);
-  assert.deepEqual(speech.map((cue) => cue.displayText).sort(), manifest.speeches.map((item) => item.scriptText).sort());
+  assert.deepEqual(speech.map((cue) => cue.displayText).sort(), manifest.speeches.map((item) => item.displayText).sort());
   assert.equal(main.settings.freeSpeakMode, 'local-tts');
   assert.equal(route.metadata.description.includes('UNRESOLVED ROUTE MAPPING'), true);
 });
@@ -99,7 +99,7 @@ test('途中参加の新規Displayも現在字幕とPresentation stateを初回�
   const production = await load('production.json'); store.importShowFile(production, { apply: true });
   store.executeCue('prod-v-riddle-enter');
   const display = store.registerDisplay({ displayId: 'late-display', displayName: 'Late Display' });
-  assert.equal(display.currentSubtitle, '第一の謎は、こちらです');
+  assert.equal(display.currentSubtitle, null, 'Actual voice/subtitle timeline has not started; no whole-line flash');
   assert.equal(display.currentPresetId, 'hijacked');
   assert.equal(display.currentOverlay.id, 'none');
   assert.equal(display.currentVisual.id, 'none');
@@ -111,8 +111,8 @@ test('server再起動後も現在字幕とCue位置を復元し途中参加Displ
   const production = await load('production.json'); first.importShowFile(production, { apply: true });
   first.executeCue('prod-v-riddle-enter'); await first.persist();
   const restored = new StateStore({ storage: persisted }); await restored.load();
-  assert.equal(restored.state.currentSubtitle, '第一の謎は、こちらです');
+  assert.equal(restored.state.currentSubtitle, null, 'A never-started speech must not be restored as a subtitle');
   assert.equal(restored.snapshot().currentCue.cueId, 'prod-v-riddle-enter');
   const display = restored.registerDisplay({ displayId: 'post-restart-display' });
-  assert.equal(display.currentSubtitle, '第一の謎は、こちらです');
+  assert.equal(display.currentSubtitle, null);
 });

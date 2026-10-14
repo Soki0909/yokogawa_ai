@@ -75,7 +75,7 @@ test('Production Free Speakをserver-side Aivis→Audio Masterだけへ配信し
   await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3);
   admin.send({ type: 'audio-master:set', displayId: 'master' });
   await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'master');
-  displays[0].send({ type: 'audio:ready' });
+  displays[0].send({ type: 'audio:ready', protocol:'decoded-v1' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady && event.state.localTts.status === 'ready');
 
   admin.send({ type: 'speak', text: '緊急のFree Speakです', target: { type: 'all' } });

@@ -82,13 +82,13 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
   const heartbeatC = heartbeat(c);
   t.after(() => { clearInterval(heartbeatA); clearInterval(heartbeatB); clearInterval(heartbeatC); });
   await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3);
-  b.send({ type: 'audio:ready' });
+  b.send({ type: 'audio:ready', protocol:'decoded-v1' });
   admin.send({ type: 'audio-master:set', displayId: 'display-b' });
   const unpreparedB = await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'display-b');
   assert.equal(unpreparedB.state.displayAudioReady, false, '非Audio Master時のaudio:readyは受理しない');
   admin.send({ type: 'audio-master:set', displayId: 'display-a' });
   await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'display-a');
-  a.send({ type: 'audio:ready' });
+  a.send({ type: 'audio:ready', protocol:'decoded-v1' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
 
   admin.send({ type: 'speak', text: 'Broadcast', target: { type: 'all' } });
@@ -108,7 +108,7 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
 
   admin.send({ type: 'audio-master:set', displayId: 'display-c' });
   await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'display-c');
-  c.send({ type: 'audio:ready' });
+  c.send({ type: 'audio:ready', protocol:'decoded-v1' });
   await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
   admin.send({ type: 'cue:next' });
   const cueEvents = await Promise.all([a, b, c].map((client) => client.next((event) => event.type === 'speak' && event.message.source === 'cue')));
@@ -155,7 +155,7 @@ test('Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Rese
   assert.ok(subtitleOnly.every((event) => event.shouldSpeak === false));
   await admin.next((event) => event.type === 'state' && event.state.history[0]?.text === 'Master不在でも字幕継続' && event.state.history[0].status === 'completed');
   admin.send({ type: 'audio-master:set', displayId: 'display-a' });
-  a.send({ type: 'audio:ready' });
+  a.send({ type: 'audio:ready', protocol:'decoded-v1' });
   await admin.next((event) => event.type === 'state' && event.state.audioMasterId === 'display-a' && event.state.displayAudioReady);
 
   const reconnectedC = await connect(port, 'display', { displayId: 'display-c', displayName: 'West', audioEnabled: true });

@@ -7,6 +7,7 @@ test('canonical NEXT accepts once per 1200ms burst; failed validation and clock 
   let tick = 0;
   const store = new StateStore({ storage: { async save() {} }, monotonic: () => tick });
   store.importShowFile(JSON.parse(await readFile('shows/production.json')), { apply: true });
+  store.state.metadata.reliableAudio=false; // Isolate the 1200ms guard; completion barrier has its own integration tests.
   assert.equal(store.nextCue({ validate: () => false }), null); assert.equal(store.state.currentCueIndex, -1);
   store.nextCue();
   for (let i=0;i<5;i++) assert.throws(() => store.nextCue(), /NEXT_GUARDED/);

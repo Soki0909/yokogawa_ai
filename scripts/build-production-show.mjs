@@ -19,7 +19,7 @@ const assets = manifest.speeches.map((speech) => ({
 }));
 assets.push(...manifest.sfx);
 for (const slot of ['first', 'final', 'emergency']) assets.push({ id: `puzzle-${slot}`, name: `未提供: ${slot}問題画像`, path: 'assets/visual/puzzle-image-pending.svg', mimeType: 'image/svg+xml' });
-for (const slot of PRODUCTION_SLOTS) assets.find(a => a.id === slot.assetId).slot = slot.id;
+for (const slot of PRODUCTION_SLOTS) {const asset=assets.find(a => a.id === slot.assetId);if(asset)asset.slot = slot.id;}
 
 const common = {
   schemaVersion: 3,
@@ -54,7 +54,7 @@ function speechCue(scriptId, order, overrides = {}) {
     location: speech.location,
     kind: 'speech-display',
     speechText: speech.scriptText,
-    displayText: speech.scriptText,
+    displayText: speech.displayText ?? speech.scriptText,
     speech: { spokenText: speech.spokenText, segments: speech.segments, subtitleMode: 'typewriter', ...(speech.subtitleUnits ? { subtitleUnits: speech.subtitleUnits } : {}) },
     presentationPreset: state,
     target: { type: 'all' },
@@ -269,12 +269,13 @@ final.transition.durationMs = Math.max(Math.ceil(byId.get('011').durationSeconds
 mainCues.find(c => c.id === 'prod-015').operatorNote = 'HOSTILE先行Cueの後に暴走宣言。追加の轟音は再生しない。';
 for (const cue of mainCues) cue.syncMarkers = (cue.syncMarkers ?? []).filter(marker => marker.department !== 'SE' || /WARNING/.test(marker.id));
 mainCues.push(speechCue('020', 240, { name: '館内すべての扉・解錠確認', triggerNote: '夢野・押野・三馬の責任に関する会話後、虎谷が二人を見つめ、わずかに苦笑して静かに俯く→正常なAI表示でGO', operatorNote: 'P-V07復旧の後の多数の人間台詞を待つ独立Cue。NORMALを維持し解錠確認のWAV020を再生。新たな復旧演出・SFXなし。', visual: { id: 'none' }, overlay: { id: 'none' } }));
+mainCues.find(c=>c.id==='prod-v-recovery').recoverySfx={atMs:4600,volume:.8};
 const showHash = createHash('sha256').update(JSON.stringify(mainCues)).digest('hex');
 
 const mainShow = {
   ...common,
   metadata: {
-    title: '横川AI Production — 本編', version: 'subtitle-script-assets-v1.1', nextGuardMs: 1200, showHash,
+    title: '横川AI Production — 本編', version: 'production-reliability-20261014', reliableAudio:true, nextGuardMs: 1200, showHash,
     description: '現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。',
     sourceScript: manifest.sourceScript, voiceProfileId: manifest.voiceProfileId, profileHash: manifest.profileHash,
     sceneStructureSource: {

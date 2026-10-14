@@ -12,7 +12,7 @@ const sha=bytes=>createHash('sha256').update(bytes).digest('hex');
 for(const s of [...manifest.speeches,...original.speeches]){const wav=await fs.readFile(`public/${s.path}`);assert.equal(sha(wav),s.sha256,s.path);assert.ok(verifyProductionWav(wav).pass);}
 for(const s of prior.speeches)assert.equal(sha(await fs.readFile(`public/${s.path}`)),s.sha256,'Approved source WAV changed');
 const pacingSource = await load('config/production-speech/yokogawa-ai-pacing-source.json');
-for (const s of manifest.speeches.filter(s=>s.path.startsWith('assets/audio/production-paced-'))) {
+for (const s of manifest.speeches.filter(s=>/^assets\/audio\/production-(paced|reliable)-/.test(s.path))) {
   const source = pacingSource.speeches.find(p=>p.scriptId===s.scriptId);
   const bytes = await fs.readFile(`public/${source.path}`); assert.equal(sha(bytes),source.sha256);
   const pcm = pcmData(bytes), units = source.subtitleUnits ?? source.segments;

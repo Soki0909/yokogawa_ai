@@ -43,6 +43,19 @@ export class LipSyncController {
     return this.preparing;
   }
   simulate() { this.stop(); const sequence = ['half', 'open', 'half', 'closed']; let index = 0; this.timer = setInterval(() => this.set(sequence[index++ % sequence.length]), 190); }
+  follow(analyser, lagMs=0) {
+    this.finish();
+    const data = new Uint8Array(analyser.fftSize);
+    const pending=[];
+    const tick = () => {
+      analyser.getByteTimeDomainData(data); let sum=0;
+      for (const value of data) sum += ((value-128)/128)**2;
+      pending.push({at:performance.now()+lagMs,rms:Math.sqrt(sum/data.length)});
+      while(pending.length && pending[0].at<=performance.now())this.set(this.machine.update(pending.shift().rms));
+      if(pending.length>40)pending.splice(0,pending.length-40);
+      this.frame=requestAnimationFrame(tick);
+    };tick();
+  }
   analyse(audio, playbackEffect = 'none') {
     this.finish(); const Context = globalThis.AudioContext || globalThis.webkitAudioContext; if (!Context) { this.simulate(); return; }
     const context = this.context?.state !== 'closed' && this.context ? this.context : new Context(); this.context = context; const source = context.createMediaElementSource(audio); const analyser = context.createAnalyser(); analyser.fftSize = 512;

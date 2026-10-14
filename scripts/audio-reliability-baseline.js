@@ -1,0 +1,13 @@
+import fs from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {spawn} from 'node:child_process';
+import {freePort,waitForHttp,stopChild,openPage,browserPath} from './runtime-test-browser.js';
+const out=path.resolve('artifacts/audio-reliability-20261014');await fs.mkdir(out,{recursive:true});
+const temp=await fs.mkdtemp(path.join(os.tmpdir(),'yokogawa-audio-baseline-'));const port=await freePort(),debug=await freePort();let server,browser,page;
+try{
+ server=spawn(process.execPath,['src/server.js'],{windowsHide:true,stdio:'ignore',env:{...process.env,PORT:String(port),HOST:'127.0.0.1',STATE_FILE:path.join(temp,'state.json'),LOG_DIRECTORY:path.join(temp,'logs'),AIVIS_ENGINE_URL:'http://127.0.0.1:9'}});await waitForHttp(`http://127.0.0.1:${port}/health`);
+ browser=spawn(browserPath,['--no-first-run',`--remote-debugging-port=${debug}`,`--user-data-dir=${path.join(temp,'chrome')}`,'--autoplay-policy=no-user-gesture-required','about:blank'],{windowsHide:true,stdio:'ignore'});await waitForHttp(`http://127.0.0.1:${debug}/json/version`);page=await openPage(debug,`http://127.0.0.1:${port}/display`);
+ const result=await page.evaluate(`(async()=>{const {LipSyncController}=await import('/js/lip-sync.js');const {LocalAudioProvider}=await import('/js/tts-adapter.js');const lip=new LipSyncController({dataset:{}});await lip.prepare();await lip.context.suspend();const events=[];const provider=new LocalAudioProvider({onStart:(id,a)=>{lip.analyse(a);events.push({event:'speaking',state:lip.context.state,currentTime:lip.context.currentTime});}});const manifest=await fetch('/api/audio-assets').then(r=>r.json());const asset=manifest.assets.find(a=>a.id.includes('002'));const audio=provider.speak({id:'probe',audio:{assetId:asset.id}});for(const name of ['play','playing','waiting','stalled','canplaythrough','suspend','error','ended'])audio.addEventListener(name,()=>events.push({event:name,state:lip.context.state,mediaTime:audio.currentTime}));await new Promise(r=>setTimeout(r,1200));const state=lip.context.state,contextTime=lip.context.currentTime,mediaTime=audio.currentTime;provider.stop();lip.stop();return {state,contextTime,mediaTime,events,interpretation:'Software counterexample only: speaking/playing does not prove rendered output; no physical HDMI measurement',autoplayBypassForDiagnostic:true};})()`);
+ await fs.writeFile(path.join(out,'baseline-suspended.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+}finally{page?.close();await stopChild(browser);await stopChild(server);await fs.rm(temp,{recursive:true,force:true,maxRetries:8,retryDelay:500});}

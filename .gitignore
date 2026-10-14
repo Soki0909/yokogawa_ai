@@ -21,6 +21,7 @@ test-results/
 .env
 *.log
 /artifacts/projection-performance/
+/artifacts/audio-reliability-20261014/
 /.tmp-*/
 /.tmp/
 

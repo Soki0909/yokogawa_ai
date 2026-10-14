@@ -1,5 +1,6 @@
-import { randomUUID } from 'node:crypto';
+import { randomUUID, createHash } from 'node:crypto';
 import { JsonFileStorage } from './json-storage.js';
+import { CueCompletion } from './cue-completion.js';
 import {
   AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, SHOW_SCHEMA_VERSION, normalizeAsset, normalizeAvatar, normalizeCue,
   normalizeOverlay, normalizePreset, normalizeTarget, normalizeTransition, normalizeVisual, normalizeSequence, publicCue, validateShowFile,
@@ -188,6 +189,7 @@ export class StateStore {
     this.state.history = (Array.isArray(stored.history) ? stored.history : []).map((item) => interrupted.has(item.status)
       ? { ...item, status: 'error', finishedAt: this.now().toISOString(), error: 'サーバー再起動により発話が中断されました。' }
       : item);
+    if(this.state.cues.some(c=>/^prod-voice-/.test(c.audio?.assetId||'')))this.state.metadata.reliableAudio=true;
     this.trimHistory();
   }
 
@@ -199,7 +201,7 @@ export class StateStore {
     const nextCue = atSceneBoundary
       ? cues.find((cue) => cue.cueId === this.state.sceneRehearsal.nextCueId) ?? null
       : cues.slice(this.state.currentCueIndex + 1).find((cue) => cue.enabled) ?? null;
-    return structuredClone({ ...this.state, currentCue, nextCue, nextGuard: this.nextGuard(), preflight: this.preflight() });
+    return structuredClone({ ...this.state, currentCue, nextCue, nextGuard: this.nextGuard(), nextBlock: this.nextBlock(), cueProgress: this.cueRun?.snapshot(this.monotonic()) ?? null, preflight: this.preflight() });
   }
 
   displaySnapshot(displayId) {
@@ -207,6 +209,8 @@ export class StateStore {
     const display = this.getDisplay(displayId);
     return structuredClone({
       schemaVersion: SHOW_SCHEMA_VERSION, settings: this.state.settings,
+      audioManifestRevision:createHash('sha256').update(JSON.stringify(this.state.assets.filter(a=>a.mimeType==='audio/wav').map(a=>[a.id,a.sha256]))).digest('hex'),
+      presentationDelayMs:this.state.metadata.reliableAudio?this.presentationDelayMs||0:0,
       currentSubtitle: display?.currentSubtitle ?? null, displayMode: display?.displayMode ?? 'ready',
       currentPresetId: display?.currentPresetId ?? this.state.currentPresetId,
       currentPreset: this.getPreset(display?.currentPresetId ?? this.state.currentPresetId),
@@ -357,7 +361,7 @@ export class StateStore {
     const items = [];
     const add = (id, label, status, detail) => items.push({ id, label, status, detail });
     add('server', 'サーバー', 'ok', '正常稼働中');
-    for (const slot of this.productionAssetSlots ?? []) if (this.state.assets.some(asset => asset.id === slot.assetId && asset.slot === slot.id)) add(`asset-slot:${slot.id}`, slot.label, slot.status === 'READY' ? 'ok' : 'warning', `${slot.status} — ${slot.path} / ${slot.detail}`);
+    for (const slot of this.productionAssetSlots ?? []) if ((slot.optional && this.state.cues.some(c=>c.recoverySfx)) || this.state.assets.some(asset => asset.id === slot.assetId && asset.slot === slot.id)) add(`asset-slot:${slot.id}`, slot.label, slot.status === 'READY' ? 'ok' : 'warning', `${slot.status} — ${slot.path} / ${slot.detail}`);
     add('cues', 'Cueデータ', this.state.cues.length ? 'ok' : 'error', `${this.state.cues.length}件`);
     const showValidation = validateShowFile(this.exportShowFile());
     add('show-schema', `Show File Schema v${SHOW_SCHEMA_VERSION}`, showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));
@@ -384,7 +388,7 @@ export class StateStore {
     if (!this.state.audioMasterId) add('audio-master', 'Audio Master', 'error', '未設定');
     else if (!master?.online) add('audio-master', 'Audio Master', 'error', `${master?.displayName ?? this.state.audioMasterId} OFFLINE`);
     else add('audio-master', 'Audio Master', 'ok', `${master.displayName} ONLINE`);
-    if (master?.online) add('audio-ready', 'Audio Ready', master.audioEnabled && master.audioReady ? 'ok' : 'warning', master.audioEnabled && master.audioReady ? '音声有効化済み' : '音声未有効');
+    if (master?.online) add('audio-ready', 'Audio Ready', master.audioEnabled && master.audioReady ? 'ok' : this.state.metadata.reliableAudio?'error':'warning', master.audioEnabled && master.audioReady ? '音声有効化済み' : master.audioError || (this.state.metadata.reliableAudio?'音声未準備。Display設定で再準備してください。':'音声未有効'));
     for (const group of this.state.targetGroups) {
       if (!group.enabled) add(`group-disabled:${group.id}`, `配信先: ${group.name}`, 'warning', '無効');
       if (!group.displayIds.length) add(`group-empty:${group.id}`, `配信先: ${group.name}`, 'warning', '対象Displayなし');
@@ -465,7 +469,16 @@ export class StateStore {
     const action = this.applyCue(cue);
     const needsSpeech = ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none';
     const message = needsSpeech ? this.createMessage(cue.speechText || cue.displayText || cue.cueName, { source: 'cue', cue, target: cue.target }) : null;
+    if(this.state.metadata.reliableAudio){this.cueRun=new CueCompletion(cue,message,this.monotonic());this.cueRun.finiteUntil+=this.presentationDelayMs||0;}
     return { cue, action, message };
+  }
+
+  nextBlock() {
+    if(!this.state.metadata.reliableAudio)return '';
+    if(this.pendingCueRequest)return '音声準備確認中';
+    if(this.cueRun?.error)return this.cueRun.reason(this.monotonic());
+    if(!this.state.displayAudioReady)return '音声未準備';
+    return this.cueRun?.reason(this.monotonic()) || '';
   }
 
   nextGuard() {
@@ -475,6 +488,7 @@ export class StateStore {
 
   nextCue({ validate = () => true } = {}) {
     if (this.nextGuard().remainingMs > 0) throw new Error('NEXT_GUARDED');
+    if(this.nextBlock())throw new Error('CUE_NOT_COMPLETE');
     if (this.state.sceneRehearsal?.ready) {
       if (!this.state.sceneRehearsal.nextCueId) throw new Error('NO_SCENE_CUE');
       const cue = this.orderedCues().find(c => c.cueId === this.state.sceneRehearsal.nextCueId);
@@ -488,6 +502,7 @@ export class StateStore {
   }
 
   backCue() {
+    this.cueRun=null;
     const cues = this.orderedCues();
     if (this.state.sceneRehearsal?.ready) {
       this.state.sceneRehearsal = null;
@@ -511,6 +526,7 @@ export class StateStore {
     const action = this.applyCue(cue);
     const needsSpeech = ['speech-display', 'speech-only'].includes(cue.kind) && cue.audio.speechMode !== 'none';
     const message = needsSpeech ? this.createMessage(cue.speechText || cue.displayText || cue.cueName, { source: 'cue', cue, target: cue.target, replayOf: original?.id }) : null;
+    if(this.state.metadata.reliableAudio){this.cueRun=new CueCompletion(cue,message,this.monotonic());this.cueRun.finiteUntil+=this.presentationDelayMs||0;}
     return { cue, action, message };
   }
 
@@ -583,6 +599,7 @@ export class StateStore {
   }
 
   commitSceneRehearsal(plan) {
+    this.cueRun=null;
     this.lastNextAt = -Infinity;
     if (!plan?.scene || !this.state.scenes.some((scene) => scene.sceneId === plan.scene.sceneId)) throw new Error('SCENE_NOT_FOUND');
     if (this.state.currentMessage) this.updateCurrent('stopped');
@@ -611,6 +628,8 @@ export class StateStore {
   }
 
   showReset() {
+    this.cueRun=null;this.pendingCueRequest=false;
+    this.presentationDelayMs=0;
     this.lastNextAt = -Infinity;
     if (this.state.currentMessage) this.updateCurrent('stopped');
     for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
@@ -702,13 +721,17 @@ export class StateStore {
     this.settleTimedPresentation();
     const now = this.now();
     const next = applyCueStateEffects(presentationStateOf(this.state), cue, { now });
+    if(this.state.metadata.reliableAudio && ['speech-display','speech-only'].includes(cue.kind))next.currentSubtitle=null;
     assignPresentationState(this.state, next);
     const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset,
+      presentationDelayMs:this.state.metadata.reliableAudio?this.presentationDelayMs||0:0,
       avatar: next.currentAvatar, blackout: next.blackout, currentSubtitle: next.currentSubtitle, transition: next.currentTransition,
       overlay: next.currentOverlay, visual: next.currentVisual, unlock: next.unlock };
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, cue.target)) continue;
-      assignPresentationState(display, applyCueStateEffects(presentationStateOf(display), cue, { now }));
+      const displayNext=applyCueStateEffects(presentationStateOf(display), cue, { now });
+      if(this.state.metadata.reliableAudio && ['speech-display','speech-only'].includes(cue.kind))displayNext.currentSubtitle=null;
+      assignPresentationState(display,displayNext);
     }
     this.logRehearsal('cue', `${cue.cueNumber} ${cue.cueName}`, { cueId: cue.cueId, cueName: cue.cueName, route: cue.route, scene: cue.scene, location: cue.location, target: cue.target, preset: cue.presentationPreset, speechMode: cue.audio.speechMode, kind: cue.kind, result: 'success' });
     void this.persist(); return action;
@@ -746,6 +769,7 @@ export class StateStore {
     const next = { metadata: structuredClone(input.metadata ?? {}), routes: structuredClone(input.routes ?? [{ id: 'main', name: 'Main' }]),
       scenes: this.validateScenes(input.scenes), cues: result.normalized.cues, targetGroups: this.validateTargetGroups(input.groups),
       presets: result.normalized.presets, assets: result.normalized.assets, avatar: normalizeAvatar(input.avatar), settings: this.validateSettings(input.settings ?? {}) };
+    if(next.cues.some(c=>/^prod-voice-/.test(c.audio?.assetId||'')))next.metadata.reliableAudio=true;
     Object.assign(this.state, next); this.showReset(); this.logRehearsal('show-import', 'Show File適用', { cues: next.cues.length }); void this.persist();
     return { valid: true, errors: [], applied: true, summary: { cues: next.cues.length, presets: next.presets.length, assets: next.assets.length } };
   }
@@ -755,7 +779,7 @@ export class StateStore {
   logRehearsal(type, label, detail = {}) { if (!this.state.rehearsalSession?.active && !['session-start'].includes(type)) return; this.state.rehearsalLog.push({ timestamp: this.now().toISOString(), elapsedMs: this.state.rehearsalSession ? Math.max(0, this.now().getTime() - Date.parse(this.state.rehearsalSession.startedAt)) : 0, type, label, detail }); this.state.rehearsalLog = this.state.rehearsalLog.slice(-5000); }
 
   applyDisplayState(message) {
-    const displayText = message.speech?.segments?.[0]?.displayText ?? message.displayText ?? message.text;
+    const displayText = this.state.metadata.reliableAudio && message.source==='cue'?null:message.speech?.subtitleUnits?.[0]?.displayText ?? message.speech?.segments?.[0]?.displayText ?? message.displayText ?? message.text;
     this.state.currentSubtitle = displayText; this.state.displayMode = 'speech';
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, message.target)) continue;

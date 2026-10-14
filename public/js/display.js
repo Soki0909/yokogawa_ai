@@ -2,8 +2,8 @@ import { ReconnectingSocket } from './socket-client.js';
 import { createSpeechProvider } from './tts-adapter.js';
 import { LipSyncController } from './lip-sync.js';
 import { BlinkController } from './blink-controller.js';
-import { prepareProductionAudio } from './audio-preload.js';
-import { CueSfxPlayer } from './cue-sfx.js';
+import { loadProductionAudioManifest } from './audio-preload.js';
+import { ProductionAudioEngine, BufferedSpeechProvider, BufferedSfxPlayer, outputLeadMs } from './production-audio-engine.js';
 import { TypewriterCaption } from './subtitle-units.js';
 import { PresentationRenderCache, prepareDisplayImages } from './display-preparation.js';
 
@@ -30,6 +30,7 @@ let audioUnlocked = false;
 let audioReadySent = false;
 let audioPreloadPromise = null;
 let audioPreloadResult = null;
+let audioManifestRevision = null;
 let stageImageUrls = [];
 let stageImages = [];
 let stageImageSignature = '';
@@ -54,8 +55,18 @@ const captionWriter = new TypewriterCaption((text, fullText) => {
   if (document.body.dataset.captionEmpty !== String(!text)) document.body.dataset.captionEmpty = String(!text);
 });
 let playbackGeneration = 0;
+let presentationGeneration = 0;
 const lipSync = new LipSyncController(elements['avatar-wrap']);
-const sfx = new CueSfxPlayer({ contextFactory: () => lipSync.context });
+const audioEngine = new ProductionAudioEngine({ onStatus: ({ready,reason}) => {
+  audioOutputPrepared = ready;
+  if (!ready && audioUnlocked && isAudioMaster) {
+    const wasReady=audioReadySent;audioReadySent=false;
+    if(wasReady){playbackGeneration++;captionWriter.stop();socket.send({type:'audio:not-ready',reason});}
+    setMode('AUDIO NOT READY','error');setAudioPreloadHelp(reason);
+  }
+} });
+const sfx = new BufferedSfxPlayer(audioEngine,(effect,runId,status,error)=>socket.send({type:'cue:sfx',runId,index:effect.index,status,error}));
+export function productionAudioDiagnostics(){return {ready:audioEngine.ready,reason:audioEngine.reason,contextState:audioEngine.context?.state,stats:audioEngine.stats(),active:audioEngine.active.size,events:audioEngine.events.slice()};}
 const blink = new BlinkController(elements['avatar-wrap']);
 const unlockMeters = [...elements['unlock-gauges'].children].map(gauge => ({ gauge, meter: gauge.querySelector('i') }));
 const systemStates = new Set(['normal', 'warning', 'hijacked', 'hostile', 'shutdown', 'recovery']);
@@ -76,8 +87,8 @@ const speech = createSpeechProvider('browser', {
   onStop: (id) => { lipSync.stop(); setMode('VOICE STOPPED', 'stopped'); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); setMode('VOICE ERROR — 字幕は継続中', 'error'); socket.send({ type: 'playback', id, status: 'error', error }); },
 });
-const localAudio = createSpeechProvider('audio-file', {
-  onStart: (id, audio, message) => { lipSync.analyse(audio, message.audio?.playbackEffect); setMode('LOCAL AUDIO', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking' }); },
+const localAudio = new BufferedSpeechProvider(audioEngine, {
+  onStart: (id, analyser,context) => { lipSync.follow(analyser,outputLeadMs(context)); setMode('LOCAL AUDIO', 'speaking'); socket.send({ type: 'playback', id, status: 'speaking', audioClock: audioEngine.context.currentTime }); },
   onEnd: (id) => { lipSync.finish(); setMode('SYSTEM READY', 'ready'); socket.send({ type: 'playback', id, status: 'completed' }); },
   onStop: (id) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'stopped' }); },
   onError: (id, error) => { lipSync.stop(); socket.send({ type: 'playback', id, status: 'error', error }); },
@@ -97,16 +108,13 @@ function setAudioPreloadHelp(message) {
 async function ensureProductionAudioPreloaded() {
   if (audioPreloadResult?.total > 0 && audioPreloadResult.ready === audioPreloadResult.total) return audioPreloadResult;
   if (audioPreloadPromise) return audioPreloadPromise;
-  audioPreloadPromise = prepareProductionAudio({
-    concurrency: 4,
-    onProgress: ({ ready, total }) => {
+  audioPreloadPromise = loadProductionAudioManifest().then(assets => audioEngine.load(assets, ({ ready, total }) => {
       setAudioPreloadHelp(`固定WAVを準備しています… ${ready} / ${total}`);
       elements['enable-audio'].textContent = `音声準備中 ${ready}/${total}`;
-    },
-  }).then((result) => {
+    })).then((result) => {
     if (!result.total || result.ready !== result.total) throw new Error('Production WAVの準備が完了していません');
     audioPreloadResult = result;
-    setAudioPreloadHelp(`固定WAV ${result.ready} / ${result.total} READY。設定を保存して開始してください。`);
+    setAudioPreloadHelp(`固定WAV ${result.ready} / ${result.total} READY（実デコード済み）。設定を保存して音声出力を確認してください。`);
     elements['enable-audio'].textContent = '設定を保存して開始';
     return result;
   }).catch((error) => {
@@ -130,7 +138,7 @@ async function syncAudioReady() {
     await ensureAudioOutputPrepared();
     if (generation !== playbackGeneration || recoveryPending) return;
     if (isAudioMaster && identity.audioEnabled && !audioReadySent) {
-      audioReadySent = socket.send({ type: 'audio:ready' });
+      audioReadySent = socket.send({ type: 'audio:ready', protocol:'decoded-v1', decoded:audioEngine.stats() });
     }
   } catch {
     setMode('AUDIO PRELOAD ERROR', 'error');
@@ -157,8 +165,8 @@ async function ensureStageImagesPrepared() {
 }
 
 function ensureAudioOutputPrepared() {
-  if (audioOutputPrepared) return Promise.resolve();
-  if (!audioOutputPromise) audioOutputPromise = lipSync.prepare().then(() => { audioOutputPrepared = true; }).finally(() => { audioOutputPromise = null; });
+  if (audioOutputPrepared && audioEngine.context?.state === 'running') return Promise.resolve();
+  if (!audioOutputPromise) audioOutputPromise = audioEngine.verify().finally(() => { audioOutputPromise = null; });
   return audioOutputPromise;
 }
 
@@ -309,9 +317,38 @@ function renderUnlock(unlock = {}) {
 
 function handleEvent(event) {
   detectResume();
+  // Align visual/subtitle motion with the browser's output pipeline estimate.
+  // This estimate does not include unmeasured external HDMI/projector processing.
+  const alignmentMs=event.type==='state'?event.state.presentationDelayMs:event.presentation?.presentationDelayMs ?? event.presentationDelayMs;
+  const emergency=event.presentation?.kind==='blackout' || event.state?.blackout || (event.type==='state' && !elements.blackout.hidden && event.state.blackout===false);
+  if(emergency && !event.aligned)presentationGeneration++;
+  if(!event.aligned && !emergency && ['state','presentation','subtitle'].includes(event.type) && alignmentMs>0){
+    const aligned=structuredClone(event),generation=playbackGeneration,visualGeneration=presentationGeneration;aligned.aligned=true;
+    const shift=value=>{if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['startedAt','completedAt','expiresAt'].includes(key)&&typeof item==='string')value[key]=new Date(Date.parse(item)+alignmentMs).toISOString();else if(item&&typeof item==='object')shift(item);}};
+    const target=aligned.presentation||aligned.state;
+    if(target)for(const key of ['transition','overlay','visual','unlock','currentTransition','currentOverlay','currentVisual'])shift(target[key]);
+    setTimeout(()=>{if(generation===playbackGeneration && visualGeneration===presentationGeneration)handleEvent(aligned);},alignmentMs);return;
+  }
   if (event.type === 'runtime:recovered') recoveryPending = false;
   if (recoveryPending && ['state', 'speak', 'sfx', 'subtitle', 'presentation'].includes(event.type)) return;
+  if (event.type === 'cue:prepare') {
+    const generation=playbackGeneration;
+    void (async()=>{
+      try {
+        if(!isAudioMaster||!audioUnlocked||recoveryPending)throw Error('Audio Master未準備。設定を保存して再試行してください。');
+        if(event.audioAssets && audioEngine.signature!==JSON.stringify(event.audioAssets.map(a=>[a.id,a.sha256,a.url]))){audioPreloadResult=null;await audioEngine.load(event.audioAssets);}
+        await audioEngine.verify(event.assets);
+        if(generation!==playbackGeneration||recoveryPending)return;
+        automaticOutputPreparation=true;
+        socket.send({type:'cue:prepared',token:event.token,ready:true,presentationDelayMs:outputLeadMs(audioEngine.context)});
+      }catch(error){if(generation===playbackGeneration)socket.send({type:'cue:prepared',token:event.token,ready:false,error:error.message});}
+    })();return;
+  }
   if (event.type === 'state') {
+    if(audioManifestRevision!==event.state.audioManifestRevision){
+      audioManifestRevision=event.state.audioManifestRevision;audioPreloadResult=null;audioOutputPrepared=false;
+      if(audioUnlocked){audioReadySent=false;audioEngine.fail('音声素材の変更を確認。再デコードしています。');}
+    }
     settings = event.state.settings;
     stageImageUrls = [
       ...(event.state.assets ?? []).filter(asset => asset.id.startsWith('puzzle-') && asset.mimeType.startsWith('image/')).map(asset => `/api/assets/${encodeURIComponent(asset.id)}${asset.sha256 ? `?v=${asset.sha256}` : ''}`),
@@ -326,7 +363,7 @@ function handleEvent(event) {
     applyPresentation({ currentSubtitle: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
       transition: event.state.currentTransition, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
     document.body.dataset.reducedMotion = String(event.state.settings?.reducedMotion === true);
-    if (audioPreloadResult?.ready === audioPreloadResult?.total && audioPreloadResult?.total > 0) setAudioPreloadHelp(`固定WAV ${audioPreloadResult.ready} / ${audioPreloadResult.total} READY。設定を保存して開始してください。`);
+    if (audioPreloadResult?.ready === audioPreloadResult?.total && audioPreloadResult?.total > 0) setAudioPreloadHelp(`固定WAV ${audioPreloadResult.ready} / ${audioPreloadResult.total} READY（実デコード済み）。出力 ${audioEngine.ready?'READY':`NOT READY: ${audioEngine.reason||'設定を保存して開始してください'}`}`);
     else if (!audioPreloadPromise) elements['audio-help'].textContent = isAudioMaster
       ? 'この端末はAudio Masterです。固定WAVを事前準備してから音声出力を開始します。'
       : '字幕Displayとして接続します。Audio Masterに指定されるまで音声は再生しません。';
@@ -352,22 +389,25 @@ function handleEvent(event) {
         }
         const provider = event.message.audio?.speechMode === 'audio-file' ? localAudio
           : event.message.audio?.speechMode === 'local-tts' ? localTts : speech;
+        if(provider===localAudio)audioEngine.assertReady(event.message.audio.assetId);
         provider.speak(event.message, settings);
-      } catch (error) { if (generation === playbackGeneration) socket.send({ type: 'playback', id: event.message.id, status: 'error', error: error.message }); }
+      } catch (error) { if (generation === playbackGeneration) {socket.send({ type: 'playback', id: event.message.id, status: 'error', error: error.message });if(event.message.source==='cue'&&event.message.audio?.speechMode==='audio-file')audioEngine.fail(error.message);} }
     })();
   } else if (event.type === 'presentation') {
     applyPresentation(event.presentation, event.preset);
   } else if (event.type === 'subtitle') {
     revealCaption(event.text, event.durationMs);
   } else if (event.type === 'sfx') {
-    if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume).catch(error => socket.send({ type: 'playback', id: 'sfx', status: 'error', error: error.message }));
+    if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume,event.runId).catch(error => audioEngine.fail(error.message));
   } else if (event.type === 'sfx:stop') {
     playbackGeneration++;
+    localAudio.stop(false);localTts.stop(false);speech.stop(false);lipSync.finish();
     sfx.stop(); captionWriter.stop(); showCaption('');
   } else if (event.type === 'stop') {
     presentationCache.clear();
     audioOutputPrepared = false;
     automaticOutputPreparation = false;
+    audioEngine.stopAll();
     playbackGeneration++;
     sfx.stop(); captionWriter.stop(); showCaption('');
     speech.stop(); localAudio.stop(); localTts.stop(); lipSync.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer); document.body.dataset.transitionStatus = 'stopped';
@@ -379,6 +419,7 @@ function handleEvent(event) {
     presentationCache.clear();
     audioOutputPrepared = false;
     automaticOutputPreparation = true;
+    audioEngine.stopAll();audioPreloadResult=null;
     stageManifestPromise = null;
     stageImageSignature = '';
     playbackGeneration++;
@@ -410,12 +451,22 @@ function stopLocalTransport() {
   presentationCache.clear();
   audioOutputPrepared = false;
   automaticOutputPreparation = true;
+  audioEngine.stopAll();
   playbackGeneration++;
   sfx.stop(); speech.stop(false); localAudio.stop(false); localTts.stop(false); lipSync.stop();
   captionWriter.stop(); cancelAnimationFrame(unlockFrame); clearTimeout(transitionTimer); clearTimeout(overlayTimer); clearTimeout(visualTimer);
   showCaption(''); document.body.dataset.transitionStatus = 'completed';
 }
 setInterval(detectResume, 500);
+setInterval(()=>{
+  if(!isAudioMaster||!audioUnlocked||recoveryPending||!automaticOutputPreparation)return;
+  if(audioEngine.context?.state!=='running' && audioEngine.ready)audioEngine.fail('音声出力の停止を検出しました');
+  if(!audioEngine.ready)void syncAudioReady();
+},1000);
+navigator.mediaDevices?.addEventListener('devicechange',()=>{
+  if(!audioUnlocked||!isAudioMaster)return;
+  audioEngine.fail('音声デバイスが変更されました。再準備後にREPLAYしてください。');
+});
 function revealCaption(text, durationMs) {
   if (document.hidden) { captionWriter.stop(); showCaption(''); return; }
   captionWriter.reveal(text, durationMs);
@@ -462,7 +513,7 @@ elements['enable-audio'].addEventListener('click', async () => {
       if (generation !== playbackGeneration || recoveryPending) { elements['enable-audio'].disabled = false; return; }
       if (isAudioMaster && identity.audioEnabled) {
         audioUnlocked = true;
-        audioReadySent = socket.send({ type: 'audio:ready' });
+        audioReadySent = socket.send({ type: 'audio:ready', protocol:'decoded-v1', decoded:audioEngine.stats() });
       }
     } catch {
       setMode('AUDIO PRELOAD ERROR', 'error');

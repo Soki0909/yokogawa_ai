@@ -26,6 +26,7 @@ export const PRODUCTION_SLOTS = [
   { id: 'hack-noise', assetId: 'prod-sfx-glitch', label: 'hack-noise', path: 'assets/audio/production-hack-noise.wav', fallback: 'assets/audio/production-sfx-glitch.wav', mimeType: 'audio/wav' },
   { id: 'warning', assetId: 'prod-sfx-warning', label: 'warning', path: 'assets/audio/production-warning.wav', fallback: 'assets/audio/production-sfx-warning.wav', mimeType: 'audio/wav' },
   ...[['01', 'first'], ['06', 'final'], ['07', 'emergency']].map(([number, name]) => ({ id: `puzzle-${number}`, assetId: `puzzle-${name}`, label: `Puzzle ${Number(number)}`, path: `assets/visual/production-puzzle-${number}.png`, fallback: 'assets/visual/puzzle-image-pending.svg', mimeType: 'image/png' })),
+  {id:'recovery',assetId:'prod-sfx-recovery',label:'recovery (optional)',path:'assets/audio/production-recovery.wav',mimeType:'audio/wav',optional:true},
 ];
 
 export async function resolveProductionSlots(publicDirectory) {
@@ -42,6 +43,7 @@ export async function resolveProductionSlots(publicDirectory) {
       }
       status = 'READY'; detail = '本番素材を使用';
     } catch (error) {
+      if(slot.optional)return {...slot,status:error.code==='ENOENT'?'MISSING':'INVALID',detail:error.code==='ENOENT'?'復旧SE未提供（無音）。選定・配置後に再起動して採用':error.message,sha256:null,resolvedPath:null,resolvedMimeType:null};
       if (error.code !== 'ENOENT') { status = 'INVALID'; detail = `${error.message}。代替素材を使用`; }
       bytes = await fs.readFile(path.join(publicDirectory, slot.fallback));
       if (slot.mimeType === 'audio/wav') durationMs = Math.ceil(analysePcmWav(bytes).durationSeconds * 1000);
@@ -53,6 +55,15 @@ export async function resolveProductionSlots(publicDirectory) {
 export function applyProductionSlots(store, slots) {
   store.productionAssetSlots = slots;
   for (const slot of slots) {
+    if(slot.optional){
+      store.state.assets=store.state.assets.filter(asset=>asset.id!==slot.assetId);
+      for(const cue of store.state.cues){
+        cue.sfx=(cue.sfx??[]).filter(effect=>effect.assetId!==slot.assetId);
+        if(slot.status==='READY' && cue.recoverySfx)cue.sfx.push({assetId:slot.assetId,...cue.recoverySfx,durationMs:slot.durationMs});
+      }
+      if(slot.status==='READY')store.state.assets.push({id:slot.assetId,name:'復旧SE',path:slot.resolvedPath,mimeType:'audio/wav',slot:slot.id,sha256:slot.sha256,durationMs:slot.durationMs});
+      continue;
+    }
     const asset = store.state.assets.find(a => a.id === slot.assetId);
     if (!asset) continue;
     Object.assign(asset, { slot: slot.id, path: slot.resolvedPath, mimeType: slot.resolvedMimeType, sha256: slot.sha256, ...(slot.durationMs ? { durationMs: slot.durationMs } : {}) });

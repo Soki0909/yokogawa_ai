@@ -139,6 +139,14 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
     await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `
       window.__yokogawaAudioPlays = [];
       window.__yokogawaAudioTimes = [];
+      const originalBufferStart = AudioBufferSourceNode.prototype.start;
+      AudioBufferSourceNode.prototype.start = function(...args) {
+        if(this.__yokogawaAssetId && !this.__yokogawaAssetId.includes('prod-sfx-')) {
+          window.__yokogawaAudioPlays.push('/api/assets/'+this.__yokogawaAssetId);
+          window.__yokogawaAudioTimes.push(Date.now());
+        }
+        return originalBufferStart.call(this,...args);
+      };
       const originalPlay = HTMLMediaElement.prototype.play;
       HTMLMediaElement.prototype.play = function () {
         if (!this.src.includes('prod-sfx-')) {
@@ -244,7 +252,9 @@ try {
   if (JSON.stringify(scene2Again) !== JSON.stringify(scene2State)) throw new Error(`Scene state drift: ${JSON.stringify({ scene2State, scene2Again })}`);
   await admin.setViewport(1920, 1080);
 
+  await display.evaluate('window.__beforeSceneReload = true');
   await display.send('Page.reload', { ignoreCache: false });
+  await display.waitFor(`window.__beforeSceneReload === undefined && document.readyState === 'complete'`, 'Scene 2 new document');
   await display.waitFor(`document.readyState === 'complete' && document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Scene 2 Display reload');
   await display.waitFor(`document.body.dataset.preset === 'hijacked' && document.querySelector('#caption')?.textContent === '' && document.body.dataset.transitionStatus !== 'active' && document.body.dataset.unlockStatus !== 'running'`, 'Scene 2 reload final state only');
   if (await display.evaluate('window.__yokogawaAudioPlays.length') !== 0) throw new Error('Scene 2 Display reload replayed historical audio');
@@ -419,7 +429,7 @@ try {
   await startServer();
   await display.waitFor(`document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reconnect', 20_000);
   await display.waitFor(`document.body.dataset.preset === 'normal' && document.querySelector('#avatar-wrap').hidden && document.querySelector('#caption').textContent === ''`, 'bundled latest startup after reconnect', 20_000);
-  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('subtitle-script-assets-v1.1')`, 'latest version after reconnect', 20_000);
+  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('production-reliability-20261014')`, 'latest version after reconnect', 20_000);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY restored after reconnect', 20_000);
   for (const [index, page] of [admin, display].entries()) {
     const restartErrors = page.errors.splice(errorsBeforeRestart[index]);

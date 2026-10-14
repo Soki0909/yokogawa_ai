@@ -8,7 +8,7 @@ const freePort = () => new Promise((resolve, reject) => { const server = net.cre
 const waitForHealth = async (port) => { const deadline = Date.now() + 8000; while (Date.now() < deadline) { try { if ((await fetch(`http://127.0.0.1:${port}/health`)).ok) return; } catch {} await new Promise((resolve) => setTimeout(resolve, 50)); } throw new Error('server did not start'); };
 function connect(port, role, display) {
   const socket = new WebSocket(`ws://127.0.0.1:${port}/ws`); const queue = []; const waiters = [];
-  socket.on('message', (raw) => { const event = JSON.parse(raw); const index = waiters.findIndex((item) => item.predicate(event)); if (index >= 0) waiters.splice(index, 1)[0].resolve(event); else queue.push(event); });
+  socket.on('message', (raw) => { const event = JSON.parse(raw); if(role==='display' && event.type==='cue:prepare')socket.send(JSON.stringify({type:'cue:prepared',token:event.token,ready:true})); const index = waiters.findIndex((item) => item.predicate(event)); if (index >= 0) waiters.splice(index, 1)[0].resolve(event); else queue.push(event); });
   const next = (predicate, timeout = 3000) => { const index = queue.findIndex(predicate); if (index >= 0) return Promise.resolve(queue.splice(index, 1)[0]); return new Promise((resolve, reject) => { const waiter = { predicate, resolve }; waiters.push(waiter); setTimeout(() => { const current = waiters.indexOf(waiter); if (current >= 0) waiters.splice(current, 1); reject(new Error('timeout')); }, timeout).unref(); }); };
   return new Promise((resolve, reject) => { socket.once('error', reject); socket.once('open', async () => { socket.send(JSON.stringify({ type: 'hello', role, ...(display ? { display } : {}) })); resolve({ socket, initial: await next((event) => event.type === 'state'), next, send: (event) => socket.send(JSON.stringify(event)) }); }); });
 }
@@ -27,7 +27,7 @@ test('merged Cue server runtime cancels pending audio on STOP/Reset/Rehearsal an
   assert.ok((await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(production) })).ok);
   const admin = await connect(port, 'admin'); const display = await connect(port, 'display', { displayId: 'stage', audioEnabled: true });
   t.after(async () => Promise.all([admin, display].map(close)));
-  display.send({ type: 'audio:ready' }); await admin.next(e => e.type === 'state' && e.state.displayAudioReady);
+  display.send({ type: 'audio:ready', protocol:'decoded-v1' }); await admin.next(e => e.type === 'state' && e.state.displayAudioReady);
   admin.send({ type: 'rehearsal:start' }); await admin.next(e => e.type === 'state' && e.state.rehearsalSession?.active);
   for (const cueId of ['prod-v-riddle-enter', 'prod-v-stop-code']) {
     for (const operation of [{ type: 'stop' }, { type: 'show:reset' }, { type: 'scene:rehearsal-start', sceneId: 'scene-6' }]) {
@@ -55,7 +55,7 @@ test('scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安�
   const admin = await connect(port, 'admin'); let display = await connect(port, 'display', { displayId: 'display-201', displayName: '7・201', audioEnabled: true });
   t.after(async () => Promise.all([admin, display].map(close)));
   await admin.next((event) => event.type === 'state' && event.state.displays.some((item) => item.displayId === 'display-201'));
-  display.send({ type: 'audio:ready' }); await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
+  display.send({ type: 'audio:ready', protocol:'decoded-v1' }); await admin.next((event) => event.type === 'state' && event.state.displayAudioReady);
   admin.send({ type: 'rehearsal:start' }); await admin.next((event) => event.type === 'state' && event.state.rehearsalSession?.active);
 
   admin.send({ type: 'scene:rehearsal-start', sceneId: 'scene-2', actionId: 'scene-2-once' });

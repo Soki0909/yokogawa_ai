@@ -144,6 +144,11 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
     await page.send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
     await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `
       window.__yokogawaAudioPlays = [];
+      const originalBufferStart = AudioBufferSourceNode.prototype.start;
+      AudioBufferSourceNode.prototype.start = function(...args) {
+        if(this.__yokogawaAssetId && !this.__yokogawaAssetId.includes('prod-sfx-'))window.__yokogawaAudioPlays.push('/api/assets/'+this.__yokogawaAssetId);
+        return originalBufferStart.call(this,...args);
+      };
       window.__yokogawaAudioTimes = [];
       const originalPlay = HTMLMediaElement.prototype.play;
       HTMLMediaElement.prototype.play = function () {
@@ -185,12 +190,12 @@ const audioHook = `
   };
   AudioNode.prototype.connect = function(destination, ...args) {
     const result = nativeConnect.call(this, destination, ...args);
-    if (destination instanceof AudioDestinationNode) {
+    if (destination instanceof AudioDestinationNode && !this.__silentPreparation) {
       const context = this.context;
       if (!context.__recording) {
         const stream = context.createMediaStreamDestination();
         const recorder = new MediaRecorder(stream.stream, { mimeType: 'audio/webm;codecs=opus', audioBitsPerSecond: 192000 });
-        const chunks = []; const index = window.__recordAudioCount++; const at = Date.now();
+        const chunks = []; const index = window.__recordAudioCount++; const at = Date.now()+Math.min(300,((context.baseLatency||0)+(context.outputLatency||0))*1000);
         recorder.ondataavailable = e => { if(e.data.size) chunks.push(e.data); };
         const done = new Promise(resolve => recorder.onstop = async () => {
           const bytes = new Uint8Array(await new Blob(chunks).arrayBuffer());
@@ -298,6 +303,7 @@ try {
     // CSS entrance animations have a short tail even when transition.id is none.
     const minimumVisualEnd = started + Math.max(cue.transition?.durationMs ?? 0, cue.visual?.visible ? 1600 : 0, ...(cue.sfx ?? []).map(effect => effect.atMs + effect.durationMs));
     await delay(Math.max(0, minimumVisualEnd - Date.now()));
+    await waitState(s=>!s.nextBlock,`${cue.id} actual complete barrier`);
     const completed = Date.now();
     await delay(2000);
     timeline.push({ cueId: cue.id, cueNumber: cue.cueNumber, name: cue.name, recordingCaption: recordingCueCaption(cue), startedSeconds: (started-videoStart)/1000,

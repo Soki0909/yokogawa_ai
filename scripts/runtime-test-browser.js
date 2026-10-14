@@ -145,6 +145,14 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
     await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `
       window.__yokogawaAudioPlays = [];
       window.__yokogawaAudioTimes = [];
+      const originalBufferStart = AudioBufferSourceNode.prototype.start;
+      AudioBufferSourceNode.prototype.start = function(...args) {
+        if(this.__yokogawaAssetId && !this.__yokogawaAssetId.includes('prod-sfx-')) {
+          window.__yokogawaAudioPlays.push('/api/assets/'+this.__yokogawaAssetId);
+          window.__yokogawaAudioTimes.push(Date.now());
+        }
+        return originalBufferStart.call(this,...args);
+      };
       const originalPlay = HTMLMediaElement.prototype.play;
       HTMLMediaElement.prototype.play = function () {
         if (!this.src.includes('prod-sfx-')) {

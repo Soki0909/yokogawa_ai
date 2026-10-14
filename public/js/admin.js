@@ -215,9 +215,9 @@ function updateCount() { elements['character-count'].textContent = `${elements['
 function updateControls() {
   const hasDisplay = state?.displays.some((display) => display.online); const locked = !connected || actionLocked; elements['send-button'].disabled = !connected || !hasDisplay || !elements['speech-input'].value.trim();
   const nextGuarded = performance.now() < nextDeadline;
-  for (const id of ['next-button', 'show-next-button']) { elements[id].disabled = !connected || nextGuarded || !state?.nextCue || !hasDisplay; elements[id].title = nextGuarded ? 'NEXT保護中（1.2秒）。連打は破棄されます。' : '次の合図でNEXT'; }
+  for (const id of ['next-button', 'show-next-button']) { elements[id].disabled = !connected || nextGuarded || Boolean(state?.nextBlock) || !state?.nextCue || !hasDisplay; elements[id].title = state?.nextBlock || (nextGuarded ? 'NEXT保護中（1.2秒）。連打は破棄されます。' : '次の合図でNEXT'); }
   if (nextGuarded) elements['show-next-button-label'].textContent = 'NEXT受理・二重押し保護中…';
-  else if (state) elements['show-next-button-label'].textContent = state.nextCue ? `${state.nextCue.cueNumber} ${state.nextCue.cueName}` : '次のCueはありません';
+  else if (state) elements['show-next-button-label'].textContent = state.nextBlock || (state.nextCue ? `${state.nextCue.cueNumber} ${state.nextCue.cueName}` : '次のCueはありません');
   for (const id of ['back-button', 'show-back-button']) elements[id].disabled = locked || (state?.currentCueIndex ?? -1) < 0;
   for (const id of ['cue-replay-button', 'show-replay-button']) elements[id].disabled = locked || !state?.currentCue || !hasDisplay;
   for (const id of ['show-clear-button', 'show-blackout-button', 'show-blackout-clear-button']) elements[id].disabled = !connected || !hasDisplay;
@@ -232,7 +232,7 @@ function updateControls() {
 }
 function performAction(type, extra = {}) {
   const emergency = ['stop', 'blackout', 'blackout:clear', 'clear'].includes(type);
-  if (type === 'cue:next') { if (performance.now() < nextDeadline) return; nextDeadline = performance.now() + (state?.nextGuard?.intervalMs || 1200); }
+  if (type === 'cue:next') { if (performance.now() < nextDeadline || state?.nextBlock) return; nextDeadline = performance.now() + (state?.nextGuard?.intervalMs || 1200); }
   else if (!emergency) { if (actionLocked) return; actionLocked = true; window.setTimeout(() => { actionLocked = false; updateControls(); }, 650); }
   updateControls(); socket.send({ type, actionId: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random()}`, ...extra });
 }

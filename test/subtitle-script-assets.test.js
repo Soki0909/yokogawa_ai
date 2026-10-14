@@ -26,7 +26,7 @@ test('all Production speech uses typewriter and one grammatical sentence per dis
   }
   const cue = show.cues.find(c => c.id === 'prod-002'); const units = subtitleUnits(cue.speech,cue.displayText);
   assert.equal(cue.speech.segments.length,3); assert.equal(units.length,2);
-  assert.equal(units[1].displayText,'例えば、そちらに久安光さんが参加しています');
+  assert.equal(units[1].displayText,'例えば、そちらに久安光さんが参加しています。');
   assert.equal(units[1].startMs,cue.speech.segments[1].startMs); assert.equal(units[1].endMs,cue.speech.segments[2].endMs);
   assert.match(cue.speech.spokenText,/ヒサヤス ヒカル/);
   assert.equal(sentenceTexts('……待機。数字1.2、AIの"ready"です！？次です').length,3);
@@ -51,18 +51,18 @@ test('latest script diffs preserve recovery and add separate Scene7 confirmation
   assert.ok(!show.cues.some(c=>c.scene==='scene-5'));
   const recovery=show.cues.find(c=>c.id==='prod-v-recovery'); const confirmation=show.cues.at(-1);
   assert.equal(recovery.sequence.at(-1).presentationPreset,'normal');assert.equal(recovery.audio.speechMode,'none');
-  assert.equal(confirmation.id,'prod-020');assert.equal(confirmation.scene,'scene-7');assert.equal(confirmation.displayText,'館内すべての扉の解錠を確認しました');assert.equal(confirmation.presentationPreset,'normal');
+  assert.equal(confirmation.id,'prod-020');assert.equal(confirmation.scene,'scene-7');assert.equal(confirmation.displayText,'館内すべての扉の解錠を確認しました。');assert.equal(confirmation.presentationPreset,'normal');
   assert.match(confirmation.triggerNote,/夢野・押野・三馬/);assert.match(show.cues.find(c=>c.id==='prod-v-emergency-riddle').triggerNote,/USB/);
-  assert.ok(!show.cues.find(c=>c.id==='prod-013').displayText.endsWith('。'));
+  assert.ok(show.cues.find(c=>c.id==='prod-013').displayText.endsWith('。'));
   const first=show.cues.find(c=>c.id==='prod-013'), second=show.cues.find(c=>c.id==='prod-014');assert.equal(first.sfx[0].assetId,second.sfx[0].assetId);
   assert.ok(show.cues.every(c=>(c.sfx??[]).every(s=>!['prod-sfx-auth','prod-sfx-unlock','prod-sfx-hostile','prod-sfx-rumble'].includes(s.assetId))));
 });
 
 test('slots missing/present/invalid resolve safely, share warning and validate bytes', async t => {
   const root=await fs.mkdtemp(path.join(os.tmpdir(),'subtitle-slots-'));t.after(()=>fs.rm(root,{recursive:true,force:true}));
-  for(const slot of PRODUCTION_SLOTS){await fs.mkdir(path.dirname(path.join(root,slot.fallback)),{recursive:true});await fs.copyFile(path.join('public',slot.fallback),path.join(root,slot.fallback));}
+  for(const slot of PRODUCTION_SLOTS.filter(s=>!s.optional)){await fs.mkdir(path.dirname(path.join(root,slot.fallback)),{recursive:true});await fs.copyFile(path.join('public',slot.fallback),path.join(root,slot.fallback));}
   assert.ok((await resolveProductionSlots(root)).every(s=>s.status==='MISSING'));
-  for(const slot of PRODUCTION_SLOTS.filter(s=>s.mimeType==='audio/wav'))await fs.copyFile(path.join('public',slot.fallback),path.join(root,slot.path));
+  for(const slot of PRODUCTION_SLOTS.filter(s=>s.mimeType==='audio/wav'&&!s.optional))await fs.copyFile(path.join('public',slot.fallback),path.join(root,slot.path));
   let slots=await resolveProductionSlots(root);assert.equal(slots.filter(s=>s.status==='READY').length,3);
   for(const slot of slots.filter(s=>s.status==='READY')) assert.equal(slot.sha256,createHash('sha256').update(await fs.readFile(path.join(root,slot.path))).digest('hex'));
   for(const slot of PRODUCTION_SLOTS.filter(s=>s.mimeType==='image/png')) await fs.copyFile('public/assets/avatar/yokogawa/v1/base.png',path.join(root,slot.path));
@@ -70,7 +70,15 @@ test('slots missing/present/invalid resolve safely, share warning and validate b
   const store=new StateStore({storage:{async load(){},async save(){}}});store.importShowFile(show,{apply:true});
   applyProductionSlots(store,slots.map(s=>s.id==='warning'?{...s,durationMs:300}:s));
   assert.equal(store.state.cues.find(c=>c.cueId==='prod-013').timing.speechDelayMs,300);
-  assert.ok(store.preflight().items.filter(i=>i.id.startsWith('asset-slot:')).every(i=>i.status==='ok'));
+  assert.ok(store.preflight().items.filter(i=>i.id.startsWith('asset-slot:') && !i.id.endsWith('recovery')).every(i=>i.status==='ok'));
+  assert.equal(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.length,0);
+  assert.equal(store.productionAssetSlots.find(s=>s.id==='recovery').status,'MISSING');
+  const missingRecovery = store.preflight().items.find(i=>i.id==='asset-slot:recovery');
+  assert.equal(missingRecovery.status,'warning');assert.match(missingRecovery.detail,/MISSING/);
+  await fs.copyFile('public/assets/audio/production-sfx-boot.wav',path.join(root,'assets/audio/production-recovery.wav'));
+  applyProductionSlots(store,await resolveProductionSlots(root));
+  const recovery=store.state.cues.find(c=>c.cueId==='prod-v-recovery');assert.equal(recovery.sfx[0].atMs,4600);assert.equal(recovery.sfx[0].assetId,'prod-sfx-recovery');
+  assert.equal(store.state.assets.filter(a=>a.id==='prod-sfx-recovery').length,1);
   await fs.writeFile(path.join(root,PRODUCTION_SLOTS[3].path),Buffer.from([137,80,78,71,13,10,26,10]));assert.equal((await resolveProductionSlots(root))[3].status,'INVALID');
   await fs.writeFile(path.join(root,PRODUCTION_SLOTS[0].path),'invalid');slots=await resolveProductionSlots(root);assert.equal(slots[0].status,'INVALID');assert.equal(slots[0].resolvedPath,slots[0].fallback);
 });

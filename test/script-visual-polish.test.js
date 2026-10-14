@@ -9,7 +9,9 @@ async function setup() {
   const storage = { value: null, async load() { return this.value; }, async save(v) { this.value = structuredClone(v); } };
   const store = new StateStore({ storage, now: () => new Date(clock), monotonic: () => clock });
   const show = JSON.parse(await readFile('shows/production.json', 'utf8'));
+  show.metadata.reliableAudio=false; // Pure presentation reconstruction, without renderer receipts.
   store.importShowFile(show, { apply: true }); store.registerDisplay({ displayId: 'stage' }); store.startRehearsal();
+  store.state.metadata.reliableAudio=false; // This suite replays presentation data, not a live audio transport.
   return { store, storage, show, advance(ms) { clock += ms; return store.snapshot(); } };
 }
 
@@ -38,7 +40,7 @@ test('P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016
     store.jumpCue(previous); const result = store.nextCue();
     assert.equal(result.cue.cueId, merged); assert.equal(result.message.audio.assetId, asset);
     assert.equal(result.cue.timing.speechDelayMs, merged === 'prod-v-stop-code' ? 1900 : 0);
-    assert.equal(result.action.currentSubtitle, merged === 'prod-v-stop-code' ? null : '第一の謎は、こちらです');
+    assert.equal(result.action.currentSubtitle, merged === 'prod-v-stop-code' ? null : '第一の謎は、こちらです。');
     assert.equal(store.snapshot().nextCue.cueId, following);
     const replay = store.replayCue(); assert.equal(replay.cue.cueId, merged);
     assert.notEqual(replay.message.id, result.message.id);

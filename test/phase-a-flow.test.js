@@ -21,7 +21,7 @@ test('Phase AをAdmin 1 + Display 3でimport・target・unlock・再接続・安
   const imported = await fetch(`http://127.0.0.1:${port}/api/show-file/import`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(show) }).then((response) => response.json()); assert.equal(imported.valid, true); assert.equal(imported.summary.cues, 27);
   const visualAsset = await fetch(`http://127.0.0.1:${port}/api/assets/phase-a-placeholder`); assert.equal(visualAsset.status, 200); assert.match(visualAsset.headers.get('content-type'), /image\/svg\+xml/); assert.match(await visualAsset.text(), /LOCAL ASSET READY/);
   const admin = await connect(port, 'admin'); const a = await connect(port, 'display', { displayId: 'a', displayName: 'A', audioEnabled: true }); const b = await connect(port, 'display', { displayId: 'b', displayName: 'B', audioEnabled: false }); const c = await connect(port, 'display', { displayId: 'c', displayName: 'C', audioEnabled: false });
-  t.after(async () => Promise.all([admin, a, b, c].map(close))); await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3); a.send({ type: 'audio:ready' });
+  t.after(async () => Promise.all([admin, a, b, c].map(close))); await admin.next((event) => event.type === 'state' && event.state.displays.filter((item) => item.online).length === 3); a.send({ type: 'audio:ready', protocol:'decoded-v1' });
 
   admin.send({ type: 'cue:execute', cueId: 'pa-002' }); await a.next((event) => event.type === 'presentation' && event.presentation.transition?.id === 'boot');
   await admin.next((event) => event.type === 'state' && event.state.currentTransition.status === 'completed');

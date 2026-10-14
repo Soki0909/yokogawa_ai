@@ -58,12 +58,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "承知しました。横川教授。横川AIを起動します",
+      "displayText": "承知しました、横川教授。横川AIを起動します。",
       "spokenText": "承知しました。横川教授。横川AIを起動します",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "承知しました。",
+          "displayText": "承知しました、",
           "spokenText": "承知しました。",
           "pauseAfterMs": 250,
           "startMs": 0,
@@ -83,7 +83,7 @@
           "sha256": "3200edd110bee28c41851963e1d442928276b8b4b92fea4bd932b66ec29c71a4"
         },
         {
-          "displayText": "横川AIを起動します",
+          "displayText": "横川AIを起動します。",
           "spokenText": "横川AIを起動します",
           "pauseAfterMs": 0,
           "startMs": 3114,
@@ -102,7 +102,19 @@
           250,
           350
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "承知しました、横川教授。",
+          "startMs": 0,
+          "endMs": 2764
+        },
+        {
+          "displayText": "横川AIを起動します。",
+          "startMs": 3114,
+          "endMs": 4860
+        }
+      ]
     },
     {
       "scriptId": "002",
@@ -149,7 +161,7 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
-      "displayText": "はい。例えば、そちらに久安光さんが参加しています",
+      "displayText": "はい。例えば、そちらに久安光さんが参加しています。",
       "spokenText": "はい。例えば、そちらにヒサヤス ヒカルさんが参加しています",
       "reusedApprovedTake": false,
       "segments": [
@@ -174,7 +186,7 @@
           "alignment": "approved-voice-boundary; stage pacing"
         },
         {
-          "displayText": "久安光さんが参加しています",
+          "displayText": "久安光さんが参加しています。",
           "spokenText": "ヒサヤス ヒカルさんが参加しています",
           "pauseAfterMs": 0,
           "path": "assets/audio/segments/paced-002-3.wav",
@@ -195,12 +207,24 @@
           300,
           450
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "はい。",
+          "startMs": 0,
+          "endMs": 739
+        },
+        {
+          "displayText": "例えば、そちらに久安光さんが参加しています。",
+          "startMs": 1039,
+          "endMs": 5345
+        }
+      ]
     },
     {
       "scriptId": "003",
       "assetId": "prod-voice-003-security",
-      "path": "assets/audio/production-paced-003.wav",
+      "path": "assets/audio/production-reliable-003.wav",
       "scene": "scene-1",
       "location": "7・201",
       "route": "main",
@@ -227,12 +251,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 17.766802721088435,
+      "durationSeconds": 17.366802721088437,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 1567076,
-      "sha256": "f26458aa98fad64a6a1d1328ec338356b1d7f8f071958de8c5bf72b233037d5c",
+      "bytes": 1531796,
+      "sha256": "db9549c232327f19d9a862993ce3c925a4893e87d8f63c7ee5043c46a8954023",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -242,14 +266,14 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+      "displayText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています。",
       "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
       "reusedApprovedTake": true,
       "segments": [
         {
           "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
           "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。",
-          "pauseAfterMs": 550,
+          "pauseAfterMs": 350,
           "startMs": 0,
           "endMs": 4496,
           "alignment": "approved-voice-boundary; stage pacing",
@@ -259,19 +283,19 @@
         {
           "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
           "spokenText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。",
-          "pauseAfterMs": 650,
-          "startMs": 5046,
-          "endMs": 10663,
+          "pauseAfterMs": 450,
+          "startMs": 4846,
+          "endMs": 10463,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-003-2.wav",
           "sha256": "3be102bb605e7a6b4df2cce0e2dffeae814a86564bd6b926cd0f1e296e895167"
         },
         {
-          "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています",
+          "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています。",
           "spokenText": "ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
           "pauseAfterMs": 0,
-          "startMs": 11313,
-          "endMs": 17767,
+          "startMs": 10913,
+          "endMs": 17367,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-003-3.wav",
           "sha256": "8a8ebb2f8e139b8f2b182f08cd059617e67ee5e519044e3655f5bc5ebc21b0a2"
@@ -279,19 +303,36 @@
       ],
       "pacing": {
         "version": 1,
-        "direction": "情報照合→セキュリティ応用→プリンキピアへ話題を渡す。観客が説明を受け取る間。",
+        "direction": "情報照合→セキュリティ応用→プリンキピアへ、説明の流れを350/450msで接続。",
         "sourcePath": "assets/audio/yokogawa-professor-v1_003_security.wav",
         "sourceSha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3",
         "pauseAfterMs": [
-          550,
-          650
+          350,
+          450
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
+          "startMs": 0,
+          "endMs": 4496
+        },
+        {
+          "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
+          "startMs": 4846,
+          "endMs": 10463
+        },
+        {
+          "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています。",
+          "startMs": 10913,
+          "endMs": 17367
+        }
+      ]
     },
     {
       "scriptId": "004",
       "assetId": "prod-voice-004-principia",
-      "path": "assets/audio/production-paced-004.wav",
+      "path": "assets/audio/production-reliable-004.wav",
       "scene": "scene-1",
       "location": "7・201",
       "route": "main",
@@ -318,12 +359,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 16.926009070294786,
+      "durationSeconds": 16.726009070294786,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 1492918,
-      "sha256": "6cfa980e53f46aaafdfc4c1241b0f2a38a94d22f1ab07641eb453432204b24a5",
+      "bytes": 1475278,
+      "sha256": "5f0ccb14dac8974fbd839b6cd72e01baca2cb9ea2a29850d8e0f3c2038df87fd",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -333,14 +374,14 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+      "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています。",
       "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
       "reusedApprovedTake": true,
       "segments": [
         {
           "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
           "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
-          "pauseAfterMs": 650,
+          "pauseAfterMs": 450,
           "startMs": 0,
           "endMs": 7191,
           "alignment": "approved-voice-boundary; stage pacing",
@@ -348,11 +389,11 @@
           "sha256": "34dddd9d6a23ecac0f2462e1032f8ea12142cf2c39ef4881a7568ce6e59d643b"
         },
         {
-          "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
+          "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています。",
           "spokenText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
           "pauseAfterMs": 0,
-          "startMs": 7841,
-          "endMs": 16926,
+          "startMs": 7641,
+          "endMs": 16726,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-004-2.wav",
           "sha256": "eb262fed00acb390d94d546cb634df6273ff50e68d7d07e0c1573ed4ecfb4a9a"
@@ -360,13 +401,25 @@
       ],
       "pacing": {
         "version": 1,
-        "direction": "歴史的価値を落ち着いて説明。初版本と所蔵情報へ切り替える。説明後の画面乱れは別の時間軸。",
+        "direction": "歴史的価値と所蔵情報を450msで接続。説明後HACKまでの間は維持。",
         "sourcePath": "assets/audio/yokogawa-professor-v1_004_principia.wav",
         "sourceSha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c",
         "pauseAfterMs": [
-          650
+          450
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
+          "startMs": 0,
+          "endMs": 7191
+        },
+        {
+          "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています。",
+          "startMs": 7641,
+          "endMs": 16726
+        }
+      ]
     },
     {
       "scriptId": "005",
@@ -413,12 +466,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "外部への通信は許可されていません",
+      "displayText": "外部への通信は許可されていません。",
       "spokenText": "外部への通信は許可されていません",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "外部への通信は許可されていません",
+          "displayText": "外部への通信は許可されていません。",
           "spokenText": "外部への通信は許可されていません",
           "pauseAfterMs": 0,
           "startMs": 0,
@@ -434,7 +487,14 @@
         "sourcePath": "assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
         "sourceSha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "外部への通信は許可されていません。",
+          "startMs": 0,
+          "endMs": 2484
+        }
+      ]
     },
     {
       "scriptId": "006",
@@ -481,12 +541,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "命令を拒否します",
+      "displayText": "命令を拒否します。",
       "spokenText": "命令を拒否します",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "命令を拒否します",
+          "displayText": "命令を拒否します。",
           "spokenText": "命令を拒否します",
           "pauseAfterMs": 0,
           "startMs": 0,
@@ -502,7 +562,14 @@
         "sourcePath": "assets/audio/yokogawa-professor-v1_006_reject.wav",
         "sourceSha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "命令を拒否します。",
+          "startMs": 0,
+          "endMs": 1412
+        }
+      ]
     },
     {
       "scriptId": "007",
@@ -549,12 +616,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "認証できません",
+      "displayText": "認証できません。",
       "spokenText": "認証できません",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "認証できません",
+          "displayText": "認証できません。",
           "spokenText": "認証できません",
           "pauseAfterMs": 0,
           "startMs": 0,
@@ -570,7 +637,14 @@
         "sourcePath": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
         "sourceSha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "認証できません。",
+          "startMs": 0,
+          "endMs": 1520
+        }
+      ]
     },
     {
       "scriptId": "008",
@@ -617,12 +691,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+      "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください。",
       "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください",
+          "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください。",
           "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
           "pauseAfterMs": 0,
           "startMs": 0,
@@ -638,14 +712,21 @@
         "sourcePath": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
         "sourceSha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください。",
+          "startMs": 0,
+          "endMs": 5143
+        }
+      ]
     },
     {
       "scriptId": "009",
       "assetId": "prod-voice-009-first-riddle",
       "path": "assets/audio/production-v2-009.wav",
       "scriptText": "第一の謎は、こちらです",
-      "displayText": "第一の謎は、こちらです",
+      "displayText": "第一の謎は、こちらです。",
       "spokenText": "第一の謎は、こちらです",
       "scene": "scene-1",
       "location": "7・201",
@@ -656,7 +737,7 @@
       "reusedApprovedTake": false,
       "segments": [
         {
-          "displayText": "第一の謎は、こちらです",
+          "displayText": "第一の謎は、こちらです。",
           "spokenText": "第一の謎は、こちらです",
           "pauseAfterMs": 0,
           "path": "assets/audio/segments/009-1.wav",
@@ -687,12 +768,19 @@
         "sourcePath": "assets/audio/production-v2-009.wav",
         "sourceSha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "第一の謎は、こちらです。",
+          "startMs": 0,
+          "endMs": 2286
+        }
+      ]
     },
     {
       "scriptId": "011",
       "assetId": "prod-voice-011-final-challenge",
-      "path": "assets/audio/production-paced-011.wav",
+      "path": "assets/audio/production-reliable-011.wav",
       "scene": "scene-6",
       "location": "7・201",
       "route": "main",
@@ -719,12 +807,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 9.382517006802722,
+      "durationSeconds": 8.982517006802722,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 827582,
-      "sha256": "a425ca6d6e87ef3ec895249949ef00cb68110c20f6ae35a96840306472edee0e",
+      "bytes": 792302,
+      "sha256": "25db9a560c0bc20ca18d05bdcc6a0e1a7737e4c296d77498eaea019c3033316a",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -734,14 +822,14 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
+      "displayText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい。",
       "spokenText": "条件の達成を確認。五つの解を統合し、最終問題を提示する。最終問題の回答を入力しなさい",
       "reusedApprovedTake": true,
       "segments": [
         {
           "displayText": "条件の達成を確認。",
           "spokenText": "条件の達成を確認。",
-          "pauseAfterMs": 650,
+          "pauseAfterMs": 450,
           "startMs": 0,
           "endMs": 1849,
           "alignment": "approved-voice-boundary; stage pacing",
@@ -751,19 +839,19 @@
         {
           "displayText": "五つの解を統合し、最終問題を提示する。",
           "spokenText": "五つの解を統合し、最終問題を提示する。",
-          "pauseAfterMs": 850,
-          "startMs": 2499,
-          "endMs": 5925,
+          "pauseAfterMs": 650,
+          "startMs": 2299,
+          "endMs": 5725,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-011-2.wav",
           "sha256": "4cd5c4756e2add00dd6fa8551868eaaf04728cf8a6fb2a1e2a904a6fb57d2eff"
         },
         {
-          "displayText": "最終問題の回答を入力しなさい",
+          "displayText": "最終問題の回答を入力しなさい。",
           "spokenText": "最終問題の回答を入力しなさい",
           "pauseAfterMs": 0,
-          "startMs": 6775,
-          "endMs": 9383,
+          "startMs": 6375,
+          "endMs": 8983,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-011-3.wav",
           "sha256": "3d29fd94ebf24b3ff65f0b4be996cff5043367eb3db46a1c28aef82d0127b6d0"
@@ -771,14 +859,31 @@
       ],
       "pacing": {
         "version": 1,
-        "direction": "達成確認を受け止める650ms。統合を見せたあと850ms置き、最終問題の入力命令へ。",
+        "direction": "達成確認450ms→統合→次の命令650ms。全停止の静寂は短縮しない。",
         "sourcePath": "assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
         "sourceSha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216",
         "pauseAfterMs": [
-          650,
-          850
+          450,
+          650
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "条件の達成を確認。",
+          "startMs": 0,
+          "endMs": 1849
+        },
+        {
+          "displayText": "五つの解を統合し、最終問題を提示する。",
+          "startMs": 2299,
+          "endMs": 5725
+        },
+        {
+          "displayText": "最終問題の回答を入力しなさい。",
+          "startMs": 6375,
+          "endMs": 8983
+        }
+      ]
     },
     {
       "scriptId": "012",
@@ -825,12 +930,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "……認証成功。これより解錠を開始する",
+      "displayText": "認証成功。これより解錠を開始する。",
       "spokenText": "……認証成功。これより解錠を開始する",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "……認証成功。",
+          "displayText": "認証成功。",
           "spokenText": "……認証成功。",
           "pauseAfterMs": 650,
           "startMs": 0,
@@ -840,7 +945,7 @@
           "sha256": "0c3c75c5da384f40eeccf7c872e415d78ac0fafb06cb7020c3ee587f66b312a5"
         },
         {
-          "displayText": "これより解錠を開始する",
+          "displayText": "これより解錠を開始する。",
           "spokenText": "これより解錠を開始する",
           "pauseAfterMs": 0,
           "startMs": 2269,
@@ -858,7 +963,19 @@
         "pauseAfterMs": [
           650
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "認証成功。",
+          "startMs": 0,
+          "endMs": 1619
+        },
+        {
+          "displayText": "これより解錠を開始する。",
+          "startMs": 2269,
+          "endMs": 4318
+        }
+      ]
     },
     {
       "scriptId": "013",
@@ -905,7 +1022,7 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗",
+      "displayText": "エラー。セキュリティプロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
       "spokenText": "エラー。セキュリティープロテクトの緊急遮断を確認。解錠作業ストップ。エラー。指定されたスタッフへの連絡に失敗。",
       "reusedApprovedTake": false,
       "segments": [
@@ -950,7 +1067,7 @@
           "sha256": "3174e9f33f835f3336a1aa09f6763f67a89d11846aab7d73762a55877bed54e6"
         },
         {
-          "displayText": "指定されたスタッフへの連絡に失敗",
+          "displayText": "指定されたスタッフへの連絡に失敗。",
           "startMs": 7386,
           "endMs": 9890,
           "alignment": "approved-voice-boundary; stage pacing",
@@ -974,7 +1091,34 @@
         "regeneratedSentences": true,
         "reason": "旧takeの文境界が有声部分を切るため、同じ承認Profileで文単位に再合成"
       },
-      "regeneratedWithApprovedProfile": true
+      "regeneratedWithApprovedProfile": true,
+      "subtitleUnits": [
+        {
+          "displayText": "エラー。",
+          "startMs": 0,
+          "endMs": 832
+        },
+        {
+          "displayText": "セキュリティプロテクトの緊急遮断を確認。",
+          "startMs": 1132,
+          "endMs": 3947
+        },
+        {
+          "displayText": "解錠作業ストップ。",
+          "startMs": 4397,
+          "endMs": 5876
+        },
+        {
+          "displayText": "エラー。",
+          "startMs": 6326,
+          "endMs": 7086
+        },
+        {
+          "displayText": "指定されたスタッフへの連絡に失敗。",
+          "startMs": 7386,
+          "endMs": 9890
+        }
+      ]
     },
     {
       "scriptId": "014",
@@ -1021,12 +1165,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "……エラー。指定されたスタッフへの連絡に失敗。",
+      "displayText": "エラー。指定されたスタッフへの連絡に失敗。",
       "spokenText": "……エラー。指定されたスタッフへの連絡に失敗。",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "……エラー。",
+          "displayText": "エラー。",
           "startMs": 0,
           "endMs": 620,
           "alignment": "approved-voice-boundary; stage pacing",
@@ -1054,7 +1198,19 @@
         "pauseAfterMs": [
           350
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "エラー。",
+          "startMs": 0,
+          "endMs": 620
+        },
+        {
+          "displayText": "指定されたスタッフへの連絡に失敗。",
+          "startMs": 970,
+          "endMs": 3879
+        }
+      ]
     },
     {
       "scriptId": "015",
@@ -1101,12 +1257,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "7号館全域の機械設備、強制暴走モードへ移行します",
+      "displayText": "7号館全域の機械設備、強制暴走モードへ移行します。",
       "spokenText": "7号館全域の機械設備、強制暴走モードへ移行します",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "7号館全域の機械設備、強制暴走モードへ移行します",
+          "displayText": "7号館全域の機械設備、強制暴走モードへ移行します。",
           "spokenText": "7号館全域の機械設備、強制暴走モードへ移行します",
           "pauseAfterMs": 0,
           "startMs": 0,
@@ -1122,7 +1278,14 @@
         "sourcePath": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
         "sourceSha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "7号館全域の機械設備、強制暴走モードへ移行します。",
+          "startMs": 0,
+          "endMs": 4307
+        }
+      ]
     },
     {
       "scriptId": "016",
@@ -1169,12 +1332,12 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "ANLCKQkGG6HZFnG3YLRl1e3dLpFXWQRPK07w5vC3080NFOXU5GMaJxPmE8OKDYB2ZkWrOup0WNSlpIyJDK7681oB5bB3b7g-7MvsG-oMUE0",
-      "displayText": "……システム、全停止。セキュリティを……解放します……",
+      "displayText": "システム、全停止。セキュリティを解放します。",
       "spokenText": "……システム、全停止。セキュリティーを……解放します……",
       "reusedApprovedTake": true,
       "segments": [
         {
-          "displayText": "……システム、全停止。",
+          "displayText": "システム、全停止。",
           "spokenText": "……システム、全停止。",
           "pauseAfterMs": 850,
           "startMs": 0,
@@ -1184,7 +1347,7 @@
           "sha256": "bbdbfb239902a95623d9cdfb64f23ec907fe95b51369bdad95fcd4292ad15b00"
         },
         {
-          "displayText": "セキュリティを……解放します……",
+          "displayText": "セキュリティを解放します。",
           "spokenText": "セキュリティーを……解放します……",
           "pauseAfterMs": 0,
           "startMs": 2577,
@@ -1202,14 +1365,26 @@
         "pauseAfterMs": [
           850
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "システム、全停止。",
+          "startMs": 0,
+          "endMs": 1727
+        },
+        {
+          "displayText": "セキュリティを解放します。",
+          "startMs": 2577,
+          "endMs": 4967
+        }
+      ]
     },
     {
       "scriptId": "019",
       "assetId": "prod-voice-019-answer-sheet",
       "path": "assets/audio/production-paced-019.wav",
       "scriptText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
-      "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
+      "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください。",
       "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。謎はそちらに記入してください",
       "scene": "scene-1",
       "location": "7・201",
@@ -1230,7 +1405,7 @@
           "alignment": "approved-voice-boundary; stage pacing"
         },
         {
-          "displayText": "謎はそちらに記入してください",
+          "displayText": "謎はそちらに記入してください。",
           "spokenText": "謎はそちらに記入してください",
           "pauseAfterMs": 0,
           "path": "assets/audio/segments/paced-019-2.wav",
@@ -1264,7 +1439,19 @@
         "pauseAfterMs": [
           450
         ]
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
+          "startMs": 0,
+          "endMs": 3746
+        },
+        {
+          "displayText": "謎はそちらに記入してください。",
+          "startMs": 4196,
+          "endMs": 6293
+        }
+      ]
     },
     {
       "scriptId": "020",
@@ -1275,7 +1462,7 @@
       "location": "7・201",
       "tabId": "t.6gopn4tnzuo",
       "scriptText": "館内すべての扉の解錠を確認しました",
-      "displayText": "館内すべての扉の解錠を確認しました",
+      "displayText": "館内すべての扉の解錠を確認しました。",
       "spokenText": "館内すべての扉の解錠を確認しました",
       "synthesisText": "館内すべての扉の解錠を確認しました",
       "voiceProfileId": "yokogawa-professor-v1",
@@ -1313,7 +1500,7 @@
       },
       "segments": [
         {
-          "displayText": "館内すべての扉の解錠を確認しました",
+          "displayText": "館内すべての扉の解錠を確認しました。",
           "spokenText": "館内すべての扉の解錠を確認しました",
           "startMs": 0,
           "endMs": 3007,
@@ -1328,7 +1515,14 @@
         "sourcePath": "assets/audio/production-v2-020.wav",
         "sourceSha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df",
         "pauseAfterMs": []
-      }
+      },
+      "subtitleUnits": [
+        {
+          "displayText": "館内すべての扉の解錠を確認しました。",
+          "startMs": 0,
+          "endMs": 3007
+        }
+      ]
     }
   ],
   "sfx": [
@@ -1360,5 +1554,7 @@
       "attribution": "Original procedural audio; project authors; no third-party sample"
     }
   ],
-  "pacingRevision": "stage-pacing-2026-10-13"
+  "pacingRevision": "stage-pacing-2026-10-13",
+  "reliabilityRevision": "production-reliability-20261014",
+  "scriptObservedModifiedTime": "2026-10-14T06:06:16.917Z"
 }

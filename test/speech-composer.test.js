@@ -27,7 +27,7 @@ test('latest Production speech, archives and original SFX pass format/hash check
     assert.equal(verification.pass, true, asset.path); assert.equal(verification.wav.sha256, asset.sha256);
   }
   assert.ok(manifest.speeches.find(s => s.scriptId === '002').segments.some(s => s.pauseAfterMs === 450));
-  assert.equal(manifest.speeches.find(s => s.scriptId === '009').displayText, '第一の謎は、こちらです');
+  assert.equal(manifest.speeches.find(s => s.scriptId === '009').displayText, '第一の謎は、こちらです。');
 });
 test('SFX references are validated and all three puzzle images remain safe explicit placeholders', async () => {
   const show = JSON.parse(await fs.readFile('shows/production.json', 'utf8'));
