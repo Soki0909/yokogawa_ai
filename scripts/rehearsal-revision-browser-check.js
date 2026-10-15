@@ -6,7 +6,7 @@ let server,browser,display,admin,observer,state;const errors=[],results=[];
 const send=e=>observer.send(JSON.stringify({...e,actionId:e.actionId||crypto.randomUUID()}));
 const wait=async(fn,label,ms=20000)=>{const end=performance.now()+ms;while(performance.now()<end){if(fn())return;await delay(30);}throw Error(label);};
 const sources=()=>display.evaluate('window.__revision.sources');
-async function ready(){await display.waitFor(`document.querySelector('#audio-help').textContent.includes('20 / 20 READY')`,'decoded',120000);await display.send('Runtime.evaluate',{expression:`document.querySelector('#enable-audio').click()`,userGesture:true});await wait(()=>state?.displayAudioReady,'READY');}
+async function ready(){await display.send('Page.bringToFront');await display.waitFor(`document.querySelector('#audio-help').textContent.includes('20 / 20 READY')&&!document.querySelector('#enable-audio').disabled`,'decoded and enable control ready',120000);await display.send('Runtime.evaluate',{expression:`document.querySelector('#enable-audio').click()`,userGesture:true});await wait(()=>state?.displayAudioReady,'READY');}
 async function reset(){send({type:'production:reset'});await wait(()=>state.currentCueIndex===-1,'reset');await delay(250);}
 try{
  server=spawn(process.execPath,['src/server.js'],{windowsHide:true,stdio:'ignore',env:{...process.env,HOST:'127.0.0.1',PORT:String(port),STATE_FILE:path.join(temp,'state.json'),LOG_DIRECTORY:path.join(temp,'logs'),AIVIS_ENGINE_URL:'http://127.0.0.1:9'}});await waitForHttp(`${base}/health`);
@@ -39,11 +39,22 @@ try{
   await wait(()=>state.currentVisual?.type==='image','canonical puzzle reveal');
   const assetId=state.currentVisual.assetId;
   await display.waitFor(`document.querySelector('#scene-visual').dataset.type==='image'&&!document.querySelector('#scene-visual').hidden&&document.querySelector('#scene-visual-image').src.includes('/api/assets/${assetId}')&&document.querySelector('#scene-visual-image').complete&&document.querySelector('#scene-visual-image').naturalWidth>0`,'actual puzzle loaded',20000);
+  assert.equal(await display.evaluate(`getComputedStyle(document.querySelector('.caption-shell')).display`),'none','Puzzle takes priority while speech/subtitles may still be active');
   await display.waitFor(`document.body.dataset.captionEmpty==='true'`,'temporary caption finishes',20000);await delay(700);
+  // Simulate a delayed/stale caption without relying on audio completion to hide it.
+  const staleCaption=await display.evaluate(`(()=>{document.querySelector('#caption').textContent='遅れて届いた古いセリフ';document.body.dataset.captionEmpty='false';const shell=document.querySelector('.caption-shell');return {display:getComputedStyle(shell).display,rects:shell.getClientRects().length};})()`);
+  assert.deepEqual(staleCaption,{display:'none',rects:0});
   const geometry=await display.evaluate(`(()=>{const frame=document.querySelector('#scene-visual'),image=document.querySelector('#scene-visual-image'),r=frame.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,natural:[image.naturalWidth,image.naturalHeight],fit:getComputedStyle(image).objectFit,captionEmpty:document.body.dataset.captionEmpty};})()`);
-  assert.equal(geometry.fit,'contain');assert.ok(geometry.width>w*.97&&geometry.height>h*.97);assert.ok(geometry.natural.every(v=>v>0));assert.equal(geometry.captionEmpty,'true');
+  assert.equal(geometry.fit,'contain');assert.ok(geometry.width>w*.97&&geometry.height>h*.97);assert.ok(geometry.x>=0&&geometry.y>=0&&geometry.x+geometry.width<=w&&geometry.y+geometry.height<=h);assert.ok(geometry.natural.every(v=>v>0));
   await display.screenshot(path.join(directory,`${w}x${h}-${id}.png`));results.push({name:`${w}x${h} ${id} actual artwork`,status:'PASS',geometry});send({type:'stop'});await delay(200);
  }
+ const oldDocument=await display.evaluate('performance.timeOrigin');await display.send('Page.reload');
+ await display.waitFor(`performance.timeOrigin!==${oldDocument}&&document.readyState==='complete'`,'new document after reload');await ready();
+ await display.waitFor(`document.body.dataset.visual==='image'&&getComputedStyle(document.querySelector('.caption-shell')).display==='none'`,'puzzle-only presentation restored after reload');
+ assert.equal((await sources()).length,0,'Reload never plays old speech');results.push({name:'Puzzle caption suppression survives reload without old audio',status:'PASS'});
+ send({type:'cue:execute',cueId:'prod-020'});await wait(()=>state.currentCue?.cueId==='prod-020','normal Cue after puzzle');
+ await display.waitFor(`document.body.dataset.visual==='none'&&getComputedStyle(document.querySelector('.caption-shell')).display!=='none'&&document.querySelector('#caption').textContent.includes('館内')`,'normal speech captions return after puzzle');
+ await display.screenshot(path.join(directory,'normal-caption-restored.png'));results.push({name:'Normal Cue captions return after leaving puzzle',status:'PASS'});
  assert.deepEqual(display.errors,[]);assert.deepEqual(admin.errors,[]);await fs.writeFile(path.join(directory,'summary.json'),JSON.stringify({status:'PASS',results,errors,physicalAudio:'NOT VERIFIED'},null,2));console.log(JSON.stringify({status:'PASS',cases:results.length}));
-}catch(error){await display?.screenshot(path.join(directory,'failure.png')).catch(()=>{});await fs.writeFile(path.join(directory,'failure.json'),JSON.stringify({error:error.stack,state,errors,results},null,2));throw error;}
+}catch(error){await display?.screenshot(path.join(directory,'failure.png')).catch(()=>{});const diagnostic=await display?.evaluate(`import('/js/display.js').then(m=>({engine:m.productionAudioDiagnostics(),help:document.querySelector('#audio-help').textContent,disabled:document.querySelector('#enable-audio').disabled,visible:!document.hidden}))`).catch(()=>null);await fs.writeFile(path.join(directory,'failure.json'),JSON.stringify({error:error.stack,state,errors,results,diagnostic},null,2));throw error;}
 finally{observer?.close();display?.close();admin?.close();await stopChild(browser);await stopChild(server);await fs.rm(temp,{recursive:true,force:true,maxRetries:8,retryDelay:500});}

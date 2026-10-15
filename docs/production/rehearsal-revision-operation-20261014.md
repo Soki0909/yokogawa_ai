@@ -64,3 +64,7 @@ node scripts/analyse-reliability-captures.mjs artifacts/audio-reliability-202610
 `scripts/audio-owner-ab-check.js` だけがテスト用Admin Audio Masterを注入する。Productionには読み込まれず、通常運用で使う設定もない。試作は遠隔口パクや全ライフサイクルの採用条件を満たさないので、手動でProductionへコピーしない。比較終了で試験用プロセスが閉じ、通常のDisplay Masterへ戻る。
 
 Windowsループバック診断は `scripts/windows-loopback-capture.cs` を既存.NETのcscでコンパイルして利用する。`--probe` は既定出力、`--sessions` は各有効出力のsession/mute/volumeの読み取り。出力先／音量／ミュートの設定変更はしない。captureは出力側PCMの記録でありマイク録音ではない。保存波形には同じ出力を使う他アプリの音が混入するため、A/Bの間は他の音声試験を止める。
+
+## 謎画像の表示優先（2026-10-15）
+
+謎1・最終問題・停止コード問題などの画像表示中は、セリフの字幕ボックス全体を非表示にする。字幕の空判定・音声の終了通知・タイマーには依存しない。音声は従来どおり再生する。画像は画面端近くまで拡大し、`object-fit: contain`で縦横比と画像全体を保つ。画像表示を終えて通常Cueへ進むと、通常の字幕表示へ戻る。

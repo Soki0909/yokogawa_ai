@@ -22,7 +22,9 @@ body[data-transition="boot"] .transition-core, body[data-transition="boot"] .tra
 @keyframes refresh-boot-light { 0% { opacity: 0; } 45% { opacity: .25; } 100% { opacity: 1; } }
 @keyframes refresh-boot-avatar { 0%, 25% { opacity: 0; transform: translateY(35px); } 85%, 100% { opacity: 1; transform: translateY(0); } }
 @media (max-height: 800px) { .stage { grid-template-rows: minmax(0, 1fr) minmax(120px, 24%); } .caption-shell { padding-block: 10px; } .caption-rule { margin-bottom: 6px; } }
-body[data-visual="image"] .caption-shell { position:absolute;left:0;right:0;bottom:0;height:auto;min-height:0;max-height:24vh;background:#020914ed;border-top:1px solid var(--phase-accent); }
-body[data-visual="image"][data-caption-empty="true"] .caption-shell { display:none; }
+/* Puzzle artwork has priority, even if a late subtitle or missing ended receipt
+   leaves caption text populated. Derive visibility from the current visual,
+   without timers or audio-completion callbacks. */
+body[data-visual="image"] .caption-shell { display: none; }
 body[data-reduced-motion="true"][data-transition="boot"][data-transition-status="active"] .avatar-wrap { animation: none !important; }
 @media (prefers-reduced-motion: reduce) { body[data-transition="boot"][data-transition-status="active"] .avatar-wrap, body[data-transition="boot"][data-transition-status="active"] .preset-environment { animation: none !important; } }
