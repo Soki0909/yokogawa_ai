@@ -1,0 +1,172 @@
+{
+  "status": "FILE VALIDATION PASS",
+  "cues": 20,
+  "audibleCues": 18,
+  "silentCues": 2,
+  "clippedSamples": 0,
+  "commonExportGainDb": -3,
+  "physicalAudio": "NOT VERIFIED",
+  "method": "PCM headers/energy/full-scale check; exact filename/order against read-only Docs; whole input duration and source SHA; exact leading delay; PNG dimensions and original puzzle SHA. Does not claim physical speaker or perceptual equivalence.",
+  "results": [
+    {
+      "cue": "P-001",
+      "durationSeconds": 7.460020833333333,
+      "peak": 0.670989990234375,
+      "hasSound": true,
+      "audioSha256": "8965e68cba325507d8bcbe4d5cf35a67399c912f6bbc987e327ff683e768ebe2",
+      "visualSha256": "b55aa894369d22005bf6cda9e346a1105471eb4e0f6d684ed2afb14ecb55ef6c"
+    },
+    {
+      "cue": "P-002",
+      "durationSeconds": 5.345291666666666,
+      "peak": 0.67730712890625,
+      "hasSound": true,
+      "audioSha256": "ec0d1432edc724eb5eef385afde1486195bf6ba8deac2bf7b414530bffbf369e",
+      "visualSha256": "80d63fe3b167a470b507b05dbcf24c599e3a15775b9a9763ee5a1c2edd7accb9"
+    },
+    {
+      "cue": "P-003",
+      "durationSeconds": 17.366791666666668,
+      "peak": 0.672943115234375,
+      "hasSound": true,
+      "audioSha256": "6f67e541ef4296027ba8f070b6cd55dcbe5799a76d41be45d6094754f7e4e869",
+      "visualSha256": "45a7585ad3ef43e250f0889c037298c78f68fca47aaa18b6005db9b9246241f1"
+    },
+    {
+      "cue": "P-004",
+      "durationSeconds": 20.1139375,
+      "peak": 0.670166015625,
+      "hasSound": true,
+      "audioSha256": "13b80c0c67514b1673a6796fd7eb57129ebeb426a619403e5148286fb7758e32",
+      "visualSha256": "fde7ed0b5a1a2416748f4978537291af006b629b6dcaa629a4c098dbef330c2b"
+    },
+    {
+      "cue": "P-005",
+      "durationSeconds": 2.633875,
+      "peak": 0.771148681640625,
+      "hasSound": true,
+      "audioSha256": "9cd6c8b1419734ce2c2e2f98be17b9203e078537381f81c24642737d7c7f4794",
+      "visualSha256": "853b3511f6067e8300ae19eef60b1f561e450e392df30a6b25b717b2e3b55df1"
+    },
+    {
+      "cue": "P-006",
+      "durationSeconds": 1.5618333333333334,
+      "peak": 0.798553466796875,
+      "hasSound": true,
+      "audioSha256": "3aa7b4e8c69177a83deef1d44e9188d3b08edf5958cc39c0340069a3d3ed5a99",
+      "visualSha256": "a119209ddd18eb500b4154670a95b0884ab130c53bea45be4605d1f5e62d04b7"
+    },
+    {
+      "cue": "P-007",
+      "durationSeconds": 1.6702291666666667,
+      "peak": 0.76568603515625,
+      "hasSound": true,
+      "audioSha256": "1e11e2075b084e9c4ae1ad3d0776a1676cfdf482a1f34ba28ec497225a842a4d",
+      "visualSha256": "b53fb1dd1ac349f17c07c5e33c26b0d65c3709de90337d2a02a0388957d9acd3"
+    },
+    {
+      "cue": "P-008",
+      "durationSeconds": 5.292625,
+      "peak": 0.691162109375,
+      "hasSound": true,
+      "audioSha256": "ca830fd11ac3ce4325829d5f4a80c9a897420e00517018c55d801dc2b53bc324",
+      "visualSha256": "8d7d1770faeb393a3545754c9ea058ef5e12750c47efbf6f9866700f9b42cb10"
+    },
+    {
+      "cue": "P-019",
+      "durationSeconds": 6.293375,
+      "peak": 0.67376708984375,
+      "hasSound": true,
+      "audioSha256": "d8d2068749cd7407d932846de72644273d2192c5ffb2a914086e0932f0b0255b",
+      "visualSha256": "74e7e1ec279b7b4ff19943214da3f5ec9fe236567d7022010573201da3f66696"
+    },
+    {
+      "cue": "P-V02",
+      "durationSeconds": 2.4364166666666667,
+      "peak": 0.7139892578125,
+      "hasSound": true,
+      "audioSha256": "7afa8295c23479ba4997ec442c21769384c351056b2c3dd5bffca26a46465462",
+      "visualSha256": "bbe9c99895cec0ef1d466d17742f43525660e75dda4bb99904603d3b95e72380"
+    },
+    {
+      "cue": "P-011",
+      "durationSeconds": 8.9825,
+      "peak": 0.672637939453125,
+      "hasSound": true,
+      "audioSha256": "334c088790398e0832e7014fc1cf1322763ccd765a93a3907324d2def6db9a3e",
+      "visualSha256": "8c4758d1c933a96fe029a0a700f97d7145707aaf75a979134e698ca94620aced"
+    },
+    {
+      "cue": "P-012",
+      "durationSeconds": 4.318,
+      "peak": 0.66717529296875,
+      "hasSound": true,
+      "audioSha256": "46d85471affc8b2a611c80df5dd276f636f1e1daa680e9716bcda7b336455043",
+      "visualSha256": "d6a35ed235bd927cd44a5ed19282676f56ecbf0602b231e5c85072e75a918cd8"
+    },
+    {
+      "cue": "P-013",
+      "durationSeconds": 11.831895833333334,
+      "peak": 0.6761474609375,
+      "hasSound": true,
+      "audioSha256": "1ecb11a17fb1f9adb8c2dc9aa32be7af52b2a08b74788335114255dfc1bb724b",
+      "visualSha256": "6199630432c6bf8b795b9669aed8314bbef947cc4c7721d7bc501c519ececabd"
+    },
+    {
+      "cue": "P-014",
+      "durationSeconds": 5.8208125,
+      "peak": 0.677886962890625,
+      "hasSound": true,
+      "audioSha256": "e0a5454e75749e723792eca00867e040623f9ef3b15697bbfd960230945e6a7b",
+      "visualSha256": "f0ef00ba4d68fc986179cf53d7cdc6df121f50b33c7c1adfd1521730d0996602"
+    },
+    {
+      "cue": "P-V04",
+      "durationSeconds": 1,
+      "peak": 0,
+      "hasSound": false,
+      "audioSha256": "ede1f6dd33abfce7bb3a45ba79b0ab5f8baae692709dd32214a41da9af55ab13",
+      "visualSha256": "8e6a5b7f2b5785b4a1332cd56bebbaf1387bab66e4ddbaa4936ed1c3e9d834da"
+    },
+    {
+      "cue": "P-015",
+      "durationSeconds": 4.306666666666667,
+      "peak": 0.672271728515625,
+      "hasSound": true,
+      "audioSha256": "fb378da5f5b82d4f547bf90a9104624123dc5c72a07ca62c579fd3cddc9f79b0",
+      "visualSha256": "c23be5af3f06372ff351123762400cf3d96d1a0de4e74c00f8a834c5f297765a"
+    },
+    {
+      "cue": "P-V05",
+      "durationSeconds": 1,
+      "peak": 0,
+      "hasSound": false,
+      "audioSha256": "ede1f6dd33abfce7bb3a45ba79b0ab5f8baae692709dd32214a41da9af55ab13",
+      "visualSha256": "5abace117a501c5bfd6e2a09a120631caa2ddb14913b86aae6ecb6dc87a5d390"
+    },
+    {
+      "cue": "P-V06",
+      "durationSeconds": 6.867,
+      "peak": 0.673736572265625,
+      "hasSound": true,
+      "audioSha256": "42ec966739d356d92718fd18e180f3ed0fd1053a215a97ffd468beb91106858c",
+      "visualSha256": "58cfb5c2ba23341f69287185749bd173a672089bbc006754a91613c340ee5f5d"
+    },
+    {
+      "cue": "P-V07",
+      "durationSeconds": 6.719,
+      "peak": 0.307891845703125,
+      "hasSound": true,
+      "audioSha256": "c0eb4d202fcff66d78d3db428671e45d9566c106a5fc03c7e41fe0c637bd4a32",
+      "visualSha256": "0953c814e804e70d87534d16804ce4944ccafe208afc335e3157570b455988be"
+    },
+    {
+      "cue": "P-020",
+      "durationSeconds": 2.5999166666666667,
+      "peak": 0.672210693359375,
+      "hasSound": true,
+      "audioSha256": "0862f4faa78a1fe7e52e6ce089156a23dc894ee02fca25226756897f9ee26740",
+      "visualSha256": "2a2b8281a4d887bc53e9f8e3922959e6a3f64c96e8fe7a31ce1a69fe92e315f5"
+    }
+  ]
+}

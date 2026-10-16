@@ -8,6 +8,8 @@
     "node": ">=20"
   },
   "scripts": {
+    "backup:export": "node scripts/export-production-emergency-kit.mjs",
+    "production:portable:verify": "node scripts/verify-production-portability.mjs",
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "test": "node --test test/*.test.js",

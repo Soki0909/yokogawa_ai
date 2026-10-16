@@ -12,6 +12,7 @@
 /public/assets/visual/puzzle-emergency-*.webp
 /logs/
 node_modules/
+/.runtime/
 coverage/
 playwright-report/
 test-results/

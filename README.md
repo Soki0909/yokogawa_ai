@@ -1,8 +1,8 @@
 # 横川AI Phase C Candidate — Script-aligned Production Audio
 
-`codex/production-reliability-20261014` の現行候補は、[10/14稽古改訂の運用](docs/production/rehearsal-revision-operation-20261014.md) と [検証・残存課題](docs/production/rehearsal-revision-result-20261014.md) を参照してください。NEXTは終了通知待ちを撤廃し1500ms保護、緊急Cue移動とP-020安全確認の新WAVを追加しています。物理音響の本番採用は保留で、main/masterへ統合していません。
+現行構成は`master`です。別PCへの再現は[10/16本番引継ぎ](docs/production/production-handoff-20261016.md)、Webアプリ停止時は[予備WAV・画像の運用](production-backup/README.md)を参照してください。同じNodeと依存パッケージを同梱し、`setup-production-offline.cmd`でオフライン準備できます。NEXTは終了通知待ちを撤廃し1500ms保護、緊急Cue移動とP-020安全確認WAVを搭載。物理音響の採用可否は現地確認が必要です。
 
-演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。Phase B / v0.6.0の承認済みVisualを維持し、Phase C候補では現在の台本に準拠した固定WAVとServer-side Local TTSを追加しました。Phase Cは`USER REVIEW REQUIRED`で、正式tagやmaster mergeはまだ行いません。
+演劇企画「7号館からの脱出」向けの、インターネット不要な公演用Show Controlです。承認済みVisual、台本に準拠した固定WAV、任意のServer-side Local TTSを搭載しています。masterへの保存と、会場のHDMI・PA・客席での出音保証は別の判定です。
 
 ```text
 Admin /admin ── Cue / Preset / Emergency / Rehearsal ── Node.js + WebSocket

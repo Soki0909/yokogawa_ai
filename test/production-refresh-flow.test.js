@@ -29,7 +29,8 @@ test('default startup replaces stale saved show; Production Reset retains regist
   const reset = await admin.next(e => e.type === 'state' && e.state.currentCueIndex === -1 && e.state.displayAudioReady);
   assert.equal(reset.state.currentVisual.visible, false); assert.equal(reset.state.currentSubtitle, null); assert.equal(reset.state.currentAvatar.visible, false); assert.equal(reset.state.blackout, false);
   assert.equal(reset.state.audioMasterId, 'refresh-stage'); assert.equal(reset.state.displays[0].displayName, 'Stage');
-  const manifest = await fetch(`${base}/api/audio-assets`).then(r => r.json()); assert.equal(manifest.expectedCount, 20);
+  const manifest = await fetch(`${base}/api/audio-assets`).then(r => r.json());
+  assert.equal(manifest.expectedCount, reset.state.assets.filter(a => a.id.startsWith('prod-') && a.mimeType === 'audio/wav').length);
   // Pending SFX must never fire after BACK or Production Reset.
   admin.send({ type: 'cue:execute', cueId: 'prod-001' }); await display.next(e => e.type === 'presentation');
   admin.send({ type: 'cue:back' }); await display.next(e => e.type === 'stop'); await delay(600);

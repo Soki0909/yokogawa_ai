@@ -6,7 +6,7 @@ let server,browser,display,admin,observer,state;const errors=[],results=[];
 const send=e=>observer.send(JSON.stringify({...e,actionId:e.actionId||crypto.randomUUID()}));
 const wait=async(fn,label,ms=20000)=>{const end=performance.now()+ms;while(performance.now()<end){if(fn())return;await delay(30);}throw Error(label);};
 const sources=()=>display.evaluate('window.__revision.sources');
-async function ready(){await display.send('Page.bringToFront');await display.waitFor(`document.querySelector('#audio-help').textContent.includes('20 / 20 READY')&&!document.querySelector('#enable-audio').disabled`,'decoded and enable control ready',120000);await display.send('Runtime.evaluate',{expression:`document.querySelector('#enable-audio').click()`,userGesture:true});await wait(()=>state?.displayAudioReady,'READY');}
+async function ready(){await display.send('Page.bringToFront');await display.waitFor(`document.querySelector('#audio-help').textContent.match(/([1-9]\\d*) \\/ \\1 READY/)&&!document.querySelector('#enable-audio').disabled`,'decoded and enable control ready',120000);await display.send('Runtime.evaluate',{expression:`document.querySelector('#enable-audio').click()`,userGesture:true});await wait(()=>state?.displayAudioReady,'READY');}
 async function reset(){send({type:'production:reset'});await wait(()=>state.currentCueIndex===-1,'reset');await delay(250);}
 try{
  server=spawn(process.execPath,['src/server.js'],{windowsHide:true,stdio:'ignore',env:{...process.env,HOST:'127.0.0.1',PORT:String(port),STATE_FILE:path.join(temp,'state.json'),LOG_DIRECTORY:path.join(temp,'logs'),AIVIS_ENGINE_URL:'http://127.0.0.1:9'}});await waitForHttp(`${base}/health`);

@@ -1,0 +1,99 @@
+{
+  "slots": [
+    {
+      "id": "startup",
+      "assetId": "prod-sfx-boot",
+      "label": "startup",
+      "path": "assets/audio/production-startup.wav",
+      "fallback": "assets/audio/production-sfx-boot.wav",
+      "mimeType": "audio/wav",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 2120,
+      "sha256": "3263c72148eeb1dd5fa8ee4afe065784729971522d28f1d7aaabe86a80afeb60",
+      "resolvedPath": "assets/audio/production-startup.wav",
+      "resolvedMimeType": "audio/wav"
+    },
+    {
+      "id": "hack-noise",
+      "assetId": "prod-sfx-glitch",
+      "label": "hack-noise",
+      "path": "assets/audio/production-hack-noise.wav",
+      "fallback": "assets/audio/production-sfx-glitch.wav",
+      "mimeType": "audio/wav",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 3187,
+      "sha256": "1ebd3bf3891072047b9891591d95209406ca2718d69aed7dbcdcd2327467df21",
+      "resolvedPath": "assets/audio/production-hack-noise.wav",
+      "resolvedMimeType": "audio/wav"
+    },
+    {
+      "id": "warning",
+      "assetId": "prod-sfx-warning",
+      "label": "warning",
+      "path": "assets/audio/production-warning.wav",
+      "fallback": "assets/audio/production-sfx-warning.wav",
+      "mimeType": "audio/wav",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 1942,
+      "sha256": "94568a1bcbf25ebbb87d232511109ac2d8d08de6d1a75771cf3d91869f00c638",
+      "resolvedPath": "assets/audio/production-warning.wav",
+      "resolvedMimeType": "audio/wav"
+    },
+    {
+      "id": "puzzle-01",
+      "assetId": "puzzle-first",
+      "label": "Puzzle 1",
+      "path": "assets/visual/production-puzzle-01.png",
+      "fallback": "assets/visual/puzzle-image-pending.svg",
+      "mimeType": "image/png",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "sha256": "e3b720f417552876d8309bc0f5ff6296f7a416c429571b8e05e1414bb7214f2f",
+      "resolvedPath": "assets/visual/production-puzzle-01.png",
+      "resolvedMimeType": "image/png"
+    },
+    {
+      "id": "puzzle-06",
+      "assetId": "puzzle-final",
+      "label": "Puzzle 6",
+      "path": "assets/visual/production-puzzle-06.png",
+      "fallback": "assets/visual/puzzle-image-pending.svg",
+      "mimeType": "image/png",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "sha256": "50ff8e52fdf0b10364e2167aa2f78d9b400f9ccd3b2f42dd920d231eb704e1e0",
+      "resolvedPath": "assets/visual/production-puzzle-06.png",
+      "resolvedMimeType": "image/png"
+    },
+    {
+      "id": "puzzle-07",
+      "assetId": "puzzle-emergency",
+      "label": "Puzzle 7",
+      "path": "assets/visual/production-puzzle-07.png",
+      "fallback": "assets/visual/puzzle-image-pending.svg",
+      "mimeType": "image/png",
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "sha256": "ccde2cb0a4ab3bb24095789530af9a251e609fc3f9e703c6c943c068a85b976d",
+      "resolvedPath": "assets/visual/production-puzzle-07.png",
+      "resolvedMimeType": "image/png"
+    },
+    {
+      "id": "recovery",
+      "assetId": "prod-sfx-recovery",
+      "label": "recovery (optional)",
+      "path": "assets/audio/production-recovery.wav",
+      "mimeType": "audio/wav",
+      "optional": true,
+      "status": "READY",
+      "detail": "本番素材を使用",
+      "durationMs": 2120,
+      "sha256": "3263c72148eeb1dd5fa8ee4afe065784729971522d28f1d7aaabe86a80afeb60",
+      "resolvedPath": "assets/audio/production-recovery.wav",
+      "resolvedMimeType": "audio/wav"
+    }
+  ]
+}

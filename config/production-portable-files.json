@@ -1,0 +1,1902 @@
+{
+  "format": 1,
+  "description": "Versioned Production runtime/assets, authoring tools, emergency kit and offline prerequisites. No history, credentials or machine-specific browser profile.",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "size": 278,
+      "hashMode": "binary",
+      "sha256": "d3972e9b6c03665ed180106af74404bf29f48c129d79812c8c7c5aa007b71fdc"
+    },
+    {
+      "path": ".gitignore",
+      "size": 1506,
+      "hashMode": "binary",
+      "sha256": "495fbc89ec8aa074c206f72b9a4e7dff9a2cb118ec11160a2a5f8e452ba91138"
+    },
+    {
+      "path": ".node-version",
+      "size": 8,
+      "hashMode": "utf8-lf",
+      "sha256": "e1677620f62097e30fac6695180333d8eb9ead4fe5b1d1d6e01b76e049780059"
+    },
+    {
+      "path": "README.md",
+      "size": 16841,
+      "hashMode": "utf8-lf",
+      "sha256": "615c7e69fed5fc45efc1ae0eff7fbd689034c39d1db1f4b1334fcaa223a76623"
+    },
+    {
+      "path": "config/production-backup-cue-labels.json",
+      "size": 1064,
+      "hashMode": "utf8-lf",
+      "sha256": "fa205ef8c59787eb33bf9e4f00b1d5b3d530d0aaf5c38fbdd26e54b116de04ff"
+    },
+    {
+      "path": "config/production-speech/voice-comparison.json",
+      "size": 55998,
+      "hashMode": "utf8-lf",
+      "sha256": "36e7b0de78b97e16c6df140ed723360690f5fdb427e6b549f163cb8fb86328ec"
+    },
+    {
+      "path": "config/production-speech/yokogawa-ai-pacing-source.json",
+      "size": 56800,
+      "hashMode": "utf8-lf",
+      "sha256": "c89dec251cb174a3c426ecf6e516acf65af47954d7b247364debde9fbbe2a6f7"
+    },
+    {
+      "path": "config/production-speech/yokogawa-ai-v1.json",
+      "size": 35150,
+      "hashMode": "utf8-lf",
+      "sha256": "7f39eb43906af6b532392c0ab82174707d678710eda4773f1d87abded77d6892"
+    },
+    {
+      "path": "config/production-speech/yokogawa-ai-v2.json",
+      "size": 65849,
+      "hashMode": "utf8-lf",
+      "sha256": "1a236e686693fc55753ab876d815b4cd831974f789df5524c7adec5bfcd59e63"
+    },
+    {
+      "path": "config/voice-profiles/yokogawa-professor-v1.json",
+      "size": 2307,
+      "hashMode": "utf8-lf",
+      "sha256": "b1c3fccee24ea52c0d2713fdaa51ec66b6e32edf96ffecb44a1b0dce7d740e34"
+    },
+    {
+      "path": "docs/production/production-handoff-20261016.md",
+      "size": 3399,
+      "hashMode": "utf8-lf",
+      "sha256": "07b0d8d0d038c935d3d84419d1fe2a4dc70d0db8075735589c8e9f1662368aa4"
+    },
+    {
+      "path": "docs/production/rehearsal-revision-operation-20261014.md",
+      "size": 7295,
+      "hashMode": "utf8-lf",
+      "sha256": "14f68d25b986525e29cfb0d4f28cac1dc7f719e00852fe1a4e84f217eb6053fd"
+    },
+    {
+      "path": "docs/production/single-pc-runbook.md",
+      "size": 6166,
+      "hashMode": "utf8-lf",
+      "sha256": "da12bd874d9dbe335a179a343c6a61079a078feea606799c5617594d02c6518f"
+    },
+    {
+      "path": "package-lock.json",
+      "size": 42940,
+      "hashMode": "utf8-lf",
+      "sha256": "e741ac91f662696f823f9be1465ce4cf67d2d1ac6d0ddde3125ff79e3be9853c"
+    },
+    {
+      "path": "package.json",
+      "size": 5711,
+      "hashMode": "utf8-lf",
+      "sha256": "41eb94dc46a6412239a7c4a89519d5e3354d507f4ffebd274eacf71b70bda10c"
+    },
+    {
+      "path": "production-backup/Cue一覧.csv",
+      "size": 5084,
+      "hashMode": "binary",
+      "sha256": "f9ac0252439c9af465290bd1208daaf4a47a1f4c9e4bcd71aff9dcb313df6d63"
+    },
+    {
+      "path": "production-backup/README.md",
+      "size": 4945,
+      "hashMode": "binary",
+      "sha256": "ad6dec2504e61ba6835f121b32de7936c7a65dbce444cb14357b9cb6fa606ec0"
+    },
+    {
+      "path": "production-backup/SHA256SUMS.tsv",
+      "size": 5263,
+      "hashMode": "binary",
+      "sha256": "f557087b4b7dd787cdd03e72158df1f39cf177e1017fa67f2d7310e49c6785e1"
+    },
+    {
+      "path": "production-backup/asset-slots.json",
+      "size": 3573,
+      "hashMode": "binary",
+      "sha256": "00edc8cd233f77a3038d437b87cadcdc9ad01a80ef16a2a7e9063c1600b0dcb9"
+    },
+    {
+      "path": "production-backup/audio/P-001｜横川AI 起動.wav",
+      "size": 1432368,
+      "hashMode": "binary",
+      "sha256": "8965e68cba325507d8bcbe4d5cf35a67399c912f6bbc987e327ff683e768ebe2"
+    },
+    {
+      "path": "production-backup/audio/P-002｜参加者の照会.wav",
+      "size": 1026340,
+      "hashMode": "binary",
+      "sha256": "ec0d1432edc724eb5eef385afde1486195bf6ba8deac2bf7b414530bffbf369e"
+    },
+    {
+      "path": "production-backup/audio/P-003｜情報照合・セキュリティ説明.wav",
+      "size": 3334468,
+      "hashMode": "binary",
+      "sha256": "6f67e541ef4296027ba8f070b6cd55dcbe5799a76d41be45d6094754f7e4e869"
+    },
+    {
+      "path": "production-backup/audio/P-004｜プリンキピア説明 → HACK.wav",
+      "size": 3861920,
+      "hashMode": "binary",
+      "sha256": "13b80c0c67514b1673a6796fd7eb57129ebeb426a619403e5148286fb7758e32"
+    },
+    {
+      "path": "production-backup/audio/P-005｜外部通信を拒否.wav",
+      "size": 505748,
+      "hashMode": "binary",
+      "sha256": "9cd6c8b1419734ce2c2e2f98be17b9203e078537381f81c24642737d7c7f4794"
+    },
+    {
+      "path": "production-backup/audio/P-006｜命令を拒否.wav",
+      "size": 299916,
+      "hashMode": "binary",
+      "sha256": "3aa7b4e8c69177a83deef1d44e9188d3b08edf5958cc39c0340069a3d3ed5a99"
+    },
+    {
+      "path": "production-backup/audio/P-007｜認証を拒否.wav",
+      "size": 320728,
+      "hashMode": "binary",
+      "sha256": "1e11e2075b084e9c4ae1ad3d0776a1676cfdf482a1f34ba28ec497225a842a4d"
+    },
+    {
+      "path": "production-backup/audio/P-008｜五つの謎・脱出条件.wav",
+      "size": 1016228,
+      "hashMode": "binary",
+      "sha256": "ca830fd11ac3ce4325829d5f4a80c9a897420e00517018c55d801dc2b53bc324"
+    },
+    {
+      "path": "production-backup/audio/P-011｜五つ達成 → 統合 → 最終問題.wav",
+      "size": 1724684,
+      "hashMode": "binary",
+      "sha256": "334c088790398e0832e7014fc1cf1322763ccd765a93a3907324d2def6db9a3e"
+    },
+    {
+      "path": "production-backup/audio/P-012｜認証成功 → 解錠 → 異常.wav",
+      "size": 829100,
+      "hashMode": "binary",
+      "sha256": "46d85471affc8b2a611c80df5dd276f636f1e1daa680e9716bcda7b336455043"
+    },
+    {
+      "path": "production-backup/audio/P-013｜緊急遮断・連絡失敗.wav",
+      "size": 2271768,
+      "hashMode": "binary",
+      "sha256": "1ecb11a17fb1f9adb8c2dc9aa32be7af52b2a08b74788335114255dfc1bb724b"
+    },
+    {
+      "path": "production-backup/audio/P-014｜スタッフへの連絡失敗.wav",
+      "size": 1117640,
+      "hashMode": "binary",
+      "sha256": "e0a5454e75749e723792eca00867e040623f9ef3b15697bbfd960230945e6a7b"
+    },
+    {
+      "path": "production-backup/audio/P-015｜機械設備の強制暴走.wav",
+      "size": 826924,
+      "hashMode": "binary",
+      "sha256": "fb378da5f5b82d4f547bf90a9104624123dc5c72a07ca62c579fd3cddc9f79b0"
+    },
+    {
+      "path": "production-backup/audio/P-019｜記入用紙の案内.wav",
+      "size": 1208372,
+      "hashMode": "binary",
+      "sha256": "d8d2068749cd7407d932846de72644273d2192c5ffb2a914086e0932f0b0255b"
+    },
+    {
+      "path": "production-backup/audio/P-020｜全館の扉・解錠確認.wav",
+      "size": 499228,
+      "hashMode": "binary",
+      "sha256": "0862f4faa78a1fe7e52e6ce089156a23dc894ee02fca25226756897f9ee26740"
+    },
+    {
+      "path": "production-backup/audio/P-V02｜第一の謎を提示.wav",
+      "size": 467836,
+      "hashMode": "binary",
+      "sha256": "7afa8295c23479ba4997ec442c21769384c351056b2c3dd5bffca26a46465462"
+    },
+    {
+      "path": "production-backup/audio/P-V04｜危険状態・警報.wav",
+      "size": 192044,
+      "hashMode": "binary",
+      "sha256": "ede1f6dd33abfce7bb3a45ba79b0ab5f8baae692709dd32214a41da9af55ab13"
+    },
+    {
+      "path": "production-backup/audio/P-V05｜非常停止問題を提示.wav",
+      "size": 192044,
+      "hashMode": "binary",
+      "sha256": "ede1f6dd33abfce7bb3a45ba79b0ab5f8baae692709dd32214a41da9af55ab13"
+    },
+    {
+      "path": "production-backup/audio/P-V06｜停止コード → 全停止・解放.wav",
+      "size": 1318508,
+      "hashMode": "binary",
+      "sha256": "42ec966739d356d92718fd18e180f3ed0fd1053a215a97ffd468beb91106858c"
+    },
+    {
+      "path": "production-backup/audio/P-V07｜復旧 → NORMAL.wav",
+      "size": 1290092,
+      "hashMode": "binary",
+      "sha256": "c0eb4d202fcff66d78d3db428671e45d9566c106a5fc03c7e41fe0c637bd4a32"
+    },
+    {
+      "path": "production-backup/manifest.json",
+      "size": 24501,
+      "hashMode": "binary",
+      "sha256": "93f0b96e13bfcea1eebb9b522a5a3c4bddd26b5730257b35252b5ce11bb87215"
+    },
+    {
+      "path": "production-backup/puzzles/production-puzzle-01.png",
+      "size": 960047,
+      "hashMode": "binary",
+      "sha256": "e3b720f417552876d8309bc0f5ff6296f7a416c429571b8e05e1414bb7214f2f"
+    },
+    {
+      "path": "production-backup/puzzles/production-puzzle-06.png",
+      "size": 1086614,
+      "hashMode": "binary",
+      "sha256": "50ff8e52fdf0b10364e2167aa2f78d9b400f9ccd3b2f42dd920d231eb704e1e0"
+    },
+    {
+      "path": "production-backup/puzzles/production-puzzle-07.png",
+      "size": 1131663,
+      "hashMode": "binary",
+      "sha256": "ccde2cb0a4ab3bb24095789530af9a251e609fc3f9e703c6c943c068a85b976d"
+    },
+    {
+      "path": "production-backup/resolved-production-show.json",
+      "size": 86371,
+      "hashMode": "binary",
+      "sha256": "5b7de4f787dc49adf799c888ae39786a1ee42563f4a0e9ba144e27bbda80bde0"
+    },
+    {
+      "path": "production-backup/validation.json",
+      "size": 6572,
+      "hashMode": "binary",
+      "sha256": "ae713a62c3614bf757b4fff38a9804b3f97162b7a302093a0bc41b47d27555c0"
+    },
+    {
+      "path": "production-backup/visual/01_P-001｜横川AI 起動.png",
+      "size": 1478627,
+      "hashMode": "binary",
+      "sha256": "b55aa894369d22005bf6cda9e346a1105471eb4e0f6d684ed2afb14ecb55ef6c"
+    },
+    {
+      "path": "production-backup/visual/02_P-002｜参加者の照会.png",
+      "size": 1478559,
+      "hashMode": "binary",
+      "sha256": "80d63fe3b167a470b507b05dbcf24c599e3a15775b9a9763ee5a1c2edd7accb9"
+    },
+    {
+      "path": "production-backup/visual/03_P-003｜情報照合・セキュリティ説明.png",
+      "size": 1478542,
+      "hashMode": "binary",
+      "sha256": "45a7585ad3ef43e250f0889c037298c78f68fca47aaa18b6005db9b9246241f1"
+    },
+    {
+      "path": "production-backup/visual/04_P-004｜プリンキピア説明 → HACK.png",
+      "size": 1703381,
+      "hashMode": "binary",
+      "sha256": "fde7ed0b5a1a2416748f4978537291af006b629b6dcaa629a4c098dbef330c2b"
+    },
+    {
+      "path": "production-backup/visual/05_P-005｜外部通信を拒否.png",
+      "size": 1603455,
+      "hashMode": "binary",
+      "sha256": "853b3511f6067e8300ae19eef60b1f561e450e392df30a6b25b717b2e3b55df1"
+    },
+    {
+      "path": "production-backup/visual/06_P-006｜命令を拒否.png",
+      "size": 1703418,
+      "hashMode": "binary",
+      "sha256": "a119209ddd18eb500b4154670a95b0884ab130c53bea45be4605d1f5e62d04b7"
+    },
+    {
+      "path": "production-backup/visual/07_P-007｜認証を拒否.png",
+      "size": 1702311,
+      "hashMode": "binary",
+      "sha256": "b53fb1dd1ac349f17c07c5e33c26b0d65c3709de90337d2a02a0388957d9acd3"
+    },
+    {
+      "path": "production-backup/visual/08_P-008｜五つの謎・脱出条件.png",
+      "size": 1703486,
+      "hashMode": "binary",
+      "sha256": "8d7d1770faeb393a3545754c9ea058ef5e12750c47efbf6f9866700f9b42cb10"
+    },
+    {
+      "path": "production-backup/visual/09_P-019｜記入用紙の案内.png",
+      "size": 1703425,
+      "hashMode": "binary",
+      "sha256": "74e7e1ec279b7b4ff19943214da3f5ec9fe236567d7022010573201da3f66696"
+    },
+    {
+      "path": "production-backup/visual/10_P-V02｜第一の謎を提示.png",
+      "size": 986450,
+      "hashMode": "binary",
+      "sha256": "bbe9c99895cec0ef1d466d17742f43525660e75dda4bb99904603d3b95e72380"
+    },
+    {
+      "path": "production-backup/visual/11_P-011｜五つ達成 → 統合 → 最終問題.png",
+      "size": 2141927,
+      "hashMode": "binary",
+      "sha256": "8c4758d1c933a96fe029a0a700f97d7145707aaf75a979134e698ca94620aced"
+    },
+    {
+      "path": "production-backup/visual/12_P-012｜認証成功 → 解錠 → 異常.png",
+      "size": 1574859,
+      "hashMode": "binary",
+      "sha256": "d6a35ed235bd927cd44a5ed19282676f56ecbf0602b231e5c85072e75a918cd8"
+    },
+    {
+      "path": "production-backup/visual/13_P-013｜緊急遮断・連絡失敗.png",
+      "size": 1578647,
+      "hashMode": "binary",
+      "sha256": "6199630432c6bf8b795b9669aed8314bbef947cc4c7721d7bc501c519ececabd"
+    },
+    {
+      "path": "production-backup/visual/14_P-014｜スタッフへの連絡失敗.png",
+      "size": 1569464,
+      "hashMode": "binary",
+      "sha256": "f0ef00ba4d68fc986179cf53d7cdc6df121f50b33c7c1adfd1521730d0996602"
+    },
+    {
+      "path": "production-backup/visual/15_P-V04｜危険状態・警報.png",
+      "size": 1477841,
+      "hashMode": "binary",
+      "sha256": "8e6a5b7f2b5785b4a1332cd56bebbaf1387bab66e4ddbaa4936ed1c3e9d834da"
+    },
+    {
+      "path": "production-backup/visual/16_P-015｜機械設備の強制暴走.png",
+      "size": 1477972,
+      "hashMode": "binary",
+      "sha256": "c23be5af3f06372ff351123762400cf3d96d1a0de4e74c00f8a834c5f297765a"
+    },
+    {
+      "path": "production-backup/visual/17_P-V05｜非常停止問題を提示.png",
+      "size": 2307308,
+      "hashMode": "binary",
+      "sha256": "5abace117a501c5bfd6e2a09a120631caa2ddb14913b86aae6ecb6dc87a5d390"
+    },
+    {
+      "path": "production-backup/visual/18_P-V06｜停止コード → 全停止・解放.png",
+      "size": 431187,
+      "hashMode": "binary",
+      "sha256": "58cfb5c2ba23341f69287185749bd173a672089bbc006754a91613c340ee5f5d"
+    },
+    {
+      "path": "production-backup/visual/19_P-V07｜復旧 → NORMAL.png",
+      "size": 1478612,
+      "hashMode": "binary",
+      "sha256": "0953c814e804e70d87534d16804ce4944ccafe208afc335e3157570b455988be"
+    },
+    {
+      "path": "production-backup/visual/20_P-020｜全館の扉・解錠確認.png",
+      "size": 1478516,
+      "hashMode": "binary",
+      "sha256": "2a2b8281a4d887bc53e9f8e3922959e6a3f64c96e8fe7a31ce1a69fe92e315f5"
+    },
+    {
+      "path": "public/admin.html",
+      "size": 19607,
+      "hashMode": "utf8-lf",
+      "sha256": "82e071658883f710caa0e54fa96f4a81a3897838e5f856ee2771757b5387303c"
+    },
+    {
+      "path": "public/assets/audio/README-production.md",
+      "size": 500,
+      "hashMode": "utf8-lf",
+      "sha256": "6bd582e370e8b8c8cb4e036244b6ae5ca9427253a967f680061408eb297fe1d7"
+    },
+    {
+      "path": "public/assets/audio/production-hack-noise.mp3",
+      "size": 101982,
+      "hashMode": "binary",
+      "sha256": "93d13ebe50495e0c200f29a2f2b54e2cf5587f291921407682c27527c8a7c296"
+    },
+    {
+      "path": "public/assets/audio/production-hack-noise.wav",
+      "size": 562254,
+      "hashMode": "binary",
+      "sha256": "1ebd3bf3891072047b9891591d95209406ca2718d69aed7dbcdcd2327467df21"
+    },
+    {
+      "path": "public/assets/audio/production-paced-001.wav",
+      "size": 428696,
+      "hashMode": "binary",
+      "sha256": "5905c9f0f03be4c3724e551d24b517ce510dfd043415da77aa7fd148347df2ac"
+    },
+    {
+      "path": "public/assets/audio/production-paced-002.wav",
+      "size": 471500,
+      "hashMode": "binary",
+      "sha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5"
+    },
+    {
+      "path": "public/assets/audio/production-paced-003.wav",
+      "size": 1567076,
+      "hashMode": "binary",
+      "sha256": "f26458aa98fad64a6a1d1328ec338356b1d7f8f071958de8c5bf72b233037d5c"
+    },
+    {
+      "path": "public/assets/audio/production-paced-004.wav",
+      "size": 1492918,
+      "hashMode": "binary",
+      "sha256": "6cfa980e53f46aaafdfc4c1241b0f2a38a94d22f1ab07641eb453432204b24a5"
+    },
+    {
+      "path": "public/assets/audio/production-paced-011.wav",
+      "size": 827582,
+      "hashMode": "binary",
+      "sha256": "a425ca6d6e87ef3ec895249949ef00cb68110c20f6ae35a96840306472edee0e"
+    },
+    {
+      "path": "public/assets/audio/production-paced-012.wav",
+      "size": 380892,
+      "hashMode": "binary",
+      "sha256": "7549ae1c6d82d2d0a0f7f7ed1efc5765f7a533bbf06ef6ed86f83a7f87b9ae26"
+    },
+    {
+      "path": "public/assets/audio/production-paced-013.wav",
+      "size": 872334,
+      "hashMode": "binary",
+      "sha256": "f70f8094ca9ec5ea473681dfec147b1438f97a7d39bd19deacd5c20d64fbbff3"
+    },
+    {
+      "path": "public/assets/audio/production-paced-014.wav",
+      "size": 342156,
+      "hashMode": "binary",
+      "sha256": "8faa61c05029eafc843a1c8581476cf3749c6f82f97745a0df1615225dcf9b90"
+    },
+    {
+      "path": "public/assets/audio/production-paced-016.wav",
+      "size": 438134,
+      "hashMode": "binary",
+      "sha256": "ba04348b8ef2085eb41a3442a43ed9a17cbbf78024b53e42a97a2f1f26194424"
+    },
+    {
+      "path": "public/assets/audio/production-paced-019.wav",
+      "size": 555120,
+      "hashMode": "binary",
+      "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
+    },
+    {
+      "path": "public/assets/audio/production-recovery.wav",
+      "size": 373870,
+      "hashMode": "binary",
+      "sha256": "3263c72148eeb1dd5fa8ee4afe065784729971522d28f1d7aaabe86a80afeb60"
+    },
+    {
+      "path": "public/assets/audio/production-rehearsal-020-safety.wav",
+      "size": 229358,
+      "hashMode": "binary",
+      "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
+    },
+    {
+      "path": "public/assets/audio/production-reliable-003.wav",
+      "size": 1531796,
+      "hashMode": "binary",
+      "sha256": "db9549c232327f19d9a862993ce3c925a4893e87d8f63c7ee5043c46a8954023"
+    },
+    {
+      "path": "public/assets/audio/production-reliable-004.wav",
+      "size": 1475278,
+      "hashMode": "binary",
+      "sha256": "5f0ccb14dac8974fbd839b6cd72e01baca2cb9ea2a29850d8e0f3c2038df87fd"
+    },
+    {
+      "path": "public/assets/audio/production-reliable-011.wav",
+      "size": 792302,
+      "hashMode": "binary",
+      "sha256": "25db9a560c0bc20ca18d05bdcc6a0e1a7737e4c296d77498eaea019c3033316a"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-auth.wav",
+      "size": 57374,
+      "hashMode": "binary",
+      "sha256": "78ab6f17c140f1ffb0509ad5fb89f022e03c90f8306132a84f7d0ee2571ea7ce"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-boot.wav",
+      "size": 141164,
+      "hashMode": "binary",
+      "sha256": "80ef73dd33b072ffe6a914c375de49d3ee3041387dab373304daf9cc68d15d65"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-glitch.wav",
+      "size": 79424,
+      "hashMode": "binary",
+      "sha256": "abee4f42f05c76e9bf6d3dee5d6d23f2ba2b5bbe682e33b86bd7dfbb8fed5bee"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-hostile.wav",
+      "size": 141164,
+      "hashMode": "binary",
+      "sha256": "4a33188d4430ee686ac6caf42f6c46b8a257d135ed197b10761b4f02247f171b"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-integrate.wav",
+      "size": 158804,
+      "hashMode": "binary",
+      "sha256": "a4948467425b7043a4bb80b74cdb6c00be2381c16ab141b4c18b5326fd7c0b7f"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-puzzle.wav",
+      "size": 57374,
+      "hashMode": "binary",
+      "sha256": "b3d98c57519c5f33b7f36efdd00fc53d643cd8d66100e5c119da65f17ab0ea5c"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-recovery.wav",
+      "size": 141164,
+      "hashMode": "binary",
+      "sha256": "569c3f193e2347ac0c59373630ba88fa6435e557dcc499dd07a4095565753b7c"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-rumble.wav",
+      "size": 123524,
+      "hashMode": "binary",
+      "sha256": "c1800127960d47cce59ecaab4864d56c483c9e9d4b46712179df93965bb96dcd"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-shutdown.wav",
+      "size": 75014,
+      "hashMode": "binary",
+      "sha256": "1a08dbc88e6b234af78047d920fd0edea2e6ed4b7c713e1200c953f65c63497e"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-unlock.wav",
+      "size": 79424,
+      "hashMode": "binary",
+      "sha256": "0b90fbb07351480dac97bd5e7130f183d94621b136805b366a3d48819e716220"
+    },
+    {
+      "path": "public/assets/audio/production-sfx-warning.wav",
+      "size": 79424,
+      "hashMode": "binary",
+      "sha256": "f9a9d5533d747f71ac688e212477fd56fb59b58779c4329671c88009a4108c29"
+    },
+    {
+      "path": "public/assets/audio/production-startup.mp3",
+      "size": 52661,
+      "hashMode": "binary",
+      "sha256": "c9654adcdf96fb2cfc5c2b5c4cf1971b29f9a6facbe0b52e40a60dabb00814e7"
+    },
+    {
+      "path": "public/assets/audio/production-startup.wav",
+      "size": 373870,
+      "hashMode": "binary",
+      "sha256": "3263c72148eeb1dd5fa8ee4afe065784729971522d28f1d7aaabe86a80afeb60"
+    },
+    {
+      "path": "public/assets/audio/production-v2-002.wav",
+      "size": 501534,
+      "hashMode": "binary",
+      "sha256": "2811e7cc4ca8bcdad092f0d5a363f1684ad2c4444765e928818bb6a6afe1db2e"
+    },
+    {
+      "path": "public/assets/audio/production-v2-009.wav",
+      "size": 201706,
+      "hashMode": "binary",
+      "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9"
+    },
+    {
+      "path": "public/assets/audio/production-v2-019.wav",
+      "size": 559182,
+      "hashMode": "binary",
+      "sha256": "c4cce439927615dfdfbcf839948baa289a9f95bee7ef4e3a2e630e4a06e6ece2"
+    },
+    {
+      "path": "public/assets/audio/production-v2-020.wav",
+      "size": 265198,
+      "hashMode": "binary",
+      "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
+    },
+    {
+      "path": "public/assets/audio/production-warning.mp3",
+      "size": 73050,
+      "hashMode": "binary",
+      "sha256": "fa91e60d6e1793036f0f40bd2399389834d5bfc631c18262733b7334b3bbe504"
+    },
+    {
+      "path": "public/assets/audio/production-warning.wav",
+      "size": 342582,
+      "hashMode": "binary",
+      "sha256": "94568a1bcbf25ebbb87d232511109ac2d8d08de6d1a75771cf3d91869f00c638"
+    },
+    {
+      "path": "public/assets/audio/segments/001-1.wav",
+      "size": 112542,
+      "hashMode": "binary",
+      "sha256": "b10053c0423a6c1453d9b7c68dce2a9492f1d9d7049c801b04d8653a39a4a31d"
+    },
+    {
+      "path": "public/assets/audio/segments/001-2.wav",
+      "size": 109256,
+      "hashMode": "binary",
+      "sha256": "9e19beaf00da0564225d1ab24eea84e27a416025aa36390b2c6d397217a848f4"
+    },
+    {
+      "path": "public/assets/audio/segments/001-3.wav",
+      "size": 154084,
+      "hashMode": "binary",
+      "sha256": "e347f83e5c8138eb591a175864ff71e63aa890e31165229a7f0d38bf28d7c1f0"
+    },
+    {
+      "path": "public/assets/audio/segments/002-1.wav",
+      "size": 59138,
+      "hashMode": "binary",
+      "sha256": "a2a0ef23ee30986d67a8df215f1a4c9ecc34b97208070d800e330ca42628a674"
+    },
+    {
+      "path": "public/assets/audio/segments/002-2.wav",
+      "size": 282900,
+      "hashMode": "binary",
+      "sha256": "5d252a800bff2226fd887e056995cf01cabb498f580e2bbbb410bbd2ee10a56b"
+    },
+    {
+      "path": "public/assets/audio/segments/002-composed-1.wav",
+      "size": 71668,
+      "hashMode": "binary",
+      "sha256": "5801b460d40350b89f7dc0f91a65434f4286e0690402f0d8ff25b4ef823dad48"
+    },
+    {
+      "path": "public/assets/audio/segments/002-composed-2.wav",
+      "size": 156654,
+      "hashMode": "binary",
+      "sha256": "933b35056dcfd1108b76a9ba034faf615d9f4c3fb6073f03a893e58835577e86"
+    },
+    {
+      "path": "public/assets/audio/segments/002-composed-3.wav",
+      "size": 202740,
+      "hashMode": "binary",
+      "sha256": "37ad0b4ef26c92de0dc09c5a91ce7be54bb51fff530e2e5cab76633581823ea9"
+    },
+    {
+      "path": "public/assets/audio/segments/003-1.wav",
+      "size": 396590,
+      "hashMode": "binary",
+      "sha256": "9d4d35012c54802cc3e06967d8009c03b7b225b1b2e23424ab07003f0088ac8c"
+    },
+    {
+      "path": "public/assets/audio/segments/003-2.wav",
+      "size": 495460,
+      "hashMode": "binary",
+      "sha256": "abb5e3c34881199d89657380c8d13008b47a5ff8bc5a5f38a8a583a33fdb2f7f"
+    },
+    {
+      "path": "public/assets/audio/segments/003-3.wav",
+      "size": 569274,
+      "hashMode": "binary",
+      "sha256": "104b598d9b808129bddee17688be4fd09a8515b6439bedb92d3a50e62259a7e5"
+    },
+    {
+      "path": "public/assets/audio/segments/004-1.wav",
+      "size": 634262,
+      "hashMode": "binary",
+      "sha256": "934d5506f6959ba84ef372c995912af4303b36ce7baefa609a0feb2409e1f615"
+    },
+    {
+      "path": "public/assets/audio/segments/004-2.wav",
+      "size": 801412,
+      "hashMode": "binary",
+      "sha256": "682ac2089f882ec645fa667f39a81124b084a2ceb67faa0dc65ad71017981ca6"
+    },
+    {
+      "path": "public/assets/audio/segments/005-1.wav",
+      "size": 219122,
+      "hashMode": "binary",
+      "sha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc"
+    },
+    {
+      "path": "public/assets/audio/segments/006-1.wav",
+      "size": 124568,
+      "hashMode": "binary",
+      "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
+    },
+    {
+      "path": "public/assets/audio/segments/007-1.wav",
+      "size": 134130,
+      "hashMode": "binary",
+      "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
+    },
+    {
+      "path": "public/assets/audio/segments/008-1.wav",
+      "size": 453622,
+      "hashMode": "binary",
+      "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
+    },
+    {
+      "path": "public/assets/audio/segments/009-1.wav",
+      "size": 201706,
+      "hashMode": "binary",
+      "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9"
+    },
+    {
+      "path": "public/assets/audio/segments/011-1.wav",
+      "size": 163136,
+      "hashMode": "binary",
+      "sha256": "87f366456f43e19fe9c4bc2d1ad2dd9a538752c2cc282d5568a786c3277a46be"
+    },
+    {
+      "path": "public/assets/audio/segments/011-2.wav",
+      "size": 302208,
+      "hashMode": "binary",
+      "sha256": "ca9b0070e352ffc8e7d89395f2db267b2267c0e74bfb4c34ea07c41bc0886f78"
+    },
+    {
+      "path": "public/assets/audio/segments/011-3.wav",
+      "size": 230026,
+      "hashMode": "binary",
+      "sha256": "3d29fd94ebf24b3ff65f0b4be996cff5043367eb3db46a1c28aef82d0127b6d0"
+    },
+    {
+      "path": "public/assets/audio/segments/012-1.wav",
+      "size": 142880,
+      "hashMode": "binary",
+      "sha256": "c4cda50aed6f951f1054fc3583302d1c31de448971754dc6f2940da3248af340"
+    },
+    {
+      "path": "public/assets/audio/segments/012-2.wav",
+      "size": 180734,
+      "hashMode": "binary",
+      "sha256": "d87e62a48aff35e9505af04d1677ce55e76f398a0767516eec567fd1875be8f9"
+    },
+    {
+      "path": "public/assets/audio/segments/013-1.wav",
+      "size": 13274,
+      "hashMode": "binary",
+      "sha256": "c144a98ac558225f3c2fbbdec0e7239347e598de475401410b06c0875022915d"
+    },
+    {
+      "path": "public/assets/audio/segments/013-2.wav",
+      "size": 272792,
+      "hashMode": "binary",
+      "sha256": "dc4484f5d28efdd1736f8281d5d909b139372c783943292f898318d519c67e5d"
+    },
+    {
+      "path": "public/assets/audio/segments/013-3.wav",
+      "size": 140648,
+      "hashMode": "binary",
+      "sha256": "f4dc7da04db74b3ae0f3b4592a318f8688e61940e82e0b788249f3a2141565d3"
+    },
+    {
+      "path": "public/assets/audio/segments/013-4.wav",
+      "size": 12392,
+      "hashMode": "binary",
+      "sha256": "4dc0a2d8560d30f139c99bd42afc4433591c4c437d023fa073da32a33b1054bf"
+    },
+    {
+      "path": "public/assets/audio/segments/013-5.wav",
+      "size": 253282,
+      "hashMode": "binary",
+      "sha256": "9cd62e2cada1451379ed9818fcbee4edda064f775b9811eb1c4596d833097fef"
+    },
+    {
+      "path": "public/assets/audio/segments/014-1.wav",
+      "size": 10628,
+      "hashMode": "binary",
+      "sha256": "5a481c985b419c1486978205e0502bbf56253e8b5e05047b4e80b195c404cd94"
+    },
+    {
+      "path": "public/assets/audio/segments/014-2.wav",
+      "size": 300702,
+      "hashMode": "binary",
+      "sha256": "4fb6886c30336de3aa5ce516d359895b1b64a192d34cbc2c2536fa81e26dcf96"
+    },
+    {
+      "path": "public/assets/audio/segments/015-1.wav",
+      "size": 379892,
+      "hashMode": "binary",
+      "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
+    },
+    {
+      "path": "public/assets/audio/segments/016-1.wav",
+      "size": 152404,
+      "hashMode": "binary",
+      "sha256": "3d2f5146e865fada1bba2bc31c2a72279cd417a345074616ecc5a7d3263a6a17"
+    },
+    {
+      "path": "public/assets/audio/segments/016-2.wav",
+      "size": 210812,
+      "hashMode": "binary",
+      "sha256": "1984048a55cf1977ff63581db9e519806a93a5024ca5ceda28346ad83e44070e"
+    },
+    {
+      "path": "public/assets/audio/segments/019-1.wav",
+      "size": 336882,
+      "hashMode": "binary",
+      "sha256": "9e3d9b602fa7da2b56fd862b2485b69fc23e3ef37260fe1feb3afa8eec69b0fd"
+    },
+    {
+      "path": "public/assets/audio/segments/019-2.wav",
+      "size": 191474,
+      "hashMode": "binary",
+      "sha256": "a0c051da5a093c0875ab1d5e1f534068da8515af9e1a6890cccb8c297e8cb167"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-001-1.wav",
+      "size": 112500,
+      "hashMode": "binary",
+      "sha256": "eab1cc6d0c5d05e412d0c87472d00756222921f6f9c569fd436313af6619d08f"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-001-2.wav",
+      "size": 109322,
+      "hashMode": "binary",
+      "sha256": "3200edd110bee28c41851963e1d442928276b8b4b92fea4bd932b66ec29c71a4"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-001-3.wav",
+      "size": 154042,
+      "hashMode": "binary",
+      "sha256": "9d26ea05fd3b291dcc73c9a1d8995c9087dd75588e8470659f6fe78c0bed5e7b"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-002-1.wav",
+      "size": 65258,
+      "hashMode": "binary",
+      "sha256": "fb52a5f476aee9f45851a8a3fa77e571c213a4f79503fc9284f604e7eb75578c"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-002-2.wav",
+      "size": 143850,
+      "hashMode": "binary",
+      "sha256": "627b4ffd420c500623aabb8ce54c0b3e64ee1fb9b75c186d96efbe8a8dcb0efc"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-002-3.wav",
+      "size": 196330,
+      "hashMode": "binary",
+      "sha256": "5ede96a96a02679040e7dc6a83fec9a129d2c19f094024697ff5ffc75f538400"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-003-1.wav",
+      "size": 396592,
+      "hashMode": "binary",
+      "sha256": "c9223d1ca69df865478b3aad2afb8680ae5205ececb59befe75a0cce96134c7a"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-003-2.wav",
+      "size": 495462,
+      "hashMode": "binary",
+      "sha256": "3be102bb605e7a6b4df2cce0e2dffeae814a86564bd6b926cd0f1e296e895167"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-003-3.wav",
+      "size": 569270,
+      "hashMode": "binary",
+      "sha256": "8a8ebb2f8e139b8f2b182f08cd059617e67ee5e519044e3655f5bc5ebc21b0a2"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-004-1.wav",
+      "size": 634290,
+      "hashMode": "binary",
+      "sha256": "34dddd9d6a23ecac0f2462e1032f8ea12142cf2c39ef4881a7568ce6e59d643b"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-004-2.wav",
+      "size": 801342,
+      "hashMode": "binary",
+      "sha256": "eb262fed00acb390d94d546cb634df6273ff50e68d7d07e0c1573ed4ecfb4a9a"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-011-1.wav",
+      "size": 163126,
+      "hashMode": "binary",
+      "sha256": "04e13568a7c205207773e8815cc0980df4654be0bfd3d765d9e10e936a9f0fe3"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-011-2.wav",
+      "size": 302218,
+      "hashMode": "binary",
+      "sha256": "4cd5c4756e2add00dd6fa8551868eaaf04728cf8a6fb2a1e2a904a6fb57d2eff"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-011-3.wav",
+      "size": 230026,
+      "hashMode": "binary",
+      "sha256": "3d29fd94ebf24b3ff65f0b4be996cff5043367eb3db46a1c28aef82d0127b6d0"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-012-1.wav",
+      "size": 142840,
+      "hashMode": "binary",
+      "sha256": "0c3c75c5da384f40eeccf7c872e415d78ac0fafb06cb7020c3ee587f66b312a5"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-012-2.wav",
+      "size": 180766,
+      "hashMode": "binary",
+      "sha256": "4a1a5d9a68f3524efb3be9d8470c6a1e93c6d555b494e4f1c47292e4c9116d0a"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-013-1.wav",
+      "size": 73454,
+      "hashMode": "binary",
+      "sha256": "5b2f209b31de05dcb70a6547e19b69e807265b10b479f73ab5ef1ae499b32328"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-013-2.wav",
+      "size": 248282,
+      "hashMode": "binary",
+      "sha256": "6df15e97cdca4421e301eccf75457d771f80109b28260696bc5d51130ffba8d9"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-013-3.wav",
+      "size": 130528,
+      "hashMode": "binary",
+      "sha256": "75e539b7216759865cc8f047707b523c5603daf4e1877eca32bc10eb2b6c1c3e"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-013-4.wav",
+      "size": 67050,
+      "hashMode": "binary",
+      "sha256": "3174e9f33f835f3336a1aa09f6763f67a89d11846aab7d73762a55877bed54e6"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-013-5.wav",
+      "size": 220896,
+      "hashMode": "binary",
+      "sha256": "9117029d34b5cee462654ba9eaf6e8eef7016c3f9f370940b945925f65401259"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-014-1.wav",
+      "size": 54728,
+      "hashMode": "binary",
+      "sha256": "66cfc3fa6312dcaa093d35d810ecb02dbabcacd916858592595132ac01137ab0"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-014-2.wav",
+      "size": 256602,
+      "hashMode": "binary",
+      "sha256": "e784d01834ddc8cfc050d7e15762b48ca7498a7aed564fe22487e25cbbaa951e"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-016-1.wav",
+      "size": 152366,
+      "hashMode": "binary",
+      "sha256": "bbdbfb239902a95623d9cdfb64f23ec907fe95b51369bdad95fcd4292ad15b00"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-016-2.wav",
+      "size": 210842,
+      "hashMode": "binary",
+      "sha256": "133805016adf50f4650b9e33709fa11ec4bebeb10fc02dc4424f00a91ff3fcc0"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-019-1.wav",
+      "size": 330468,
+      "hashMode": "binary",
+      "sha256": "ffb75509b740880212bd317adfbd4b37da4291c586a62839c22f6132491eda34"
+    },
+    {
+      "path": "public/assets/audio/segments/paced-019-2.wav",
+      "size": 185006,
+      "hashMode": "binary",
+      "sha256": "1d701d670a0d7c43203a6fc5df843d8777f16687c6c51f764bad64ce2e752ca2"
+    },
+    {
+      "path": "public/assets/audio/segments/stage-013-source-1.wav",
+      "size": 79860,
+      "hashMode": "binary",
+      "sha256": "03d7a7900f328c80e4d9d3e8971bd99081bfb77d4852200b743d3cbf47bb8efd"
+    },
+    {
+      "path": "public/assets/audio/segments/stage-013-source-2.wav",
+      "size": 261108,
+      "hashMode": "binary",
+      "sha256": "a5042e7b6083f11275dd08a0477abcbef61edddbd575884f641da9f6c29b3a91"
+    },
+    {
+      "path": "public/assets/audio/segments/stage-013-source-3.wav",
+      "size": 143350,
+      "hashMode": "binary",
+      "sha256": "da57d8e5850ceff4aff8e5498eae4d4fb2a9a587d76e70b11d19b6fd4f090e87"
+    },
+    {
+      "path": "public/assets/audio/segments/stage-013-source-4.wav",
+      "size": 79862,
+      "hashMode": "binary",
+      "sha256": "b3c8560c79c5b6624b231c2a24c655397813cc41bab2931b058ac5c261c101fe"
+    },
+    {
+      "path": "public/assets/audio/segments/stage-013-source-5.wav",
+      "size": 227308,
+      "hashMode": "binary",
+      "sha256": "7b25245ec57d2ec76a3f10f8ed8e58fca3d4be1d1c9b02c1bfe7906b82625d4a"
+    },
+    {
+      "path": "public/assets/audio/voice-comparison/452fee2b-d102-4053-bccd-c0f8c265c147.wav",
+      "size": 859578,
+      "hashMode": "binary",
+      "sha256": "01d41d017961ec8047dcc29a69eec68614e3f30e2d6bc37012929725d2cc77d9"
+    },
+    {
+      "path": "public/assets/audio/voice-comparison/561e4e59-3bc9-4726-9028-44a3c12a6f1d.wav",
+      "size": 613360,
+      "hashMode": "binary",
+      "sha256": "02c0c0b6fadc09aa3b23242b74aa8a09b7555c0c3aee6c2ea56ecd2d198d27fc"
+    },
+    {
+      "path": "public/assets/audio/voice-comparison/5680ac39-43c9-487a-bc3e-018c0d29cc38.wav",
+      "size": 753320,
+      "hashMode": "binary",
+      "sha256": "aff2f6d168d9c1def12b89b1e83441b50d3621ae833fc53a2cc40542a0f7ce93"
+    },
+    {
+      "path": "public/assets/audio/voice-comparison/754d769b-7128-4172-964e-b10945d55e39.wav",
+      "size": 627704,
+      "hashMode": "binary",
+      "sha256": "da428121e640b26e47d2548685265a33be2ad40219f472476b43a810ece6d818"
+    },
+    {
+      "path": "public/assets/audio/voice-comparison/e756b8e4-b606-4e15-99b1-3f9c6a1b2317.wav",
+      "size": 739314,
+      "hashMode": "binary",
+      "sha256": "9832413fe02b85105db01f6e47205ae74d8019eedf566a1bcdaaa1229632aae1"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_001_boot.wav",
+      "size": 375794,
+      "hashMode": "binary",
+      "sha256": "0c33dd4ba3aa4b847059b169ab48a6bd247ca157699738895da022e017e22020"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_002_participant.wav",
+      "size": 341994,
+      "hashMode": "binary",
+      "sha256": "63f4a050e224a159e4701c9d73718f33e9984f1c6a8091b3315a0c09761c4b05"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_003_security.wav",
+      "size": 1461236,
+      "hashMode": "binary",
+      "sha256": "336593049258371601aea04445939a74508a04dbd98aa112482af56f3b4d4ca3"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_004_principia.wav",
+      "size": 1435630,
+      "hashMode": "binary",
+      "sha256": "05616fcc42d05541bce498699d788858593c734ba5aaa040c57cbcdc36ba558c"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_005_communication-lock.wav",
+      "size": 219122,
+      "hashMode": "binary",
+      "sha256": "34223553466a5f50c1e7d84a85f0079c5814d01a48d5c92266dd3d2bc5a98fbc"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_006_reject.wav",
+      "size": 124568,
+      "hashMode": "binary",
+      "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
+      "size": 134130,
+      "hashMode": "binary",
+      "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
+      "size": 453622,
+      "hashMode": "binary",
+      "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_009_first-riddle.wav",
+      "size": 266218,
+      "hashMode": "binary",
+      "sha256": "6b47b3831a438e904eb8b35a551206ff1600c3dfa2a214054377a4e9cacf12cf"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_010_gather-201.wav",
+      "size": 544754,
+      "hashMode": "binary",
+      "sha256": "a0412819126fdfb9fcad4ec2f954a570c0beec5542be1137f1117731d4e9d198"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_011_final-challenge.wav",
+      "size": 695282,
+      "hashMode": "binary",
+      "sha256": "b0bc4470de547d832b40bd348c0d9b7dc736fa8687cc049c40aebf0fabc40216"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_012_auth-success.wav",
+      "size": 323570,
+      "hashMode": "binary",
+      "sha256": "b5ccaa7da5616b068f91594c5777f0c62492529e2ea709f0ba8cc783e7e50ceb"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_013_emergency.wav",
+      "size": 692212,
+      "hashMode": "binary",
+      "sha256": "b9a867d19a34676598214c581d515887a36cd62b1a7b9f2a79f97ee662083868"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_014_contact-failed.wav",
+      "size": 311286,
+      "hashMode": "binary",
+      "sha256": "9c7a3afd0cdec0c63fcc6c48bcc74c51505eec590284c10b6e9189c40fb8b4ce"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
+      "size": 379892,
+      "hashMode": "binary",
+      "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_016_shutdown.wav",
+      "size": 363172,
+      "hashMode": "binary",
+      "sha256": "43c7a3a43b337cfc3b165abb23ae3af91f9f7444fdd57c28abb7cab561c7bdd4"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_017_complete.wav",
+      "size": 271348,
+      "hashMode": "binary",
+      "sha256": "68cdda6ebc4ac80ce28424f7762ff765d3f9486861b975c5ba728bd3564546b3"
+    },
+    {
+      "path": "public/assets/audio/yokogawa-professor-v1_018_yokogawa-route-gather.wav",
+      "size": 290800,
+      "hashMode": "binary",
+      "sha256": "d80fa5c30e1c9fd1d0ba34347d8774a82ce1e75a1efa2611a0fc8b799f64bc5e"
+    },
+    {
+      "path": "public/assets/avatar/yokogawa/v1/base.png",
+      "size": 844337,
+      "hashMode": "binary",
+      "sha256": "3bfa2ef3f50d879d0c68011d5d88f3c93a9d090347e9a4371c09c6a9742ae57b"
+    },
+    {
+      "path": "public/assets/avatar/yokogawa/v1/eyes-closed.png",
+      "size": 883413,
+      "hashMode": "binary",
+      "sha256": "f3f03fa5b268492724d6bb4754642380e475d931bc8bf87d1840f7cec574bf02"
+    },
+    {
+      "path": "public/assets/avatar/yokogawa/v1/mouth-half.png",
+      "size": 895324,
+      "hashMode": "binary",
+      "sha256": "e0c899ec001fc50ca1a07411a61963709bcd8568c99dad264ff8ea75452c94b8"
+    },
+    {
+      "path": "public/assets/avatar/yokogawa/v1/mouth-open.png",
+      "size": 867659,
+      "hashMode": "binary",
+      "sha256": "713be72e51d1512f77ab18e5d406ea84dd1acab6c2016cdad7dd56d0d8e4bc30"
+    },
+    {
+      "path": "public/assets/visual/README-production.md",
+      "size": 527,
+      "hashMode": "utf8-lf",
+      "sha256": "50229cc5c906bb4fb4f65677f7241332b65d9f493dcdbea5ef895692d5fb9eaf"
+    },
+    {
+      "path": "public/assets/visual/phase-a-placeholder.svg",
+      "size": 962,
+      "hashMode": "utf8-lf",
+      "sha256": "30383ca6e025739f5f05e4a5cedefe4c609f00307079c05ecf1ae6130e8725c1"
+    },
+    {
+      "path": "public/assets/visual/production-puzzle-01.png",
+      "size": 960047,
+      "hashMode": "binary",
+      "sha256": "e3b720f417552876d8309bc0f5ff6296f7a416c429571b8e05e1414bb7214f2f"
+    },
+    {
+      "path": "public/assets/visual/production-puzzle-06.png",
+      "size": 1086614,
+      "hashMode": "binary",
+      "sha256": "50ff8e52fdf0b10364e2167aa2f78d9b400f9ccd3b2f42dd920d231eb704e1e0"
+    },
+    {
+      "path": "public/assets/visual/production-puzzle-07.png",
+      "size": 1131663,
+      "hashMode": "binary",
+      "sha256": "ccde2cb0a4ab3bb24095789530af9a251e609fc3f9e703c6c943c068a85b976d"
+    },
+    {
+      "path": "public/assets/visual/puzzle-image-pending.svg",
+      "size": 619,
+      "hashMode": "utf8-lf",
+      "sha256": "327601d548153f45f427768c02235ac136d07ea412e09934c5f4eede7b5b9fc6"
+    },
+    {
+      "path": "public/css/admin-phase-a.css",
+      "size": 2550,
+      "hashMode": "utf8-lf",
+      "sha256": "05ff17a11f97fa71a20f3eba1c759240ea9190c4910dd496e4b96450b0932734"
+    },
+    {
+      "path": "public/css/admin-phase2.css",
+      "size": 3609,
+      "hashMode": "utf8-lf",
+      "sha256": "ff671363729285413dcf80e9fea9723440d2ffa2d8cd2d32ff2bb661acb2d728"
+    },
+    {
+      "path": "public/css/admin-phase3.css",
+      "size": 6748,
+      "hashMode": "utf8-lf",
+      "sha256": "b169a4ade15ebfa6bec941a8bb7b9e1b96ac30e12278dffcd826cf1465869940"
+    },
+    {
+      "path": "public/css/admin-phase4.css",
+      "size": 3152,
+      "hashMode": "utf8-lf",
+      "sha256": "1e1bdc8af7ba274aedc7908f9ba665a325a866e3092781b402975c3446a01692"
+    },
+    {
+      "path": "public/css/admin.css",
+      "size": 6778,
+      "hashMode": "utf8-lf",
+      "sha256": "a7b4645a4b344746395fc944a7d86bd01da80025348a911f97fbd93f7300173a"
+    },
+    {
+      "path": "public/css/display-phase-a.css",
+      "size": 6909,
+      "hashMode": "utf8-lf",
+      "sha256": "c0c5f29e78ab42ff82803c564206aabbcd9906c04484120eca5f3e179c883c34"
+    },
+    {
+      "path": "public/css/display-phase-b.css",
+      "size": 36242,
+      "hashMode": "utf8-lf",
+      "sha256": "6139d9ff05ed99927730ad294d62567b2c767a866c3d33d1c7ba47baa7bdee8e"
+    },
+    {
+      "path": "public/css/display-phase2.css",
+      "size": 692,
+      "hashMode": "utf8-lf",
+      "sha256": "6371e8d72b97ff48e453131478fe805f45a928742f77c3d3a5d9d611029db35b"
+    },
+    {
+      "path": "public/css/display-phase3.css",
+      "size": 443,
+      "hashMode": "utf8-lf",
+      "sha256": "ffaa941bd568d3fb341d0b9dc4fafdaf7cc8dd610cbeef22e9b3672ca67e62b0"
+    },
+    {
+      "path": "public/css/display-phase4.css",
+      "size": 3689,
+      "hashMode": "utf8-lf",
+      "sha256": "2a4b89d2621d6028b9919587db35bd8cfb9358b558dc150ddd435500c1508d8c"
+    },
+    {
+      "path": "public/css/display-phase42.css",
+      "size": 26185,
+      "hashMode": "utf8-lf",
+      "sha256": "669036ade93d90623fc0605a624240a6b3d1aecc0e7acb7d40f4e9d221a7d9db"
+    },
+    {
+      "path": "public/css/display-production.css",
+      "size": 8511,
+      "hashMode": "utf8-lf",
+      "sha256": "88f7ac481e36e21d9043c048cbbfeef7920a16cd0e9c85122e55066352ee5dcc"
+    },
+    {
+      "path": "public/css/display-refresh.css",
+      "size": 3926,
+      "hashMode": "utf8-lf",
+      "sha256": "830de3de8397ccd19aabbe0b9bad86a9a0c4d025a237a5786466469edb86c20c"
+    },
+    {
+      "path": "public/css/display.css",
+      "size": 4259,
+      "hashMode": "utf8-lf",
+      "sha256": "33ab03c9f3f73856a8d74b9092167c997328f43127daab4f86cac40450cb0e44"
+    },
+    {
+      "path": "public/css/production-tools.css",
+      "size": 594,
+      "hashMode": "utf8-lf",
+      "sha256": "fe79be02f2cab47d65a53f01f64c1814d7a0e61c09f70cbd6515c98ae273c0f1"
+    },
+    {
+      "path": "public/display.html",
+      "size": 8374,
+      "hashMode": "utf8-lf",
+      "sha256": "2b7889c7eeb8e44f41ec7323e31896c6547e198bf3b65e517e6b4b79e971a5d3"
+    },
+    {
+      "path": "public/js/admin.js",
+      "size": 44510,
+      "hashMode": "utf8-lf",
+      "sha256": "7f42a51814be4a0d8960f5bff9344ac0d204e9ff27a69b808284726f8c88de90"
+    },
+    {
+      "path": "public/js/audio-playback-effects.js",
+      "size": 1495,
+      "hashMode": "utf8-lf",
+      "sha256": "dd0f53553d1cec65c0acdb9ada76f5d8f7a5b5f1e96ba00dd11dac7770b3f408"
+    },
+    {
+      "path": "public/js/audio-preload.js",
+      "size": 2807,
+      "hashMode": "utf8-lf",
+      "sha256": "1df5bb7bcc98f187c56f57644dfdf8c5e1cae9971bb9e7de8eb4cca1bd503978"
+    },
+    {
+      "path": "public/js/blink-controller.js",
+      "size": 2894,
+      "hashMode": "utf8-lf",
+      "sha256": "dd8fbdf27912249fc175207fc0e852fdb7e3b403dd5e068f04a6fde8799928dd"
+    },
+    {
+      "path": "public/js/cue-sfx.js",
+      "size": 2016,
+      "hashMode": "utf8-lf",
+      "sha256": "e065b94c2d2fea4d243a13d36026456ba534d2e59111e804ec617df72c58aa9b"
+    },
+    {
+      "path": "public/js/display-preparation.js",
+      "size": 1455,
+      "hashMode": "utf8-lf",
+      "sha256": "c41ff57fc768aaabcb859194da52c09b11238ba3ccc8ad5b941f139ea88703f3"
+    },
+    {
+      "path": "public/js/display.js",
+      "size": 33332,
+      "hashMode": "utf8-lf",
+      "sha256": "9ed2400dcfcb002c26471ff5d450fe5c6a85dcfc760aa8477f6a516c9d2232b4"
+    },
+    {
+      "path": "public/js/lip-sync.js",
+      "size": 4220,
+      "hashMode": "utf8-lf",
+      "sha256": "622d72aac77ee18028dfcd6d5f99786bc589d3593b0bbe99e97f7e3bf071352c"
+    },
+    {
+      "path": "public/js/production-audio-engine.js",
+      "size": 11229,
+      "hashMode": "utf8-lf",
+      "sha256": "3d486d96e3d0b5350df75a616473e2e9c929d8b82ef71b5f3cc43f9e0140a3bf"
+    },
+    {
+      "path": "public/js/production-tools.js",
+      "size": 10232,
+      "hashMode": "utf8-lf",
+      "sha256": "ffbf156c94498357716b0254b38120da351dbc52bc66c87e83cafffc28417628"
+    },
+    {
+      "path": "public/js/shortcuts.js",
+      "size": 513,
+      "hashMode": "utf8-lf",
+      "sha256": "86351c3fdc0ae493ddbf469bcd4f3d6f8b0fbabd952591556711f9ac4cdfa064"
+    },
+    {
+      "path": "public/js/socket-client.js",
+      "size": 1719,
+      "hashMode": "utf8-lf",
+      "sha256": "9f5873627e3eca761e76eb54d463a53ac7f9cff3c63abe87a6ffc8441df8e107"
+    },
+    {
+      "path": "public/js/subtitle-units.js",
+      "size": 2893,
+      "hashMode": "utf8-lf",
+      "sha256": "ec2db0b70763c7c9daef5948f9a81ada4b610f02944667e38fcf2c5e823814f2"
+    },
+    {
+      "path": "public/js/tts-adapter.js",
+      "size": 4499,
+      "hashMode": "utf8-lf",
+      "sha256": "b51655adf4d5f151e267ee456846eae46691802f90156a20e5d62bf7a840b14c"
+    },
+    {
+      "path": "public/production-tools.html",
+      "size": 2577,
+      "hashMode": "utf8-lf",
+      "sha256": "9cc0a2465a8c3733a99d8cabf65f857206297fdfca0a1f794bd0f09436163b80"
+    },
+    {
+      "path": "public/voice-comparison.html",
+      "size": 52175,
+      "hashMode": "utf8-lf",
+      "sha256": "4bb952804c18c594627c633ebfc09fbc7a4e5cfaa0121072fe9b970fb54edbff"
+    },
+    {
+      "path": "scripts/analyse-reliability-captures.mjs",
+      "size": 3386,
+      "hashMode": "utf8-lf",
+      "sha256": "32de9eee6161ff2243bae17d0e598ef8be9bbf2faa88e277e1fb29e0b3727c39"
+    },
+    {
+      "path": "scripts/analyze-os-audio-ab.js",
+      "size": 3533,
+      "hashMode": "utf8-lf",
+      "sha256": "c2d81d2969a51de47b7364613339f68d5189d84b663c343088d3c64aaeefcd13"
+    },
+    {
+      "path": "scripts/archive-production-handoff.py",
+      "size": 1370,
+      "hashMode": "utf8-lf",
+      "sha256": "c3e8dd677e742b67c83777031bb7f94bd1d316e987dd4ce3270d6362aeb96690"
+    },
+    {
+      "path": "scripts/audio-owner-ab-check.js",
+      "size": 9457,
+      "hashMode": "utf8-lf",
+      "sha256": "21b15bb2b3e40cae9cc22b97f8ac15d6ca4f8047d7318b82e0143ead9a4ecb0d"
+    },
+    {
+      "path": "scripts/audio-reliability-baseline.js",
+      "size": 2635,
+      "hashMode": "utf8-lf",
+      "sha256": "66091a6d9e64f9587e5ff73e63fba6a6bbdf5427e8d53d9bf440b9b36dce7714"
+    },
+    {
+      "path": "scripts/background-audio-clock-check.js",
+      "size": 5108,
+      "hashMode": "utf8-lf",
+      "sha256": "6390dc1fc191ce7eaaf6d82e3ebad0656e0d8a64fe38d41072a7823332e479fb"
+    },
+    {
+      "path": "scripts/browser-console-check.js",
+      "size": 6242,
+      "hashMode": "utf8-lf",
+      "sha256": "c3378f234e47c8a986823cb0576b27f7dc29870a33e46447d4ca8e9a0df7fb83"
+    },
+    {
+      "path": "scripts/build-portable-runtime.py",
+      "size": 1601,
+      "hashMode": "utf8-lf",
+      "sha256": "96a6c96bdaaf3031cadc16f6ef9d93dbef8eb132ead706775e40612734d03190"
+    },
+    {
+      "path": "scripts/build-production-portable-manifest.mjs",
+      "size": 1710,
+      "hashMode": "utf8-lf",
+      "sha256": "bf8f0f005b0e13ed2ae87eaa0d384ca03eb1f015332f532c4eafaf78be5c2a6b"
+    },
+    {
+      "path": "scripts/build-production-show.mjs",
+      "size": 24820,
+      "hashMode": "utf8-lf",
+      "sha256": "b341cbfef0db74f2e430bd35468f27af0de6d2a412fcaacb186db6ee1f672b74"
+    },
+    {
+      "path": "scripts/build-technical-cue-script.mjs",
+      "size": 3952,
+      "hashMode": "utf8-lf",
+      "sha256": "f9c890d48572a241b93957bd8dec6afb67bcf21dd5f7706cc352f70bb9d3a089"
+    },
+    {
+      "path": "scripts/build-voice-lab-site.mjs",
+      "size": 5634,
+      "hashMode": "utf8-lf",
+      "sha256": "0cc528f90330a43a9389c8b854db7efe90170fb79272986f3e35437f0d054364"
+    },
+    {
+      "path": "scripts/cold-start-initial-idle-check.js",
+      "size": 18431,
+      "hashMode": "utf8-lf",
+      "sha256": "24c0e9400783126a79f5da5654f27d9f1108ce4f134866c73e2009e1d2618986"
+    },
+    {
+      "path": "scripts/compare-production-voices.mjs",
+      "size": 2965,
+      "hashMode": "utf8-lf",
+      "sha256": "470cea7ea4cd6ab58bc943ae2d332c74b3788d828c723109c6db7e8fc4be582d"
+    },
+    {
+      "path": "scripts/compose-participant-pause.mjs",
+      "size": 2066,
+      "hashMode": "utf8-lf",
+      "sha256": "200066957c9312decdc40ad67198d2964646de0281edfd5e44c760497698eef2"
+    },
+    {
+      "path": "scripts/execute-cue.js",
+      "size": 1760,
+      "hashMode": "utf8-lf",
+      "sha256": "07af3035d06a54fd9323c9ead9792508344de692954991d76cd294f9a8fe3341"
+    },
+    {
+      "path": "scripts/export-production-emergency-kit.mjs",
+      "size": 9063,
+      "hashMode": "utf8-lf",
+      "sha256": "ba5982f14d4b9235360c5e1b437150dfadc1b60a9e60d4d9f24b51ac29907aea"
+    },
+    {
+      "path": "scripts/generate-production-speech.mjs",
+      "size": 3021,
+      "hashMode": "utf8-lf",
+      "sha256": "2731e4d2c5a70ddd7ac314914724186189d9d86ffb8c80812026419722bb70be"
+    },
+    {
+      "path": "scripts/generate-rehearsal-p020.mjs",
+      "size": 2812,
+      "hashMode": "utf8-lf",
+      "sha256": "3847182c7a2d6e6a36c48345daac7a25079cbf0ba256d6307876c56eda6aceb5"
+    },
+    {
+      "path": "scripts/hack-cold-render-check.js",
+      "size": 5627,
+      "hashMode": "utf8-lf",
+      "sha256": "059079439c2dff043082ae736a1e43912f152c913b23b7540be9b9551502e4f4"
+    },
+    {
+      "path": "scripts/phase-c-soak-test.js",
+      "size": 27474,
+      "hashMode": "utf8-lf",
+      "sha256": "29d747286f0f060c3f25ef02cc0e322620547538f6901721748ab55b14d920ca"
+    },
+    {
+      "path": "scripts/prepare-production-pacing.mjs",
+      "size": 7583,
+      "hashMode": "utf8-lf",
+      "sha256": "fec96e268e17837767faa6e8f82fdaef9662971e2250f21f0a9cd1acf715b152"
+    },
+    {
+      "path": "scripts/prepare-production-refresh.mjs",
+      "size": 5390,
+      "hashMode": "utf8-lf",
+      "sha256": "d8791b8749d1a53ea32eda766280ea3617dc630594f2d3ebe742e64503e82196"
+    },
+    {
+      "path": "scripts/prepare-production-reliability.mjs",
+      "size": 2523,
+      "hashMode": "utf8-lf",
+      "sha256": "3057fe1cad6aeb572e5b4d8f22fc8c0f96957ffaa27e13b707cd911290733b62"
+    },
+    {
+      "path": "scripts/production-browser-check.js",
+      "size": 36840,
+      "hashMode": "utf8-lf",
+      "sha256": "e95ab9d7175ac3ecf50253cefef996719def0cd3e2218201036539eb57223be9"
+    },
+    {
+      "path": "scripts/production-reliability-browser-check.js",
+      "size": 25692,
+      "hashMode": "utf8-lf",
+      "sha256": "c947356a521da3d49c5a3af4f8e1400936c181ca5ccf27813fa6177673280881"
+    },
+    {
+      "path": "scripts/production-voice-profile.mjs",
+      "size": 1815,
+      "hashMode": "utf8-lf",
+      "sha256": "da7c1bf96be1b499dc485703b08f0575493f7945d4e09c1ab64682c7a9922904"
+    },
+    {
+      "path": "scripts/projection-performance-check.js",
+      "size": 21820,
+      "hashMode": "utf8-lf",
+      "sha256": "881af2f272822f096a09fe4227f771c17641814985635e49a5601a8f9effa9f9"
+    },
+    {
+      "path": "scripts/puzzle-layout-check.js",
+      "size": 4432,
+      "hashMode": "utf8-lf",
+      "sha256": "5282743e386df07ddea5c273859f8199c97ad60f4020ea8255509dc00a3504bf"
+    },
+    {
+      "path": "scripts/record-production-display.js",
+      "size": 20152,
+      "hashMode": "utf8-lf",
+      "sha256": "dd29d22fda15b7dc8adce5ba542f9e20f7168c2d353eb8edae18797b0af1706b"
+    },
+    {
+      "path": "scripts/recording-cue-caption.js",
+      "size": 1837,
+      "hashMode": "utf8-lf",
+      "sha256": "01094943515fadbd5cd0a0443a508654ceadf1ecc07242db7cd5dfc791db7326"
+    },
+    {
+      "path": "scripts/recording-review.js",
+      "size": 1300,
+      "hashMode": "utf8-lf",
+      "sha256": "6d5ef20803d61f4981ea68603ec8a23d9e99a3c80114203c9e5c9e8eab2e6caa"
+    },
+    {
+      "path": "scripts/rehearsal-revision-browser-check.js",
+      "size": 12573,
+      "hashMode": "utf8-lf",
+      "sha256": "ff61a86b21aee0d54c9b29ced5fe666046311722f2313ee77477f6e4d124861b"
+    },
+    {
+      "path": "scripts/runtime-hardening-check.js",
+      "size": 26242,
+      "hashMode": "utf8-lf",
+      "sha256": "7db502e21783d3a29da738782b1d1c8f848bf8ec6d9990e18645ca31a7d44ddd"
+    },
+    {
+      "path": "scripts/runtime-test-browser.js",
+      "size": 7992,
+      "hashMode": "utf8-lf",
+      "sha256": "6e971cf4bddd35e2d684c7acbd54cf3eed4abb5df6c35d477bd357a466da726e"
+    },
+    {
+      "path": "scripts/set-visual-preset.js",
+      "size": 3188,
+      "hashMode": "utf8-lf",
+      "sha256": "f66a9697937ec860a86941612b2612b7fcc833ab224da65995084e2038dd4d47"
+    },
+    {
+      "path": "scripts/smoke-production-portable.mjs",
+      "size": 2557,
+      "hashMode": "utf8-lf",
+      "sha256": "17debc75f7f746d6f13b2314ae5ce98934b39456fc38cbb5a4fc33017accfc38"
+    },
+    {
+      "path": "scripts/soak-test.js",
+      "size": 24190,
+      "hashMode": "utf8-lf",
+      "sha256": "b16ad18ffc68cb96a74c105fae2feb965a5139ea582d59b97613ae38f5f97d85"
+    },
+    {
+      "path": "scripts/stage-pacing-browser-check.js",
+      "size": 10183,
+      "hashMode": "utf8-lf",
+      "sha256": "d2ae1e33497b99abd23f22d137d8cedb00fb5a5200f291fc1f90542129786cfc"
+    },
+    {
+      "path": "scripts/subtitle-assets-browser-check.js",
+      "size": 13575,
+      "hashMode": "utf8-lf",
+      "sha256": "8c4e1b40b7f48dab1cf63d3f2af15e512ca528278bd04eb0164fd3adaf1df1a3"
+    },
+    {
+      "path": "scripts/sync-production-synthesis-text.mjs",
+      "size": 1961,
+      "hashMode": "utf8-lf",
+      "sha256": "a97875f9411c58be4157c41b06dff69216ae234daef8f2c3885ef722c71b3064"
+    },
+    {
+      "path": "scripts/sync-production-voice-profile.mjs",
+      "size": 613,
+      "hashMode": "utf8-lf",
+      "sha256": "8874584d807bbac228ecfb6bee0669d3b6890508ad663fc506498a8151c99fd0"
+    },
+    {
+      "path": "scripts/sync-subtitle-script-assets.mjs",
+      "size": 3312,
+      "hashMode": "utf8-lf",
+      "sha256": "cc7a4ce2ef5bee3ccb1e45aab37ae721e811410e49eb64a7d832fa9efcd57a9a"
+    },
+    {
+      "path": "scripts/verify-production-emergency-kit.mjs",
+      "size": 3338,
+      "hashMode": "utf8-lf",
+      "sha256": "8881fca53f0b0a120679f1ce333bc70a80cf3b96beecbeb3e39834be9c3c04ac"
+    },
+    {
+      "path": "scripts/verify-production-portability.mjs",
+      "size": 913,
+      "hashMode": "utf8-lf",
+      "sha256": "7044356e1c1e146972c6c511796134611cffce5df6ec222d32b43d94c8f63e3d"
+    },
+    {
+      "path": "scripts/verify-production-recording.mjs",
+      "size": 2352,
+      "hashMode": "utf8-lf",
+      "sha256": "83edd9a274d4c097c343cdf7a8ff05ebcd9451eccb5cd963406dea4f9b630e42"
+    },
+    {
+      "path": "scripts/verify-production-reliability.mjs",
+      "size": 4522,
+      "hashMode": "utf8-lf",
+      "sha256": "9aa9eef249311fa1b7bb4a16615353701d68b053c8e23bf91a590549d6c5f6b1"
+    },
+    {
+      "path": "scripts/verify-production-speech.mjs",
+      "size": 2827,
+      "hashMode": "utf8-lf",
+      "sha256": "0979c53c74b5e10b04c0bd8965d32194c909993ca6ce4a8bbbc5d66dd6a9f565"
+    },
+    {
+      "path": "scripts/verify-production-voice-profile.mjs",
+      "size": 700,
+      "hashMode": "utf8-lf",
+      "sha256": "e3b750d683164ff7aeefb5640c821199ffbaab17591f2ea9104979449c6e8cd0"
+    },
+    {
+      "path": "scripts/verify-subtitle-production.mjs",
+      "size": 3959,
+      "hashMode": "utf8-lf",
+      "sha256": "10c71a75778bc4a419e86a5a95078b2776992d656fed9abdf14454c6fa336543"
+    },
+    {
+      "path": "scripts/windows-loopback-capture.cs",
+      "size": 10612,
+      "hashMode": "utf8-lf",
+      "sha256": "b00e54f0365ac7900a3e1d95534dfdadf103bfb9d661006e5e891daed1ba3f7e"
+    },
+    {
+      "path": "setup-production-offline.cmd",
+      "size": 151,
+      "hashMode": "utf8-lf",
+      "sha256": "7466d82d4ac99df12deb4c225afbde9f699d25525da37993c37ebfc86863e7d5"
+    },
+    {
+      "path": "setup-production-offline.ps1",
+      "size": 2702,
+      "hashMode": "utf8-lf",
+      "sha256": "5d45982d2f923582e12393b53cb30169aa88f5028c4686129666f72c3c47f2ef"
+    },
+    {
+      "path": "shows/phase-a-demo.json",
+      "size": 14690,
+      "hashMode": "utf8-lf",
+      "sha256": "cf1ae174bddbaf3931d12b667cee35bbf861de2252a43e21f3465c379fbd1da0"
+    },
+    {
+      "path": "shows/production-yokogawa-route.json",
+      "size": 9479,
+      "hashMode": "utf8-lf",
+      "sha256": "49c53d5038dfc1af9f32201e5f7e8715f61981c3f7cf465e326a7e687d17bffb"
+    },
+    {
+      "path": "shows/production.json",
+      "size": 68467,
+      "hashMode": "utf8-lf",
+      "sha256": "10c968600957bcc2a231354ebb44506fb6000b5334e18aa6e0e521f115594c83"
+    },
+    {
+      "path": "src/audio/production-cue-timing.js",
+      "size": 989,
+      "hashMode": "utf8-lf",
+      "sha256": "72eb8acf32a6b97b31cb1be55b77d5e463751122b167800a8e154ebcd1a7721c"
+    },
+    {
+      "path": "src/audio/production-tools.js",
+      "size": 10506,
+      "hashMode": "utf8-lf",
+      "sha256": "4a0c45913b58c82ddffb55b5655fe4193a04ba30454d1fe85e5d8e56c12a00fc"
+    },
+    {
+      "path": "src/audio/speech-composer.js",
+      "size": 4884,
+      "hashMode": "utf8-lf",
+      "sha256": "819561c96dccd07d364b05a81705e04fff6295581f4e79a4c975edd71959c46a"
+    },
+    {
+      "path": "src/audio/wav-analysis.js",
+      "size": 2109,
+      "hashMode": "utf8-lf",
+      "sha256": "2f92c76702ec82d4f5b10a737003aa1da28288640f733415e4c2d8ae9327a981"
+    },
+    {
+      "path": "src/cue-completion.js",
+      "size": 2488,
+      "hashMode": "utf8-lf",
+      "sha256": "85f926265ce0aefe3d6b78ee21a10bb85d5614e3508ea0caf92dc254e4a6cd83"
+    },
+    {
+      "path": "src/cue-scheduler.js",
+      "size": 1239,
+      "hashMode": "utf8-lf",
+      "sha256": "7a4a617bfda8d87a9bdde02718618032f282d6ede7deabcd197240a30003804e"
+    },
+    {
+      "path": "src/json-storage.js",
+      "size": 1635,
+      "hashMode": "utf8-lf",
+      "sha256": "15b565b550fd3f7162cde224cfa7ea3d62d540869ad2b728d97b0ef6fdcfb3f5"
+    },
+    {
+      "path": "src/local-audio.js",
+      "size": 1893,
+      "hashMode": "utf8-lf",
+      "sha256": "29c4be8ba0a01ae3c2a1633e007539424f957facf6417d7d94ce50332ed609bb"
+    },
+    {
+      "path": "src/logger.js",
+      "size": 873,
+      "hashMode": "utf8-lf",
+      "sha256": "4b5e5924cf324114a6849d968a69b75b362e4e0ebf3df3031a2525a91c2b2f67"
+    },
+    {
+      "path": "src/network.js",
+      "size": 2019,
+      "hashMode": "utf8-lf",
+      "sha256": "c90a2b900513fa20a836197bdcd503580faac5718e9f694c66dcd0db688d0ff9"
+    },
+    {
+      "path": "src/production-asset-slots.js",
+      "size": 5839,
+      "hashMode": "utf8-lf",
+      "sha256": "5a60c2bfe0a6f44e1134fc0fcae1f71c654431a184bf1addd8d6b38aca94c0b1"
+    },
+    {
+      "path": "src/server.js",
+      "size": 48286,
+      "hashMode": "utf8-lf",
+      "sha256": "571964baf67b13508cfbb6534c4ccdb9bb5b755c4021ea23c6edd92896707a6c"
+    },
+    {
+      "path": "src/show-schema.js",
+      "size": 19065,
+      "hashMode": "utf8-lf",
+      "sha256": "93645add08a5a8cc1410e36d971203f3284632157a4ca9bf0c84439a4501b1b7"
+    },
+    {
+      "path": "src/state-store.js",
+      "size": 55939,
+      "hashMode": "utf8-lf",
+      "sha256": "51531fe1006fedb6c6ca9247a7425781bf31800755d4a044c98c3b5b43042a8c"
+    },
+    {
+      "path": "src/tts/aivis-speech-client.js",
+      "size": 3837,
+      "hashMode": "utf8-lf",
+      "sha256": "07984c50e290f52985f5e2233116de66d55184c009351603643bd012b7c5dace"
+    },
+    {
+      "path": "src/tts/local-tts-service.js",
+      "size": 2478,
+      "hashMode": "utf8-lf",
+      "sha256": "a9e8e0bd5eac08d61f7b04e7e501f539f740b0302c85f7443285a6bf338afd9e"
+    },
+    {
+      "path": "src/tts/runtime-audio-cache.js",
+      "size": 1705,
+      "hashMode": "utf8-lf",
+      "sha256": "28e52cdc4df62b8106d6c310dc5d08e2d6dfb2a6242c88e763201f7488e88393"
+    },
+    {
+      "path": "src/voice-profile.js",
+      "size": 1875,
+      "hashMode": "utf8-lf",
+      "sha256": "2183f3428d0778fee5800823baecfae8bb8b5849755d79cbba1b55d138f404ce"
+    },
+    {
+      "path": "start-yokogawa-ai-single-pc.cmd",
+      "size": 649,
+      "hashMode": "utf8-lf",
+      "sha256": "ca7fa68bf76b7a0d9041fd03449748f5e90ceb29e1b180ef1acd866f899f555f"
+    },
+    {
+      "path": "start-yokogawa-ai.cmd",
+      "size": 372,
+      "hashMode": "utf8-lf",
+      "sha256": "5ffeb2d60e562aacba81736d1f7b8a349939c7e73f8c5bf7570d191ad6685693"
+    },
+    {
+      "path": "vendor/README.md",
+      "size": 841,
+      "hashMode": "utf8-lf",
+      "sha256": "93dba3dc9de904e773a323b4861ab9c348f3139d72b4d0367518aa258e015058"
+    },
+    {
+      "path": "vendor/node-SHASUMS256-v22.15.0.txt",
+      "size": 3777,
+      "hashMode": "utf8-lf",
+      "sha256": "42c7a78f52b6ae792d01252af908a8febc461ed6fb98be80571d303cd43ea067"
+    },
+    {
+      "path": "vendor/node-v22.15.0-win-x64.zip",
+      "size": 35137600,
+      "hashMode": "binary",
+      "sha256": "06067d4f0d463f90ed803d5eca5b039a05dec5d70fc7b7cc254803a59bd0e27c"
+    },
+    {
+      "path": "vendor/production-node-modules.zip",
+      "size": 1424100,
+      "hashMode": "binary",
+      "sha256": "5d3caee50f4d23f8528dbf012d5caeaf50f9dd058b721c04f0d6530772a9d28f"
+    },
+    {
+      "path": "vendor/runtime-manifest.json",
+      "size": 571,
+      "hashMode": "utf8-lf",
+      "sha256": "5b576ffa64dc272691abc42f4a0b6ffd8c51c834615fc7efe5725a331569cf0c"
+    }
+  ]
+}
