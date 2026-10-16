@@ -11,6 +11,7 @@ import {finiteCueDuration} from '../src/cue-completion.js';
 
 const output=path.resolve(process.argv[2]||'production-backup');
 for(const dir of ['audio','visual','puzzles'])await fs.mkdir(path.join(output,dir),{recursive:true});
+await fs.copyFile('docs/production/emergency-backup-operation-20261016.md',path.join(output,'README.md'));
 const labels=JSON.parse(await fs.readFile('config/production-backup-cue-labels.json','utf8'));
 const byNumber=new Map(labels.labels.map(line=>{const label=line.replace(/^AI[：:]\s*/,''),number=label.split('｜')[0];return[number,{label,scriptLine:line}];}));
 const temp=await fs.mkdtemp(path.join(os.tmpdir(),'yokogawa-emergency-kit-')),port=await freePort(),debug=await freePort(),base=`http://127.0.0.1:${port}`;

@@ -5,7 +5,7 @@ out = root / 'artifacts/audio-reliability-20261014/handoff-20261016'
 out.mkdir(parents=True, exist_ok=True)
 jobs = [('横川AI_音響映像予備一式.zip', [p for p in (root / 'production-backup').rglob('*') if p.is_file()])]
 manifest = json.loads((root / 'config/production-portable-files.json').read_text(encoding='utf-8'))
-jobs.append(('横川AI_別PC本番一式_Windows-x64.zip', [root / item['path'] for item in manifest['files']] + [root / 'config/production-portable-files.json']))
+jobs.append(('横川AI_別PC本番一式_Node導入済み.zip', [root / item['path'] for item in manifest['files']] + [root / 'config/production-portable-files.json']))
 results = []
 for name, files in jobs:
     target = out / name

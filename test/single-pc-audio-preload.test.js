@@ -123,8 +123,7 @@ test('Single-PC launcherはServerをloopbackだけへbindする', async () => {
   const command = await readFile('start-yokogawa-ai-single-pc.cmd', 'utf8');
   assert.match(command, /HOST=127\.0\.0\.1/);
   assert.match(command, /AIVIS_ENGINE_URL=http:\/\/127\.0\.0\.1:10101/);
-  assert.match(command, /"%YOKOGAWA_NODE%" src\/server\.js/);
-  assert.match(command, /node-v22\.15\.0-win-x64/);
+  assert.match(command, /node src\/server\.js/);
   const server = await readFile('src/server.js', 'utf8');
   assert.match(server, /singlePcMode/);
   assert.match(server, /runtimeConnectionInfo/);

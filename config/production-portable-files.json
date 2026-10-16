@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "description": "Versioned Production runtime/assets, authoring tools, emergency kit and offline prerequisites. No history, credentials or machine-specific browser profile.",
+  "description": "Production sources/assets and lockfile. Node.js 20+ is preinstalled; npm ci --omit=dev installs dependencies. Emergency media are distributed separately through Drive. No runtime binaries, node_modules, credentials or browser profile.",
   "files": [
     {
       "path": ".gitattributes",
@@ -10,21 +10,15 @@
     },
     {
       "path": ".gitignore",
-      "size": 1506,
+      "size": 1535,
       "hashMode": "binary",
-      "sha256": "495fbc89ec8aa074c206f72b9a4e7dff9a2cb118ec11160a2a5f8e452ba91138"
-    },
-    {
-      "path": ".node-version",
-      "size": 8,
-      "hashMode": "utf8-lf",
-      "sha256": "e1677620f62097e30fac6695180333d8eb9ead4fe5b1d1d6e01b76e049780059"
+      "sha256": "325466ee39f14c3e065bb81e01b8fe148416ff7adcad5123918a8074ac374117"
     },
     {
       "path": "README.md",
-      "size": 16841,
+      "size": 16927,
       "hashMode": "utf8-lf",
-      "sha256": "615c7e69fed5fc45efc1ae0eff7fbd689034c39d1db1f4b1334fcaa223a76623"
+      "sha256": "acba08c4167256b1f7738c7a6196ad5fbc2bb432bff24fc0e8d257b486a18718"
     },
     {
       "path": "config/production-backup-cue-labels.json",
@@ -63,10 +57,16 @@
       "sha256": "b1c3fccee24ea52c0d2713fdaa51ec66b6e32edf96ffecb44a1b0dce7d740e34"
     },
     {
-      "path": "docs/production/production-handoff-20261016.md",
-      "size": 3399,
+      "path": "docs/production/emergency-backup-operation-20261016.md",
+      "size": 4945,
       "hashMode": "utf8-lf",
-      "sha256": "07b0d8d0d038c935d3d84419d1fe2a4dc70d0db8075735589c8e9f1662368aa4"
+      "sha256": "ad6dec2504e61ba6835f121b32de7936c7a65dbce444cb14357b9cb6fa606ec0"
+    },
+    {
+      "path": "docs/production/production-handoff-20261016.md",
+      "size": 4227,
+      "hashMode": "utf8-lf",
+      "sha256": "a806ec40cc398d15661b22dd66de9fdfd602d7dedd42685cbf89a79d41817ffc"
     },
     {
       "path": "docs/production/rehearsal-revision-operation-20261014.md",
@@ -91,306 +91,6 @@
       "size": 5711,
       "hashMode": "utf8-lf",
       "sha256": "41eb94dc46a6412239a7c4a89519d5e3354d507f4ffebd274eacf71b70bda10c"
-    },
-    {
-      "path": "production-backup/Cue一覧.csv",
-      "size": 5084,
-      "hashMode": "binary",
-      "sha256": "f9ac0252439c9af465290bd1208daaf4a47a1f4c9e4bcd71aff9dcb313df6d63"
-    },
-    {
-      "path": "production-backup/README.md",
-      "size": 4945,
-      "hashMode": "binary",
-      "sha256": "ad6dec2504e61ba6835f121b32de7936c7a65dbce444cb14357b9cb6fa606ec0"
-    },
-    {
-      "path": "production-backup/SHA256SUMS.tsv",
-      "size": 5263,
-      "hashMode": "binary",
-      "sha256": "f557087b4b7dd787cdd03e72158df1f39cf177e1017fa67f2d7310e49c6785e1"
-    },
-    {
-      "path": "production-backup/asset-slots.json",
-      "size": 3573,
-      "hashMode": "binary",
-      "sha256": "00edc8cd233f77a3038d437b87cadcdc9ad01a80ef16a2a7e9063c1600b0dcb9"
-    },
-    {
-      "path": "production-backup/audio/P-001｜横川AI 起動.wav",
-      "size": 1432368,
-      "hashMode": "binary",
-      "sha256": "8965e68cba325507d8bcbe4d5cf35a67399c912f6bbc987e327ff683e768ebe2"
-    },
-    {
-      "path": "production-backup/audio/P-002｜参加者の照会.wav",
-      "size": 1026340,
-      "hashMode": "binary",
-      "sha256": "ec0d1432edc724eb5eef385afde1486195bf6ba8deac2bf7b414530bffbf369e"
-    },
-    {
-      "path": "production-backup/audio/P-003｜情報照合・セキュリティ説明.wav",
-      "size": 3334468,
-      "hashMode": "binary",
-      "sha256": "6f67e541ef4296027ba8f070b6cd55dcbe5799a76d41be45d6094754f7e4e869"
-    },
-    {
-      "path": "production-backup/audio/P-004｜プリンキピア説明 → HACK.wav",
-      "size": 3861920,
-      "hashMode": "binary",
-      "sha256": "13b80c0c67514b1673a6796fd7eb57129ebeb426a619403e5148286fb7758e32"
-    },
-    {
-      "path": "production-backup/audio/P-005｜外部通信を拒否.wav",
-      "size": 505748,
-      "hashMode": "binary",
-      "sha256": "9cd6c8b1419734ce2c2e2f98be17b9203e078537381f81c24642737d7c7f4794"
-    },
-    {
-      "path": "production-backup/audio/P-006｜命令を拒否.wav",
-      "size": 299916,
-      "hashMode": "binary",
-      "sha256": "3aa7b4e8c69177a83deef1d44e9188d3b08edf5958cc39c0340069a3d3ed5a99"
-    },
-    {
-      "path": "production-backup/audio/P-007｜認証を拒否.wav",
-      "size": 320728,
-      "hashMode": "binary",
-      "sha256": "1e11e2075b084e9c4ae1ad3d0776a1676cfdf482a1f34ba28ec497225a842a4d"
-    },
-    {
-      "path": "production-backup/audio/P-008｜五つの謎・脱出条件.wav",
-      "size": 1016228,
-      "hashMode": "binary",
-      "sha256": "ca830fd11ac3ce4325829d5f4a80c9a897420e00517018c55d801dc2b53bc324"
-    },
-    {
-      "path": "production-backup/audio/P-011｜五つ達成 → 統合 → 最終問題.wav",
-      "size": 1724684,
-      "hashMode": "binary",
-      "sha256": "334c088790398e0832e7014fc1cf1322763ccd765a93a3907324d2def6db9a3e"
-    },
-    {
-      "path": "production-backup/audio/P-012｜認証成功 → 解錠 → 異常.wav",
-      "size": 829100,
-      "hashMode": "binary",
-      "sha256": "46d85471affc8b2a611c80df5dd276f636f1e1daa680e9716bcda7b336455043"
-    },
-    {
-      "path": "production-backup/audio/P-013｜緊急遮断・連絡失敗.wav",
-      "size": 2271768,
-      "hashMode": "binary",
-      "sha256": "1ecb11a17fb1f9adb8c2dc9aa32be7af52b2a08b74788335114255dfc1bb724b"
-    },
-    {
-      "path": "production-backup/audio/P-014｜スタッフへの連絡失敗.wav",
-      "size": 1117640,
-      "hashMode": "binary",
-      "sha256": "e0a5454e75749e723792eca00867e040623f9ef3b15697bbfd960230945e6a7b"
-    },
-    {
-      "path": "production-backup/audio/P-015｜機械設備の強制暴走.wav",
-      "size": 826924,
-      "hashMode": "binary",
-      "sha256": "fb378da5f5b82d4f547bf90a9104624123dc5c72a07ca62c579fd3cddc9f79b0"
-    },
-    {
-      "path": "production-backup/audio/P-019｜記入用紙の案内.wav",
-      "size": 1208372,
-      "hashMode": "binary",
-      "sha256": "d8d2068749cd7407d932846de72644273d2192c5ffb2a914086e0932f0b0255b"
-    },
-    {
-      "path": "production-backup/audio/P-020｜全館の扉・解錠確認.wav",
-      "size": 499228,
-      "hashMode": "binary",
-      "sha256": "0862f4faa78a1fe7e52e6ce089156a23dc894ee02fca25226756897f9ee26740"
-    },
-    {
-      "path": "production-backup/audio/P-V02｜第一の謎を提示.wav",
-      "size": 467836,
-      "hashMode": "binary",
-      "sha256": "7afa8295c23479ba4997ec442c21769384c351056b2c3dd5bffca26a46465462"
-    },
-    {
-      "path": "production-backup/audio/P-V04｜危険状態・警報.wav",
-      "size": 192044,
-      "hashMode": "binary",
-      "sha256": "ede1f6dd33abfce7bb3a45ba79b0ab5f8baae692709dd32214a41da9af55ab13"
-    },
-    {
-      "path": "production-backup/audio/P-V05｜非常停止問題を提示.wav",
-      "size": 192044,
-      "hashMode": "binary",
-      "sha256": "ede1f6dd33abfce7bb3a45ba79b0ab5f8baae692709dd32214a41da9af55ab13"
-    },
-    {
-      "path": "production-backup/audio/P-V06｜停止コード → 全停止・解放.wav",
-      "size": 1318508,
-      "hashMode": "binary",
-      "sha256": "42ec966739d356d92718fd18e180f3ed0fd1053a215a97ffd468beb91106858c"
-    },
-    {
-      "path": "production-backup/audio/P-V07｜復旧 → NORMAL.wav",
-      "size": 1290092,
-      "hashMode": "binary",
-      "sha256": "c0eb4d202fcff66d78d3db428671e45d9566c106a5fc03c7e41fe0c637bd4a32"
-    },
-    {
-      "path": "production-backup/manifest.json",
-      "size": 24501,
-      "hashMode": "binary",
-      "sha256": "93f0b96e13bfcea1eebb9b522a5a3c4bddd26b5730257b35252b5ce11bb87215"
-    },
-    {
-      "path": "production-backup/puzzles/production-puzzle-01.png",
-      "size": 960047,
-      "hashMode": "binary",
-      "sha256": "e3b720f417552876d8309bc0f5ff6296f7a416c429571b8e05e1414bb7214f2f"
-    },
-    {
-      "path": "production-backup/puzzles/production-puzzle-06.png",
-      "size": 1086614,
-      "hashMode": "binary",
-      "sha256": "50ff8e52fdf0b10364e2167aa2f78d9b400f9ccd3b2f42dd920d231eb704e1e0"
-    },
-    {
-      "path": "production-backup/puzzles/production-puzzle-07.png",
-      "size": 1131663,
-      "hashMode": "binary",
-      "sha256": "ccde2cb0a4ab3bb24095789530af9a251e609fc3f9e703c6c943c068a85b976d"
-    },
-    {
-      "path": "production-backup/resolved-production-show.json",
-      "size": 86371,
-      "hashMode": "binary",
-      "sha256": "5b7de4f787dc49adf799c888ae39786a1ee42563f4a0e9ba144e27bbda80bde0"
-    },
-    {
-      "path": "production-backup/validation.json",
-      "size": 6572,
-      "hashMode": "binary",
-      "sha256": "ae713a62c3614bf757b4fff38a9804b3f97162b7a302093a0bc41b47d27555c0"
-    },
-    {
-      "path": "production-backup/visual/01_P-001｜横川AI 起動.png",
-      "size": 1478627,
-      "hashMode": "binary",
-      "sha256": "b55aa894369d22005bf6cda9e346a1105471eb4e0f6d684ed2afb14ecb55ef6c"
-    },
-    {
-      "path": "production-backup/visual/02_P-002｜参加者の照会.png",
-      "size": 1478559,
-      "hashMode": "binary",
-      "sha256": "80d63fe3b167a470b507b05dbcf24c599e3a15775b9a9763ee5a1c2edd7accb9"
-    },
-    {
-      "path": "production-backup/visual/03_P-003｜情報照合・セキュリティ説明.png",
-      "size": 1478542,
-      "hashMode": "binary",
-      "sha256": "45a7585ad3ef43e250f0889c037298c78f68fca47aaa18b6005db9b9246241f1"
-    },
-    {
-      "path": "production-backup/visual/04_P-004｜プリンキピア説明 → HACK.png",
-      "size": 1703381,
-      "hashMode": "binary",
-      "sha256": "fde7ed0b5a1a2416748f4978537291af006b629b6dcaa629a4c098dbef330c2b"
-    },
-    {
-      "path": "production-backup/visual/05_P-005｜外部通信を拒否.png",
-      "size": 1603455,
-      "hashMode": "binary",
-      "sha256": "853b3511f6067e8300ae19eef60b1f561e450e392df30a6b25b717b2e3b55df1"
-    },
-    {
-      "path": "production-backup/visual/06_P-006｜命令を拒否.png",
-      "size": 1703418,
-      "hashMode": "binary",
-      "sha256": "a119209ddd18eb500b4154670a95b0884ab130c53bea45be4605d1f5e62d04b7"
-    },
-    {
-      "path": "production-backup/visual/07_P-007｜認証を拒否.png",
-      "size": 1702311,
-      "hashMode": "binary",
-      "sha256": "b53fb1dd1ac349f17c07c5e33c26b0d65c3709de90337d2a02a0388957d9acd3"
-    },
-    {
-      "path": "production-backup/visual/08_P-008｜五つの謎・脱出条件.png",
-      "size": 1703486,
-      "hashMode": "binary",
-      "sha256": "8d7d1770faeb393a3545754c9ea058ef5e12750c47efbf6f9866700f9b42cb10"
-    },
-    {
-      "path": "production-backup/visual/09_P-019｜記入用紙の案内.png",
-      "size": 1703425,
-      "hashMode": "binary",
-      "sha256": "74e7e1ec279b7b4ff19943214da3f5ec9fe236567d7022010573201da3f66696"
-    },
-    {
-      "path": "production-backup/visual/10_P-V02｜第一の謎を提示.png",
-      "size": 986450,
-      "hashMode": "binary",
-      "sha256": "bbe9c99895cec0ef1d466d17742f43525660e75dda4bb99904603d3b95e72380"
-    },
-    {
-      "path": "production-backup/visual/11_P-011｜五つ達成 → 統合 → 最終問題.png",
-      "size": 2141927,
-      "hashMode": "binary",
-      "sha256": "8c4758d1c933a96fe029a0a700f97d7145707aaf75a979134e698ca94620aced"
-    },
-    {
-      "path": "production-backup/visual/12_P-012｜認証成功 → 解錠 → 異常.png",
-      "size": 1574859,
-      "hashMode": "binary",
-      "sha256": "d6a35ed235bd927cd44a5ed19282676f56ecbf0602b231e5c85072e75a918cd8"
-    },
-    {
-      "path": "production-backup/visual/13_P-013｜緊急遮断・連絡失敗.png",
-      "size": 1578647,
-      "hashMode": "binary",
-      "sha256": "6199630432c6bf8b795b9669aed8314bbef947cc4c7721d7bc501c519ececabd"
-    },
-    {
-      "path": "production-backup/visual/14_P-014｜スタッフへの連絡失敗.png",
-      "size": 1569464,
-      "hashMode": "binary",
-      "sha256": "f0ef00ba4d68fc986179cf53d7cdc6df121f50b33c7c1adfd1521730d0996602"
-    },
-    {
-      "path": "production-backup/visual/15_P-V04｜危険状態・警報.png",
-      "size": 1477841,
-      "hashMode": "binary",
-      "sha256": "8e6a5b7f2b5785b4a1332cd56bebbaf1387bab66e4ddbaa4936ed1c3e9d834da"
-    },
-    {
-      "path": "production-backup/visual/16_P-015｜機械設備の強制暴走.png",
-      "size": 1477972,
-      "hashMode": "binary",
-      "sha256": "c23be5af3f06372ff351123762400cf3d96d1a0de4e74c00f8a834c5f297765a"
-    },
-    {
-      "path": "production-backup/visual/17_P-V05｜非常停止問題を提示.png",
-      "size": 2307308,
-      "hashMode": "binary",
-      "sha256": "5abace117a501c5bfd6e2a09a120631caa2ddb14913b86aae6ecb6dc87a5d390"
-    },
-    {
-      "path": "production-backup/visual/18_P-V06｜停止コード → 全停止・解放.png",
-      "size": 431187,
-      "hashMode": "binary",
-      "sha256": "58cfb5c2ba23341f69287185749bd173a672089bbc006754a91613c340ee5f5d"
-    },
-    {
-      "path": "production-backup/visual/19_P-V07｜復旧 → NORMAL.png",
-      "size": 1478612,
-      "hashMode": "binary",
-      "sha256": "0953c814e804e70d87534d16804ce4944ccafe208afc335e3157570b455988be"
-    },
-    {
-      "path": "production-backup/visual/20_P-020｜全館の扉・解錠確認.png",
-      "size": 1478516,
-      "hashMode": "binary",
-      "sha256": "2a2b8281a4d887bc53e9f8e3922959e6a3f64c96e8fe7a31ce1a69fe92e315f5"
     },
     {
       "path": "public/admin.html",
@@ -1426,9 +1126,9 @@
     },
     {
       "path": "scripts/archive-production-handoff.py",
-      "size": 1370,
+      "size": 1375,
       "hashMode": "utf8-lf",
-      "sha256": "c3e8dd677e742b67c83777031bb7f94bd1d316e987dd4ce3270d6362aeb96690"
+      "sha256": "9705548358c2aeac96e7db7fbc1201c2e0da8daef570ae21ff1afffc1633abf0"
     },
     {
       "path": "scripts/audio-owner-ab-check.js",
@@ -1455,16 +1155,10 @@
       "sha256": "c3378f234e47c8a986823cb0576b27f7dc29870a33e46447d4ca8e9a0df7fb83"
     },
     {
-      "path": "scripts/build-portable-runtime.py",
-      "size": 1601,
-      "hashMode": "utf8-lf",
-      "sha256": "96a6c96bdaaf3031cadc16f6ef9d93dbef8eb132ead706775e40612734d03190"
-    },
-    {
       "path": "scripts/build-production-portable-manifest.mjs",
-      "size": 1710,
+      "size": 1759,
       "hashMode": "utf8-lf",
-      "sha256": "bf8f0f005b0e13ed2ae87eaa0d384ca03eb1f015332f532c4eafaf78be5c2a6b"
+      "sha256": "c82469df657528b642f542a1f14150d85e9f3cf74db9f4506c310c3f4c8a0184"
     },
     {
       "path": "scripts/build-production-show.mjs",
@@ -1510,9 +1204,9 @@
     },
     {
       "path": "scripts/export-production-emergency-kit.mjs",
-      "size": 9063,
+      "size": 9170,
       "hashMode": "utf8-lf",
-      "sha256": "ba5982f14d4b9235360c5e1b437150dfadc1b60a9e60d4d9f24b51ac29907aea"
+      "sha256": "349f89a461af525d7426d5ce2b3c16901381cf968668d6a3d51e8c6e9cfa30c2"
     },
     {
       "path": "scripts/generate-production-speech.mjs",
@@ -1630,9 +1324,9 @@
     },
     {
       "path": "scripts/smoke-production-portable.mjs",
-      "size": 2557,
+      "size": 2443,
       "hashMode": "utf8-lf",
-      "sha256": "17debc75f7f746d6f13b2314ae5ce98934b39456fc38cbb5a4fc33017accfc38"
+      "sha256": "4822eb8320395b3513e234447cd639cf8214d1184f089c87f235f96d19303a19"
     },
     {
       "path": "scripts/soak-test.js",
@@ -1719,16 +1413,10 @@
       "sha256": "b00e54f0365ac7900a3e1d95534dfdadf103bfb9d661006e5e891daed1ba3f7e"
     },
     {
-      "path": "setup-production-offline.cmd",
-      "size": 151,
+      "path": "setup-production.cmd",
+      "size": 423,
       "hashMode": "utf8-lf",
-      "sha256": "7466d82d4ac99df12deb4c225afbde9f699d25525da37993c37ebfc86863e7d5"
-    },
-    {
-      "path": "setup-production-offline.ps1",
-      "size": 2702,
-      "hashMode": "utf8-lf",
-      "sha256": "5d45982d2f923582e12393b53cb30169aa88f5028c4686129666f72c3c47f2ef"
+      "sha256": "3317f12fa942cade322ecd989b575811ee214b9d29996cf303d0acd532e70a8b"
     },
     {
       "path": "shows/phase-a-demo.json",
@@ -1858,45 +1546,15 @@
     },
     {
       "path": "start-yokogawa-ai-single-pc.cmd",
-      "size": 649,
+      "size": 480,
       "hashMode": "utf8-lf",
-      "sha256": "ca7fa68bf76b7a0d9041fd03449748f5e90ceb29e1b180ef1acd866f899f555f"
+      "sha256": "56058a153bcb3529487786065c78c633c1830f7646b8fdfe64f12576478f2952"
     },
     {
       "path": "start-yokogawa-ai.cmd",
-      "size": 372,
+      "size": 205,
       "hashMode": "utf8-lf",
-      "sha256": "5ffeb2d60e562aacba81736d1f7b8a349939c7e73f8c5bf7570d191ad6685693"
-    },
-    {
-      "path": "vendor/README.md",
-      "size": 841,
-      "hashMode": "utf8-lf",
-      "sha256": "93dba3dc9de904e773a323b4861ab9c348f3139d72b4d0367518aa258e015058"
-    },
-    {
-      "path": "vendor/node-SHASUMS256-v22.15.0.txt",
-      "size": 3777,
-      "hashMode": "utf8-lf",
-      "sha256": "42c7a78f52b6ae792d01252af908a8febc461ed6fb98be80571d303cd43ea067"
-    },
-    {
-      "path": "vendor/node-v22.15.0-win-x64.zip",
-      "size": 35137600,
-      "hashMode": "binary",
-      "sha256": "06067d4f0d463f90ed803d5eca5b039a05dec5d70fc7b7cc254803a59bd0e27c"
-    },
-    {
-      "path": "vendor/production-node-modules.zip",
-      "size": 1424100,
-      "hashMode": "binary",
-      "sha256": "5d3caee50f4d23f8528dbf012d5caeaf50f9dd058b721c04f0d6530772a9d28f"
-    },
-    {
-      "path": "vendor/runtime-manifest.json",
-      "size": 571,
-      "hashMode": "utf8-lf",
-      "sha256": "5b576ffa64dc272691abc42f4a0b6ffd8c51c834615fc7efe5725a331569cf0c"
+      "sha256": "768f86145c349c47b5e215a6b25f4ebc7dbd0968141a43cb0c382067f75e8334"
     }
   ]
 }
