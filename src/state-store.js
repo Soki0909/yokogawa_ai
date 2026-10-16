@@ -361,7 +361,7 @@ export class StateStore {
     const items = [];
     const add = (id, label, status, detail) => items.push({ id, label, status, detail });
     add('server', 'サーバー', 'ok', '正常稼働中');
-    for (const slot of this.productionAssetSlots ?? []) if ((slot.optional && this.state.cues.some(c=>c.recoverySfx)) || this.state.assets.some(asset => asset.id === slot.assetId && asset.slot === slot.id)) add(`asset-slot:${slot.id}`, slot.label, slot.status === 'READY' ? 'ok' : 'warning', `${slot.status} — ${slot.path} / ${slot.detail}`);
+    for (const slot of this.productionAssetSlots ?? []) if ((slot.optional && this.state.cues.some(c=>c[slot.cueProperty])) || this.state.assets.some(asset => asset.id === slot.assetId && asset.slot === slot.id)) add(`asset-slot:${slot.id}`, slot.label, slot.status === 'READY' ? 'ok' : 'warning', `${slot.status} — ${slot.path} / ${slot.detail}`);
     add('cues', 'Cueデータ', this.state.cues.length ? 'ok' : 'error', `${this.state.cues.length}件`);
     const showValidation = validateShowFile(this.exportShowFile());
     add('show-schema', `Show File Schema v${SHOW_SCHEMA_VERSION}`, showValidation.valid ? 'ok' : 'error', showValidation.valid ? '参照整合性OK' : showValidation.errors.join(', '));

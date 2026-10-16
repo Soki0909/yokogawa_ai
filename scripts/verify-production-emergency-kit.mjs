@@ -3,6 +3,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {analysePcmWav} from '../src/audio/wav-analysis.js';
+import {playbackDurationSeconds} from '../public/js/audio-playback-effects.js';
 const root='production-backup',m=JSON.parse(await fs.readFile(root+'/manifest.json'));
 const labels=JSON.parse(await fs.readFile('config/production-backup-cue-labels.json'));
 assert.equal(m.cues.length,20);assert.deepEqual(m.cues.map(c=>c.scriptLine),labels.labels);
@@ -14,8 +15,8 @@ for(const cue of m.cues){
  assert.ok(Math.abs(wav.durationSeconds-cue.durationSeconds)<1/48000);
  if(cue.hasSound)assert.ok(wav.rms>0.0001);else assert.equal(wav.peak,0);
  let expectedEnd=cue.hasSound?0:1;
- for(const part of cue.parts){const source=await fs.readFile('public/'+part.path);assert.equal(hash(source),part.sha256);expectedEnd=Math.max(expectedEnd,part.atMs/1000+analysePcmWav(source).durationSeconds+(part.effect==='none'?0:.15));}
- assert.ok(Math.abs(wav.durationSeconds-expectedEnd)<=1/48000+1e-8,'Entire source including delayed SE/effect tail retained');
+ for(const part of cue.parts){const source=await fs.readFile('public/'+part.path);assert.equal(hash(source),part.sha256);expectedEnd=Math.max(expectedEnd,part.atMs/1000+playbackDurationSeconds(analysePcmWav(source).durationSeconds,part.maxDurationMs)+(part.effect==='none'?0:.15));}
+ assert.ok(Math.abs(wav.durationSeconds-expectedEnd)<=1/48000+1e-8,'Configured playback window including delayed SE/effect tail retained');
  if(cue.parts.length){const samplesBefore=Math.floor(Math.min(...cue.parts.map(p=>p.atMs))*48)*4;assert.ok(bytes.subarray(44,44+samplesBefore).every(v=>v===0),'Leading Cue delay must be exact digital silence');}
  const image=await fs.readFile(path.join(root,'visual',cue.visualFile));assert.equal(image.readUInt32BE(16),1920);assert.equal(image.readUInt32BE(20),1080);
  results.push({cue:cue.cueNumber,durationSeconds:wav.durationSeconds,peak:wav.peak,hasSound:cue.hasSound,audioSha256:wav.sha256,visualSha256:hash(image)});

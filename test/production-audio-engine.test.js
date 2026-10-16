@@ -4,7 +4,7 @@ import {ProductionAudioEngine,BufferedSpeechProvider,BufferedSfxPlayer,outputLea
 
 function fixture(){
  const calls=[];const contexts=[];let requests=0,decodes=0;
- class Node{constructor(type){this.type=type;this.gain={value:1};this.offset={value:1};}connect(){calls.push('connect:'+this.type);}disconnect(){calls.push('disconnect:'+this.type);}start(){calls.push('start:'+this.type);}stop(){calls.push('stop:'+this.type);}}
+ class Node{constructor(type){this.type=type;this.gain={value:1,setValueAtTime:(...args)=>calls.push(['gain',...args]),linearRampToValueAtTime:(...args)=>calls.push(['ramp',...args])};this.offset={value:1};}connect(){calls.push('connect:'+this.type);}disconnect(){calls.push('disconnect:'+this.type);}start(...args){this.startArgs=args;calls.push('start:'+this.type);}stop(){calls.push('stop:'+this.type);}}
  class Context{
   constructor(){this.state='suspended';this.clock=0;this.destination={};contexts.push(this);}
   get currentTime(){return this.state==='running'?(this.clock+=.01):this.clock;}
@@ -52,6 +52,17 @@ test('browser output lead is explicit; excessive output latency fails READY inst
  assert.equal(outputLeadMs({baseLatency:.02,outputLatency:.056}),76);
  const f=fixture();await f.engine.load(f.assets);f.engine.context.outputLatency=.5;
  await assert.rejects(f.engine.verify(),/300ms/);assert.equal(f.engine.ready,false);assert.throws(()=>f.engine.play('voice'),/NOT READY/);await f.engine.close();
+});
+
+test('gauge SFX forwards audio-clock limits and STOP rejects the capped source stale end',async()=>{
+ const f=fixture();await f.engine.load(f.assets);await f.engine.verify();f.engine.buffers.get('sfx').buffer.duration=5.3;
+ const receipts=[],player=new BufferedSfxPlayer(f.engine,(...args)=>receipts.push(args));
+ for(const limit of [5000,3800]){
+  await player.play({assetId:'sfx',volume:.8,index:0,maxDurationMs:limit,fadeOutMs:40},1,'run');
+  const source=f.engine.context.source;assert.equal(source.startArgs[2],limit/1000);assert.ok(f.calls.some(c=>Array.isArray(c)&&c[0]==='ramp'&&c[1]===0));
+  const stale=source.onended;player.stop();stale();assert.equal(f.engine.active.size,0);
+ }
+ assert.ok(receipts.every(r=>r[2]==='stopped'));await f.engine.close();
 });
 
 test('clock preparation advances without relying on a 16ms timer that hidden Chrome may throttle',async()=>{

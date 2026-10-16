@@ -1292,7 +1292,13 @@
         "id": "timeline",
         "durationMs": 11919
       },
-      "operatorNote": "認証WAV→200ms→6系統解錠→100%→異常を1 GO。追加電子音なし。虎谷の告白・外部への指示を待ってP-013を手動。",
+      "operatorNote": "認証WAV→200ms→6系統解錠→100%→異常を1 GO。ゲージ開始時に任意のproduction-gauge.wav。虎谷の告白・外部への指示を待ってP-013を手動。",
+      "gaugeSfx": {
+        "atMs": 4519,
+        "volume": 0.8,
+        "maxDurationMs": 5000,
+        "fadeOutMs": 40
+      },
       "triggerNote": "扇「最後の答えはブレイクヨコガワだ！」後にGO",
       "order": 140,
       "overlay": {
@@ -1898,6 +1904,12 @@
       "recoverySfx": {
         "atMs": 4600,
         "volume": 0.8
+      },
+      "gaugeSfx": {
+        "atMs": 0,
+        "volume": 0.8,
+        "maxDurationMs": 3800,
+        "fadeOutMs": 40
       }
     },
     {

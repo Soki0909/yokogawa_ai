@@ -10,6 +10,7 @@ import {freePort,waitForHttp,stopChild,openPage,browserPath,delay} from './runti
 import {finiteCueDuration} from '../src/cue-completion.js';
 
 const output=path.resolve(process.argv[2]||'production-backup');
+const audioOnly=process.env.BACKUP_AUDIO_ONLY==='1';
 for(const dir of ['audio','visual','puzzles'])await fs.mkdir(path.join(output,dir),{recursive:true});
 await fs.copyFile('docs/production/emergency-backup-operation-20261016.md',path.join(output,'README.md'));
 const labels=JSON.parse(await fs.readFile('config/production-backup-cue-labels.json','utf8'));
@@ -37,13 +38,13 @@ try{
  await page.send('CSS.setStyleSheetText',{styleSheetId,text:'.caption-shell{display:none!important}*,*::before,*::after{animation:none!important;transition:none!important}'});
  for(const [index,cue] of cues.entries()){
   const number=cue.cueNumber,label=byNumber.get(number);assert.ok(label,`Missing script label ${number}`);
-  const parts=(cue.sfx||[]).map(e=>({assetId:e.assetId,atMs:e.atMs,volume:(show.settings.sfxVolume??1)*e.volume,effect:'none',kind:'SE'}));
+  const parts=(cue.sfx||[]).map(e=>({assetId:e.assetId,atMs:e.atMs,volume:(show.settings.sfxVolume??1)*e.volume,effect:'none',kind:'SE',...(e.maxDurationMs?{maxDurationMs:e.maxDurationMs,fadeOutMs:e.fadeOutMs??0}:{})}));
   if(cue.audio?.speechMode==='audio-file')parts.push({assetId:cue.audio.assetId,atMs:cue.timing?.speechDelayMs||0,volume:show.settings.volume??1,effect:cue.audio.playbackEffect||'none',kind:'speech'});
   const rendered=await page.evaluate(`(async()=>{
    const parts=${JSON.stringify(parts)},effect=await import('/js/audio-playback-effects.js');
-   const seconds=parts.length?Math.max(...parts.map(p=>p.atMs/1000+window.__backupBuffers.get(p.assetId).duration+(p.effect==='none'?0:.15))):1;
+   const seconds=parts.length?Math.max(...parts.map(p=>p.atMs/1000+effect.playbackDurationSeconds(window.__backupBuffers.get(p.assetId).duration,p.maxDurationMs)+(p.effect==='none'?0:.15))):1;
    const context=new OfflineAudioContext(2,Math.ceil(seconds*48000),48000);
-   for(const p of parts){const source=context.createBufferSource(),gain=context.createGain();source.buffer=window.__backupBuffers.get(p.assetId);gain.gain.value=p.volume;effect.connectPlaybackEffect(context,source,gain,p.effect);gain.connect(context.destination);source.start(p.atMs/1000);}
+   for(const p of parts){const source=context.createBufferSource(),gain=context.createGain();source.buffer=window.__backupBuffers.get(p.assetId);gain.gain.value=p.volume;effect.connectPlaybackEffect(context,source,gain,p.effect);gain.connect(context.destination);effect.startPlaybackWindow(context,source,gain,{maxDurationMs:p.maxDurationMs,fadeOutMs:p.fadeOutMs,startAt:p.atMs/1000});}
    const buffer=await context.startRendering(),bytes=new Uint8Array(44+buffer.length*4),view=new DataView(bytes.buffer),text=(at,s)=>{for(let i=0;i<s.length;i++)view.setUint8(at+i,s.charCodeAt(i));};
    text(0,'RIFF');view.setUint32(4,bytes.length-8,true);text(8,'WAVEfmt ');view.setUint32(16,16,true);view.setUint16(20,1,true);view.setUint16(22,2,true);view.setUint32(24,48000,true);view.setUint32(28,192000,true);view.setUint16(32,4,true);view.setUint16(34,16,true);text(36,'data');view.setUint32(40,bytes.length-44,true);
    const channels=[buffer.getChannelData(0),buffer.getChannelData(1)];let peak=0,clipped=0;
@@ -52,9 +53,9 @@ try{
   })()`);
   assert.equal(rendered.clipped,0,`Clipping in ${number}`);
   const audioFile=`${label.label}.wav`,bytes=Buffer.from(rendered.data,'base64');await fs.writeFile(path.join(output,'audio',audioFile),bytes);
-  send({type:'cue:execute',cueId:cue.id??cue.cueId});await wait(()=>state.currentCue?.cueId===(cue.id??cue.cueId),number+' accepted');
-  await wait(()=>!state.cueProgress?.blocked&&!state.nextBlock,number+' actual completion');await delay(450);
-  const visualFile=`${String(index+1).padStart(2,'0')}_${label.label}.png`;await page.screenshot(path.join(output,'visual',visualFile));
+  const visualFile=`${String(index+1).padStart(2,'0')}_${label.label}.png`;
+  if(audioOnly)await fs.access(path.join(output,'visual',visualFile));
+  else{send({type:'cue:execute',cueId:cue.id??cue.cueId});await wait(()=>state.currentCue?.cueId===(cue.id??cue.cueId),number+' accepted');await wait(()=>!state.cueProgress?.blocked&&!state.nextBlock,number+' actual completion');await delay(450);await page.screenshot(path.join(output,'visual',visualFile));}
   const row={order:index+1,cueNumber:number,scriptLine:label.scriptLine,audioFile,visualFile,hasSound:parts.length>0,durationSeconds:rendered.duration,peak:rendered.peak,clippedSamples:rendered.clipped,sha256:createHash('sha256').update(bytes).digest('hex'),parts:parts.map(p=>({...p,path:assets.get(p.assetId).path,sha256:assets.get(p.assetId).sha256})),trigger:cue.triggerNote,speechText:cue.speechText??cue.text??'',notes:number==='P-020'?'台本Cue名は旧表記。音声内容は現在承認済みの「館内すべての安全を確認しました」。':parts.length?'Cue内の待ち時間を含む。音声機器由来のlatencyや次Cueまでの2秒は追加していない。':'映像のみ。1秒の完全無音WAV。音響操作は不要。'};
   rows.push(row);await fs.writeFile(path.join(output,'manifest.json'),JSON.stringify({createdAt:new Date().toISOString(),sourceDocument:labels,format:'PCM signed 16-bit stereo 48000Hz',render:'Chrome OfflineAudioContext + existing connectPlaybackEffect; current source WAV reused, no synthesis/per-Cue normalization; common -3dB export headroom; nominal Cue timing, hardware/output pipeline latency excluded',cues:rows},null,2));console.log(JSON.stringify({cue:number,duration:rendered.duration,peak:rendered.peak,hasSound:row.hasSound}));
  }

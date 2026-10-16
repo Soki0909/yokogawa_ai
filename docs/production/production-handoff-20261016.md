@@ -9,12 +9,14 @@
 1. 別PCへの共有には、`scripts/archive-production-handoff.py`で生成する`横川AI_別PC本番一式_Node導入済み.zip`を使用する。通常再生に必要なソース・確定素材・設定・手順だけを収録し、過去の録画・検証画像・Git履歴・Node本体・node_modulesを除く。受取側にPythonは不要。展開後の`yokogawa_ai`フォルダで操作する。
 2. `setup-production.cmd`を実行する。実行内容はNode 20以上の確認、`npm ci --omit=dev`、素材等のSHA256検証。**この準備時にはnpm registryへの接続または必要なnpm cacheが必要**。既存の開発用node_modulesを入れ直さないよう、新しいフォルダで実行する。
 3. `start-yokogawa-ai-single-pc.cmd`を実行する。内蔵画面で`http://localhost:3000/admin`、投影画面で`http://localhost:3000/display`を開く。導入済みのNodeをPATHから使用する。固定Showの本番再生中にはインターネットは不要。
-4. AdminでProduction Resetし、開始位置を確認する。DisplayをAudio Masterにして明示的に音声を有効化する。今回の素材では**21/21 decoded**（17発話＋起動／HACK／ERROR／復旧）が目安。Preflightで謎3点・復旧SEを含む全7 slotのREADYを確認する。
+4. AdminでProduction Resetし、開始位置を確認する。DisplayをAudio Masterにして明示的に音声を有効化する。今回の素材では**22/22 decoded**（17発話＋起動／HACK／ERROR／復旧／ゲージ音）が目安。Preflightで謎3点・復旧SE・ゲージ音を含む全8 slotのREADYを確認する。
 5. Windowsの拡張表示、1920×1080、ブラウザの実出力先、PA音量、スリープ／画面オフ、通知、電源接続を現地確認する。通常Cue、3謎の四辺、STOP／BLACKOUT／REPLAY／緊急Cue移動を確認する。NEXTは1500ms保護。
 
 ## 引継ぎ範囲
 
 本番Show／Cue／字幕・文間／音量設定／Voice Profile、全参照WAVとSFX、Avatar、最新版の謎PNGをmasterに保存している。`config/production-portable-files.json`が配布対象と整合性一覧。`node scripts/verify-production-portability.mjs`で再確認できる。
+
+任意の[解錠・復旧ゲージ音](gauge-audio-slot.md)は`public/assets/audio/production-gauge.wav`へ配置する。未配置はPreflightのMISSING警告で確認できる。配置・再起動後、ほかの現素材がすべて揃っていれば22/22 decodedになる。
 
 GitHubのmaster全体には既存の過去録画・検証記録が残るため、全体ZIPや通常cloneは本番配布ZIPより大きい。Gitで取得する場合も、通常起動に必要な要素はすべてmasterにある。履歴を書き換えるforce pushは行わない。
 

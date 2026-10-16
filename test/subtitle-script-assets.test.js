@@ -70,7 +70,7 @@ test('slots missing/present/invalid resolve safely, share warning and validate b
   const store=new StateStore({storage:{async load(){},async save(){}}});store.importShowFile(show,{apply:true});
   applyProductionSlots(store,slots.map(s=>s.id==='warning'?{...s,durationMs:300}:s));
   assert.equal(store.state.cues.find(c=>c.cueId==='prod-013').timing.speechDelayMs,300);
-  assert.ok(store.preflight().items.filter(i=>i.id.startsWith('asset-slot:') && !i.id.endsWith('recovery')).every(i=>i.status==='ok'));
+  assert.ok(store.preflight().items.filter(i=>i.id.startsWith('asset-slot:') && !['asset-slot:recovery','asset-slot:gauge'].includes(i.id)).every(i=>i.status==='ok'));
   assert.equal(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.length,0);
   assert.equal(store.productionAssetSlots.find(s=>s.id==='recovery').status,'MISSING');
   const missingRecovery = store.preflight().items.find(i=>i.id==='asset-slot:recovery');

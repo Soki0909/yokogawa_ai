@@ -58,15 +58,21 @@
     },
     {
       "path": "docs/production/emergency-backup-operation-20261016.md",
-      "size": 4945,
+      "size": 5229,
       "hashMode": "utf8-lf",
-      "sha256": "ad6dec2504e61ba6835f121b32de7936c7a65dbce444cb14357b9cb6fa606ec0"
+      "sha256": "104d01afe31cf4b9161612947cf53d54b889b9c1bcb75ad65744cf8841ee7c77"
+    },
+    {
+      "path": "docs/production/gauge-audio-slot.md",
+      "size": 2897,
+      "hashMode": "utf8-lf",
+      "sha256": "fb9548f454028160eecefbf076a4e2e45a5b0e04e22bf5cdacd5540627043892"
     },
     {
       "path": "docs/production/production-handoff-20261016.md",
-      "size": 4227,
+      "size": 4536,
       "hashMode": "utf8-lf",
-      "sha256": "a806ec40cc398d15661b22dd66de9fdfd602d7dedd42685cbf89a79d41817ffc"
+      "sha256": "689a54f8be31f23cd86c27c2676f736ce7eb9ad5b7117cce7cf577fac8920b69"
     },
     {
       "path": "docs/production/rehearsal-revision-operation-20261014.md",
@@ -103,6 +109,12 @@
       "size": 500,
       "hashMode": "utf8-lf",
       "sha256": "6bd582e370e8b8c8cb4e036244b6ae5ca9427253a967f680061408eb297fe1d7"
+    },
+    {
+      "path": "public/assets/audio/production-gauge.wav",
+      "size": 1167438,
+      "hashMode": "binary",
+      "sha256": "0e9138945429553965ca88f1dbb23304cccc430e8aa99e04744bc3af6226aaa8"
     },
     {
       "path": "public/assets/audio/production-hack-noise.mp3",
@@ -1024,9 +1036,9 @@
     },
     {
       "path": "public/js/audio-playback-effects.js",
-      "size": 1495,
+      "size": 2478,
       "hashMode": "utf8-lf",
-      "sha256": "dd0f53553d1cec65c0acdb9ada76f5d8f7a5b5f1e96ba00dd11dac7770b3f408"
+      "sha256": "cd6d84516b11551a1cdfc25fb2ba1e6d3efb17660106836a9035536fc05ae774"
     },
     {
       "path": "public/js/audio-preload.js",
@@ -1066,9 +1078,9 @@
     },
     {
       "path": "public/js/production-audio-engine.js",
-      "size": 11229,
+      "size": 11404,
       "hashMode": "utf8-lf",
-      "sha256": "3d486d96e3d0b5350df75a616473e2e9c929d8b82ef71b5f3cc43f9e0140a3bf"
+      "sha256": "2c22d2153e7af376efd6ccc891ca35e72dc68c7c5fd1c9589b747cd64fdc19d2"
     },
     {
       "path": "public/js/production-tools.js",
@@ -1156,9 +1168,9 @@
     },
     {
       "path": "scripts/build-production-portable-manifest.mjs",
-      "size": 1759,
+      "size": 1797,
       "hashMode": "utf8-lf",
-      "sha256": "c82469df657528b642f542a1f14150d85e9f3cf74db9f4506c310c3f4c8a0184"
+      "sha256": "1742ee685330569e0abe8a1586a2820bc199037007fbc41bf6931db1ff0318e1"
     },
     {
       "path": "scripts/build-production-show.mjs",
@@ -1204,9 +1216,21 @@
     },
     {
       "path": "scripts/export-production-emergency-kit.mjs",
-      "size": 9170,
+      "size": 9522,
       "hashMode": "utf8-lf",
-      "sha256": "349f89a461af525d7426d5ce2b3c16901381cf968668d6a3d51e8c6e9cfa30c2"
+      "sha256": "85f8955e76d442ff544824a069ac91014fd014dafcd1f922bb73d6472295c5bb"
+    },
+    {
+      "path": "scripts/gauge-audio-browser-check.mjs",
+      "size": 3436,
+      "hashMode": "utf8-lf",
+      "sha256": "1835b5e264d74c7762290f4bbda86ec841979c4499a7b9327e7987542495741b"
+    },
+    {
+      "path": "scripts/gauge-audio-live-check.mjs",
+      "size": 7986,
+      "hashMode": "utf8-lf",
+      "sha256": "797a1fe8818fe4c5797c2c409f003c8e4e93e55d6ef6ec0b175b56e40a19dd70"
     },
     {
       "path": "scripts/generate-production-speech.mjs",
@@ -1324,9 +1348,9 @@
     },
     {
       "path": "scripts/smoke-production-portable.mjs",
-      "size": 2443,
+      "size": 2664,
       "hashMode": "utf8-lf",
-      "sha256": "4822eb8320395b3513e234447cd639cf8214d1184f089c87f235f96d19303a19"
+      "sha256": "d7f189221cb4b84291e8b1d3d09dcb4d17cb23bbc000772855aca163fccf813c"
     },
     {
       "path": "scripts/soak-test.js",
@@ -1366,15 +1390,15 @@
     },
     {
       "path": "scripts/verify-production-emergency-kit.mjs",
-      "size": 3338,
+      "size": 3475,
       "hashMode": "utf8-lf",
-      "sha256": "8881fca53f0b0a120679f1ce333bc70a80cf3b96beecbeb3e39834be9c3c04ac"
+      "sha256": "abf684dc36515c9dc41195616a68c015770fb928acc3cbde12f1c33f1f205f10"
     },
     {
       "path": "scripts/verify-production-portability.mjs",
-      "size": 913,
+      "size": 984,
       "hashMode": "utf8-lf",
-      "sha256": "7044356e1c1e146972c6c511796134611cffce5df6ec222d32b43d94c8f63e3d"
+      "sha256": "ad6209ed8d4790f7782ad3eb71ac4cb1344a752bb4bf390b8a8c3a2448d3a33a"
     },
     {
       "path": "scripts/verify-production-recording.mjs",
@@ -1432,9 +1456,9 @@
     },
     {
       "path": "shows/production.json",
-      "size": 68467,
+      "size": 68751,
       "hashMode": "utf8-lf",
-      "sha256": "10c968600957bcc2a231354ebb44506fb6000b5334e18aa6e0e521f115594c83"
+      "sha256": "e49ab52119ab8f4b71a9bb31a122ab52484a7c5f8ce4c2da8491ae3e9e1195f2"
     },
     {
       "path": "src/audio/production-cue-timing.js",
@@ -1498,9 +1522,9 @@
     },
     {
       "path": "src/production-asset-slots.js",
-      "size": 5839,
+      "size": 6367,
       "hashMode": "utf8-lf",
-      "sha256": "5a60c2bfe0a6f44e1134fc0fcae1f71c654431a184bf1addd8d6b38aca94c0b1"
+      "sha256": "dc389f1d82fd6478440a49da7d3bf0311ffd0af8c6aa0a98a6d1826e9d035aad"
     },
     {
       "path": "src/server.js",
@@ -1510,15 +1534,15 @@
     },
     {
       "path": "src/show-schema.js",
-      "size": 19065,
+      "size": 19475,
       "hashMode": "utf8-lf",
-      "sha256": "93645add08a5a8cc1410e36d971203f3284632157a4ca9bf0c84439a4501b1b7"
+      "sha256": "1e082d4b610d0d28ddb163b2ec5ba16083999b8e22e473b09e120cd763a0cb09"
     },
     {
       "path": "src/state-store.js",
-      "size": 55939,
+      "size": 55945,
       "hashMode": "utf8-lf",
-      "sha256": "51531fe1006fedb6c6ca9247a7425781bf31800755d4a044c98c3b5b43042a8c"
+      "sha256": "2d14bb0c95af32dac4d5fdee7542089cb75a649068305a45bcbff1aff644a86d"
     },
     {
       "path": "src/tts/aivis-speech-client.js",

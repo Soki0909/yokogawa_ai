@@ -12,6 +12,26 @@ export const PLAYBACK_EFFECTS = Object.freeze({
   }),
 });
 
+// Optional SFX window, using the audio clock so background timers cannot extend it.
+export function playbackDurationSeconds(seconds, maxDurationMs) {
+  return Number.isFinite(maxDurationMs) && maxDurationMs > 0 ? Math.min(seconds, maxDurationMs / 1000) : seconds;
+}
+
+export function startPlaybackWindow(context, source, gain, {maxDurationMs, fadeOutMs = 0, startAt} = {}) {
+  if (!(Number.isFinite(maxDurationMs) && maxDurationMs > 0)) {
+    if (startAt === undefined) source.start(); else source.start(startAt);
+    return;
+  }
+  const start = startAt ?? context.currentTime, duration = playbackDurationSeconds(source.buffer.duration, maxDurationMs);
+  const fade = Math.min(Math.max(0, Number(fadeOutMs) || 0) / 1000, duration / 2);
+  if (fade > 0) {
+    gain.gain.setValueAtTime(gain.gain.value, start);
+    gain.gain.setValueAtTime(gain.gain.value, start + duration - fade);
+    gain.gain.linearRampToValueAtTime(0, start + duration);
+  }
+  source.start(start, 0, duration);
+}
+
 export function assertPlaybackEffect(effectId = 'none') {
   const effect = PLAYBACK_EFFECTS[effectId];
   if (!effect) throw new Error(`Unknown playback effect: ${effectId}`);

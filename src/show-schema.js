@@ -3,6 +3,10 @@ import { sentenceTexts } from '../public/js/subtitle-units.js';
 export const SHOW_SCHEMA_VERSION = 3;
 export const SUPPORTED_SHOW_SCHEMA_VERSIONS = Object.freeze([2, 3]);
 
+function inputWindow(effect) {
+  return Number(effect.maxDurationMs) > 0 ? {maxDurationMs:Math.round(finite(effect.maxDurationMs,0,1,180000)),fadeOutMs:Math.round(finite(effect.fadeOutMs,0,0,1000))} : {};
+}
+
 export const TRANSITION_IDS = Object.freeze([
   'none', 'boot', 'anomaly', 'takeover', 'riddle-enter', 'final-challenge-enter',
   'auth-success', 'unlock-start', 'emergency-interrupt', 'hostile-enter',
@@ -195,8 +199,9 @@ export function normalizeCue(input = {}, order = 0) {
     avatar: { visible: input.avatar?.visible !== false, state: avatarState },
     audio: { speechMode, assetId: audioAsset, lipSyncMode, playbackEffect },
     speech: { subtitleMode: 'typewriter', ...(Array.isArray(input.speech?.subtitleUnits) ? { subtitleUnits: input.speech.subtitleUnits.slice(0,100).map(unit => ({ displayText: text(unit?.displayText), startMs: Math.round(finite(unit?.startMs,0,0,180000)), endMs: Math.round(finite(unit?.endMs,0,0,180000)) })) } : {}), spokenText: text(input.speech?.spokenText ?? speechText), segments: (Array.isArray(input.speech?.segments) ? input.speech.segments : []).slice(0, 100).map(segment => ({ displayText: text(segment?.displayText), spokenText: text(segment?.spokenText), startMs: Math.round(finite(segment?.startMs, 0, 0, 180000)), endMs: Math.round(finite(segment?.endMs, 0, 0, 180000)), pauseAfterMs: Math.round(finite(segment?.pauseAfterMs, 0, 0, 10000)) })) },
-    sfx: (Array.isArray(input.sfx) ? input.sfx : []).slice(0, 20).map(effect => ({ assetId: id(effect.assetId), atMs: Math.round(finite(effect.atMs, 0, 0, 180000)), volume: finite(effect.volume, 1, 0, 1), durationMs: Math.round(finite(effect.durationMs, 0, 0, 180000)) })),
+    sfx: (Array.isArray(input.sfx) ? input.sfx : []).slice(0, 20).map(effect => ({ assetId: id(effect.assetId), atMs: Math.round(finite(effect.atMs, 0, 0, 180000)), volume: finite(effect.volume, 1, 0, 1), durationMs: Math.round(finite(effect.durationMs, 0, 0, 180000)), ...(inputWindow(effect)) })),
     ...(input.recoverySfx ? {recoverySfx:{atMs:Math.round(finite(input.recoverySfx.atMs,4600,0,180000)),volume:finite(input.recoverySfx.volume,.8,0,1)}} : {}),
+    ...(input.gaugeSfx ? {gaugeSfx:{atMs:Math.round(finite(input.gaugeSfx.atMs,0,0,180000)),volume:finite(input.gaugeSfx.volume,.8,0,1),...inputWindow(input.gaugeSfx)}} : {}),
     transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
     visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing), sequence: normalizeSequence(input.sequence),
     syncMarkers: normalizeSyncMarkers(input.syncMarkers),

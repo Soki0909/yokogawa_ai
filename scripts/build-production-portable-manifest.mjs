@@ -3,7 +3,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 // Use -z for Unicode paths: Git's default quoting is not JSON for octal bytes.
 const nulPaths=execFileSync('git',['ls-files','-z','--cached','--others','--exclude-standard','src','public','config','shows','scripts']).toString('utf8').split('\0').filter(Boolean);
-for(const p of ['.gitattributes','.gitignore','README.md','package.json','package-lock.json','start-yokogawa-ai-single-pc.cmd','start-yokogawa-ai.cmd','setup-production.cmd','docs/production/production-handoff-20261016.md','docs/production/emergency-backup-operation-20261016.md','docs/production/single-pc-runbook.md','docs/production/rehearsal-revision-operation-20261014.md'])nulPaths.push(p);
+for(const p of ['.gitattributes','.gitignore','README.md','package.json','package-lock.json','start-yokogawa-ai-single-pc.cmd','start-yokogawa-ai.cmd','setup-production.cmd','docs/production/production-handoff-20261016.md','docs/production/emergency-backup-operation-20261016.md','docs/production/gauge-audio-slot.md','docs/production/single-pc-runbook.md','docs/production/rehearsal-revision-operation-20261014.md'])nulPaths.push(p);
 const files=[];
 for(const file of [...new Set(nulPaths)].filter(p=>p!=='config/production-portable-files.json').sort()) {
  if(!(await fs.stat(file).catch(()=>null))?.isFile())continue;

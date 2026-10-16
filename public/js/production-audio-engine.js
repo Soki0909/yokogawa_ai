@@ -1,4 +1,4 @@
-import { connectPlaybackEffect } from './audio-playback-effects.js';
+import { connectPlaybackEffect, startPlaybackWindow } from './audio-playback-effects.js';
 export function outputLeadMs(context){return Math.min(300,Math.max(0,((context?.baseLatency||0)+(context?.outputLatency||0))*1000));}
 
 // The production transport owns decoded PCM and the complete graph BEFORE start().
@@ -106,7 +106,7 @@ export class ProductionAudioEngine {
   assertReady(id) {
     if (!this.ready || this.context?.state !== 'running' || (id && !this.buffers.has(id))) throw Error(`音声 NOT READY: ${this.reason || this.context?.state || '未準備'}`);
   }
-  play(id, { volume = 1, effect = 'none', onStart, onEnd, onError } = {}) {
+  play(id, { volume = 1, effect = 'none', maxDurationMs, fadeOutMs, onStart, onEnd, onError } = {}) {
     this.assertReady(id); const context = this.context;
     const source = context.createBufferSource(); source.buffer = this.buffers.get(id).buffer;
     source.__yokogawaAssetId=id;
@@ -124,7 +124,7 @@ export class ProductionAudioEngine {
       cleanup(); this.log('ended',{id}); onEnd?.();
     };
     source.onended = () => {const tail=outputLeadMs(context)+(effect==='hijacked-subtle-v1'?40:0);return tail?setTimeout(ended,tail):ended();};
-    try { source.start(); this.log('started',{id,duration:source.buffer.duration,volume:gain.gain.value}); onStart?.(analyser,context); }
+    try { startPlaybackWindow(context,source,gain,{maxDurationMs,fadeOutMs}); this.log('started',{id,duration:source.buffer.duration,maxDurationMs,volume:gain.gain.value}); onStart?.(analyser,context); }
     catch(error) { cleanup(); onError?.(error); throw error; }
     return item;
   }
@@ -153,7 +153,7 @@ export class BufferedSfxPlayer {
     let settle;const done=new Promise(resolve=>{settle=resolve;});this.completions.set(effect.assetId,done);
     const entry={};this.active.add(entry);
     const finish=completed=>{if(!this.active.delete(entry))return;settle(completed);this.report(effect,runId,completed?'completed':'stopped');};
-    try {entry.item=this.engine.play(effect.assetId,{volume:volume*effect.volume,onEnd:()=>finish(true)});entry.stop=()=>{entry.item.stop();finish(false);};}
+    try {entry.item=this.engine.play(effect.assetId,{volume:volume*effect.volume,maxDurationMs:effect.maxDurationMs,fadeOutMs:effect.fadeOutMs,onEnd:()=>finish(true)});entry.stop=()=>{entry.item.stop();finish(false);};}
     catch(error){finish(false);this.report(effect,runId,'error',error.message);throw error;}
   }
   whenIdle(id){return this.completions.get(id)??Promise.resolve(false);}
