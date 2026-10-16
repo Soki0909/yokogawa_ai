@@ -13,13 +13,13 @@ test('Production Showは最新17 speech・3 SFX・3 puzzle slotsを登録する'
   ]);
   assert.equal(validateShowFile(main).valid, true);
   assert.equal(validateShowFile(route).valid, true);
-  assert.equal(main.assets.length, 23);
+  assert.equal(main.assets.length, 24);
   assert.equal(route.assets.length, 23);
   const speech = [...main.cues, ...route.cues].filter((cue) => cue.kind.startsWith('speech'));
-  assert.equal(speech.length, 17);
-  assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 17);
+  assert.equal(speech.length, 18);
+  assert.equal(speech.filter((cue) => cue.audio.speechMode === 'audio-file').length, 18);
   assert.equal(speech.filter((cue) => cue.audio.speechMode === 'browser').length, 0);
-  assert.deepEqual(speech.map((cue) => cue.displayText).sort(), manifest.speeches.map((item) => item.displayText).sort());
+  assert.deepEqual(speech.map((cue) => cue.displayText).sort(), [...manifest.speeches.map((item) => item.displayText),main.cues.find(c=>c.id==='prod-021').displayText].sort());
   assert.equal(main.settings.freeSpeakMode, 'local-tts');
   assert.equal(route.metadata.description.includes('UNRESOLVED ROUTE MAPPING'), true);
 });
@@ -28,11 +28,11 @@ test('Production Showは台本alignment順序・外部同期境界・未確定Cu
   const main = await load('production.json');
   const ids = main.cues.map((cue) => cue.id);
   assert.deepEqual(ids, [
-    'prod-001', 'prod-002', 'prod-003', 'prod-004',
+    'prod-v-prelude', 'prod-001', 'prod-002', 'prod-003', 'prod-004',
     'prod-005', 'prod-006', 'prod-007', 'prod-008', 'prod-019', 'prod-v-riddle-enter',
-    'prod-011', 'prod-012', 'prod-013', 'prod-014',
+    'prod-v-riddle-close', 'prod-011', 'prod-012', 'prod-013', 'prod-014',
     'prod-v-hostile-enter', 'prod-015', 'prod-v-emergency-riddle', 'prod-v-stop-code',
-    'prod-v-recovery', 'prod-020',
+    'prod-v-recovery', 'prod-020', 'prod-v-curtain-black', 'prod-021',
   ]);
   assert.equal(main.avatar.visible, false);
   assert.equal(main.cues.find((cue) => cue.id === 'prod-001').transition.id, 'boot');

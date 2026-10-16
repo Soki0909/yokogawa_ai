@@ -12,8 +12,8 @@ test('canonical NEXT accepts once per 1500ms burst; failed validation and clock 
   store.nextCue();
   for (let i=0;i<5;i++) assert.throws(() => store.nextCue(), /NEXT_GUARDED/);
   tick = 1499; assert.throws(() => store.nextCue(), /NEXT_GUARDED/);
-  assert.equal(store.state.currentCueIndex, 0); tick=1500; assert.equal(store.nextCue().cue.cueId, 'prod-002');
-  store.showReset(); assert.equal(store.nextCue().cue.cueId, 'prod-001');
+  assert.equal(store.state.currentCueIndex, 0); tick=1500; assert.equal(store.nextCue().cue.cueId, 'prod-001');
+  store.showReset(); assert.equal(store.nextCue().cue.cueId, 'prod-v-prelude');
 });
 test('scheduler suppresses a suspended process catch-up burst', () => {
   let tick=0; const pending=[]; const played=[];
@@ -24,7 +24,7 @@ test('scheduler suppresses a suspended process catch-up burst', () => {
 });
 test('merged current Cue can restore stable final state after freeze without live speech', async () => {
   const store=new StateStore({storage:{async save(){}}}); const show=JSON.parse(await readFile('shows/production.json'));
-  store.importShowFile(show,{apply:true}); assert.equal(show.cues.length,20);
+  store.importShowFile(show,{apply:true}); assert.equal(show.cues.length,24);
   assert.ok(!show.cues.some(c=>['prod-v-incident','prod-v-unlock'].includes(c.id)));
   store.executeCue('prod-012'); store.stabilizePresentation();
   assert.equal(store.state.currentOverlay.variant,'anomaly'); assert.equal(store.state.unlock.status,'completed');

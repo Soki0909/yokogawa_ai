@@ -1,0 +1,134 @@
+{
+  "candidateStatus": "TECHNICAL REVIEW PASS; LIVE ADOPTION NO GO pending approval",
+  "branch": "codex/post-show-cue-revision-20261017",
+  "baseline": "da09d3bbcfed8d3d9a2568dd7be621359160ddc7",
+  "masterAndOriginMasterUnchanged": true,
+  "automaticTests": {
+    "tests": 200,
+    "pass": 200,
+    "fail": 0,
+    "evidence": "check-final.log"
+  },
+  "browser": "accepted-browser/report.json",
+  "productionRegression": "production-browser.log",
+  "gauge": {
+    "baseline": "da09d3bbcfed8d3d9a2568dd7be621359160ddc7",
+    "operation": "Stable approved PCM multiplied once by 10^(-3/20), rounded to PCM16. Header, pacing, pitch, Cue gain and cutoffs unchanged.",
+    "before": {
+      "audioFormat": 1,
+      "channels": 2,
+      "sampleRate": 48000,
+      "bitsPerSample": 16,
+      "dataBytes": 1167360,
+      "durationSeconds": 6.08,
+      "peak": 0.85858154296875,
+      "rms": 0.20975472912909163,
+      "fullScaleSamples": 0,
+      "sha256": "0e9138945429553965ca88f1dbb23304cccc430e8aa99e04744bc3af6226aaa8"
+    },
+    "after": {
+      "audioFormat": 1,
+      "channels": 2,
+      "sampleRate": 48000,
+      "bitsPerSample": 16,
+      "dataBytes": 1167360,
+      "durationSeconds": 6.08,
+      "peak": 0.607818603515625,
+      "rms": 0.14849498918661982,
+      "fullScaleSamples": 0,
+      "sha256": "2ad5610f957c23fd1f33afa319daaad530f8740d892dacd38b736323bea0de8a"
+    },
+    "measuredRmsDeltaDb": -2.9999992428080056,
+    "originalFloatComparison": {
+      "sha256": "510376717633d334db0f26391ea14b3e6e156608d089c9b63787c12e0f9edc6e",
+      "maxPcmDifference": 1
+    }
+  },
+  "newVoice": {
+    "file": "assets/audio/production-post-show-021-exit.wav",
+    "sha256": "bc7f7ad200a6670eb37ca8edb2c1b5f2cb017446a191482451f27d57dc879ca8",
+    "durationSeconds": 31.04605442176871,
+    "sameApprovedProfile": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+    "pauseAfterMs": [
+      450,
+      650,
+      350,
+      650,
+      350,
+      0
+    ]
+  },
+  "videos": [
+    {
+      "status": "PASS",
+      "video": [
+        1920,
+        1080,
+        "30/1"
+      ],
+      "durationSeconds": 223.039,
+      "cues": 24,
+      "speechClips": 18,
+      "sfxClips": 7,
+      "minimumGap": 2,
+      "fullDecode": true
+    },
+    {
+      "status": "PASS",
+      "video": [
+        1280,
+        720,
+        "30/1"
+      ],
+      "durationSeconds": 222.833333,
+      "cues": 24,
+      "speechClips": 18,
+      "sfxClips": 7,
+      "minimumGap": 1.9989999999999952,
+      "fullDecode": true
+    }
+  ],
+  "portable": {
+    "files": 278,
+    "freshFolderSetup": "PASS",
+    "cueCount": 24,
+    "decodedAudio": 23,
+    "slotsReady": 8
+  },
+  "emergencyKit": {
+    "cues": 24,
+    "WAV": 24,
+    "PNG": 24,
+    "originalPuzzles": 3,
+    "audible": 19,
+    "silent": 5,
+    "clipping": 0
+  },
+  "archives": [
+    {
+      "path": "C:\\Users\\kumes\\Documents\\yokokawa_ai\\post-show-candidate\\artifacts\\post-show-20261017\\staging\\横川AI_24Cue候補_別PC一式_Node導入済み.zip",
+      "bytes": 48467336,
+      "files": 279,
+      "sha256": "855a455c842561b5d9cd9e136e15182c38be5a7e0902d254e63d407f4744e35d",
+      "crcAndEveryFileHash": "PASS",
+      "adoption": "CANDIDATE ONLY"
+    },
+    {
+      "path": "C:\\Users\\kumes\\Documents\\yokokawa_ai\\post-show-candidate\\artifacts\\post-show-20261017\\staging\\横川AI_24Cue候補_音響映像予備.zip",
+      "bytes": 55460364,
+      "files": 58,
+      "sha256": "210fd979c3b58de265c344e18dd835bba3b7b19ac1ede0f5b0b2b22700433445",
+      "crcAndEveryFileHash": "PASS",
+      "adoption": "CANDIDATE ONLY"
+    }
+  ],
+  "notVerified": [
+    "Physical HDMI/PA sound and acoustic sync",
+    "New speech pronunciation and subjective voice approval",
+    "Long idle/soak outside this revision scope",
+    "Existing missing-Display subtitle callback risk remains unchanged"
+  ],
+  "headGapFix": "NOT IMPLEMENTED; existing 17 voices and audio transport unchanged",
+  "deployMergePush": "NOT PERFORMED",
+  "artifactDimensions": "accepted-browser/artifact-dimensions.json; PNG filenames corrected to actual dimensions, bytes unchanged"
+}

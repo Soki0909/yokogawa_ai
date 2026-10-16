@@ -6,8 +6,10 @@ import { loadProductionAudioManifest } from './audio-preload.js';
 import { ProductionAudioEngine, BufferedSpeechProvider, BufferedSfxPlayer, outputLeadMs } from './production-audio-engine.js';
 import { TypewriterCaption } from './subtitle-units.js';
 import { PresentationRenderCache, prepareDisplayImages } from './display-preparation.js';
+import {ShowCurtain} from './display-show-curtain.js';
 
 const elements = Object.fromEntries([...document.querySelectorAll('[id]')].map((element) => [element.id, element]));
+const showCurtain=new ShowCurtain(elements['show-curtain']);let preShowDark=true;
 const storageKey = 'yokogawa-display-v2';
 const generatedId = () => `display-${globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)}`;
 let identity;
@@ -171,6 +173,7 @@ function ensureAudioOutputPrepared() {
 }
 
 function applyPresentation(presentation = {}, preset = null) {
+  if(presentation.outputFade)showCurtain.render(presentation.outputFade);
   if (preset && presentationCache.changed('preset', preset)) {
     document.documentElement.style.setProperty('--phase-bg', preset.background);
     document.documentElement.style.setProperty('--phase-accent', preset.accent);
@@ -326,7 +329,7 @@ function handleEvent(event) {
     const aligned=structuredClone(event),generation=playbackGeneration,visualGeneration=presentationGeneration;aligned.aligned=true;
     const shift=value=>{if(!value||typeof value!=='object')return;for(const [key,item] of Object.entries(value)){if(['startedAt','completedAt','expiresAt'].includes(key)&&typeof item==='string')value[key]=new Date(Date.parse(item)+alignmentMs).toISOString();else if(item&&typeof item==='object')shift(item);}};
     const target=aligned.presentation||aligned.state;
-    if(target)for(const key of ['transition','overlay','visual','unlock','currentTransition','currentOverlay','currentVisual'])shift(target[key]);
+    if(target)for(const key of ['transition','overlay','visual','unlock','currentTransition','currentOverlay','currentVisual','outputFade','currentOutputFade'])shift(target[key]);
     setTimeout(()=>{if(generation===playbackGeneration && visualGeneration===presentationGeneration)handleEvent(aligned);},alignmentMs);return;
   }
   if (event.type === 'runtime:recovered') recoveryPending = false;
@@ -345,6 +348,7 @@ function handleEvent(event) {
     })();return;
   }
   if (event.type === 'state') {
+    preShowDark=event.state.preShowDark===true;
     if(audioManifestRevision!==event.state.audioManifestRevision){
       audioManifestRevision=event.state.audioManifestRevision;audioPreloadResult=null;audioOutputPrepared=false;
       if(audioUnlocked){audioReadySent=false;audioEngine.fail('音声素材の変更を確認。再デコードしています。');}
@@ -361,7 +365,7 @@ function handleEvent(event) {
     const restoredText = event.self?.currentSubtitle;
     showCaption(restoredText);
     applyPresentation({ currentSubtitle: restoredText, avatar: event.state.currentAvatar, blackout: event.state.blackout,
-      transition: event.state.currentTransition, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
+      transition: event.state.currentTransition,outputFade:event.state.currentOutputFade, overlay: event.state.currentOverlay, visual: event.state.currentVisual, unlock: event.state.unlock }, event.state.currentPreset);
     document.body.dataset.reducedMotion = String(event.state.settings?.reducedMotion === true);
     if (audioPreloadResult?.ready === audioPreloadResult?.total && audioPreloadResult?.total > 0) setAudioPreloadHelp(`固定WAV ${audioPreloadResult.ready} / ${audioPreloadResult.total} READY（実デコード済み）。出力 ${audioEngine.ready?'READY':`NOT READY: ${audioEngine.reason||'設定を保存して開始してください'}`}`);
     else if (!audioPreloadPromise) elements['audio-help'].textContent = isAudioMaster
@@ -400,11 +404,13 @@ function handleEvent(event) {
   } else if (event.type === 'sfx') {
     if (isAudioMaster && audioUnlocked) void sfx.play(event.effect, event.volume,event.runId).catch(error => audioEngine.fail(error.message));
   } else if (event.type === 'sfx:stop') {
+    showCurtain.stop();
     playbackGeneration++;
     presentationCache.clear();clearTimeout(transitionTimer);clearTimeout(overlayTimer);clearTimeout(visualTimer);cancelAnimationFrame(unlockFrame);
     localAudio.stop(false);localTts.stop(false);speech.stop(false);lipSync.finish();
     sfx.stop(); captionWriter.stop(); showCaption('');
   } else if (event.type === 'stop') {
+    showCurtain.stop();
     presentationCache.clear();
     audioOutputPrepared = false;
     automaticOutputPreparation = false;
@@ -417,6 +423,7 @@ function handleEvent(event) {
   } else if (event.type === 'voices:request') {
     publishVoices();
   } else if (event.type === 'show:reset') {
+    showCurtain.reset(preShowDark);
     presentationCache.clear();
     audioOutputPrepared = false;
     automaticOutputPreparation = true;
@@ -449,6 +456,7 @@ function detectResume() {
   return resumed;
 }
 function stopLocalTransport() {
+  showCurtain.stop();
   presentationCache.clear();
   audioOutputPrepared = false;
   automaticOutputPreparation = true;
@@ -481,6 +489,7 @@ function publishVoices() {
   if (voices.length) socket.send({ type: 'voices', voices });
 }
 function openSetup() {
+  document.body.dataset.operatorSetup='true';
   elements['display-name'].value = identity.displayName;
   elements['audio-enabled'].checked = identity.audioEnabled;
   elements['audio-gate'].hidden = false;
@@ -492,6 +501,7 @@ document.addEventListener('visibilitychange', () => {
   if (!document.hidden) window.speechSynthesis?.resume();
 });
 elements['open-setup'].addEventListener('click', openSetup);
+document.addEventListener('keydown',event=>{if(event.code==='KeyS'&&!event.repeat&&!event.ctrlKey&&!event.altKey&&!event.metaKey&&!event.target.matches('input,textarea,[contenteditable]')){event.preventDefault();openSetup();}});
 elements['enable-audio'].addEventListener('click', async () => {
   identity = {
     ...identity,
@@ -525,5 +535,5 @@ elements['enable-audio'].addEventListener('click', async () => {
     elements['enable-audio'].disabled = false;
   }
 
-  elements['audio-gate'].hidden = true; setMode('SYSTEM READY', 'ready');
+  elements['audio-gate'].hidden = true;delete document.body.dataset.operatorSetup; setMode('SYSTEM READY', 'ready');
 });

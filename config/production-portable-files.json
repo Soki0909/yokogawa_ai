@@ -10,21 +10,27 @@
     },
     {
       "path": ".gitignore",
-      "size": 1535,
+      "size": 1716,
       "hashMode": "binary",
-      "sha256": "325466ee39f14c3e065bb81e01b8fe148416ff7adcad5123918a8074ac374117"
+      "sha256": "d841a066b58e658532dd2bc48dca91031c83113efdb8e08ee35e1bc997a131f2"
     },
     {
       "path": "README.md",
-      "size": 16927,
+      "size": 17688,
       "hashMode": "utf8-lf",
-      "sha256": "acba08c4167256b1f7738c7a6196ad5fbc2bb432bff24fc0e8d257b486a18718"
+      "sha256": "aa7a274de216afeba92b93fe9eda478ac641274a449b12937c97f1d5fb728af9"
     },
     {
       "path": "config/production-backup-cue-labels.json",
-      "size": 1064,
+      "size": 1420,
       "hashMode": "utf8-lf",
-      "sha256": "fa205ef8c59787eb33bf9e4f00b1d5b3d530d0aaf5c38fbdd26e54b116de04ff"
+      "sha256": "64e3f812918f3b998a1003baf612c6ce1e2d4ea02e8d11883a697587e486ecd7"
+    },
+    {
+      "path": "config/production-speech/post-show-021.json",
+      "size": 7540,
+      "hashMode": "utf8-lf",
+      "sha256": "bf88842ecf03b3c865aeb96d750b9ae6085a845656092e2e310c79f0c19965f1"
     },
     {
       "path": "config/production-speech/voice-comparison.json",
@@ -69,8 +75,14 @@
       "sha256": "fb9548f454028160eecefbf076a4e2e45a5b0e04e22bf5cdacd5540627043892"
     },
     {
+      "path": "docs/production/post-show-candidate-operation-20261017.md",
+      "size": 7412,
+      "hashMode": "utf8-lf",
+      "sha256": "b9d8f6c4a3691bd3d53fe96d0ecb41b22dee9ff4868c2f6db801bfc92e004556"
+    },
+    {
       "path": "docs/production/production-handoff-20261016.md",
-      "size": 4536,
+      "size": 4535,
       "hashMode": "utf8-lf",
       "sha256": "689a54f8be31f23cd86c27c2676f736ce7eb9ad5b7117cce7cf577fac8920b69"
     },
@@ -94,9 +106,9 @@
     },
     {
       "path": "package.json",
-      "size": 5711,
+      "size": 5909,
       "hashMode": "utf8-lf",
-      "sha256": "41eb94dc46a6412239a7c4a89519d5e3354d507f4ffebd274eacf71b70bda10c"
+      "sha256": "91b512de13db676110b34237a3b8fab91677fb322938397f5ba7823105d881dc"
     },
     {
       "path": "public/admin.html",
@@ -114,7 +126,7 @@
       "path": "public/assets/audio/production-gauge.wav",
       "size": 1167438,
       "hashMode": "binary",
-      "sha256": "0e9138945429553965ca88f1dbb23304cccc430e8aa99e04744bc3af6226aaa8"
+      "sha256": "2ad5610f957c23fd1f33afa319daaad530f8740d892dacd38b736323bea0de8a"
     },
     {
       "path": "public/assets/audio/production-hack-noise.mp3",
@@ -187,6 +199,12 @@
       "size": 555120,
       "hashMode": "binary",
       "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
+    },
+    {
+      "path": "public/assets/audio/production-post-show-021-exit.wav",
+      "size": 2738306,
+      "hashMode": "binary",
+      "sha256": "bc7f7ad200a6670eb37ca8edb2c1b5f2cb017446a191482451f27d57dc879ca8"
     },
     {
       "path": "public/assets/audio/production-recovery.wav",
@@ -705,6 +723,42 @@
       "sha256": "1d701d670a0d7c43203a6fc5df843d8777f16687c6c51f764bad64ce2e752ca2"
     },
     {
+      "path": "public/assets/audio/segments/post-show-021-1.wav",
+      "size": 469734,
+      "hashMode": "binary",
+      "sha256": "08e54c899683562e1c3fd2febd036c7ded19868fab9c73abfa2a460c2fb9fd6d"
+    },
+    {
+      "path": "public/assets/audio/segments/post-show-021-2.wav",
+      "size": 517592,
+      "hashMode": "binary",
+      "sha256": "cd0b5fe7e6f232976f0af5aad4fba1c97fe6ad01b3b3227dcc17aa9666aa6220"
+    },
+    {
+      "path": "public/assets/audio/segments/post-show-021-3.wav",
+      "size": 369114,
+      "hashMode": "binary",
+      "sha256": "4b67610c91c67f9fdc2bc9759fa0d64eb45660fcb8257f71cf51751cf5ea2ec9"
+    },
+    {
+      "path": "public/assets/audio/segments/post-show-021-4.wav",
+      "size": 519648,
+      "hashMode": "binary",
+      "sha256": "6ddc094f94c8125432e82314f405bf58274201b994b6f496a874e504a3adf04c"
+    },
+    {
+      "path": "public/assets/audio/segments/post-show-021-5.wav",
+      "size": 340448,
+      "hashMode": "binary",
+      "sha256": "16a4f61f184c252b8254343eb6fd6fd3887391303ef1c30b0754c56e52932c76"
+    },
+    {
+      "path": "public/assets/audio/segments/post-show-021-6.wav",
+      "size": 305900,
+      "hashMode": "binary",
+      "sha256": "06b7d6b2685782e8563c6c60a9fcf154eaeb52726a65d534bce9dce7ae18def0"
+    },
+    {
       "path": "public/assets/audio/segments/stage-013-source-1.wav",
       "size": 79860,
       "hashMode": "binary",
@@ -904,7 +958,7 @@
     },
     {
       "path": "public/assets/visual/phase-a-placeholder.svg",
-      "size": 962,
+      "size": 974,
       "hashMode": "utf8-lf",
       "sha256": "30383ca6e025739f5f05e4a5cedefe4c609f00307079c05ecf1ae6130e8725c1"
     },
@@ -1011,6 +1065,12 @@
       "sha256": "830de3de8397ccd19aabbe0b9bad86a9a0c4d025a237a5786466469edb86c20c"
     },
     {
+      "path": "public/css/display-show-curtain.css",
+      "size": 341,
+      "hashMode": "utf8-lf",
+      "sha256": "6ee4409d391f527d6ed54a2eb6cda3e85c314bcf32fbec3d2b51ed2968b23413"
+    },
+    {
       "path": "public/css/display.css",
       "size": 4259,
       "hashMode": "utf8-lf",
@@ -1024,9 +1084,9 @@
     },
     {
       "path": "public/display.html",
-      "size": 8374,
+      "size": 8488,
       "hashMode": "utf8-lf",
-      "sha256": "2b7889c7eeb8e44f41ec7323e31896c6547e198bf3b65e517e6b4b79e971a5d3"
+      "sha256": "972e63705e6b9040b7194de6a224a033839b4b553873ce3f57e0c45fa7601457"
     },
     {
       "path": "public/js/admin.js",
@@ -1065,10 +1125,16 @@
       "sha256": "c41ff57fc768aaabcb859194da52c09b11238ba3ccc8ad5b941f139ea88703f3"
     },
     {
-      "path": "public/js/display.js",
-      "size": 33332,
+      "path": "public/js/display-show-curtain.js",
+      "size": 1195,
       "hashMode": "utf8-lf",
-      "sha256": "9ed2400dcfcb002c26471ff5d450fe5c6a85dcfc760aa8477f6a516c9d2232b4"
+      "sha256": "603876bef63674d77c2d2c5b161e6e9580a2e7e710244bbe7c5b30165bfed8ab"
+    },
+    {
+      "path": "public/js/display.js",
+      "size": 34089,
+      "hashMode": "utf8-lf",
+      "sha256": "ffb0a67d4dba11fb7f847c792d04903d8165eb0e56dc41910e8dabbf5742f09b"
     },
     {
       "path": "public/js/lip-sync.js",
@@ -1137,8 +1203,14 @@
       "sha256": "c2d81d2969a51de47b7364613339f68d5189d84b663c343088d3c64aaeefcd13"
     },
     {
+      "path": "scripts/archive-post-show-candidate.py",
+      "size": 1904,
+      "hashMode": "utf8-lf",
+      "sha256": "3e4fa29472540f4e9fe78ea62382634a7b624e1b72dc24284f74a3ef0bca40fb"
+    },
+    {
       "path": "scripts/archive-production-handoff.py",
-      "size": 1375,
+      "size": 1394,
       "hashMode": "utf8-lf",
       "sha256": "9705548358c2aeac96e7db7fbc1201c2e0da8daef570ae21ff1afffc1633abf0"
     },
@@ -1167,10 +1239,16 @@
       "sha256": "c3378f234e47c8a986823cb0576b27f7dc29870a33e46447d4ca8e9a0df7fb83"
     },
     {
-      "path": "scripts/build-production-portable-manifest.mjs",
-      "size": 1797,
+      "path": "scripts/build-post-show-candidate.mjs",
+      "size": 4612,
       "hashMode": "utf8-lf",
-      "sha256": "1742ee685330569e0abe8a1586a2820bc199037007fbc41bf6931db1ff0318e1"
+      "sha256": "6b2c35796f0045d43e9da897d5dc6db30f8c8e8ba9b318c778c6dd4666fb46c3"
+    },
+    {
+      "path": "scripts/build-production-portable-manifest.mjs",
+      "size": 1871,
+      "hashMode": "utf8-lf",
+      "sha256": "ad20a95850788a83e0584fe39812156a85012396c3447f46c84ebf6df75e63d9"
     },
     {
       "path": "scripts/build-production-show.mjs",
@@ -1216,19 +1294,19 @@
     },
     {
       "path": "scripts/export-production-emergency-kit.mjs",
-      "size": 9522,
+      "size": 9829,
       "hashMode": "utf8-lf",
-      "sha256": "85f8955e76d442ff544824a069ac91014fd014dafcd1f922bb73d6472295c5bb"
+      "sha256": "7d702277d7137cecaef4b50d86c3ce0c5c3fcb9e8f68927227f45a2753fd62e4"
     },
     {
       "path": "scripts/gauge-audio-browser-check.mjs",
-      "size": 3436,
+      "size": 3468,
       "hashMode": "utf8-lf",
       "sha256": "1835b5e264d74c7762290f4bbda86ec841979c4499a7b9327e7987542495741b"
     },
     {
       "path": "scripts/gauge-audio-live-check.mjs",
-      "size": 7986,
+      "size": 8038,
       "hashMode": "utf8-lf",
       "sha256": "797a1fe8818fe4c5797c2c409f003c8e4e93e55d6ef6ec0b175b56e40a19dd70"
     },
@@ -1257,8 +1335,20 @@
       "sha256": "29d747286f0f060c3f25ef02cc0e322620547538f6901721748ab55b14d920ca"
     },
     {
+      "path": "scripts/post-show-browser-check.mjs",
+      "size": 12690,
+      "hashMode": "utf8-lf",
+      "sha256": "42e8925792a8d79213e40fded26e5c0d197418d2730e170ea458f1b28c874094"
+    },
+    {
+      "path": "scripts/prepare-post-show-audio.mjs",
+      "size": 5868,
+      "hashMode": "utf8-lf",
+      "sha256": "c1a0c18dda4630f5fb2edc6c7e78d72419f72dd1cad7d28f6d9d41669b88d429"
+    },
+    {
       "path": "scripts/prepare-production-pacing.mjs",
-      "size": 7583,
+      "size": 7673,
       "hashMode": "utf8-lf",
       "sha256": "fec96e268e17837767faa6e8f82fdaef9662971e2250f21f0a9cd1acf715b152"
     },
@@ -1276,9 +1366,9 @@
     },
     {
       "path": "scripts/production-browser-check.js",
-      "size": 36840,
+      "size": 37352,
       "hashMode": "utf8-lf",
-      "sha256": "e95ab9d7175ac3ecf50253cefef996719def0cd3e2218201036539eb57223be9"
+      "sha256": "17cd264eb0c386f68db14b9bed91e84647dc1b0401ba2b1ed73771fe7a19eab6"
     },
     {
       "path": "scripts/production-reliability-browser-check.js",
@@ -1306,15 +1396,15 @@
     },
     {
       "path": "scripts/record-production-display.js",
-      "size": 20152,
+      "size": 20887,
       "hashMode": "utf8-lf",
-      "sha256": "dd29d22fda15b7dc8adce5ba542f9e20f7168c2d353eb8edae18797b0af1706b"
+      "sha256": "0288afc094fd34f92ec7da62a9491a071b5992622fd0ea15f31accf52c067f79"
     },
     {
       "path": "scripts/recording-cue-caption.js",
-      "size": 1837,
+      "size": 2037,
       "hashMode": "utf8-lf",
-      "sha256": "01094943515fadbd5cd0a0443a508654ceadf1ecc07242db7cd5dfc791db7326"
+      "sha256": "77f30192ab3ffa46a36766f12fba6bc2a800d88c5f42ba8e9dc843471211b924"
     },
     {
       "path": "scripts/recording-review.js",
@@ -1348,9 +1438,9 @@
     },
     {
       "path": "scripts/smoke-production-portable.mjs",
-      "size": 2664,
+      "size": 2815,
       "hashMode": "utf8-lf",
-      "sha256": "d7f189221cb4b84291e8b1d3d09dcb4d17cb23bbc000772855aca163fccf813c"
+      "sha256": "0be4a69b0eb88183cf0a39579d6aeae7fc3f4e48a6ba498ea47292e1134133be"
     },
     {
       "path": "scripts/soak-test.js",
@@ -1390,21 +1480,21 @@
     },
     {
       "path": "scripts/verify-production-emergency-kit.mjs",
-      "size": 3475,
+      "size": 3709,
       "hashMode": "utf8-lf",
-      "sha256": "abf684dc36515c9dc41195616a68c015770fb928acc3cbde12f1c33f1f205f10"
+      "sha256": "00aa87a6094f92acf6bd5a7596058e80c710afef1899febe3d2c104b41701b6c"
     },
     {
       "path": "scripts/verify-production-portability.mjs",
-      "size": 984,
+      "size": 992,
       "hashMode": "utf8-lf",
       "sha256": "ad6209ed8d4790f7782ad3eb71ac4cb1344a752bb4bf390b8a8c3a2448d3a33a"
     },
     {
       "path": "scripts/verify-production-recording.mjs",
-      "size": 2352,
+      "size": 2729,
       "hashMode": "utf8-lf",
-      "sha256": "83edd9a274d4c097c343cdf7a8ff05ebcd9451eccb5cd963406dea4f9b630e42"
+      "sha256": "c2705310a47b1040be9f6245f376f52095df666dde2a4eb308ae0397f108b681"
     },
     {
       "path": "scripts/verify-production-reliability.mjs",
@@ -1438,7 +1528,7 @@
     },
     {
       "path": "setup-production.cmd",
-      "size": 423,
+      "size": 438,
       "hashMode": "utf8-lf",
       "sha256": "3317f12fa942cade322ecd989b575811ee214b9d29996cf303d0acd532e70a8b"
     },
@@ -1456,9 +1546,9 @@
     },
     {
       "path": "shows/production.json",
-      "size": 68751,
+      "size": 80405,
       "hashMode": "utf8-lf",
-      "sha256": "e49ab52119ab8f4b71a9bb31a122ab52484a7c5f8ce4c2da8491ae3e9e1195f2"
+      "sha256": "4f60a77ccf92c7a40a6d3d05421378037bdc15ecc9af61180b1a1f98a4da45e4"
     },
     {
       "path": "src/audio/production-cue-timing.js",
@@ -1534,15 +1624,15 @@
     },
     {
       "path": "src/show-schema.js",
-      "size": 19475,
+      "size": 19739,
       "hashMode": "utf8-lf",
-      "sha256": "1e082d4b610d0d28ddb163b2ec5ba16083999b8e22e473b09e120cd763a0cb09"
+      "sha256": "688b543165bb8478dcda6032a444074a0405410e9c5fb67f988dcf571e461d4d"
     },
     {
       "path": "src/state-store.js",
-      "size": 55945,
+      "size": 57524,
       "hashMode": "utf8-lf",
-      "sha256": "2d14bb0c95af32dac4d5fdee7542089cb75a649068305a45bcbff1aff644a86d"
+      "sha256": "b6c9689d26dcd6c0dcde1102eec4c296edc5840972da85da04b45598ee92bf74"
     },
     {
       "path": "src/tts/aivis-speech-client.js",
@@ -1576,7 +1666,7 @@
     },
     {
       "path": "start-yokogawa-ai.cmd",
-      "size": 205,
+      "size": 217,
       "hashMode": "utf8-lf",
       "sha256": "768f86145c349c47b5e215a6b25f4ebc7dbd0968141a43cb0c382067f75e8334"
     }

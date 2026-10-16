@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "folder": "C:\\Users\\kumes\\Documents\\yokokawa_ai\\post-show-candidate\\portable-smoke-cSbWCx",
+  "setup": "\nadded 98 packages, and audited 99 packages in 2s\n\n30 packages are looking for funding\n  run `npm fund` for details\n\nfound 0 vulnerabilities\n{\"status\":\"PASS\",\"verifiedFiles\":278,\"slots\":[{\"id\":\"startup\",\"status\":\"READY\"},{\"id\":\"hack-noise\",\"status\":\"READY\"},{\"id\":\"warning\",\"status\":\"READY\"},{\"id\":\"puzzle-01\",\"status\":\"READY\"},{\"id\":\"puzzle-06\",\"status\":\"READY\"},{\"id\":\"puzzle-07\",\"status\":\"READY\"},{\"id\":\"recovery\",\"status\":\"READY\"},{\"id\":\"gauge\",\"status\":\"READY\"}],\"runtime\":\"v22.15.0\"}\nSetup complete. Run start-yokogawa-ai-single-pc.cmd.\r\n",
+  "showCues": 24,
+  "audioExpected": 23,
+  "allRequiredSlotsReady": true,
+  "optionalMissingSlots": [],
+  "method": "Fresh copied distribution, preinstalled Node/npm, npm ci --omit=dev, actual single-PC launcher, HTTP Show/slots/preload. Setup needs registry access or an already populated npm cache. Same host, not a different physical PC test."
+}

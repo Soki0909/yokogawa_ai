@@ -1,0 +1,18 @@
+[
+  {
+    "path": "C:\\Users\\kumes\\Documents\\yokokawa_ai\\post-show-candidate\\artifacts\\post-show-20261017\\staging\\横川AI_24Cue候補_別PC一式_Node導入済み.zip",
+    "bytes": 48467336,
+    "files": 279,
+    "sha256": "855a455c842561b5d9cd9e136e15182c38be5a7e0902d254e63d407f4744e35d",
+    "crcAndEveryFileHash": "PASS",
+    "adoption": "CANDIDATE ONLY"
+  },
+  {
+    "path": "C:\\Users\\kumes\\Documents\\yokokawa_ai\\post-show-candidate\\artifacts\\post-show-20261017\\staging\\横川AI_24Cue候補_音響映像予備.zip",
+    "bytes": 55460364,
+    "files": 58,
+    "sha256": "210fd979c3b58de265c344e18dd835bba3b7b19ac1ede0f5b0b2b22700433445",
+    "crcAndEveryFileHash": "PASS",
+    "adoption": "CANDIDATE ONLY"
+  }
+]

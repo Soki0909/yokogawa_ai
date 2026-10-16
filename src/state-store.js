@@ -3,7 +3,7 @@ import { JsonFileStorage } from './json-storage.js';
 import { CueCompletion } from './cue-completion.js';
 import {
   AVATAR_ASSET_SETS, DEFAULT_AVATAR, DEFAULT_PRESETS, SHOW_SCHEMA_VERSION, normalizeAsset, normalizeAvatar, normalizeCue,
-  normalizeOverlay, normalizePreset, normalizeTarget, normalizeTransition, normalizeVisual, normalizeSequence, publicCue, validateShowFile,
+  normalizeOverlay, normalizePreset, normalizeTarget, normalizeTransition, normalizeOutputFade, normalizeVisual, normalizeSequence, publicCue, validateShowFile,
 } from './show-schema.js';
 
 export const DEFAULT_SETTINGS = Object.freeze({
@@ -40,15 +40,16 @@ const EMPTY_UNLOCK = Object.freeze({ status: 'idle', progress: 0, startedAt: nul
 
 const PRESENTATION_KEYS = Object.freeze([
   'currentSubtitle', 'displayMode', 'currentPresetId', 'currentAvatar', 'blackout', 'previousVisualState',
-  'currentOverlay', 'currentVisual', 'currentTransition', 'unlock',
+  'currentOverlay', 'currentVisual', 'currentTransition', 'currentOutputFade', 'unlock',
 ]);
 
-export function canonicalPresentationState(avatar = DEFAULT_AVATAR) {
+export function canonicalPresentationState(avatar = DEFAULT_AVATAR, visible = true) {
   return {
     currentSubtitle: null, displayMode: 'ready', currentPresetId: 'normal', currentAvatar: structuredClone(avatar),
     blackout: false, previousVisualState: null, currentOverlay: structuredClone(EMPTY_OVERLAY),
     currentVisual: structuredClone(EMPTY_VISUAL), currentTransition: structuredClone(EMPTY_TRANSITION),
     unlock: structuredClone(EMPTY_UNLOCK),
+    currentOutputFade:{from:visible?1:0,to:visible?1:0,durationMs:0,status:'completed',startedAt:null},
   };
 }
 
@@ -111,6 +112,7 @@ export function applyCueStateEffects(presentation, cue, { settled = false, now =
   if (cue.kind !== 'blackout') next.currentPresetId = cue.presentationPreset;
   next.currentAvatar = { ...next.currentAvatar, ...cue.avatar, lipSyncMode: cue.audio.lipSyncMode };
   next.currentTransition = transition; next.currentOverlay = overlay; next.currentVisual = visual; next.unlock = unlock;
+  next.currentOutputFade={...normalizeOutputFade(cue.outputFade),status:!settled&&cue.outputFade?.durationMs>0?'active':'completed',startedAt:cue.outputFade&&!settled?startedAt:null};
   if (cue.kind === 'blackout') next.blackout = true;
   next.displayMode = cue.kind;
   if (settled) for (const phase of cue.sequence ?? []) applySequencePhase(next, phase);
@@ -137,6 +139,7 @@ export class StateStore {
       sceneRehearsal: null,
       currentOverlay: structuredClone(EMPTY_OVERLAY), currentVisual: structuredClone(EMPTY_VISUAL),
       currentTransition: structuredClone(EMPTY_TRANSITION), unlock: structuredClone(EMPTY_UNLOCK),
+      currentOutputFade:canonicalPresentationState().currentOutputFade,
       localTts: { status: 'unknown', profileId: 'yokogawa-professor-v1', engineVersion: null, runtimeStyleId: null, error: null },
     };
   }
@@ -167,6 +170,7 @@ export class StateStore {
       currentOverlay: { ...normalizeOverlay(display.currentOverlay), ...(display.currentOverlay?.expiresAt ? { expiresAt: display.currentOverlay.expiresAt } : {}) },
       currentVisual: { ...normalizeVisual(display.currentVisual), ...(display.currentVisual?.expiresAt ? { expiresAt: display.currentVisual.expiresAt } : {}) },
       currentTransition: this.restoreTransition(display.currentTransition), unlock: this.restoreUnlock(display.unlock),
+      currentOutputFade:this.restoreOutputFade(display.currentOutputFade),
     }));
     this.state.targetGroups = this.validateTargetGroups(stored.targetGroups);
     this.state.metadata = stored.metadata && typeof stored.metadata === 'object' ? stored.metadata : this.state.metadata;
@@ -180,6 +184,7 @@ export class StateStore {
     this.state.currentOverlay = { ...normalizeOverlay(stored.currentOverlay), ...(stored.currentOverlay?.expiresAt ? { expiresAt: stored.currentOverlay.expiresAt } : {}) };
     this.state.currentVisual = { ...normalizeVisual(stored.currentVisual), ...(stored.currentVisual?.expiresAt ? { expiresAt: stored.currentVisual.expiresAt } : {}) };
     this.state.currentTransition = this.restoreTransition(stored.currentTransition);
+    this.state.currentOutputFade=this.restoreOutputFade(stored.currentOutputFade);
     this.state.unlock = this.restoreUnlock(stored.unlock);
     this.state.rehearsalSession = stored.rehearsalSession ?? null;
     this.state.rehearsalLog = Array.isArray(stored.rehearsalLog) ? stored.rehearsalLog.slice(-5000) : [];
@@ -219,6 +224,7 @@ export class StateStore {
       currentOverlay: display?.currentOverlay ?? this.state.currentOverlay,
       currentVisual: display?.currentVisual ?? this.state.currentVisual,
       currentTransition: display?.currentTransition ?? this.state.currentTransition,
+      currentOutputFade:display?.currentOutputFade??this.state.currentOutputFade,preShowDark:this.state.metadata.preShowDark===true,
       unlock: display?.unlock ?? this.state.unlock,
       currentCue: publicCue(this.snapshot().currentCue),
     });
@@ -230,7 +236,7 @@ export class StateStore {
     if (!display) {
       display = { displayId, displayName: 'Display', audioEnabled: true, required: false, groups: [], currentSubtitle: this.state.currentSubtitle, displayMode: this.state.displayMode, currentPresetId: this.state.currentPresetId, currentAvatar: structuredClone(this.state.currentAvatar), blackout: this.state.blackout,
         currentOverlay: structuredClone(this.state.currentOverlay), currentVisual: structuredClone(this.state.currentVisual),
-        currentTransition: structuredClone(this.state.currentTransition), unlock: structuredClone(this.state.unlock) };
+        currentTransition: structuredClone(this.state.currentTransition),currentOutputFade:structuredClone(this.state.currentOutputFade), unlock: structuredClone(this.state.unlock) };
       this.state.displays.push(display);
     }
     Object.assign(display, {
@@ -590,12 +596,12 @@ export class StateStore {
     const cues = this.orderedCues();
     const prior = cues.filter((cue) => cue.enabled && sceneOrders.has(cue.sceneId) && sceneOrders.get(cue.sceneId) < scene.order);
     const firstCue = cues.find((cue) => cue.enabled && cue.sceneId === sceneId) ?? null;
-    let presentation = canonicalPresentationState(this.state.avatar);
+    let presentation = canonicalPresentationState(this.state.avatar,this.state.metadata.preShowDark!==true);
     for (const cue of prior) presentation = applyCueStateEffects(presentation, cue, { settled: true });
     presentation.currentSubtitle = null;
     presentation.currentVisual = structuredClone(EMPTY_VISUAL);
     const displayPresentations = this.state.displays.map((display) => {
-      let displayPresentation = canonicalPresentationState(this.state.avatar);
+      let displayPresentation = canonicalPresentationState(this.state.avatar,this.state.metadata.preShowDark!==true);
       for (const cue of prior) if (this.matchesTarget(display, cue.target)) {
         displayPresentation = applyCueStateEffects(displayPresentation, cue, { settled: true });
       }
@@ -649,7 +655,7 @@ export class StateStore {
     for (const queued of this.state.queue) this.updateHistory(queued.id, { status: 'stopped', finishedAt: this.now().toISOString() });
     this.state.currentMessage = null; this.state.queue = []; this.state.playbackStatus = 'idle';
     this.state.currentCueIndex = -1; this.state.currentSceneId = null; this.state.sceneRehearsal = null;
-    const reset = canonicalPresentationState(this.state.avatar);
+    const reset = canonicalPresentationState(this.state.avatar,this.state.metadata.preShowDark!==true);
     assignPresentationState(this.state, reset);
     for (const display of this.state.displays) assignPresentationState(display, reset);
     this.logRehearsal('show-reset', 'SHOW RESET');
@@ -657,6 +663,8 @@ export class StateStore {
   }
 
   getPreset(presetId) { return this.state.presets.find((preset) => preset.id === presetId) ?? this.state.presets[0] ?? null; }
+
+  restoreOutputFade(input={}) {return {...normalizeOutputFade(input),status:['active','completed','stopped'].includes(input?.status)?input.status:'completed',startedAt:input?.startedAt??null};}
 
   restoreTransition(input = {}) {
     const normalized = normalizeTransition(input);
@@ -678,6 +686,7 @@ export class StateStore {
 
   settlePresentation(presentation) {
     const nowMs = this.now().getTime();
+    const fade=presentation.currentOutputFade;if(fade?.status==='active'&&fade.startedAt&&nowMs>=Date.parse(fade.startedAt)+fade.durationMs)fade.status='completed';
     if (presentation.currentTransition?.status === 'active' && presentation.currentTransition.startedAt) {
       const transition = presentation.currentTransition;
       const elapsed = nowMs - Date.parse(transition.startedAt);
@@ -705,6 +714,7 @@ export class StateStore {
 
   stabilizePresentation() {
     for (const p of [this.state, ...this.state.displays]) {
+      if(p.currentOutputFade)Object.assign(p.currentOutputFade,{status:'completed',startedAt:null});
       const transition = p.currentTransition;
       transition.startedAt = null;
       while (transition.phases?.[transition.phaseIndex]) applySequencePhase(p, transition.phases[transition.phaseIndex++]);
@@ -721,6 +731,7 @@ export class StateStore {
   stopPresentation(target = { type: 'all' }, status = 'stopped') {
     this.settleTimedPresentation();
     const stop = (presentation) => {
+      if(presentation.currentOutputFade?.status==='active')Object.assign(presentation.currentOutputFade,{status:'stopped',startedAt:null});
       presentation.currentSubtitle = null;
       if (presentation.previousVisualState) presentation.previousVisualState.currentSubtitle = null;
       if (presentation.currentTransition?.status === 'active') presentation.currentTransition.status = 'stopped';
@@ -740,7 +751,7 @@ export class StateStore {
     const action = { kind: cue.kind, target: cue.target, displayText: cue.displayText, presentationPreset: cue.presentationPreset,
       presentationDelayMs:this.state.metadata.reliableAudio?this.presentationDelayMs||0:0,
       avatar: next.currentAvatar, blackout: next.blackout, currentSubtitle: next.currentSubtitle, transition: next.currentTransition,
-      overlay: next.currentOverlay, visual: next.currentVisual, unlock: next.unlock };
+      overlay: next.currentOverlay, visual: next.currentVisual,outputFade:next.currentOutputFade, unlock: next.unlock };
     for (const display of this.state.displays) {
       if (!this.matchesTarget(display, cue.target)) continue;
       const displayNext=applyCueStateEffects(presentationStateOf(display), cue, { now });
@@ -875,6 +886,7 @@ export class StateStore {
       blackout: this.state.blackout, previousVisualState: this.state.previousVisualState,
       currentOverlay: this.state.currentOverlay, currentVisual: this.state.currentVisual,
       currentTransition: this.state.currentTransition, unlock: this.state.unlock,
+      currentOutputFade:this.state.currentOutputFade,
       rehearsalSession: this.state.rehearsalSession, rehearsalLog: this.state.rehearsalLog,
       sceneRehearsal: this.state.sceneRehearsal,
     });

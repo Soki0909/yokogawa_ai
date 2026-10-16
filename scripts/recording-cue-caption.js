@@ -1,5 +1,7 @@
 // Review-only annotation. Injected by the recorder, never shipped to Production Display.
 const descriptions = {
+  'P-V00': '開演・初期画面フェードイン', 'P-V03': '第一の謎を閉じる',
+  'P-V08': '終幕・暗転', 'P-021': '青画面復帰 → 退場案内',
   'P-001': '横川AI 起動', 'P-002': '参加者の照会', 'P-003': '情報照合・セキュリティ説明',
   'P-004': 'プリンキピア説明 → HACK', 'P-005': '外部通信を拒否', 'P-006': '命令を拒否',
   'P-007': '認証を拒否', 'P-008': '五つの謎・脱出条件', 'P-019': '記入用紙の案内',

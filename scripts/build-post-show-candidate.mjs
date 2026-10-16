@@ -1,0 +1,24 @@
+// Explicit candidate builder. Existing Cue objects are copied verbatim from the stable commit.
+import fs from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {recordingCueCaption} from './recording-cue-caption.js';
+import {validateShowFile} from '../src/show-schema.js';
+const baseline='da09d3bbcfed8d3d9a2568dd7be621359160ddc7';
+const show=JSON.parse(execFileSync('git',['show',baseline+':shows/production.json']).toString());
+const speech=JSON.parse(await fs.readFile('config/production-speech/post-show-021.json','utf8'));
+const silent=(id,cueNumber,name,scene,order,extra={})=>({id,cueNumber,name,route:'main',scene,location:'7・201',kind:'clear',order,displayText:'',speechText:'',presentationPreset:'normal',target:{type:'all'},avatar:{visible:false,state:'normal'},audio:{speechMode:'none',lipSyncMode:'none'},overlay:{id:'none',visible:false},visual:{type:'none',visible:false},transition:{id:'none',durationMs:0},sfx:[],...extra});
+const prelude=silent('prod-v-prelude','P-V00','開演画面フェードイン','scene-1',0,{transition:{id:'timeline',durationMs:2500},outputFade:{from:0,to:1,durationMs:2500},triggerNote:'M-0のフェードアウト／照明の立ち上がりに合わせてGO。',operatorNote:'開演前は暗い画面。投影側Sキーで音声準備を開く。2.5秒で従来の初期画面へ。P-001の起動音は別のNEXT。'});
+const close=silent('prod-v-riddle-close','P-V03','第一の謎を閉じる','scene-5',115,{presentationPreset:'hijacked',avatar:{visible:true,state:'hijacked'},outputFade:{from:1,to:1,durationMs:0},triggerNote:'「謎は全て解けました！ 201の教室に集合してください！」の掛け声の後にGO。',operatorNote:'第一の謎・字幕・overlayを閉じ、HACK画面を保持。集合と人間台詞を待ってP-011を手動NEXT。自動進行なし。'});
+const curtain=silent('prod-v-curtain-black','P-V08','終幕暗転','scene-7',245,{kind:'preset-only',transition:{id:'timeline',durationMs:1000},avatar:{visible:true,state:'normal'},outputFade:{from:1,to:0,durationMs:1000},triggerNote:'「さあ、今度こそ全員で――7号館から脱出だ！」後の溶暗に合わせてGO。M-8の前。',operatorNote:'1秒で全表示を黒にし、カーテンコール終了まで保持。緊急BLACKOUTではない。Restore操作なしで次のP-021へ。'});
+const exit={...silent('prod-021','P-021','退場アナウンス','scene-7',250),kind:'speech-display',speechText:speech.spokenText,displayText:speech.displayText,speech:{spokenText:speech.spokenText,segments:speech.segments,subtitleUnits:speech.subtitleUnits,subtitleMode:'typewriter'},audio:{speechMode:'audio-file',assetId:speech.assetId,lipSyncMode:'audio-reactive'},avatar:{visible:true,state:'normal'},outputFade:{from:0,to:1,durationMs:2000},transition:{id:'timeline',durationMs:2000},timing:{speechDelayMs:2200},triggerNote:'カーテンコール終了後、舞台進行担当の合図でGO。',operatorNote:'青いNORMALとAvatarを2秒でフェードイン。GOから2.2秒後に固定音声と1文ずつの字幕を開始。案内後もNORMALを保持。'};
+show.cues=[prelude,...show.cues.slice(0,10),close,...show.cues.slice(10),curtain,exit];
+show.assets.push({id:speech.assetId,name:'横川AI P-021 退場アナウンス',path:speech.path,mimeType:'audio/wav',sha256:speech.sha256,durationMs:Math.ceil(speech.durationSeconds*1000)});
+Object.assign(show.metadata,{version:'post-show-candidate-20261017',preShowDark:true,stableBaseline:baseline,candidateOnly:true});
+show.metadata.showHash=createHash('sha256').update(JSON.stringify(show.cues)).digest('hex');
+const validation=validateShowFile(show);if(!validation.valid)throw Error(JSON.stringify(validation.errors));
+await fs.writeFile('shows/production.json',JSON.stringify(show,null,2)+'\n');
+const oldLabels=JSON.parse(execFileSync('git',['show',baseline+':config/production-backup-cue-labels.json']).toString());
+const extra=new Map([prelude,close,curtain,exit].map(c=>[c.cueNumber,`AI：${recordingCueCaption(c)}`]));
+const labels={...oldLabels,candidateOnly:true,note:'既存20表記は共有台本の読み取り結果。新4 Cueの表記は候補案であり、Google Docsへは未反映。',labels:show.cues.map(c=>extra.get(c.cueNumber)||oldLabels.labels.find(line=>line.startsWith('AI：'+c.cueNumber+'｜')))};
+await fs.writeFile('config/production-backup-cue-labels.json',JSON.stringify(labels,null,2)+'\n');console.log('Candidate built: 24 Cues, existing 20 unchanged, 1 new fixed speech');

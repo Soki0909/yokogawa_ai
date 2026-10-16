@@ -10,6 +10,8 @@ import { recordingCueCaption, recordingCueCaptionScript } from './recording-cue-
 
 // Isolated review recording: never opens or overwrites the operator's persisted Show.
 const outputDirectory = path.resolve(process.argv[2] ?? `artifacts/recordings/${new Date().toISOString().replaceAll(':', '-')}`);
+const width = Number(process.env.RECORD_WIDTH || 1920), height = Number(process.env.RECORD_HEIGHT || 1080);
+if (![[1920,1080],[1280,720]].some(([w,h])=>w===width&&h===height)) throw Error('Unsupported recording viewport');
 const ffmpeg = process.env.FFMPEG_PATH || 'ffmpeg';
 
 const candidates = [
@@ -141,7 +143,7 @@ const openPage = async (debugPort, url, { display = false } = {}) => {
   const page = new DevToolsPage(socket, url);
   await Promise.all([page.send('Runtime.enable'), page.send('Log.enable'), page.send('Network.enable'), page.send('Page.enable')]);
   if (display) {
-    await page.send('Emulation.setDeviceMetricsOverride', { width: 1920, height: 1080, deviceScaleFactor: 1, mobile: false });
+    await page.send('Emulation.setDeviceMetricsOverride', { width, height, deviceScaleFactor: 1, mobile: false });
     await page.send('Page.addScriptToEvaluateOnNewDocument', { source: `
       window.__yokogawaAudioPlays = [];
       const originalBufferStart = AudioBufferSourceNode.prototype.start;
@@ -175,45 +177,37 @@ let assetSlots;
 let server; let browser; let display; let admin; let state; let failure;
 const frames = []; const audioClips = []; const timeline = [];
 let writes = Promise.resolve(); let recording = false; let videoStart;
+// Capture each destination gain separately: speech and warning SE can overlap.
+// This is recording instrumentation only; Production audio sources/routes are unchanged.
 const audioHook = `
   window.__recordAudioCount = 0;
   const nativeConnect = AudioNode.prototype.connect;
   const nativeDisconnect = AudioNode.prototype.disconnect;
   AudioNode.prototype.disconnect = function(...args) {
+    const capture = this.__recordCapture;
     const result = nativeDisconnect.call(this, ...args);
-    const capture = this.context.__recording;
-    if (capture?.node === this) {
-      this.context.__recording = null;
+    if (capture) {
+      this.__recordCapture = null;
       if (capture.recorder.state !== 'inactive') capture.recorder.stop();
     }
     return result;
   };
   AudioNode.prototype.connect = function(destination, ...args) {
     const result = nativeConnect.call(this, destination, ...args);
-    if (destination instanceof AudioDestinationNode && !this.__silentPreparation) {
-      const context = this.context;
-      if (!context.__recording) {
-        const stream = context.createMediaStreamDestination();
-        const recorder = new MediaRecorder(stream.stream, { mimeType: 'audio/webm;codecs=opus', audioBitsPerSecond: 192000 });
-        const chunks = []; const index = window.__recordAudioCount++; const at = Date.now()+Math.min(300,((context.baseLatency||0)+(context.outputLatency||0))*1000);
-        recorder.ondataavailable = e => { if(e.data.size) chunks.push(e.data); };
-        const done = new Promise(resolve => recorder.onstop = async () => {
-          const bytes = new Uint8Array(await new Blob(chunks).arrayBuffer());
-          let binary = ''; for(let i=0; i<bytes.length; i+=32768) binary += String.fromCharCode(...bytes.subarray(i,i+32768));
-          window.recordAudio(JSON.stringify({ index, at, data: btoa(binary) })); resolve();
-        });
-        context.__recording = { stream, recorder, done, node: this }; recorder.start();
-        if (!context.__recordingCloseInstalled) {
-          context.__recordingCloseInstalled = true;
-          const close = context.close.bind(context);
-          context.close = async () => {
-            const capture = context.__recording; context.__recording = null;
-            if (capture) { if (capture.recorder.state !== 'inactive') capture.recorder.stop(); await capture.done; }
-            return close();
-          };
-        }
-      }
-      nativeConnect.call(this, context.__recording.stream);
+    if (destination instanceof AudioDestinationNode && this.__yokogawaAssetId && !this.__recordCapture) {
+      const context = this.context, stream = context.createMediaStreamDestination();
+      const recorder = new MediaRecorder(stream.stream, { mimeType: 'audio/webm;codecs=opus', audioBitsPerSecond: 192000 });
+      const chunks = [], index = window.__recordAudioCount++, assetId = this.__yokogawaAssetId;
+      const at = Date.now()+Math.min(300,((context.baseLatency||0)+(context.outputLatency||0))*1000);
+      recorder.ondataavailable = e => { if(e.data.size) chunks.push(e.data); };
+      recorder.onstop = async () => {
+        const bytes = new Uint8Array(await new Blob(chunks).arrayBuffer());
+        let binary = ''; for(let i=0; i<bytes.length; i+=32768) binary += String.fromCharCode(...bytes.subarray(i,i+32768));
+        window.recordAudio(JSON.stringify({ index, assetId, at, data: btoa(binary) }));
+        stream.stream.getTracks().forEach(track=>track.stop());
+      };
+      this.__recordCapture = { recorder }; recorder.start();
+      nativeConnect.call(this, stream);
     }
     return result;
   };
@@ -245,6 +239,7 @@ try {
   // Record installed slots and their real durations, rather than fallback timings.
   assetSlots = (await (await fetch(`${baseUrl}/api/production-slots`)).json()).slots;
   production = await (await fetch(`${baseUrl}/api/show-file`)).json();
+  await writeFile(path.join(outputDirectory,'resolved-production-show.json'), JSON.stringify(production,null,2));
   cues = production.cues.filter(cue => cue.enabled !== false && cue.route === 'main').sort((a, b) => a.order - b.order);
   browser = spawn(browserPath, ['--headless=new', '--no-proxy-server', '--no-first-run', '--no-default-browser-check',
     '--autoplay-policy=no-user-gesture-required', '--disable-background-timer-throttling', '--disable-renderer-backgrounding',
@@ -257,7 +252,7 @@ try {
     const event = JSON.parse(raw);
     if (event.method === 'Runtime.bindingCalled' && event.params.name === 'recordAudio') {
       const clip = JSON.parse(event.params.payload); const file = path.join(temporary, `audio-${clip.index}.webm`);
-      audioClips.push({ index: clip.index, at: clip.at, file });
+      audioClips.push({ index: clip.index, assetId: clip.assetId, at: clip.at, file });
       writes = writes.then(() => writeFile(file, Buffer.from(clip.data, 'base64')));
     }
     if (event.method === 'Page.screencastFrame') {
@@ -277,6 +272,8 @@ try {
   send({ type: 'audio-master:set', displayId: 'recording' });
   const preloadCount = production.assets.filter(asset => asset.mimeType === 'audio/wav').length;
   await display.waitFor(`document.querySelector('#audio-help').textContent.includes('${preloadCount} / ${preloadCount} READY')`, 'Production audio preload');
+  await display.send('Input.dispatchKeyEvent',{type:'keyDown',key:'s',code:'KeyS'});
+  await display.send('Input.dispatchKeyEvent',{type:'keyUp',key:'s',code:'KeyS'});
   await display.click('#enable-audio'); await waitState(s => s?.displayAudioReady, 'Audio Ready');
   send({ type: 'rehearsal:start' }); await waitState(s => s?.rehearsalSession?.active, 'rehearsal');
   await display.send('Page.bringToFront');
@@ -284,7 +281,7 @@ try {
   await display.evaluate(`document.querySelector('#open-setup').style.visibility = 'hidden'`);
   await display.evaluate(recordingCueCaptionScript({ cueNumber: '確認用録画', name: '横川AI Production' }));
   recording = true; videoStart = Date.now();
-  await display.send('Page.startScreencast', { format: 'jpeg', quality: 85, maxWidth: 1920, maxHeight: 1080, everyNthFrame: 1 });
+  await display.send('Page.startScreencast', { format: 'jpeg', quality: 85, maxWidth: width, maxHeight: height, everyNthFrame: 1 });
   await waitState(() => frames.length > 0, 'first recorded frame');
   videoStart = frames[0].at;
   await delay(500);
@@ -313,6 +310,7 @@ try {
   await display.send('Page.stopScreencast'); await delay(500); await writes;
   if (display.errors.length) throw new Error(`Browser errors: ${display.errors.join(' | ')}`);
   const expectedClips = cues.filter(c => c.audio?.speechMode === 'audio-file').length + cues.reduce((sum, cue) => sum + (cue.sfx?.length ?? 0), 0);
+  await waitState(()=>audioClips.length===expectedClips, 'all recording audio exports',5000);
   if (audioClips.length !== expectedClips) throw new Error(`Missing audio clips: expected ${expectedClips}, got ${audioClips.length}`);
   if (frames.length < 100) throw new Error(`Missing video frames: ${frames.length}`);
   frames.sort((a,b) => a.at-b.at); audioClips.sort((a,b) => a.at-b.at);
@@ -327,12 +325,12 @@ try {
   await runFfmpeg(['-f','concat','-safe','0','-i',concatFile,...audioClips.flatMap(clip=>['-i',clip.file]),
     '-filter_complex_script',filterFile,'-map','0:v','-map','[audio]','-t',String(duration),'-r','30','-fps_mode','cfr',
     '-c:v','libx264','-preset','fast','-crf','19','-pix_fmt','yuv420p','-c:a','aac','-b:a','192k','-movflags','+faststart',
-    path.join(outputDirectory,'production-display-1920x1080.mp4')]);
-  await writeFile(path.join(outputDirectory,'cue-timeline.json'), JSON.stringify({ width:1920,height:1080, fps:30, gapSeconds:2,
-    durationSeconds:duration, frames:frames.length, audioClips:audioClips.length, cueCaption: { enabled: true, position: 'top-left', scope: 'recording-only' }, assetSlots,
+    path.join(outputDirectory,`production-display-${width}x${height}.mp4`)]);
+  await writeFile(path.join(outputDirectory,'cue-timeline.json'), JSON.stringify({ width,height, fps:30, gapSeconds:2,
+    durationSeconds:duration, frames:frames.length, audioClips:audioClips.length, audioSources:audioClips.map(({index,assetId,at})=>({index,assetId,startedSeconds:(at-videoStart)/1000})), cueCaption: { enabled: true, position: 'top-left', scope: 'recording-only' }, assetSlots,
     cues:timeline, excludedCues:production.cues.filter(c=>c.enabled===false).map(c=>c.id) }, null, 2));
   await writeFile(path.join(outputDirectory,'review.html'), renderRecordingReview({ cues: timeline }));
-  console.log(`PASS: ${path.join(outputDirectory,'production-display-1920x1080.mp4')}`);
+  console.log(`PASS: ${path.join(outputDirectory,`production-display-${width}x${height}.mp4`)}`);
 } finally {
   admin?.close(); display?.close(); await stopChild(browser); await stopChild(server);
   // temporary is created by this invocation with mkdtemp, never a supplied directory.

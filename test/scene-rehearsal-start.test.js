@@ -45,7 +45,7 @@ test('Scene 1 Startは真のShow Reset境界へ戻しCueも音声も実行しな
   store.enqueue(first); store.enqueue(queued); store.reportPlayback(first.id, 'speaking');
   const historyLength = store.state.history.length; const logLength = store.state.rehearsalLog.length;
   const result = store.startSceneRehearsal('scene-1'); const snapshot = store.snapshot();
-  assert.equal(result.nextCueId, 'prod-001'); assert.equal(snapshot.currentCue, null); assert.equal(snapshot.nextCue.cueId, 'prod-001');
+  assert.equal(result.nextCueId, 'prod-v-prelude'); assert.equal(snapshot.currentCue, null); assert.equal(snapshot.nextCue.cueId, 'prod-v-prelude');
   assert.equal(snapshot.currentAvatar.visible, false); assert.equal(snapshot.currentPresetId, 'normal'); assert.equal(snapshot.currentSubtitle, null);
   assert.equal(store.state.currentMessage, null); assert.deepEqual(store.state.queue, []); assert.equal(store.state.playbackStatus, 'idle');
   assert.equal(store.state.audioMasterId, 'display-201'); assert.equal(store.state.displayAudioReady, true);

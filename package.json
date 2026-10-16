@@ -46,7 +46,9 @@
     "test:stage-pacing": "node scripts/stage-pacing-browser-check.js",
     "test:projection": "node scripts/production-reliability-browser-check.js",
     "test:reliability": "node scripts/production-reliability-browser-check.js",
-    "production:reliability:verify": "node scripts/verify-production-reliability.mjs"
+    "production:reliability:verify": "node scripts/verify-production-reliability.mjs",
+    "show:post-show:build": "node scripts/build-post-show-candidate.mjs",
+    "test:post-show": "node scripts/post-show-browser-check.mjs"
   },
   "dependencies": {
     "express": "5.1.0",

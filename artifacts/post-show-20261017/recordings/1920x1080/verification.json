@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "video": [
+    1920,
+    1080,
+    "30/1"
+  ],
+  "durationSeconds": 223.039,
+  "cues": 24,
+  "speechClips": 18,
+  "sfxClips": 7,
+  "minimumGap": 2,
+  "fullDecode": true
+}

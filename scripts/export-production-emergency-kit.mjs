@@ -12,8 +12,9 @@ import {finiteCueDuration} from '../src/cue-completion.js';
 const output=path.resolve(process.argv[2]||'production-backup');
 const audioOnly=process.env.BACKUP_AUDIO_ONLY==='1';
 for(const dir of ['audio','visual','puzzles'])await fs.mkdir(path.join(output,dir),{recursive:true});
-await fs.copyFile('docs/production/emergency-backup-operation-20261016.md',path.join(output,'README.md'));
+
 const labels=JSON.parse(await fs.readFile('config/production-backup-cue-labels.json','utf8'));
+await fs.copyFile(labels.candidateOnly?'docs/production/post-show-candidate-operation-20261017.md':'docs/production/emergency-backup-operation-20261016.md',path.join(output,'README.md'));
 const byNumber=new Map(labels.labels.map(line=>{const label=line.replace(/^AI[：:]\s*/,''),number=label.split('｜')[0];return[number,{label,scriptLine:line}];}));
 const temp=await fs.mkdtemp(path.join(os.tmpdir(),'yokogawa-emergency-kit-')),port=await freePort(),debug=await freePort(),base=`http://127.0.0.1:${port}`;
 let server,browser,page,observer,state;const errors=[],rows=[];
@@ -32,6 +33,7 @@ try{
  const decoded=await page.evaluate('window.__backupBuffers.size');
  observer=new WebSocket(base.replace('http','ws')+'/ws');await new Promise((resolve,reject)=>{observer.once('open',resolve);observer.once('error',reject);});observer.on('message',raw=>{const e=JSON.parse(raw);if(e.type==='state')state=e.state;if(e.type==='error')errors.push(e);});send({type:'hello',role:'admin'});
  await page.waitFor(`document.querySelector('#audio-help').textContent.includes('${decoded} / ${decoded} READY')&&!document.querySelector('#enable-audio').disabled`,'actual decode',120000);
+ await page.send('Input.dispatchKeyEvent',{type:'keyDown',key:'s',code:'KeyS'});await page.send('Input.dispatchKeyEvent',{type:'keyUp',key:'s',code:'KeyS'});
  await page.send('Runtime.evaluate',{expression:`document.querySelector('#enable-audio').click()`,userGesture:true});await wait(()=>state?.displayAudioReady,'READY');
  await page.send('DOM.enable');await page.send('CSS.enable');
  const {frameTree}=await page.send('Page.getFrameTree');const {styleSheetId}=await page.send('CSS.createStyleSheet',{frameId:frameTree.frame.id});

@@ -1,0 +1,462 @@
+{
+  "status": "PASS",
+  "softwareOnly": true,
+  "physicalHdmiAudio": "NOT VERIFIED",
+  "checks": [
+    "cold initial black; S setup; 23 decoded; no cue audio",
+    "emergency ready -> explicit NEXT, STOP, REPLAY for all four new Cues; delayed speech cancellation",
+    {
+      "cue": "prod-v-prelude",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "midFadeOpacity": 0.598516
+    },
+    {
+      "cue": "prod-v-curtain-black",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "midFadeOpacity": 0.378812
+    },
+    {
+      "cue": "prod-021",
+      "viewport": [
+        1920,
+        1080
+      ],
+      "midFadeOpacity": 0.459245
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "P021Sentences": 6,
+      "subtitleOnsetOffsetMs": [
+        151,
+        105,
+        109,
+        119,
+        110,
+        118
+      ]
+    },
+    {
+      "cue": "prod-v-prelude",
+      "viewport": [
+        1280,
+        720
+      ],
+      "midFadeOpacity": 0.573097
+    },
+    {
+      "cue": "prod-v-curtain-black",
+      "viewport": [
+        1280,
+        720
+      ],
+      "midFadeOpacity": 0.385345
+    },
+    {
+      "cue": "prod-021",
+      "viewport": [
+        1280,
+        720
+      ],
+      "midFadeOpacity": 0.458423
+    },
+    {
+      "viewport": [
+        1280,
+        720
+      ],
+      "P021Sentences": 6,
+      "subtitleOnsetOffsetMs": [
+        91,
+        92,
+        96,
+        93,
+        97,
+        98
+      ]
+    },
+    "Reset retains Audio READY; dark; cancels delayed P021",
+    "reload and new Display remain black; no past audio",
+    {
+      "p021AudioDelayMs": 2232
+    },
+    "24 manual NEXTs in exact order; no auto advance; no emergency blackout latch"
+  ],
+  "progress": [
+    {
+      "cue": "P-V00",
+      "id": "prod-v-prelude",
+      "elapsedMs": 3336,
+      "audioStarts": 0,
+      "sources": []
+    },
+    {
+      "cue": "P-001",
+      "id": "prod-001",
+      "elapsedMs": 7776,
+      "audioStarts": 2,
+      "sources": [
+        {
+          "id": "prod-sfx-boot",
+          "at": 1792165934853,
+          "args": [],
+          "sinceGoMs": 434
+        },
+        {
+          "id": "prod-voice-001-boot",
+          "at": 1792165937046,
+          "args": [],
+          "sinceGoMs": 2627
+        }
+      ]
+    },
+    {
+      "cue": "P-002",
+      "id": "prod-002",
+      "elapsedMs": 5717,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-002-participant",
+          "at": 1792165943783,
+          "args": [],
+          "sinceGoMs": 28
+        }
+      ]
+    },
+    {
+      "cue": "P-003",
+      "id": "prod-003",
+      "elapsedMs": 17725,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-003-security",
+          "at": 1792165951046,
+          "args": [],
+          "sinceGoMs": 16
+        }
+      ]
+    },
+    {
+      "cue": "P-004",
+      "id": "prod-004",
+      "elapsedMs": 20507,
+      "audioStarts": 2,
+      "sources": [
+        {
+          "id": "prod-voice-004-principia",
+          "at": 1792165970343,
+          "args": [],
+          "sinceGoMs": 26
+        },
+        {
+          "id": "prod-sfx-glitch",
+          "at": 1792165987281,
+          "args": [],
+          "sinceGoMs": 16964
+        }
+      ]
+    },
+    {
+      "cue": "P-005",
+      "id": "prod-005",
+      "elapsedMs": 2868,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-005-communication-lock",
+          "at": 1792165992404,
+          "args": [],
+          "sinceGoMs": 22
+        }
+      ]
+    },
+    {
+      "cue": "P-006",
+      "id": "prod-006",
+      "elapsedMs": 1795,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-006-reject",
+          "at": 1792165996825,
+          "args": [],
+          "sinceGoMs": 19
+        }
+      ]
+    },
+    {
+      "cue": "P-007",
+      "id": "prod-007",
+      "elapsedMs": 1929,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-007-auth-failed",
+          "at": 1792166000184,
+          "args": [],
+          "sinceGoMs": 30
+        }
+      ]
+    },
+    {
+      "cue": "P-008",
+      "id": "prod-008",
+      "elapsedMs": 5558,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-008-five-riddles",
+          "at": 1792166003664,
+          "args": [],
+          "sinceGoMs": 20
+        }
+      ]
+    },
+    {
+      "cue": "P-019",
+      "id": "prod-019",
+      "elapsedMs": 6688,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-019-answer-sheet",
+          "at": 1792166010806,
+          "args": [],
+          "sinceGoMs": 38
+        }
+      ]
+    },
+    {
+      "cue": "P-V02",
+      "id": "prod-v-riddle-enter",
+      "elapsedMs": 4966,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-009-first-riddle",
+          "at": 1792166019045,
+          "args": [],
+          "sinceGoMs": 27
+        }
+      ]
+    },
+    {
+      "cue": "P-V03",
+      "id": "prod-v-riddle-close",
+      "elapsedMs": 2763,
+      "audioStarts": 0,
+      "sources": []
+    },
+    {
+      "cue": "P-011",
+      "id": "prod-011",
+      "elapsedMs": 9350,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-011-final-challenge",
+          "at": 1792166029903,
+          "args": [],
+          "sinceGoMs": 26
+        }
+      ]
+    },
+    {
+      "cue": "P-012",
+      "id": "prod-012",
+      "elapsedMs": 12311,
+      "audioStarts": 2,
+      "sources": [
+        {
+          "id": "prod-voice-012-auth-success",
+          "at": 1792166040810,
+          "args": [],
+          "sinceGoMs": 21
+        },
+        {
+          "id": "prod-sfx-gauge",
+          "at": 1792166045334,
+          "args": [
+            117.34133333333334,
+            0,
+            5
+          ],
+          "sinceGoMs": 4545
+        }
+      ]
+    },
+    {
+      "cue": "P-013",
+      "id": "prod-013",
+      "elapsedMs": 12270,
+      "audioStarts": 2,
+      "sources": [
+        {
+          "id": "prod-sfx-warning",
+          "at": 1792166054689,
+          "args": [],
+          "sinceGoMs": 34
+        },
+        {
+          "id": "prod-voice-013-emergency",
+          "at": 1792166056686,
+          "args": [],
+          "sinceGoMs": 2031
+        }
+      ]
+    },
+    {
+      "cue": "P-014",
+      "id": "prod-014",
+      "elapsedMs": 6280,
+      "audioStarts": 2,
+      "sources": [
+        {
+          "id": "prod-sfx-warning",
+          "at": 1792166068537,
+          "args": [],
+          "sinceGoMs": 43
+        },
+        {
+          "id": "prod-voice-014-contact-failed",
+          "at": 1792166070569,
+          "args": [],
+          "sinceGoMs": 2075
+        }
+      ]
+    },
+    {
+      "cue": "P-V04",
+      "id": "prod-v-hostile-enter",
+      "elapsedMs": 1657,
+      "audioStarts": 0,
+      "sources": []
+    },
+    {
+      "cue": "P-015",
+      "id": "prod-015",
+      "elapsedMs": 4651,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-015-forced-runaway",
+          "at": 1792166079586,
+          "args": [],
+          "sinceGoMs": 35
+        }
+      ]
+    },
+    {
+      "cue": "P-V05",
+      "id": "prod-v-emergency-riddle",
+      "elapsedMs": 1265,
+      "audioStarts": 0,
+      "sources": []
+    },
+    {
+      "cue": "P-V06",
+      "id": "prod-v-stop-code",
+      "elapsedMs": 7230,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-016-shutdown",
+          "at": 1792166090512,
+          "args": [],
+          "sinceGoMs": 1925
+        }
+      ]
+    },
+    {
+      "cue": "P-V07",
+      "id": "prod-v-recovery",
+      "elapsedMs": 7061,
+      "audioStarts": 2,
+      "sources": [
+        {
+          "id": "prod-sfx-gauge",
+          "at": 1792166097407,
+          "args": [
+            169.4,
+            0,
+            3.8
+          ],
+          "sinceGoMs": 28
+        },
+        {
+          "id": "prod-sfx-recovery",
+          "at": 1792166102014,
+          "args": [],
+          "sinceGoMs": 4635
+        }
+      ]
+    },
+    {
+      "cue": "P-020",
+      "id": "prod-020",
+      "elapsedMs": 2970,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-020-unlock-confirmed",
+          "at": 1792166106023,
+          "args": [],
+          "sinceGoMs": 29
+        }
+      ]
+    },
+    {
+      "cue": "P-V08",
+      "id": "prod-v-curtain-black",
+      "elapsedMs": 1431,
+      "audioStarts": 0,
+      "sources": []
+    },
+    {
+      "cue": "P-021",
+      "id": "prod-021",
+      "elapsedMs": 33976,
+      "audioStarts": 1,
+      "sources": [
+        {
+          "id": "prod-voice-021-exit",
+          "at": 1792166115747,
+          "args": [],
+          "sinceGoMs": 2232
+        }
+      ]
+    }
+  ],
+  "frames": [
+    "1920x1080-initial-black",
+    "1920x1080-prod-v-prelude-mid",
+    "1920x1080-prod-v-riddle-close-mid",
+    "1920x1080-prod-v-curtain-black-mid",
+    "1920x1080-prod-021-mid",
+    "1920x1080-P-021-subtitle",
+    "1280x720-prod-v-prelude-mid",
+    "1280x720-prod-v-riddle-close-mid",
+    "1280x720-prod-v-curtain-black-mid",
+    "1280x720-prod-021-mid",
+    "1280x720-P-021-subtitle",
+    "1280x720-reset-reload-black",
+    "1920x1080-P-V00-fade",
+    "1920x1080-P-V00-ready",
+    "1920x1080-P-V03-hold",
+    "1920x1080-P-V08-black",
+    "1920x1080-P-021-final"
+  ],
+  "consoleErrors": [],
+  "networkErrors": [],
+  "serverMissingDisplayRisk": "Source unchanged; separate release gate"
+}

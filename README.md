@@ -1,3 +1,9 @@
+# 横川AI 10/17 演出改訂候補（本番採用未承認）
+
+専用ブランチで24 Cueを検証中です。master・本番環境・公式予備素材は更新していません。[候補の操作・採用条件・ロールバック](docs/production/post-show-candidate-operation-20261017.md)を先に読んでください。初期投影は黒、DisplayのSキーで音声設定を開きます。
+
+以下は安定版から継承した既存ドキュメントです。候補の差分は上記文書を優先してください。
+
 # 横川AI Phase C Candidate — Script-aligned Production Audio
 
 現行構成は`master`です。別PCへの再現は[10/16本番引継ぎ](docs/production/production-handoff-20261016.md)、Webアプリ停止時は[予備WAV・画像の運用](docs/production/emergency-backup-operation-20261016.md)を参照してください。Node.js 20以上は導入済みとして、`setup-production.cmd`でpackage-lock固定の依存だけを導入します。Node本体・node_modules・予備メディアの重複は配布に含めません。NEXTは1500ms保護、緊急Cue移動とP-020安全確認WAVを搭載。物理音響の採用可否は現地確認が必要です。

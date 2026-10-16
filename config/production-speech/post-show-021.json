@@ -1,0 +1,149 @@
+{
+  "scriptId": "021",
+  "assetId": "prod-voice-021-exit",
+  "path": "assets/audio/production-post-show-021-exit.wav",
+  "scriptText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。当日パンフレットには、アンケートのQRコードを掲載しております。今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。また、出口付近では、お貸ししたペンの回収を行っております。お手数ですが、お帰りの際に係員へお渡しください。",
+  "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。当日パンフレットには、アンケートのQRコードを掲載しております。今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。また、出口付近では、お貸ししたペンの回収を行っております。お手数ですが、お帰りの際に係員へお渡しください。",
+  "spokenText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。当日パンフレットには、アンケートのQRコードを掲載しております。今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。また、出口付近では、お貸ししたペンの回収を行っております。お手数ですが、お帰りの際に係員へお渡しください。",
+  "voiceProfileId": "yokogawa-professor-v1",
+  "profileHash": "sha256:1daf31f7884c9b49649361abb66a3fb3069169c5e437ac5ffe9117de62dfeeb3",
+  "effectiveParameters": {
+    "speedScale": 1.08,
+    "pitchScale": 0,
+    "intonationScale": 0.25,
+    "tempoDynamicsScale": 0.08,
+    "volumeScale": 0.95,
+    "prePhonemeLength": 0.1,
+    "postPhonemeLength": 0.1,
+    "pauseLength": null,
+    "pauseLengthScale": 1.35,
+    "outputSamplingRate": 44100,
+    "outputStereo": false
+  },
+  "engineVersion": "1.1.0-dev",
+  "runtimeStyleId": 1310138977,
+  "model": {
+    "name": "阿井田 茂",
+    "uuid": "47e53151-a378-46f3-abee-ce13aa07feb1",
+    "version": "1.0.0"
+  },
+  "speaker": {
+    "name": "阿井田 茂",
+    "uuid": "561e4e59-3bc9-4726-9028-44a3c12a6f1d"
+  },
+  "style": {
+    "name": "Calm",
+    "selectedStyleId": 1310138977
+  },
+  "sha256": "bc7f7ad200a6670eb37ca8edb2c1b5f2cb017446a191482451f27d57dc879ca8",
+  "durationSeconds": 31.04605442176871,
+  "segments": [
+    {
+      "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
+      "spokenText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
+      "pauseAfterMs": 450,
+      "path": "assets/audio/segments/post-show-021-1.wav",
+      "startMs": 0,
+      "endMs": 5325,
+      "sha256": "08e54c899683562e1c3fd2febd036c7ded19868fab9c73abfa2a460c2fb9fd6d"
+    },
+    {
+      "displayText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
+      "spokenText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
+      "pauseAfterMs": 650,
+      "path": "assets/audio/segments/post-show-021-2.wav",
+      "startMs": 5775,
+      "endMs": 11643,
+      "sha256": "cd0b5fe7e6f232976f0af5aad4fba1c97fe6ad01b3b3227dcc17aa9666aa6220"
+    },
+    {
+      "displayText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
+      "spokenText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
+      "pauseAfterMs": 350,
+      "path": "assets/audio/segments/post-show-021-3.wav",
+      "startMs": 12293,
+      "endMs": 16478,
+      "sha256": "4b67610c91c67f9fdc2bc9759fa0d64eb45660fcb8257f71cf51751cf5ea2ec9"
+    },
+    {
+      "displayText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
+      "spokenText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
+      "pauseAfterMs": 650,
+      "path": "assets/audio/segments/post-show-021-4.wav",
+      "startMs": 16828,
+      "endMs": 22719,
+      "sha256": "6ddc094f94c8125432e82314f405bf58274201b994b6f496a874e504a3adf04c"
+    },
+    {
+      "displayText": "また、出口付近では、お貸ししたペンの回収を行っております。",
+      "spokenText": "また、出口付近では、お貸ししたペンの回収を行っております。",
+      "pauseAfterMs": 350,
+      "path": "assets/audio/segments/post-show-021-5.wav",
+      "startMs": 23369,
+      "endMs": 27228,
+      "sha256": "16a4f61f184c252b8254343eb6fd6fd3887391303ef1c30b0754c56e52932c76"
+    },
+    {
+      "displayText": "お手数ですが、お帰りの際に係員へお渡しください。",
+      "spokenText": "お手数ですが、お帰りの際に係員へお渡しください。",
+      "pauseAfterMs": 0,
+      "path": "assets/audio/segments/post-show-021-6.wav",
+      "startMs": 27578,
+      "endMs": 31046,
+      "sha256": "06b7d6b2685782e8563c6c60a9fcf154eaeb52726a65d534bce9dce7ae18def0"
+    }
+  ],
+  "subtitleUnits": [
+    {
+      "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
+      "startMs": 0,
+      "endMs": 5325
+    },
+    {
+      "displayText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
+      "startMs": 5775,
+      "endMs": 11643
+    },
+    {
+      "displayText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
+      "startMs": 12293,
+      "endMs": 16478
+    },
+    {
+      "displayText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
+      "startMs": 16828,
+      "endMs": 22719
+    },
+    {
+      "displayText": "また、出口付近では、お貸ししたペンの回収を行っております。",
+      "startMs": 23369,
+      "endMs": 27228
+    },
+    {
+      "displayText": "お手数ですが、お帰りの際に係員へお渡しください。",
+      "startMs": 27578,
+      "endMs": 31046
+    }
+  ],
+  "pacing": {
+    "pauseAfterMs": [
+      450,
+      650,
+      350,
+      650,
+      350,
+      0
+    ],
+    "direction": "感謝450ms→退場のお願い650ms→アンケート案内350ms→協力依頼650ms→ペン回収350ms→丁寧な結び。既存350/450/650ms文間合成と同じ方式。",
+    "normalizeBoundarySilence": true
+  },
+  "generatedAt": "2026-10-16T15:14:50.263Z",
+  "technicalChecks": {
+    "sampleRate": true,
+    "channels": true,
+    "bitDepth": true,
+    "duration": true,
+    "nonSilent": true,
+    "noFullScaleClipping": true
+  }
+}

@@ -34,7 +34,7 @@ test('P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016
   const { store, show, advance } = await setup();
   assert.ok(!show.cues.some(c => ['prod-009', 'prod-016'].includes(c.id)));
   for (const [previous, merged, asset, following] of [
-    ['prod-019', 'prod-v-riddle-enter', 'prod-voice-009-first-riddle', 'prod-011'],
+    ['prod-019', 'prod-v-riddle-enter', 'prod-voice-009-first-riddle', 'prod-v-riddle-close'],
     ['prod-v-emergency-riddle', 'prod-v-stop-code', 'prod-voice-016-shutdown', 'prod-v-recovery'],
   ]) {
     store.jumpCue(previous); const result = store.nextCue();

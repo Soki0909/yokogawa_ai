@@ -1,0 +1,5 @@
+/* Opaque from the first styled frame, including before the socket is connected. */
+html,body{background-color:#000}
+#show-curtain{position:fixed;inset:0;z-index:200;background:#000;opacity:1;pointer-events:none;}
+body[data-operator-setup="true"] #audio-gate{z-index:201}
+@media(prefers-reduced-motion:reduce){#show-curtain{animation:none}}

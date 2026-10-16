@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "note": "Controls-first run retained 1280x720 for the NEXT flow. Corrected only mislabeled file prefixes using PNG IHDR; image bytes and observed test results unchanged. Future harness labels use the actual viewport. Both 1920x1080 and 1280x720 control/animation screenshots were separately captured at their declared sizes.",
+  "renames": [
+    {
+      "before": "1920x1080-P-021-final.png",
+      "after": "1280x720-P-021-final.png",
+      "sha256Unchanged": "47386037c99fc242dc6ceca1f6073de975efe512d6efdde33aa16a5c8287791f",
+      "actualDimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "before": "1920x1080-P-V00-fade.png",
+      "after": "1280x720-P-V00-fade.png",
+      "sha256Unchanged": "3a86e4129f257b3ff92d7a107da5de4d64262b16d3c84b7581aa28cb8aee6b2c",
+      "actualDimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "before": "1920x1080-P-V00-ready.png",
+      "after": "1280x720-P-V00-ready.png",
+      "sha256Unchanged": "af3cb1d624336208c616ff20c0916ca80b9a0d235c3cb59208e73225a1a03f9d",
+      "actualDimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "before": "1920x1080-P-V03-hold.png",
+      "after": "1280x720-P-V03-hold.png",
+      "sha256Unchanged": "587a104897eb7be99b7742712d46cec4b2e903a9adcd86fd3c17f5c8184b1df2",
+      "actualDimensions": [
+        1280,
+        720
+      ]
+    },
+    {
+      "before": "1920x1080-P-V08-black.png",
+      "after": "1280x720-P-V08-black.png",
+      "sha256Unchanged": "7a5175f59992a07616d58b06a310b2a3909c43df6d406a736ef54995563a09ed",
+      "actualDimensions": [
+        1280,
+        720
+      ]
+    }
+  ]
+}

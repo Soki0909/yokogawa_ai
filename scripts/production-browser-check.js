@@ -429,7 +429,7 @@ try {
   await startServer();
   await display.waitFor(`document.querySelector('#connection')?.textContent === 'ONLINE'`, 'Display reconnect', 20_000);
   await display.waitFor(`document.body.dataset.preset === 'normal' && document.querySelector('#avatar-wrap').hidden && document.querySelector('#caption').textContent === ''`, 'bundled latest startup after reconnect', 20_000);
-  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('rehearsal-revision-20261014')`, 'latest version after reconnect', 20_000);
+  await admin.waitFor(`document.querySelector('#production-version').textContent.includes('post-show-candidate-20261017')`, 'latest version after reconnect', 20_000);
   await admin.waitFor(`document.querySelector('#display-list')?.textContent.includes('AUDIO MASTER READY')`, 'READY restored after reconnect', 20_000);
   for (const [index, page] of [admin, display].entries()) {
     const restartErrors = page.errors.splice(errorsBeforeRestart[index]);

@@ -72,6 +72,10 @@ export function normalizeTransition(input = {}) {
   };
 }
 
+export function normalizeOutputFade(input = {}) {
+  return {from:finite(input.from,1,0,1),to:finite(input.to,1,0,1),durationMs:Math.round(finite(input.durationMs,0,0,10000))};
+}
+
 export function normalizeOverlay(input = {}) {
   return {
     id: OVERLAY_IDS.includes(input?.id) ? input.id : 'none',
@@ -203,6 +207,7 @@ export function normalizeCue(input = {}, order = 0) {
     ...(input.recoverySfx ? {recoverySfx:{atMs:Math.round(finite(input.recoverySfx.atMs,4600,0,180000)),volume:finite(input.recoverySfx.volume,.8,0,1)}} : {}),
     ...(input.gaugeSfx ? {gaugeSfx:{atMs:Math.round(finite(input.gaugeSfx.atMs,0,0,180000)),volume:finite(input.gaugeSfx.volume,.8,0,1),...inputWindow(input.gaugeSfx)}} : {}),
     transition: normalizeTransition(input.transition), overlay: normalizeOverlay(input.overlay),
+    ...(input.outputFade ? {outputFade:normalizeOutputFade(input.outputFade)} : {}),
     visual: normalizeVisual(input.visual), timing: normalizeTiming(input.timing), sequence: normalizeSequence(input.sequence),
     syncMarkers: normalizeSyncMarkers(input.syncMarkers),
     order: Number.isFinite(Number(input.order)) ? Number(input.order) : order,

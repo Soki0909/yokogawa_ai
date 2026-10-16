@@ -45,3 +45,8 @@ test-results/
 /artifacts/stage-pacing-2026-10-13/e2e-final/
 /artifacts/stage-pacing-2026-10-13/targeted/
 /artifacts/stage-pacing-2026-10-13/targeted-final/
+
+/portable-smoke-*/
+
+# Candidate review media stay local; curated evidence is explicitly tracked.
+/artifacts/post-show-20261017/

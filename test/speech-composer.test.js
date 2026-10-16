@@ -32,7 +32,7 @@ test('latest Production speech, archives and original SFX pass format/hash check
 test('SFX references are validated and all three puzzle images remain safe explicit placeholders', async () => {
   const show = JSON.parse(await fs.readFile('shows/production.json', 'utf8'));
   assert.equal(validateShowFile(show).valid, true);
-  show.cues[0].sfx[0].assetId = 'missing'; assert.ok(validateShowFile(show).errors.some(e => e.startsWith('CUE_SFX_NOT_FOUND')));
+  show.cues.find(c=>c.id==='prod-001').sfx[0].assetId = 'missing'; assert.ok(validateShowFile(show).errors.some(e => e.startsWith('CUE_SFX_NOT_FOUND')));
   assert.equal(show.assets.filter(a => a.id.startsWith('puzzle-')).length, 3);
 });
 test('route with no current AI speech stays empty on import', async () => {

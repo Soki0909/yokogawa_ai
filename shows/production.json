@@ -237,6 +237,14 @@
       "path": "assets/visual/puzzle-image-pending.svg",
       "mimeType": "image/svg+xml",
       "slot": "puzzle-07"
+    },
+    {
+      "id": "prod-voice-021-exit",
+      "name": "横川AI P-021 退場アナウンス",
+      "path": "assets/audio/production-post-show-021-exit.wav",
+      "mimeType": "audio/wav",
+      "sha256": "bc7f7ad200a6670eb37ca8edb2c1b5f2cb017446a191482451f27d57dc879ca8",
+      "durationMs": 31047
     }
   ],
   "avatar": {
@@ -260,10 +268,10 @@
   },
   "metadata": {
     "title": "横川AI Production — 本編",
-    "version": "rehearsal-revision-20261014",
+    "version": "post-show-candidate-20261017",
     "reliableAudio": true,
     "nextGuardMs": 1500,
-    "showHash": "22d456be53423ee08a242b45e9599058d316688fb8e3ab94efe009830cfe58cf",
+    "showHash": "2dd6cf7d43f56bd9e0cbf431a1b7b5e7326ff6794d54beda8f7a4411b8113c05",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
@@ -285,7 +293,10 @@
       "documentId": "16KxoOjIFLJXikFF_3u3LnnbjnQX8xJvZ-cPPNxkuJVo",
       "revisionId": "AHj4eMRyVU1SD6u_dcrceqd2j5crbwve6RSL4CjiGZH5NHkxN5i8g89Opz0YmHGRfEvl7OgB_0tazsv2xsoye_H-nEeO6WyWidHZNZHlBeM",
       "tabCount": 16
-    }
+    },
+    "preShowDark": true,
+    "stableBaseline": "da09d3bbcfed8d3d9a2568dd7be621359160ddc7",
+    "candidateOnly": true
   },
   "scenes": [
     {
@@ -339,6 +350,50 @@
     }
   ],
   "cues": [
+    {
+      "id": "prod-v-prelude",
+      "cueNumber": "P-V00",
+      "name": "開演画面フェードイン",
+      "route": "main",
+      "scene": "scene-1",
+      "location": "7・201",
+      "kind": "clear",
+      "order": 0,
+      "displayText": "",
+      "speechText": "",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": false,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "overlay": {
+        "id": "none",
+        "visible": false
+      },
+      "visual": {
+        "type": "none",
+        "visible": false
+      },
+      "transition": {
+        "id": "timeline",
+        "durationMs": 2500
+      },
+      "sfx": [],
+      "outputFade": {
+        "from": 0,
+        "to": 1,
+        "durationMs": 2500
+      },
+      "triggerNote": "M-0のフェードアウト／照明の立ち上がりに合わせてGO。",
+      "operatorNote": "開演前は暗い画面。投影側Sキーで音声準備を開く。2.5秒で従来の初期画面へ。P-001の起動音は別のNEXT。"
+    },
     {
       "id": "prod-001",
       "cueNumber": "P-001",
@@ -1093,6 +1148,50 @@
       ],
       "sfx": [],
       "syncMarkers": []
+    },
+    {
+      "id": "prod-v-riddle-close",
+      "cueNumber": "P-V03",
+      "name": "第一の謎を閉じる",
+      "route": "main",
+      "scene": "scene-5",
+      "location": "7・201",
+      "kind": "clear",
+      "order": 115,
+      "displayText": "",
+      "speechText": "",
+      "presentationPreset": "hijacked",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "hijacked"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "overlay": {
+        "id": "none",
+        "visible": false
+      },
+      "visual": {
+        "type": "none",
+        "visible": false
+      },
+      "transition": {
+        "id": "none",
+        "durationMs": 0
+      },
+      "sfx": [],
+      "outputFade": {
+        "from": 1,
+        "to": 1,
+        "durationMs": 0
+      },
+      "triggerNote": "「謎は全て解けました！ 201の教室に集合してください！」の掛け声の後にGO。",
+      "operatorNote": "第一の謎・字幕・overlayを閉じ、HACK画面を保持。集合と人間台詞を待ってP-011を手動NEXT。自動進行なし。"
     },
     {
       "id": "prod-011",
@@ -1971,6 +2070,190 @@
       "overlay": {
         "id": "none"
       }
+    },
+    {
+      "id": "prod-v-curtain-black",
+      "cueNumber": "P-V08",
+      "name": "終幕暗転",
+      "route": "main",
+      "scene": "scene-7",
+      "location": "7・201",
+      "kind": "preset-only",
+      "order": 245,
+      "displayText": "",
+      "speechText": "",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "none",
+        "lipSyncMode": "none"
+      },
+      "overlay": {
+        "id": "none",
+        "visible": false
+      },
+      "visual": {
+        "type": "none",
+        "visible": false
+      },
+      "transition": {
+        "id": "timeline",
+        "durationMs": 1000
+      },
+      "sfx": [],
+      "outputFade": {
+        "from": 1,
+        "to": 0,
+        "durationMs": 1000
+      },
+      "triggerNote": "「さあ、今度こそ全員で――7号館から脱出だ！」後の溶暗に合わせてGO。M-8の前。",
+      "operatorNote": "1秒で全表示を黒にし、カーテンコール終了まで保持。緊急BLACKOUTではない。Restore操作なしで次のP-021へ。"
+    },
+    {
+      "id": "prod-021",
+      "cueNumber": "P-021",
+      "name": "退場アナウンス",
+      "route": "main",
+      "scene": "scene-7",
+      "location": "7・201",
+      "kind": "speech-display",
+      "order": 250,
+      "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。当日パンフレットには、アンケートのQRコードを掲載しております。今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。また、出口付近では、お貸ししたペンの回収を行っております。お手数ですが、お帰りの際に係員へお渡しください。",
+      "speechText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。当日パンフレットには、アンケートのQRコードを掲載しております。今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。また、出口付近では、お貸ししたペンの回収を行っております。お手数ですが、お帰りの際に係員へお渡しください。",
+      "presentationPreset": "normal",
+      "target": {
+        "type": "all"
+      },
+      "avatar": {
+        "visible": true,
+        "state": "normal"
+      },
+      "audio": {
+        "speechMode": "audio-file",
+        "assetId": "prod-voice-021-exit",
+        "lipSyncMode": "audio-reactive"
+      },
+      "overlay": {
+        "id": "none",
+        "visible": false
+      },
+      "visual": {
+        "type": "none",
+        "visible": false
+      },
+      "transition": {
+        "id": "timeline",
+        "durationMs": 2000
+      },
+      "sfx": [],
+      "speech": {
+        "spokenText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。当日パンフレットには、アンケートのQRコードを掲載しております。今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。また、出口付近では、お貸ししたペンの回収を行っております。お手数ですが、お帰りの際に係員へお渡しください。",
+        "segments": [
+          {
+            "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
+            "spokenText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
+            "pauseAfterMs": 450,
+            "path": "assets/audio/segments/post-show-021-1.wav",
+            "startMs": 0,
+            "endMs": 5325,
+            "sha256": "08e54c899683562e1c3fd2febd036c7ded19868fab9c73abfa2a460c2fb9fd6d"
+          },
+          {
+            "displayText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
+            "spokenText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
+            "pauseAfterMs": 650,
+            "path": "assets/audio/segments/post-show-021-2.wav",
+            "startMs": 5775,
+            "endMs": 11643,
+            "sha256": "cd0b5fe7e6f232976f0af5aad4fba1c97fe6ad01b3b3227dcc17aa9666aa6220"
+          },
+          {
+            "displayText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
+            "spokenText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
+            "pauseAfterMs": 350,
+            "path": "assets/audio/segments/post-show-021-3.wav",
+            "startMs": 12293,
+            "endMs": 16478,
+            "sha256": "4b67610c91c67f9fdc2bc9759fa0d64eb45660fcb8257f71cf51751cf5ea2ec9"
+          },
+          {
+            "displayText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
+            "spokenText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
+            "pauseAfterMs": 650,
+            "path": "assets/audio/segments/post-show-021-4.wav",
+            "startMs": 16828,
+            "endMs": 22719,
+            "sha256": "6ddc094f94c8125432e82314f405bf58274201b994b6f496a874e504a3adf04c"
+          },
+          {
+            "displayText": "また、出口付近では、お貸ししたペンの回収を行っております。",
+            "spokenText": "また、出口付近では、お貸ししたペンの回収を行っております。",
+            "pauseAfterMs": 350,
+            "path": "assets/audio/segments/post-show-021-5.wav",
+            "startMs": 23369,
+            "endMs": 27228,
+            "sha256": "16a4f61f184c252b8254343eb6fd6fd3887391303ef1c30b0754c56e52932c76"
+          },
+          {
+            "displayText": "お手数ですが、お帰りの際に係員へお渡しください。",
+            "spokenText": "お手数ですが、お帰りの際に係員へお渡しください。",
+            "pauseAfterMs": 0,
+            "path": "assets/audio/segments/post-show-021-6.wav",
+            "startMs": 27578,
+            "endMs": 31046,
+            "sha256": "06b7d6b2685782e8563c6c60a9fcf154eaeb52726a65d534bce9dce7ae18def0"
+          }
+        ],
+        "subtitleUnits": [
+          {
+            "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
+            "startMs": 0,
+            "endMs": 5325
+          },
+          {
+            "displayText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
+            "startMs": 5775,
+            "endMs": 11643
+          },
+          {
+            "displayText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
+            "startMs": 12293,
+            "endMs": 16478
+          },
+          {
+            "displayText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
+            "startMs": 16828,
+            "endMs": 22719
+          },
+          {
+            "displayText": "また、出口付近では、お貸ししたペンの回収を行っております。",
+            "startMs": 23369,
+            "endMs": 27228
+          },
+          {
+            "displayText": "お手数ですが、お帰りの際に係員へお渡しください。",
+            "startMs": 27578,
+            "endMs": 31046
+          }
+        ],
+        "subtitleMode": "typewriter"
+      },
+      "outputFade": {
+        "from": 0,
+        "to": 1,
+        "durationMs": 2000
+      },
+      "timing": {
+        "speechDelayMs": 2200
+      },
+      "triggerNote": "カーテンコール終了後、舞台進行担当の合図でGO。",
+      "operatorNote": "青いNORMALとAvatarを2秒でフェードイン。GOから2.2秒後に固定音声と1文ずつの字幕を開始。案内後もNORMALを保持。"
     }
   ]
 }

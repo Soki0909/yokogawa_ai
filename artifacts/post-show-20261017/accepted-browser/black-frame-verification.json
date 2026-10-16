@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "frames": [
+    {
+      "file": "1920x1080-initial-black.png",
+      "maxChannel": 0,
+      "fullyBlack": true
+    },
+    {
+      "file": "1280x720-P-V08-black.png",
+      "maxChannel": 0,
+      "fullyBlack": true
+    },
+    {
+      "file": "1280x720-reset-reload-black.png",
+      "maxChannel": 0,
+      "fullyBlack": true
+    }
+  ]
+}
