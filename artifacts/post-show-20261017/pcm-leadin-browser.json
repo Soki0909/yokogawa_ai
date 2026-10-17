@@ -1,48 +1,120 @@
 {
   "status": "PASS",
-  "decoded": 23,
+  "decoded": 24,
   "cues": 24,
   "results": [
     {
+      "cue": "P-001",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 3252,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-002",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1014,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-003",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 991,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-004",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1018,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-005",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1040,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-006",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 990,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-007",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1013,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-008",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1025,
+      "status": "PASS"
+    },
+    {
       "cue": "P-019",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 896,
+      "firstVisibleTextAfterSourceMs": 993,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-V02",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1023,
       "status": "PASS"
     },
     {
       "cue": "P-011",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 983,
+      "firstVisibleTextAfterSourceMs": 998,
       "status": "PASS"
     },
     {
       "cue": "P-012",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 1111,
+      "firstVisibleTextAfterSourceMs": 1134,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-013",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 3059,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-014",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 3050,
       "status": "PASS"
     },
     {
       "cue": "P-015",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 985,
+      "firstVisibleTextAfterSourceMs": 1012,
       "status": "PASS"
     },
     {
       "cue": "P-V06",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 929,
+      "firstVisibleTextAfterSourceMs": 985,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-V07",
+      "realDecodedPrefixPeak": 0.0009765923023223877,
+      "firstVisibleTextAfterSourceMs": -1792197924478,
       "status": "PASS"
     },
     {
       "cue": "P-020",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 921,
+      "firstVisibleTextAfterSourceMs": 991,
       "status": "PASS"
     },
     {
       "cue": "P-021",
       "realDecodedPrefixPeak": 0.000984727288596332,
-      "firstVisibleTextAfterSourceMs": 970,
+      "firstVisibleTextAfterSourceMs": 1001,
       "status": "PASS"
     }
   ],

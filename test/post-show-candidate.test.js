@@ -10,8 +10,9 @@ const baseline='da09d3bbcfed8d3d9a2568dd7be621359160ddc7';
 const oldFile=p=>execFileSync('git',['show',baseline+':'+p],{maxBuffer:8*1024*1024});
 const stable=JSON.parse(oldFile('shows/production.json')),show=JSON.parse(await fs.readFile('shows/production.json','utf8'));
 const leadin=JSON.parse(await fs.readFile('config/production-speech/pcm-leadin-20261017.json'));
-const affected=new Set(leadin.results.map(r=>r.cue));
-const affectedAssets=new Set(show.cues.filter(c=>affected.has(c.cueNumber)).map(c=>c.audio.assetId));
+const allFirst=JSON.parse(await fs.readFile('config/production-speech/first-wav-leadin-20261017.json'));
+const affected=new Set(allFirst.results.map(r=>r.cue));
+const affectedAssets=new Set(allFirst.results.map(r=>r.assetId));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 test('candidate has 24 ordered Cues; all twenty existing Cue objects and seventeen voices are unchanged',async()=>{
  assert.equal(show.cues.length,24);assert.equal(new Set(show.cues.map(c=>c.id)).size,24);
@@ -25,7 +26,7 @@ test('candidate has 24 ordered Cues; all twenty existing Cue objects and sevente
 test('gauge alone is exactly -3dB relative to the stable take with fixed length, no clipping and unchanged cutoff metadata',async()=>{
  const old=analysePcmWav(oldFile('public/assets/audio/production-gauge.wav')),now=analysePcmWav(await fs.readFile('public/assets/audio/production-gauge.wav'));
  assert.ok(Math.abs(20*Math.log10(now.rms/old.rms)+3)<.001);assert.equal(now.dataBytes,old.dataBytes);assert.equal(now.fullScaleSamples,0);
- for(const id of ['prod-012','prod-v-recovery'])assert.deepEqual(show.cues.find(c=>c.id===id).gaugeSfx,{...stable.cues.find(c=>c.id===id).gaugeSfx,atMs:stable.cues.find(c=>c.id===id).gaugeSfx.atMs+(id==='prod-012'?700:0)});
+ for(const id of ['prod-012'])assert.deepEqual(show.cues.find(c=>c.id===id).gaugeSfx,{...stable.cues.find(c=>c.id===id).gaugeSfx,atMs:stable.cues.find(c=>c.id===id).gaugeSfx.atMs+(id==='prod-012'?700:0)});
 });
 test('Reset and Scene 1 are dark; new Cue transitions do not latch emergency blackout or auto advance',()=>{
  let clock=Date.parse('2026-10-17T00:00:00Z');const store=new StateStore({storage:{async save(){}},now:()=>new Date(clock)});store.importShowFile(show,{apply:true});store.registerDisplay({displayId:'stage'});

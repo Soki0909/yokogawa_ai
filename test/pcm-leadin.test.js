@@ -21,7 +21,8 @@ test('only seven embedded 700ms prefixes; original PCM, pauses, unaffected Cues 
   if(['P-011','P-012'].includes(r.cue)){expected.sequence=expected.sequence.map(p=>({...p,atMs:p.atMs>0?p.atMs+700:0}));expected.transition.durationMs+=700;if(expected.gaugeSfx)expected.gaugeSfx.atMs+=700;}
   expected.operatorNote=cue.operatorNote;assert.deepEqual(cue,expected);assert.deepEqual(cue.timing,previous.timing,'no JavaScript or Cue-delay workaround');
  }
- const selected=new Set(report.targets),ids=new Set(report.results.map(r=>r.path));
+ const expanded=JSON.parse(await fs.readFile('config/production-speech/first-wav-leadin-20261017.json'));
+ const selected=new Set(expanded.results.map(r=>r.cue)),ids=new Set(expanded.results.map(r=>r.path));
  for(const cue of show.cues.filter(c=>!selected.has(c.cueNumber)))assert.deepEqual(cue,old.cues.find(c=>c.id===cue.id));
  for(const a of old.assets.filter(a=>a.mimeType==='audio/wav'&&!ids.has(a.path)))assert.equal(hash(await fs.readFile('public/'+a.path)),hash(fromGit('public/'+a.path)));
  for(const p of ['public/js/production-audio-engine.js','src/server.js','src/cue-scheduler.js','config/voice-profiles/yokogawa-professor-v1.json'])assert.equal((await fs.readFile(p,'utf8')).replaceAll('\r\n','\n'),fromGit(p).toString().replaceAll('\r\n','\n'));

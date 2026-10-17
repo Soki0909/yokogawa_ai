@@ -212,7 +212,7 @@ function applyPresentation(presentation = {}, preset = null) {
   const recoveryProgress = presentation.overlay?.id === 'restoring' && presentation.transition?.status === 'active' ? presentation.transition : null;
   if (presentationCache.changed('recovery-progress', recoveryProgress) && recoveryProgress) {
     cancelAnimationFrame(unlockFrame);
-    const transition = presentation.transition;
+    const transition = presentation.transition.effect ?? presentation.transition;
     const draw = () => {
       const elapsed = Math.max(0, Date.now() - Date.parse(transition.startedAt));
       updateProgress(Math.min(100, elapsed / 3800 * 100));

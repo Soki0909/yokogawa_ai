@@ -1,6 +1,7 @@
+<!-- Latest: 19 audible Cues, one 700ms prefix in each first WAV; 5 silent Cues unchanged; 24 decoded WAV assets. -->
 # 横川AI Production — 24 Cue / 700ms WAV前置信号
 
-2026-10-17承認の演出改訂と対象7 CueのWAV内700ms微弱信号を含みます。固定素材はGitに同梱済みです。Pull後にサーバーを再起動し、Displayを再読み込みして23/23 Audio READYを確認してください。初期画面は黒です。DisplayのSキーで音声設定を開き、P-V00で開演画面へ進みます。
+2026-10-17承認の演出改訂と音のある全19 Cueの最初のWAVのWAV内700ms微弱信号を含みます。固定素材はGitに同梱済みです。Pull後にサーバーを再起動し、Displayを再読み込みして24/24 Audio READYを確認してください。初期画面は黒です。DisplayのSキーで音声設定を開き、P-V00で開演画面へ進みます。
 
 物理出音の改善効果は未検証です。微弱信号はファイル読み込み・デコードの遅延を解決するものではありません。制作ツールでWAVを再生成せず、同梱の固定素材をそのまま使用してください。
 

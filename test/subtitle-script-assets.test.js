@@ -71,13 +71,13 @@ test('slots missing/present/invalid resolve safely, share warning and validate b
   applyProductionSlots(store,slots.map(s=>s.id==='warning'?{...s,durationMs:300}:s));
   assert.equal(store.state.cues.find(c=>c.cueId==='prod-013').timing.speechDelayMs,300);
   assert.ok(store.preflight().items.filter(i=>i.id.startsWith('asset-slot:') && !['asset-slot:recovery','asset-slot:gauge'].includes(i.id)).every(i=>i.status==='ok'));
-  assert.equal(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.length,0);
+  assert.deepEqual(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.map(s=>s.assetId),['prod-sfx-gauge-recovery-leadin']);
   assert.equal(store.productionAssetSlots.find(s=>s.id==='recovery').status,'MISSING');
   const missingRecovery = store.preflight().items.find(i=>i.id==='asset-slot:recovery');
   assert.equal(missingRecovery.status,'warning');assert.match(missingRecovery.detail,/MISSING/);
   await fs.copyFile('public/assets/audio/production-sfx-boot.wav',path.join(root,'assets/audio/production-recovery.wav'));
   applyProductionSlots(store,await resolveProductionSlots(root));
-  const recovery=store.state.cues.find(c=>c.cueId==='prod-v-recovery');assert.equal(recovery.sfx[0].atMs,4600);assert.equal(recovery.sfx[0].assetId,'prod-sfx-recovery');
+  const recovery=store.state.cues.find(c=>c.cueId==='prod-v-recovery');assert.equal(recovery.sfx.find(s=>s.assetId==='prod-sfx-recovery').atMs,5300);assert.equal(recovery.sfx.find(s=>s.assetId==='prod-sfx-recovery').assetId,'prod-sfx-recovery');
   assert.equal(store.state.assets.filter(a=>a.id==='prod-sfx-recovery').length,1);
   await fs.writeFile(path.join(root,PRODUCTION_SLOTS[3].path),Buffer.from([137,80,78,71,13,10,26,10]));assert.equal((await resolveProductionSlots(root))[3].status,'INVALID');
   await fs.writeFile(path.join(root,PRODUCTION_SLOTS[0].path),'invalid');slots=await resolveProductionSlots(root);assert.equal(slots[0].status,'INVALID');assert.equal(slots[0].resolvedPath,slots[0].fallback);

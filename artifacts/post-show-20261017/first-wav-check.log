@@ -1,0 +1,1226 @@
+
+> yokogawa-ai@0.6.0 check
+> node --check src/server.js && node --check src/state-store.js && node --check src/show-schema.js && node --check src/local-audio.js && node --check src/network.js && node --check src/json-storage.js && node --check src/voice-profile.js && node --check src/tts/aivis-speech-client.js && node --check src/tts/local-tts-service.js && node --check src/tts/runtime-audio-cache.js && node --check src/audio/wav-analysis.js && node --check public/js/admin.js && node --check public/js/display.js && node --check public/js/socket-client.js && node --check public/js/tts-adapter.js && node --check public/js/lip-sync.js && node --check public/js/audio-playback-effects.js && node --check public/js/audio-preload.js && node --check public/js/blink-controller.js && node --check public/js/shortcuts.js && node --check scripts/build-production-show.mjs && node --check scripts/build-voice-lab-site.mjs && node --check scripts/generate-production-speech.mjs && node --check scripts/sync-production-synthesis-text.mjs && node --check scripts/production-voice-profile.mjs && node --check scripts/verify-production-speech.mjs && node --check scripts/verify-production-voice-profile.mjs && node --check scripts/soak-test.js && node --check scripts/phase-c-soak-test.js && node --check scripts/set-visual-preset.js && node --check scripts/execute-cue.js && node --check scripts/browser-console-check.js && node --check scripts/production-browser-check.js && node --check experiments/voice-lab/shared/audio-buffer-player.js && node --check experiments/voice-lab/scripts/retune-voice-lab.mjs && node --check experiments/voice-lab/scripts/sentence-pause-test.mjs && node --check experiments/voice-lab/scripts/provisional-voice-profile.mjs && node --check netlify/edge-functions/password-gate.js && node --check src/audio/speech-composer.js && node --check src/audio/production-tools.js && node --check public/js/cue-sfx.js && node --check public/js/production-tools.js && node --check scripts/record-production-display.js && node --check scripts/verify-production-recording.mjs && node --check src/audio/production-cue-timing.js && node --check scripts/prepare-production-pacing.mjs && node --check scripts/stage-pacing-browser-check.js && node --test test/*.test.js
+
+TAP version 13
+# Subtest: ブラウザClientが同一ホストWS・永続Display ID・Heartbeat・Audio Master境界を持つ
+ok 1 - ブラウザClientが同一ホストWS・永続Display ID・Heartbeat・Audio Master境界を持つ
+  ---
+  duration_ms: 18.4445
+  type: 'test'
+  ...
+# Subtest: completion diagnostics track actual speech/SE/motion but are not the operator gate
+ok 2 - completion diagnostics track actual speech/SE/motion but are not the operator gate
+  ---
+  duration_ms: 7.3634
+  type: 'test'
+  ...
+# Subtest: NEXT after 1500ms remains available with missing ended/error receipts; true output/preparation failure still blocks
+ok 3 - NEXT after 1500ms remains available with missing ended/error receipts; true output/preparation failure still blocks
+  ---
+  duration_ms: 52.0357
+  type: 'test'
+  ...
+# Subtest: warning completion gate waits for actual ended event, rather than predicted duration
+ok 4 - warning completion gate waits for actual ended event, rather than predicted duration
+  ---
+  duration_ms: 4.9147
+  type: 'test'
+  ...
+# Subtest: STOP releases waiting speech as cancelled, and an old end cannot release a new warning
+ok 5 - STOP releases waiting speech as cancelled, and an old end cannot release a new warning
+  ---
+  duration_ms: 1.3428
+  type: 'test'
+  ...
+# Subtest: an audio error prevents following speech from being released as a success
+ok 6 - an audio error prevents following speech from being released as a success
+  ---
+  duration_ms: 1.8714
+  type: 'test'
+  ...
+# Subtest: SFX STOP while AudioContext resumes cannot start a stale clip
+ok 7 - SFX STOP while AudioContext resumes cannot start a stale clip
+  ---
+  duration_ms: 3.9932
+  type: 'test'
+  ...
+# Subtest: SFX detaches its own source without closing the prepared shared output
+ok 8 - SFX detaches its own source without closing the prepared shared output
+  ---
+  duration_ms: 2.1512
+  type: 'test'
+  ...
+# Subtest: silent preparation never connects a source, waits for device resume, and closes on failure
+ok 9 - silent preparation never connects a source, waits for device resume, and closes on failure
+  ---
+  duration_ms: 20.5761
+  type: 'test'
+  ...
+# Subtest: mouth/eye/puzzle decoding completes before readiness, deduplicates, and exposes missing images
+ok 10 - mouth/eye/puzzle decoding completes before readiness, deduplicates, and exposes missing images
+  ---
+  duration_ms: 5.5459
+  type: 'test'
+  ...
+# Subtest: duplicate snapshot cannot rewind animation; replay time, phase, version and reset still render
+ok 11 - duplicate snapshot cannot rewind animation; replay time, phase, version and reset still render
+  ---
+  duration_ms: 0.9563
+  type: 'test'
+  ...
+# Subtest: each audible Cue first WAV has exactly one 700ms prefix; original mono/stereo PCM and later gauge retained
+ok 12 - each audible Cue first WAV has exactly one 700ms prefix; original mono/stereo PCM and later gauge retained
+  ---
+  duration_ms: 8640.2203
+  type: 'test'
+  ...
+# Subtest: 5.3s gauge slot binds only the two gauge starts, survives import, and removes stale effects safely
+ok 13 - 5.3s gauge slot binds only the two gauge starts, survives import, and removes stale effects safely
+  ---
+  duration_ms: 246.5671
+  type: 'test'
+  ...
+# Subtest: Windowsの一時的なrename競合を再試行する
+ok 14 - Windowsの一時的なrename競合を再試行する
+  ---
+  duration_ms: 5.6963
+  type: 'test'
+  ...
+# Subtest: renameの非一時エラーは再試行しない
+ok 15 - renameの非一時エラーは再試行しない
+  ---
+  duration_ms: 3.5264
+  type: 'test'
+  ...
+# Subtest: WAVs reuse prepared output but detach every source; STOP disposes the device
+ok 16 - WAVs reuse prepared output but detach every source; STOP disposes the device
+  ---
+  duration_ms: 11.2703
+  type: 'test'
+  ...
+# Subtest: STOP during output preparation cannot retain a stale resumed context
+ok 17 - STOP during output preparation cannot retain a stale resumed context
+  ---
+  duration_ms: 1.1787
+  type: 'test'
+  ...
+# Subtest: STOP/replacement discards queued play and late AbortError from an old audio element
+ok 18 - STOP/replacement discards queued play and late AbortError from an old audio element
+  ---
+  duration_ms: 6.4727
+  type: 'test'
+  ...
+# Subtest: LANアドレスからAdminとDisplayのアクセス情報を生成する
+ok 19 - LANアドレスからAdminとDisplayのアクセス情報を生成する
+  ---
+  duration_ms: 6.4548
+  type: 'test'
+  ...
+# Subtest: 複数NICを分類し仮想・リンクローカルをQR候補から除外する
+ok 20 - 複数NICを分類し仮想・リンクローカルをQR候補から除外する
+  ---
+  duration_ms: 38.8276
+  type: 'test'
+  ...
+# Subtest: ブラウザ配信物が外部CDN・クラウドAPIを参照しない
+ok 21 - ブラウザ配信物が外部CDN・クラウドAPIを参照しない
+  ---
+  duration_ms: 6426.767
+  type: 'test'
+  ...
+# Subtest: only seven embedded 700ms prefixes; original PCM, pauses, unaffected Cues and runtime engine preserved
+ok 22 - only seven embedded 700ms prefixes; original PCM, pauses, unaffected Cues and runtime engine preserved
+  ---
+  duration_ms: 6861.3778
+  type: 'test'
+  ...
+# Subtest: AdminはCurrent/Next演出詳細・Cue jump・Phase A編集フィールドを持つ
+ok 23 - AdminはCurrent/Next演出詳細・Cue jump・Phase A編集フィールドを持つ
+  ---
+  duration_ms: 16.2545
+  type: 'test'
+  ...
+# Subtest: 演出またはLocal TTS生成中は音声がなくてもSTOPを有効にする
+ok 24 - 演出またはLocal TTS生成中は音声がなくてもSTOPを有効にする
+  ---
+  duration_ms: 8.2477
+  type: 'test'
+  ...
+# Subtest: Phase A demo ShowはSchema v3準拠の27 Cueを順序通り提供する
+ok 25 - Phase A demo ShowはSchema v3準拠の27 Cueを順序通り提供する
+  ---
+  duration_ms: 18.0847
+  type: 'test'
+  ...
+# Subtest: Phase A demoは主要状態をoperator-controlledな独立Cueとして網羅する
+ok 26 - Phase A demoは主要状態をoperator-controlledな独立Cueとして網羅する
+  ---
+  duration_ms: 1.3994
+  type: 'test'
+  ...
+# Subtest: DisplayはPreset・Avatar・Scene Visual・Subtitle・Operation Overlay・Blackoutを独立した層で持つ
+ok 27 - DisplayはPreset・Avatar・Scene Visual・Subtitle・Operation Overlay・Blackoutを独立した層で持つ
+  ---
+  duration_ms: 24.1054
+  type: 'test'
+  ...
+# Subtest: 長いOperation Overlay見出しを1920x1080でもframe内へ収める
+ok 28 - 長いOperation Overlay見出しを1920x1080でもframe内へ収める
+  ---
+  duration_ms: 7.2177
+  type: 'test'
+  ...
+# Subtest: Display clientはtransition・overlay・visual・unlockをsnapshotとイベント双方から描画する
+ok 29 - Display clientはtransition・overlay・visual・unlockをsnapshotとイベント双方から描画する
+  ---
+  duration_ms: 7.21
+  type: 'test'
+  ...
+# Subtest: 長いproduction字幕を文字数別に縮小して固定枠のclippingを防ぐ
+ok 30 - 長いproduction字幕を文字数別に縮小して固定枠のclippingを防ぐ
+  ---
+  duration_ms: 6.0823
+  type: 'test'
+  ...
+# Subtest: Phase AをAdmin 1 + Display 3でimport・target・unlock・再接続・安全操作まで処理する
+ok 31 - Phase AをAdmin 1 + Display 3でimport・target・unlock・再接続・安全操作まで処理する
+  ---
+  duration_ms: 8697.8755
+  type: 'test'
+  ...
+# Subtest: Schema v2 Showを検証しoptional Phase Aフィールド付きv3 Cueへ移行する
+ok 32 - Schema v2 Showを検証しoptional Phase Aフィールド付きv3 Cueへ移行する
+  ---
+  duration_ms: 14.6668
+  type: 'test'
+  ...
+# Subtest: Phase A ID集合・期間・同期マーカーを正規化し未知IDを拒否する
+ok 33 - Phase A ID集合・期間・同期マーカーを正規化し未知IDを拒否する
+  ---
+  duration_ms: 3.068
+  type: 'test'
+  ...
+# Subtest: Scene imageはlocal visual assetだけを参照しMIME不整合を拒否する
+ok 34 - Scene imageはlocal visual assetだけを参照しMIME不整合を拒否する
+  ---
+  duration_ms: 6.7357
+  type: 'test'
+  ...
+# Subtest: target別演出state・Unlock進捗・再接続snapshot・STOPをserver authoritativeに扱う
+ok 35 - target別演出state・Unlock進捗・再接続snapshot・STOPをserver authoritativeに扱う
+  ---
+  duration_ms: 45.7235
+  type: 'test'
+  ...
+# Subtest: Cue jumpは位置だけを変え、execute時だけ演出を適用する
+ok 36 - Cue jumpは位置だけを変え、execute時だけ演出を適用する
+  ---
+  duration_ms: 4.35
+  type: 'test'
+  ...
+# Subtest: OverlayとVisualの自動消去期限をsnapshotで確定する
+ok 37 - OverlayとVisualの自動消去期限をsnapshotで確定する
+  ---
+  duration_ms: 12.0992
+  type: 'test'
+  ...
+# Subtest: Phase B解除は開始・100%保持・緊急中断・次状態cleanupを正本で区別する
+ok 38 - Phase B解除は開始・100%保持・緊急中断・次状態cleanupを正本で区別する
+  ---
+  duration_ms: 41.4483
+  type: 'test'
+  ...
+# Subtest: Phase B Visual tokenを一箇所に集約する
+ok 39 - Phase B Visual tokenを一箇所に集約する
+  ---
+  duration_ms: 27.8849
+  type: 'test'
+  ...
+# Subtest: Phase B環境geometryを既存layer内かつ字幕より背面へ置く
+ok 40 - Phase B環境geometryを既存layer内かつ字幕より背面へ置く
+  ---
+  duration_ms: 7.6613
+  type: 'test'
+  ...
+# Subtest: Avatar自身が6状態のsystem effectと人格非依存の差を持つ
+ok 41 - Avatar自身が6状態のsystem effectと人格非依存の差を持つ
+  ---
+  duration_ms: 7.3008
+  type: 'test'
+  ...
+# Subtest: Foreground interferenceはAvatar前面かつ字幕・Show layer・BLACKOUTより背面にある
+ok 42 - Foreground interferenceはAvatar前面かつ字幕・Show layer・BLACKOUTより背面にある
+  ---
+  duration_ms: 7.9652
+  type: 'test'
+  ...
+# Subtest: 6状態を色以外のgeometryとmotionで差別化する
+ok 43 - 6状態を色以外のgeometryとmotionで差別化する
+  ---
+  duration_ms: 7.941
+  type: 'test'
+  ...
+# Subtest: Transitionは専用wrapperでtransform競合せず主要sequenceを分離する
+ok 44 - Transitionは専用wrapperでtransform競合せず主要sequenceを分離する
+  ---
+  duration_ms: 6.3537
+  type: 'test'
+  ...
+# Subtest: reconnect時はTransition経過時間を負delayへ反映し先頭から再生しない
+ok 45 - reconnect時はTransition経過時間を負delayへ反映し先頭から再生しない
+  ---
+  duration_ms: 4.4477
+  type: 'test'
+  ...
+# Subtest: OverlayとScene Visualは遠距離表示・Final主役・cleanup hookを持つ
+ok 46 - OverlayとScene Visualは遠距離表示・Final主役・cleanup hookを持つ
+  ---
+  duration_ms: 10.6715
+  type: 'test'
+  ...
+# Subtest: Unlock Gaugeは3系統のradial進捗と完了・中断状態を表現する
+ok 47 - Unlock Gaugeは3系統のradial進捗と完了・中断状態を表現する
+  ---
+  duration_ms: 6.4601
+  type: 'test'
+  ...
+# Subtest: SHUTDOWN・reduced motion・BLACKOUT・viewportの安全契約を保つ
+ok 48 - SHUTDOWN・reduced motion・BLACKOUT・viewportの安全契約を保つ
+  ---
+  duration_ms: 10.1614
+  type: 'test'
+  ...
+# Subtest: runtimeでUUID+style名を厳密解決しAudioQuery未知fieldを保持する
+ok 49 - runtimeでUUID+style名を厳密解決しAudioQuery未知fieldを保持する
+  ---
+  duration_ms: 126.4999
+  type: 'test'
+  ...
+# Subtest: speaker/style不一致でfallbackしない
+ok 50 - speaker/style不一致でfallbackしない
+  ---
+  duration_ms: 7.0339
+  type: 'test'
+  ...
+# Subtest: 外部AbortをAIVIS_ABORTEDとして返す
+ok 51 - 外部AbortをAIVIS_ABORTEDとして返す
+  ---
+  duration_ms: 2.433
+  type: 'test'
+  ...
+# Subtest: Production Free Speakをserver-side Aivis→Audio Masterだけへ配信しDOWN時にfallbackしない
+ok 52 - Production Free Speakをserver-side Aivis→Audio Masterだけへ配信しDOWN時にfallbackしない
+  ---
+  duration_ms: 4561.4551
+  type: 'test'
+  ...
+# Subtest: RuntimeAudioCacheはTTL・件数・byte上限を守る
+ok 53 - RuntimeAudioCacheはTTL・件数・byte上限を守る
+  ---
+  duration_ms: 9.6726
+  type: 'test'
+  ...
+# Subtest: Local TTSはpreflight・生成・cache URLを返す
+ok 54 - Local TTSはpreflight・生成・cache URLを返す
+  ---
+  duration_ms: 8.6533
+  type: 'test'
+  ...
+# Subtest: 連続要求は前の生成をcancelしrace再生を防ぐ
+ok 55 - 連続要求は前の生成をcancelしrace再生を防ぐ
+  ---
+  duration_ms: 20.4706
+  type: 'test'
+  ...
+# Subtest: Production Showは最新17 speech・3 SFX・3 puzzle slotsを登録する
+ok 56 - Production Showは最新17 speech・3 SFX・3 puzzle slotsを登録する
+  ---
+  duration_ms: 55.4203
+  type: 'test'
+  ...
+# Subtest: Production Showは台本alignment順序・外部同期境界・未確定Cue隔離を固定する
+ok 57 - Production Showは台本alignment順序・外部同期境界・未確定Cue隔離を固定する
+  ---
+  duration_ms: 29.5878
+  type: 'test'
+  ...
+# Subtest: HIJACKED voice effectはWAV005〜009だけへ適用しraw Assetを維持する
+ok 58 - HIJACKED voice effectはWAV005〜009だけへ適用しraw Assetを維持する
+  ---
+  duration_ms: 23.8465
+  type: 'test'
+  ...
+# Subtest: Production import/resetは非BLACKOUTのSTANDBYへ戻りPhase Aの初期Avatarを変えない
+ok 59 - Production import/resetは非BLACKOUTのSTANDBYへ戻りPhase Aの初期Avatarを変えない
+  ---
+  duration_ms: 93.3546
+  type: 'test'
+  ...
+# Subtest: AivisSpeech停止中でも固定WAV運用を開始でき、Local TTS Cueがある場合は開始を止める
+ok 60 - AivisSpeech停止中でも固定WAV運用を開始でき、Local TTS Cueがある場合は開始を止める
+  ---
+  duration_ms: 47.1252
+  type: 'test'
+  ...
+# Subtest: 途中参加の新規Displayも現在字幕とPresentation stateを初回接続で同期する
+ok 61 - 途中参加の新規Displayも現在字幕とPresentation stateを初回接続で同期する
+  ---
+  duration_ms: 19.2225
+  type: 'test'
+  ...
+# Subtest: server再起動後も現在字幕とCue位置を復元し途中参加Displayへ同期する
+ok 62 - server再起動後も現在字幕とCue位置を復元し途中参加Displayへ同期する
+  ---
+  duration_ms: 56.1813
+  type: 'test'
+  ...
+# Subtest: 正式選定2Dをhash付きproduction snapshotへ固定する
+ok 63 - 正式選定2Dをhash付きproduction snapshotへ固定する
+  ---
+  duration_ms: 32.7888
+  type: 'test'
+  ...
+# Subtest: 不正なproduction profileを拒否する
+ok 64 - 不正なproduction profileを拒否する
+  ---
+  duration_ms: 1.0879
+  type: 'test'
+  ...
+# Subtest: Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Resetを処理する
+ok 65 - Admin 1台 + Display 3台でtarget・Audio Master・Cue・再接続・Resetを処理する
+  ---
+  duration_ms: 6483.9365
+  type: 'test'
+  ...
+# Subtest: 同一Display IDの連続connect/disconnect/reconnectで登録が増殖しない
+ok 66 - 同一Display IDの連続connect/disconnect/reconnectで登録が増殖しない
+  ---
+  duration_ms: 2545.673
+  type: 'test'
+  ...
+# Subtest: Cue進行・編集・並び替え・Scene・Free Speak・Resetを一貫して管理する
+ok 67 - Cue進行・編集・並び替え・Scene・Free Speak・Resetを一貫して管理する
+  ---
+  duration_ms: 644.8152
+  type: 'test'
+  ...
+# Subtest: Display識別・Groupを含むtarget・Audio Masterを管理する
+ok 68 - Display識別・Groupを含むtarget・Audio Masterを管理する
+  ---
+  duration_ms: 2.9397
+  type: 'test'
+  ...
+# Subtest: 本番モードが主要Cue情報と安全操作を独立表示する
+ok 69 - 本番モードが主要Cue情報と安全操作を独立表示する
+  ---
+  duration_ms: 22.1241
+  type: 'test'
+  ...
+# Subtest: 本番前チェック・配信先セット・接続QRのUI契約を持つ
+ok 70 - 本番前チェック・配信先セット・接続QRのUI契約を持つ
+  ---
+  duration_ms: 9.4833
+  type: 'test'
+  ...
+# Subtest: Display識別表示は一時表示で管理操作を露出しない
+ok 71 - Display識別表示は一時表示で管理操作を露出しない
+  ---
+  duration_ms: 5.0045
+  type: 'test'
+  ...
+# Subtest: Phase 3 group・preflight・音声テスト・接続支援をAdmin 1 + Display 3で処理する
+ok 72 - Phase 3 group・preflight・音声テスト・接続支援をAdmin 1 + Display 3で処理する
+  ---
+  duration_ms: 4545.7912
+  type: 'test'
+  ...
+# Subtest: Phase 2 stateをrequired既定値と空の配信先セットで移行する
+ok 73 - Phase 2 stateをrequired既定値と空の配信先セットで移行する
+  ---
+  duration_ms: 24.7865
+  type: 'test'
+  ...
+# Subtest: PreflightがREADY・任意Offline警告・必須Offlineエラーを判定する
+ok 74 - PreflightがREADY・任意Offline警告・必須Offlineエラーを判定する
+  ---
+  duration_ms: 52.2169
+  type: 'test'
+  ...
+# Subtest: Audio Ready falseを接続状態と分けて警告する
+ok 75 - Audio Ready falseを接続状態と分けて警告する
+  ---
+  duration_ms: 11.7217
+  type: 'test'
+  ...
+# Subtest: PreflightがCueなし・Audio Masterなし・Master Offlineを開始不可にする
+ok 76 - PreflightがCueなし・Audio Masterなし・Master Offlineを開始不可にする
+  ---
+  duration_ms: 19.2541
+  type: 'test'
+  ...
+# Subtest: 配信先セットを作成・編集・削除しDisplay IDで参照する
+ok 77 - 配信先セットを作成・編集・削除しDisplay IDで参照する
+  ---
+  duration_ms: 16.5028
+  type: 'test'
+  ...
+# Subtest: Cueから使用中の配信先セット削除を安全にブロックする
+ok 78 - Cueから使用中の配信先セット削除を安全にブロックする
+  ---
+  duration_ms: 6.9738
+  type: 'test'
+  ...
+# Subtest: required・配信先セット・Adminモードを保存して再起動後に復元する
+ok 79 - required・配信先セット・Adminモードを保存して再起動後に復元する
+  ---
+  duration_ms: 15.8163
+  type: 'test'
+  ...
+# Subtest: 本番モード切替はCue位置を変更しない
+ok 80 - 本番モード切替はCue位置を変更しない
+  ---
+  duration_ms: 6.533
+  type: 'test'
+  ...
+# Subtest: 低ポリゴンAvatar・Blackout・Phase4操作UIをローカル配信する
+ok 81 - 低ポリゴンAvatar・Blackout・Phase4操作UIをローカル配信する
+  ---
+  duration_ms: 34.9996
+  type: 'test'
+  ...
+# Subtest: Lip Syncは平滑化・閾値差・最小holdでチャタリングを抑える
+ok 82 - Lip Syncは平滑化・閾値差・最小holdでチャタリングを抑える
+  ---
+  duration_ms: 1.6096
+  type: 'test'
+  ...
+# Subtest: ローカル音声Providerが再生・停止を同じ境界で通知する
+ok 83 - ローカル音声Providerが再生・停止を同じ境界で通知する
+  ---
+  duration_ms: 5.2075
+  type: 'test'
+  ...
+# Subtest: 本番ショートカットを割り当て、編集・modifier・repeat中は抑止する
+ok 84 - 本番ショートカットを割り当て、編集・modifier・repeat中は抑止する
+  ---
+  duration_ms: 1.0274
+  type: 'test'
+  ...
+# Subtest: Phase 4をAdmin 1 + Display 3で表示・音声Master・Blackout・再接続まで処理する
+ok 85 - Phase 4をAdmin 1 + Display 3で表示・音声Master・Blackout・再接続まで処理する
+  ---
+  duration_ms: 4426.3055
+  type: 'test'
+  ...
+# Subtest: 旧CueをSchema v3へ後方互換移行する
+ok 86 - 旧CueをSchema v3へ後方互換移行する
+  ---
+  duration_ms: 16.849
+  type: 'test'
+  ...
+# Subtest: speech/display本文とroute/scene/locationを独立保持する
+ok 87 - speech/display本文とroute/scene/locationを独立保持する
+  ---
+  duration_ms: 0.8511
+  type: 'test'
+  ...
+# Subtest: 全6 Cue種別と6標準Presetを提供する
+ok 88 - 全6 Cue種別と6標準Presetを提供する
+  ---
+  duration_ms: 2.4396
+  type: 'test'
+  ...
+# Subtest: Show Fileをdry-run検証し不正参照を原子的に拒否する
+ok 89 - Show Fileをdry-run検証し不正参照を原子的に拒否する
+  ---
+  duration_ms: 7.4477
+  type: 'test'
+  ...
+# Subtest: 音声playback effectは既知profileだけを許可する
+ok 90 - 音声playback effectは既知profileだけを許可する
+  ---
+  duration_ms: 2.6886
+  type: 'test'
+  ...
+# Subtest: 音声Asset pathはローカルaudio配下のwav/mp3だけを許可する
+ok 91 - 音声Asset pathはローカルaudio配下のwav/mp3だけを許可する
+  ---
+  duration_ms: 0.8548
+  type: 'test'
+  ...
+# Subtest: 6種Cueが発話有無と表示状態を正しく分離する
+ok 92 - 6種Cueが発話有無と表示状態を正しく分離する
+  ---
+  duration_ms: 50.1738
+  type: 'test'
+  ...
+# Subtest: Display snapshotから運用メモ・履歴・他Display情報を除外する
+ok 93 - Display snapshotから運用メモ・履歴・他Display情報を除外する
+  ---
+  duration_ms: 20.1119
+  type: 'test'
+  ...
+# Subtest: Show File exportはruntimeを含まずimport失敗時は状態を変更しない
+ok 94 - Show File exportはruntimeを含まずimport失敗時は状態を変更しない
+  ---
+  duration_ms: 11.1542
+  type: 'test'
+  ...
+# Subtest: Preset CRUD・Rehearsal経過ログ・拡張Preflightを管理する
+ok 95 - Preset CRUD・Rehearsal経過ログ・拡張Preflightを管理する
+  ---
+  duration_ms: 7.3117
+  type: 'test'
+  ...
+# Subtest: 横川AI v1の4画像を意味あるIDとローカルpathで登録する
+ok 96 - 横川AI v1の4画像を意味あるIDとローカルpathで登録する
+  ---
+  duration_ms: 38.4319
+  type: 'test'
+  ...
+# Subtest: Displayは固定base上に局所口差分と局所まばたき差分を独立配置する
+ok 97 - Displayは固定base上に局所口差分と局所まばたき差分を独立配置する
+  ---
+  duration_ms: 14.299
+  type: 'test'
+  ...
+# Subtest: Avatar modeは旧Show File互換を保ち不明なmodeとasset setを拒否する
+ok 98 - Avatar modeは旧Show File互換を保ち不明なmodeとasset setを拒否する
+  ---
+  duration_ms: 17.8713
+  type: 'test'
+  ...
+# Subtest: まばたきは3〜6秒間隔・100〜180ms表示時間の範囲に収まる
+ok 99 - まばたきは3〜6秒間隔・100〜180ms表示時間の範囲に収まる
+  ---
+  duration_ms: 1.6134
+  type: 'test'
+  ...
+# Subtest: まばたき中も口状態を変更せず次回を予約する
+ok 100 - まばたき中も口状態を変更せず次回を予約する
+  ---
+  duration_ms: 3.4802
+  type: 'test'
+  ...
+# Subtest: shutdownは目を閉じてまばたきを停止しrecoveryで再開する
+ok 101 - shutdownは目を閉じてまばたきを停止しrecoveryで再開する
+  ---
+  duration_ms: 1.2203
+  type: 'test'
+  ...
+# Subtest: 6状態のblink profileは異常度を表情変更なしの時間差で示す
+ok 102 - 6状態のblink profileは異常度を表情変更なしの時間差で示す
+  ---
+  duration_ms: 1.2708
+  type: 'test'
+  ...
+# Subtest: 6 Presetは同じ画像AvatarへCSS effectとして適用される
+ok 103 - 6 Presetは同じ画像AvatarへCSS effectとして適用される
+  ---
+  duration_ms: 38.1101
+  type: 'test'
+  ...
+# Subtest: 6 Preset用の共有Environment visual layerを字幕より背面に持つ
+ok 104 - 6 Preset用の共有Environment visual layerを字幕より背面に持つ
+  ---
+  duration_ms: 39.7107
+  type: 'test'
+  ...
+# Subtest: Presetは色だけでなくgeometry・scan・侵食・rupture・repairを分離する
+ok 105 - Presetは色だけでなくgeometry・scan・侵食・rupture・repairを分離する
+  ---
+  duration_ms: 7.9575
+  type: 'test'
+  ...
+# Subtest: SHUTDOWNとreducedMotionは主要animationを停止し静止画の状態差を残す
+ok 106 - SHUTDOWNとreducedMotionは主要animationを停止し静止画の状態差を残す
+  ---
+  duration_ms: 4.1616
+  type: 'test'
+  ...
+# Subtest: BLACKOUTはvisual layerと字幕より上位のまま維持する
+ok 107 - BLACKOUTはvisual layerと字幕より上位のまま維持する
+  ---
+  duration_ms: 31.0203
+  type: 'test'
+  ...
+# Subtest: v0.4.1 Avatar元画像4点はbyte単位で不変
+ok 108 - v0.4.1 Avatar元画像4点はbyte単位で不変
+  ---
+  duration_ms: 107.2313
+  type: 'test'
+  ...
+# Subtest: Preset statusは既知6状態を表示し未知Presetを安全に扱う
+ok 109 - Preset statusは既知6状態を表示し未知Presetを安全に扱う
+  ---
+  duration_ms: 8.6239
+  type: 'test'
+  ...
+# Subtest: NORMALはPhase 4.2デザインイメージの舞台構図をコードで固定する
+ok 110 - NORMALはPhase 4.2デザインイメージの舞台構図をコードで固定する
+  ---
+  duration_ms: 4.2216
+  type: 'test'
+  ...
+# Subtest: 円形HUDは単一の中心軸を共有して左右対称を維持する
+ok 111 - 円形HUDは単一の中心軸を共有して左右対称を維持する
+  ---
+  duration_ms: 35.127
+  type: 'test'
+  ...
+# Subtest: candidate has 24 ordered Cues; all twenty existing Cue objects and seventeen voices are unchanged
+ok 112 - candidate has 24 ordered Cues; all twenty existing Cue objects and seventeen voices are unchanged
+  ---
+  duration_ms: 4782.8494
+  type: 'test'
+  ...
+# Subtest: gauge alone is exactly -3dB relative to the stable take with fixed length, no clipping and unchanged cutoff metadata
+ok 113 - gauge alone is exactly -3dB relative to the stable take with fixed length, no clipping and unchanged cutoff metadata
+  ---
+  duration_ms: 306.959
+  type: 'test'
+  ...
+# Subtest: Reset and Scene 1 are dark; new Cue transitions do not latch emergency blackout or auto advance
+ok 114 - Reset and Scene 1 are dark; new Cue transitions do not latch emergency blackout or auto advance
+  ---
+  duration_ms: 95.5487
+  type: 'test'
+  ...
+# Subtest: P021 reuses the exact approved Profile and six sentence units, with existing boundary composition
+ok 115 - P021 reuses the exact approved Profile and six sentence units, with existing boundary composition
+  ---
+  duration_ms: 271.852
+  type: 'test'
+  ...
+# Subtest: curtain renderer ignores state echoes, catches up only current visual time, and cancels without deferred callbacks
+ok 116 - curtain renderer ignores state echoes, catches up only current visual time, and cancels without deferred callbacks
+  ---
+  duration_ms: 2.2355
+  type: 'test'
+  ...
+# Subtest: real decoding is retained and reused for the FIRST and repeated GO, graph connects before start
+ok 117 - real decoding is retained and reused for the FIRST and repeated GO, graph connects before start
+  ---
+  duration_ms: 21.7755
+  type: 'test'
+  ...
+# Subtest: Reset cancellation of an in-flight verify cannot downgrade an already healthy output
+ok 118 - Reset cancellation of an in-flight verify cannot downgrade an already healthy output
+  ---
+  duration_ms: 7.9116
+  type: 'test'
+  ...
+# Subtest: suspend invalidates READY and cancels sound; recovery resumes/render-checks but NEVER replays
+ok 119 - suspend invalidates READY and cancels sound; recovery resumes/render-checks but NEVER replays
+  ---
+  duration_ms: 4.4917
+  type: 'test'
+  ...
+# Subtest: closed output creates a new Context while retaining PCM; STOP during resume never arms a source
+ok 120 - closed output creates a new Context while retaining PCM; STOP during resume never arms a source
+  ---
+  duration_ms: 7.5914
+  type: 'test'
+  ...
+# Subtest: failed/late decode and memory limits fail closed; missing/failed sound cannot play
+ok 121 - failed/late decode and memory limits fail closed; missing/failed sound cannot play
+  ---
+  duration_ms: 2.707
+  type: 'test'
+  ...
+# Subtest: speech and SFX use one output, actual ended receipts; old end after STOP cannot complete/replay
+ok 122 - speech and SFX use one output, actual ended receipts; old end after STOP cannot complete/replay
+  ---
+  duration_ms: 6.2669
+  type: 'test'
+  ...
+# Subtest: browser output lead is explicit; excessive output latency fails READY instead of silently desynchronizing
+ok 123 - browser output lead is explicit; excessive output latency fails READY instead of silently desynchronizing
+  ---
+  duration_ms: 5.2577
+  type: 'test'
+  ...
+# Subtest: gauge SFX forwards audio-clock limits and STOP rejects the capped source stale end
+ok 124 - gauge SFX forwards audio-clock limits and STOP rejects the capped source stale end
+  ---
+  duration_ms: 6.2886
+  type: 'test'
+  ...
+# Subtest: clock preparation advances without relying on a 16ms timer that hidden Chrome may throttle
+ok 125 - clock preparation advances without relying on a 16ms timer that hidden Chrome may throttle
+  ---
+  duration_ms: 146.546
+  type: 'test'
+  ...
+# Subtest: STOP cancels a stalled task-based clock probe without READY downgrade or a late source
+ok 126 - STOP cancels a stalled task-based clock probe without READY downgrade or a late source
+  ---
+  duration_ms: 8.7142
+  type: 'test'
+  ...
+# Subtest: default startup replaces stale saved show; Production Reset retains registration and Ready
+ok 127 - default startup replaces stale saved show; Production Reset retains registration and Ready
+  ---
+  duration_ms: 6140.9036
+  type: 'test'
+  ...
+# Subtest: old Production import cannot opt out of decoded/complete gate; missing recovery remains unselected
+ok 128 - old Production import cannot opt out of decoded/complete gate; missing recovery remains unselected
+  ---
+  duration_ms: 38.2411
+  type: 'test'
+  ...
+# Subtest: P-001 maps three approved audio chunks to TWO full typewriter sentences; all 17 displays have no ellipsis
+ok 129 - P-001 maps three approved audio chunks to TWO full typewriter sentences; all 17 displays have no ellipsis
+  ---
+  duration_ms: 3.727
+  type: 'test'
+  ...
+# Subtest: emergency readyCue selects the exact next GO without execution, tracks skipped positions, and rejects invalid targets
+ok 130 - emergency readyCue selects the exact next GO without execution, tracks skipped positions, and rejects invalid targets
+  ---
+  duration_ms: 105.3476
+  type: 'test'
+  ...
+# Subtest: P020 is a newly generated safety statement with matching SHA and preserved approved profile
+ok 131 - P020 is a newly generated safety statement with matching SHA and preserved approved profile
+  ---
+  duration_ms: 82.1983
+  type: 'test'
+  ...
+# Subtest: canonical NEXT accepts once per 1500ms burst; failed validation and clock jumps cannot advance
+ok 132 - canonical NEXT accepts once per 1500ms burst; failed validation and clock jumps cannot advance
+  ---
+  duration_ms: 134.228
+  type: 'test'
+  ...
+# Subtest: scheduler suppresses a suspended process catch-up burst
+ok 133 - scheduler suppresses a suspended process catch-up burst
+  ---
+  duration_ms: 7.6626
+  type: 'test'
+  ...
+# Subtest: merged current Cue can restore stable final state after freeze without live speech
+ok 134 - merged current Cue can restore stable final state after freeze without live speech
+  ---
+  duration_ms: 33.8181
+  type: 'test'
+  ...
+# Subtest: wall clock jump before a pending callback cancels it before watchdog tick
+ok 135 - wall clock jump before a pending callback cancels it before watchdog tick
+  ---
+  duration_ms: 1.4534
+  type: 'test'
+  ...
+# Subtest: recovery sanitizes the BLACKOUT restore cache so RESTORE cannot resurrect speech captions
+ok 136 - recovery sanitizes the BLACKOUT restore cache so RESTORE cannot resurrect speech captions
+  ---
+  duration_ms: 20.2658
+  type: 'test'
+  ...
+# Subtest: merged Cue server runtime cancels pending audio on STOP/Reset/Rehearsal and REPLAY dispatches once
+ok 137 - merged Cue server runtime cancels pending audio on STOP/Reset/Rehearsal and REPLAY dispatches once
+  ---
+  duration_ms: 7588.965
+  type: 'test'
+  ...
+# Subtest: scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安全に接続する
+ok 138 - scene:rehearsal-startは最終snapshotだけを同期し通常NEXTへ安全に接続する
+  ---
+  duration_ms: 2591.618
+  type: 'test'
+  ...
+# Subtest: Production Scene metadataは最新台本のScene 1〜7を順番通り表現する
+ok 139 - Production Scene metadataは最新台本のScene 1〜7を順番通り表現する
+  ---
+  duration_ms: 28.1161
+  type: 'test'
+  ...
+# Subtest: Scene Startは稽古セッション外ではfail-closedする
+ok 140 - Scene Startは稽古セッション外ではfail-closedする
+  ---
+  duration_ms: 63.3881
+  type: 'test'
+  ...
+# Subtest: Scene 1 Startは真のShow Reset境界へ戻しCueも音声も実行しない
+ok 141 - Scene 1 Startは真のShow Reset境界へ戻しCueも音声も実行しない
+  ---
+  duration_ms: 117.6709
+  type: 'test'
+  ...
+# Subtest: AI CueなしSceneは同じ開始stateを復元し他Scene CueをNEXTへ漏らさない
+ok 142 - AI CueなしSceneは同じ開始stateを復元し他Scene CueをNEXTへ漏らさない
+  ---
+  duration_ms: 116.8546
+  type: 'test'
+  ...
+# Subtest: 同一Scene反復とA→B→C→Aでstate driftが発生しない
+ok 143 - 同一Scene反復とA→B→C→Aでstate driftが発生しない
+  ---
+  duration_ms: 201.9344
+  type: 'test'
+  ...
+# Subtest: reconstructionは通常Cue state progressionのScene境界projectionと一致する
+ok 144 - reconstructionは通常Cue state progressionのScene境界projectionと一致する
+  ---
+  duration_ms: 185.4836
+  type: 'test'
+  ...
+# Subtest: Scene Start stateはDisplay reload相当snapshotとserver再起動後に副作用なく復元される
+ok 145 - Scene Start stateはDisplay reload相当snapshotとserver再起動後に副作用なく復元される
+  ---
+  duration_ms: 122.5735
+  type: 'test'
+  ...
+# Subtest: Scene 1/2/6/7 reconstruction clears live speech and persisted reload subtitle
+ok 146 - Scene 1/2/6/7 reconstruction clears live speech and persisted reload subtitle
+  ---
+  duration_ms: 330.7094
+  type: 'test'
+  ...
+# Subtest: P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016
+ok 147 - P-V02 and P-V06 remain single NEXT Cues with updated 009 and preserved 016
+  ---
+  duration_ms: 94.1731
+  type: 'test'
+  ...
+# Subtest: Hijack transition removes old subtitle and settles in HACK
+ok 148 - Hijack transition removes old subtitle and settles in HACK
+  ---
+  duration_ms: 53.1004
+  type: 'test'
+  ...
+# Subtest: Five solved modules integrate before final problem; STOP freezes phase
+ok 149 - Five solved modules integrate before final problem; STOP freezes phase
+  ---
+  duration_ms: 88.466
+  type: 'test'
+  ...
+# Subtest: Authentication has no percentage; unlock completes then removes gauges for anomaly
+ok 150 - Authentication has no percentage; unlock completes then removes gauges for anomaly
+  ---
+  duration_ms: 76.5446
+  type: 'test'
+  ...
+# Subtest: Emergency and contact failure share P-014 grammar and clear unlock UI
+ok 151 - Emergency and contact failure share P-014 grammar and clear unlock UI
+  ---
+  duration_ms: 71.9232
+  type: 'test'
+  ...
+# Subtest: P-V07 reaches 100%, clears transient UI and persists complete NORMAL snapshot
+ok 152 - P-V07 reaches 100%, clears transient UI and persists complete NORMAL snapshot
+  ---
+  duration_ms: 102.5331
+  type: 'test'
+  ...
+# Subtest: Scheduler cancellation rejects already queued callbacks and replay fires once
+ok 153 - Scheduler cancellation rejects already queued callbacks and replay fires once
+  ---
+  duration_ms: 6.5749
+  type: 'test'
+  ...
+# Subtest: HTTP画面・双方向状態・キュー・停止・再接続を実通信で処理する
+ok 154 - HTTP画面・双方向状態・キュー・停止・再接続を実通信で処理する
+  ---
+  duration_ms: 5012.5081
+  type: 'test'
+  ...
+# Subtest: Production audio manifestは固定WAVだけを安全なURLへ公開する
+ok 155 - Production audio manifestは固定WAVだけを安全なURLへ公開する
+  ---
+  duration_ms: 46.0119
+  type: 'test'
+  ...
+# Subtest: Production audio preloadはmanifestをno-store、WAVをforce-cacheで取得する
+ok 156 - Production audio preloadはmanifestをno-store、WAVをforce-cacheで取得する
+  ---
+  duration_ms: 3.4281
+  type: 'test'
+  ...
+# Subtest: Production audio manifestは外部URL・重複・不正IDをfail-closedで拒否する
+ok 157 - Production audio manifestは外部URL・重複・不正IDをfail-closedで拒否する
+  ---
+  duration_ms: 3.0926
+  type: 'test'
+  ...
+# Subtest: Production audio preloadの同時fetchは指定concurrencyを超えない
+ok 158 - Production audio preloadの同時fetchは指定concurrencyを超えない
+  ---
+  duration_ms: 52.4942
+  type: 'test'
+  ...
+# Subtest: Production audio prepareは18本未満をAudio Ready相当にしない
+ok 159 - Production audio prepareは18本未満をAudio Ready相当にしない
+  ---
+  duration_ms: 7.2006
+  type: 'test'
+  ...
+# Subtest: Production audio prepareは18本超過もAudio Ready相当にしない
+ok 160 - Production audio prepareは18本超過もAudio Ready相当にしない
+  ---
+  duration_ms: 1.1938
+  type: 'test'
+  ...
+# Subtest: Production audio preloadは404と空WAVをfail-closedで拒否する
+ok 161 - Production audio preloadは404と空WAVをfail-closedで拒否する
+  ---
+  duration_ms: 6.2514
+  type: 'test'
+  ...
+# Subtest: Single-PC launcherはServerをloopbackだけへbindする
+ok 162 - Single-PC launcherはServerをloopbackだけへbindする
+  ---
+  duration_ms: 14.2064
+  type: 'test'
+  ...
+# Subtest: sentence boundaries preserve display text separately from reading and reject unequal topology
+ok 163 - sentence boundaries preserve display text separately from reading and reject unequal topology
+  ---
+  duration_ms: 12.4443
+  type: 'test'
+  ...
+# Subtest: final PCM export inserts exact silence and subtitle offsets deterministically
+ok 164 - final PCM export inserts exact silence and subtitle offsets deterministically
+  ---
+  duration_ms: 61.5173
+  type: 'test'
+  ...
+# Subtest: latest Production speech, archives and original SFX pass format/hash checks
+ok 165 - latest Production speech, archives and original SFX pass format/hash checks
+  ---
+  duration_ms: 849.9661
+  type: 'test'
+  ...
+# Subtest: SFX references are validated and all three puzzle images remain safe explicit placeholders
+ok 166 - SFX references are validated and all three puzzle images remain safe explicit placeholders
+  ---
+  duration_ms: 74.1138
+  type: 'test'
+  ...
+# Subtest: route with no current AI speech stays empty on import
+ok 167 - route with no current AI speech stays empty on import
+  ---
+  duration_ms: 26.8637
+  type: 'test'
+  ...
+# Subtest: boundary silence normalization preserves voiced samples, lead-in and final release
+ok 168 - boundary silence normalization preserves voiced samples, lead-in and final release
+  ---
+  duration_ms: 26.8807
+  type: 'test'
+  ...
+# Subtest: saving a longer speech retimes dependent Cue phases, without touching manual boundaries
+ok 169 - saving a longer speech retimes dependent Cue phases, without touching manual boundaries
+  ---
+  duration_ms: 31.4122
+  type: 'test'
+  ...
+# Subtest: Production uses approved sound slots and the prefixed recovery-gauge copy and warning precedes both ERROR speeches
+ok 170 - Production uses approved sound slots and the prefixed recovery-gauge copy and warning precedes both ERROR speeches
+  ---
+  duration_ms: 30.7003
+  type: 'test'
+  ...
+# Subtest: 発話を順番にキュー処理し、停止後も次へ進める
+ok 171 - 発話を順番にキュー処理し、停止後も次へ進める
+  ---
+  duration_ms: 21.3373
+  type: 'test'
+  ...
+# Subtest: 空文字と5000文字超過を拒否する
+ok 172 - 空文字と5000文字超過を拒否する
+  ---
+  duration_ms: 6.4223
+  type: 'test'
+  ...
+# Subtest: 投影切断時は再生中とキューを安全にエラー終了する
+ok 173 - 投影切断時は再生中とキューを安全にエラー終了する
+  ---
+  duration_ms: 4.3942
+  type: 'test'
+  ...
+# Subtest: TTSエラー時は待機キューを連鎖再生せずエラー終了する
+ok 174 - TTSエラー時は待機キューを連鎖再生せずエラー終了する
+  ---
+  duration_ms: 14.6515
+  type: 'test'
+  ...
+# Subtest: 設定と履歴をローカルファイルへ保存・復元する
+ok 175 - 設定と履歴をローカルファイルへ保存・復元する
+  ---
+  duration_ms: 277.4549
+  type: 'test'
+  ...
+# Subtest: STOP clears canonical caption and BLACKOUT cache; RESTORE cannot bring stopped speech back
+ok 176 - STOP clears canonical caption and BLACKOUT cache; RESTORE cannot bring stopped speech back
+  ---
+  duration_ms: 73.872
+  type: 'test'
+  ...
+# Subtest: all Production speech uses typewriter and one grammatical sentence per display
+ok 177 - all Production speech uses typewriter and one grammatical sentence per display
+  ---
+  duration_ms: 9.389
+  type: 'test'
+  ...
+# Subtest: typewriter starts empty, short/long reveal progressively; state echo and cancelled callbacks cannot mutate
+ok 178 - typewriter starts empty, short/long reveal progressively; state echo and cancelled callbacks cannot mutate
+  ---
+  duration_ms: 1.7076
+  type: 'test'
+  ...
+# Subtest: latest script diffs preserve recovery and add separate Scene7 confirmation; no AI gathering cue
+ok 179 - latest script diffs preserve recovery and add separate Scene7 confirmation; no AI gathering cue
+  ---
+  duration_ms: 11.0794
+  type: 'test'
+  ...
+# Subtest: slots missing/present/invalid resolve safely, share warning and validate bytes
+ok 180 - slots missing/present/invalid resolve safely, share warning and validate bytes
+  ---
+  duration_ms: 2480.2533
+  type: 'test'
+  ...
+# Subtest: TTSアダプターが設定を適用し、開始・完了を通知する
+ok 181 - TTSアダプターが設定を適用し、開始・完了を通知する
+  ---
+  duration_ms: 22.0739
+  type: 'test'
+  ...
+# Subtest: TTS停止とエラーを重複なく通知する
+ok 182 - TTS停止とエラーを重複なく通知する
+  ---
+  duration_ms: 1.7295
+  type: 'test'
+  ...
+# Subtest: 音声合成APIがなくても一覧は空で、発話だけを安全に拒否する
+ok 183 - 音声合成APIがなくても一覧は空で、発話だけを安全に拒否する
+  ---
+  duration_ms: 4.6151
+  type: 'test'
+  ...
+# Subtest: Local TTS Providerは同一originの一時音声だけを再生する
+ok 184 - Local TTS Providerは同一originの一時音声だけを再生する
+  ---
+  duration_ms: 2.2301
+  type: 'test'
+  ...
+# Subtest: Production Sampler manifestは正本から18件をsanitizeする
+ok 185 - Production Sampler manifestは正本から18件をsanitizeする
+  ---
+  duration_ms: 67.9812
+  type: 'test'
+  ...
+# Subtest: Production Sampler deep link parserは001〜018だけを許可する
+ok 186 - Production Sampler deep link parserは001〜018だけを許可する
+  ---
+  duration_ms: 1.6321
+  type: 'test'
+  ...
+# Subtest: audio source resolverはpath traversalと非WAVを拒否する
+ok 187 - audio source resolverはpath traversalと非WAVを拒否する
+  ---
+  duration_ms: 5.3884
+  type: 'test'
+  ...
+# Subtest: HIJACKED effectはProductionとSamplerの共通定義を保持する
+ok 188 - HIJACKED effectはProductionとSamplerの共通定義を保持する
+  ---
+  duration_ms: 53.4481
+  type: 'test'
+  ...
+# Subtest: static buildは音声18件と公開用最小assetだけを生成する
+ok 189 - static buildは音声18件と公開用最小assetだけを生成する
+  ---
+  duration_ms: 706.1578
+  type: 'test'
+  ...
+# Subtest: Production Samplerは全WAVをdecode済みcacheから即時再生し停止・retry・破棄できる
+ok 190 - Production Samplerは全WAVをdecode済みcacheから即時再生し停止・retry・破棄できる
+  ---
+  duration_ms: 16.6291
+  type: 'test'
+  ...
+# Subtest: AudioBufferPlayerはAudioContextを共有し必要な場合だけgesture内でresumeする
+ok 191 - AudioBufferPlayerはAudioContextを共有し必要な場合だけgesture内でresumeする
+  ---
+  duration_ms: 4.7065
+  type: 'test'
+  ...
+# Subtest: AudioBufferPlayerはdecodeを直列化し再生中は次のbackground decodeを開始しない
+ok 192 - AudioBufferPlayerはdecodeを直列化し再生中は次のbackground decodeを開始しない
+  ---
+  duration_ms: 6.9042
+  type: 'test'
+  ...
+# Subtest: Production Sampler UIはprogressive preloadを通常経路にしPlay内でfetch/decodeしない
+ok 193 - Production Sampler UIはprogressive preloadを通常経路にしPlay内でfetch/decodeしない
+  ---
+  duration_ms: 4.5889
+  type: 'test'
+  ...
+# Subtest: Netlify password gateは全pathをfail-closedで保護しcredentialを埋め込まない
+ok 194 - Netlify password gateは全pathをfail-closedで保護しcredentialを埋め込まない
+  ---
+  duration_ms: 6.2531
+  type: 'test'
+  ...
+# Subtest: Netlify password gateはHTML・WAV・JSONを同一認証で保護する
+ok 195 - Netlify password gateはHTML・WAV・JSONを同一認証で保護する
+  ---
+  duration_ms: 119.4193
+  type: 'test'
+  ...
+# Subtest: Voice Retuneはselected-profileの2Aと新規2B〜2Dを分離する
+ok 196 - Voice Retuneはselected-profileの2Aと新規2B〜2Dを分離する
+  ---
+  duration_ms: 44.711
+  type: 'test'
+  ...
+# Subtest: Voice Retuneは指定7台詞だけを比較し\#002の表示と読みを分離する
+ok 197 - Voice Retuneは指定7台詞だけを比較し\#002の表示と読みを分離する
+  ---
+  duration_ms: 33.8728
+  type: 'test'
+  ...
+# Subtest: AudioQuery overrideは既知8項目だけを上書きしunknown fieldを保持する
+ok 198 - AudioQuery overrideは既知8項目だけを上書きしunknown fieldを保持する
+  ---
+  duration_ms: 1.9222
+  type: 'test'
+  ...
+# Subtest: 句点比較は2Dを固定し「。…」と「。……」だけを切り替える
+ok 199 - 句点比較は2Dを固定し「。…」と「。……」だけを切り替える
+  ---
+  duration_ms: 9.9847
+  type: 'test'
+  ...
+# Subtest: 暫定候補は2Dを基準に「。…」と\#003の読点だけを合成文へ適用する
+ok 200 - 暫定候補は2Dを基準に「。…」と\#003の読点だけを合成文へ適用する
+  ---
+  duration_ms: 4.1173
+  type: 'test'
+  ...
+# Subtest: Retune生成物はProduction WAVから分離されHIJACKED effect値を変更しない
+ok 201 - Retune生成物はProduction WAVから分離されHIJACKED effect値を変更しない
+  ---
+  duration_ms: 5.589
+  type: 'test'
+  ...
+# Subtest: Voice Retune UIはProduction defaultを維持し個別・連続・RAW/本番比較を持つ
+ok 202 - Voice Retune UIはProduction defaultを維持し個別・連続・RAW/本番比較を持つ
+  ---
+  duration_ms: 9.7567
+  type: 'test'
+  ...
+1..202
+# tests 202
+# suites 0
+# pass 202
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 14108.9442

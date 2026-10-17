@@ -89,7 +89,7 @@ test('Emergency and contact failure share P-014 grammar and clear unlock UI', as
 test('P-V07 reaches 100%, clears transient UI and persists complete NORMAL snapshot', async () => {
   const { store, storage, advance } = await setup(); store.startSceneRehearsal('scene-7');
   assert.equal(store.state.currentPresetId, 'shutdown'); store.nextCue();
-  assert.equal(advance(3800).currentOverlay.progress, 100);
+  assert.equal(advance(4500).currentOverlay.progress, 100);
   const final = advance(2200); assert.equal(final.currentOverlay.visible, false);
   assert.equal(final.currentPresetId, 'normal'); assert.equal(final.currentAvatar.state, 'normal');
   assert.equal(final.currentTransition.status, 'completed'); assert.equal(final.currentSubtitle, null);
