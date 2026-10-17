@@ -35,16 +35,16 @@
     "name": "Calm",
     "selectedStyleId": 1310138977
   },
-  "sha256": "5f4b764ca0bcd6c1db37f5e6d232fda0621fe994eb29d1c8f77f0050a5e6b4ad",
-  "durationSeconds": 31.208458049886623,
+  "sha256": "37f0e0a1e1fa85acad075d0d4ccac239f65ca3d04ccf6a6f9676e7571be6fa19",
+  "durationSeconds": 31.908458049886622,
   "segments": [
     {
       "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
       "spokenText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
       "pauseAfterMs": 450,
       "path": "assets/audio/segments/post-show-021-1.wav",
-      "startMs": 0,
-      "endMs": 5325,
+      "startMs": 700,
+      "endMs": 6025,
       "sha256": "08e54c899683562e1c3fd2febd036c7ded19868fab9c73abfa2a460c2fb9fd6d"
     },
     {
@@ -52,8 +52,8 @@
       "spokenText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
       "pauseAfterMs": 650,
       "path": "assets/audio/segments/post-show-021-2.wav",
-      "startMs": 5775,
-      "endMs": 11643,
+      "startMs": 6475,
+      "endMs": 12343,
       "sha256": "cd0b5fe7e6f232976f0af5aad4fba1c97fe6ad01b3b3227dcc17aa9666aa6220"
     },
     {
@@ -61,8 +61,8 @@
       "spokenText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
       "pauseAfterMs": 350,
       "path": "assets/audio/segments/post-show-021-3.wav",
-      "startMs": 12293,
-      "endMs": 16478,
+      "startMs": 12993,
+      "endMs": 17178,
       "sha256": "4b67610c91c67f9fdc2bc9759fa0d64eb45660fcb8257f71cf51751cf5ea2ec9"
     },
     {
@@ -70,8 +70,8 @@
       "spokenText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
       "pauseAfterMs": 650,
       "path": "assets/audio/segments/post-show-021-4.wav",
-      "startMs": 16828,
-      "endMs": 22719,
+      "startMs": 17528,
+      "endMs": 23419,
       "sha256": "6ddc094f94c8125432e82314f405bf58274201b994b6f496a874e504a3adf04c"
     },
     {
@@ -79,8 +79,8 @@
       "spokenText": "また、出口付近では、お貸ししたペンの回収をおこなっております。",
       "pauseAfterMs": 350,
       "path": "assets/audio/segments/post-show-021-5.wav",
-      "startMs": 23369,
-      "endMs": 27391,
+      "startMs": 24069,
+      "endMs": 28091,
       "sha256": "ecb914744f8e18c810c3e03b0f79f996345e593e90d2cd2cd0323501cecba834"
     },
     {
@@ -88,41 +88,41 @@
       "spokenText": "お手数ですが、お帰りの際に係員へお渡しください。",
       "pauseAfterMs": 0,
       "path": "assets/audio/segments/post-show-021-6.wav",
-      "startMs": 27741,
-      "endMs": 31208,
+      "startMs": 28441,
+      "endMs": 31908,
       "sha256": "06b7d6b2685782e8563c6c60a9fcf154eaeb52726a65d534bce9dce7ae18def0"
     }
   ],
   "subtitleUnits": [
     {
       "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
-      "startMs": 0,
-      "endMs": 5325
+      "startMs": 700,
+      "endMs": 6025
     },
     {
       "displayText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
-      "startMs": 5775,
-      "endMs": 11643
+      "startMs": 6475,
+      "endMs": 12343
     },
     {
       "displayText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
-      "startMs": 12293,
-      "endMs": 16478
+      "startMs": 12993,
+      "endMs": 17178
     },
     {
       "displayText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
-      "startMs": 16828,
-      "endMs": 22719
+      "startMs": 17528,
+      "endMs": 23419
     },
     {
       "displayText": "また、出口付近では、お貸ししたペンの回収を行っております。",
-      "startMs": 23369,
-      "endMs": 27391
+      "startMs": 24069,
+      "endMs": 28091
     },
     {
       "displayText": "お手数ですが、お帰りの際に係員へお渡しください。",
-      "startMs": 27741,
-      "endMs": 31208
+      "startMs": 28441,
+      "endMs": 31908
     }
   ],
   "pacing": {
@@ -146,5 +146,18 @@
     "nonSilent": true,
     "noFullScaleClipping": true
   },
-  "pronunciationNote": "行っております → おこなっております（表示表記は変更せず、第5文だけ再生成）"
+  "pronunciationNote": "行っております → おこなっております（表示表記は変更せず、第5文だけ再生成）",
+  "pcmLeadIn": {
+    "durationMs": 700,
+    "frames": 30870,
+    "frequencyHz": 997,
+    "peakPcm16": 32,
+    "peakDbFS": -60.205999132796244,
+    "edgeFadeMs": 5,
+    "sourceCommit": "0f000bb19d76dfbe067825aec1d41448f5192581",
+    "sourceWavSha256": "5f4b764ca0bcd6c1db37f5e6d232fda0621fe994eb29d1c8f77f0050a5e6b4ad",
+    "sourcePcmSha256": "02579b42ec946c3c8845c956e31c0544c55f0973060790aca25315304fe3a5fc",
+    "method": "700ms low-level nonzero signal embedded in this WAV; exact original PCM appended; physical efficacy unverified"
+  },
+  "bytes": 2814370
 }

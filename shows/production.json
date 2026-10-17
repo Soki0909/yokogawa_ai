@@ -136,14 +136,16 @@
       "name": "横川AI Production 011",
       "path": "assets/audio/production-reliable-011.wav",
       "mimeType": "audio/wav",
-      "sha256": "25db9a560c0bc20ca18d05bdcc6a0e1a7737e4c296d77498eaea019c3033316a"
+      "sha256": "964bbfc5aa92640747d7e3e22971dd61288ae9c93ec818293c41b70be3350194",
+      "durationMs": 9683
     },
     {
       "id": "prod-voice-012-auth-success",
       "name": "横川AI Production 012",
       "path": "assets/audio/production-paced-012.wav",
       "mimeType": "audio/wav",
-      "sha256": "7549ae1c6d82d2d0a0f7f7ed1efc5765f7a533bbf06ef6ed86f83a7f87b9ae26"
+      "sha256": "f989bf966a48c311a55bae72c9949cb01978d73fc1234af38912fceb82574f71",
+      "durationMs": 5019
     },
     {
       "id": "prod-voice-013-emergency",
@@ -164,28 +166,32 @@
       "name": "横川AI Production 015",
       "path": "assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
       "mimeType": "audio/wav",
-      "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
+      "sha256": "81f6aa8a0362caf624f04308a729af54ca920f0f6935e138a3d24243e0b1cb5c",
+      "durationMs": 5007
     },
     {
       "id": "prod-voice-016-shutdown",
       "name": "横川AI Production 016",
       "path": "assets/audio/production-paced-016.wav",
       "mimeType": "audio/wav",
-      "sha256": "ba04348b8ef2085eb41a3442a43ed9a17cbbf78024b53e42a97a2f1f26194424"
+      "sha256": "7f4446446cf2066e1e1460914aa9ac636c14ba546e21ea92160e72c3212f5f8e",
+      "durationMs": 5668
     },
     {
       "id": "prod-voice-019-answer-sheet",
       "name": "横川AI Production 019",
       "path": "assets/audio/production-paced-019.wav",
       "mimeType": "audio/wav",
-      "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
+      "sha256": "d7994e3fa12d2989df65880256b2ac9cd10c9e346682756a4765e3a8c50abe1b",
+      "durationMs": 6994
     },
     {
       "id": "prod-voice-020-unlock-confirmed",
       "name": "横川AI Production 020",
       "path": "assets/audio/production-rehearsal-020-safety.wav",
       "mimeType": "audio/wav",
-      "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
+      "sha256": "63a9db0fd67c37d47ba3068578f779973806a7a6add11ebfb7d712d1bb5f8f44",
+      "durationMs": 3300
     },
     {
       "id": "prod-sfx-boot",
@@ -243,8 +249,8 @@
       "name": "横川AI P-021 退場アナウンス",
       "path": "assets/audio/production-post-show-021-exit.wav",
       "mimeType": "audio/wav",
-      "sha256": "5f4b764ca0bcd6c1db37f5e6d232fda0621fe994eb29d1c8f77f0050a5e6b4ad",
-      "durationMs": 31209
+      "sha256": "37f0e0a1e1fa85acad075d0d4ccac239f65ca3d04ccf6a6f9676e7571be6fa19",
+      "durationMs": 31909
     }
   ],
   "avatar": {
@@ -271,7 +277,7 @@
     "version": "post-show-candidate-20261017",
     "reliableAudio": true,
     "nextGuardMs": 1500,
-    "showHash": "ac05655084f1ca0c86ec7b9948c3448b6ea2d4543b6f34b577ff877b567dffd9",
+    "showHash": "7bde1499161513a282d7ae648a43c6d59a3f6aefbcc53f75db7203440830023a",
     "description": "現行Google Docs台本のメインScene 1〜7に基づく本編。横シーン5は別Show File。",
     "sourceScript": {
       "title": "『7号館からの脱出』上演台本",
@@ -296,7 +302,16 @@
     },
     "preShowDark": true,
     "stableBaseline": "da09d3bbcfed8d3d9a2568dd7be621359160ddc7",
-    "candidateOnly": true
+    "candidateOnly": true,
+    "pcmLeadInCues": [
+      "P-019",
+      "P-011",
+      "P-012",
+      "P-015",
+      "P-V06",
+      "P-020",
+      "P-021"
+    ]
   },
   "scenes": [
     {
@@ -1019,8 +1034,8 @@
             "spokenText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
             "pauseAfterMs": 450,
             "path": "assets/audio/segments/paced-019-1.wav",
-            "startMs": 0,
-            "endMs": 3746,
+            "startMs": 700,
+            "endMs": 4446,
             "sha256": "ffb75509b740880212bd317adfbd4b37da4291c586a62839c22f6132491eda34",
             "alignment": "approved-voice-boundary; stage pacing"
           },
@@ -1029,8 +1044,8 @@
             "spokenText": "謎はそちらに記入してください",
             "pauseAfterMs": 0,
             "path": "assets/audio/segments/paced-019-2.wav",
-            "startMs": 4196,
-            "endMs": 6293,
+            "startMs": 4896,
+            "endMs": 6993,
             "sha256": "1d701d670a0d7c43203a6fc5df843d8777f16687c6c51f764bad64ce2e752ca2",
             "alignment": "approved-voice-boundary; stage pacing"
           }
@@ -1039,13 +1054,13 @@
         "subtitleUnits": [
           {
             "displayText": "皆さんにお渡しした袋に謎を記入する紙が入ってます。",
-            "startMs": 0,
-            "endMs": 3746
+            "startMs": 700,
+            "endMs": 4446
           },
           {
             "displayText": "謎はそちらに記入してください。",
-            "startMs": 4196,
-            "endMs": 6293
+            "startMs": 4896,
+            "endMs": 6993
           }
         ]
       },
@@ -1210,8 +1225,8 @@
             "displayText": "条件の達成を確認。",
             "spokenText": "条件の達成を確認。",
             "pauseAfterMs": 450,
-            "startMs": 0,
-            "endMs": 1849,
+            "startMs": 700,
+            "endMs": 2549,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-011-1.wav",
             "sha256": "04e13568a7c205207773e8815cc0980df4654be0bfd3d765d9e10e936a9f0fe3"
@@ -1220,8 +1235,8 @@
             "displayText": "五つの解を統合し、最終問題を提示する。",
             "spokenText": "五つの解を統合し、最終問題を提示する。",
             "pauseAfterMs": 650,
-            "startMs": 2299,
-            "endMs": 5725,
+            "startMs": 2999,
+            "endMs": 6425,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-011-2.wav",
             "sha256": "4cd5c4756e2add00dd6fa8551868eaaf04728cf8a6fb2a1e2a904a6fb57d2eff"
@@ -1230,8 +1245,8 @@
             "displayText": "最終問題の回答を入力しなさい。",
             "spokenText": "最終問題の回答を入力しなさい",
             "pauseAfterMs": 0,
-            "startMs": 6375,
-            "endMs": 8983,
+            "startMs": 7075,
+            "endMs": 9683,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-011-3.wav",
             "sha256": "3d29fd94ebf24b3ff65f0b4be996cff5043367eb3db46a1c28aef82d0127b6d0"
@@ -1241,18 +1256,18 @@
         "subtitleUnits": [
           {
             "displayText": "条件の達成を確認。",
-            "startMs": 0,
-            "endMs": 1849
+            "startMs": 700,
+            "endMs": 2549
           },
           {
             "displayText": "五つの解を統合し、最終問題を提示する。",
-            "startMs": 2299,
-            "endMs": 5725
+            "startMs": 2999,
+            "endMs": 6425
           },
           {
             "displayText": "最終問題の回答を入力しなさい。",
-            "startMs": 6375,
-            "endMs": 8983
+            "startMs": 7075,
+            "endMs": 9683
           }
         ]
       },
@@ -1271,7 +1286,7 @@
       },
       "transition": {
         "id": "final-challenge-enter",
-        "durationMs": 8983,
+        "durationMs": 9683,
         "intensity": 1
       },
       "operatorNote": "現行台本 scene-6 / 7・201 / 発話011。音声終了後も自動進行しない。",
@@ -1294,7 +1309,7 @@
       },
       "sequence": [
         {
-          "atMs": 2299,
+          "atMs": 2999,
           "visual": {
             "id": "five-integrating",
             "type": "riddle-status",
@@ -1312,7 +1327,7 @@
           }
         },
         {
-          "atMs": 6375,
+          "atMs": 7075,
           "visual": {
             "id": "puzzle-final",
             "type": "image",
@@ -1343,8 +1358,8 @@
             "displayText": "認証成功。",
             "spokenText": "……認証成功。",
             "pauseAfterMs": 650,
-            "startMs": 0,
-            "endMs": 1619,
+            "startMs": 700,
+            "endMs": 2319,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-012-1.wav",
             "sha256": "0c3c75c5da384f40eeccf7c872e415d78ac0fafb06cb7020c3ee587f66b312a5"
@@ -1353,8 +1368,8 @@
             "displayText": "これより解錠を開始する。",
             "spokenText": "これより解錠を開始する",
             "pauseAfterMs": 0,
-            "startMs": 2269,
-            "endMs": 4318,
+            "startMs": 2969,
+            "endMs": 5018,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-012-2.wav",
             "sha256": "4a1a5d9a68f3524efb3be9d8470c6a1e93c6d555b494e4f1c47292e4c9116d0a"
@@ -1364,13 +1379,13 @@
         "subtitleUnits": [
           {
             "displayText": "認証成功。",
-            "startMs": 0,
-            "endMs": 1619
+            "startMs": 700,
+            "endMs": 2319
           },
           {
             "displayText": "これより解錠を開始する。",
-            "startMs": 2269,
-            "endMs": 4318
+            "startMs": 2969,
+            "endMs": 5018
           }
         ]
       },
@@ -1389,11 +1404,11 @@
       },
       "transition": {
         "id": "timeline",
-        "durationMs": 11919
+        "durationMs": 12619
       },
       "operatorNote": "認証WAV→200ms→6系統解錠→100%→異常を1 GO。ゲージ開始時に任意のproduction-gauge.wav。虎谷の告白・外部への指示を待ってP-013を手動。",
       "gaugeSfx": {
-        "atMs": 4519,
+        "atMs": 5219,
         "volume": 0.8,
         "maxDurationMs": 5000,
         "fadeOutMs": 40
@@ -1416,7 +1431,7 @@
           }
         },
         {
-          "atMs": 4519,
+          "atMs": 5219,
           "transition": {
             "id": "unlock-start",
             "durationMs": 7400,
@@ -1436,7 +1451,7 @@
           "clearSubtitle": true
         },
         {
-          "atMs": 10419,
+          "atMs": 11119,
           "overlay": {
             "id": "unlocking",
             "variant": "collapse",
@@ -1446,7 +1461,7 @@
           }
         },
         {
-          "atMs": 11319,
+          "atMs": 12019,
           "overlay": {
             "id": "unlocking",
             "variant": "anomaly",
@@ -1753,8 +1768,8 @@
             "displayText": "7号館全域の機械設備、強制暴走モードへ移行します。",
             "spokenText": "7号館全域の機械設備、強制暴走モードへ移行します",
             "pauseAfterMs": 0,
-            "startMs": 0,
-            "endMs": 4307,
+            "startMs": 700,
+            "endMs": 5007,
             "alignment": "approved-take-quiet-boundary",
             "path": "assets/audio/segments/015-1.wav",
             "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
@@ -1764,8 +1779,8 @@
         "subtitleUnits": [
           {
             "displayText": "7号館全域の機械設備、強制暴走モードへ移行します。",
-            "startMs": 0,
-            "endMs": 4307
+            "startMs": 700,
+            "endMs": 5007
           }
         ]
       },
@@ -1854,8 +1869,8 @@
             "displayText": "システム、全停止。",
             "spokenText": "……システム、全停止。",
             "pauseAfterMs": 850,
-            "startMs": 0,
-            "endMs": 1727,
+            "startMs": 700,
+            "endMs": 2427,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-016-1.wav",
             "sha256": "bbdbfb239902a95623d9cdfb64f23ec907fe95b51369bdad95fcd4292ad15b00"
@@ -1864,8 +1879,8 @@
             "displayText": "セキュリティを解放します。",
             "spokenText": "セキュリティーを……解放します……",
             "pauseAfterMs": 0,
-            "startMs": 2577,
-            "endMs": 4967,
+            "startMs": 3277,
+            "endMs": 5667,
             "alignment": "approved-voice-boundary; stage pacing",
             "path": "assets/audio/segments/paced-016-2.wav",
             "sha256": "133805016adf50f4650b9e33709fa11ec4bebeb10fc02dc4424f00a91ff3fcc0"
@@ -1875,13 +1890,13 @@
         "subtitleUnits": [
           {
             "displayText": "システム、全停止。",
-            "startMs": 0,
-            "endMs": 1727
+            "startMs": 700,
+            "endMs": 2427
           },
           {
             "displayText": "セキュリティを解放します。",
-            "startMs": 2577,
-            "endMs": 4967
+            "startMs": 3277,
+            "endMs": 5667
           }
         ]
       },
@@ -1903,7 +1918,7 @@
         "durationMs": 1900,
         "intensity": 1
       },
-      "operatorNote": "1 GOで暴走を即停止→1.2秒のcut→0.7秒の静寂→既存WAV016を一度再生。終了後はSHUTDOWNを保持。",
+      "operatorNote": "1 GOで暴走を即停止→1.2秒のcut→0.7秒の静寂→既存WAV016を一度再生。終了後はSHUTDOWNを保持。 WAV内700msの微弱信号を追加。従来の1900ms演出先行は維持、発話・字幕はGOから2600ms以降。",
       "triggerNote": "非常停止コード入力成立の瞬間にGO",
       "order": 210,
       "timing": {
@@ -2027,19 +2042,19 @@
           {
             "displayText": "館内すべての安全を確認しました。",
             "spokenText": "館内すべての安全を確認しました",
-            "startMs": 0,
-            "endMs": 2600,
+            "startMs": 700,
+            "endMs": 3300,
             "pauseAfterMs": 0,
             "path": "assets/audio/production-rehearsal-020-safety.wav",
-            "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
+            "sha256": "63a9db0fd67c37d47ba3068578f779973806a7a6add11ebfb7d712d1bb5f8f44"
           }
         ],
         "subtitleMode": "typewriter",
         "subtitleUnits": [
           {
             "displayText": "館内すべての安全を確認しました。",
-            "startMs": 0,
-            "endMs": 2600
+            "startMs": 700,
+            "endMs": 3300
           }
         ]
       },
@@ -2160,8 +2175,8 @@
             "spokenText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
             "pauseAfterMs": 450,
             "path": "assets/audio/segments/post-show-021-1.wav",
-            "startMs": 0,
-            "endMs": 5325,
+            "startMs": 700,
+            "endMs": 6025,
             "sha256": "08e54c899683562e1c3fd2febd036c7ded19868fab9c73abfa2a460c2fb9fd6d"
           },
           {
@@ -2169,8 +2184,8 @@
             "spokenText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
             "pauseAfterMs": 650,
             "path": "assets/audio/segments/post-show-021-2.wav",
-            "startMs": 5775,
-            "endMs": 11643,
+            "startMs": 6475,
+            "endMs": 12343,
             "sha256": "cd0b5fe7e6f232976f0af5aad4fba1c97fe6ad01b3b3227dcc17aa9666aa6220"
           },
           {
@@ -2178,8 +2193,8 @@
             "spokenText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
             "pauseAfterMs": 350,
             "path": "assets/audio/segments/post-show-021-3.wav",
-            "startMs": 12293,
-            "endMs": 16478,
+            "startMs": 12993,
+            "endMs": 17178,
             "sha256": "4b67610c91c67f9fdc2bc9759fa0d64eb45660fcb8257f71cf51751cf5ea2ec9"
           },
           {
@@ -2187,8 +2202,8 @@
             "spokenText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
             "pauseAfterMs": 650,
             "path": "assets/audio/segments/post-show-021-4.wav",
-            "startMs": 16828,
-            "endMs": 22719,
+            "startMs": 17528,
+            "endMs": 23419,
             "sha256": "6ddc094f94c8125432e82314f405bf58274201b994b6f496a874e504a3adf04c"
           },
           {
@@ -2196,8 +2211,8 @@
             "spokenText": "また、出口付近では、お貸ししたペンの回収をおこなっております。",
             "pauseAfterMs": 350,
             "path": "assets/audio/segments/post-show-021-5.wav",
-            "startMs": 23369,
-            "endMs": 27391,
+            "startMs": 24069,
+            "endMs": 28091,
             "sha256": "ecb914744f8e18c810c3e03b0f79f996345e593e90d2cd2cd0323501cecba834"
           },
           {
@@ -2205,41 +2220,41 @@
             "spokenText": "お手数ですが、お帰りの際に係員へお渡しください。",
             "pauseAfterMs": 0,
             "path": "assets/audio/segments/post-show-021-6.wav",
-            "startMs": 27741,
-            "endMs": 31208,
+            "startMs": 28441,
+            "endMs": 31908,
             "sha256": "06b7d6b2685782e8563c6c60a9fcf154eaeb52726a65d534bce9dce7ae18def0"
           }
         ],
         "subtitleUnits": [
           {
             "displayText": "本日は、『7号館からの脱出』にご来場いただき、誠にありがとうございました。",
-            "startMs": 0,
-            "endMs": 5325
+            "startMs": 700,
+            "endMs": 6025
           },
           {
             "displayText": "お帰りの際は、お忘れ物がないかお確かめのうえ、係員の誘導に従ってご退場ください。",
-            "startMs": 5775,
-            "endMs": 11643
+            "startMs": 6475,
+            "endMs": 12343
           },
           {
             "displayText": "当日パンフレットには、アンケートのQRコードを掲載しております。",
-            "startMs": 12293,
-            "endMs": 16478
+            "startMs": 12993,
+            "endMs": 17178
           },
           {
             "displayText": "今後の公演づくりの参考とさせていただきますので、ご回答にご協力いただけますと幸いです。",
-            "startMs": 16828,
-            "endMs": 22719
+            "startMs": 17528,
+            "endMs": 23419
           },
           {
             "displayText": "また、出口付近では、お貸ししたペンの回収を行っております。",
-            "startMs": 23369,
-            "endMs": 27391
+            "startMs": 24069,
+            "endMs": 28091
           },
           {
             "displayText": "お手数ですが、お帰りの際に係員へお渡しください。",
-            "startMs": 27741,
-            "endMs": 31208
+            "startMs": 28441,
+            "endMs": 31908
           }
         ],
         "subtitleMode": "typewriter"
@@ -2253,7 +2268,7 @@
         "speechDelayMs": 2200
       },
       "triggerNote": "カーテンコール終了後、舞台進行担当の合図でGO。",
-      "operatorNote": "青いNORMALとAvatarを2秒でフェードイン。GOから2.2秒後に固定音声と1文ずつの字幕を開始。案内後もNORMALを保持。"
+      "operatorNote": "青いNORMALとAvatarを2秒でフェードイン。GOから2.2秒後に固定WAV開始（内蔵微弱信号700ms）、2.9秒後から発話・1文ずつの字幕。案内後もNORMALを保持。"
     }
   ]
 }

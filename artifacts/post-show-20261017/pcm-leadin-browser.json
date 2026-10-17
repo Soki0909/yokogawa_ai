@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "decoded": 23,
+  "cues": 24,
+  "results": [
+    {
+      "cue": "P-019",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 896,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-011",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 983,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-012",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 1111,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-015",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 985,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-V06",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 929,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-020",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 921,
+      "status": "PASS"
+    },
+    {
+      "cue": "P-021",
+      "realDecodedPrefixPeak": 0.000984727288596332,
+      "firstVisibleTextAfterSourceMs": 970,
+      "status": "PASS"
+    }
+  ],
+  "controls": [
+    "emergency ready",
+    "explicit NEXT",
+    "STOP",
+    "REPLAY",
+    "BLACKOUT",
+    "RESTORE",
+    "Reset"
+  ],
+  "nextGuardMs": 1500,
+  "physicalAudio": "NOT VERIFIED; no claim of fixing load/decode latency"
+}

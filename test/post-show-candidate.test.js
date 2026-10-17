@@ -9,20 +9,23 @@ import {ShowCurtain} from '../public/js/display-show-curtain.js';
 const baseline='da09d3bbcfed8d3d9a2568dd7be621359160ddc7';
 const oldFile=p=>execFileSync('git',['show',baseline+':'+p],{maxBuffer:8*1024*1024});
 const stable=JSON.parse(oldFile('shows/production.json')),show=JSON.parse(await fs.readFile('shows/production.json','utf8'));
+const leadin=JSON.parse(await fs.readFile('config/production-speech/pcm-leadin-20261017.json'));
+const affected=new Set(leadin.results.map(r=>r.cue));
+const affectedAssets=new Set(show.cues.filter(c=>affected.has(c.cueNumber)).map(c=>c.audio.assetId));
 const sha=b=>createHash('sha256').update(b).digest('hex');
 test('candidate has 24 ordered Cues; all twenty existing Cue objects and seventeen voices are unchanged',async()=>{
  assert.equal(show.cues.length,24);assert.equal(new Set(show.cues.map(c=>c.id)).size,24);
- assert.deepEqual(show.cues.filter(c=>stable.cues.some(o=>o.id===c.id)),stable.cues);
+ assert.deepEqual(show.cues.filter(c=>stable.cues.some(o=>o.id===c.id)&&!affected.has(c.cueNumber)),stable.cues.filter(c=>!affected.has(c.cueNumber)));
  assert.deepEqual(show.cues.map(c=>c.cueNumber),['P-V00',...stable.cues.slice(0,10).map(c=>c.cueNumber),'P-V03',...stable.cues.slice(10).map(c=>c.cueNumber),'P-V08','P-021']);
- for(const a of stable.assets.filter(a=>a.mimeType==='audio/wav'))assert.equal(sha(await fs.readFile('public/'+a.path)),sha(oldFile('public/'+a.path)),a.id);
+ for(const a of stable.assets.filter(a=>a.mimeType==='audio/wav'&&!affectedAssets.has(a.id)))assert.equal(sha(await fs.readFile('public/'+a.path)),sha(oldFile('public/'+a.path)),a.id);
  for(const p of ['public/assets/audio/production-recovery.wav',...['01','06','07'].map(n=>'public/assets/visual/production-puzzle-'+n+'.png')])assert.equal(sha(await fs.readFile(p)),sha(oldFile(p)),p);
- for(const p of ['config/voice-profiles/yokogawa-professor-v1.json','config/production-speech/yokogawa-ai-v2.json','public/js/production-audio-engine.js','public/js/audio-playback-effects.js','src/server.js','src/cue-scheduler.js'])assert.equal((await fs.readFile(p,'utf8')).replaceAll('\r\n','\n'),oldFile(p).toString().replaceAll('\r\n','\n'),p+' is outside this change scope');
+ for(const p of ['config/voice-profiles/yokogawa-professor-v1.json','public/js/production-audio-engine.js','public/js/audio-playback-effects.js','src/server.js','src/cue-scheduler.js'])assert.equal((await fs.readFile(p,'utf8')).replaceAll('\r\n','\n'),oldFile(p).toString().replaceAll('\r\n','\n'),p+' is outside this change scope');
  assert.equal(show.metadata.nextGuardMs,1500);
 });
 test('gauge alone is exactly -3dB relative to the stable take with fixed length, no clipping and unchanged cutoff metadata',async()=>{
  const old=analysePcmWav(oldFile('public/assets/audio/production-gauge.wav')),now=analysePcmWav(await fs.readFile('public/assets/audio/production-gauge.wav'));
  assert.ok(Math.abs(20*Math.log10(now.rms/old.rms)+3)<.001);assert.equal(now.dataBytes,old.dataBytes);assert.equal(now.fullScaleSamples,0);
- for(const id of ['prod-012','prod-v-recovery'])assert.deepEqual(show.cues.find(c=>c.id===id).gaugeSfx,stable.cues.find(c=>c.id===id).gaugeSfx);
+ for(const id of ['prod-012','prod-v-recovery'])assert.deepEqual(show.cues.find(c=>c.id===id).gaugeSfx,{...stable.cues.find(c=>c.id===id).gaugeSfx,atMs:stable.cues.find(c=>c.id===id).gaugeSfx.atMs+(id==='prod-012'?700:0)});
 });
 test('Reset and Scene 1 are dark; new Cue transitions do not latch emergency blackout or auto advance',()=>{
  let clock=Date.parse('2026-10-17T00:00:00Z');const store=new StateStore({storage:{async save(){}},now:()=>new Date(clock)});store.importShowFile(show,{apply:true});store.registerDisplay({displayId:'stage'});
@@ -39,7 +42,7 @@ test('P021 reuses the exact approved Profile and six sentence units, with existi
  assert.deepEqual(m.effectiveParameters,profile.parameters);assert.equal(m.profileHash,profile.source.sha256);assert.equal(m.segments.length,6);
  const wav=analysePcmWav(await fs.readFile('public/'+m.path));assert.equal(wav.sha256,m.sha256);assert.equal(wav.bitsPerSample,16);assert.equal(wav.fullScaleSamples,0);
  assert.deepEqual(m.pacing.pauseAfterMs,[450,650,350,650,350,0]);assert.equal(m.subtitleUnits.map(s=>s.displayText).join(''),m.displayText);
- assert.ok(m.subtitleUnits.every(s=>s.displayText.endsWith('。')&&!/[…⋯]/.test(s.displayText)));assert.equal(m.subtitleUnits[0].startMs,0);
+ assert.ok(m.subtitleUnits.every(s=>s.displayText.endsWith('。')&&!/[…⋯]/.test(s.displayText)));assert.equal(m.subtitleUnits[0].startMs,700);
 });
 test('curtain renderer ignores state echoes, catches up only current visual time, and cancels without deferred callbacks',()=>{
  const animations=[],element={style:{},animate(frames,options){const a={frames,options,cancelled:false,cancel(){this.cancelled=true;}};animations.push(a);return a;}};

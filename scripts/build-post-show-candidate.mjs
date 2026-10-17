@@ -4,6 +4,7 @@ import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {recordingCueCaption} from './recording-cue-caption.js';
 import {validateShowFile} from '../src/show-schema.js';
+if(JSON.parse(await fs.readFile('config/production-speech/post-show-021.json')).pcmLeadIn)throw Error('Processed 700ms Production Show: use committed shows/production.json; legacy candidate rebuild is disabled to preserve timing');
 const baseline='da09d3bbcfed8d3d9a2568dd7be621359160ddc7';
 const show=JSON.parse(execFileSync('git',['show',baseline+':shows/production.json']).toString());
 const speech=JSON.parse(await fs.readFile('config/production-speech/post-show-021.json','utf8'));

@@ -16,9 +16,9 @@
     },
     {
       "path": "README.md",
-      "size": 17688,
+      "size": 17969,
       "hashMode": "utf8-lf",
-      "sha256": "aa7a274de216afeba92b93fe9eda478ac641274a449b12937c97f1d5fb728af9"
+      "sha256": "9f6fa4d3b4ddedb1706d1e45f34a7c3cac83a0c822f7629568ae22630ed562e2"
     },
     {
       "path": "config/production-backup-cue-labels.json",
@@ -27,10 +27,16 @@
       "sha256": "64e3f812918f3b998a1003baf612c6ce1e2d4ea02e8d11883a697587e486ecd7"
     },
     {
-      "path": "config/production-speech/post-show-021.json",
-      "size": 7691,
+      "path": "config/production-speech/pcm-leadin-20261017.json",
+      "size": 5628,
       "hashMode": "utf8-lf",
-      "sha256": "cee41a0390b2550423be6b5f5a9ff9b6f0053953a4a08f5de070629f33a345fc"
+      "sha256": "6a44c5bbce602dae6eacff91db27842725b8650552669c5b8718d9369c835343"
+    },
+    {
+      "path": "config/production-speech/post-show-021.json",
+      "size": 8257,
+      "hashMode": "utf8-lf",
+      "sha256": "7a32c901cc7caff2221179633f09859022b7a04f1dcda004d954a81d773df991"
     },
     {
       "path": "config/production-speech/voice-comparison.json",
@@ -52,9 +58,9 @@
     },
     {
       "path": "config/production-speech/yokogawa-ai-v2.json",
-      "size": 65849,
+      "size": 69414,
       "hashMode": "utf8-lf",
-      "sha256": "1a236e686693fc55753ab876d815b4cd831974f789df5524c7adec5bfcd59e63"
+      "sha256": "b03d326218e9bacb12d378e30ec1fa3a388c2f6811394a431641ac1f6dc4a0e7"
     },
     {
       "path": "config/voice-profiles/yokogawa-professor-v1.json",
@@ -76,9 +82,9 @@
     },
     {
       "path": "docs/production/post-show-candidate-operation-20261017.md",
-      "size": 7412,
+      "size": 7921,
       "hashMode": "utf8-lf",
-      "sha256": "b9d8f6c4a3691bd3d53fe96d0ecb41b22dee9ff4868c2f6db801bfc92e004556"
+      "sha256": "fee575a32e721c8fc35490f264003fc4ad18160b03a273970ac53738b5eb1761"
     },
     {
       "path": "docs/production/production-handoff-20261016.md",
@@ -172,9 +178,9 @@
     },
     {
       "path": "public/assets/audio/production-paced-012.wav",
-      "size": 380892,
+      "size": 442632,
       "hashMode": "binary",
-      "sha256": "7549ae1c6d82d2d0a0f7f7ed1efc5765f7a533bbf06ef6ed86f83a7f87b9ae26"
+      "sha256": "f989bf966a48c311a55bae72c9949cb01978d73fc1234af38912fceb82574f71"
     },
     {
       "path": "public/assets/audio/production-paced-013.wav",
@@ -190,21 +196,21 @@
     },
     {
       "path": "public/assets/audio/production-paced-016.wav",
-      "size": 438134,
+      "size": 499874,
       "hashMode": "binary",
-      "sha256": "ba04348b8ef2085eb41a3442a43ed9a17cbbf78024b53e42a97a2f1f26194424"
+      "sha256": "7f4446446cf2066e1e1460914aa9ac636c14ba546e21ea92160e72c3212f5f8e"
     },
     {
       "path": "public/assets/audio/production-paced-019.wav",
-      "size": 555120,
+      "size": 616860,
       "hashMode": "binary",
-      "sha256": "19805db96f5f2620f037559f03b16183436948a933f438d9593872bf5545d26f"
+      "sha256": "d7994e3fa12d2989df65880256b2ac9cd10c9e346682756a4765e3a8c50abe1b"
     },
     {
       "path": "public/assets/audio/production-post-show-021-exit.wav",
-      "size": 2752630,
+      "size": 2814370,
       "hashMode": "binary",
-      "sha256": "5f4b764ca0bcd6c1db37f5e6d232fda0621fe994eb29d1c8f77f0050a5e6b4ad"
+      "sha256": "37f0e0a1e1fa85acad075d0d4ccac239f65ca3d04ccf6a6f9676e7571be6fa19"
     },
     {
       "path": "public/assets/audio/production-recovery.wav",
@@ -214,9 +220,9 @@
     },
     {
       "path": "public/assets/audio/production-rehearsal-020-safety.wav",
-      "size": 229358,
+      "size": 291098,
       "hashMode": "binary",
-      "sha256": "68e642fd566c306a3f4404f5cb1cdb11120f9c41c2d2c5cfe5f94d91c74d3a66"
+      "sha256": "63a9db0fd67c37d47ba3068578f779973806a7a6add11ebfb7d712d1bb5f8f44"
     },
     {
       "path": "public/assets/audio/production-reliable-003.wav",
@@ -232,9 +238,9 @@
     },
     {
       "path": "public/assets/audio/production-reliable-011.wav",
-      "size": 792302,
+      "size": 854042,
       "hashMode": "binary",
-      "sha256": "25db9a560c0bc20ca18d05bdcc6a0e1a7737e4c296d77498eaea019c3033316a"
+      "sha256": "964bbfc5aa92640747d7e3e22971dd61288ae9c93ec818293c41b70be3350194"
     },
     {
       "path": "public/assets/audio/production-sfx-auth.wav",
@@ -904,9 +910,9 @@
     },
     {
       "path": "public/assets/audio/yokogawa-professor-v1_015_forced-runaway.wav",
-      "size": 379892,
+      "size": 441632,
       "hashMode": "binary",
-      "sha256": "071e326eceaa8aca5e5568b84d84dcfff99d537bde5bdfa83ef3ac32d90dc5c3"
+      "sha256": "81f6aa8a0362caf624f04308a729af54ca920f0f6935e138a3d24243e0b1cb5c"
     },
     {
       "path": "public/assets/audio/yokogawa-professor-v1_016_shutdown.wav",
@@ -1191,6 +1197,12 @@
       "sha256": "4bb952804c18c594627c633ebfc09fbc7a4e5cfaa0121072fe9b970fb54edbff"
     },
     {
+      "path": "scripts/add-production-pcm-leadin.mjs",
+      "size": 4551,
+      "hashMode": "utf8-lf",
+      "sha256": "9ddffe06610756fdcdc27a7370ca56f89d3fb63e1f8222bad8a73805a26c68f1"
+    },
+    {
       "path": "scripts/analyse-reliability-captures.mjs",
       "size": 3386,
       "hashMode": "utf8-lf",
@@ -1240,9 +1252,9 @@
     },
     {
       "path": "scripts/build-post-show-candidate.mjs",
-      "size": 4612,
+      "size": 4845,
       "hashMode": "utf8-lf",
-      "sha256": "6b2c35796f0045d43e9da897d5dc6db30f8c8e8ba9b318c778c6dd4666fb46c3"
+      "sha256": "0dbb36dbbb4f008f2d4aafd1721c3612fad3c96012632493f603634ca6f0ecfb"
     },
     {
       "path": "scripts/build-production-portable-manifest.mjs",
@@ -1327,6 +1339,12 @@
       "size": 5627,
       "hashMode": "utf8-lf",
       "sha256": "059079439c2dff043082ae736a1e43912f152c913b23b7540be9b9551502e4f4"
+    },
+    {
+      "path": "scripts/pcm-leadin-browser-check.mjs",
+      "size": 6270,
+      "hashMode": "utf8-lf",
+      "sha256": "6165f6dbf705ff5600eac7bde453fea649e2e47b57d00d0a94b1a21de37205d5"
     },
     {
       "path": "scripts/phase-c-soak-test.js",
@@ -1546,9 +1564,9 @@
     },
     {
       "path": "shows/production.json",
-      "size": 80423,
+      "size": 80907,
       "hashMode": "utf8-lf",
-      "sha256": "2bb30ace6c52d3388d6da309d0e31d86897b292580997eb0879db2769d2f099c"
+      "sha256": "3e62cee55df5ebcc36cd0ae2f3c8e2b9291a67dfb37767bc6b6f5df6d38f7d21"
     },
     {
       "path": "src/audio/production-cue-timing.js",

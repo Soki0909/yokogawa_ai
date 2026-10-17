@@ -18,14 +18,14 @@ test('5.3s gauge slot binds only the two gauge starts, survives import, and remo
  await fs.copyFile('public/assets/audio/production-recovery.wav',path.join(root,'assets/audio/production-recovery.wav'));
  const ready=await resolveProductionSlots(root);assert.equal(ready.find(s=>s.id==='gauge').durationMs,5300);
  applyProductionSlots(store,ready);applyProductionSlots(store,ready);
- for(const [id,atMs,maxDurationMs] of [['prod-012',4519,5000],['prod-v-recovery',0,3800]]){
+ for(const [id,atMs,maxDurationMs] of [['prod-012',5219,5000],['prod-v-recovery',0,3800]]){
   const cue=store.state.cues.find(c=>c.cueId===id),effects=cue.sfx.filter(s=>s.assetId==='prod-sfx-gauge');
   assert.deepEqual(effects,[{assetId:'prod-sfx-gauge',atMs,volume:.8,maxDurationMs,fadeOutMs:40,durationMs:maxDurationMs}]);
  }
  assert.equal(store.state.assets.filter(a=>a.id==='prod-sfx-gauge').length,1);
  assert.equal(store.state.cues.filter(c=>c.sfx.some(s=>s.assetId==='prod-sfx-gauge')).length,2);
  assert.equal(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.find(s=>s.assetId==='prod-sfx-recovery').atMs,4600);
- const imported=new StateStore({storage:{async save(){}}});imported.importShowFile(store.exportShowFile(),{apply:true});assert.deepEqual(imported.state.cues.find(c=>c.cueId==='prod-012').gaugeSfx,{atMs:4519,volume:.8,maxDurationMs:5000,fadeOutMs:40});assert.equal(imported.state.cues.find(c=>c.cueId==='prod-012').sfx.find(s=>s.assetId==='prod-sfx-gauge').maxDurationMs,5000);
+ const imported=new StateStore({storage:{async save(){}}});imported.importShowFile(store.exportShowFile(),{apply:true});assert.deepEqual(imported.state.cues.find(c=>c.cueId==='prod-012').gaugeSfx,{atMs:5219,volume:.8,maxDurationMs:5000,fadeOutMs:40});assert.equal(imported.state.cues.find(c=>c.cueId==='prod-012').sfx.find(s=>s.assetId==='prod-sfx-gauge').maxDurationMs,5000);
  await fs.writeFile(path.join(root,'assets/audio/production-gauge.wav'),'invalid');applyProductionSlots(store,await resolveProductionSlots(root));
  assert.equal(store.productionAssetSlots.find(s=>s.id==='gauge').status,'INVALID');assert.ok(store.state.cues.every(c=>!c.sfx.some(s=>s.assetId==='prod-sfx-gauge')));
  assert.ok(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.some(s=>s.assetId==='prod-sfx-recovery'));
