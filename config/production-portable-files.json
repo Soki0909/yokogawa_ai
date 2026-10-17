@@ -28,9 +28,9 @@
     },
     {
       "path": "config/production-speech/post-show-021.json",
-      "size": 7540,
+      "size": 7691,
       "hashMode": "utf8-lf",
-      "sha256": "bf88842ecf03b3c865aeb96d750b9ae6085a845656092e2e310c79f0c19965f1"
+      "sha256": "cee41a0390b2550423be6b5f5a9ff9b6f0053953a4a08f5de070629f33a345fc"
     },
     {
       "path": "config/production-speech/voice-comparison.json",
@@ -202,9 +202,9 @@
     },
     {
       "path": "public/assets/audio/production-post-show-021-exit.wav",
-      "size": 2738306,
+      "size": 2752630,
       "hashMode": "binary",
-      "sha256": "bc7f7ad200a6670eb37ca8edb2c1b5f2cb017446a191482451f27d57dc879ca8"
+      "sha256": "5f4b764ca0bcd6c1db37f5e6d232fda0621fe994eb29d1c8f77f0050a5e6b4ad"
     },
     {
       "path": "public/assets/audio/production-recovery.wav",
@@ -748,9 +748,9 @@
     },
     {
       "path": "public/assets/audio/segments/post-show-021-5.wav",
-      "size": 340448,
+      "size": 354772,
       "hashMode": "binary",
-      "sha256": "16a4f61f184c252b8254343eb6fd6fd3887391303ef1c30b0754c56e52932c76"
+      "sha256": "ecb914744f8e18c810c3e03b0f79f996345e593e90d2cd2cd0323501cecba834"
     },
     {
       "path": "public/assets/audio/segments/post-show-021-6.wav",
@@ -1546,9 +1546,9 @@
     },
     {
       "path": "shows/production.json",
-      "size": 80405,
+      "size": 80423,
       "hashMode": "utf8-lf",
-      "sha256": "4f60a77ccf92c7a40a6d3d05421378037bdc15ecc9af61180b1a1f98a4da45e4"
+      "sha256": "2bb30ace6c52d3388d6da309d0e31d86897b292580997eb0879db2769d2f099c"
     },
     {
       "path": "src/audio/production-cue-timing.js",
