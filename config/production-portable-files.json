@@ -5,14 +5,14 @@
     {
       "path": ".gitattributes",
       "size": 278,
-      "hashMode": "binary",
+      "hashMode": "utf8-lf",
       "sha256": "d3972e9b6c03665ed180106af74404bf29f48c129d79812c8c7c5aa007b71fdc"
     },
     {
       "path": ".gitignore",
       "size": 1716,
-      "hashMode": "binary",
-      "sha256": "d841a066b58e658532dd2bc48dca91031c83113efdb8e08ee35e1bc997a131f2"
+      "hashMode": "utf8-lf",
+      "sha256": "92060e74b719e31a2feaa82f4d1febc6291912c9c86f38d42a202271bca89a70"
     },
     {
       "path": "README.md",
@@ -1258,9 +1258,9 @@
     },
     {
       "path": "scripts/build-production-portable-manifest.mjs",
-      "size": 1871,
+      "size": 1919,
       "hashMode": "utf8-lf",
-      "sha256": "ad20a95850788a83e0584fe39812156a85012396c3447f46c84ebf6df75e63d9"
+      "sha256": "176f06e61ff7d8566bdc2c2049677587fb480f2b80d15bcfed3ffa12b5f5bd79"
     },
     {
       "path": "scripts/build-production-show.mjs",

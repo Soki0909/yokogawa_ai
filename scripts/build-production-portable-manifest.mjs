@@ -7,7 +7,7 @@ for(const p of ['.gitattributes','.gitignore','README.md','package.json','packag
 const files=[];
 for(const file of [...new Set(nulPaths)].filter(p=>p!=='config/production-portable-files.json').sort()) {
  if(!(await fs.stat(file).catch(()=>null))?.isFile())continue;
- const bytes=await fs.readFile(file),text=/\.(?:js|mjs|py|cs|json|md|css|html|svg|txt|cmd|ps1)$/.test(file);
+ const bytes=await fs.readFile(file),text=/\.(?:js|mjs|py|cs|json|md|css|html|svg|txt|cmd|ps1)$/.test(file)||['.gitignore','.gitattributes'].includes(file);
  const canonical=text?bytes.toString('utf8').replace(/^\uFEFF/,'').replaceAll('\r\n','\n'):bytes;
  files.push({path:file,size:bytes.length,hashMode:text?'utf8-lf':'binary',sha256:createHash('sha256').update(canonical).digest('hex')});
 }
