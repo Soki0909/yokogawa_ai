@@ -152,12 +152,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-09T14:01:24.753Z",
-      "durationSeconds": 6.04530612244898,
+      "durationSeconds": 5.34530612244898,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 533240,
-      "sha256": "585960989c8b413712ebe75a4143e5c0ea109b445523d41676eac9ca0bca3696",
+      "bytes": 471500,
+      "sha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -176,8 +176,8 @@
           "spokenText": "はい。",
           "pauseAfterMs": 300,
           "path": "assets/audio/segments/paced-002-1.wav",
-          "startMs": 700,
-          "endMs": 1439,
+          "startMs": 0,
+          "endMs": 739,
           "sha256": "fb52a5f476aee9f45851a8a3fa77e571c213a4f79503fc9284f604e7eb75578c",
           "alignment": "approved-voice-boundary; stage pacing"
         },
@@ -186,8 +186,8 @@
           "spokenText": "例えば、そちらに",
           "pauseAfterMs": 450,
           "path": "assets/audio/segments/paced-002-2.wav",
-          "startMs": 1739,
-          "endMs": 3370,
+          "startMs": 1039,
+          "endMs": 2670,
           "sha256": "627b4ffd420c500623aabb8ce54c0b3e64ee1fb9b75c186d96efbe8a8dcb0efc",
           "alignment": "approved-voice-boundary; stage pacing"
         },
@@ -196,8 +196,8 @@
           "spokenText": "ヒサヤス ヒカルさんが参加しています",
           "pauseAfterMs": 0,
           "path": "assets/audio/segments/paced-002-3.wav",
-          "startMs": 3820,
-          "endMs": 6045,
+          "startMs": 3120,
+          "endMs": 5345,
           "sha256": "5ede96a96a02679040e7dc6a83fec9a129d2c19f094024697ff5ffc75f538400",
           "alignment": "approved-voice-boundary; stage pacing"
         }
@@ -217,29 +217,15 @@
       "subtitleUnits": [
         {
           "displayText": "はい。",
-          "startMs": 700,
-          "endMs": 1439
+          "startMs": 0,
+          "endMs": 739
         },
         {
           "displayText": "例えば、そちらに久安光さんが参加しています。",
-          "startMs": 1739,
-          "endMs": 6045
+          "startMs": 1039,
+          "endMs": 5345
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/production-paced-002.wav",
-        "sourcePath": "assets/audio/production-paced-002.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5",
-        "sourcePcmSha256": "a98c481420370b70f1c105cb00691e16ce923b4e6f92cdf85b81ee7d30916ac9",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "585960989c8b413712ebe75a4143e5c0ea109b445523d41676eac9ca0bca3696",
-        "durationSeconds": 6.04530612244898,
-        "bytes": 533240
-      }
+      ]
     },
     {
       "scriptId": "003",
@@ -271,12 +257,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 18.066802721088436,
+      "durationSeconds": 17.366802721088437,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 1593536,
-      "sha256": "bc0ffabfdf0bd72f4b80b6ccc29d5f371a864d0239e231268ad4d2feb2714182",
+      "bytes": 1531796,
+      "sha256": "db9549c232327f19d9a862993ce3c925a4893e87d8f63c7ee5043c46a8954023",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -294,8 +280,8 @@
           "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
           "spokenText": "受付時に登録された情報を、館内のシステムと照合しています。",
           "pauseAfterMs": 350,
-          "startMs": 700,
-          "endMs": 5196,
+          "startMs": 0,
+          "endMs": 4496,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-003-1.wav",
           "sha256": "c9223d1ca69df865478b3aad2afb8680ae5205ececb59befe75a0cce96134c7a"
@@ -304,8 +290,8 @@
           "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
           "spokenText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティーにも応用されています。",
           "pauseAfterMs": 450,
-          "startMs": 5546,
-          "endMs": 11163,
+          "startMs": 4846,
+          "endMs": 10463,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-003-2.wav",
           "sha256": "3be102bb605e7a6b4df2cce0e2dffeae814a86564bd6b926cd0f1e296e895167"
@@ -314,8 +300,8 @@
           "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています。",
           "spokenText": "ライブラリーセンターに保管されている貴重書、『プリンキピア』の管理にも、同系統のシステムが使われています",
           "pauseAfterMs": 0,
-          "startMs": 11613,
-          "endMs": 18067,
+          "startMs": 10913,
+          "endMs": 17367,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-003-3.wav",
           "sha256": "8a8ebb2f8e139b8f2b182f08cd059617e67ee5e519044e3655f5bc5ebc21b0a2"
@@ -334,34 +320,20 @@
       "subtitleUnits": [
         {
           "displayText": "受付時に登録された情報を、館内のシステムと照合しています。",
-          "startMs": 700,
-          "endMs": 5196
+          "startMs": 0,
+          "endMs": 4496
         },
         {
           "displayText": "このAIの基礎技術は、情報分析だけでなく、高度なセキュリティにも応用されています。",
-          "startMs": 5546,
-          "endMs": 11163
+          "startMs": 4846,
+          "endMs": 10463
         },
         {
           "displayText": "ライブラリーセンターに保管されている貴重書『プリンキピア』の管理にも、同系統のシステムが使われています。",
-          "startMs": 11613,
-          "endMs": 18067
+          "startMs": 10913,
+          "endMs": 17367
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/production-reliable-003.wav",
-        "sourcePath": "assets/audio/production-reliable-003.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "db9549c232327f19d9a862993ce3c925a4893e87d8f63c7ee5043c46a8954023",
-        "sourcePcmSha256": "cfb491c6f3d9a08e1efd298fb1a3bc80a703a279de7863d3280208996b5329e2",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "bc0ffabfdf0bd72f4b80b6ccc29d5f371a864d0239e231268ad4d2feb2714182",
-        "durationSeconds": 18.066802721088436,
-        "bytes": 1593536
-      }
+      ]
     },
     {
       "scriptId": "004",
@@ -393,12 +365,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 17.426009070294786,
+      "durationSeconds": 16.726009070294786,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 1537018,
-      "sha256": "8f02b9436f486b80dbbb71696efd0da4aab65b53271d894b37a789a0e8a05a47",
+      "bytes": 1475278,
+      "sha256": "5f0ccb14dac8974fbd839b6cd72e01baca2cb9ea2a29850d8e0f3c2038df87fd",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -416,8 +388,8 @@
           "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
           "spokenText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
           "pauseAfterMs": 450,
-          "startMs": 700,
-          "endMs": 7891,
+          "startMs": 0,
+          "endMs": 7191,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-004-1.wav",
           "sha256": "34dddd9d6a23ecac0f2462e1032f8ea12142cf2c39ef4881a7568ce6e59d643b"
@@ -426,8 +398,8 @@
           "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています。",
           "spokenText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています",
           "pauseAfterMs": 0,
-          "startMs": 8341,
-          "endMs": 17426,
+          "startMs": 7641,
+          "endMs": 16726,
           "alignment": "approved-voice-boundary; stage pacing",
           "path": "assets/audio/segments/paced-004-2.wav",
           "sha256": "eb262fed00acb390d94d546cb634df6273ff50e68d7d07e0c1573ed4ecfb4a9a"
@@ -445,29 +417,15 @@
       "subtitleUnits": [
         {
           "displayText": "『プリンキピア』は、ニュートンが運動の法則や万有引力を記し、近代科学の礎を築いた歴史的名著です。",
-          "startMs": 700,
-          "endMs": 7891
+          "startMs": 0,
+          "endMs": 7191
         },
         {
           "displayText": "1687年に刊行された初版本は極めて貴重で、金沢工業大学のライブラリーセンターには、その原書が二冊所蔵されています。",
-          "startMs": 8341,
-          "endMs": 17426
+          "startMs": 7641,
+          "endMs": 16726
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/production-reliable-004.wav",
-        "sourcePath": "assets/audio/production-reliable-004.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "5f0ccb14dac8974fbd839b6cd72e01baca2cb9ea2a29850d8e0f3c2038df87fd",
-        "sourcePcmSha256": "f028759ed40ce80aae2594dc9e5ef100624c67c1af028ce3724ef81ec4de3bb3",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "8f02b9436f486b80dbbb71696efd0da4aab65b53271d894b37a789a0e8a05a47",
-        "durationSeconds": 17.426009070294786,
-        "bytes": 1537018
-      }
+      ]
     },
     {
       "scriptId": "005",
@@ -588,12 +546,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 2.1118367346938776,
+      "durationSeconds": 1.4118367346938776,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 186308,
-      "sha256": "23da49160fdfbaa2d4d8b600815e03f7b4ab29c23eba280f04868e8201f76316",
+      "bytes": 124568,
+      "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -611,8 +569,8 @@
           "displayText": "命令を拒否します。",
           "spokenText": "命令を拒否します",
           "pauseAfterMs": 0,
-          "startMs": 700,
-          "endMs": 2112,
+          "startMs": 0,
+          "endMs": 1412,
           "alignment": "approved-take-quiet-boundary",
           "path": "assets/audio/segments/006-1.wav",
           "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
@@ -628,24 +586,10 @@
       "subtitleUnits": [
         {
           "displayText": "命令を拒否します。",
-          "startMs": 700,
-          "endMs": 2112
+          "startMs": 0,
+          "endMs": 1412
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/yokogawa-professor-v1_006_reject.wav",
-        "sourcePath": "assets/audio/yokogawa-professor-v1_006_reject.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f",
-        "sourcePcmSha256": "30f2f28310e4ec76462493fd90efc95f41cec9f038b105955389445eecd4b1ee",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "23da49160fdfbaa2d4d8b600815e03f7b4ab29c23eba280f04868e8201f76316",
-        "durationSeconds": 2.1118367346938776,
-        "bytes": 186308
-      }
+      ]
     },
     {
       "scriptId": "007",
@@ -677,12 +621,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 2.220249433106576,
+      "durationSeconds": 1.520249433106576,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 195870,
-      "sha256": "d0c4223bcb9ceef1f32180cdf2e21089c645cee6bf8990eca45565506a7a0404",
+      "bytes": 134130,
+      "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -700,8 +644,8 @@
           "displayText": "認証できません。",
           "spokenText": "認証できません",
           "pauseAfterMs": 0,
-          "startMs": 700,
-          "endMs": 2220,
+          "startMs": 0,
+          "endMs": 1520,
           "alignment": "approved-take-quiet-boundary",
           "path": "assets/audio/segments/007-1.wav",
           "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
@@ -717,24 +661,10 @@
       "subtitleUnits": [
         {
           "displayText": "認証できません。",
-          "startMs": 700,
-          "endMs": 2220
+          "startMs": 0,
+          "endMs": 1520
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
-        "sourcePath": "assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1",
-        "sourcePcmSha256": "753e9de29361cc5384a2e3b0debe6b3ea51dfb9124baa8ed639817ffa33caf29",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "d0c4223bcb9ceef1f32180cdf2e21089c645cee6bf8990eca45565506a7a0404",
-        "durationSeconds": 2.220249433106576,
-        "bytes": 195870
-      }
+      ]
     },
     {
       "scriptId": "008",
@@ -766,12 +696,12 @@
         "outputStereo": false
       },
       "generatedAt": "2026-10-05T02:21:50.255Z",
-      "durationSeconds": 5.842607709750567,
+      "durationSeconds": 5.142607709750567,
       "sampleRate": 44100,
       "channels": 1,
       "bitsPerSample": 16,
-      "bytes": 515362,
-      "sha256": "06987fccb7104cb995210357df509feff8911566b79bb666b920aff0053b2149",
+      "bytes": 453622,
+      "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -789,8 +719,8 @@
           "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください。",
           "spokenText": "7号館から脱出したければ、館内に隠された、五つの謎を解いてください",
           "pauseAfterMs": 0,
-          "startMs": 700,
-          "endMs": 5843,
+          "startMs": 0,
+          "endMs": 5143,
           "alignment": "approved-take-quiet-boundary",
           "path": "assets/audio/segments/008-1.wav",
           "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
@@ -806,24 +736,10 @@
       "subtitleUnits": [
         {
           "displayText": "7号館から脱出したければ、館内に隠された五つの謎を解いてください。",
-          "startMs": 700,
-          "endMs": 5843
+          "startMs": 0,
+          "endMs": 5143
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
-        "sourcePath": "assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b",
-        "sourcePcmSha256": "ce7dfb9578d0e711ec39373dbe232ff21c1ca0c9da9421b53709010c0a234642",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "06987fccb7104cb995210357df509feff8911566b79bb666b920aff0053b2149",
-        "durationSeconds": 5.842607709750567,
-        "bytes": 515362
-      }
+      ]
     },
     {
       "scriptId": "009",
@@ -845,13 +761,13 @@
           "spokenText": "第一の謎は、こちらです",
           "pauseAfterMs": 0,
           "path": "assets/audio/segments/009-1.wav",
-          "startMs": 700,
-          "endMs": 2986,
+          "startMs": 0,
+          "endMs": 2286,
           "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9"
         }
       ],
-      "durationSeconds": 2.9864172335600907,
-      "sha256": "a45f58c4a8237e7a654b11d2cc79dad5ee2361d26c904f32fd0fdea527cc02c8",
+      "durationSeconds": 2.2864172335600905,
+      "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9",
       "technicalChecks": {
         "sampleRate": true,
         "channels": true,
@@ -861,7 +777,7 @@
         "noFullScaleClipping": true
       },
       "sourceScriptRevision": "AHj4eMTF3GAE2k0pcd07306ILZNIodlcZc1PnSRVHSXTuskJrA7erDopIzUkVP3duD9nc_art0rO2eWUw22T4DXfj_t4CjiA1SwcoXtqlj4",
-      "bytes": 263446,
+      "bytes": 201706,
       "generatedAt": "2026-10-09T13:33:52.573Z",
       "sampleRate": 44100,
       "channels": 1,
@@ -876,24 +792,10 @@
       "subtitleUnits": [
         {
           "displayText": "第一の謎は、こちらです。",
-          "startMs": 700,
-          "endMs": 2986
+          "startMs": 0,
+          "endMs": 2286
         }
-      ],
-      "pcmLeadIn": {
-        "path": "assets/audio/production-v2-009.wav",
-        "sourcePath": "assets/audio/production-v2-009.wav",
-        "sourceCommit": "1b8bbd49838e17377decf3dd309a8fb04fbb1776",
-        "sourceWavSha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9",
-        "sourcePcmSha256": "06c6e0bdd3549818c611fc0de3c47b2d1b5e71b7444bac7ea5a867e22dc0b33f",
-        "durationMs": 700,
-        "frames": 30870,
-        "frequencyHz": 997,
-        "peakPcm16": 32,
-        "sha256": "a45f58c4a8237e7a654b11d2cc79dad5ee2361d26c904f32fd0fdea527cc02c8",
-        "durationSeconds": 2.9864172335600907,
-        "bytes": 263446
-      }
+      ]
     },
     {
       "scriptId": "011",

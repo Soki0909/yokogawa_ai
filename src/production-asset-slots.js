@@ -72,7 +72,7 @@ export function applyProductionSlots(store, slots) {
     for (const cue of store.state.cues) {
       update(cue.visual); for (const phase of cue.sequence ?? []) update(phase.visual);
       for (const effect of cue.sfx ?? []) if (effect.assetId === slot.assetId) effect.durationMs = slot.durationMs;
-      if (['prod-013', 'prod-014'].includes(cue.cueId) && slot.id === 'warning') cue.timing.speechDelayMs = slot.durationMs;
+      if (['prod-013', 'prod-014'].includes(cue.cueId) && slot.id === 'warning' && (cue.sfx ?? []).some(effect => effect.assetId === slot.assetId)) cue.timing.speechDelayMs = slot.durationMs;
     }
     update(store.state.currentVisual); for (const display of store.state.displays) update(display.currentVisual);
   }

@@ -13,7 +13,7 @@ test('Production Showは最新17 speech・3 SFX・3 puzzle slotsを登録する'
   ]);
   assert.equal(validateShowFile(main).valid, true);
   assert.equal(validateShowFile(route).valid, true);
-  assert.equal(main.assets.length, 25);
+  assert.equal(main.assets.length, 26);
   assert.equal(route.assets.length, 23);
   const speech = [...main.cues, ...route.cues].filter((cue) => cue.kind.startsWith('speech'));
   assert.equal(speech.length, 18);

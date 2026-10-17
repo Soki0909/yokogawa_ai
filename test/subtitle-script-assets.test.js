@@ -54,11 +54,11 @@ test('latest script diffs preserve recovery and add separate Scene7 confirmation
   assert.equal(confirmation.id,'prod-020');assert.equal(confirmation.scene,'scene-7');assert.equal(confirmation.displayText,'館内すべての安全を確認しました。');assert.equal(confirmation.presentationPreset,'normal');
   assert.match(confirmation.triggerNote,/夢野・押野・三馬/);assert.match(show.cues.find(c=>c.id==='prod-v-emergency-riddle').triggerNote,/USB/);
   assert.ok(show.cues.find(c=>c.id==='prod-013').displayText.endsWith('。'));
-  const first=show.cues.find(c=>c.id==='prod-013'), second=show.cues.find(c=>c.id==='prod-014');assert.equal(first.sfx[0].assetId,second.sfx[0].assetId);
+  const first=show.cues.find(c=>c.id==='prod-013'), second=show.cues.find(c=>c.id==='prod-014');assert.equal(first.sfx[0].assetId,'prod-sfx-warning-013-leadin');assert.equal(second.sfx[0].assetId,'prod-sfx-warning');
   assert.ok(show.cues.every(c=>(c.sfx??[]).every(s=>!['prod-sfx-auth','prod-sfx-unlock','prod-sfx-hostile','prod-sfx-rumble'].includes(s.assetId))));
 });
 
-test('slots missing/present/invalid resolve safely, share warning and validate bytes', async t => {
+test('slots missing/present/invalid resolve safely, preserve dedicated P013 warning and validate bytes', async t => {
   const root=await fs.mkdtemp(path.join(os.tmpdir(),'subtitle-slots-'));t.after(()=>fs.rm(root,{recursive:true,force:true}));
   for(const slot of PRODUCTION_SLOTS.filter(s=>!s.optional)){await fs.mkdir(path.dirname(path.join(root,slot.fallback)),{recursive:true});await fs.copyFile(path.join('public',slot.fallback),path.join(root,slot.fallback));}
   assert.ok((await resolveProductionSlots(root)).every(s=>s.status==='MISSING'));
@@ -69,7 +69,8 @@ test('slots missing/present/invalid resolve safely, share warning and validate b
   slots=await resolveProductionSlots(root);assert.equal(slots.filter(s=>s.status==='READY').length,6);
   const store=new StateStore({storage:{async load(){},async save(){}}});store.importShowFile(show,{apply:true});
   applyProductionSlots(store,slots.map(s=>s.id==='warning'?{...s,durationMs:300}:s));
-  assert.equal(store.state.cues.find(c=>c.cueId==='prod-013').timing.speechDelayMs,300);
+  assert.equal(store.state.cues.find(c=>c.cueId==='prod-014').timing.speechDelayMs,300);
+  assert.equal(store.state.cues.find(c=>c.cueId==='prod-013').timing.speechDelayMs,2642);
   assert.ok(store.preflight().items.filter(i=>i.id.startsWith('asset-slot:') && !['asset-slot:recovery','asset-slot:gauge'].includes(i.id)).every(i=>i.status==='ok'));
   assert.deepEqual(store.state.cues.find(c=>c.cueId==='prod-v-recovery').sfx.map(s=>s.assetId),['prod-sfx-gauge-recovery-leadin']);
   assert.equal(store.productionAssetSlots.find(s=>s.id==='recovery').status,'MISSING');

@@ -10,15 +10,15 @@
     },
     {
       "path": ".gitignore",
-      "size": 1716,
+      "size": 1664,
       "hashMode": "utf8-lf",
       "sha256": "92060e74b719e31a2feaa82f4d1febc6291912c9c86f38d42a202271bca89a70"
     },
     {
       "path": "README.md",
-      "size": 18113,
+      "size": 18230,
       "hashMode": "utf8-lf",
-      "sha256": "35c8fb79155493c68e3081df748cd30d65c3b4320277ad8d49f1c1726b220038"
+      "sha256": "c63aebf43ae50785cdd75bdcd32269e2919caf96ac05ca80d3635bdfa632eee2"
     },
     {
       "path": "config/production-backup-cue-labels.json",
@@ -28,9 +28,9 @@
     },
     {
       "path": "config/production-speech/first-wav-leadin-20261017.json",
-      "size": 15064,
+      "size": 10852,
       "hashMode": "utf8-lf",
-      "sha256": "147a24d576fc9dc54c655f4cacb6e27da54ce6a56aa5228a11f44828363ece14"
+      "sha256": "4a28be6ca50902cfb19b73f50ca9546533a13a27eb104cbaa71d90131f9a9b44"
     },
     {
       "path": "config/production-speech/pcm-leadin-20261017.json",
@@ -64,9 +64,9 @@
     },
     {
       "path": "config/production-speech/yokogawa-ai-v2.json",
-      "size": 74955,
+      "size": 71795,
       "hashMode": "utf8-lf",
-      "sha256": "6155dbdfb3ff91bbae8a2fab304053c1d587ac6d45fe24ff208d7a20fa8b1db3"
+      "sha256": "53542e56d0e24fad20b1a7ccc8739995dffd284dec12771f00b3dfe13c87f0be"
     },
     {
       "path": "config/voice-profiles/yokogawa-professor-v1.json",
@@ -88,13 +88,13 @@
     },
     {
       "path": "docs/production/post-show-candidate-operation-20261017.md",
-      "size": 8467,
+      "size": 8555,
       "hashMode": "utf8-lf",
-      "sha256": "1664cb0c77119d30dca6d1ad3efae08370c5bfa7f08f595b37a8318195b5158b"
+      "sha256": "4077017c9fda589c27a954224679748c8e0051b04b97a0c906d9883d3e1ae2e9"
     },
     {
       "path": "docs/production/production-handoff-20261016.md",
-      "size": 4535,
+      "size": 4536,
       "hashMode": "utf8-lf",
       "sha256": "689a54f8be31f23cd86c27c2676f736ce7eb9ad5b7117cce7cf577fac8920b69"
     },
@@ -118,7 +118,7 @@
     },
     {
       "path": "package.json",
-      "size": 5909,
+      "size": 5851,
       "hashMode": "utf8-lf",
       "sha256": "91b512de13db676110b34237a3b8fab91677fb322938397f5ba7823105d881dc"
     },
@@ -166,9 +166,9 @@
     },
     {
       "path": "public/assets/audio/production-paced-002.wav",
-      "size": 533240,
+      "size": 471500,
       "hashMode": "binary",
-      "sha256": "585960989c8b413712ebe75a4143e5c0ea109b445523d41676eac9ca0bca3696"
+      "sha256": "6de9096d01038b1808173323ad57df14810c4083a2eb0d338df35318af1ecff5"
     },
     {
       "path": "public/assets/audio/production-paced-003.wav",
@@ -238,15 +238,15 @@
     },
     {
       "path": "public/assets/audio/production-reliable-003.wav",
-      "size": 1593536,
+      "size": 1531796,
       "hashMode": "binary",
-      "sha256": "bc0ffabfdf0bd72f4b80b6ccc29d5f371a864d0239e231268ad4d2feb2714182"
+      "sha256": "db9549c232327f19d9a862993ce3c925a4893e87d8f63c7ee5043c46a8954023"
     },
     {
       "path": "public/assets/audio/production-reliable-004.wav",
-      "size": 1537018,
+      "size": 1475278,
       "hashMode": "binary",
-      "sha256": "8f02b9436f486b80dbbb71696efd0da4aab65b53271d894b37a789a0e8a05a47"
+      "sha256": "5f0ccb14dac8974fbd839b6cd72e01baca2cb9ea2a29850d8e0f3c2038df87fd"
     },
     {
       "path": "public/assets/audio/production-reliable-011.wav",
@@ -340,9 +340,9 @@
     },
     {
       "path": "public/assets/audio/production-v2-009.wav",
-      "size": 263446,
+      "size": 201706,
       "hashMode": "binary",
-      "sha256": "a45f58c4a8237e7a654b11d2cc79dad5ee2361d26c904f32fd0fdea527cc02c8"
+      "sha256": "0ef56141b4502e44268fbaa4ed8f0fb4b459155620f1a6325aaf5479cb234de9"
     },
     {
       "path": "public/assets/audio/production-v2-019.wav",
@@ -357,6 +357,12 @@
       "sha256": "236bd8ac0cbf877c24af411537423d8b7c658511e74c03615950f23c6eb6f8df"
     },
     {
+      "path": "public/assets/audio/production-warning-013-leadin.wav",
+      "size": 466062,
+      "hashMode": "binary",
+      "sha256": "a969e7e195770b7dc44a97e629ec067acfef2596f4ba5bc5cdf621a2c9859fb2"
+    },
+    {
       "path": "public/assets/audio/production-warning.mp3",
       "size": 73050,
       "hashMode": "binary",
@@ -364,9 +370,9 @@
     },
     {
       "path": "public/assets/audio/production-warning.wav",
-      "size": 466062,
+      "size": 342582,
       "hashMode": "binary",
-      "sha256": "a969e7e195770b7dc44a97e629ec067acfef2596f4ba5bc5cdf621a2c9859fb2"
+      "sha256": "94568a1bcbf25ebbb87d232511109ac2d8d08de6d1a75771cf3d91869f00c638"
     },
     {
       "path": "public/assets/audio/segments/001-1.wav",
@@ -868,21 +874,21 @@
     },
     {
       "path": "public/assets/audio/yokogawa-professor-v1_006_reject.wav",
-      "size": 186308,
+      "size": 124568,
       "hashMode": "binary",
-      "sha256": "23da49160fdfbaa2d4d8b600815e03f7b4ab29c23eba280f04868e8201f76316"
+      "sha256": "f029c0dbffcc3e13acfe93420604ee3331e630f97f2179820b62ea80bfb0516f"
     },
     {
       "path": "public/assets/audio/yokogawa-professor-v1_007_auth-failed.wav",
-      "size": 195870,
+      "size": 134130,
       "hashMode": "binary",
-      "sha256": "d0c4223bcb9ceef1f32180cdf2e21089c645cee6bf8990eca45565506a7a0404"
+      "sha256": "5974d5aaacf20c37985b66e7e4340690ddac3b9dc7a014162dbf3706cee393f1"
     },
     {
       "path": "public/assets/audio/yokogawa-professor-v1_008_five-riddles.wav",
-      "size": 515362,
+      "size": 453622,
       "hashMode": "binary",
-      "sha256": "06987fccb7104cb995210357df509feff8911566b79bb666b920aff0053b2149"
+      "sha256": "5c15db5fb39fc3c8868d6da797a01e614d7d8136b3c9dee953545f78c514704b"
     },
     {
       "path": "public/assets/audio/yokogawa-professor-v1_009_first-riddle.wav",
@@ -976,7 +982,7 @@
     },
     {
       "path": "public/assets/visual/phase-a-placeholder.svg",
-      "size": 974,
+      "size": 962,
       "hashMode": "utf8-lf",
       "sha256": "30383ca6e025739f5f05e4a5cedefe4c609f00307079c05ecf1ae6130e8725c1"
     },
@@ -1150,9 +1156,9 @@
     },
     {
       "path": "public/js/display.js",
-      "size": 34662,
+      "size": 34781,
       "hashMode": "utf8-lf",
-      "sha256": "03d9c6b46373cecb43b667f58117a775e8a03a52432d58c58650dfb3e01d54b7"
+      "sha256": "4f27f297cf9e6e37a0130d1bd4734582aaf5b5eb2d8485a1c4b1469863115562"
     },
     {
       "path": "public/js/lip-sync.js",
@@ -1210,7 +1216,7 @@
     },
     {
       "path": "scripts/add-production-pcm-leadin.mjs",
-      "size": 4551,
+      "size": 4599,
       "hashMode": "utf8-lf",
       "sha256": "9ddffe06610756fdcdc27a7370ca56f89d3fb63e1f8222bad8a73805a26c68f1"
     },
@@ -1228,13 +1234,13 @@
     },
     {
       "path": "scripts/archive-post-show-candidate.py",
-      "size": 1904,
+      "size": 1936,
       "hashMode": "utf8-lf",
       "sha256": "3e4fa29472540f4e9fe78ea62382634a7b624e1b72dc24284f74a3ef0bca40fb"
     },
     {
       "path": "scripts/archive-production-handoff.py",
-      "size": 1394,
+      "size": 1375,
       "hashMode": "utf8-lf",
       "sha256": "9705548358c2aeac96e7db7fbc1201c2e0da8daef570ae21ff1afffc1633abf0"
     },
@@ -1318,7 +1324,7 @@
     },
     {
       "path": "scripts/expand-first-wav-leadin.mjs",
-      "size": 6068,
+      "size": 6122,
       "hashMode": "utf8-lf",
       "sha256": "f1cdc7399db01c1313c9e1dae949aa5303e231e0711e8832fabe815c6bf72b0a"
     },
@@ -1330,13 +1336,13 @@
     },
     {
       "path": "scripts/gauge-audio-browser-check.mjs",
-      "size": 3468,
+      "size": 3436,
       "hashMode": "utf8-lf",
       "sha256": "1835b5e264d74c7762290f4bbda86ec841979c4499a7b9327e7987542495741b"
     },
     {
       "path": "scripts/gauge-audio-live-check.mjs",
-      "size": 8038,
+      "size": 7986,
       "hashMode": "utf8-lf",
       "sha256": "797a1fe8818fe4c5797c2c409f003c8e4e93e55d6ef6ec0b175b56e40a19dd70"
     },
@@ -1360,9 +1366,9 @@
     },
     {
       "path": "scripts/pcm-leadin-browser-check.mjs",
-      "size": 6751,
+      "size": 6778,
       "hashMode": "utf8-lf",
-      "sha256": "0e978fb6d84cc3db3c4dddf84c96e7f515884c84d42f6545d60301752b361c57"
+      "sha256": "e95db5b4f2af5c0ab174e4dc4fdd82bc2fa8cb68242fd37ed5d69eabc9742bb6"
     },
     {
       "path": "scripts/phase-c-soak-test.js",
@@ -1384,7 +1390,7 @@
     },
     {
       "path": "scripts/prepare-production-pacing.mjs",
-      "size": 7673,
+      "size": 7583,
       "hashMode": "utf8-lf",
       "sha256": "fec96e268e17837767faa6e8f82fdaef9662971e2250f21f0a9cd1acf715b152"
     },
@@ -1402,7 +1408,7 @@
     },
     {
       "path": "scripts/production-browser-check.js",
-      "size": 37352,
+      "size": 36841,
       "hashMode": "utf8-lf",
       "sha256": "17cd264eb0c386f68db14b9bed91e84647dc1b0401ba2b1ed73771fe7a19eab6"
     },
@@ -1432,13 +1438,13 @@
     },
     {
       "path": "scripts/record-production-display.js",
-      "size": 20887,
+      "size": 20548,
       "hashMode": "utf8-lf",
       "sha256": "0288afc094fd34f92ec7da62a9491a071b5992622fd0ea15f31accf52c067f79"
     },
     {
       "path": "scripts/recording-cue-caption.js",
-      "size": 2037,
+      "size": 2003,
       "hashMode": "utf8-lf",
       "sha256": "77f30192ab3ffa46a36766f12fba6bc2a800d88c5f42ba8e9dc843471211b924"
     },
@@ -1522,7 +1528,7 @@
     },
     {
       "path": "scripts/verify-production-portability.mjs",
-      "size": 992,
+      "size": 984,
       "hashMode": "utf8-lf",
       "sha256": "ad6209ed8d4790f7782ad3eb71ac4cb1344a752bb4bf390b8a8c3a2448d3a33a"
     },
@@ -1564,7 +1570,7 @@
     },
     {
       "path": "setup-production.cmd",
-      "size": 438,
+      "size": 423,
       "hashMode": "utf8-lf",
       "sha256": "3317f12fa942cade322ecd989b575811ee214b9d29996cf303d0acd532e70a8b"
     },
@@ -1582,9 +1588,9 @@
     },
     {
       "path": "shows/production.json",
-      "size": 82022,
+      "size": 84457,
       "hashMode": "utf8-lf",
-      "sha256": "ce8f4ab7fadcd6fb22b25a3d1be88362812b3af09321f541dbb0c651a3679a47"
+      "sha256": "bb24b0f3a8c683a78d8b7e16092d9a539dc6f706c7b1fd45443db082bbfd641c"
     },
     {
       "path": "src/audio/production-cue-timing.js",
@@ -1648,9 +1654,9 @@
     },
     {
       "path": "src/production-asset-slots.js",
-      "size": 6367,
+      "size": 6513,
       "hashMode": "utf8-lf",
-      "sha256": "dc389f1d82fd6478440a49da7d3bf0311ffd0af8c6aa0a98a6d1826e9d035aad"
+      "sha256": "8b60547bb9b2696ef57052ca70009222fc64e0a8dc8e2bc5bb33d0c7c4f81bd2"
     },
     {
       "path": "src/server.js",
@@ -1702,7 +1708,7 @@
     },
     {
       "path": "start-yokogawa-ai.cmd",
-      "size": 217,
+      "size": 205,
       "hashMode": "utf8-lf",
       "sha256": "768f86145c349c47b5e215a6b25f4ebc7dbd0968141a43cb0c382067f75e8334"
     }

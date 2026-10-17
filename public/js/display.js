@@ -387,7 +387,8 @@ function handleEvent(event) {
     void (async () => {
       try {
         if (['prod-013', 'prod-014'].includes(event.message.cueId)) {
-          const completed = await sfx.whenIdle('prod-sfx-warning');
+          const warningAssetId = event.message.cueId === 'prod-013' ? 'prod-sfx-warning-013-leadin' : 'prod-sfx-warning';
+          const completed = await sfx.whenIdle(warningAssetId);
           if (generation !== playbackGeneration || !isAudioMaster || !audioUnlocked || recoveryPending) return;
           if (!completed) throw new Error('警告音が完了していません。REPLAYしてください。');
         }

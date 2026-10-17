@@ -66,7 +66,7 @@ test('saving a longer speech retimes dependent Cue phases, without touching manu
 
 test('Production uses approved sound slots and the prefixed recovery-gauge copy and warning precedes both ERROR speeches', async () => {
   const show = JSON.parse(await fs.readFile('shows/production.json','utf8'));
-  const allowed = ['prod-sfx-boot','prod-sfx-glitch','prod-sfx-warning','prod-sfx-gauge-recovery-leadin'];
+  const allowed = ['prod-sfx-boot','prod-sfx-glitch','prod-sfx-warning','prod-sfx-warning-013-leadin','prod-sfx-gauge-recovery-leadin'];
   assert.deepEqual(show.assets.filter(a=>a.id.startsWith('prod-sfx-')).map(a=>a.id).sort(), [...allowed].sort());
   assert.ok(show.cues.every(c=>(c.sfx??[]).every(e=>allowed.includes(e.assetId))));
   for(const id of ['prod-013','prod-014']) { const c=show.cues.find(c=>c.id===id); assert.equal(c.sfx[0].atMs,0); assert.equal(c.timing.speechDelayMs,c.sfx[0].durationMs); }
