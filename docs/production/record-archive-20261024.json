@@ -1,0 +1,156 @@
+{
+  "date": "2026-10-24",
+  "applicationSourceCommit": "5135975d53e985ff22e1211d4a6194120ac9c287",
+  "releaseUrl": "https://github.com/Soki0909/yokokawa_ai/releases/tag/production-records-20261024",
+  "archiveOriginalFiles": 6000,
+  "archiveOriginalBytes": 3602618225,
+  "allRemoteAssetsVerified": true,
+  "assets": [
+    {
+      "name": "records-01.zip",
+      "bytes": 175662029,
+      "sha256": "e3364d568a16c97d80616e5e92f45f97c140f6a34d74b2fce9af545b6595e022",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-01.zip",
+      "remoteDigest": "sha256:e3364d568a16c97d80616e5e92f45f97c140f6a34d74b2fce9af545b6595e022",
+      "verified": true
+    },
+    {
+      "name": "records-02.zip",
+      "bytes": 242050625,
+      "sha256": "72b95490d170f915da0affdfb2f31bce2243f226cef38caf24df739f7651b568",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-02.zip",
+      "remoteDigest": "sha256:72b95490d170f915da0affdfb2f31bce2243f226cef38caf24df739f7651b568",
+      "verified": true
+    },
+    {
+      "name": "records-03.zip",
+      "bytes": 182918271,
+      "sha256": "092a850f1131027f35d535ea3cbbabc51eb48599ad12ef48ffd75e9b10f73756",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-03.zip",
+      "remoteDigest": "sha256:092a850f1131027f35d535ea3cbbabc51eb48599ad12ef48ffd75e9b10f73756",
+      "verified": true
+    },
+    {
+      "name": "records-04.zip",
+      "bytes": 215627928,
+      "sha256": "3eeb24b3988933dc5f807eb2bb86c3d78b277f3246c26e0a9b1e65eef21b8be8",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-04.zip",
+      "remoteDigest": "sha256:3eeb24b3988933dc5f807eb2bb86c3d78b277f3246c26e0a9b1e65eef21b8be8",
+      "verified": true
+    },
+    {
+      "name": "records-05.zip",
+      "bytes": 263136893,
+      "sha256": "560dcec117b71aa64a48449fd49add68b05d90523eb671d65b147db69eccdeed",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-05.zip",
+      "remoteDigest": "sha256:560dcec117b71aa64a48449fd49add68b05d90523eb671d65b147db69eccdeed",
+      "verified": true
+    },
+    {
+      "name": "records-06.zip",
+      "bytes": 266992558,
+      "sha256": "681dd4300a296892f68ec66fe1336c959ccfcf9bffaa062299afb12bba29bf57",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-06.zip",
+      "remoteDigest": "sha256:681dd4300a296892f68ec66fe1336c959ccfcf9bffaa062299afb12bba29bf57",
+      "verified": true
+    },
+    {
+      "name": "records-07.zip",
+      "bytes": 266313718,
+      "sha256": "cddd704f7c414364a34b049e59d4752b01cf3973170dcef40d37c87de3e6d729",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-07.zip",
+      "remoteDigest": "sha256:cddd704f7c414364a34b049e59d4752b01cf3973170dcef40d37c87de3e6d729",
+      "verified": true
+    },
+    {
+      "name": "records-08.zip",
+      "bytes": 266748832,
+      "sha256": "569e4c6a0c3e844b9eb9835e4abadb33e60c4c42e044b1364f087dfddf59f996",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-08.zip",
+      "remoteDigest": "sha256:569e4c6a0c3e844b9eb9835e4abadb33e60c4c42e044b1364f087dfddf59f996",
+      "verified": true
+    },
+    {
+      "name": "records-09.zip",
+      "bytes": 252918472,
+      "sha256": "a06b6ac99694371fba98c79df06390fda01351b8c406b6e6fa719300774e20b3",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-09.zip",
+      "remoteDigest": "sha256:a06b6ac99694371fba98c79df06390fda01351b8c406b6e6fa719300774e20b3",
+      "verified": true
+    },
+    {
+      "name": "records-10.zip",
+      "bytes": 189326375,
+      "sha256": "f67d362446a04b85c1b950f3a919376213387c7e85bd11d946a9a1afe06f747a",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-10.zip",
+      "remoteDigest": "sha256:f67d362446a04b85c1b950f3a919376213387c7e85bd11d946a9a1afe06f747a",
+      "verified": true
+    },
+    {
+      "name": "records-11.zip",
+      "bytes": 17220289,
+      "sha256": "7bd11d5a5dbd8f19ac062ed265e1011831da2f553f0ce6248baa198e6fb9030d",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/records-11.zip",
+      "remoteDigest": "sha256:7bd11d5a5dbd8f19ac062ed265e1011831da2f553f0ce6248baa198e6fb9030d",
+      "verified": true
+    },
+    {
+      "name": "record-archive-manifest.json",
+      "bytes": 1870067,
+      "sha256": "12d480f7a5a727407f7f8853d7e0136e336da3b554e9fc34132b347f6ce29e99",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/record-archive-manifest.json",
+      "remoteDigest": "sha256:12d480f7a5a727407f7f8853d7e0136e336da3b554e9fc34132b347f6ce29e99",
+      "verified": true
+    },
+    {
+      "name": "RESTORE.txt",
+      "bytes": 847,
+      "sha256": "66027511ec967b2fb6a30a0c7c4d65e77e4236ccb65c6645591188cdeba67ebd",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/RESTORE.txt",
+      "remoteDigest": "sha256:66027511ec967b2fb6a30a0c7c4d65e77e4236ccb65c6645591188cdeba67ebd",
+      "verified": true
+    },
+    {
+      "name": "record-archive-supplement.json",
+      "bytes": 6405,
+      "sha256": "980e24061c5de3d6286e9c6b368c912c02a99af33a8755f6a1625b0992eaafa3",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/record-archive-supplement.json",
+      "remoteDigest": "sha256:980e24061c5de3d6286e9c6b368c912c02a99af33a8755f6a1625b0992eaafa3",
+      "verified": true
+    },
+    {
+      "name": "production-display-1920x1080.mp4",
+      "bytes": 60652927,
+      "sha256": "813d7f9a43cdd9119989ac87648fe59cd0873820ec263a40095697ca4c968a55",
+      "url": "https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/production-display-1920x1080.mp4",
+      "remoteDigest": "sha256:813d7f9a43cdd9119989ac87648fe59cd0873820ec263a40095697ca4c968a55",
+      "verified": true
+    }
+  ],
+  "archiveContentVerification": "All ZIP content SHA256 matches originals; all remote asset SHA256 matches local uploads.",
+  "localRemainingBytesExcludingDeletedStaging": 1802644888,
+  "runtimeVerification": {
+    "requiredFiles": 285,
+    "slotsReady": 8,
+    "sourceAndAudioChanged": false
+  },
+  "retainedLocal": [
+    "runtime code and public assets",
+    "node_modules and configuration",
+    "Git history, refs and candidate code checkout",
+    "Speech Composer drafts",
+    "emergency production-backup materials",
+    "generated voice-lab site"
+  ],
+  "localRecordingExclusion": "Git non-cone sparse rules retain all source/runtime files; exclude artifacts and historical design PNGs only. Proved using git sparse-checkout check-rules before applying.",
+  "initialFullTest": "201/202, one server-start timeout; isolated failing test passed. Full rerun result in Markdown.",
+  "tests": {
+    "syntax": "PASS",
+    "serialAutomated": {
+      "passed": 202,
+      "failed": 0,
+      "durationMs": 35256.5302
+    },
+    "parallelReruns": "Two separate runs each had 1 timing timeout in different integration tests. Phase A isolated PASS; all 202 serial PASS. No source or timeout changes."
+  }
+}
