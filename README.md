@@ -38,16 +38,7 @@ https://github.com/user-attachments/assets/04628468-65c9-473e-87d3-7796e2c7d4cf
 
 ## システム構成
 
-```mermaid
-flowchart LR
-    O[オペレーター] --> A[操作画面 Admin]
-    subgraph PC[会場のPC]
-        A -->|Cueを実行| S[Node.jsサーバー]
-        S -->|WebSocketで状態を同期| D[投影画面 Display]
-        F[固定音声・謎画像] -->|ローカルHTTP| D
-    end
-    D -->|HDMI| V[会場の映像・音声]
-```
+![1台のPCに操作画面、サーバー、素材、投影画面をまとめ、HDMIで会場へ出力する構成](docs/media/system.svg)
 
 Node.js・Express・WebSocketと、HTML/CSS/JavaScriptで構成しています。台本に沿った固定音声を事前に用意し、上演中はローカルで再生します。即興の発話には、同じPC上のAivisSpeechを利用できます。
 
