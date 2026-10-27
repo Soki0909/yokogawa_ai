@@ -2,8 +2,8 @@
 
 本番コード・演出・音源は最終版 `5135975d53e985ff22e1211d4a6194120ac9c287` のまま。今回のcommitは保存先案内・既存の未追跡指示書のみ。
 
-- 保存先：https://github.com/Soki0909/yokokawa_ai/releases/tag/production-records-20261024
-- 最終録画：https://github.com/Soki0909/yokokawa_ai/releases/download/production-records-20261024/production-display-1920x1080.mp4
+- 保存先：https://github.com/Soki0909/yokogawa_ai/releases/tag/production-records-20261024
+- 最終録画：https://github.com/Soki0909/yokogawa_ai/releases/download/production-records-20261024/production-display-1920x1080.mp4
 - 全6,000記録ファイルを保存。重複を含む元データ約3.60GB。元パス・各SHA256はReleaseの `record-archive-manifest.json` と `record-archive-supplement.json` に記載。
 - ZIP 11本＋一覧2本＋復元手順＋単独の最終動画＝15 assets。ZIP内の全原本SHA256と、GitHub側の全15 assetsのSHA256を照合済み。
 - records-01〜10は同一内容を重複除去。ダウンロード・展開後、`RESTORE.txt` のPowerShell手順で元の全パスへ復元できる。records-11は追加記録で、そのまま展開する。
